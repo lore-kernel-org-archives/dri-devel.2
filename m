@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 294B4606A681
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:53:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68216606A33D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:53:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=GI1vvacQ
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=POhwRb1e
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5CFA710FE87;
-	Wed, 25 Nov 2026 17:53:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7E68510FE89;
+	Wed, 25 Nov 2026 17:53:39 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAD1110FE87
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:53:26 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8D72510FE88
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:53:31 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 990AC1A17FF;
- Wed, 25 Nov 2026 17:53:25 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 5F01C1A17FB;
+ Wed, 25 Nov 2026 17:53:30 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6BE3660480;
- Wed, 25 Nov 2026 17:53:25 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 333BF60480;
+ Wed, 25 Nov 2026 17:53:30 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0FD2A11E6B0D3; Wed, 25 Nov 2026 18:53:14 +0100 (CET)
+ with ESMTPSA id 00CAA11E6B0CB; Wed, 25 Nov 2026 18:53:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629199; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629208; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=kx6aRWMk+gHvtf/TGtSk6odRYlFp8x81lSAbHrh48+E=;
- b=GI1vvacQlHmj38D8eydTuNR3fQjbD9C/BbRKpC5llFvsqdMs5nA+RdmzYHkzq3YKG7mKwi
- eiGYhP5AbuZn+ZbCzj1quAerIeRtW5VuSvXO6iEJFxS7pbKGQOaEhhBBeg4AWFHcrptweH
- WI8hw6MezKaNvEQu1R88bKYbhqtc4zpAxmrEj8px1fp1PWTiLCV5y8uQs2qKsI8XP4u5e1
- 0IBD47yOMowtOvJVilgNtSCg51WOBo2I9mNingZIRprQsvr4Z571c4djEmLUkSyfNBtaFG
- fE+RfkhIWMPKBEnfSTBXYr8BxO0+xgPCy9BRgXvbv/wF/k9GGC7S9FQO+PpVVQ==
+ bh=PcycRmA0N7JwWG8IrfXbNLId07ZHA9iVWljKGyKyKAA=;
+ b=POhwRb1eHes0UPhuLBIQuwdpoNuJavA36m1+2PdC8kia1ma5zuNDKFYEzQUwbiYVEeSf08
+ ROvKL0RydcKTC5S4Rpo0ul869yzKyQvz0cDiM6byNUYbgNgwNIfZHNlCxz8Yg6FSYSUB+h
+ hOuAcIsXxgAe9Q0YudCZtqJXf/d/VCXzRMohdEVeYSBtu3rTX/VhBNLk/RqXlnY4KfFHB8
+ mTedU878nFVuIh+oehu/q6yMcODOcR5lWsSU+F0mpMUQF5WdY0Q8GaSS0efIRRzzYLL9If
+ v864IOAovyiSRCr0Pt2WjQm+09iqy+nRzsAPAk5TvwAfnHNb0DH2FNSrLplgHQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:34 +0100
-Subject: [PATCH v4 21/32] drm/panel: implement .get_next_bridge
+Date: Wed, 25 Nov 2026 18:50:35 +0100
+Subject: [PATCH v4 22/32] drm/bridge: display-connector: implement
+ .get_next_bridge
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-21-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-22-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -87,42 +88,41 @@ this.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/drm_panel.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/display-connector.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 26d9378563f5..ed8d6c43b6fb 100644
---- a/drivers/gpu/drm/drm_panel.c
-+++ b/drivers/gpu/drm/drm_panel.c
-@@ -70,6 +70,11 @@ static const struct drm_connector_funcs panel_bridge_connector_funcs = {
- 	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
- };
+diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm/bridge/display-connector.c
+index eb3412ec30a0..8b16ad89c7f1 100644
+--- a/drivers/gpu/drm/bridge/display-connector.c
++++ b/drivers/gpu/drm/bridge/display-connector.c
+@@ -36,6 +36,11 @@ to_display_connector(struct drm_bridge *bridge)
+ 	return container_of(bridge, struct display_connector, bridge);
+ }
  
-+static struct drm_bridge *drm_panel_bridge_get_next_bridge(struct drm_bridge *bridge)
++static struct drm_bridge *display_connector_get_next_bridge(struct drm_bridge *bridge)
 +{
 +	return NULL;
 +}
 +
- static int panel_bridge_attach(struct drm_bridge *bridge,
- 			       struct drm_encoder *encoder,
- 			       enum drm_bridge_attach_flags flags)
-@@ -220,6 +225,7 @@ static void panel_bridge_debugfs_init(struct drm_bridge *bridge,
+ static int display_connector_attach(struct drm_bridge *bridge,
+ 				    struct drm_encoder *encoder,
+ 				    enum drm_bridge_attach_flags flags)
+@@ -214,6 +219,7 @@ static u32 *display_connector_get_input_bus_fmts(struct drm_bridge *bridge,
  }
  
- static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
-+	.get_next_bridge = drm_panel_bridge_get_next_bridge,
- 	.attach = panel_bridge_attach,
- 	.detach = panel_bridge_detach,
- 	.atomic_pre_enable = panel_bridge_atomic_pre_enable,
-@@ -516,7 +522,7 @@ void drm_panel_add(struct drm_panel *panel)
- 	mutex_unlock(&panel_lock);
+ static const struct drm_bridge_funcs display_connector_bridge_funcs = {
++	.get_next_bridge = display_connector_get_next_bridge,
+ 	.attach = display_connector_attach,
+ 	.destroy = display_connector_destroy,
+ 	.detect = display_connector_bridge_detect,
+@@ -412,6 +418,7 @@ static int display_connector_probe(struct platform_device *pdev)
  
- 	panel->bridge.of_node = panel->dev->of_node;
--	panel->bridge.ops = DRM_BRIDGE_OP_MODES;
-+	panel->bridge.ops = DRM_BRIDGE_OP_MODES | DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
- 	panel->bridge.pre_enable_prev_first = panel->prepare_prev_first;
+ 	conn->bridge.of_node = pdev->dev.of_node;
  
- 	drm_bridge_add(&panel->bridge);
++	conn->bridge.ops = DRM_BRIDGE_OP_GET_NEXT_BRIDGE;
+ 	if (conn->bridge.ddc)
+ 		conn->bridge.ops |= DRM_BRIDGE_OP_EDID
+ 				 |  DRM_BRIDGE_OP_DETECT;
 
 -- 
 2.56.1
