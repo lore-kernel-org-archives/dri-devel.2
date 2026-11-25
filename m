@@ -2,86 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84806606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 01:06:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FA7606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 01:45:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dphuidRG
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=V4jgBtVZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E8B3810F929;
-	Wed, 25 Nov 2026 01:05:59 +0000 (UTC)
-Received: from mail-wr2-f11.google.com (mail-wr2-f11.google.com
- [74.125.225.75])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1BFF410F934
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 01:05:54 +0000 (UTC)
-Received: by mail-wr2-f11.google.com with SMTP id
- ffacd0b85a97d-4a4afca056bso1655868f8f.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 17:05:54 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795568752; x=1796173552; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=JHqtsUs0ik0BieRJ8Sc/408xRW33ZRqGcrC9WKJdgzo=;
- b=dphuidRGSmJVlT2TD7T3CZtIIIyUBduT09CZNVJFakKp0re3h/3R+OBDRI5GTOLzPt
- 6rWDtFdTG5JGskrRfFhdCRydlStChmHMkm+EFrwTuODyGtawi+xGOkhslpKGiCvKLMmK
- zxDfu/UehcUXerEztak9Yrfe2EekHaidGgpFZLtCIbT+4/j+/zPtAXgJ2dCWKDK0Af4p
- udDFombHCaKQxGa6WVNnr3j6NHU1xcMn3Q19uwOmm9SOUroZFd4Gi9QPS3FS/pC41BSn
- WqMCjixzf9IeLrcQeWcrucxtnakjliQ72d5uDiXsJ0M7y+FnS+0feoBMZGD/IhrZW/Ez
- 6hQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795568752; x=1796173552;
- h=content-transfer-encoding:content-type:subject:from:cc:to
- :content-language:user-agent:mime-version:date:message-id:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=JHqtsUs0ik0BieRJ8Sc/408xRW33ZRqGcrC9WKJdgzo=;
- b=oLq+onBTBJCpPVTWc5XQWSGyM8c7ABWYE1NtGnoda1S3q3b+ORExY9Kf92BPfKY8J2
- q1QlL4BWYXia9REH6p0CMoEzr5xUaYP83Z+s0b0QsOIDZyFQ2t/O+lke9oKw7kgbqZtC
- CHO1QgY0t4mPYgh9p5GRx+aJwQze+M46l99yCjUuhFUTt24XZqEJV6vQLd3MFiMRhOy6
- LQ326pYvcPEiNcikYzGYRT2lXNvFps2RXpZoNEoNcY0wWiTHm+zfmZMWX3cfpOEr4Vsp
- IgyL683gCErSQFh0vVFDwTTgueMZFb+xjCtjpc7y67EiT73RPPbVDPhDnug/o3K/FqTb
- 5aFA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFqRsJicLxpc+bqv3oVyxMxyYW2+tQHVKQ7M3FDVidsrTU+j/mCgo3DynPPueIExepKopnDSPXavgg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+FgaFTDq24vg3jIQie6QNV2ISCUAx5/Mt4ryHhMnSOeywkoG74
- zN9J5YW5yDHPozmP7spEQwkDEjA9aqaU5VpajUrp6GLwb5vC5M2jhcqP
-X-Gm-Gg: AZFdTZezX2q4Fod4o+J1QXDb/HuU/qByaZnoJegtx8J72IUz+XF4GNg6OZBXuS/aBmL
- Zf/x9QKJ8YrHbylCuGiYl+hbzBwN7lnJZ6rh5v/PJzTbBzLGX/WAHDsijIfKkQygwUBrr+xBz3c
- 69EpOkegNUXWTp1rlLb260H8wLaKl4jPnuOMj2reS3OK+/5RLe3yZXKMmu5/5bTgpa4m1opjHAQ
- eYay4iYYUCk5osiPl7VwVs4qUwMO0creE837R0la9/sEwhI65p6Hbr7ouoYPAG48CL5O1dDkzdy
- XYtOaW8ys+Zcm4tFe0OpOMep0cO2rlmhSVMYHKa6tgAT01YBjryL7McatdzoXsjbXOdW826xf6f
- uQy/LWJbpcc6Bv8065nYCDqHWzbCwmLdfxVVpF4liT9JQEONwqmsQowjaS9xYHkCPJLmYMctUVi
- EHqfBCPw3k1smSTg4OOwiOc7sm6MAy0YS+uZZe8Cu3rSsA/UAytLjV4UnHqnWjlZYLiIV/CxLdl
- LK3Bc9E0w/wAw1AY58qcWrwAZyBahZuoBj+EuGjRTLaKKQUTAVqYfwpOx4XPV5x7lJ8JAC1Qu09
- YSUA3seMbKOxrtBcThL7c6LuQEFw4kFqDPw9
-X-Received: by 2002:a5d:5f93:0:b0:4a5:33ad:871a with SMTP id
- ffacd0b85a97d-4aba56f470cmr31260645f8f.0.1795568752468; 
- Tue, 24 Nov 2026 17:05:52 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6b2052c8sm31176947f8f.41.2026.11.24.17.05.48
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 24 Nov 2026 17:05:50 -0800 (PST)
-Message-ID: <80b65871-aa77-4800-9c0c-8586aaec5c80@gmail.com>
-Date: Wed, 25 Nov 2026 01:05:48 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 37E5E10E0F3;
+	Wed, 25 Nov 2026 01:45:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9CD4110E0F3;
+ Wed, 25 Nov 2026 01:45:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795571113; x=1827107113;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=qaxtKRtzjluJFgLeD+jCQamcgyCOTLDoz+vU29I2d5g=;
+ b=V4jgBtVZhs5xFUHxwC9/c3nBTHNQt25O8JusDRvBnghHFjmxIV9W0KaG
+ kdMAMICgldd6q/jkEnA8f5cl3fd1wGSvq8OH/F7LvFrnwAmiTmTXsDkYo
+ 5XuyzybiV5Zdm5bejCuNYpRvAB2tLds/g5mVmVAHZGL8kh1mqYTWjdDMl
+ yYc+yEt9ojf5kXCLbI2+SJnDtwbrIcKutzs+F4mUNukCnRpVu3su9G2Jy
+ UfI+SLxeSN2sTVAQQBGi01eB4F9C3OINTDSb7dWdxxcWxn8emgWqcBqA7
+ I2gIZHu+BcDx0veBj+RUrAjYyFnASdddL9wodMEic6CzXJ5RT7aWkjzxT g==;
+X-CSE-ConnectionGUID: tlo6k31oRvGIXxQ7bFoUpg==
+X-CSE-MsgGUID: Dlo9xNnVRhyRodHpCGTZyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4334051"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4334051"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 17:45:13 -0800
+X-CSE-ConnectionGUID: OPNKmngkRuyQW0LFsChLhQ==
+X-CSE-MsgGUID: MSDQ13MQQPOSj6avr7MSJg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="12062149"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa007.fm.intel.com with ESMTP; 24 Nov 2026 17:45:12 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xW24K-00000001Qdu-2rj1;
+ Wed, 25 Nov 2026 01:45:08 +0000
+Date: Wed, 25 Nov 2026 09:44:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: oe-kbuild-all@lists.linux.dev,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <20261125093804.Ygd8f4XE-lkp@intel.com>
+References: <awXJ__-grexFFPb4@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Content-Language: en-US
-To: amd-gfx@lists.freedesktop.org
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Richard Lane <richardlanedev@gmail.com>
-From: Richard Lane <richardlanedev@gmail.com>
-Subject: [PATCH v3 3/3] drm/amd/display: report synced displays to PowerPlay
- on DCE <= 10
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awXJ__-grexFFPb4@sirena.org.uk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,81 +68,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On DCE 11.0 and 11.2, bw_calcs() computes all_displays_in_sync via
-resource_are_streams_timing_synchronizable(), and
-dce11_pplib_apply_display_requirements() copies it to
-pp_display_cfg->all_displays_in_sync.
+Hi Mark,
 
-However, DCE 6, 8, and 10 (including iMac15,1 on DCE 8 and iMac17,1 on
-DCE 10) use dce100_validate_bandwidth()—which does not call
-bw_calcs()—and dce_pplib_apply_display_requirements() in
-dce_clk_mgr.c, leaving pp_display_cfg->all_displays_in_sync unset
-(false). Because PowerPlay is not informed that the streams have
-synchronized vertical blanking intervals, SMU7 prevents MCLK switching
-at idle or causes modeset underflows.
+kernel test robot noticed the following build errors:
 
-Set context->bw_ctx.bw.dce.all_displays_in_sync in
-dce100_validate_bandwidth() using
-resource_are_streams_timing_synchronizable() and copy it to
-pp_display_cfg->all_displays_in_sync in
-dce_pplib_apply_display_requirements(), matching the existing DCE 11
-flow.
+[auto build test ERROR on next-20261123]
+[cannot apply to drm-tip/drm-tip linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-Signed-off-by: Richard Lane <richardlanedev@gmail.com>
----
- .../gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c  | 3 +++
- .../drm/amd/display/dc/resource/dce100/dce100_resource.c | 9 +++++++++
- 2 files changed, 12 insertions(+)
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/linux-next-build-failure-after-merge-of-the-drm-misc-tree/20261124-173143
+base:   next-20261123
+patch link:    https://lore.kernel.org/r/awXJ__-grexFFPb4%40sirena.org.uk
+patch subject: linux-next: build failure after merge of the drm-misc tree
+config: parisc-randconfig-1001-20261125 (https://download.01.org/0day-ci/archive/20261125/20261125093804.Ygd8f4XE-lkp@intel.com/config)
+compiler: hppa-linux-gcc (GCC) 11.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125093804.Ygd8f4XE-lkp@intel.com/reproduce)
 
-diff --git a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-index d891b3bfe2a1..1dd302ad19aa 100644
---- a/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-+++ b/drivers/gpu/drm/amd/display/dc/clk_mgr/dce100/dce_clk_mgr.c
-@@ -320,6 +320,9 @@ static void dce_pplib_apply_display_requirements(
- {
- 	struct dm_pp_display_configuration *pp_display_cfg = &context->pp_display_cfg;
- 
-+	pp_display_cfg->all_displays_in_sync =
-+		context->bw_ctx.bw.dce.all_displays_in_sync;
-+
- 	dce110_fill_display_configs(context, pp_display_cfg);
- 
- 	if (memcmp(&dc->current_state->pp_display_cfg, pp_display_cfg, sizeof(*pp_display_cfg)) !=  0)
-diff --git a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-index 97ea22af5d2b..0d25c2ddb661 100644
---- a/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-+++ b/drivers/gpu/drm/amd/display/dc/resource/dce100/dce100_resource.c
-@@ -888,6 +888,14 @@ enum dc_status dce100_validate_bandwidth(
- 		/* TODO implement when needed but for now hardcode max value*/
- 		context->bw_ctx.bw.dce.dispclk_khz = 681000;
- 		context->bw_ctx.bw.dce.yclk_khz = 250000 * MEMORY_TYPE_MULTIPLIER_CZ;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = context->stream_count > 1;
-+		for (i = 1; i < context->stream_count; i++) {
-+			if (!resource_are_streams_timing_synchronizable(
-+				    context->streams[0], context->streams[i])) {
-+				context->bw_ctx.bw.dce.all_displays_in_sync = false;
-+				break;
-+			}
-+		}
- 	} else {
- 		/* On DCE 6.0 and 6.4 the PLL0 is both the display engine clock and
- 		 * the DP clock, and shouldn't be turned off. Just select the display
-@@ -900,6 +908,7 @@ enum dc_status dce100_validate_bandwidth(
- 			context->bw_ctx.bw.dce.dispclk_khz = 0;
- 
- 		context->bw_ctx.bw.dce.yclk_khz = 0;
-+		context->bw_ctx.bw.dce.all_displays_in_sync = false;
- 	}
- 
- 	return DC_OK;
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261125093804.Ygd8f4XE-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c: In function 'vc_sm_clean_up_dmabuf':
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:17: error: implicit declaration of function 'dma_buf_unmap_sgt_unlocked'; did you mean 'dma_buf_vunmap_unlocked'? [-Werror=implicit-function-declaration]
+     217 |                 dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+         |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
+         |                 dma_buf_vunmap_unlocked
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c: In function 'vc_sm_cma_import_dmabuf_internal':
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:15: error: implicit declaration of function 'dma_buf_map_sgt_unlocked'; did you mean 'dma_buf_vmap_unlocked'? [-Werror=implicit-function-declaration]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |               ^~~~~~~~~~~~~~~~~~~~~~~~
+         |               dma_buf_vmap_unlocked
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:13: warning: assignment to 'struct sg_table *' from 'int' makes pointer from integer without a cast [-Wint-conversion]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |             ^
+   cc1: some warnings being treated as errors
+
+
+vim +217 drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
+
+   208	
+   209	/*
+   210	 * Cleans up imported dmabuf.
+   211	 * Should be called with mutex held.
+   212	 */
+   213	static void vc_sm_clean_up_dmabuf(struct vc_sm_buffer *buffer)
+   214	{
+   215		/* Handle cleaning up imported dmabufs */
+   216		if (buffer->sgt) {
+ > 217			dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+   218						   DMA_BIDIRECTIONAL);
+   219			buffer->sgt = NULL;
+   220		}
+   221		if (buffer->attach) {
+   222			dma_buf_detach(buffer->imported_dma_buf, buffer->attach);
+   223			buffer->attach = NULL;
+   224		}
+   225	}
+   226	
+
 -- 
-2.55.0
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
