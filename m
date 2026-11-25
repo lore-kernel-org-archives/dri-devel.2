@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D0A3606A681
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41104606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=iMMCtZhf
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Qb0FqT+N
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DB5BB10FE6C;
-	Wed, 25 Nov 2026 17:52:16 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5879010FE6F
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD5D10FE6D;
+	Wed, 25 Nov 2026 17:52:23 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C027210FE68
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:14 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 290651A17FA;
- Wed, 25 Nov 2026 17:52:06 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 208ABC2B9C0;
+ Wed, 25 Nov 2026 17:52:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id E8BEC60480;
- Wed, 25 Nov 2026 17:52:05 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2A5BE60480;
+ Wed, 25 Nov 2026 17:52:13 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 874D811E6B0D5; Wed, 25 Nov 2026 18:51:57 +0100 (CET)
+ with ESMTPSA id 39A2D11E6B0C5; Wed, 25 Nov 2026 18:52:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629123; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=vuh24Tz6QmyYkaBRVNh+qXgTNEqAkTxRwqr0CV9YLZo=;
- b=iMMCtZhfwLy9rRPhKznCaOarlESxJ8Lt/UfeRhqOHmXXYES7WjoHIRrzbO6p+LRwkl8+qG
- nDU3jX3WlXAw+ptVmr4cnbZJ9YxszxGTDCTHVR8i101HmKizRDPKjSut0PQz4oWMb5v4Rp
- Mij52wSj0ooK3fVXKl14hVy08+OfuSEDH4luOUyaECpZ6mG32F12HU1AJGaCT3NBxbersn
- aRGXw4k0hSTYKTPERDeMIQDXNROtJBmNaIUpmgVJc8oyvVaQj4tJMpCgvlu+LmH9f47SqI
- /G2ji+GvI3eMwBi4o+2OGIvFyI8LGwiNmiZMNLQjCO70AEvYov3+i80Htd2KiQ==
+ bh=FMid6O9mGLNFycapWTq3yUgUfBXm/Q/2lSdG/OTscvI=;
+ b=Qb0FqT+NefijqTx6CjCGrvFAbYAkLTGXqqp2ExyZwuwqFXsep9cTJ3T4htyLGnHqvGMQo+
+ yxp3YQtRqJnoVdBqMtgTR6VToqgebKdujyUpu/sO4dEO5J2LYtQ+uiTktxizRlYHf32i2Q
+ iLZOghzurnMkFAUmJ7ZydXRiP+bIbjWZKegyfdcA+Yx7t1cKP7XoYAsXM9L//fe0ps/YaT
+ L8/6CxK4ZmkO1cfx5ki/Bwa4S1Zwk1+0vVq8ZwVkaVSRcNf22e0XYlR1OfKqNajPsiup9r
+ fwoUoSnYuJ8lGZLqWkuozH7o3zQKrgyTbOQDOE+dDj+oBV072dnXSs7kkww+xw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:24 +0100
-Subject: [PATCH v4 11/32] drm/bridge: constify of_drm_find_and_get_bridge()
- device_node parameter
+Date: Wed, 25 Nov 2026 18:50:25 +0100
+Subject: [PATCH v4 12/32] drm/bridge: initialize chain_node list head on
+ allocation
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-11-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-12-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -83,47 +83,27 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The @np argument does not need to be modified. Similarly to what
-of_drm_get_bridge_by_endpoint() already does, make it const. This allows
-passing a const pointer.
+In preparation to add a check to detect whether a bridge is not yet
+attached, ensure the chain_node list_head is always empty [as in
+list_empty()] since it is allocated, until it is attached.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-
 ---
-
-New patch in v3, needed for the v3 code of "drm: drm_hotplug_helper: new
-helper to implement bridge hotplug"
----
- drivers/gpu/drm/drm_bridge.c | 2 +-
- include/drm/drm_bridge.h     | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_bridge.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 3cd6757dffb8..76242165292f 100644
+index 76242165292f..14ed4ac52e71 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -1663,7 +1663,7 @@ EXPORT_SYMBOL_GPL(drm_bridge_hpd_notify);
-  * RETURNS:
-  * drm_bridge control struct on success, NULL on failure
-  */
--struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np)
-+struct drm_bridge *of_drm_find_and_get_bridge(const struct device_node *np)
- {
- 	struct drm_bridge *bridge;
+@@ -419,6 +419,7 @@ void *__devm_drm_bridge_alloc(struct device *dev, size_t size, size_t offset,
+ 		return ERR_PTR(-ENOMEM);
  
-diff --git a/include/drm/drm_bridge.h b/include/drm/drm_bridge.h
-index 12ca7f6fb524..d6ef020c4cc9 100644
---- a/include/drm/drm_bridge.h
-+++ b/include/drm/drm_bridge.h
-@@ -1274,7 +1274,7 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
- 		      enum drm_bridge_attach_flags flags);
- 
- #ifdef CONFIG_OF
--struct drm_bridge *of_drm_find_and_get_bridge(struct device_node *np);
-+struct drm_bridge *of_drm_find_and_get_bridge(const struct device_node *np);
- struct drm_bridge *of_drm_find_bridge(struct device_node *np);
- struct drm_bridge *of_drm_get_bridge_by_endpoint(const struct device_node *np,
- 						 int port, int endpoint);
+ 	bridge = container + offset;
++	INIT_LIST_HEAD(&bridge->chain_node);
+ 	INIT_LIST_HEAD(&bridge->list);
+ 	bridge->container = container;
+ 	bridge->funcs = funcs;
 
 -- 
 2.56.1
