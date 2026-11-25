@@ -2,49 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E53D606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C700606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 14:29:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dkMc/yII
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vJ9A2SeU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5215610FCBE;
-	Wed, 25 Nov 2026 14:20:43 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 14F4F10FCD1;
- Wed, 25 Nov 2026 14:20:37 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1CFDB62C02;
- Wed, 25 Nov 2026 14:20:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D8AE1F000CA;
- Wed, 25 Nov 2026 14:20:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795616435;
- bh=90g/9eeIAx5tdpdjeagizAiKzs5hIKIRGMeBLcmqq1Q=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=dkMc/yIIz4MjORhp4KZMWXx7YgBNHptPv5GKlh6MO4W1Btn0YBJr9X9uTxXTrKZrI
- FT+PY8hqNS8Oy71RcECA5payL+0wWi6DPGdoP7PoLP4inYvdkxI1FN0scfoDzihqFu
- YjKOx4EJGQm1Fk+zkRhGDGr6rahdj5CihdWxY72fYDdkt6KA4TKFKTO0bVFahLZ2QC
- B2nQaUpNb4dqkjJTjVLkWHf7lLyGmhUXYjYgHohyAiKO9rCUPD6jMImuVVdY+9QGuW
- j0Q9C4NJJSlQlo8/alU/aqugTrW5jb/y7ODkIS7qOM2UYVpDYecdNTW0MeH4gzXZBE
- qoEUTIWn6xLgA==
-Date: Wed, 25 Nov 2026 15:20:29 +0100
-From: Andi Shyti <andi.shyti@kernel.org>
-To: Krzysztof Karas <krzysztof.karas@intel.com>
-Cc: intel-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
- Andi Shyti <andi.shyti@linux.intel.com>,
- =?utf-8?Q?Micha=C5=82?= Grzelak <michal.grzelak@intel.com>, 
- Janusz Krzysztofik <janusz.krzysztofik@linux.intel.com>,
- Sebastian Brzezinka <sebastian.brzezinka@intel.com>, 
- Krzysztof Niemiec <krzysztof.niemiec@intel.com>
-Subject: Re: [PATCH v8 0/6] drivers: Improve memory management for large
- object allocations when i915/shmem is used with iommu
-Message-ID: <awbrobg9qVWLmriy@zenone.zhora.eu>
-References: <20261109113758.1491891-1-krzysztof.karas@intel.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7996910FC7B;
+	Wed, 25 Nov 2026 14:29:20 +0000 (UTC)
+Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com
+ [209.85.215.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D768010FC9C
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:29:14 +0000 (UTC)
+Received: by mail-pg1-f182.google.com with SMTP id
+ 41be03b00d2f7-cdd8c20bccaso219757a12.3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 06:29:14 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795616954; x=1796221754; darn=lists.freedesktop.org;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=q9A1YCJDeFFdwzOmsp81thQgAJqEwj7kk0aq3hgQikM=;
+ b=vJ9A2SeUYyiaeUZIIIx3wn3O7lO8xABABgQZiSLc970ee8/d0mz5R9bBc27papMcB2
+ CT4hc3+gUsqYVmROK+bqPy22mWmqv5utHYuTURAAOFJgcPHwFigVyo8jxQwCMl8AjpGp
+ Usylqv5LATxRSfRGvzritdbxtizhVCBXVZoSj7m3TxQB0NFoIr+rscVM7DK3Lp9Efa+f
+ 7t68y6i9f+kSvfn8zkcyJA9dpkzjTvAoxsScjY+4hfnEPGJwbPHeymyGtLYhWCUtUMAg
+ h2WRAZS79zUn8wZWSviLwSLpvnQaNyPUXEF6VOvdI5Z6J3Rdgxi9J1hEWCxlxZMd8j/k
+ 7ggg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795616954; x=1796221754;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=q9A1YCJDeFFdwzOmsp81thQgAJqEwj7kk0aq3hgQikM=;
+ b=j2upM7/0Koap3J4eWNiqULFm3//CfxvgSn7If2QbpVtUah5I8QqmQv3eLNEuGK2QV3
+ D8DR9cB3po5Uv4AFQVX9tDif6Ux1agd9FnKUYx4xXqSlPRHUqPkk+igiSiBCB3T3OL1R
+ qg4TIk7elm66KRtpb6FmReCQdc12u6ZOGg2kEm36tx7J/71ARFmAcwztHSWY5jpYu0ur
+ xiBPC9OSFhmfERKKEsv5HmUKbxo/2UWtCLuyOBgWilx61j/ILf+VSjkIVLX4cj4Mi5qJ
+ PIN+GZk63g7oMAOjLTzUs+cG17ib3jTDAbSwzPT/VfK2oy+CLYiuQd4rQYluj/bubssx
+ X1AQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGUnZHuzRJ/R8iXNFkV0QGZNXLPZA7Lk+K9nwT4I2nSa2/uPAGc9cMkCRLB/iOFZ+JL+gAj/vS+tlg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/gSc1NIl+qLcLjIUwQlrMSxW3aJctjQzGbuTv1T9RgD3wBAxOF
+ 3L6RgtK/3AnjSbA00LHcEO+OqIVETaDg0W7ewH/0KIb/lM1ld9I/mMl7
+X-Gm-Gg: AZFdTZcGqovYLRFadSJ0duO/oh3czs39u23H+fVR4g5VY+P4YK5Rx10C+BAVcjc+JjW
+ W9FZrSdR/14HF47bkZXgIgGOvFoi+U23uP5aEq23wecHw0w/4UlafK6DXdNin0adand5Q9xQOnA
+ FgfpVWfu1Af2iJXsMCwntApPBB0O4FzSCgxpygk1gyEFg/ZoKNbDW/Vkz3zjc+Lwk3KLlsQSTuI
+ sUoEo8FLAwLH5XFPBiJclWsqgs2KSHW7lPGGkx1btA09Zh6ePXHYoEgDTXcNtWCPXK/sB7V2dAb
+ CIIb1rk71Dc3fKvXYxiyjKjyw0svGPwfe8dWQw0jNwmux60622zNfFX9OzHyjYKv9FXFn1o7bpX
+ ZVCNWZCRRFp8mMiuYUKBNsewNjCACRKnMJh+Bdg3e6mg2s/Hft7dUIL0xRjLvjTrRbV9RD3e3Hi
+ 0tRIvMXYG5E+S4RFS7EJMnL5mygng34CPAED9aqnuIgK+QU7eP6M8aKWDw/oYNeIwQ0vnI9gx2B
+ nQSeRlk8k433+ztjtPauC3En/bhT7uGx0vHTKSxZYQFBC35NIpIS7BA6yPMhcSbXWAkUBtipVYQ
+ V/2f40Y0XbOCqLLo/RHLMZY6Hkc=
+X-Received: by 2002:a05:6a20:9f08:b0:3ef:2f72:c7e5 with SMTP id
+ adf61e73a8af0-4014ae6fe31mr30706224637.2.1795616954301; 
+ Wed, 25 Nov 2026 06:29:14 -0800 (PST)
+Received: from marchy ([2405:3800:9df:1a8d:ee8e:77ff:fed4:d18b])
+ by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8c873f16b41sm9085822b3a.56.2026.11.25.06.29.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2026 06:29:13 -0800 (PST)
+Date: Wed, 25 Nov 2026 22:29:11 +0800
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+ mripard@kernel.org, tzimmermann@suse.de
+Cc: jesszhan0024@gmail.com, airlied@gmail.com, simona@ffwll.ch,
+ andersson@kernel.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 2/2] drm/tiny: Add RAiO RA8875 display controller driver
+Message-ID: <awbwtxoToNU3GEcc@marchy>
+References: <20261110130515.45819-1-azuddinadam@gmail.com>
+ <20261110130515.45819-3-azuddinadam@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261109113758.1491891-1-krzysztof.karas@intel.com>
+In-Reply-To: <20261110130515.45819-3-azuddinadam@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,25 +89,18 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-2.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Krzysztof,
+Hi,
 
-> Krzysztof Karas (6):
->   drm/i915/shmem: Validate max_segment
->   drm/i915/gem: Count mapped pages in a folio
->   drm/i915/gem: Free sg table on failure to acquire second folio
->   drm/i915/gem: Pull out size validation into a separate function
->   drm/i915/gem: Read and shrink memory in a separate function
->   drm/i915/gem: Remove iterator and use while loop
+A gentle ping on this driver patch. The DT binding patch has
+received a Reviewed-by from Krzysztof, and I would appreciate
+any feedback on this driver patch when you have a moment.
 
-pushde to drm-intel-gt-next.
-
-Thanks for following up through all the reviews.
-
-Andi
+Thanks,
+Adam
