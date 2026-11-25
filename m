@@ -2,67 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F20606A327
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:27:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 861FF606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:28:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=O4uHgzXP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hDdAPcZc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C36210E0CE;
-	Wed, 25 Nov 2026 10:27:07 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CAF6D10E0CE
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E68E210FAFA;
+	Wed, 25 Nov 2026 10:28:18 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8693D10FAFA
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:28:12 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 84B30455EB
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00E571F000D8
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:27:00 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 81C4460F7C;
+ Wed, 25 Nov 2026 10:28:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C12161F000D8;
+ Wed, 25 Nov 2026 10:28:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795602420;
- bh=usb6Z06Hk8KYQV8odRZafo7lcqGHFhPDFCx6kFOexg8=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=O4uHgzXPpddrs5gBqi8u9B2aC0SyE1KCf5EIAftXmQf0Yz2Bd+cgo1AM8A56/XQ9b
- QsOVezx8SE9qn+lvrJWJL1PlTp4gI/ODzeAfNUdCBjt4Yzly+8YEdh5lAto1BeiBtW
- /7CFZIny7BW8SPGrIJQECs6/L+Gmln25txeh1jerNuB2R5ZuT5WsODPt16jq9ZSXN1
- TAdyxky7rcl0q80azCDqg0LQDzoEB1/CSIuA4WL/UAjvZTNT3qWM2GLj5N0aZvZz1R
- L8ZFxRiK9+1MKiLQyRnSM6v7F5pPkCH2LHiOaGB1sMe/Gxk8SHMRpzsNCp05SnHtNB
- EfR1nLIQmF2Pg==
-Received: by mail-lf1-f46.google.com with SMTP id
- 2adb3069b0e04-5c1465bbbdaso4795007e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:26:59 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErEmX54SMokqq0kehk4rhG4s8TJ5xqUoHmAy0DiQDjU06hGLfA29QOAWfBwJYDc9rAT3qnAMKlMbKdw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9F5Dg4nQZh41jXqNKhj7JD4lVrp2C9mXY05naj0cKMWFF3jvNj
- 0/10lsXmm6n8iG1f3fqfEfhJfLHtXbfuk2D7/yvfBuquP1FRkTxO9PC4Ku1NARsQMqbZIaYV9eF
- Kl1KAVlH/quFgjqhweF5Q6ESoLZYUqSU=
-X-Received: by 2002:a05:6512:104d:b0:5c1:5a83:2fd7 with SMTP id
- 2adb3069b0e04-5c1bc907072mr5199313e87.66.1795602418769; Wed, 25 Nov 2026
- 02:26:58 -0800 (PST)
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-1-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 25 Nov 2026 11:26:46 +0100
-X-Gmail-Original-Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
-X-Gm-Features: Aa3M54rtYXT0tNMww-_rAs-DbnpD3x58pzG3L6crqferpf2a4MJ3rhFXSlspZ40
-Message-ID: <CAD++jLm6VvPYB5UQS8Zm73pYifr7Oi=xX3S4Wt5c3WE7uMv+fQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 00/15] Arm Core Local Accelerator Driver
-To: Ryan Roberts <ryan.roberts@arm.com>, Arnd Bergmann <arnd@arndb.de>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Catalin Marinas <catalin.marinas@arm.com>, 
- Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
- Marc Zyngier <maz@kernel.org>, 
- Oliver Upton <oupton@kernel.org>, Alex Williamson <alex@shazbot.org>,
- Jason Gunthorpe <jgg@nvidia.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+ s=k20260515; t=1795602491;
+ bh=T/vjXrDrOmURMsVld3JH//LKMEf80TQjoe2Cv0+uAys=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=hDdAPcZc2Q4Bf/WCMlIN9w/CxQEAfqerEpoqp0j+8QVqw3vNxvm1XFu6pjImg47VZ
+ uNAglPEjw5IWri/tJKx16jWiLx9ZNUL0PUFBxcjKqXwDaJBgdFhPujrB53h10UMVYf
+ /D1VYxguXIeM21AYxNuHnTwR+JonzTBhXRThPe6R4SjX1TKE66WJvSJayJQExdrnXx
+ zxmO7MZnMB/PguZoDWEuHGpbwgZJOMdzOLwngGxEVsYNDAA0MqrlK9RUznj9HBOZsh
+ E/l6xbg7WosS4qn4x1XpaefMc/hCvo0nOLIohXD9WR5s6kQYgM3X8Ja7ysDv1KqS2p
+ GCod0YIo4lLnw==
+Message-ID: <sashiko-outbox-233121@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/3] drm/panel: simple: Add support for Techshine
+ TS-P0700031A panel
+To: "Alessandro Zini" <alessandro.zini@siemens.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261125101936.103094-4-alessandro.zini@siemens.com>
+References: <20261125101936.103094-1-alessandro.zini@siemens.com>
+ <20261125101936.103094-4-alessandro.zini@siemens.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 10:28:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,43 +50,95 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Ryan, Jean-Philippe,
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [Medium] drm/panel: simple: missing DRM_BUS_FLAG_DE_HIGH in
+  techshine_ts_p0700031a
+- [Medium] drm/panel: simple: outline dimensions used for
+  techshine_ts_p0700031a.size
+--
 
-regarding this patch set I looked into historical precursors and
-ongoing developments that could benefit from the same infrastructure.
+commit 09cc823426aa17952fdeb447b0b574537835dc2b
+Author: Andrej Valek <andrej.v@skyrain.eu>
 
-1. Apple AMX: there is no ongoing effort for this accelerator but it
-exists in all Apple silicon. This accelerator appears to be synchronous
-using extended instructions and is just "some different SVE" and would
-be handled the same way as these.
+drm/panel: simple: Add support for Techshine TS-P0700031A panel
 
-2. The PowerPC Cell SPU (Playstation 3)
+This commit adds a display timing descriptor, a panel descriptor, and an OF
+match table entry for the Techshine TS-P0700031A LVDS panel.
 
-This is more interesting: the Cell has accelerator cores that execute
-entire litte programs (shaders?) on behalf of the CPU. These are
-however not poilled like the CLA, but signal completion using a
-mailbox interrupt. The accelerators are
+> diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel=
+/panel-simple.c
+> index 33d954f3ee289..8eda4f74bc44f 100644
+> --- a/drivers/gpu/drm/panel/panel-simple.c
+> +++ b/drivers/gpu/drm/panel/panel-simple.c
+> @@ -4827,6 +4827,35 @@ static const struct panel_desc tsd_tst043015cmhx =
+=3D {
+>  	.bus_flags =3D DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGED=
+GE,
+>  };
+> =20
+> +static const struct display_timing techshine_ts_p0700031a_timing =3D {
+> +	.pixelclock =3D { 44900000, 51200000, 63000000 },
+> +	.hactive =3D { 1024, 1024, 1024 },
+> +	.hfront_porch =3D { 16, 160, 216 },
+> +	.hback_porch =3D { 160, 160, 160 },
+> +	.hsync_len =3D { 1, 1, 256 },
+> +	.vactive =3D { 600, 600, 600 },
+> +	.vfront_porch =3D { 1, 12, 127 },
+> +	.vback_porch =3D { 23, 23, 23 },
+> +	.vsync_len =3D { 1, 1, 128 },
+> +	.flags =3D DISPLAY_FLAGS_DE_HIGH,
+> +};
+> +
+> +static const struct panel_desc techshine_ts_p0700031a =3D {
+> +	.timings =3D &techshine_ts_p0700031a_timing,
+> +	.num_timings =3D 1,
+> +	.bpc =3D 8,
+> +	.size =3D {
+> +		.width =3D 165,
+> +		.height =3D 105,
+> +	},
 
-What is interesting with the SPU is that it communicates by creating
-a custom filesystem (spufs) mounted at /spu, so this is apparently
-another design venue to consider.
+[Severity: Medium]
+Are 165 mm and 105 mm in techshine_ts_p0700031a.size the mechanical module
+outline dimensions rather than the active display area?
 
-I think Arnd Bergmann has worked extensively on the SPU so he will
-likely be able to provide input on lessons learned, do's and dont's
-when it comes to this and other accelerators.
+struct panel_desc.size specifies the active display area in millimeters and
+populates connector->display_info.width_mm and height_mm.  For a 7.0-inch
+1024x600 panel, 165x105 mm yields a 7.7-inch diagonal and non-square pixel
+aspect ratio instead of the ~154x86 mm active area.
 
-My superficial appraisal is that the CLA is probably executing smaller
-jobs, snippets of work rather than entire little programs/shaders like
-the SPU does, so it is conceptually different, but may provide
-additional ideas anyway. Arnd?
+> +	.delay =3D {
+> +		.enable =3D 25,
+> +		.disable =3D 25,
+> +	},
+> +	.bus_format =3D MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
+> +	.connector_type =3D DRM_MODE_CONNECTOR_LVDS,
+> +};
 
-Yours,
-Linus Walleij
+[Severity: Medium]
+Should techshine_ts_p0700031a also set .bus_flags =3D DRM_BUS_FLAG_DE_HIGH =
+to
+match DISPLAY_FLAGS_DE_HIGH in techshine_ts_p0700031a_timing?
+
+panel_simple_get_timings_modes() does not translate DISPLAY_FLAGS_DE_HIGH
+into connector->display_info.bus_flags, which panel_simple_get_non_edid_mod=
+es()
+copies directly from panel->desc->bus_flags.  Leaving .bus_flags unset leav=
+es
+display_info.bus_flags as 0 for display controllers and LVDS bridges that
+configure Data Enable polarity from it.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125101936.1030=
+94-1-alessandro.zini@siemens.com?part=3D3
