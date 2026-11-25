@@ -2,20 +2,20 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF791606A685
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B599D606A33B
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:22:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=ZyzKmEQ5
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ope0rw3j
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 30D8710FB87;
+	by gabe.freedesktop.org (Postfix) with ESMTP id C998F10FB8A;
 	Wed, 25 Nov 2026 11:22:51 +0000 (UTC)
-Received: from mail-m128104.netease.com (mail-m128104.netease.com
- [103.209.128.104])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 496A510FB70
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:22:12 +0000 (UTC)
+Received: from mail-m128224.netease.com (mail-m128224.netease.com
+ [103.209.128.224])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CA2010FB50
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:22:17 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55f81605c;
- Wed, 25 Nov 2026 19:22:08 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 55f81606c;
+ Wed, 25 Nov 2026 19:22:14 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -37,26 +37,26 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v7 11/20] drm/bridge: analogix_dp: Simplify
- analogix_dp_config_interrupt()
-Date: Wed, 25 Nov 2026 19:21:32 +0800
-Message-Id: <20261125112141.1434903-12-damon.ding@rock-chips.com>
+Subject: [PATCH v7 15/20] drm/exynos: exynos_dp: Unbind bridge when connector
+ init fails
+Date: Wed, 25 Nov 2026 19:21:36 +0800
+Message-Id: <20261125112141.1434903-16-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 References: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa212710edd03a8kunm17c230507758b7
+X-HM-Tid: 0aa21271232b03a8kunm17c230507758dc
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHxpOVklCSkxPQk9ITh9PTlYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQkhCVkNPHRlDHk1DSU5NHVYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=ZyzKmEQ5dTZ/f7GiSnv9b5lgMJ++sN4FUiLOr4HbX2mht8Z1cHJaKtGPjMvhYwhbydoZalfFo66J3NryGjfMsCJ3tCaQN1D06H1ZAlwc6YMKGIrggWqhejjoGGU8XWA3RAEPbXH+OWtMSIsbnveH7HBIJ8tlNLNZKcOzriah+jY=;
+ b=Ope0rw3jC4tAAH4rq2k/oGAe3l00Li+Py+YHRktF6SMaToNMgIUdRRdzb+iaNDdsnKO0tdPhHrh+lEcVlexh21IcKPAml7B569YFq08nJ/DSQh3Pe9A95DXx1vPcoU/7hsD6R453jsIxRAVs704u0GuelugS0Cr7clVt7lvxue0=;
  s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=ybHIHgPqplEUJRoppMm7glS9jAlf6L3WssQnCO+s3Qc=;
+ bh=p4zmPdPsDeiWHAtXZWhH+tPhJrTy6vvnSAwhPV5ND4Q=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -77,78 +77,40 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Simplify analogix_dp_config_interrupt() by removing the local
-COMMON_INT_MASK and INT_STA_MASK macros, replacing the open-coded
-writel(0) calls for COMMON_INT_MASK_1~3, and leveraging
-analogix_dp_unmute_hpd_interrupt() with the full HPD_IRQ_ALL mask to
-initialize the HPD interrupt state.
+The exynos_dp_bind() returns without unwinding analogix_dp_bind() when
+drm_bridge_connector_init() fails.  The aux device registered by
+analogix_dp_bind() is then left behind with a dangling drm_dev
+pointer, which could be accessed on later AUX transfers.
 
-Tested-by: Heiko Stuebner <heiko@sntech.de>
+Call analogix_dp_unbind() in the error path to release the aux device.
+
+Fixes: 99a49ff5ef7a ("drm/bridge: analogix_dp: Apply drm_bridge_connector helper")
 Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
-Changes in v3:
-- Replace macro HPD_IRQ with HPD_IRQ_ALL.
-
-Changes in v4:
-- Add Tested-by tag.
-
-Changes in v5:
-- Simplify the commig msg.
-
 Changes in v6:
 - Add Tested-by tag.
----
- .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 25 +++----------------
- 1 file changed, 4 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-index 6ac03a1aa512..0f1406e4a5d3 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
-@@ -18,12 +18,6 @@
- #include "analogix_dp_core.h"
- #include "analogix_dp_reg.h"
+Changes in v7:
+- Add Fixes tag.
+---
+ drivers/gpu/drm/exynos/exynos_dp.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/exynos/exynos_dp.c b/drivers/gpu/drm/exynos/exynos_dp.c
+index 572e261e09da..86dc53014fff 100644
+--- a/drivers/gpu/drm/exynos/exynos_dp.c
++++ b/drivers/gpu/drm/exynos/exynos_dp.c
+@@ -121,6 +121,7 @@ static int exynos_dp_bind(struct device *dev, struct device *master, void *data)
+ 	if (IS_ERR(connector)) {
+ 		ret = PTR_ERR(connector);
+ 		dev_err(dp->dev, "Failed to initialize bridge_connector\n");
++		analogix_dp_unbind(dp->adp);
+ 		return ret;
+ 	}
  
--#define COMMON_INT_MASK_1	0
--#define COMMON_INT_MASK_2	0
--#define COMMON_INT_MASK_3	0
--#define COMMON_INT_MASK_4	(HOTPLUG_CHG | HPD_LOST | PLUG)
--#define INT_STA_MASK		INT_HPD
--
- #define HPD_IRQ_ALL		(DP_IRQ_TYPE_HP_CABLE_IN | DP_IRQ_TYPE_HP_CABLE_OUT | \
- 				 DP_IRQ_TYPE_HP_CHANGE | DP_IRQ_TYPE_IRQ_HPD)
- 
-@@ -189,23 +183,12 @@ void analogix_dp_swreset(struct analogix_dp_device *dp)
- 
- void analogix_dp_config_interrupt(struct analogix_dp_device *dp)
- {
--	u32 reg;
--
- 	/* 0: mask, 1: unmask */
--	reg = COMMON_INT_MASK_1;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
--
--	reg = COMMON_INT_MASK_2;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
--
--	reg = COMMON_INT_MASK_3;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
--
--	reg = COMMON_INT_MASK_4;
--	writel(reg, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_4);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_1);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_2);
-+	writel(0, dp->reg_base + ANALOGIX_DP_COMMON_INT_MASK_3);
- 
--	reg = INT_STA_MASK;
--	writel(reg, dp->reg_base + ANALOGIX_DP_INT_STA_MASK);
-+	analogix_dp_unmute_hpd_interrupt(dp, HPD_IRQ_ALL);
- }
- 
- /*
 -- 
 2.34.1
 
