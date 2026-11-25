@@ -2,45 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5441C606A32D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9CA0606A336
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 22:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=g6hO2tlR
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=jDMbtTk6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A129310FFE0;
-	Wed, 25 Nov 2026 22:47:51 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E7D8310FFE0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:47:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795646853; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27A8110FFE9;
+	Wed, 25 Nov 2026 22:47:52 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C86E610E525
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:47:40 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795646849; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=kLfiw5KeLOviKR14fDVtO2jnMiUygd6cpZk4NpowS0uHmYqOfmy+Xx+tj5TRnhZU766929XwTcbYIjTzAKxPYkOeYWzz3TfrILlbeqYJecVxO7ftPE10AtHKihG77k9mGU20KkF897HqjrXTdAgSZUIxS+2S72LaDukVzZMaJMw=
+ b=XXlRjbhkljT7etH7GNXJdceHZlse8/feQ+u4YV3bugrCpXxJtph6iDNqzrW9wfVi5nJlpUULwRg3CldSK/sbDMhjhSxLexRiW6Aw39Ym2l7yNhPjUWqBeyWggj7Cnz+P/bmBERcjJA9d3Rd7PMYn/IQraccaSKQ7zV4DK1qt1mQ=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795646853;
+ s=zohoarc; t=1795646849;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mBDqk7dnIKeAVaEQ8ukQZV5cRW9aOo0WCUoVaNG9E70=; 
- b=T3Tpei0uDy6D3KBOBHK3kAAb7wXvdEqMWzF7WXV1BmZm5KFvaloWbK63HhV0ujSHx3Dqwb7KcXG9zZ2so7Vh8DfiTeo7CmpUkdFTQIYA141XwoVGqR/qR/OgTOghqIKzuJKGksP2WAtawwYAuyXKlkDXjoXPG8uam9gUOMItymE=
+ bh=7MpowVD7efdjNqW0NrD+m1eC1gnks6tFFlNBjocTkCA=; 
+ b=kKlAaaN/ZZJJhkjFAN1qNbgWTcFVCNfsncdZxuJayd+5GUxz76PlT/8UIiuaeeJFmPdvDFx/2v3ONcrMgHkw7Z8lAqKzV8uUsO70kUjtqgOf86SOjxyVHdPZh0bTcv/7DcKs7FPjvoxUI4I9L1jZHvOPke68JVVLTZTrBaNEevU=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=g6hO2tlRXP9Iup0bKkzSAfKFsmA7BIRhineOmJ+G4LpWCzPZOOSWcMAFVxxce1EfbO2HovaUyNK+lXXadaxT3DTSD1BJfHPxdVTcKTirSzoqNSAHaoYFRrR1B2APe/KOuvvo23ZZvfRWL0CGzcxmbeK8Kba84XViNI4rUeiVmbg=;
+ b=jDMbtTk6elP+xDXdVtlSoeta/S9J+n/liLKXdmOqKIw5sim9+Zf1hYQ3N9ADXwSCvsqLvIVs5w/E9ex+cK8LjSIA0wUPptgAN+9ELA07pPfUMLq29KHZY4EAj3dEEcY6vpPVuzxNnYzWNBvtK7CAIwuzqNe7zoQYoTRJq2Lpv7Q=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=mBDqk7dnIKeAVaEQ8ukQZV5cRW9aOo0WCUoVaNG9E70=;
+ bh=7MpowVD7efdjNqW0NrD+m1eC1gnks6tFFlNBjocTkCA=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795646851749477.6835426595662;
- Wed, 25 Nov 2026 14:47:31 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795646846948569.9407795930365;
+ Wed, 25 Nov 2026 14:47:26 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Wed, 25 Nov 2026 19:46:56 -0300
-Subject: [PATCH 05/13] drm/tyr: use SizeConstants for the u32 and u64 size
- constants
+Date: Wed, 25 Nov 2026 19:46:55 -0300
+Subject: [PATCH 04/13] drm/tyr: convert EntryHeader to `bitfield!`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-b4-tyr-as-casts-v1-5-2b2f53164d86@collabora.com>
+Message-Id: <20261125-b4-tyr-as-casts-v1-4-2b2f53164d86@collabora.com>
 References: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 In-Reply-To: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -77,125 +76,124 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 An `as` cast silently drops the bits that do not fit the target type,
 and nothing at the cast shows whether that can happen. As part of a
-larger effort to reduce the number of `as` casts in Tyr, use the
-`SizeConstants` trait for the size constants that are not used as
-`usize`.
+larger effort to reduce the number of `as` casts in Tyr, convert
+`EntryHeader` to `bitfield!`.
 
-The `SZ_*` constants are `usize`, so an expression that mixes one with
-a value of another integer type needs a cast on one side.
+`EntryHeader` wraps the `u32` that starts a firmware entry and extracts
+its fields with hand-written masks and shifts. The entry type is
+truncated to `u8` with `as` after masking, and the size is returned as
+a `u32` that the parser casts to `usize`.
 
-The `SizeConstants` trait provides the same constants as `u32` and
-`u64`, so that neither side has to be cast:
-
-    va % SZ_4K as u64          ->  va % u64::SZ_4K
-    va.start as usize % SZ_4K  ->  va.start % u32::SZ_4K
+With `bitfield!`, which `SectionFlags` already uses, the fields are
+`Bounded` values that carry their width. `EntryType` converts from the
+8-bit field, and the size converts to `usize` with `From`, so both
+casts go.
 
 No functional change intended.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- drivers/gpu/drm/tyr/fw/parser.rs |  4 ++--
- drivers/gpu/drm/tyr/vm.rs        | 32 ++++++++++++++------------------
- 2 files changed, 16 insertions(+), 20 deletions(-)
+ drivers/gpu/drm/tyr/fw/parser.rs | 49 ++++++++++++++++------------------------
+ 1 file changed, 20 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/gpu/drm/tyr/fw/parser.rs b/drivers/gpu/drm/tyr/fw/parser.rs
-index 89de560bf192..6ff681aa78d1 100644
+index c4d0ad1d7899..89de560bf192 100644
 --- a/drivers/gpu/drm/tyr/fw/parser.rs
 +++ b/drivers/gpu/drm/tyr/fw/parser.rs
-@@ -20,7 +20,7 @@
-     device::Device,
-     num::Bounded,
-     prelude::*,
--    sizes::SZ_4K, //
-+    sizes::SizeConstants, //
+@@ -16,8 +16,9 @@
  };
  
- use crate::{
-@@ -334,7 +334,7 @@ fn parse_section_entry(
-             return Err(EINVAL);
-         }
- 
--        if section_hdr.va.start as usize % SZ_4K != 0 || section_hdr.va.end as usize % SZ_4K != 0 {
-+        if section_hdr.va.start % u32::SZ_4K != 0 || section_hdr.va.end % u32::SZ_4K != 0 {
-             dev_err!(
-                 entry_cursor.dev,
-                 "Firmware virtual address range {:#x}..{:#x} is not page aligned",
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 1dd11b2b1253..72c8593c489e 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -42,11 +42,7 @@
-     },
-     new_mutex,
+ use kernel::{
+-    bits::bit_u32,
++    bitfield,
+     device::Device,
++    num::Bounded,
      prelude::*,
--    sizes::{
--        SZ_1G,
--        SZ_2M,
--        SZ_4K, //
--    },
-+    sizes::SizeConstants,
-     sync::{
-         aref::ARef,
-         Arc,
-@@ -491,9 +487,9 @@ pub(crate) fn map_bo_range(
-         flags: VmMapFlags,
-     ) -> Result {
-         if map_size == 0
--            || va % SZ_4K as u64 != 0
--            || bo_offset % SZ_4K as u64 != 0
--            || map_size % SZ_4K as u64 != 0
-+            || va % u64::SZ_4K != 0
-+            || bo_offset % u64::SZ_4K != 0
-+            || map_size % u64::SZ_4K != 0
-         {
-             return Err(EINVAL);
-         }
-@@ -545,7 +541,7 @@ pub(crate) fn map_bo_range(
-     /// This removes any existing mappings in the specified range, freeing the
-     /// virtual address space for reuse.
-     pub(crate) fn unmap_range(&self, va: u64, size: u64) -> Result {
--        if size == 0 || va % SZ_4K as u64 != 0 || size % SZ_4K as u64 != 0 {
-+        if size == 0 || va % u64::SZ_4K != 0 || size % u64::SZ_4K != 0 {
-             return Err(EINVAL);
+     sizes::SZ_4K, //
+ };
+@@ -234,12 +235,12 @@ fn parse_entry(&mut self, header_end: usize) -> Result<EntrySection> {
          }
  
-@@ -791,27 +787,27 @@ fn sm_step_remap<'op>(
- /// Returns the page size (4KB or 2MB) and the number of pages that can be mapped at that size.
- fn get_pgsize(addr: u64, size: u64) -> (u64, u64) {
-     // Get the distance to the next boundary of 2MB block
--    let blk_offset_2m = addr.wrapping_neg() % (SZ_2M as u64);
-+    let blk_offset_2m = addr.wrapping_neg() % u64::SZ_2M;
- 
-     // Use 4K blocks if the address is not 2MB aligned, or we have less than 2MB to map
--    if blk_offset_2m != 0 || size < SZ_2M as u64 {
-+    if blk_offset_2m != 0 || size < u64::SZ_2M {
-         let pgcount = if blk_offset_2m == 0 {
--            size / SZ_4K as u64
-+            size / u64::SZ_4K
-         } else {
--            u64::min(blk_offset_2m, size) / SZ_4K as u64
-+            u64::min(blk_offset_2m, size) / u64::SZ_4K
+         let entry_section = EntrySection {
+-            entry_hdr: EntryHeader(self.cursor.read_u32()?),
++            entry_hdr: EntryHeader::from_raw(self.cursor.read_u32()?),
+             inner: None,
          };
--        return (SZ_4K as u64, pgcount);
-+        return (u64::SZ_4K, pgcount);
-     }
  
--    let blk_offset_1g = addr.wrapping_neg() % (SZ_1G as u64);
-+    let blk_offset_1g = addr.wrapping_neg() % u64::SZ_1G;
-     let blk_offset = if blk_offset_1g == 0 {
--        SZ_1G as u64
-+        u64::SZ_1G
-     } else {
-         blk_offset_1g
-     };
--    let pgcount = u64::min(blk_offset, size) / SZ_2M as u64;
-+    let pgcount = u64::min(blk_offset, size) / u64::SZ_2M;
+         let firmware_size = self.cursor.len();
+-        let entry_size = entry_section.entry_hdr.size() as usize;
++        let entry_size = usize::from(entry_section.entry_hdr.size());
  
--    (SZ_2M as u64, pgcount)
-+    (u64::SZ_2M, pgcount)
+         if self.cursor.pos() % size_of::<u32>() != 0
+             || entry_size % size_of::<u32>() != 0
+@@ -291,7 +292,7 @@ fn parse_entry(&mut self, header_end: usize) -> Result<EntrySection> {
+                         dev_err!(
+                             self.cursor.dev,
+                             "Failed to handle firmware entry type: {}",
+-                            entry_section.entry_hdr.entry_type_raw()
++                            entry_section.entry_hdr.entry_type_raw().get()
+                         );
+                         Err(EINVAL)
+                     }
+@@ -526,31 +527,21 @@ struct EntrySection {
+     inner: Option<ParsedSection>,
  }
  
- /// Maps a physical address range into the page table at the specified virtual address.
+-/// Header for a firmware entry, packed into a single u32.
+-///
+-/// The entry header encodes the entry type, size, and optional flag in a
+-/// 32-bit value with the following layout:
+-/// - Bits 0-7: Entry type
+-/// - Bits 8-15: Size in bytes
+-/// - Bit 31: Optional flag
+-struct EntryHeader(u32);
+-
+-impl EntryHeader {
+-    fn entry_type_raw(&self) -> u8 {
+-        (self.0 & 0xff) as u8
++bitfield! {
++    /// Header for a firmware entry, packed into a single u32.
++    struct EntryHeader(u32) {
++        /// Entry type.
++        7:0 entry_type_raw;
++        /// Size in bytes.
++        15:8 size;
++        /// Optional flag.
++        31:31 optional => bool;
+     }
++}
+ 
++impl EntryHeader {
+     fn entry_type(&self) -> Result<EntryType> {
+-        let v = self.entry_type_raw();
+-        EntryType::try_from(v)
+-    }
+-
+-    fn optional(&self) -> bool {
+-        self.0 & bit_u32(31) != 0
+-    }
+-
+-    fn size(&self) -> u32 {
+-        self.0 >> 8 & 0xff
++        EntryType::try_from(self.entry_type_raw())
+     }
+ }
+ 
+@@ -571,11 +562,11 @@ enum EntryType {
+     BuildInfoMetadata = 6,
+ }
+ 
+-impl TryFrom<u8> for EntryType {
++impl TryFrom<Bounded<u32, 8>> for EntryType {
+     type Error = Error;
+ 
+-    fn try_from(value: u8) -> Result<Self, Self::Error> {
+-        match value {
++    fn try_from(value: Bounded<u32, 8>) -> Result<Self, Self::Error> {
++        match value.get() {
+             0 => Ok(EntryType::Iface),
+             1 => Ok(EntryType::Config),
+             2 => Ok(EntryType::FutfTest),
 
 -- 
 2.56.0
