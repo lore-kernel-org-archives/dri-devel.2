@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B199606A681
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:10:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8930C606A695
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:11:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KORpUxyN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iHn2yFdR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 74F7510FEE9;
-	Wed, 25 Nov 2026 18:10:14 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E6A5E10FEBC
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:10:08 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E493C10FEBC;
+	Wed, 25 Nov 2026 18:11:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9902110FEBC
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:11:01 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2722763534;
- Wed, 25 Nov 2026 18:10:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DFD51F000D0;
- Wed, 25 Nov 2026 18:10:07 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 54DD5464C1;
+ Wed, 25 Nov 2026 18:11:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A95DB1F000C0;
+ Wed, 25 Nov 2026 18:10:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795630207;
- bh=TgIV3jE47xPt6IQI8zy4yurW7VBaLHowGA4VuDnkexk=;
+ s=k20260515; t=1795630261;
+ bh=TJrmhBW7Whp4RXUd078bF5KWceT6mDGpYQfhxFEGlJ0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=KORpUxyN6C4Jcv1jOWPbV38oJFqWrAYyp4vOxiD3PAVaMmoxykBpAAOAw7Tw60Tq5
- +hgVXfsA1eNfPb9qowJcSnBrGVF0tJM/rwPnOuP7wKIvr+iKh9uosUDfYNzadCc44N
- 3RjITT72KnrJNmVhWWtCNKla+TqI9URlxU3tACs8nJp3mPZ2xciTCagJVqWXLulAvf
- zv6B+fStVIEDKmiZXj8gicNTesGZlM3L4rI3IJGCY4AJ5GGrTfrMUJIJGiDuJfGcGX
- ZP2U5jR1FEPuBounrU2JSIROvq64sDqYC/T8mHyLK1O8iuzo4v0RLNhjpNUay/+zNI
- wpw/IEpJoBgWQ==
-Message-ID: <sashiko-outbox-233913@kernel.org>
+ b=iHn2yFdR4j4w7fYHIlX9ceyFkm+QGtXZ/CDahNmgoEc0b/ln5oY+z0F1uOp0G5ock
+ Wzpx8dB+elPa9FjExo568357Xof7gZlZjAncxuKTcBGn1D4+D45t8a+Q2Mc+OLjAtB
+ OOO7V2BwNcWrfomj3bZ//WARwYWZ6e3IAhgdI1qpe00gGnsmmjgp6xU3s4Uinx/E3h
+ kSKYdR6OLZkNDQaRirLO19fTgM68G79RUiC7Li99HbQvWaosbCkGIy7IytASQUxUV6
+ QmgxR97IEIpi8kFNMFzC5+LiV2Vac1Bvq/oMYt/mUdLRxrQjj1c1Pa7zahrK4XznnE
+ r+WGhAAaUa3hg==
+Message-ID: <sashiko-outbox-233916@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 16/32] drm/probe-helper: add per-connector polling
- enable/disable
+Subject: Re: [PATCH v4 06/32] drm/connector: add
+ drm_connector_hdmi_dynamic_init()
 To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-16-822722850492@bootlin.com>
+In-Reply-To: <20261125-drm-bridge-hotplug-v4-6-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
- <20261125-drm-bridge-hotplug-v4-16-822722850492@bootlin.com>
+ <20261125-drm-bridge-hotplug-v4-6-822722850492@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:10:06 +0000
+Date: Wed, 25 Nov 2026 18:10:56 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,232 +59,106 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/probe-helper: unbalanced HPD callbacks in per-connector
-  poll helpers
-- [High] drm/probe-helper: drm_kms_helper_poll_disable_connector()
-  leaves poll active
-- [Low] drm/probe-helper: duplicated HPD helper logic in
-  drm_kms_helper_enable_hpd()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/connector: dynamic HDMI init creates non-refcounted
+  drm_property post-reg
 --
 
-commit 3fcc8be33037c845672586431b3e9d911af66acb
+commit 3a8f2d8e52f1964bd9a6d73f9170a7532ea70354
 Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-drm/probe-helper: add per-connector polling enable/disable
+drm/connector: add drm_connector_hdmi_dynamic_init()
 
-This commit adds drm_kms_helper_poll_enable_connector() and
-drm_kms_helper_poll_disable_connector() to enable and disable output
-polling and HPD for individual connectors added or removed dynamically.
+This commit adds drm_connector_hdmi_dynamic_init() to initialize dynamically
+created HDMI connectors for hotpluggable bridges.
 
-> diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_pro=
-be_helper.c
-> index 856b40fdaac4a..e468971ab6429 100644
-> --- a/drivers/gpu/drm/drm_probe_helper.c
-> +++ b/drivers/gpu/drm/drm_probe_helper.c
-> @@ -224,6 +224,14 @@ drm_connector_mode_valid(struct drm_connector *conne=
-ctor,
->  	return ret;
+> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
+tor.c
+> index 20120b6a05d52..021f2e120fdc7 100644
+> --- a/drivers/gpu/drm/drm_connector.c
+> +++ b/drivers/gpu/drm/drm_connector.c
+> @@ -704,6 +704,49 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
 >  }
-> =20
-> +static void drm_kms_helper_disable_hpd_connector(struct drm_connector *c=
-onnector)
-> +{
-> +	const struct drm_connector_helper_funcs *funcs =3D connector->helper_pr=
-ivate;
-> +
-> +	if (funcs && funcs->disable_hpd)
-> +		funcs->disable_hpd(connector);
-> +}
-> +
->  static void drm_kms_helper_disable_hpd(struct drm_device *dev)
->  {
->  	struct drm_connector *connector;
-> @@ -240,6 +248,16 @@ static void drm_kms_helper_disable_hpd(struct drm_de=
-vice *dev)
->  	drm_connector_list_iter_end(&conn_iter);
->  }
-> =20
-> +static bool drm_kms_helper_enable_hpd_connector(struct drm_connector *co=
-nnector)
-> +{
-> +	const struct drm_connector_helper_funcs *funcs =3D connector->helper_pr=
-ivate;
-> +
-> +	if (funcs && funcs->enable_hpd)
-> +		funcs->enable_hpd(connector);
-> +
-> +	return (connector->polled & (DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR=
-_POLL_DISCONNECT));
-> +}
-> +
->  static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
->  {
->  	bool poll =3D false;
-
-[Severity: Low]
-This isn't a bug, but drm_kms_helper_disable_hpd() and
-drm_kms_helper_enable_hpd() right below these new helpers still open-code
-the same per-connector callback and connector->polled checks instead of
-calling drm_kms_helper_disable_hpd_connector() and
-drm_kms_helper_enable_hpd_connector().
-
-> @@ -316,6 +334,32 @@ void drm_kms_helper_poll_enable(struct drm_device *d=
-ev)
->  }
->  EXPORT_SYMBOL(drm_kms_helper_poll_enable);
+>  EXPORT_SYMBOL(drmm_connector_hdmi_init);
 > =20
 > +/**
-> + * drm_kms_helper_poll_enable_connector - enable output polling for a co=
+> + * drm_connector_hdmi_dynamic_init - Init a preallocated dynamic HDMI co=
 nnector
-> + * @connector: the connector
+> + * @dev: DRM device
+> + * @connector: A pointer to the HDMI connector to init
+> + * @funcs: callbacks for this connector
+> + * @hdmi_funcs: HDMI-related callbacks and capabilities for this connect=
+or
+> + * @connector_type: user visible type of the connector
+> + * @ddc: optional pointer to the associated ddc adapter
 > + *
-> + * Enables output polling @connector and reschdules the polling work if
-> + * needed. Intended for connectors which are added after initial probing.
+> + * Initialises a preallocated dynamic HDMI connector. Connectors can be
+> + * subclassed as part of driver connector objects.
 > + *
-> + * This must be called after polling has been initialized by
-> + * drm_kms_helper_poll_init(). Safe to call while polling is already
-> + * running.
+> + * See drm_connector_dynamic_init(), the same constraints apply here. Th=
+is
+> + * is just the HDMI version.
+> + *
+> + * Returns:
+> + * Zero on success, error code on failure.
 > + */
-> +void drm_kms_helper_poll_enable_connector(struct drm_connector *connecto=
-r)
+> +int drm_connector_hdmi_dynamic_init(struct drm_device *dev,
+> +				    struct drm_connector *connector,
+> +				    const struct drm_connector_funcs *funcs,
+> +				    const struct drm_connector_hdmi_funcs *hdmi_funcs,
+> +				    int connector_type,
+> +				    struct i2c_adapter *ddc)
 > +{
-> +	struct drm_device *dev =3D connector->dev;
+> +	int ret;
 > +
-> +	if (drm_WARN_ON_ONCE(dev, !dev->mode_config.poll_enabled) || !drm_kms_h=
-elper_poll)
-> +		return;
+> +	ret =3D drm_connector_hdmi_sanity_checks(dev, connector, hdmi_funcs, co=
+nnector_type);
+> +	if (ret)
+> +		return ret;
 > +
-> +	if (drm_kms_helper_enable_hpd_connector(connector) ||
-> +	    dev->mode_config.delayed_event)
-> +		reschedule_output_poll_work(dev);
+> +	ret =3D drm_connector_dynamic_init(dev, connector, funcs, connector_typ=
+e, ddc);
+> +	if (ret)
+> +		return ret;
 > +
-> +	dev->mode_config.poll_running =3D true;
+> +	ret =3D drm_connector_hdmi_initialize(dev, connector, hdmi_funcs);
+> +	if (ret)
+> +		drm_connector_cleanup(connector);
+> +
+> +	return ret;
 > +}
-> +EXPORT_SYMBOL(drm_kms_helper_poll_enable_connector);
-> +
->  /**
->   * drm_kms_helper_poll_reschedule - reschedule the output polling work
->   * @dev: drm_device
-> @@ -927,6 +971,54 @@ void drm_kms_helper_poll_disable(struct drm_device *=
-dev)
->  }
->  EXPORT_SYMBOL(drm_kms_helper_poll_disable);
-> =20
-> +static bool drm_kms_helper_has_other_connectors(struct drm_connector *co=
-nnector)
-> +{
-> +	struct drm_device *dev =3D connector->dev;
-> +	struct drm_connector *curr;
-> +	struct drm_connector_list_iter conn_iter;
-> +	bool remaining =3D false;
-> +
-> +	drm_connector_list_iter_begin(dev, &conn_iter);
-> +	drm_for_each_connector_iter(curr, &conn_iter) {
-> +		if (curr !=3D connector &&
-> +		    curr->registration_state =3D=3D DRM_CONNECTOR_REGISTERED) {
-> +			remaining =3D true;
-> +			break;
-> +		}
-> +	}
-> +	drm_connector_list_iter_end(&conn_iter);
-> +
-> +	return remaining;
-> +}
-> +
-> +/**
-> + * drm_kms_helper_poll_disable_connector - disable output polling for a =
-connector
-> + * @connector: the connector
-> + *
-> + * Disables output polling for @connector. If there are no other registe=
-red
-> + * connectors, also disables the output poll work.
-> + *
-> + * Polling stays initialized; call drm_kms_helper_poll_fini() to tear it
-> + * down. Does nothing if output polling is not initialized by
-> + * drm_kms_helper_poll_init().
-> + */
-> +void drm_kms_helper_poll_disable_connector(struct drm_connector *connect=
-or)
-> +{
-> +	struct drm_device *dev =3D connector->dev;
-> +
-> +	if (!dev->mode_config.poll_enabled)
-> +		return;
-> +
-> +	drm_kms_helper_disable_hpd_connector(connector);
+> +EXPORT_SYMBOL(drm_connector_hdmi_dynamic_init);
 
 [Severity: High]
-Can drm_kms_helper_poll_enable_connector() and
-drm_kms_helper_poll_disable_connector() cause unbalanced
-enable_hpd()/disable_hpd() callbacks on connectors?
+Can drm_connector_hdmi_initialize() be called safely after drm_dev_register=
+()
+has registered the DRM device?
 
-struct drm_connector_helper_funcs documents that drivers do not need to
-track HPD state because the DRM core guarantees enable_hpd() and
-disable_hpd() calls are balanced.  However, no per-connector HPD state is
-recorded here:
+On a fresh connector, drm_connector_hdmi_initialize() calls
+drm_connector_attach_max_bpc_property() and
+drm_connector_attach_color_format_property(), which create new drm_property
+objects via drm_property_create_range() and drm_property_create_enum().
+Because DRM properties are non-refcounted mode objects (obj_free_cb is NULL=
+),
+calling drm_property_create() -> drm_mode_object_add() when dev->registered=
+ is
+true triggers:
 
-1. drm_kms_helper_poll_disable_connector() calls
-   drm_kms_helper_disable_hpd_connector() without checking
-   dev->mode_config.poll_running.  If poll_running is false (for example
-   because drm_kms_helper_poll was false or polling was disabled for
-   suspend via drm_kms_helper_poll_disable()), disable_hpd() runs even
-   though HPD is not enabled.
+drivers/gpu/drm/drm_mode_object.c:__drm_mode_object_add() {
+	WARN_ON(!dev->driver->load && dev->registered && !obj_free_cb);
+}
 
-2. A connector remains on dev->mode_config.connector_list after
-   drm_kms_helper_poll_disable_connector() until its last reference drops
-   in drm_connector_cleanup().  If another connector keeps poll_running
-   true and drm_kms_helper_poll_disable() or drm_kms_helper_poll_fini()
-   runs while an atomic state or client still holds a reference to the
-   disabled connector, drm_kms_helper_disable_hpd() walks connector_list
-   and calls disable_hpd() on it a second time.
-
-3. Conversely, when disabling the last connector clears poll_running, a
-   later drm_helper_probe_single_connector_modes() on a newly registered
-   connector calls drm_kms_helper_poll_enable(dev), which enables HPD on
-   all connectors on connector_list and sets poll_running =3D true before
-   the caller invokes drm_kms_helper_poll_enable_connector(), calling
-   enable_hpd() twice.  And if poll_running was false with multiple
-   connectors present, drm_kms_helper_poll_enable_connector() sets
-   device-wide poll_running =3D true after enabling only one connector,
-   causing a subsequent drm_kms_helper_poll_enable(dev) to return early
-   and leave HPD disabled on the other connectors.
-
-Unbalanced enable_hpd()/disable_hpd() calls trigger WARN(bridge->hpd_cb)
-in drm_bridge_hpd_enable() and cause runtime PM or IRQ count underflows
-in bridge drivers such as ti_sn_bridge_hpd_disable() and
-display_connector_hpd_disable().
-
-> +
-> +	if (dev->mode_config.poll_running &&
-> +	    !drm_kms_helper_has_other_connectors(connector)) {
-> +		cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
-> +		dev->mode_config.poll_running =3D false;
-> +	}
-> +}
-> +EXPORT_SYMBOL(drm_kms_helper_poll_disable_connector);
-
-[Severity: High]
-Does drm_kms_helper_poll_disable_connector() actually stop or synchronize
-with output_poll_work for a polled connector when another connector is
-registered on the device?
-
-drm_kms_helper_has_other_connectors() returns true whenever any other
-registered connector exists, even if that other connector does not use
-polling (polled =3D=3D 0 or DRM_CONNECTOR_POLL_HPD), so output_poll_work is
-left running when no remaining connector needs polling.
-
-More importantly, when another registered connector exists,
-drm_kms_helper_poll_disable_connector() neither waits for an in-flight
-output_poll_execute() nor marks @connector as poll-disabled.  Because
-output_poll_execute() iterates dev->mode_config.connector_list and checks
-only connector->force and connector->polled, it can run
-drm_helper_probe_detect() on @connector concurrently with bridge teardown
-and keep repolling it every DRM_OUTPUT_POLL_PERIOD until its final
-connector reference is dropped.
+In addition, drm_property_create() adds the property to
+dev->mode_config.property_list without locking and publishes it in
+dev->mode_config.object_idr before initializing its fields and enum_list,
+allowing a concurrent drm_mode_getproperty_ioctl() to observe an
+uninitialized property.  Finally, drm_connector_cleanup() does not destroy
+connector->max_bpc_property or connector->color_format_property, so those
+properties and their mode object IDs are leaked if
+drm_connector_attach_color_format_property() fails or each time an HDMI
+connector is hot-unplugged and re-plugged.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
--hotplug-v4-0-822722850492@bootlin.com?part=3D16
+-hotplug-v4-0-822722850492@bootlin.com?part=3D6
