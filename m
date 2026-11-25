@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2DB606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:55:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A51AB606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:55:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=BqS+h/HA
+	dkim=pass (1024-bit key, unprotected) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=ZHeQaYSG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93C1210FA57;
-	Wed, 25 Nov 2026 08:55:22 +0000 (UTC)
-Received: from mail-m81165.netease.com (mail-m81165.netease.com [47.88.81.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A5A810FA44
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:55:15 +0000 (UTC)
-Received: from [127.0.0.1] (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55f2f99e1;
- Wed, 25 Nov 2026 16:55:11 +0800 (GMT+08:00)
-Message-ID: <82168811-c141-445a-97d1-e5c1ee38e0f4@rock-chips.com>
-Date: Wed, 25 Nov 2026 16:55:06 +0800
+	by gabe.freedesktop.org (Postfix) with ESMTP id BE87210FA4B;
+	Wed, 25 Nov 2026 08:55:36 +0000 (UTC)
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
+ [213.167.242.64])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 70DD010FA4B
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:55:30 +0000 (UTC)
+Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
+ [91.158.153.178])
+ by perceval.ideasonboard.com (Postfix) with ESMTPSA id C57E773E;
+ Wed, 25 Nov 2026 09:52:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+ s=mail; t=1795596775;
+ bh=dESCZsbPGPxc8wE1cEHC62NnZt0wMuGIc1HwquYJ9fc=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=ZHeQaYSG4Sg8uG8pijSRWImxtkXvFJip4ruHLR4PWrINxxKmKfuhtjJdhfubrSM/m
+ jmoWyrDFAdJUq5UfkKVDOTaKwIL/mQcHTHk03/4zyUmRt9zM57RzDhGqmo3DjcbsMI
+ Clw2Zk7GHn07JOsSO8W7RqE4u/clpHZ8x3uu3Nk4=
+Message-ID: <ff6aeb12-270e-4959-838a-260bed0fb336@ideasonboard.com>
+Date: Wed, 25 Nov 2026 10:55:24 +0200
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] drm/bridge: trilinear: add the DPTX DRM bridge
-To: Luo Liu <Luo.Liu@cixtech.com>
-Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, wuyi.shen@cixtech.com,
- cix-kernel-upstream@cixtech.com
-References: <20261124120114.3273161-1-Luo.Liu@cixtech.com>
- <20261124120114.3273161-4-Luo.Liu@cixtech.com>
+Subject: Re: [PATCH v9 13/42] drm/atomic_sro: Create drm_atomic_sro_state
+ container
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jyri Sarha <jyri.sarha@iki.fi>
+References: <20261120-drm-state-readout-v9-0-a67c2b45b8ec@kernel.org>
+ <20261120-drm-state-readout-v9-13-a67c2b45b8ec@kernel.org>
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Content-Language: en-US
-From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-In-Reply-To: <20261124120114.3273161-4-Luo.Liu@cixtech.com>
-Content-Type: text/plain; charset=UTF-8
+In-Reply-To: <20261120-drm-state-readout-v9-13-a67c2b45b8ec@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0aa211ea839803a7kunm367dc79fe08dd9
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDHkoaVklIQkodT08fTENITlYVFA
- kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
- 9PT0hVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
- b=BqS+h/HAVZ206PWEvVwfP1IycONXbmlKg6lhmJFv711VYa9d8faJGNxIZxw0hKmSE4cO5/hdsUHqmKQOUH3cz9wOul+AnEy5FAxlZk6wpRE7U/banOPxqtJ8XO5I+w3PulbMtrq5UgqlV4YvrrVq3P3uprzIGrVdzsO8flFpZFQ=;
- s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=o4GT54fvMYkC4amfZANmVOthCE6DeSD74V9mpKYzQZY=;
- h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,66 +61,103 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Hi,
 
-On 11/24/2026 8:01 PM, Luo Liu wrote:
-> Add the DRM bridge that exposes the transmitter to KMS: connector
-> detection, EDID mode enumeration with a downstream timing fallback,
-> validation of a mode against the sink link capabilities, and the atomic
-> enable and disable paths.
+On 20/11/2026 14:55, Maxime Ripard wrote:
+> The SRO infrastructure needs a state container to collect the readout
+> states for all KMS objects. Unlike drm_atomic_commit which tracks old
+> and new states for atomic commits, this container only holds a single
+> state per object: the one read out from the hardware.
 > 
-> The bridge is meant to be attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR;
-> the connector is created by drm_bridge_connector_init() from the bridge
-> operations, so the driver only implements the bridge side and never
-> creates a connector of its own.
+> Create struct drm_atomic_sro_state with arrays for planes, CRTCs,
+> connectors, and private objects, along with accessors to get and set
+> individual object states within it.
 > 
-> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
+> Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Signed-off-by: Maxime Ripard <mripard@kernel.org>
 > ---
->  drivers/gpu/drm/bridge/trilinear/dptx_drm.c | 623 ++++++++++++++++++++
->  drivers/gpu/drm/bridge/trilinear/dptx_drm.h |  17 +
->  2 files changed, 640 insertions(+)
->  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.c
->  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.h
+>   drivers/gpu/drm/Makefile                   |   1 +
+>   drivers/gpu/drm/drm_atomic_state_readout.c | 491 +++++++++++++++++++++++++++++
+>   include/drm/drm_atomic_state_readout.h     |  51 +++
+>   3 files changed, 543 insertions(+)
 > 
-> diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_drm.c b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+> diff --git a/drivers/gpu/drm/Makefile b/drivers/gpu/drm/Makefile
+> index 2c6bc093a923..e94b77497514 100644
+> --- a/drivers/gpu/drm/Makefile
+> +++ b/drivers/gpu/drm/Makefile
+> @@ -32,10 +32,11 @@ endif
+>   # Enable -Werror in CI and development
+>   subdir-ccflags-$(CONFIG_DRM_WERROR) += -Werror
+>   
+>   drm-y := \
+>   	drm_atomic.o \
+> +	drm_atomic_state_readout.o \
+>   	drm_atomic_uapi.o \
+>   	drm_auth.o \
+>   	drm_blend.o \
+>   	drm_bridge.o \
+>   	drm_cache.o \
+> diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm/drm_atomic_state_readout.c
 > new file mode 100644
-> index 000000000000..fde34bac1230
+> index 000000000000..c00631800234
 > --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/trilinear/dptx_drm.c
-> @@ -0,0 +1,623 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * DisplayPort DRM bridge helpers
-> + *
-> + * Copyright 2026 Cix Technology Group Co., Ltd.
-> + */
-> +
-> +#include <linux/device.h>
-> +#include <linux/kernel.h>
-> +#include <linux/math64.h>
+> +++ b/drivers/gpu/drm/drm_atomic_state_readout.c
+> @@ -0,0 +1,491 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
 > +
 > +#include <drm/drm_atomic.h>
-> +#include <drm/drm_atomic_state_helper.h>
+> +#include <drm/drm_atomic_state_readout.h>
 > +#include <drm/drm_bridge.h>
-> +#include <drm/drm_edid.h>
+> +#include <drm/drm_connector.h>
+> +#include <drm/drm_crtc.h>
+> +#include <drm/drm_drv.h>
+> +#include <drm/drm_plane.h>
+> +#include <drm/drm_print.h>
+> +#include <linux/module.h>
+> +#include <linux/sched/mm.h>
 > +
-> +#include "dptx.h"
-
-This file does not appear until patch 4.
-
-> +#include "dptx_drm.h"
+> +#include "drm_internal.h"
+> +#include "drm_crtc_internal.h"
 > +
-> +#define DPTX_MIN_H_BACKPORCH 12
-> +#define DPTX_MIN_BPP		(6 * 3)
+> +struct __drm_atomic_sro_plane {
+> +	struct drm_plane *ptr;
+> +	struct drm_plane_state *state;
+> +};
 > +
+> +struct __drm_atomic_sro_crtc {
+> +	struct drm_crtc *ptr;
+> +	struct drm_crtc_state *state;
+> +};
+> +
+> +struct __drm_atomic_sro_connector {
+> +	struct drm_connector *ptr;
+> +	struct drm_connector_state *state;
+> +};
+> +
+> +struct __drm_atomic_sro_private_obj {
+> +	struct drm_private_obj *ptr;
+> +	struct drm_private_state *state;
+> +};
+> +
+> +struct drm_atomic_sro_state {
+> +	struct drm_device *dev;
+> +	struct __drm_atomic_sro_plane *planes;
+> +	struct __drm_atomic_sro_crtc *crtcs;
+> +	struct __drm_atomic_sro_connector *connectors;
+> +	unsigned int max_connector_index;
+> +	struct __drm_atomic_sro_private_obj *private_objs;
+> +	unsigned int num_private_objs;
 
+The private_objs makes me feel a bit uneasy. You add to private_objs 
+array dynamically, without any check for the array size. An extra call 
+to drm_atomic_sro_set_private_obj_state() will write over the array.
 
--- 
-Best, 
-Chaoyi
+If you're sure that can never happen, fine for me.
+
+  Tomi
 
