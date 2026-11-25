@@ -2,43 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6419606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:16:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB14606A332
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:17:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aa6+Vmnp
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HhkXHRF2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5000210FEE2;
-	Wed, 25 Nov 2026 18:16:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2A06410FEE5;
+	Wed, 25 Nov 2026 18:17:20 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A33B10FEE2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:16:32 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8817810FEE5
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:17:13 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3518340BFF;
- Wed, 25 Nov 2026 18:16:32 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E39921F000C6;
- Wed, 25 Nov 2026 18:16:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 71077440FB
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:17:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8841F000C4;
+ Wed, 25 Nov 2026 18:17:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795630592;
- bh=UAPcNrDP7QMdQleQr1VHH52beHerF6JQMHMGMwSexf0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=aa6+VmnprloQtSJ6/Xu4G0v/wqbBjbCWN4alUZ2+qSyTmLVHHx/C3tW//qT929Zdk
- Ym2KnZYHai8u9P8Qlp9VKOHJJPZzUxeOB4JguLs9jarMjkHLrho2FzW08R5WTPa8LH
- +BUrx9IgRDtBgoqUgJuXq6Amrfx5MWv2EEeFi5IJp9UzxylQQpR02YZeF5CcCgkMMy
- deJS7lctrswXrdEh3EfaTx4jauYUSHRA14NzIVtwBU1p6PfmfYQ6LToVhKNDiSiY3N
- 1UDyQNth78WHEu2Ah1kiKyJH270wqyeQDMHv80BNgeaIG1au3ZvJiTqB9k4k/NwDl5
- cVy45x4IX/ejw==
-Message-ID: <sashiko-outbox-233947@kernel.org>
+ s=k20260515; t=1795630632;
+ bh=tIDsFkefP7uXB7ljwmztZT+GPc8f7HBw9xHyqY0E5wA=;
+ h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
+ b=HhkXHRF2zBvKH0US8/G+EoFONQ0RHAgJYYligITUwDVyAL18oRE7ibcDAN5ELmo/l
+ lU6aKpTpH9U1Pp8wGAQFEgNa0txzgoA+gKPTLSD/dDBIzXX0aGHZAvstpbDsqMEJzh
+ kBbNN1U5CsMcvjNF8kmgIG5s7I6L8p4HGbONaK+OSQ/r8xW72FpCzQOOvZuNDqFxOF
+ FXYGrB77HXK3LaPMwUFADsCKp2PazT/0Up8Zd5slT5NJ2E5JQcFCFWxAKynOCGOU80
+ F3VCIn4QI77aUNm/L9Q1htwfabtY4nS2ofb0m6dEoTiy0MdGl93HYvSAz2KyfAMxsk
+ wfqh1TmG34Kzw==
+Message-ID: <sashiko-outbox-233951@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 14/32] drm/bridge: ti-sn65dsi86: protect device
- resources on unplug
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-14-822722850492@bootlin.com>
-References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
- <20261125-drm-bridge-hotplug-v4-14-822722850492@bootlin.com>
+Subject: Re: [MAILER-DAEMON@tor.source.kernel.org: Undelivered Mail Returned
+ to Sender]
+To: "Alejandro Colomar" <alx@kernel.org>, dri-devel@lists.freedesktop.org
+In-Reply-To: <awcjWRYyPAyI2oQU@devuan>
+References: <awcjWRYyPAyI2oQU@devuan>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:16:31 +0000
+Date: Wed, 25 Nov 2026 18:17:12 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -51,173 +49,129 @@ List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/bridge: ti-sn65dsi86: release action registered on wrong
-  device
-- [High] drm/bridge: ti-sn65dsi86: unprotected HPD and debugfs callbacks
-  on unplug
-- [Medium] drm/bridge: unchecked devm_add_action() in
-  ti_sn_bridge_atomic_pre_enable()
+- [Low] accel/habanalabs: missing const on ch in
+  extract_u32_until_given_char()
+- [Low] accel/habanalabs: commit message contains forwarded bounce email
+  headers
 --
 
-commit c57970c3929d58f60b46d5db47153169c16eb129
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+commit f76538cd407940b9ca6028e08da7f1439d718808
+Author: Alejandro Colomar <alx@kernel.org>
 
-drm/bridge: ti-sn65dsi86: protect device resources on unplug
+> I got this email bounced when sending to the listed maintainers.
+> Are the addresses ok?
+>=20
+> Cheers,
+> Alex
+>=20
+> ----- Forwarded message from Mail Delivery System <MAILER-DAEMON@tor.sour=
+ce.kernel.org> -----
+>=20
+> Date: Wed, 25 Nov 2026 17:40:08 +0000 (UTC)
+> From: Mail Delivery System <MAILER-DAEMON@tor.source.kernel.org>
+> To: alx@kernel.org
+> Subject: Undelivered Mail Returned to Sender
+> Message-Id: <20261125174008.9710362667@tor.source.kernel.org>
+>=20
+> This is the mail system at host tor.source.kernel.org.
+>=20
+> I'm sorry to have to inform you that your message could not
+> be delivered to one or more recipients. It's attached below.
+>=20
+> For further assistance, please send mail to postmaster.
+>=20
+> If you do so, please include this problem report. You can
+> delete your own text from the attached returned message.
+>=20
+>                    The mail system
+>=20
+> <koby.elbaz@intel.com>: host mgamail.eglb.intel.com[198.175.65.9] said: 5=
+50
+>     #5.1.0 Address rejected. (in reply to RCPT TO command)
+>=20
+> <konstantin.sinyuk@intel.com>: host mgamail.eglb.intel.com[198.175.65.9] =
+said:
+>     550 #5.1.0 Address rejected. (in reply to RCPT TO command)
+>=20
+> Reporting-MTA: dns; tor.source.kernel.org
+> X-Postfix-Queue-ID: 8A98A62391
+> X-Postfix-Sender: rfc822; alx@kernel.org
+> Arrival-Date: Wed, 25 Nov 2026 17:40:02 +0000 (UTC)
+>=20
+> Final-Recipient: rfc822; koby.elbaz@intel.com
+> Original-Recipient: rfc822;koby.elbaz@intel.com
+> Action: failed
+> Status: 5.0.0
+> Remote-MTA: dns; mgamail.eglb.intel.com
+> Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
+>=20
+> Final-Recipient: rfc822; konstantin.sinyuk@intel.com
+> Original-Recipient: rfc822;konstantin.sinyuk@intel.com
+> Action: failed
+> Status: 5.0.0
+> Remote-MTA: dns; mgamail.eglb.intel.com
+> Diagnostic-Code: smtp; 550 #5.1.0 Address rejected.
+>=20
+> Date: Wed, 25 Nov 2026 18:39:58 +0100
+> From: Alejandro Colomar <alx@kernel.org>
+> To: Koby Elbaz <koby.elbaz@intel.com>,  Konstantin Sinyuk
+>  <konstantin.sinyuk@intel.com>, dri-devel@lists.freedesktop.org
+> Cc: Alejandro Colomar <alx@kernel.org>
+> Subject: [PATCH] accel/habanalabs: Add missing const
+> Return-Path: <alx@kernel.org>
+> Message-ID: <a284672589d00aa039a8c53ccf43bd1a5fd8e8f9.1795628340.git.alx@=
+kernel.org>
+> X-Mailer: git-send-email 2.55.0
+>=20
+> These pointers are derived from other const pointers.
+>=20
+> Signed-off-by: Alejandro Colomar <alx@kernel.org>
 
-This commit wraps hardware accesses in bridge callbacks with
-drm_bridge_enter() and drm_bridge_exit(), uses a devres action to release
-resources acquired in ti_sn_bridge_atomic_pre_enable(), and switches
-ti_sn_bridge_remove() to drm_bridge_unplug().
+[Severity: Low]
+The commit subject and changelog contain the forwarded mail delivery bounce
+report and embedded email headers rather than the patch subject
+"accel/habanalabs: Add missing const" and description.
 
-> diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi86.c b/drivers/gpu/drm/brid=
-ge/ti-sn65dsi86.c
-> index 48b83df9aed61..38318113a534f 100644
-> --- a/drivers/gpu/drm/bridge/ti-sn65dsi86.c
-> +++ b/drivers/gpu/drm/bridge/ti-sn65dsi86.c
+> diff --git a/drivers/accel/habanalabs/common/firmware_if.c b/drivers/acce=
+l/habanalabs/common/firmware_if.c
+> index 29f5652d60433..69d39a8789d4c 100644
+> --- a/drivers/accel/habanalabs/common/firmware_if.c
+> +++ b/drivers/accel/habanalabs/common/firmware_if.c
+
 [ ... ]
-> @@ -1176,26 +1188,57 @@ static void ti_sn_bridge_atomic_enable(struct drm=
-_bridge *bridge,
-[ ... ]
-> +static void ti_sn_bridge_release_resources(void *data)
-> +{
-> +	struct ti_sn65dsi86 *pdata =3D (struct ti_sn65dsi86 *)data;
-> +
-> +	if (!pdata->refclk)
-> +		ti_sn65dsi86_disable_comms(pdata);
-> +
-> +	pm_runtime_put_sync(pdata->dev);
-> +}
-> =20
->  static void ti_sn_bridge_atomic_pre_enable(struct drm_bridge *bridge,
->  					   struct drm_atomic_commit *state)
+
+> @@ -112,7 +113,7 @@ static char *extract_fw_ver_from_str(const char *fw_s=
+tr)
+>   *
+>   * Return: Upon success, return a pointer to the given_char in the strin=
+g. Upon failure, return NULL
+>   */
+> -static char *extract_u32_until_given_char(char *str, u32 *ver_num, char =
+given_char)
+> +static const char *extract_u32_until_given_char(const char *str, u32 *ve=
+r_num, char given_char)
 >  {
->  	struct ti_sn65dsi86 *pdata =3D bridge_to_ti_sn65dsi86(bridge);
-> +	int idx;
-> +
-> +	if (!drm_bridge_enter(bridge, &idx))
-> +		return;
+>  	char num_str[8] =3D {}, *ch;
 > =20
->  	pm_runtime_get_sync(pdata->dev);
-> =20
->  	if (!pdata->refclk)
->  		ti_sn65dsi86_enable_comms(pdata, state);
-> =20
-> +	devm_add_action(pdata->dev, ti_sn_bridge_release_resources, pdata);
 
-[Severity: Medium]
-Does an allocation failure in devm_add_action() leak the runtime PM
-reference and comms state?
-
-If devm_add_action() fails with -ENOMEM, ti_sn_bridge_release_resources()
-is never queued, so a later ti_sn_bridge_atomic_post_disable() hits
-WARN_ON(IS_ERR(dr)) in devm_release_action() and skips releasing the
-resources.  Using devm_add_action_or_reset() would run
-ti_sn_bridge_release_resources() immediately on failure.
-
-> +
->  	/* td7: min 100 us after enable before DSI data */
->  	usleep_range(100, 110);
-> +
-> +	drm_bridge_exit(idx);
->  }
-> =20
->  static void ti_sn_bridge_atomic_post_disable(struct drm_bridge *bridge,
->  					     struct drm_atomic_commit *state)
->  {
->  	struct ti_sn65dsi86 *pdata =3D bridge_to_ti_sn65dsi86(bridge);
-> +	int idx;
-> +
-> +	if (!drm_bridge_enter(bridge, &idx))
-> +		return;
-> =20
->  	/* semi auto link training mode OFF */
->  	regmap_write(pdata->regmap, SN_ML_TX_MODE_REG, 0);
-> @@ -1204,17 +1247,21 @@ static void ti_sn_bridge_atomic_post_disable(stru=
-ct drm_bridge *bridge,
->  	/* disable DP PLL */
->  	regmap_write(pdata->regmap, SN_PLL_ENABLE_REG, 0);
-> =20
-> -	if (!pdata->refclk)
-> -		ti_sn65dsi86_disable_comms(pdata);
-> +	devm_release_action(pdata->dev, ti_sn_bridge_release_resources, pdata);
-
-[Severity: High]
-Should ti_sn_bridge_release_resources() be registered on
-&pdata->bridge_aux->dev instead of pdata->dev?
-
-During probe, ti_sn_aux_probe() creates pdata->bridge_aux via
-ti_sn65dsi86_add_aux_device() -> __devm_auxiliary_device_create(), which
-queues auxiliary_device_destroy() on pdata->dev.  When
-ti_sn_bridge_atomic_pre_enable() later registers
-ti_sn_bridge_release_resources() on pdata->dev at modeset time, that action
-is queued after auxiliary_device_destroy().
-
-Because devres_release_all(pdata->dev) runs actions in reverse order on
-parent I2C device unbind, ti_sn_bridge_release_resources() drops the
-runtime PM reference and powers down the bridge before
-auxiliary_device_destroy() invokes ti_sn_bridge_remove() ->
-drm_bridge_unplug(&pdata->bridge).  Bridge callbacks can then still enter
-drm_bridge_enter() while the chip is powered off, and a concurrent
-ti_sn_bridge_atomic_post_disable() hits WARN_ON(IS_ERR(dr)) in
-devm_release_action() once devres_release_all(pdata->dev) has detached the
-action list.
-
-Conversely, if the bridge auxiliary device is unbound directly (for example
-during ti_sn65dsi86_exit(), which unregisters ti_sn_bridge_driver before
-the I2C driver), ti_sn_bridge_remove() calls drm_bridge_unplug() while
-ti_sn_bridge_release_resources() stays attached to pdata->dev, preventing
-a subsequent ti_sn_bridge_atomic_post_disable() from releasing the runtime
-PM reference.
-
-[ ... ]
-
-> @@ -1475,7 +1535,7 @@ static void ti_sn_bridge_remove(struct auxiliary_de=
-vice *adev)
->  	if (!pdata)
->  		return;
-> =20
-> -	drm_bridge_remove(&pdata->bridge);
-> +	drm_bridge_unplug(&pdata->bridge);
-
-[Severity: High]
-Are ti_sn_bridge_hpd_enable(), ti_sn_bridge_hpd_disable() and status_show()
-still exposed to device resource accesses or runtime PM leaks on unplug?
-
-In DisplayPort mode with an IRQ, ti_sn_bridge_hpd_enable() takes a runtime
-PM reference with pm_runtime_get_sync(pdata->dev) and accesses
-pdata->regmap until ti_sn_bridge_hpd_disable() runs:
-
-drivers/gpu/drm/bridge/ti-sn65dsi86.c:ti_sn_bridge_hpd_enable() {
-	...
-	pm_runtime_get_sync(pdata->dev);
-	...
-	if (client->irq) {
-		ret =3D regmap_set_bits(pdata->regmap, SN_IRQ_EVENTS_EN_REG,
-				      HPD_REMOVAL_EN | HPD_INSERTION_EN);
-	...
-}
-
-Neither HPD callback checks drm_bridge_enter(), and
-ti_sn_bridge_hpd_enable() does not register a devres cleanup action for its
-runtime PM reference.  If the bridge is unplugged while HPD is enabled, the
-runtime PM reference is leaked across device unbind (keeping regulators and
-refclk enabled), or a subsequent HPD disable accesses pdata->regmap after
-drm_bridge_unplug() completes.
-
-Similarly, status_show() in connector debugfs calls
-pm_runtime_get_sync(pdata->dev) and regmap_read(pdata->regmap, ...) without
-drm_bridge_enter() and drm_bridge_exit() protection.
+[Severity: Low]
+Should ch in extract_u32_until_given_char() also be declared as const char =
+*?
+It receives the result of strchrnul(str, given_char) on the const char *
+argument str and is returned directly, so leaving ch as char * will trigger=
+ a
+-Wdiscarded-qualifiers warning once strchrnul() preserves const.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
--hotplug-v4-0-822722850492@bootlin.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/awcjWRYyPAyI2oQU@de=
+vuan?part=3D1
