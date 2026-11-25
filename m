@@ -2,92 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1244606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C5F606A323
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:12:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehEZR/xm
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=hZYSWg1e
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05CAA10E2D2;
-	Wed, 25 Nov 2026 11:03:27 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4486010E2D2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:03:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3779E61CFF;
- Wed, 25 Nov 2026 11:03:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C211F000C6;
- Wed, 25 Nov 2026 11:03:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795604599;
- bh=EKS7sk9f4gb4t3CNvTDLtElftgrVs6sbAVW6t0B6AjQ=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=ehEZR/xmLze+jFOUHT0sSO0LL8JHwiw6F29MnFtCbS2cx4PsH7uKZ1aF0W0TOwkmf
- /FH/ipP83G6RGYwQJNNwjbHigOP72FPwIOj84qHtzFXMOjZpQgFS7Ij+6kExorbPzq
- lE1jsxGOwBk5+f08iiqI1QszM/lLej+/8cCqsBC+e35I2ZhzBH/oTXqDQdpMuYzwuj
- pqWpK0ujDpYmoV1IgdUiTt1kW3ddBhp3iUVUP+GWJfGGzoVT3XDbHaLtK7PzeLKWU6
- degKiekkTsDP8EwqEXUbo9qSv1piNHGrYaFzOuNNaXPJCorBMkWqdD3UBEvnpUfphI
- 7fkuU8dPiM36g==
-Message-ID: <a8c3852e-2e3b-421a-81f9-643e46193ef1@kernel.org>
-Date: Wed, 25 Nov 2026 12:03:15 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 882A310E369;
+	Wed, 25 Nov 2026 11:12:40 +0000 (UTC)
+Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
+ [209.85.221.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1A0DF10E0EF
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:12:34 +0000 (UTC)
+Received: by mail-wr1-f71.google.com with SMTP id
+ ffacd0b85a97d-4903fc8537aso3746047f8f.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 03:12:33 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=google.com; s=20260707; t=1795605152; x=1796209952;
+ darn=lists.freedesktop.org; 
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=lmO9qlZWx0TKcaEyqSHqDwn9dZMk6HPcgLTZNeLkLbo=;
+ b=hZYSWg1e/D6tok3wdhi7hMsUhvxye2iNV3kdsMvOco61AECCzTAXVCuwFW2rnrCk2d
+ RDoVNdfpRCCWhqbRannhUgicI3bPjtxm2mL9IuzesgVXEzBbcydbMOhBdlzzfFceKQ/1
+ iVrC66+EJ2Kx+IWbhU16CvIPQImFsOouIaRAZ5Syz2T07t9MNFDLDbuiS6ZoHHmEDMDP
+ LtIxGiJn8oI6ilsaJqjJ8ckIJQ5qcXieLFgO7dZ2mXpb6EqNVbT/xANKmaaO5ZbnaX9X
+ 4A266LjNiSP+sjw3I4cvoUiCf98JHkxNQIHWE3zOtzmzCTC5APH2yVsPnCaU35yZa9b3
+ Bx+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795605152; x=1796209952;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lmO9qlZWx0TKcaEyqSHqDwn9dZMk6HPcgLTZNeLkLbo=;
+ b=C2mSyXcxYqIJ1YFY/txT6AsckQgStaqkXtVsgb7MqRCD1utRy4e1Ru2If1PvgM4Vr0
+ S+gzINm9mM3ot1FoHrb+cO0yz6N5fToQf3mkFm9VQmB+Qa5erBpJ3G0ZUmL35hdK728m
+ l74XKiPjvA4HS2AdVS8LXscbYIV79kumU3ap+p2wD311rHLOqk90AQOZ3Hvc339RIHiz
+ rHcV+2cUbkkoRSyDVbAHmpXXvpxiiHJFd8VJWtDAUtO51COr86d8Ojjrg5ekUtgwHweY
+ JvtlX2q0Qhy3hk+t9hkdqg8L3WKdBsEKu/N12AyqTa7knenE48GNDGildbfGD3Q0tliL
+ YWzQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHQgyfGFwznmJkYN8nOGF5cZosAZy7jvhgYvn0RYsxIzkhkNDuDnPA2bOxW0kTABEnjeWzdio/7f2c=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8pnhPmusf09HABtkf22vECMOYAKuJ2zQudEoNPPALlJpKdJGiW
+ lgDNS2XUFwc4xyosHT8BuB8c+jn+DA/yXcX5Qusz1lldxP31KRkMERyY3TW+CKVnWJ/x7WNs38V
+ ieM46ytZoCqbKhmpAyA==
+X-Received: from wrmk12.prod.google.com ([2002:adf:e3cc:0:b0:49b:2420:f8db])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:6000:1788:b0:492:3176:3d6f with SMTP id
+ ffacd0b85a97d-4abb400aefcmr32875648f8f.47.1795605151706; 
+ Wed, 25 Nov 2026 03:12:31 -0800 (PST)
+Date: Wed, 25 Nov 2026 11:12:30 +0000
+In-Reply-To: <20261118133232.48603-1-vishal.moola@gmail.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/6] dt-bindings: display: add VIEWE 7KF82 JD9365TX
- panel
-To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
- dmitry.torokhov@gmail.com
-References: <20261125102130.256-1-3066883572@qq.com>
- <tencent_74A87DE3061F575671DF6384634FE4BFF908@qq.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <tencent_74A87DE3061F575671DF6384634FE4BFF908@qq.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20261118133232.48603-1-vishal.moola@gmail.com>
+X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
+Message-ID: <20261125111230.1082141-1-aliceryhl@google.com>
+Subject: Re: [PATCH] rust: drm: ioctl: fix call to unsafe function
+From: Alice Ryhl <aliceryhl@google.com>
+To: "Vishal Moola (Fractile)" <vishal.moola@gmail.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, 
+ Andreas Hindborg <a.hindborg@kernel.org>, Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>,
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, 
+ Asahi Lina <lina+kernel@asahilina.net>, Lyude Paul <lyude@redhat.com>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,21 +86,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 25/11/2026 11:21, Hefei wrote:
-> Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
-> JD9365TX MIPI-DSI panel, and register the viewe vendor prefix.
-> 
-> Signed-off-by: Hefei <3066883572@qq.com>
+On Wed, Nov 18, 2026 at 01:32:32PM +0000, Vishal Moola (Fractile) wrote:
+> dev is created via an unsafe pointer dereference. Following the
+> convention, it should be wrapped in an unsafe block, but it is not.
+>
+> The compiler only properly lints declare_drm_ioctls! when its defined
+> in the same crate as it expands in. Since upstream drivers are all
+> separate crates, this is silently ignored.
+>
+> This has been present since commit 9a69570682b1 ("rust: drm: ioctl:
+> Add DRM ioctl abstraction").
+>
+> Fixes: 9a69570682b1 ("rust: drm: ioctl: Add DRM ioctl abstraction")
+> Signed-off-by: Vishal Moola (Fractile) <vishal.moola@gmail.com>
 
-You lost cover letter. Slow down and start using b4, like guides for
-beginners are asking.
+Applied to drm-rust-next. Thanks!
 
-Best regards,
-Krzysztof
+I stripped the commentary below `--------------------` from the commit
+message and worked around a minor conflict due to the `Ioctl` -> `Userspace`
+rename.
+
+Alice
