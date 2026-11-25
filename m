@@ -2,127 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A90D606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:21:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDF6606A334
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 03:25:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=syM5ToDy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=V4AGWGfe
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6AE5510E1B0;
-	Wed, 25 Nov 2026 03:21:53 +0000 (UTC)
-Received: from CY7PR03CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11010002.outbound.protection.outlook.com
- [40.93.198.2])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8ADCB10E1B0;
- Wed, 25 Nov 2026 03:21:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=fh5cDO82qJqqT4heF0uwJvO55f4mlFooPvYlkzxYMN+LzXmvwzpiw8CtsJb8jK+G5OUmcf2OahEx9mNaKaXB5Io2i8ougNAyKV3abYWpBY4O7lioJ+mcYuCfqpoHj3gfMRqxfYWaUMwVFWwiPM3spKUE69s22lON6K5R8V2DdaEwkL8ymwRmZ/HEr7gXXySjv2GrCFyrWcKnv3k+x7+t49v8PCoVhQpkTP5ar+0gBGCmO+h+zB9p5Qmu5YCZ9KnDkgWspl4w2XedlVlz1cUQ9UAJqYVOIlYu2IFDVAP8PveFoDSSp8rY3BvERvsylTYhEweCaYSf7tyO7w+kKgJQzQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QwYThEBc1KQliI/zLmrsxgebloQQ2cx6OELKT1TwTSY=;
- b=flw6OsU72pnrfAU4G9THTXOY5SZVq6hD40ehoslGeDCykfZW/MOK8gaH//khWl+lRBb5pOy8t94gZgU1S+mmeJ7ZavSh+WSGuH321V9gcFerA8QURWzfluT9Imm6sOyle3R9mKVHWVOoVWDzxX5LccCTAcukNB3boxz83/8zN+NbjGhQTrZ4JC81UqvTtODeOYtM+37hLqhVPFRLCQuTdtoyrdpdMFObO4UK838eMSVLgcrOV0A30npo0VG/UpdTyOxHF9hLvXJ0y3Zqrg0F2RQSxUOHuhHiQ6XfML+2X5DJmzUYcfRIksu176ZSHG2mi2SLd8pstsHd9OI98m2aSQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QwYThEBc1KQliI/zLmrsxgebloQQ2cx6OELKT1TwTSY=;
- b=syM5ToDyqXfXpJQEu5OqC1npU5YjPc13GFRUyQEp3wrs+Wkp4o+jv1stkzJ2LpL5wZqEcQM9HTeE6GfDxCh0wYoDY+D1vCXQonC0O4eJbXu6blue7TdaeSl2lxvlSkhqLx+EHHvDbIHCjA8j5oKNtU8qLjr5zJNqAqa9+u4bmILRFxLJ3puFsC43+QjrdvMIcXUzD1bcssuk2V/Iur2BoC1m5G6+qvykRDUhSOh9ke6iReHjVBAk+7OT61axeBdfj2LMSaAt1w3cRu4buTTZCbsnnuh9d69kUdyzp/34KaLYrXl9E1Vvx9PykFI0/M+sJZkbE7UKk5Z3wlee3kGVaw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com (2603:10b6:806:228::7)
- by CH0PR12MB8579.namprd12.prod.outlook.com (2603:10b6:610:182::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Wed, 25 Nov
- 2026 03:21:43 +0000
-Received: from SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6]) by SA1PR12MB5614.namprd12.prod.outlook.com
- ([fe80::1a0c:e9e8:f3a5:d9d6%6]) with mapi id 15.21.0639.011; Wed, 25 Nov 2026
- 03:21:43 +0000
-Message-ID: <41dac367-ab55-4e0e-91a2-9fd68ef0c8ce@nvidia.com>
-Date: Tue, 24 Nov 2026 19:21:41 -0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-To: airlied@redhat.com, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- nova-gpu@lists.linux.dev
-References: <20261124-nova-nouveau-gsp-v3-0-e1440479ded6@redhat.com>
- <20261124-nova-nouveau-gsp-v3-1-e1440479ded6@redhat.com>
-Content-Language: en-US
-From: John Hubbard <jhubbard@nvidia.com>
-In-Reply-To: <20261124-nova-nouveau-gsp-v3-1-e1440479ded6@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0386.namprd03.prod.outlook.com
- (2603:10b6:a03:3a1::31) To SA1PR12MB5614.namprd12.prod.outlook.com
- (2603:10b6:806:228::7)
+	by gabe.freedesktop.org (Postfix) with ESMTP id BEA9510E872;
+	Wed, 25 Nov 2026 03:25:14 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 54E9E10E20B;
+ Wed, 25 Nov 2026 03:25:08 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id BF8F543DC2;
+ Wed, 25 Nov 2026 03:25:07 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 722391F00A3D;
+ Wed, 25 Nov 2026 03:25:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795577107;
+ bh=jm765WKY/zC72jkI2x569XRAtZ95jMdKBRn4kx2NFXU=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References;
+ b=V4AGWGfeZLmrhtquKRv6EviHYCknQ6uF6sSccjviJ4oFSvgpAICCuQyib02WKudKy
+ WZzoevJXnvM5e8NOpUoL9Ig82rYSxXxmUF9Jr1DLDbm4EjtTfslgzFUp9UHxUlPTv9
+ wrZwz+G0W0uX1L3CBHkaI1MEt38fA9MYeSZuWLQ37eiV+uutE2OGEeTf1isC4/809q
+ ZNbCkMcYIXb3teD/R3X/bXjffIjQmZgy38Wakf++rKKgIEMtzE5TK9nhDC09ZhOLli
+ riBulMJ56RdCaDMuJt8qSHKFWjz1+SQJPB/Yzgx1/6vGL5v3z03GsZeS1enRqA31wI
+ ei8UTG7MewgQw==
+Date: Tue, 24 Nov 2026 17:25:06 -1000
+Message-ID: <8fefdabc4b1d9e0c0d0b3bae1995e784@kernel.org>
+From: Tejun Heo <tj@kernel.org>
+To: Alice Ryhl <aliceryhl@google.com>
+Cc: Lai Jiangshan <jiangshanlai@gmail.com>, Jonathan Corbet <corbet@lwn.net>, 
+ Boqun Feng <boqun@kernel.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Danilo Krummrich <dakr@kernel.org>, Philipp Stanner <phasta@kernel.org>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>,
+ =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Steven Price <steven.price@arm.com>, Liviu Dudau <liviu.dudau@arm.com>,
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ dri-devel@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Corey Minyard <corey@minyard.net>, openipmi-developer@lists.sourceforge.net,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>, dm-devel@lists.linux.dev,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, linux-input@vger.kernel.org,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Viresh Kumar <viresh.kumar@linaro.org>, linux-arm-msm@vger.kernel.org,
+ linux-pm@vger.kernel.org,
+ "D. Wythe" <alibuda@linux.alibaba.com>, Dust Li <dust.li@linux.alibaba.com>,
+ Sidraya Jayagond <sidraya@linux.ibm.com>,
+ Mahanta Jambigi <mjambigi@linux.ibm.com>,
+ Tony Lu <tonylu@linux.alibaba.com>, Wen Gu <guwen@linux.alibaba.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Simon Horman <horms@kernel.org>, linux-rdma@vger.kernel.org,
+ linux-s390@vger.kernel.org, netdev@vger.kernel.org,
+ Oder Chiou <oder_chiou@realtek.com>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, linux-sound@vger.kernel.org,
+ "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowangio@gmail.com>,
+ =?utf-8?q?Eugenio_P=C3=A9rez?= <eperezma@redhat.com>,
+ Xuan Zhuo <xuanzhuo@linux.alibaba.com>, virtualization@lists.linux.dev
+Subject: Re: [PATCH 2/2] workqueue: doc: clarify cancel_work_sync()
+ cross-workqueue behavior
+In-Reply-To: <20261118-ordered-wq-cancel-v1-2-916e01f9affe@google.com>
+References: <20261118-ordered-wq-cancel-v1-0-916e01f9affe@google.com>
+ <20261118-ordered-wq-cancel-v1-2-916e01f9affe@google.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB5614:EE_|CH0PR12MB8579:EE_
-X-MS-Office365-Filtering-Correlation-Id: 65ce6cc1-e351-4ab8-ca28-08df4aa33a6c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|1800799024|23010399003|376014|261022105027099003|261026121527099003|10067099003|261026140227099003|261028144727099003|261102123227099003|261021121427099003|6133799003|18002099003|22082099003|56012099006|11063799006|4143699003;
-X-Microsoft-Antispam-Message-Info: ZDKj15fkLSlBD6zpQM/eLITO3UkbtlIBqhFa+ASYOAP9VcKkDX7acl+JflG4Iev7pJrKI2C+pPE0UDdLlxKSqlaBzsLjmgfRcHnlgQAHnv06ZXFgNCEo7aH8nhCK62bj7TqFpCldtrRfbQgjiPjIkFuNBdlMaN7g0sEnxic7Y2mGYh2+b5Nq1SHf9iJCHGdaNOnTFnKjhsFr5tlruZ6cF1KEKzN5CvKUp9nO7p9ijP1pFrGNT3SxIZjfinQVVgCw7+XLvnkuOuU6dyvW7n14QNCKWgw3GBwqcAs5CnuE0ayvNwMjrOnWGjZ2HOc6657Mv4aLzfqfCDc/mAS6VX7htRonn95Yc17rbJqg6WCbT5WJWn7Kt6eb5WrOXNqIt8i2WLznSC87osWl1TFZI/079Ik2s8/P//0QG32G0RQfQdVa9zHkVU4IHTlT6pGXOQcqDj/YobxucGVu2iEwV/1M6Qg6ffAhSjvKdKdFBirdRDAOG5pn2Mr3TwAa5OoRa47OPxCk5t93ZDgX53+N5ua+Ami5WMfZWzwXsaWBJ7FRVipwVgtWOs7Q2DQUHyMNnDDqTSR/sdee3Is8immKXS/PnJdMuGu183/f1TMreKUIX7BUT03lUA+D+FTU0/2enSrcDB7reyImUeCZ1WCTXSLZsowliWp1p4PTz3zY3zCclgY=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SA1PR12MB5614.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(1800799024)(23010399003)(376014)(261022105027099003)(261026121527099003)(10067099003)(261026140227099003)(261028144727099003)(261102123227099003)(261021121427099003)(6133799003)(18002099003)(22082099003)(56012099006)(11063799006)(4143699003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MGx0VnhCVCtmT2NhWTlJZ2NET2tkZmpyWElaZHJNMzd6QkRKL1oxZ2I2ay9V?=
- =?utf-8?B?VldtN01rYUVVVWdDRFVHT2J3NmNzc3p2UzhqdzVyMGVtNk9Uc3JPU3c4a3hJ?=
- =?utf-8?B?ekxiaERXaXBDVUxYYWZWcm8wK3REMXNnSDU0bjN1R0NQcUdrbTFJWEJDY01q?=
- =?utf-8?B?TVBab0xwM1FKZjZZQ1ljVy92ekpjK0s4eE00WU5lVUwxbFBBZ3l4VGdQeWh0?=
- =?utf-8?B?LzZhOE5IU2pTOFdWMHkvYWFUdy93ZSsrNkZtV2JnRWtoK29hUm5tb2NHRExD?=
- =?utf-8?B?bEo4aGowRGg4T1pBNCtJcmFzaEpPRTI2QjkzejZiUldCR2pnOGxYR0YyVTlU?=
- =?utf-8?B?Y3J6aGNZU3JuTTdaeUE5eEJlbU00Ty9pSStZSG9HUklZNXVmaDZ1LytZRlZB?=
- =?utf-8?B?REFzQW9VUzY4SzNJUlUzd2VjMnJ6c3hzUE9kY005S1BNU1FmSEFkNzFTS0ti?=
- =?utf-8?B?UU00SWZJTWc5cjF6bjZyWWxZRytjZDJwYWw1YVF5MXZZZTdCaVI2TkZrd1M5?=
- =?utf-8?B?RDc1WU1DNEVuc0t2bGFtZVdOV0JEbVV5ZFE4ZjUydnMydVZsUjBHYUVWL3M0?=
- =?utf-8?B?aUV0NDloNnR0SXFsUTIrcll6SkFaZmQ5QXQzWmFpdXlpVDdqeDh1R2hUUU9K?=
- =?utf-8?B?ckt0UVRsZ2Z4anN2QW50cUthaVlzb1pFaGpGRlZlTmNDL0wxdFM2dDFQc1Zo?=
- =?utf-8?B?dGErYVQxNktpSzh2TGhOcTMxL25SMG5hbnZtZlBRaFFaQlVJdk44Z1BEYUtw?=
- =?utf-8?B?TUpTSGg2cWhVLzVBQng3UDQzRDVleFpTeWVqYWhDYUNSK2JFNlIycW9OV1px?=
- =?utf-8?B?T3FNMEFPajF1Qm9FaHNIRDJLeTFVMmlsU2xuNUZjVkdXSk8wVDd4ZWVORjV1?=
- =?utf-8?B?b0NwWWhEOWV3eS82MGhtekNUL1JpaWI4dyt4T0NmQ0xKUkxyY1A2dE9FYWNj?=
- =?utf-8?B?eUhhcWRjbnlYeXZHOXlKMzdtYmF2RzVMWGVNSitxZ1ROZi9zVGY0dEpTT0NW?=
- =?utf-8?B?TWtUS0p6OW14YUh5WDUwcEJXY3lKamgvb1J3OW5IM1U0dkhMa0pYajVrSURj?=
- =?utf-8?B?ZE14TDBDazRiUy9XdW4zd1p0NkVBVmNweW5jYjl5eVE0RFVPQk4rSExhR3pR?=
- =?utf-8?B?bVAzY1BvWmJ1V3BlbThkVzEvbWptQVlDWW9XQURnZnE3bndVUnJkYjZOZ3pj?=
- =?utf-8?B?aUc1NkNqSHg4aksyd3llMTM2Vkk5Y29ELzZCNG5Lam1mMC9SY1hYczd5ek9p?=
- =?utf-8?B?Z3N3QVVESlVGcVZmVjcvbzZzbUFMVkNQNHJlcmQ0cDl2OVdEd2RQKy95dktM?=
- =?utf-8?B?eGdWWnpDMklDeVNnaDVrMGllbHY0bmJHeWFaOE1wWjRUOFZ2M0V4RTVVTW1l?=
- =?utf-8?B?U3gvcXlDaUhNZVduRll6dWN3WHBVOXZhb0NUKzlTN2xOSndVODJIUHpURTBz?=
- =?utf-8?B?ZG93NFhDb1FSeW00TW5tTFE5blJHOUs2eGNwM3B4a2hGSW9HKzFpRWp3Y1pi?=
- =?utf-8?B?ZnNEVEJ1VENzTlNDdWpOWUU2MTdZYm5LVnIzUjUwTVp0Q1NqS1loY3dmVkhy?=
- =?utf-8?B?RkNLOW5jYWtZMWJPVUZhYlc3TE0yL0FxSEhkR0ladUtoTTljUnF4a29GWS96?=
- =?utf-8?B?c3NKSVVSaktxRmVwanowc0c1ck1EKzlrQjZTUEJjZnd0SytlcFNGQWtja3pS?=
- =?utf-8?B?OUpRK1VLcFhaK1N4Vit3Rk5kc0pjenIzMFQ0TFlXaGlsUE4vTDlaY05GOGsv?=
- =?utf-8?B?MjVFRTZVZVJMTWpBcUU0aExRdklHS2ZFeFFyT2NGUzVhLzViNWlaRTBQUjJO?=
- =?utf-8?B?UjVNa29OVEs3c3ZzK1JFOVlqRXhqdjQ0ZGZtcDV5cjhvN2NlYWNmaC9nTURw?=
- =?utf-8?B?K2hwMzhSYVRJSmZyYVdJVWsvdVhqb3ZQQjJ0SWxaeDZPdVNQOG1uR1FnR2ov?=
- =?utf-8?B?VW1TK2xOKzA2QXl0MHNhQ2NDMkx6NDQwTm1vWmdhcVc5V1FlaHBmZHg5Y3ZK?=
- =?utf-8?B?aXhPWjhZMCtNZlh2bktyUEt2cng1Ynl3UXppV092NE9KMDRQM1h2K0hYTFBk?=
- =?utf-8?B?QzBrN0JjZWgzZGJYcWsrL2laSmREUWFqTGRUd081L09ua05UYkw3dWptYzk3?=
- =?utf-8?B?b3VJcHFrZk5xaVkxZ2NTS2gwdE90b0tqR3hEb1JySW9FMWtTeFN0b2NmOHg4?=
- =?utf-8?B?TnhXWlVWU053R25CdlFDbjFCUEl6aTlYWStiZDU4ZWhqa2FTeXNCSU9XVzg5?=
- =?utf-8?B?SDdVc0tOWDZNdEJWUFphU0d6Z0tNSk5ZaUJNMVJ5RWNON3NEZDBwZXpoOFow?=
- =?utf-8?B?Q0JXVWpYVjZUbjI3UlJEbmdmcVUrZHZRSW1aU1VadmlGNnJtYVNYQT09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 65ce6cc1-e351-4ab8-ca28-08df4aa33a6c
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB5614.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 03:21:43.1499 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VEzANu1HCOuGw03etAghOWyWJAQ7VwRKzzIIC0j6XLq2tsN+yCUn2e9rX8eAilN3m/PZneQtAynmGOLDa09U4A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR12MB8579
+Content-Type: text/plain; charset=us-ascii
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -134,40 +86,38 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/23/26 9:50 PM, Dave Airlie via B4 Relay wrote:
-> From: Dave Airlie <airlied@redhat.com>...
-> @@ -3446,9 +3483,11 @@ nvkm_device_ctor(const struct nvkm_device_func *func,
->  
->  	ret = nvkm_intr_install(device);
->  done:
-> -	if (ret && device->pri) {
-> -		iounmap(device->pri);
-> -		device->pri = NULL;
-> +	if (ret) {
-> +		/* Unwind the partially constructed device, so that the caller
-> +		 * only has to release the resources it allocated itself.
-> +		 */
-> +		nvkm_device_dtor(device);
+Applied to wq/for-7.5.
 
-This also fixes a user-after-free on Tegra (not just a leak), because struct
-nvkm_device_tegra embeds a struct nvkm_device by value. In other words, if
-nvkm_device_ctor() fails after adding the device to the nv_devices list,
-nvkm_device_tegra_new() frees tdev while tdev->device is still on that list,
-so the next nvkm_device_find_locked() call would read freed memory.
+Note that cancel_work_sync() and friends haven't been waiting for a work
+item which is still running from a different workqueue since 606a5020b9bd
+("workqueue: gut flush[_delayed]_work_sync()") which went in in v3.7. This
+has been broken for well over a decade and the documentation now says so.
 
-I'm not sure how important that is, but if it matters, then splitting
-the fix back into its own patch might be the way to go here, after all.
+The following queue the same work item on more than one workqueue and then
+sync-cancel or flush it. As cancel_work_sync() doesn't guarantee that the
+work item is quiescent in that case, they need to make sure in some other
+way, e.g. by flushing the workqueues that are involved. Note that system_wq
+and system_percpu_wq, which schedule_work() uses, are different workqueues.
+cc'ing the maintainers.
 
+- drivers/char/ipmi/ipmi_msghandler.c: smi_work
+- drivers/md/dm-mpath.c: trigger_event
+- net/smc/smc_llc.c: llc_event_work
+- sound/soc/codecs/rt5651.c: jack_detect_work
+- sound/soc/codecs/rt5682s.c: jack_detect_work
+- sound/soc/soc-jack.c: snd_soc_jack_gpio.work
+- drivers/input/misc/palmas-pwrbutton.c: input_work
+- drivers/cpufreq/qcom-cpufreq-hw.c: throttle_work
+- drivers/vdpa/vdpa_user/vduse_dev.c: vduse_virtqueue.inject
 
-thanks,
--- 
-John Hubbard
+Thanks.
 
+--
+tejun
