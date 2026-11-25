@@ -2,30 +2,30 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA73F606A6B9
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 06:14:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88526606A6B8
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 06:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=kERMxCdT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=infradead.org header.i=@infradead.org header.a=rsa-sha256 header.s=bombadil.20210309 header.b=yWU/tPwY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6E31C10E69E;
-	Wed, 25 Nov 2026 06:14:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 92F0E10F07C;
+	Wed, 25 Nov 2026 06:14:22 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 70BDE10E575;
- Wed, 25 Nov 2026 06:14:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BE5D010ECD6;
+ Wed, 25 Nov 2026 06:14:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
  MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
  :Reply-To:Content-Type:Content-ID:Content-Description;
- bh=+8jdBu194DlNkmnb+wfnHItWGdgLROhV9S+C/TWCEcI=; b=kERMxCdTufChzabW0IvD+rbqtc
- Nbdyx0vQdDuiaGCqqp2x8hTqoQruD5AvGRVDUOhXslaBMSpsjs+OIRKnehcOMkFyl/fjtquOErF7C
- tuduPzcZz6sblc6U8dX6rlj5CqhR9GcgPAh2/sZLjyCnlbRjOx4d8uBUVRsMFKo/0ZHgUYYPao+kX
- 0bISrlhzLamhNb2d9WCuQp6oM9WeQ7A7BLvhyNMN65o+7N9xyRnTc5brz8cM1qPYET2QnoDqld7Qb
- q/0mpcfNxo9vTs+1OtQjAoRWL8Wb+X12mSUPs7nwgX0Yzh7fOgBG1R2ZgiPBCM0x36EJ4EQP7b6tO
- AlnKLPWQ==;
+ bh=KSyfkTIM3oBW4szNqhNzxJzYdeXlrWQwTUs3E0agQZA=; b=yWU/tPwYuhIm5oxlF+9IIOB21x
+ XZ1/SuGnvm8fxYUV82u/rwcd+e0JZTVBDbmeo2EFN8RRcskRB0J8b/0GVtFClKCZvHJDDfHB5vJoP
+ mioMKbeXUW1pWyqV3vu4b3sl59Hg3eAdFCLVCKFOWEIQeOJQKtNmm6uSDYGYFEcNmOhI8Ogqlp0Qw
+ UCmXP5Nzvez1UEntRjVk5QkwqQuJFewkiU0ivn2GKJXjq6y17OjRmrQ+fzQ6uD4QJpFz4jELL8vwP
+ QcJ6uaOqREsHDGyS5bWv5k7pNbopX8lNMRWxb+uY/dTboKIQkxA+w2SxUTYfDiL4XcfSJeGrkPkWU
+ S6PSujXA==;
 Received: from [50.53.43.113] (helo=bombadil.infradead.org)
  by bombadil.infradead.org with esmtpsa (Exim 4.100.1 #2 (Red Hat Linux))
- id 1xW6GO-00000008Wvh-0r3L; Wed, 25 Nov 2026 06:13:52 +0000
+ id 1xW6GU-00000008Wvh-0Sz8; Wed, 25 Nov 2026 06:13:58 +0000
 From: Randy Dunlap <rdunlap@infradead.org>
 To: linux-kernel@vger.kernel.org
 Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
@@ -81,9 +81,9 @@ Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
  Matthew Brost <matthew.brost@intel.com>,
  =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
  intel-xe@lists.freedesktop.org
-Subject: [PATCH v3 03/12] docs: ioctl-number: update block entries
-Date: Tue, 24 Nov 2026 22:13:30 -0800
-Message-ID: <20261125061340.3402300-4-rdunlap@infradead.org>
+Subject: [PATCH v3 06/12] docs: ioctl-number: update SCSI entries
+Date: Tue, 24 Nov 2026 22:13:33 -0800
+Message-ID: <20261125061340.3402300-7-rdunlap@infradead.org>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261125061340.3402300-1-rdunlap@infradead.org>
 References: <20261125061340.3402300-1-rdunlap@infradead.org>
@@ -108,9 +108,11 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Update the list of files where block ioctls are defined.
+Update the list of files where SCSI ioctls are defined and update the
+ranges of function numbers that are used.
 
 Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+Reviewed-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
 ---
 v2: no change
 v3: rebase
@@ -122,29 +124,30 @@ take all of these through the docs-next tree.]
 Cc: Jonathan Corbet <corbet@lwn.net>
 Cc: Shuah Khan <skhan@linuxfoundation.org>
 Cc: linux-doc@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>
-Cc: linux-block@vger.kernel.org
+Cc: MPT-FusionLinux.pdl@broadcom.com
+Cc: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>
+Cc: "Martin K. Petersen" <mkp@kernel.org>
+Cc: linux-scsi@vger.kernel.org
 
- Documentation/userspace-api/ioctl/ioctl-number.rst |    4 ++++
- 1 file changed, 4 insertions(+)
+ Documentation/userspace-api/ioctl/ioctl-number.rst |    3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
 --- linux-next-20261123.orig/Documentation/userspace-api/ioctl/ioctl-number.rst
 +++ linux-next-20261123/Documentation/userspace-api/ioctl/ioctl-number.rst
-@@ -78,6 +78,7 @@ Code  Seq#    Include File
- 0x00  00-1F  linux/fb.h                                                conflict!
- 0x00  00-1F  linux/wavefront.h                                         conflict!
- 0x02  all    linux/fd.h
-+             drivers/block/floppy.c
- 0x03  all    linux/hdreg.h
- 0x04  D2-DC  linux/umsdos_fs.h                                         Dead since 2.6.11, but don't reuse these.
- 0x06  all    linux/lp.h
-@@ -90,6 +91,9 @@ Code  Seq#    Include File
-              linux/blkpg.h
-              linux/blkzoned.h
-              linux/blk-crypto.h
-+             linux/blkdev.h
-+             linux/blktrace_api.h
-+             block/ioctl.c
- 0x15  all    linux/fs.h                                                FS_IOC_* ioctls
- 0x1b  all                                                              InfiniBand Subsystem
-                                                                        <http://infiniband.sourceforge.net/>
+@@ -187,7 +187,7 @@ Code  Seq#    Include File
+ 'I'   40-4F  linux/mISDNif.h                                           conflict!
+ 'K'   all    linux/kd.h
+ 'L'   00-1F  linux/loop.h                                              conflict!
+-'L'   10-1F  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
++'L'   10-21  drivers/scsi/mpt3sas/mpt3sas_ctl.h                        conflict!
+ 'L'   E0-FF  linux/ppdd.h                                              encrypted disk device driver
+                                                                        <http://linux01.gwdg.de/~alatham/ppdd.html>
+ 'L'   35-38  arch/m68k/include/asm/fbio.h
+@@ -259,6 +259,7 @@ Code  Seq#    Include File
+ 'c'   00-7F  linux/comstats.h                                          conflict!
+ 'c'   00-7F  linux/coda.h                                              conflict!
+ 'c'   00-1F  linux/chio.h                                              conflict!
++'c'   08     drivers/scsi/ch.c                                         conflict!
+ 'c'   80-9F  arch/s390/include/asm/chsc.h                              conflict!
+ 'c'   A0-AF  arch/x86/include/asm/msr.h conflict!
+ 'd'   00-FF  linux/char/drm/drm.h                                      conflict!
