@@ -2,98 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A532A606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0278606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=MxL8BNSn
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=oY9a2whz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E4530112137;
-	Thu, 26 Nov 2026 08:11:17 +0000 (UTC)
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com
- [209.85.221.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3E88E10FE08
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:41:25 +0000 (UTC)
-Received: by mail-wr1-f48.google.com with SMTP id
- ffacd0b85a97d-4a32576da88so3510103f8f.3
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 09:41:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 14202112139;
+	Thu, 26 Nov 2026 08:11:18 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id F22B110FC9C
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 14:23:54 +0000 (UTC)
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-cdd9d0c9bbdso3283843a12.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 06:23:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795628483; x=1796233283;
- darn=lists.freedesktop.org; 
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=1nnKgUnH41uFpzvbt0vDxC4+ZynO+VhngeTfrBlQfrc=;
- b=MxL8BNSnBQtlw3GoV9yAKdXt7ZhrGPQ03guXlrBkKqEWEHNFbypktHmO5iTL7EUy9G
- DjgX8rCEa6AoC5/hhAeYi+lKV+e3R0ZjtyQUpI/SZz711jqTJkFP2471orV8fAp2bFJK
- pHT7nsY1sgvG0IoTIcmtV2Tl38GVyxcYXeY2xm8dGdQkOI4yrN+JE4BOi3kMXYfQBGRg
- ufgL00s8pLl5J6j/ArldIybjIEwd19jKYKug74R9do9UXyYRq/na/6XScLbYtFyhvSlS
- LGFp4sjp40UGlXotDDmnBET0BbPjUMqDJlZqWvtdrY15szEowTlI+NZTE23/oa/4RLa5
- /3pQ==
+ d=gmail.com; s=20260707; t=1795616634; x=1796221434; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=DlrAgm4rvekrLWOzqqlR83LPwJZh1TAU2is28g+mTsA=;
+ b=oY9a2whztRBIHX1YedvwmgzJ97CEfx5zhzsqt9D1uR1OmwQ/FhZUK5ajXfnc21b4js
+ /08HpyiVzhbPrp0GJWSK6OXwdUInm2+QIQYsbpNIbVCL3o5OXD65Sw/Mob6QImoq7suI
+ PeTXjRU+nimkD4fLwAm69DVbBe4fYuWt6dIA9q1pnfygg6sQsnus7VvznoyxH6UQRgtN
+ BaaXVwSOF1Z1h7pS89pM82DyodMGZ81//8s4+HonHviV1BO1Tf9PlnBZ/MC15nCAC5SE
+ 0otukCWHXSFDjc5+SaqNiowFp9eMhgPgiPAhEZegFnYWkdiWiust3c2EDoKObyNcmY6X
+ 5mxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795628483; x=1796233283;
- h=cc:to:message-id:content-transfer-encoding:content-type
- :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
- :cc:subject:date:message-id:reply-to:content-type;
- bh=1nnKgUnH41uFpzvbt0vDxC4+ZynO+VhngeTfrBlQfrc=;
- b=DPPkijGuURfBjWAyn5TTP9rHN2PHHQHG8ysOcbKjOgahyDss2aUm0bbGMfyv3FA7dC
- 0qphj9NpO37o/bO2eng4vccJM4AU+uB8UylUs8/ZZakux6tiZ5JxI6lmLF2i21OgbQfO
- in9FUrArcVNqS7vC1y9jjvZ9+SopWl7JDDSVONXI1mMYF/2DPk1sEU06JDG/ENfSRrjb
- klxhrESYnSDhg1WwRTbuOqdpI7Q9MYXgsEHi775BtqrsTH+58k7erD6CxRBPu9fVv6eN
- VClBrrWi3puX3rqKjhefMHNpVqewYGr1gGD/7+AZaFICByXu3YvlP25qTr5MBjBwGv7Y
- lohA==
-X-Forwarded-Encrypted: i=1;
- AL+hErF1hHmqDjVHEoX2yaQ6x8LUKMkOqqPH0D6uDEK593BjjYdsr8Xb/pCbwfPVgUUObM6b/Mhts2m4uj8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+z58YGO5p9e6ikAy9oLTXhDrNXWPZqBDJqPgbQ6c8iaOyWfOIi
- spgCoZ6BJj1NK5UqG3QJEMWTxKjG4Hkcsva0Az/A+E987yQQfJSD0gBunfSIiDABNyk=
-X-Gm-Gg: AZFdTZf9dUSOe4Vst9VDXnTXzUuFF2PuwsKE5rLX4eXNHfXmmp1FhWbjQdshqfOP2Fr
- 0kyBRoKVr/auKj0iZiGRHGxnLbZz8K2Rn0fQccopO3IRi1f5m/+gPPQ55qTF6GIdd2maNP8gCKE
- VO6Q7Y6YxOHGHZaubQ9B/yrPW5+UWKmhhFXtkPL+mCdOWNR/rBAIhlB/4Ikuh5UUCHXzW0eYpgo
- dbokHo3ZVXQOsSO5NCmVhhGFKQs7B0SzrSePaAJ6uoPG2Ho2Q6ySg2SlIjOZcLENYm2JlwlHAd3
- PeoV5sXq+VsRCietJY3POE+sSmARFJ1A43HqMnSvluNievLsFjQ62zl2VbSNvuBMiCpebETy4sc
- eSwUYbwVQ/WL2TX5Hym1eVt/5QoKfgwpKNDmeHZhz+i5ri+Ko4CE0bG56pYMEwBLFdH6QhGzGT0
- HAw0LaLc+kysP+ghx8I6JstNNnRzkEfACeO/3Zm4VWPN2D1drs7bj1V4ZKpI4HvMm603IO+uRJf
- QlliR0plzAjyoFHpaoGfkK0kjBwG/vUnHGaltom6Uc+xbviSyHGikTlkdCXdLcKRJLyma8T1j9K
- 8G9/VKFzbzCc4S88SmSSmXYIxqicryunnOCiM14rz/h3HVJ1OZo=
-X-Received: by 2002:a05:6000:26c1:b0:48e:5e20:1371 with SMTP id
- ffacd0b85a97d-4abacfea2c9mr39664160f8f.4.1795628483517; 
- Wed, 25 Nov 2026 09:41:23 -0800 (PST)
-Received: from [127.0.1.1] ([2a01:e0a:e50:3860::e1d1:d182])
+ d=1e100.net; s=20260707; t=1795616634; x=1796221434;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=DlrAgm4rvekrLWOzqqlR83LPwJZh1TAU2is28g+mTsA=;
+ b=tB6oURP8BVCoIHQG4cC8O8Egm74lv1Zd8z9z1PY4s0SPjQxVGu5sMCICXKySgW9wJM
+ VAa2vecZkde1LncY3TBpwu3g9QPNfCvQV89dU/P/mlEnuu94WAkfCgHoQNSelgz5oO1S
+ AkOYgnL8KR9TeqiMqojYTfqIWmqV2AHHw7eZE5yDytGAJrTXevfJjOcM1nnPtpwIQAZM
+ JjEYnArRb5X1WnxSgrfbm7uGUMgbBrk7GIHbozE62QMCEGDwnaKfQqzoKpMzjTdDOaTp
+ DFiff8P30aWRC20dn6472kxtxnfRx6ARY192U3ACn5QcBi3pYv8phRdTNjKJx9KPKCMg
+ qS5Q==
+X-Gm-Message-State: APuU4Z/ajJRx8OzJz6hfBAvPuTMEAyjjP49/H6KkaDogj8l9yGAaOkhY
+ J6F7VY3gZ07csarARWTlsL+TsMIjDAiqf/WdYdnDAOSuvL3juoHgdHEdr/7joIDq
+X-Gm-Gg: AZFdTZfNMBQeOhr4c1brU4JZE/qc0718+ZazV3t+k1C7HUbP1YhRFLgDYCQdRmrqNBt
+ G2naJ/I+aDuHqGoQzQrw70Hwxt/nOT7CJKg521gd70vamgtK/3nM6LoBiykJC3z0s+gYmEHur3a
+ ZvsfFQ+58tvn0h2L9bH6asrzIAOXRUf0A7DvBLBTfG//mRe4pGjI8k8RC7SkdK0cFOCFT7mP40T
+ INuGP2fGp/O4WQ5+n3ff+3qlyPgtlrxlgo7+3qE0hIWRFsifM5N2NYZMa+qmcfGaGFdf2EUXWvM
+ HU4KTFgxVgATBJ1fQOS6RbFfKrczJHiJqrGdKsgu7BxU5rvVfXxsrBDtHCB7SGWGPlCsBJsfXI7
+ nVLrtFhAnHYrkgAuiCMzy6ufNBhlCeV9ksF55B3BkFPm/rbS0XpCjbP6QDL2cQCXGCyRJp1Xv9q
+ Q7C/5AqojE3TBdeedHm6zF6XyAyKyn8qkQwkohpq7blBcJOUZgGgj+uWfxhRv5+sul9h18QTvQ0
+ 7jh66rO1WHTKFlVmAwuBJNcf+dXZZW6tbvBvx8NFsdl7JWhjlo5yj5U7LFv8rkvi8Bt73dy/9i5
+ BNiNTzJLLC7JPIkHHz2svpiTMFSBRbgLNP8M2KlsPw==
+X-Received: by 2002:a05:6a21:39b:b0:3eb:8c85:92b8 with SMTP id
+ adf61e73a8af0-4014c94ca7emr19192828637.19.1795616634393; 
+ Wed, 25 Nov 2026 06:23:54 -0800 (PST)
+Received: from a-VirtualBox ([168.188.125.88])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6b110ba3sm29045574f8f.35.2026.11.25.09.41.22
+ d2e1a72fcca58-8c872e45eccsm9115841b3a.31.2026.11.25.06.23.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 09:41:23 -0800 (PST)
-From: Guillaume La Roque <glaroque@baylibre.com>
-Date: Wed, 25 Nov 2026 18:41:21 +0100
-Subject: [PATCH v2] drm/imagination: drop redundant zeroing of new GEM objects
+ Wed, 25 Nov 2026 06:23:53 -0800 (PST)
+From: Minseo Park <hiyoukou@gmail.com>
+To: dri-devel@lists.freedesktop.org
+Cc: alain.volmat@foss.st.com, rgallaispou@gmail.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, benjamin.gaignard@linaro.org,
+ Minseo Park <hiyoukou@gmail.com>
+Subject: [PATCH 3/3] drm/sti: hqvdp: start the XP70 from .atomic_update()
+Date: Wed, 25 Nov 2026 23:23:30 +0900
+Message-ID: <20261125142330.15298-4-hiyoukou@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125142330.15298-1-hiyoukou@gmail.com>
+References: <20261125142330.15298-1-hiyoukou@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-pvr-gem-drop-zeroing-v2-1-8453a6e01e81@baylibre.com>
-X-B4-Tracking: v=1; b=H4sIAMAdB2sC/22NQQ6CMBBFr0K6dkxbUkBX3sOwgDLCGKHNFBuRc
- HcBXbp8yf/vzSIgEwZxTmbBGCmQG1bQh0TYrhpaBGpWFlrqTClpwEeGFnto2Hl4IzsaWshya09
- FWsjKGLFePeONXrv2Wn45POs72nFzbYuOwuh42rtRbbtfQqn/iahAgW5srk1hcmnSS11ND6oZj
- 9b1olyW5QP60/C9zQAAAA==
-X-Change-ID: 20261105-pvr-gem-drop-zeroing-67cc98380a55
-To: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Cc: Gyeyoung Baek <gye976@gmail.com>, imagination@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-riscv@lists.infradead.org, Guillaume La Roque <glaroque@baylibre.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795628482; l=4827;
- i=glaroque@baylibre.com; s=20261019; h=from:subject:message-id;
- bh=DuC/rcDE0nO1yX+mV/jpSJ2uisVnTsIi/oVFyc2tvyU=;
- b=2OPnmGyv44yjEbLHE2Ux0WaGPr+//BLm4J7wjSfmmWOqo17l0TXEWztLeG/E5yb7e1O0OEww9
- c3R7pVwRhBSAEXCtQaf4Jmxkp026q3CLRsmsg2A9GqP3f9pt4eRPxFH
-X-Developer-Key: i=glaroque@baylibre.com; a=ed25519;
- pk=nMpSg4NT6M6q143E089emouMc+MXpHO9CWmnEUfjhjI=
-X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
+Content-Transfer-Encoding: 8bit
+X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,138 +86,95 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-pvr_gem_object_create() clears every new object through a CPU mapping
-so that userspace never sees data left by a previous owner of the
-pages [1]. Those pages are already zeroed by shmem.
+sti_hqvdp_atomic_check() boots the XP70 coprocessor, which loads its
+firmware, then enables the main pixel clock and registers a VTG vsync
+notifier.
 
-Each object is backed by a new shmem file, for which
-__shmem_file_setup() only sets the size, and its pages are allocated
-through:
+.atomic_check() must not touch the hardware.  A commit with
+DRM_MODE_ATOMIC_TEST_ONLY only runs the check hooks, so a client asking
+whether a configuration is possible ends up loading firmware and
+enabling a clock.
 
-  drm_gem_shmem_get_pages_sgt()
-    drm_gem_shmem_get_pages_sgt_locked()
-      drm_gem_shmem_get_pages_locked()
-        drm_gem_get_pages()
-          shmem_read_folio_gfp()
-            shmem_get_folio_gfp(..., SGP_CACHE, ...)
+Both are one-shot, guarded by hqvdp->xp70_initialized and
+hqvdp->vtg_registered, so nothing leaks, but they belong in the commit
+phase.  Move them to .atomic_update().  As with the GDP, the failure
+paths now log and return instead of rejecting the commit.
 
-A newly allocated folio is not uptodate, so shmem_get_folio_gfp() clears
-it with clear_highpage() before marking it uptodate; only SGP_WRITE
-skips this, leaving the folio to be filled by the write. panfrost and
-panthor already rely on this too and never clear new objects.
-
-The dma_sync_sgtable_for_device() call that follows makes those zeroes
-visible to the GPU. The second pass, write-combined on non-coherent
-devices, only adds latency.
-
-Link: https://lore.kernel.org/dd2ceacc-f59b-9c3c-e4ce-30b3bbd6939b@mailbox.org [1]
-Tested-by: Gyeyoung Baek <gye976@gmail.com>
-Reviewed-by: Gyeyoung Baek <gye976@gmail.com>
-Signed-off-by: Guillaume La Roque <glaroque@baylibre.com>
+Fixes: dd86dc2f9ae1 ("drm/sti: implement atomic_check for the planes")
+Signed-off-by: Minseo Park <hiyoukou@gmail.com>
 ---
-pvr_gem_object_create() clears every new object through a CPU mapping,
-on top of the zeroing shmem already does. Dropping that pass speeds up
-object creation, most visibly where it goes through a write-combined
-mapping on a non-coherent platform.
+ drivers/gpu/drm/sti/sti_hqvdp.c | 43 ++++++++++++++++-----------------
+ 1 file changed, 21 insertions(+), 22 deletions(-)
 
-Testing: drm-misc-next (41ecf852c073) with a Debian rootfs, on a TI
-J722S EVM (BXS-4-64, arm64) and a SpacemiT K3 Pico-ITX (BXM-4-64,
-riscv64). The K3 also needs local patches that are not upstream yet:
-its GPU DT node, an RPMI power domain fix for its firmware and BVNC
-36.56.104.183. Each board ran two small test programs, once without and
-once with the patch:
-
-- The first one only uses the powervr DRM ioctls. It fills 250 objects
-  with a pattern through their CPU mapping, frees them, creates new
-  objects of the same size and checks they read back as zero. It also
-  times DRM_IOCTL_PVR_CREATE_BO. Result, without -> with the patch:
-    J722S: 0 -> 0 non-zero bytes, 16 MiB object in 20.6 -> 17.4 ms
-    K3:    0 -> 0 non-zero bytes, 16 MiB object in 41.6 ->  9.2 ms
-
-- The second one does the same check through Mesa's Vulkan driver,
-  and also reads the new memory from the GPU: the GPU copies it into a
-  buffer that the CPU then checks. 80 allocations, on the J722S only, as
-  Mesa is not built on the K3 yet. Result: 0 non-zero bytes without and
-  with the patch.
-
-The test programs were written and run with the help of an LLM.
----
-Changes in v2:
-- Commit message: show the call chain through which shmem zeroes the
-  pages and explain why this can be relied on (Gyeyoung Baek).
-- Add Tested-by and Reviewed-by from Gyeyoung Baek.
-- No code change.
-- Link to v1: https://patch.msgid.link/20261111-pvr-gem-drop-zeroing-v1-1-2dc725857053@baylibre.com
----
- drivers/gpu/drm/imagination/pvr_gem.c | 34 ----------------------------------
- 1 file changed, 34 deletions(-)
-
-diff --git a/drivers/gpu/drm/imagination/pvr_gem.c b/drivers/gpu/drm/imagination/pvr_gem.c
-index d8660d6a8e01..01b8e08d12f0 100644
---- a/drivers/gpu/drm/imagination/pvr_gem.c
-+++ b/drivers/gpu/drm/imagination/pvr_gem.c
-@@ -275,34 +275,6 @@ pvr_gem_object_vunmap(struct pvr_gem_object *pvr_obj)
- 	dma_resv_unlock(obj->resv);
- }
+diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
+index 360d213f2094..66abbe4de864 100644
+--- a/drivers/gpu/drm/sti/sti_hqvdp.c
++++ b/drivers/gpu/drm/sti/sti_hqvdp.c
+@@ -1081,28 +1081,6 @@ static int sti_hqvdp_atomic_check(struct drm_plane *drm_plane,
+ 		return -EINVAL;
+ 	}
  
--/**
-- * pvr_gem_object_zero() - Zeroes the physical memory behind an object.
-- * @pvr_obj: Target PowerVR GEM object.
-- *
-- * Return:
-- *  * 0 on success, or
-- *  * Any error encountered while attempting to map @pvr_obj to the CPU (see
-- *    pvr_gem_object_vmap()).
-- */
--static int
--pvr_gem_object_zero(struct pvr_gem_object *pvr_obj)
--{
--	void *cpu_ptr;
+-	if (!hqvdp->xp70_initialized)
+-		/* Start HQVDP XP70 coprocessor */
+-		sti_hqvdp_start_xp70(hqvdp);
 -
--	cpu_ptr = pvr_gem_object_vmap(pvr_obj);
--	if (IS_ERR(cpu_ptr))
--		return PTR_ERR(cpu_ptr);
+-	if (!hqvdp->vtg_registered) {
+-		/* Prevent VTG shutdown */
+-		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
+-			DRM_ERROR("Failed to prepare/enable pix main clk\n");
+-			return -EINVAL;
+-		}
 -
--	memset(cpu_ptr, 0, pvr_gem_object_size(pvr_obj));
+-		/* Register VTG Vsync callback to handle bottom fields */
+-		if (sti_vtg_register_client(hqvdp->vtg,
+-					    &hqvdp->vtg_nb,
+-					    crtc)) {
+-			DRM_ERROR("Cannot register VTG notifier\n");
+-			clk_disable_unprepare(hqvdp->clk_pix_main);
+-			return -EINVAL;
+-		}
+-		hqvdp->vtg_registered = true;
+-	}
 -
--	/* Make sure the zero-ing is done before vumap-ing the object. */
--	wmb();
--
--	pvr_gem_object_vunmap(pvr_obj);
--
--	return 0;
--}
--
- /**
-  * pvr_gem_create_object() - Allocate and pre-initializes a pvr_gem_object
-  * @drm_dev: DRM device creating this object.
-@@ -378,12 +350,6 @@ pvr_gem_object_create(struct pvr_device *pvr_dev, size_t size, u64 flags)
+ 	DRM_DEBUG_KMS("CRTC:%d (%s) drm plane:%d (%s)\n",
+ 		      crtc->base.id, sti_mixer_to_str(to_sti_mixer(crtc)),
+ 		      drm_plane->base.id, sti_plane_to_str(plane));
+@@ -1152,6 +1130,27 @@ static void sti_hqvdp_atomic_update(struct drm_plane *drm_plane,
+ 	}
  
- 	dma_sync_sgtable_for_device(drm_dev->dev, sgt, DMA_BIDIRECTIONAL);
- 
--	/*
--	 * Do this last because pvr_gem_object_zero() requires a fully
--	 * configured instance of struct pvr_gem_object.
--	 */
--	pvr_gem_object_zero(pvr_obj);
--
- 	return pvr_obj;
- 
- err_shmem_object_free:
-
----
-base-commit: 41b5458595c60143d0ebaa1e032c9cda5d764dff
-change-id: 20261105-pvr-gem-drop-zeroing-67cc98380a55
-
-Best regards,
---  
-Guillaume La Roque <glaroque@baylibre.com>
+ 	mode = &crtc->mode;
++
++	if (!hqvdp->xp70_initialized)
++		/* Start HQVDP XP70 coprocessor */
++		sti_hqvdp_start_xp70(hqvdp);
++
++	if (!hqvdp->vtg_registered) {
++		/* Prevent VTG shutdown */
++		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
++			DRM_ERROR("Failed to prepare/enable pix main clk\n");
++			return;
++		}
++
++		/* Register VTG Vsync callback to handle bottom fields */
++		if (sti_vtg_register_client(hqvdp->vtg, &hqvdp->vtg_nb, crtc)) {
++			DRM_ERROR("Cannot register VTG notifier\n");
++			clk_disable_unprepare(hqvdp->clk_pix_main);
++			return;
++		}
++		hqvdp->vtg_registered = true;
++	}
++
+ 	dst_x = newstate->crtc_x;
+ 	dst_y = newstate->crtc_y;
+ 	dst_w = clamp_val(newstate->crtc_w, 0, mode->hdisplay - dst_x);
+-- 
+2.43.0
 
