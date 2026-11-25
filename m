@@ -2,88 +2,130 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33664606A336
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:50:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB92C606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=lJPBXJxQ
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=h7bx1yzU;
+	dkim=pass header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=YOlatSMD;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.a=rsa-sha256 header.s=susede2_rsa header.b=stlQgf10;
+	dkim=neutral header.d=suse.de header.i=@suse.de header.a=ed25519-sha256 header.s=susede2_ed25519 header.b=1qC0Ho7Z
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0CDB210FBED;
-	Wed, 25 Nov 2026 11:50:09 +0000 (UTC)
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com
- [185.132.180.163])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DC8AE10FBEC;
- Wed, 25 Nov 2026 11:49:27 +0000 (UTC)
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
- by mx07-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
- 6AP7prcx1962352; Wed, 25 Nov 2026 11:49:04 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
- :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=6
- GeNEbq7r01eAzuO/o7ZHhKP8Tw4FobRuuX8tJiySOQ=; b=lJPBXJxQRSexMrKit
- vF9Z2nI6JLgKoJzXrrI0jmhGAineIqw3CcUQiVv//kvQHeOsJap751IXttselG8J
- ntC6+pbaUmNeQFfo7HP230X6jDuc2u3H0OrI9LXns7oi7PT9EZ6OeEtgyh//pUez
- pSjRAzRcqUsLwPCiqymXHzsuSp6qCCuM7YIxb3WjZLm5xk0UZbbxPfxcGEGXrQiJ
- hQrOiLeYj++UDg4y66BLSbGN9lstFqisEBcwY+3Md93H5uT3OJwyGojA5dQJIOxn
- cUwnYu1ixS0j8SZFxOy7khK3sRWKQE3NdkQKJ/gUpd8VIOxMlRGtc7+Uw00r4XgQ
- 9FAtQ==
-Received: from hhmail01.hh.imgtec.org
- (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4j3491kdyj-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
- key_exchange=secp384r1); Wed, 25 Nov 2026 11:49:03 +0000 (GMT)
-Received: from [127.0.1.1] (172.25.10.203) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 25 Nov
- 2026 11:49:01 +0000
-From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Wed, 25 Nov 2026 13:48:32 +0200
-Subject: [PATCH 4/6] drm/imagination: Release firmware after init
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2635B10E263;
+	Wed, 25 Nov 2026 11:53:33 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7CC4F10FBF3
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:53:21 +0000 (UTC)
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id EE40D1F7D1;
+ Wed, 25 Nov 2026 11:53:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795607600; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MQrvYE7i1TmUMmwwCNKIQpEz/obCTLFv9OjM/sbrX2E=;
+ b=h7bx1yzUcenr0efjUFporQFhMWnzKgsQ4E0Neeln6JSppgEHbW1Xsw9V9cZxVdTw9s8sM7
+ MuI0KJ2Jvt2OrdxmJ4FFV1VGuSNaTqNkWTe3r/4aeN5O/DQyKQj1PzmGpJZt7hsqh9Rnhv
+ PTMdQ5wxtymLvOhaNAJKTCGvme9iSuk=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795607600;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MQrvYE7i1TmUMmwwCNKIQpEz/obCTLFv9OjM/sbrX2E=;
+ b=YOlatSMDXHC7Xpy5FycHR7s9IA1Tbo8SCkZMAFL6vZXiR8/pbPLuk06csIQKUFHIN9iYYf
+ 2qqPL5D+KsRWAjAQ==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+ t=1795607599; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MQrvYE7i1TmUMmwwCNKIQpEz/obCTLFv9OjM/sbrX2E=;
+ b=stlQgf10C5oiH/PocxCwOOUrh6LrIDUwdq2f/Phm7IHjx6xPwtZvGu/mv6/OMfYLXu4uri
+ RCJyq5BX5PKa44ht5OIwmyDUtTzgl9CkK3usaxIELW9C0SnLuJORjLJb6flAdgVzic1wBt
+ 9C5QCGrDROy12YbwPj6/wgShBCXE3V8=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+ s=susede2_ed25519; t=1795607599;
+ h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:
+ mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=MQrvYE7i1TmUMmwwCNKIQpEz/obCTLFv9OjM/sbrX2E=;
+ b=1qC0Ho7Zobl3/dIMnfly4AbsujOJp2wWkNwv9rX8iN9GkQbNzbLf9/GMPI/NlUxM32C1L7
+ 7Z0n5tnAaPn5e9CA==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+ (No client certificate requested)
+ by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 923CA1339F;
+ Wed, 25 Nov 2026 11:53:19 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+ by imap1.dmz-prg2.suse.org with ESMTPSA id 7IfrGy/MBmuWQAAAD6G6ig
+ (envelope-from <tzimmermann@suse.de>); Wed, 25 Nov 2026 11:53:19 +0000
+Message-ID: <4df7445b-f4c8-4615-8f1d-3fcc59f8cba0@suse.de>
+Date: Wed, 25 Nov 2026 12:53:18 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261125-b4-commonize-fw-segment-loading-v1-4-69657fa52ac3@imgtec.com>
-References: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
-In-Reply-To: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
- <luigi.santivetti@imgtec.com>, Maarten Lankhorst
- <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Paul Walmsley <pjw@kernel.org>, "Palmer Dabbelt" <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, "Alexandre Ghiti" <alex@ghiti.fr>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
- <linux-hardening@vger.kernel.org>, Alexandru Dadu
- <alexandru.dadu@imgtec.com>, Matt Coster <opensource@mtcoster.net>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795607333; l=15663;
- i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=d8DElYq/Qo8pfnaM9PWAtbx99yMV0vHjo1S4Aixy8OI=;
- b=mWI6jdeCYJyi2HAEIvUEhV0i5c7ylhd016wD9+jYorbSBcSPnoPudmFBQY0LGOa0sdLkUZ7aQ
- HdWkztEbPowCMS7yyrpLkFc3PoX6pGkloV0Rdk+Tt55gXxIbvg9pyHC
-X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
- pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX5yTbctgGKFfk
- I2vqoPoYSRgNIvQbwwyw4I9zEmcFlqmRrdNqWjyY0AGKG7ixrG0BSW6TN1DG2d01p/B0UsRdcXc
- DxJy8JBtAq9LsQE1mg3Nm5LAhza1rYcA1W05QI+cUifO5/CgNPPYuBFmi6zi6Gt17EB4iqwA+OB
- 0srNQnkhLcgA/8owiTRkMu8Yc6/tVA1PGGQDqZ4fQ35F8wQE1H8IjWxefMDmYi5aJW666cC3EZ6
- rmgtOrHPP9CbAer4kJOvp6H0U9seBZoMO+u7HgNA68FDpMa9k75sPH7pNXDSWkJ94Q/Muzu489N
- zi7eM5f2HAoRO6bLZ2sHWRfFanr53FsfcYS3lqNgaDW1vt/1SRZPWF5QduV+yre+mA9HTTVkfsm
- V9RGOvf73lGByIZN+OBIjaXXwHh9ZFGD6LPFloSAM7SsyNFATm5i4j1UqKUzx7GPeOvicZYlC0e
- jCx37ANs0fHIBGDY/Pw==
-X-Authority-Analysis: v=2.4 cv=OaENnRTY c=1 sm=1 tr=0 ts=6b06cb30 cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=4EFqt8Tv61wA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=3AcfmgCRP9rg5UOldR8A:9 a=QEXdDO2ut3YA:10
- a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX9zbQcQmSCJLX
- 8PyjzDFPnqaq8y0Uka88EzvQXfjF5JKLT7nj5Tnq6HTXHFfF41g9e3o0ZlEYqBPwDNYQKWWwFKk
- Z3T8GEN/bjRBlQ+ITSFPAIq1XUNcT2M=
-X-Proofpoint-GUID: Nb6S_sm0LJb9bRYmdvAJaSdQ6GpwuXNT
-X-Proofpoint-ORIG-GUID: Nb6S_sm0LJb9bRYmdvAJaSdQ6GpwuXNT
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
+To: Herman Semenoff <germanaizek0@gmail.com>, Dave Airlie
+ <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+References: <CAMnMt5aufzBXQvs2OeFpBqdh1_VgNUxstvkVX61dPPcfo94QOg@mail.gmail.com>
+Content-Language: en-US
+From: Thomas Zimmermann <tzimmermann@suse.de>
+Autocrypt: addr=tzimmermann@suse.de; keydata=
+ xsBNBFs50uABCADEHPidWt974CaxBVbrIBwqcq/WURinJ3+2WlIrKWspiP83vfZKaXhFYsdg
+ XH47fDVbPPj+d6tQrw5lPQCyqjwrCPYnq3WlIBnGPJ4/jreTL6V+qfKRDlGLWFjZcsrPJGE0
+ BeB5BbqP5erN1qylK9i3gPoQjXGhpBpQYwRrEyQyjuvk+Ev0K1Jc5tVDeJAuau3TGNgah4Yc
+ hdHm3bkPjz9EErV85RwvImQ1dptvx6s7xzwXTgGAsaYZsL8WCwDaTuqFa1d1jjlaxg6+tZsB
+ 9GluwvIhSezPgnEmimZDkGnZRRSFiGP8yjqTjjWuf0bSj5rUnTGiyLyRZRNGcXmu6hjlABEB
+ AAHNJ1Rob21hcyBaaW1tZXJtYW5uIDx0emltbWVybWFubkBzdXNlLmRlPsLAjgQTAQgAOAIb
+ AwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftODH
+ AAoJEGgNwR1TC3ojx1wH/0hKGWugiqDgLNXLRD/4TfHBEKmxIrmfu9Z5t7vwUKfwhFL6hqvo
+ lXPJJKQpQ2z8+X2vZm/slsLn7J1yjrOsoJhKABDi+3QWWSGkaGwRJAdPVVyJMfJRNNNIKwVb
+ U6B1BkX2XDKDGffF4TxlOpSQzdtNI/9gleOoUA8+jy8knnDYzjBNOZqLG2FuTdicBXblz0Mf
+ vg41gd9kCwYXDnD91rJU8tzylXv03E75NCaTxTM+FBXPmsAVYQ4GYhhgFt8S2UWMoaaABLDe
+ 7l5FdnLdDEcbmd8uLU2CaG4W2cLrUaI4jz2XbkcPQkqTQ3EB67hYkjiEE6Zy3ggOitiQGcqp
+ j//OwE0EWznS4AEIAMYmP4M/V+T5RY5at/g7rUdNsLhWv1APYrh9RQefODYHrNRHUE9eosYb
+ T6XMryR9hT8XlGOYRwKWwiQBoWSDiTMo/Xi29jUnn4BXfI2px2DTXwc22LKtLAgTRjP+qbU6
+ 3Y0xnQN29UGDbYgyyK51DW3H0If2a3JNsheAAK+Xc9baj0LGIc8T9uiEWHBnCH+RdhgATnWW
+ GKdDegUR5BkDfDg5O/FISymJBHx2Dyoklv5g4BzkgqTqwmaYzsl8UxZKvbaxq0zbehDda8lv
+ hFXodNFMAgTLJlLuDYOGLK2AwbrS3Sp0AEbkpdJBb44qVlGm5bApZouHeJ/+n+7r12+lqdsA
+ EQEAAcLAdgQYAQgAIAIbDBYhBHIX+6yM6c9jRKFo5WgNwR1TC3ojBQJftOH6AAoJEGgNwR1T
+ C3ojVSkIALpAPkIJPQoURPb1VWjh34l0HlglmYHvZszJWTXYwavHR8+k6Baa6H7ufXNQtThR
+ yIxJrQLW6rV5lm7TjhffEhxVCn37+cg0zZ3j7zIsSS0rx/aMwi6VhFJA5hfn3T0TtrijKP4A
+ SAQO9xD1Zk9/61JWk8OysuIh7MXkl0fxbRKWE93XeQBhIJHQfnc+YBLprdnxR446Sh8Wn/2D
+ Ya8cavuWf2zrB6cZurs048xe0UbSW5AOSo4V9M0jzYI4nZqTmPxYyXbm30Kvmz0rYVRaitYJ
+ 4kyYYMhuULvrJDMjZRvaNe52tkKAvMevcGdt38H4KSVXAylqyQOW5zvPc4/sq9c=
+In-Reply-To: <CAMnMt5aufzBXQvs2OeFpBqdh1_VgNUxstvkVX61dPPcfo94QOg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Spam-Level: 
+X-Spamd-Result: default: False [-13.29 / 50.00]; SUSE_INTERNAL_BYPASS(-9.00)[];
+ BAYES_HAM(-3.00)[100.00%]; NEURAL_HAM_LONG(-1.00)[-1.000];
+ NEURAL_HAM_SHORT(-0.20)[-1.000]; MIME_GOOD(-0.10)[text/plain];
+ XM_UA_NO_VERSION(0.01)[]; RCPT_COUNT_SEVEN(0.00)[9];
+ FREEMAIL_TO(0.00)[gmail.com,redhat.com,linux.intel.com,kernel.org,ffwll.ch,lists.freedesktop.org,vger.kernel.org];
+ FREEMAIL_ENVRCPT(0.00)[gmail.com]; ARC_NA(0.00)[];
+ RCVD_VIA_SMTP_AUTH(0.00)[]; MIME_TRACE(0.00)[0:+];
+ MID_RHS_MATCH_FROM(0.00)[];
+ DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+ URIBL_BLOCKED(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url,aizekgroup.ru:email];
+ FROM_EQ_ENVFROM(0.00)[]; FROM_HAS_DN(0.00)[];
+ TO_DN_SOME(0.00)[]; RCVD_TLS_ALL(0.00)[];
+ TO_MATCH_ENVRCPT_ALL(0.00)[]; RCVD_COUNT_TWO(0.00)[2];
+ DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.com:url]
+X-Spam-Score: -13.29
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,425 +137,191 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Matt Coster <matt.coster@imgtec.com>
 
-There's no need to keep a struct firmware instance around after the
-initial firmware load, as we've already copied everything we need out of
-there during processing.
 
-Signed-off-by: Matt Coster <matt.coster@imgtec.com>
-Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
----
- drivers/gpu/drm/imagination/pvr_device.c   | 58 +++++++++++++++---------------
- drivers/gpu/drm/imagination/pvr_fw.c       | 11 +++---
- drivers/gpu/drm/imagination/pvr_fw.h       | 15 ++++----
- drivers/gpu/drm/imagination/pvr_fw_info.c  | 11 +++---
- drivers/gpu/drm/imagination/pvr_fw_meta.c  | 13 ++++---
- drivers/gpu/drm/imagination/pvr_fw_mips.c  |  5 +--
- drivers/gpu/drm/imagination/pvr_fw_riscv.c |  4 +--
- 7 files changed, 63 insertions(+), 54 deletions(-)
+Am 25.11.26 um 12:24 schrieb Herman Semenoff:
+>  From f9574b5a246bf9021ea75f530a9a8ab7c9995274 Mon Sep 17 00:00:00 2001
+> From: Herman Semenoff <GermanAizek@yandex.ru>
+> Date: Tue, 24 Nov 2026 12:53:31 +0300
+> Subject: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
+>
+> On server platforms equipped with ASPEED BMC GPUs (such as AST2400 on
+> Lenovo RD450X), VRAM is mapped over a slow PCIe link with limited
+> bandwidth.
+>
+> Currently, on every cursor move (e.g. via drmModeMoveCursor or atomic
+> commit updating plane coordinates without damage clips),
+> ast_cursor_plane_helper_atomic_update() invokes
+> drm_atomic_helper_damage_merged(). Because userspace does not provide
+> damage clips for pure cursor movements,
+> drm_atomic_helper_damage_iter_init() treats the absence of clips as a
+> full plane update. Consequently, on every mouse move event:
+>   1. ast_cursor_plane_get_argb4444() performs format conversion on CPU
+>   2. ast_set_cursor_image() recalculates 32-bit checksum on CPU
+>   3. memcpy_toio() pushes 8192 bytes over the slow PCIe link into VRAM
+>   4. Cursor base registers are reprogrammed
+>
+> Fix this by only updating the cursor image and base when the image
+> actually changes (fb != old_fb, plane was previously invisible, or
+> damage clips were provided). For pure position updates, only update
+> the coordinates in the hardware cursor signature and registers,
+> skipping VRAM transfer, format conversion, and checksum calculation.
+>
+> Additionally:
+> - Add DRM_FORMAT_XRGB8888 support to ast_cursor_plane_formats and handle
+>    it with opaque alpha in ast_cursor_plane_get_argb4444(), preventing
+>    compositors from unnecessarily falling back to software cursors on the
+>    primary plane
+> - Implement .panic_flush in ast_primary_plane_helper_funcs to disable the
+>    hardware cursor during kernel panics (CONFIG_DRM_PANIC)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
-index 0c4832d2cce1..210eeb91f4ec 100644
---- a/drivers/gpu/drm/imagination/pvr_device.c
-+++ b/drivers/gpu/drm/imagination/pvr_device.c
-@@ -350,14 +350,6 @@ pvr_build_firmware_filename(struct pvr_device *pvr_dev, const char *base,
- 			 gpu_id->v, gpu_id->n, gpu_id->c, major);
- }
- 
--static void
--pvr_release_firmware(void *data)
--{
--	struct pvr_device *pvr_dev = data;
--
--	release_firmware(pvr_dev->fw_dev.firmware);
--}
--
- /**
-  * pvr_request_firmware() - Load firmware for a PowerVR device
-  * @pvr_dev: Target PowerVR device.
-@@ -365,11 +357,11 @@ pvr_release_firmware(void *data)
-  * See pvr_build_firmware_filename() for details on firmware file naming.
-  *
-  * Return:
-- *  * 0 on success,
-+ *  * A pointer to the loaded firmware on success,
-  *  * Any error returned by pvr_build_firmware_filename(), or
-  *  * Any error returned by request_firmware().
-  */
--static int
-+static const struct firmware *
- pvr_request_firmware(struct pvr_device *pvr_dev)
- {
- 	struct drm_device *drm_dev = &pvr_dev->base;
-@@ -380,7 +372,7 @@ pvr_request_firmware(struct pvr_device *pvr_dev)
- 	filename = pvr_build_firmware_filename(pvr_dev, "powervr/rogue",
- 					       PVR_FW_VERSION_MAJOR);
- 	if (!filename)
--		return -ENOMEM;
-+		return ERR_PTR(-ENOMEM);
- 
- 	/*
- 	 * This function takes a copy of &filename, meaning we can free our
-@@ -396,14 +388,12 @@ pvr_request_firmware(struct pvr_device *pvr_dev)
- 	drm_info(drm_dev, "loaded firmware %s\n", filename);
- 	kfree(filename);
- 
--	pvr_dev->fw_dev.firmware = fw;
--
--	return devm_add_action_or_reset(drm_dev->dev, pvr_release_firmware, pvr_dev);
-+	return fw;
- 
- err_free_filename:
- 	kfree(filename);
- 
--	return err;
-+	return ERR_PTR(err);
- }
- 
- /**
-@@ -701,40 +691,52 @@ pvr_device_info_validate(struct pvr_device *pvr_dev)
- static int
- pvr_device_gpu_init(struct pvr_device *pvr_dev)
- {
-+	const struct firmware *firmware;
- 	int err;
- 
- 	err = pvr_load_gpu_id(pvr_dev);
- 	if (err)
- 		return err;
- 
--	err = pvr_request_firmware(pvr_dev);
--	if (err)
--		return err;
-+	firmware = pvr_request_firmware(pvr_dev);
-+	if (IS_ERR(firmware))
-+		return PTR_ERR(firmware);
- 
--	err = pvr_fw_load_metadata_and_device_info(pvr_dev);
-+	err = pvr_fw_load_metadata_and_device_info(pvr_dev, firmware);
- 	if (err)
--		return err;
-+		goto out_release_firmware;
- 
--	if (PVR_HAS_FEATURE(pvr_dev, meta))
-+	if (PVR_HAS_FEATURE(pvr_dev, meta)) {
- 		pvr_dev->fw_dev.processor_type = PVR_FW_PROCESSOR_TYPE_META;
--	else if (PVR_HAS_FEATURE(pvr_dev, mips))
-+	} else if (PVR_HAS_FEATURE(pvr_dev, mips)) {
- 		pvr_dev->fw_dev.processor_type = PVR_FW_PROCESSOR_TYPE_MIPS;
--	else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor))
-+	} else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor)) {
- 		pvr_dev->fw_dev.processor_type = PVR_FW_PROCESSOR_TYPE_RISCV;
--	else
--		return -EINVAL;
-+	} else {
-+		err = -EINVAL;
-+		goto out_release_firmware;
-+	}
- 
- 	err = pvr_device_info_validate(pvr_dev);
- 	if (err)
--		return err;
-+		goto out_release_firmware;
- 
- 	pvr_stream_create_musthave_masks(pvr_dev);
- 
- 	err = pvr_set_dma_info(pvr_dev);
- 	if (err)
--		return err;
-+		goto out_release_firmware;
- 
--	return pvr_fw_init(pvr_dev);
-+	err = pvr_fw_init(pvr_dev, firmware);
-+	if (err)
-+		goto out_release_firmware;
-+
-+	err = 0;
-+
-+out_release_firmware:
-+	release_firmware(firmware);
-+
-+	return err;
- }
- 
- /**
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 2a5dcd9aeed7..4e082f83cff0 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -466,6 +466,7 @@ pvr_fw_destroy_structures(struct pvr_device *pvr_dev)
-  * pvr_fw_process() - Process firmware image, allocate FW memory and create boot
-  *                    arguments
-  * @pvr_dev: Device pointer.
-+ * @firmware: Firmware to process
-  *
-  * Returns:
-  *  * 0 on success, or
-@@ -473,11 +474,10 @@ pvr_fw_destroy_structures(struct pvr_device *pvr_dev)
-  *  * Any error returned by pvr_fw_object_create_and_map().
-  */
- static int
--pvr_fw_process(struct pvr_device *pvr_dev)
-+pvr_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware)
- {
- 	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
- 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
--	const u8 *fw = pvr_dev->fw_dev.firmware->data;
- 	const struct pvr_fw_section_desc *private_data;
- 	u8 *fw_code_ptr;
- 	u8 *fw_data_ptr;
-@@ -572,7 +572,7 @@ pvr_fw_process(struct pvr_device *pvr_dev)
- 		goto err_free_kdata;
- 	}
- 
--	err = pvr_dev->fw_dev.defs->fw_process(pvr_dev, fw,
-+	err = pvr_dev->fw_dev.defs->fw_process(pvr_dev, firmware,
- 					       fw_mem->code, fw_mem->data, fw_mem->core_code,
- 					       fw_mem->core_data, fw_mem->core_code_alloc_size);
- 
-@@ -743,6 +743,7 @@ pvr_fw_heap_info_init(struct pvr_device *pvr_dev, u32 log2_size, u32 reserved_si
- /**
-  * pvr_fw_init() - Initialise and boot firmware
-  * @pvr_dev: Target PowerVR device
-+ * @firmware: Firmware to load
-  *
-  * On successful completion of the function the PowerVR device will be
-  * initialised and ready to use.
-@@ -754,7 +755,7 @@ pvr_fw_heap_info_init(struct pvr_device *pvr_dev, u32 log2_size, u32 reserved_si
-  *  * -%ETIMEDOUT if firmware processor fails to boot or on register poll timeout.
-  */
- int
--pvr_fw_init(struct pvr_device *pvr_dev)
-+pvr_fw_init(struct pvr_device *pvr_dev, const struct firmware *firmware)
- {
- 	static const struct pvr_fw_defs *fw_defs[PVR_FW_PROCESSOR_TYPE_COUNT] = {
- 		[PVR_FW_PROCESSOR_TYPE_META] = &pvr_fw_defs_meta,
-@@ -783,7 +784,7 @@ pvr_fw_init(struct pvr_device *pvr_dev)
- 	if (err)
- 		goto err_mm_takedown;
- 
--	err = pvr_fw_process(pvr_dev);
-+	err = pvr_fw_process(pvr_dev, firmware);
- 	if (err)
- 		goto err_mm_takedown;
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 51acefde73ee..45b38d9072a1 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.h
-+++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -18,6 +18,9 @@ struct pvr_file;
- /* Forward declaration from "pvr_vm.h". */
- struct pvr_vm_context;
- 
-+/* Forward declaration from <linux/firmware.h> */
-+struct firmware;
-+
- #define ROGUE_FWIF_FWCCB_NUMCMDS_LOG2 5
- 
- #define ROGUE_FWIF_KCCB_NUMCMDS_LOG2_DEFAULT 7
-@@ -169,7 +172,7 @@ struct pvr_fw_defs {
- 	 *
- 	 * Load and process firmware image.
- 	 * @pvr_dev: Target PowerVR device.
--	 * @fw: Pointer to firmware image.
-+	 * @firmware: Pointer to firmware image.
- 	 * @fw_code_ptr: Pointer to firmware code section.
- 	 * @fw_data_ptr: Pointer to firmware data section.
- 	 * @fw_core_code_ptr: Pointer to firmware core code section. May be %NULL.
-@@ -182,7 +185,7 @@ struct pvr_fw_defs {
- 	 *  * 0 on success, or
- 	 *  * Any appropriate error on failure.
- 	 */
--	int (*fw_process)(struct pvr_device *pvr_dev, const u8 *fw,
-+	int (*fw_process)(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 			  u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr,
- 			  u8 *fw_core_data_ptr, u32 core_code_alloc_size);
- 
-@@ -357,9 +360,6 @@ struct pvr_fw_mem {
- };
- 
- struct pvr_fw_device {
--	/** @firmware: Handle to the firmware loaded into the device. */
--	const struct firmware *firmware;
--
- 	/** @metadata: Metadata loaded from firmware headers. */
- 	const struct pvr_fw_metadata *metadata;
- 
-@@ -456,7 +456,7 @@ extern const struct pvr_fw_defs pvr_fw_defs_meta;
- extern const struct pvr_fw_defs pvr_fw_defs_mips;
- extern const struct pvr_fw_defs pvr_fw_defs_riscv;
- 
--int pvr_fw_init(struct pvr_device *pvr_dev);
-+int pvr_fw_init(struct pvr_device *pvr_dev, const struct firmware *firmware);
- void pvr_fw_fini(struct pvr_device *pvr_dev);
- 
- int pvr_wait_for_fw_boot(struct pvr_device *pvr_dev);
-@@ -560,7 +560,8 @@ pvr_fw_obj_get_object_size(struct pvr_fw_object *fw_obj)
-  * between the types defined above (and in pvr_device_info.h) and the ABI types
-  * defined in pvr_fw_info.h.
-  */
--int pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev);
-+int pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev,
-+					 const struct firmware *firmware);
- void pvr_fw_free_metadata_and_device_info(struct pvr_device *pvr_dev);
- 
- /* Util functions defined in pvr_fw_util.c. These are intended for use in pvr_fw_<arch>.c files. */
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_info.c b/drivers/gpu/drm/imagination/pvr_fw_info.c
-index 2e7e9fb291b3..2964952c19c4 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_info.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_info.c
-@@ -229,9 +229,9 @@ pvr_fw_info_header_validate(struct pvr_device *pvr_dev,
- }
- 
- static const struct pvr_fw_metadata *
--pvr_fw_load_metadata(struct pvr_device *pvr_dev, ptrdiff_t *device_info_offset_out)
-+pvr_fw_load_metadata(struct pvr_device *pvr_dev, const struct firmware *firmware,
-+		     ptrdiff_t *device_info_offset_out)
- {
--	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
- 	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
- 	const struct pvr_fw_layout_entry *layout_entries;
- 	const struct pvr_fw_info_header *header;
-@@ -307,6 +307,7 @@ pvr_fw_get_device_info(struct pvr_device *pvr_dev, const void *device_info_ptr)
-  * pvr_fw_load_metadata_and_device_info() - Load firmware metadata and
-  * initialise device information
-  * @pvr_dev: Target PowerVR device.
-+ * @firmware: Firmware to load from.
-  *
-  * This function must be called before querying device information.
-  *
-@@ -315,13 +316,13 @@ pvr_fw_get_device_info(struct pvr_device *pvr_dev, const void *device_info_ptr)
-  *  * -%EINVAL if firmware validation fails.
-  */
- int
--pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev)
-+pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev,
-+				     const struct firmware *firmware)
- {
--	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
- 	const struct pvr_fw_metadata *metadata;
- 	ptrdiff_t device_info_offset = 0;
- 
--	metadata = pvr_fw_load_metadata(pvr_dev, &device_info_offset);
-+	metadata = pvr_fw_load_metadata(pvr_dev, firmware, &device_info_offset);
- 	if (IS_ERR(metadata))
- 		return PTR_ERR(metadata);
- 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 9cbeb226527a..8b231df27a60 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -239,7 +239,7 @@ meta_ldr_cmd_config(struct drm_device *drm_dev, const u8 *fw,
-  * process_ldr_command_stream() - Process LDR firmware image and populate
-  *                                firmware sections
-  * @pvr_dev: Device pointer.
-- * @fw: Pointer to firmware image.
-+ * @firmware: Pointer to firmware image.
-  * @fw_code_ptr: Pointer to FW code section.
-  * @fw_data_ptr: Pointer to FW data section.
-  * @fw_core_code_ptr: Pointer to FW coremem code section.
-@@ -251,16 +251,18 @@ meta_ldr_cmd_config(struct drm_device *drm_dev, const u8 *fw,
-  *  * -EINVAL on any error in LDR command stream.
-  */
- static int
--process_ldr_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
-+process_ldr_command_stream(struct pvr_device *pvr_dev,
-+			   const struct firmware *firmware, u8 *fw_code_ptr,
- 			   u8 *fw_data_ptr, u8 *fw_core_code_ptr,
- 			   u8 *fw_core_data_ptr, u32 **boot_conf_ptr)
- {
- 	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
-+	const u8 *fw = firmware->data;
- 	struct rogue_meta_ldr_block_hdr *ldr_header =
- 		(struct rogue_meta_ldr_block_hdr *)fw;
- 	struct rogue_meta_ldr_l1_data_blk *l1_data =
- 		(struct rogue_meta_ldr_l1_data_blk *)(fw + ldr_header->sl_data);
--	const u32 fw_size = pvr_dev->fw_dev.firmware->size;
-+	const u32 fw_size = firmware->size;
- 	int err;
- 
- 	u32 *boot_conf = boot_conf_ptr ? *boot_conf_ptr : NULL;
-@@ -438,7 +440,7 @@ configure_meta_caches(u32 **boot_conf_ptr)
- }
- 
- static int
--pvr_meta_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
-+pvr_meta_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 		    u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
- 		    u32 core_code_alloc_size)
- {
-@@ -455,7 +457,8 @@ pvr_meta_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
- 	configure_seg_mmu(pvr_dev, &boot_conf);
- 
- 	/* Populate FW sections from LDR image. */
--	err = process_ldr_command_stream(pvr_dev, fw, fw_code_ptr, fw_data_ptr, fw_core_code_ptr,
-+	err = process_ldr_command_stream(pvr_dev, firmware, fw_code_ptr,
-+					 fw_data_ptr, fw_core_code_ptr,
- 					 fw_core_data_ptr, &boot_conf);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips.c b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-index 619bc844447b..db89a9bc50a9 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_mips.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-@@ -9,6 +9,7 @@
- #include "pvr_vm_mips.h"
- 
- #include <linux/err.h>
-+#include <linux/firmware.h>
- #include <linux/types.h>
- 
- #define ROGUE_FW_HEAP_MIPS_BASE 0xC0000000
-@@ -30,7 +31,7 @@ pvr_mips_fini(struct pvr_device *pvr_dev)
- }
- 
- static int
--pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
-+pvr_mips_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 		    u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
- 		    u32 core_code_alloc_size)
- {
-@@ -44,7 +45,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
- 	dma_addr_t dma_addr;
- 	int err;
- 
--	err = pvr_fw_process_elf_command_stream(pvr_dev, fw, fw_code_ptr, fw_data_ptr,
-+	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, fw_code_ptr, fw_data_ptr,
- 						fw_core_code_ptr, fw_core_data_ptr);
- 	if (err)
- 		return err;
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index c59716870677..a88a2b87f61e 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -69,7 +69,7 @@ struct rogue_riscv_fw_boot_data {
- };
- 
- static int
--pvr_riscv_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
-+pvr_riscv_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 		     u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
- 		     u32 core_code_alloc_size)
- {
-@@ -78,7 +78,7 @@ pvr_riscv_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
- 	struct rogue_riscv_fw_boot_data *boot_data;
- 	int err;
- 
--	err = pvr_fw_process_elf_command_stream(pvr_dev, fw, fw_code_ptr, fw_data_ptr,
-+	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, fw_code_ptr, fw_data_ptr,
- 						fw_core_code_ptr, fw_core_data_ptr);
- 	if (err)
- 		goto err_out;
+I this is mostly wrong and the patch is terrible. I refuse to further 
+deal with any of this.
+
+>
+> Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+> Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
+> ---
+>   drivers/gpu/drm/ast/ast_cursor.c | 39 +++++++++++++++++++++++++++++---
+>   drivers/gpu/drm/ast/ast_drv.h    |  1 +
+>   drivers/gpu/drm/ast/ast_mode.c   |  8 +++++++
+>   3 files changed, 45 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
+> index 690d4cd1db5e..883d1e6f20bd 100644
+> --- a/drivers/gpu/drm/ast/ast_cursor.c
+> +++ b/drivers/gpu/drm/ast/ast_cursor.c
+> @@ -142,7 +142,7 @@ static void ast_set_cursor_location(struct
+> ast_device *ast, u16 x, u16 y,
+>    ast_set_index_reg(ast, AST_IO_VGACRI, 0xc7, y1);
+>   }
+>
+> -static void ast_set_cursor_enabled(struct ast_device *ast, bool enabled)
+> +void ast_set_cursor_enabled(struct ast_device *ast, bool enabled)
+>   {
+>    static const u8 mask = (u8)~(AST_IO_VGACRCB_HWC_16BPP |
+>        AST_IO_VGACRCB_HWC_ENABLED);
+> @@ -162,6 +162,7 @@ static void ast_set_cursor_enabled(struct
+> ast_device *ast, bool enabled)
+>   static const uint32_t ast_cursor_plane_formats[] = {
+>    DRM_FORMAT_ARGB4444,
+>    DRM_FORMAT_ARGB8888,
+> + DRM_FORMAT_XRGB8888,
+>   };
+>
+>   static int ast_cursor_plane_helper_atomic_check(struct drm_plane *plane,
+> @@ -229,6 +230,30 @@ static const u8
+> *ast_cursor_plane_get_argb4444(struct ast_cursor_plane *ast_curs
+>    argb4444 = argb4444_dst[0].vaddr;
+>    }
+>    break;
+> + case DRM_FORMAT_XRGB8888:
+> + {
+> + struct iosys_map argb4444_dst[DRM_FORMAT_MAX_PLANES] = {
+> + IOSYS_MAP_INIT_VADDR(ast_cursor_plane->argb4444),
+> + };
+> + unsigned int argb4444_dst_pitch[DRM_FORMAT_MAX_PLANES] = {
+> + AST_HWC_PITCH,
+> + };
+> + unsigned int x, y;
+> + u16 *dst16;
+> +
+> + drm_fb_argb8888_to_argb4444(argb4444_dst, argb4444_dst_pitch,
+> +    shadow_plane_state->data, fb, clip,
+> +    &shadow_plane_state->fmtcnv_state);
+> +
+> + for (y = clip->y1; y < clip->y2; y++) {
+> + dst16 = (u16 *)(ast_cursor_plane->argb4444 +
+> + y * AST_HWC_PITCH);
+> + for (x = clip->x1; x < clip->x2; x++)
+> + dst16[x] |= 0xf000;
+> + }
+> + argb4444 = argb4444_dst[0].vaddr;
+> + }
+> + break;
+>    }
+>
+>    drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+> @@ -261,13 +286,21 @@ static void
+> ast_cursor_plane_helper_atomic_update(struct drm_plane *plane,
+>    unsigned int offset_x, offset_y;
+>    u16 x, y;
+>    u8 x_offset, y_offset;
+> + bool update_image;
+>
+>    /*
+>    * Do data transfer to hardware buffer and point the scanout
+> - * engine to the offset.
+> + * engine to the offset only if the cursor image actually changed
+> + * or the plane became visible. For pure cursor moves, avoid
+> + * expensive PCIe bus transfers, format conversion, and checksum
+> + * calculation.
+>    */
+> + update_image = (fb != old_plane_state->fb) ||
+> +       !old_plane_state->visible ||
+> +       drm_plane_get_damage_clips_count(plane_state);
+>
+> - if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &damage)) {
+> + if (update_image &&
+> +    drm_atomic_helper_damage_merged(old_plane_state, plane_state, &damage)) {
+>    const u8 *argb4444 = ast_cursor_plane_get_argb4444(ast_cursor_plane,
+>      shadow_plane_state,
+>      &damage);
+> diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_drv.h
+> index 4f221b848d68..d846d5cf4f5e 100644
+> --- a/drivers/gpu/drm/ast/ast_drv.h
+> +++ b/drivers/gpu/drm/ast/ast_drv.h
+> @@ -542,6 +542,7 @@ int ast_sil164_output_init(struct ast_device *ast);
+>   /* ast_cursor.c */
+>   long ast_cursor_vram_offset(struct ast_device *ast);
+>   int ast_cursor_plane_init(struct ast_device *ast);
+> +void ast_set_cursor_enabled(struct ast_device *ast, bool enabled);
+>
+>   /* ast dp501 */
+>   bool ast_backup_fw(struct ast_device *ast, u8 *addr, u32 size);
+> diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
+> index 08db132acae8..f94f849d157b 100644
+> --- a/drivers/gpu/drm/ast/ast_mode.c
+> +++ b/drivers/gpu/drm/ast/ast_mode.c
+> @@ -639,6 +639,13 @@ static int
+> ast_primary_plane_helper_get_scanout_buffer(struct drm_plane *plane,
+>    return -ENODEV;
+>   }
+>
+> +static void ast_primary_plane_helper_panic_flush(struct drm_plane *plane)
+> +{
+> + struct ast_device *ast = to_ast_device(plane->dev);
+> +
+> + ast_set_cursor_enabled(ast, false);
+> +}
+> +
+>   static const struct drm_plane_helper_funcs ast_primary_plane_helper_funcs = {
+>    DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+>    .atomic_check = ast_primary_plane_helper_atomic_check,
+> @@ -646,6 +653,7 @@ static const struct drm_plane_helper_funcs
+> ast_primary_plane_helper_funcs = {
+>    .atomic_enable = ast_primary_plane_helper_atomic_enable,
+>    .atomic_disable = ast_primary_plane_helper_atomic_disable,
+>    .get_scanout_buffer = ast_primary_plane_helper_get_scanout_buffer,
+> + .panic_flush = ast_primary_plane_helper_panic_flush,
+>   };
+>
+>   static const struct drm_plane_funcs ast_primary_plane_funcs = {
 
 -- 
-2.43.0
+--
+Thomas Zimmermann
+Graphics Driver Developer
+SUSE Software Solutions Germany GmbH
+Frankenstr. 146, 90461 Nürnberg, Germany, www.suse.com
+GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG Nürnberg)
+
 
