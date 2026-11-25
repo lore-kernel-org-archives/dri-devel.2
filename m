@@ -2,86 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B84F606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:02:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E39B606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:03:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=e1U02Z80
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=CVfClb3M
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4F8F10E909;
-	Wed, 25 Nov 2026 16:02:53 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9F25C10E909
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:02:47 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261125160245euoutp01643ec134cd0c29416f15b98b4c0d8cc6~rVTXAYGFq2394723947euoutp01V;
- Wed, 25 Nov 2026 16:02:45 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20261125160245euoutp01643ec134cd0c29416f15b98b4c0d8cc6~rVTXAYGFq2394723947euoutp01V
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795622565;
- bh=ndbQ4zOYDp69YxH+vSmF4c25f0epkpIi0n8RI4ocFgM=;
- h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
- b=e1U02Z80qtk/nwxit57Qm6MpSrKZqhLaXn1xXYc34Vn0Eip6382b1av0O6PBF68d/
- B+Dumn3anLrajMn3xyffUdgm+em8ubtrl2UA1YPq6TqsDRgnUrgdx/z+eBTbv/89Nr
- BFOGepG56xBXw0iJaV/CwLUtCghah3S95AlnkChA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20261125160245eucas1p1beac30b8fac0db60d40e99f0990a67bf~rVTWtiIWT1277212772eucas1p1A;
- Wed, 25 Nov 2026 16:02:45 +0000 (GMT)
-Received: from [192.168.1.44] (unknown [106.210.136.40]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20261125160243eusmtip277776f891a27dfa466a595a92f06eb14~rVTVBDesA3197031970eusmtip2F;
- Wed, 25 Nov 2026 16:02:43 +0000 (GMT)
-Message-ID: <f432f455-f393-49f6-94e1-48caf1e35565@samsung.com>
-Date: Wed, 25 Nov 2026 17:02:43 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 16/18] drm/bridge: starfive: Add JH7110 HDMI
- controller driver
-To: Philipp Zabel <p.zabel@pengutronix.de>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Emil Renner
- Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>, Heiko
- Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
- <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
- <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
- <andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
- <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
- William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
- <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
- Sadhasivam <mani@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
- Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
- <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
- Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, Cristian Ciocaltea
- <cristian.ciocaltea@collabora.com>, Byron Stanoszek <gandalf@winds.org>,
- Owen O'Hehir <oo.hehir@gmail.com>
-Content-Language: en-US
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-In-Reply-To: <831aebd692fc5ddbbd1cf57f1aad3bcc0d3f30d2.camel@pengutronix.de>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261125160245eucas1p1beac30b8fac0db60d40e99f0990a67bf
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
-X-EPHeader: CA
-X-CMS-RootMailID: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
-References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
- <CGME20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6@eucas1p1.samsung.com>
- <20261124-jh7110-clean-send-v8-16-de92635dd857@samsung.com>
- <831aebd692fc5ddbbd1cf57f1aad3bcc0d3f30d2.camel@pengutronix.de>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2401710E91F;
+	Wed, 25 Nov 2026 16:03:09 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA53710E91F
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:03:02 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 32E6962F86;
+ Wed, 25 Nov 2026 16:03:02 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68B131F000D4;
+ Wed, 25 Nov 2026 16:03:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795622581;
+ bh=HjAGZwudmC4b7RpOkzNSCKon4LaPQdqgjhPJAY4djKQ=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=CVfClb3MDESfa506Z/7T0vyW1zTUBM9vYbJeqe1eCYnFlUZHNUCot/KnHH78pXG0m
+ 4nLci2/f6eejfvCFzWjNaYMQenWCLKQ/dIpaD2is9QNx4Jqcg1S46r+7dZ40G0OJLJ
+ UfiylWPLeQwjxwa+C0Aiy6i3oxkmZ7z3jeT5WwjjqLBF541tmXelKdrUyyDrgChYuc
+ 7LcZ/AtQZ1H00zuXZ+AJTjKZ3m4F1Ys36gJTWlO+XDQdBrHizxAjM1/zjd6JNmBl86
+ zSRTR6gtU0iXjJqe7SKFJUVoiC/MO21sPd8koQN6/gb+QLm9mUP0CdoCkekqJ79xAI
+ +4vE315GYdEuQ==
+Message-ID: <sashiko-outbox-233697@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] drm/bridge: analogix_dp: Propagate errors from
+ runtime resume
+To: "Nikita Zhandarovich" <n.zhandarovich@fintech.ru>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261125153958.1349811-4-n.zhandarovich@fintech.ru>
+References: <20261125153958.1349811-1-n.zhandarovich@fintech.ru>
+ <20261125153958.1349811-4-n.zhandarovich@fintech.ru>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 16:03:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,90 +49,70 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/bridge: analogix_dp: power_on() error check breaks Exynos
+  DP AUX
+--
 
+commit b5122fa2090e46cf82c87fc8f96ad53a322e3824
+Author: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 
-On 11/24/26 17:50, Philipp Zabel wrote:
-> On Di, 2026-11-24 at 16:52 +0100, Michal Wilczynski wrote:
->> Add the HDMI controller (bridge) driver for the StarFive JH7110.
->>
-> [...]
->>
->> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
->> Tested-by: Byron Stanoszek <gandalf@winds.org>
->> Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
->> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
->> ---
->>  drivers/gpu/drm/bridge/Kconfig            |  11 ++
->>  drivers/gpu/drm/bridge/Makefile           |   1 +
->>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c | 297 ++++++++++++++++++++++++++++++
->>  3 files changed, 309 insertions(+)
->>
-> [...]
->> diff --git a/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
->> new file mode 100644
->> index 0000000000000000000000000000000000000000..a0283f83ddc93e3e6c9e9192b73dca9a63f9d9ab
->> --- /dev/null
->> +++ b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
->> @@ -0,0 +1,297 @@
-> [...]
->> +
->> +struct stf_inno_hdmi_controller {
->> +	struct clk_bulk_data clks[CLK_CTRL_NUM];
->> +	struct reset_control *tx_rst;
-> 
-> tx_rst is never used outside of starfive_inno_hdmi_controller_probe(),
-> it could be a local variable.
+drm/bridge: analogix_dp: Propagate errors from runtime resume
 
-agree, thanks will fix in v9
+This commit checks return values from plat_data->power_on(), phy_set_mode(),
+and phy_power_on() in analogix_dp_resume(), unwinding platform power and
+disabling dp->clock on error.
 
-> 
->> +	struct phy *phy;
->> +	bool enabled;
->> +};
->> +
-> [...]
->> +static void stf_inno_hdmi_rst_assert(void *data)
->> +{
->> +	reset_control_assert(data);
->> +}
->> +
->> +static int starfive_inno_hdmi_controller_probe(struct platform_device *pdev)
->> +{
-> [...]
->> +	ctrl->tx_rst = devm_reset_control_get_exclusive(dev, NULL);
->> +	if (IS_ERR(ctrl->tx_rst))
->> +		return dev_err_probe(dev, PTR_ERR(ctrl->tx_rst), "failed to get tx reset\n");
->> +
-> [...]
->> +
->> +	ret = reset_control_deassert(ctrl->tx_rst);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_rst_assert,
->> +				       ctrl->tx_rst);
->> +	if (ret)
->> +		return ret;
-> 
-> This looks like it could be simplified with
-> devm_reset_control_get_exclusive_deasserted().
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> index 4d3d72476dd95..9228655893a0b 100644
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> @@ -1539,15 +1539,30 @@ int analogix_dp_resume(struct analogix_dp_device =
+*dp)
+>  		return ret;
+>  	}
+> =20
+> -	if (dp->plat_data->power_on)
+> -		dp->plat_data->power_on(dp->plat_data);
+> +	if (dp->plat_data->power_on) {
+> +		ret =3D dp->plat_data->power_on(dp->plat_data);
+> +		if (ret)
+> +			goto err_disable_clk;
+> +	}
 
-Yes I think this can be simplified, thanks !
+[Severity: High]
+Does aborting analogix_dp_resume() on a non-zero return from
+dp->plat_data->power_on() break DP AUX access on Exynos DP before a CRTC is
+attached?
 
-> 
-> regards
-> Philipp
-> 
+On Exynos DP, dp->plat_data.power_on is exynos_dp_poweron(), which calls
+exynos_dp_crtc_clock_enable():
 
-Best regards,
--- 
-Michal Wilczynski <m.wilczynski@samsung.com>
+drivers/gpu/drm/exynos/exynos_dp.c:exynos_dp_crtc_clock_enable() {
+	...
+	if (!encoder->crtc)
+		return -EPERM;
+	...
+}
+
+Because encoder->crtc is NULL until an atomic modeset binds a CRTC to the
+encoder (and becomes NULL again when the display is disabled), runtime
+resume triggered by analogix_dpaux_transfer() now fails with -EPERM,
+skipping phy_power_on() and analogix_dp_init_dp() and breaking AUX bus
+panel population at probe time as well as pre-modeset EDID reads.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125153958.1349=
+811-1-n.zhandarovich@fintech.ru?part=3D3
