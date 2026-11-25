@@ -2,55 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DE7A606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:43:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9596606A323
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=C7aj+R4r
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=XhkFmg5k
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9ED7210E3CC;
-	Wed, 25 Nov 2026 02:43:13 +0000 (UTC)
-Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 25F1F10E8C1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:42:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795574554; bh=HDEYsyYf/DPiLd1IWo6embcgdiUpRlnBCx5O1AsnsZE=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=C7aj+R4rGu7oYpF5XLhzfFe8CzIN3HyuUK2IK9jyr99ZT6hRsDed9jVhEsZ2wJmpi
- I/zLLsWX7jKFhH4mr5HZvpKtkbvf2syhz8MvYH66Hkr2bg7L3YPvZ+1acAsGLrKRFm
- Z74krXge8cjUsO8tNm/06rCwa2AQ8fVkj4EjAwqE=
-Received: from HF ([113.90.236.90])
- by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
- id A9B394D4; Wed, 25 Nov 2026 10:42:27 +0800
-X-QQ-mid: xmsmtpt1795574552tnmiwwevj
-Message-ID: <tencent_05AAFCF8CA47B5D5ED770621DB13E46F1406@qq.com>
-X-QQ-XMAILINFO: M84Ob7gbJGBWfsnIcQdl+mdRtHpsDzFkNHf4CHzZd7s8+//ej0p/727OVGyHKO
- GKKuHGopefwaUxKyHMHFFf9oPrugu/Rp5y1Fc8XpiOxa0FikSkaGVrD1V4Iw2thsR4OsluLP1XnQ
- WwtlqW0lL8Hhkw6fqjjFO/BsDR6dVlvq5vRaCV6CZyFEIcKZxoz1TgSc6Lbbb6+yWEP8Gh4chz4m
- tJIPxvLFHt2b5Y8Aol8C6PTMCQfKF0mm/6wmgxAmb+TMXd2b7GyIHxPpuXULBNqulF3L2Vdv0lKf
- 5vO9mWC/wT8horAEcElxBzw9DkYJJ+Mtu2rqlF2qJ/Zu9SW9sRq+gZ8ckJK54xSQ54vE8LHZm5zn
- zhQZAHGxujbJpFnK6O/6DsxES1Uv/EU9m5ktwYcXc90fMisOTgHJF1pRSJ7I0T/dG4KtAayLOTQf
- SeYEqTtQah5H/UwfBiCqB4zS2SI2qZq2XvsrPJvrVttWId96TTgxKAfNXHcwBVrZfNJjxxpbnVEi
- fRrnh7J1Kl2jSOVUz9NQ42ls78Koqyr8g+/8XvSNqv0x/YRQ29CmgsLWcHZ/AR0C9MZov0DZ0BGL
- v+h30PMw5Rs77pVFosVatZaGHJh+rI7hi5fyqDNlqWBZJa6xrChTFRIJVIlDiYEX/XeP5QHC5tcP
- opVLGzaIX9R1NTg7Pr4BcrdpC/gvHaWr1y6H4yvDCioFu9X1S2T/TzVtNZvLBhYPtnqVDSVbLbAk
- MJXt89vP4I/bsAy+52QIYTH0J5SvyMRm1N0cMZxINmeNO3u0wFaEZ4LJtMlBv1WxUx6d1iy+WSXu
- T07oEmuRDsbjAuM00eL6618DvGhhOk8JiU9VU1ufXWsbt5xUW7gXG+eDtdIiiW5k9sFFMiVVq/zf
- yY0jQnfavnCvmOBPxwB9R4CjxfIMgNMWaz/krMTU/mzglovpxI/toGTSouoD9Dl1J7vrW9WrMo8g
- nzgJv6lqG2EoQR6gRwLSNkjC6Q2YfhIoF3WX25TxPmkgn9eKyU18/nkfr0G6OK8DDg/S2n2zwFSd
- 7n70X7nbhlOZa9Zg0mZjV5jnkYyedbVmdH0CqSZQf8B5DC2VSwQFdRCnN3BDPksCfYqbkBZKRbKV
- W4WbxzorppOWhmGe83XkGrR/3tdg==
-X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
-From: Hefei <3066883572@qq.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 06A1610E8DA;
+	Wed, 25 Nov 2026 02:46:58 +0000 (UTC)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com
+ [209.85.221.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3025610E8DA
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:46:51 +0000 (UTC)
+Received: by mail-vk1-f182.google.com with SMTP id
+ 71dfb90a1353d-5eac7220e9cso2044309e0c.3
+ for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 18:46:51 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795574810; x=1796179610; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=lvuiHeraEsIPjv1j24eW+FCh8EDOAQqBNRz1QyN2azM=;
+ b=XhkFmg5kI4f5uhTDEDTUX32jeGu8VtXHsQU9arUOvaokprDBwU5LL6CRy68fxJzhun
+ DyepTAqkNhxiE1RHgmo6bCcQF8v4ks5SLhzgTNfd5K3JWDIULWG78GaawwDhvLiJpDtJ
+ sA6N1dCw67pVAVIpyuhuGJ061xCJpLnrKUBk6xiMrr/5yS31fD7hS+YXUpnOVsEbdQYn
+ YM10oq4HrB1DovQhIRfCeXLS+UpdFD76fqqYAZL2ExrnLQzPxqp+8REwB8oidO705Hfa
+ 8UkAorMQqUkMoiH0p9IKZzZBl26KevISDcyHzk7xciA8ka9nqC0ZtvqODEZsTqHYNiXT
+ XGCQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795574810; x=1796179610;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=lvuiHeraEsIPjv1j24eW+FCh8EDOAQqBNRz1QyN2azM=;
+ b=wdCnBlCjEVIsah3nj86/zCq6hlr77/8YCjZNGSM37q5Cp05JnC0wWjKjOykg7wbTtC
+ 6zkC0md2oQQZiiJV65xMx8l800G90yceVrclPY4aAIg6nT/IjCvSlNKXGdA0FWZ6cfXo
+ FJv7WL1W0rpDVa7TfCDdlsldGWbrnsopdbRGaff17tloZmOVpUOIr9gPsNzBEXZX/JUy
+ 3BFus8aM0+kSKjv1RFnTovA1bcLbtdn5ydJwmunb0FIamGJMnPfsTjxPUB9iwSMP7/7z
+ i60axeGjfcQA0WZghOiNdQyLaaHCngJwkZq5rDLgPuCY9bavirypvTVp6YRkztS4wGzO
+ vGNQ==
+X-Gm-Message-State: APuU4Z8oXQFpd1putQHEor0d61N3BtI0h3PKzfXVsJyL5KAjgu76g2Np
+ QYFxg0oKUegpNwiXmZ5FLzLa0/p4MP3TXtMcErKBtyK6pTqzJRmaSG/9ZFq5Z85o+7g=
+X-Gm-Gg: AZFdTZd2bPGr612PzXxTfXF8LxtiX5O3UoUgUMAPiR2t49XIKdNzJtiRsFcgir/P8gg
+ WDy4QF6edywCTRnFieX6XyVJRUyXvXrZ1RNxn0ku5YlRMKmPXyiHscRuktBHrYBnYWfo+pNzJit
+ FSF/MOJmNgwuepeTAu2iYcGswa2cHx6l4lX/eO021/SO9YuIWBA8mlmmObTYRlhyoFtn82Hp8A0
+ 8nDlaGy6lKVRDMnQl2lnSaCy5L754o938nH4Ph9ehjN5iwjAjOb02CKL/kJQdLKeTSZg+kQVMNJ
+ nwPn/IifGEo2NHccObg3Dkqj/n6jaGhN0DLPMkkiG9QjiyRd2ythvAEUTH39YRGR7nCqB/zugdx
+ ab3yvwcn0ywkth63lkgoI26MmQHOWIvNvHPnbzzjQge/3Sfs0PmsVwhj3C++KGLDnsIKn7NcYio
+ KsQC7fBNAq+LQuB5h/iRXbGJHWOTGJIHUFkz+whaqxhS/KHQQ9IxnydcIubmVyeEzY+NwNV+P0k
+ 33lbwwuF2tJpQJ34g9q//IDXWmbZNOHlFeDhGqjYdrX71+zNiPy3Eq+kJLxw8UenMELouflUZR3
+ opaZ6DlGvl7zOaJTYBl2r+6Q7xXJbEJtVR0RaJpIKx8=
+X-Received: by 2002:a05:6122:288a:b0:5c9:c60e:3a40 with SMTP id
+ 71dfb90a1353d-5ee8af56a83mr10701470e0c.18.1795574809785; 
+ Tue, 24 Nov 2026 18:46:49 -0800 (PST)
+Received: from eduapps.lan ([2804:f04:9074:7a00:7473:b089:726c:885])
+ by smtp.gmail.com with ESMTPSA id
+ 71dfb90a1353d-5ee8b556db7sm15768298e0c.4.2026.11.24.18.46.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 24 Nov 2026 18:46:49 -0800 (PST)
+From: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
 To: dri-devel@lists.freedesktop.org
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
- Hefei <3066883572@qq.com>
-Subject: [PATCH v4 5/6] Input: add Jadard JD9365TX in-cell touchscreen driver
-Date: Wed, 25 Nov 2026 10:42:25 +0800
-X-OQ-MSGID: <20261125024226.1293-6-3066883572@qq.com>
-X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261125024226.1293-1-3066883572@qq.com>
-References: <20261125024226.1293-1-3066883572@qq.com>
+Cc: Natalie Vock <nat@pixelcluster.dev>,
+ Arun Pravin <arunpravin.paneerselvam@amd.com>,
+ Matthew Auld <matthew.auld@intel.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
+Subject: [RFC PATCH v3] drm/ttm: reclaim excess pooled pages with batched
+ write-back
+Date: Tue, 24 Nov 2026 23:46:30 -0300
+Message-ID: <20261125024630.257843-1-eduardoprocopiogomez@gmail.com>
+X-Mailer: git-send-email 2.55.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -68,420 +92,317 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add a polling I2C driver for the JD9365TX in-cell touch controller.
-Typical module FPCs expose I2C only, so the driver polls coordinate
-SRAM after opening the controller backdoor.
+Pages returned to the TTM pool can remain cached below its hard
+limit when there is no memory pressure. On a 32 GiB Intel Xe
+desktop, this left several GiB cached after the GPU workload exited.
 
-Signed-off-by: Hefei <3066883572@qq.com>
+Queue reclaim when a return leaves a node above its reserve. Use a
+fixed five-second delay by default so further returns cannot
+postpone pending reclaim. Retain a 128 MiB target per NUMA node,
+clamped to the node limit. The memory-pressure shrinker can still
+reclaim below that target.
+
+Limit each delayed pass by the initial excess and consecutive scans
+without progress. Requeue if excess remains. In ttm_pool_free(),
+use a single counter snapshot for the hard-limit comparison and
+subtraction so concurrent reclaim cannot underflow the request.
+
+On x86, reclaim can restore write-back caching and flush remote TLBs
+once for every order-0 WC or UC page. Restore write-back for up to 32
+eligible pages per call before freeing them. Use the individual path
+if the array conversion fails or a page is ineligible.
+
+In a two-vCPU QEMU guest, reclaiming 128 MiB of 4 KiB WC pages took
+1,024 write-back calls and 2,048 CPA TLB callbacks, down from 32,768
+calls and 65,536 callbacks without batching. A separate run drained
+a 768 MiB burst while 32 MiB allocations and returns continued.
+
+Signed-off-by: Eduardo P. Gomez <eduardoprocopiogomez@gmail.com>
 ---
- drivers/input/touchscreen/Kconfig           |  12 +
- drivers/input/touchscreen/Makefile          |   1 +
- drivers/input/touchscreen/jadard_jd9365tx.c | 356 ++++++++++++++++++++
- 3 files changed, 369 insertions(+)
- create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
+Changes since v2:
+- Batch write-back conversion for order-0 WC/UC pages on x86.
+- Verify the reduction in CPA TLB callbacks in a two-vCPU QEMU guest.
 
-diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen/Kconfig
-index e2ee722..da425c8 100644
---- a/drivers/input/touchscreen/Kconfig
-+++ b/drivers/input/touchscreen/Kconfig
-@@ -540,6 +540,18 @@ config TOUCHSCREEN_IPROC
- 	  To compile this driver as a module, choose M here: the
- 	  module will be called bcm_iproc_tsc.
+v2: https://lore.kernel.org/r/20261125015613.127297-1-eduardoprocopiogomez@gmail.com/
+
+
+ drivers/gpu/drm/ttm/ttm_pool.c | 157 ++++++++++++++++++++++++++++++---
+ 1 file changed, 144 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index 1bf37023f..3c1457759 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -36,7 +36,10 @@
+ #include <linux/dma-mapping.h>
+ #include <linux/debugfs.h>
+ #include <linux/highmem.h>
++#include <linux/jiffies.h>
+ #include <linux/sched/mm.h>
++#include <linux/sizes.h>
++#include <linux/workqueue.h>
  
-+config TOUCHSCREEN_JADARD_JD9365TX
-+	tristate "Jadard JD9365TX in-cell touchscreen"
-+	depends on I2C
-+	help
-+	  Say Y here if you have a Jadard JD9365TX in-cell touchscreen.
-+	  The driver polls over I2C when no interrupt line is wired.
+ #ifdef CONFIG_X86
+ #include <asm/set_memory.h>
+@@ -134,8 +137,20 @@ static unsigned long page_pool_size;
+ MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA pool per NUMA node");
+ module_param(page_pool_size, ulong, 0644);
+ 
++static unsigned int page_pool_idle_ms = 5000;
 +
-+	  If unsure, say N.
++MODULE_PARM_DESC(page_pool_idle_ms, "TTM page pool reclaim delay in ms (0 disables it)");
++module_param(page_pool_idle_ms, uint, 0444);
 +
-+	  To compile this driver as a module, choose M here: the
-+	  module will be called jadard_jd9365tx.
++static unsigned long page_pool_idle_reserve = SZ_128M / PAGE_SIZE;
 +
- config TOUCHSCREEN_S6SY761
- 	tristate "Samsung S6SY761 Touchscreen driver"
- 	depends on I2C
-diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscreen/Makefile
-index 58094f2..5846f4d 100644
---- a/drivers/input/touchscreen/Makefile
-+++ b/drivers/input/touchscreen/Makefile
-@@ -59,6 +59,7 @@ obj-$(CONFIG_TOUCHSCREEN_IMAGIS)	+= imagis.o
- obj-$(CONFIG_TOUCHSCREEN_IMX6UL_TSC)	+= imx6ul_tsc.o
- obj-$(CONFIG_TOUCHSCREEN_INEXIO)	+= inexio.o
- obj-$(CONFIG_TOUCHSCREEN_IPROC)		+= bcm_iproc_tsc.o
-+obj-$(CONFIG_TOUCHSCREEN_JADARD_JD9365TX) += jadard_jd9365tx.o
- obj-$(CONFIG_TOUCHSCREEN_LPC32XX)	+= lpc32xx_ts.o
- obj-$(CONFIG_TOUCHSCREEN_MAX11801)	+= max11801_ts.o
- obj-$(CONFIG_TOUCHSCREEN_MXS_LRADC)     += mxs-lradc-ts.o
-diff --git a/drivers/input/touchscreen/jadard_jd9365tx.c b/drivers/input/touchscreen/jadard_jd9365tx.c
-new file mode 100644
-index 0000000..3312119
---- /dev/null
-+++ b/drivers/input/touchscreen/jadard_jd9365tx.c
-@@ -0,0 +1,356 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 VIEWE
-+ *
-+ * Jadard JD9365TX in-cell touchscreen (I2C @0x68, polling).
-+ * Typical DSI FPC has no interrupt line.
-+ */
++MODULE_PARM_DESC(page_pool_idle_reserve, "Target pages to retain per NUMA node after delayed reclaim");
++module_param(page_pool_idle_reserve, ulong, 0444);
 +
-+#include <linux/delay.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/input.h>
-+#include <linux/input/mt.h>
-+#include <linux/input/touchscreen.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+#include <linux/unaligned.h>
-+
-+#define JD_CHIP_ID			0x9084
-+#define JD_CHIP_ID_ALT			0x9032
-+#define JD_SOC_CHIP_ID2			0x40008076
-+#define JD_ERAM_BASE			0x20011000
-+#define JD_SECTION_READY_VAL		0xA55A
-+#define JD_MAX_DSRAM_NUM		25
-+#define JD_ESRAM_COORD_IDX		1
-+#define JD_ESRAM_SECTION_NUM		6
-+#define JD_DEFAULT_COORD_ADDR		0x20011120
-+#define JD_TOUCH_DATA_SIZE		78
-+#define JD_REPORT_MIN_SIZE		53
-+#define JD_FINGER_DATA_SIZE		5
-+#define JD_FINGER_NUM_ADDR		0
-+#define JD_TOUCH_COORD_INFO_ADDR	3
-+#define JD_MAX_POINTS			10
-+#define JD_DEFAULT_POLL_MS		16
-+
-+struct jadard_tp {
-+	struct i2c_client *client;
-+	struct input_dev *input;
-+	struct touchscreen_properties prop;
-+	struct gpio_desc *reset;
-+	struct regulator *vdd;
-+	struct regulator *iovcc;
-+	u32 coord_addr;
-+	u16 touch_data_size;
-+	u16 max_points;
-+	unsigned int poll_interval_ms;
-+};
-+
-+static int jd_bus_write(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
-+			const u8 *data, u16 data_len)
+ static unsigned long pool_node_limit[MAX_NUMNODES];
+ static atomic_long_t allocated_pages[MAX_NUMNODES];
++static struct delayed_work pool_idle_work;
++static unsigned long pool_idle_delay;
+ 
+ static struct ttm_pool_type global_write_combined[NR_PAGE_ORDERS];
+ static struct ttm_pool_type global_uncached[NR_PAGE_ORDERS];
+@@ -243,9 +258,6 @@ static void ttm_pool_free_page(struct ttm_pool *pool, enum ttm_caching caching,
+ 	void *vaddr;
+ 
+ #ifdef CONFIG_X86
+-	/* We don't care that set_pages_wb is inefficient here. This is only
+-	 * used when we have to shrink and CPU overhead is irrelevant then.
+-	 */
+ 	if (caching != ttm_cached && !PageHighMem(p))
+ 		set_pages_wb(p, 1 << order);
+ #endif
+@@ -322,6 +334,21 @@ static void ttm_pool_unmap(struct ttm_pool *pool, dma_addr_t dma_addr,
+ 		       DMA_BIDIRECTIONAL);
+ }
+ 
++/* Start one reclaim window for the shared pool when a node exceeds its reserve. */
++static void ttm_pool_note_return(int nid)
 +{
-+	u8 buf[64];
-+	struct i2c_msg msg;
-+	int ret;
++	unsigned long reserve = min(page_pool_idle_reserve, pool_node_limit[nid]);
++	long pages;
 +
-+	if (cmd_len + data_len > sizeof(buf))
-+		return -EINVAL;
-+
-+	memcpy(buf, cmd, cmd_len);
-+	if (data_len)
-+		memcpy(buf + cmd_len, data, data_len);
-+
-+	msg.addr = client->addr;
-+	msg.flags = 0;
-+	msg.len = cmd_len + data_len;
-+	msg.buf = buf;
-+
-+	ret = i2c_transfer(client->adapter, &msg, 1);
-+	return ret == 1 ? 0 : (ret < 0 ? ret : -EIO);
-+}
-+
-+static int jd_bus_read(struct i2c_client *client, const u8 *cmd, u8 cmd_len,
-+		       u8 *data, u16 data_len)
-+{
-+	struct i2c_msg msg[2];
-+	int ret;
-+
-+	msg[0].addr = client->addr;
-+	msg[0].flags = 0;
-+	msg[0].len = cmd_len;
-+	msg[0].buf = (u8 *)cmd;
-+	msg[1].addr = client->addr;
-+	msg[1].flags = I2C_M_RD;
-+	msg[1].len = data_len;
-+	msg[1].buf = data;
-+
-+	ret = i2c_transfer(client->adapter, msg, 2);
-+	return ret == 2 ? 0 : (ret < 0 ? ret : -EIO);
-+}
-+
-+static int jd_enter_backdoor(struct i2c_client *client)
-+{
-+	const u8 cmd[5] = { 0xF2, 0xAA, 0xF0, 0x0F, 0x55 };
-+	const u8 data = 0x68;
-+
-+	return jd_bus_write(client, cmd, sizeof(cmd), &data, 1);
-+}
-+
-+static int jd_read_reg(struct i2c_client *client, u32 addr, u8 *rdata, u16 rlen)
-+{
-+	u8 cmd[6];
-+
-+	cmd[0] = 0xF3;
-+	cmd[1] = (addr >> 24) & 0xFF;
-+	cmd[2] = (addr >> 16) & 0xFF;
-+	cmd[3] = (addr >> 8) & 0xFF;
-+	cmd[4] = addr & 0xFF;
-+	cmd[5] = 0x03;
-+
-+	return jd_bus_read(client, cmd, sizeof(cmd), rdata, rlen);
-+}
-+
-+static int jd_get_chip_id(struct i2c_client *client, u16 *id)
-+{
-+	u8 rbuf[2];
-+	int ret;
-+
-+	ret = jd_read_reg(client, JD_SOC_CHIP_ID2, rbuf, sizeof(rbuf));
-+	if (ret)
-+		return ret;
-+
-+	*id = (u16)((rbuf[1] << 8) | rbuf[0]);
-+	return 0;
-+}
-+
-+static bool jd_section_ready(struct i2c_client *client)
-+{
-+	u8 rbuf[2];
-+	unsigned int waited = 0;
-+
-+	do {
-+		msleep(2);
-+		if (jd_read_reg(client, JD_ERAM_BASE, rbuf, sizeof(rbuf)))
-+			return false;
-+		waited += 2;
-+		if (((rbuf[1] << 8) | rbuf[0]) == JD_SECTION_READY_VAL)
-+			return true;
-+	} while (waited < 100);
-+
-+	return false;
-+}
-+
-+static int jd_resolve_coord_addr(struct jadard_tp *ts)
-+{
-+	u32 esram_num_addr = JD_ERAM_BASE + 4 + JD_MAX_DSRAM_NUM * 8;
-+	u32 esram_sec_addr = esram_num_addr + 4;
-+	u8 buf[JD_ESRAM_SECTION_NUM * 8];
-+	u32 addr, len;
-+	int ret;
-+
-+	ret = jd_read_reg(ts->client, esram_sec_addr, buf, sizeof(buf));
-+	if (ret)
-+		return ret;
-+
-+	addr = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8]);
-+	len = get_unaligned_le32(&buf[JD_ESRAM_COORD_IDX * 8 + 4]);
-+
-+	if (addr < JD_ERAM_BASE ||
-+	    addr + len > JD_ERAM_BASE + 0x1000 ||
-+	    len < JD_REPORT_MIN_SIZE || len > JD_TOUCH_DATA_SIZE)
-+		return -EINVAL;
-+
-+	ts->coord_addr = addr;
-+	ts->touch_data_size = (u16)len;
-+	return 0;
-+}
-+
-+static int jd_hw_init(struct jadard_tp *ts)
-+{
-+	u16 chip_id = 0;
-+	int ret;
-+
-+	ret = jd_enter_backdoor(ts->client);
-+	if (ret)
-+		return ret;
-+
-+	ret = jd_get_chip_id(ts->client, &chip_id);
-+	if (ret)
-+		return ret;
-+
-+	if (chip_id != JD_CHIP_ID && chip_id != JD_CHIP_ID_ALT)
-+		return -ENODEV;
-+
-+	if (jd_section_ready(ts->client) && !jd_resolve_coord_addr(ts))
-+		return 0;
-+
-+	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
-+	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
-+	return 0;
-+}
-+
-+static void jd_report_touches(struct jadard_tp *ts, const u8 *buf)
-+{
-+	u8 finger_num = buf[JD_FINGER_NUM_ADDR];
-+	unsigned int i;
-+
-+	/* Discard obviously invalid headers instead of clamping to max. */
-+	if (finger_num > ts->max_points)
++	if (!pool_idle_delay || delayed_work_pending(&pool_idle_work))
 +		return;
 +
-+	for (i = 0; i < ts->max_points; i++) {
-+		const u8 *c = buf + JD_TOUCH_COORD_INFO_ADDR +
-+			      i * JD_FINGER_DATA_SIZE;
-+		u16 x = get_unaligned_be16(c);
-+		u16 y = get_unaligned_be16(c + 2);
-+		u8 w = c[4];
-+		bool down;
++	pages = atomic_long_read(&allocated_pages[nid]);
++	if (pages > 0 && pages > reserve)
++		queue_delayed_work(system_dfl_long_wq, &pool_idle_work,
++				   pool_idle_delay);
++}
 +
-+		/*
-+		 * Slots are fixed; inactive contacts report 0xFFFF/0xFFFF.
-+		 * Do not gate on finger_num, or a lower slot lift drops a
-+		 * still-active higher slot.
-+		 */
-+		down = x != 0xFFFF && y != 0xFFFF &&
-+		       x <= ts->prop.max_x && y <= ts->prop.max_y;
+ /* Give pages into a specific pool_type */
+ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+ {
+@@ -335,14 +362,17 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+ 			clear_page(page_address(p + i));
+ 	}
+ 
++	/* Account for the pages before a concurrent shrinker can take them. */
++	atomic_long_add(num_pages, &allocated_pages[nid]);
++	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
++	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
 +
-+		input_mt_slot(ts->input, i);
-+		input_mt_report_slot_state(ts->input, MT_TOOL_FINGER, down);
+ 	INIT_LIST_HEAD(&p->lru);
+ 	rcu_read_lock();
+ 	list_lru_add(&pt->pages, &p->lru, nid, NULL);
+ 	rcu_read_unlock();
+ 
+-	atomic_long_add(num_pages, &allocated_pages[nid]);
+-	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
+-	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
++	ttm_pool_note_return(nid);
+ }
+ 
+ static enum lru_status take_one_from_lru(struct list_head *item,
+@@ -398,9 +428,59 @@ static enum lru_status pool_move_to_dispose_list(struct list_head *item,
+ 	return LRU_REMOVED;
+ }
+ 
++#ifdef CONFIG_X86
++/* Restore one batch before returning its pages to the allocator. */
++static void ttm_pool_free_wb_batch(struct ttm_pool_type *pt,
++				   struct page **pages, unsigned int nr)
++{
++	bool restored = !set_pages_array_wb(pages, nr);
++	unsigned int i;
 +
-+		if (down) {
-+			touchscreen_report_pos(ts->input, &ts->prop, x, y, true);
-+			input_report_abs(ts->input, ABS_MT_TOUCH_MAJOR, w);
++	for (i = 0; i < nr; i++) {
++		struct page *p = pages[i];
++
++		atomic_long_dec(&allocated_pages[page_to_nid(p)]);
++		if (restored)
++			__free_pages_gpu_account(p, 0, true);
++		else
++			ttm_pool_free_page(NULL, pt->caching, 0, p, true);
++	}
++}
++
++/* Batch normal order-0 pages using a bounded array without allocating memory. */
++static void ttm_pool_dispose_wb(struct ttm_pool_type *pt,
++			       struct list_head *dispose)
++{
++	struct page *pages[32];
++	struct page *p, *next;
++	unsigned int nr = 0;
++
++	list_for_each_entry_safe(p, next, dispose, lru) {
++		if (PageHighMem(p))
++			continue;
++
++		list_del_init(&p->lru);
++		pages[nr++] = p;
++		if (nr == ARRAY_SIZE(pages)) {
++			ttm_pool_free_wb_batch(pt, pages, nr);
++			nr = 0;
 +		}
 +	}
 +
-+	input_mt_sync_frame(ts->input);
-+	input_sync(ts->input);
++	if (nr)
++		ttm_pool_free_wb_batch(pt, pages, nr);
 +}
++#endif
 +
-+static void jd_poll(struct input_dev *input)
+ static void ttm_pool_dispose_list(struct ttm_pool_type *pt,
+ 				  struct list_head *dispose)
+ {
++#ifdef CONFIG_X86
++	if (!pt->order && pt->caching != ttm_cached &&
++	    (!pt->pool || !ttm_pool_uses_dma_alloc(pt->pool)))
++		ttm_pool_dispose_wb(pt, dispose);
++#endif
++
+ 	while (!list_empty(dispose)) {
+ 		struct page *p;
+ 		p = list_first_entry(dispose, struct page, lru);
+@@ -452,7 +532,8 @@ static struct ttm_pool_type *ttm_pool_select_type(struct ttm_pool *pool,
+ }
+ 
+ /* Free pages using the per-node shrinker list */
+-static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
++static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free,
++				    unsigned long page_budget)
+ {
+ 	LIST_HEAD(dispose);
+ 	struct ttm_pool_type *pt;
+@@ -464,6 +545,10 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+ 	list_move_tail(&pt->shrinker_list, &shrinker_list);
+ 	spin_unlock(&shrinker_lock);
+ 
++	/* A list entry represents a whole compound allocation. */
++	if (page_budget)
++		num_to_free = min(num_to_free, ((page_budget - 1) >> pt->order) + 1);
++
+ 	num_pages = list_lru_walk_node(&pt->pages, nid, pool_move_to_dispose_list, &dispose, &num_to_free);
+ 	num_pages *= 1 << pt->order;
+ 
+@@ -473,6 +558,46 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
+ 	return num_pages;
+ }
+ 
++/* Trim excess pooled pages when the fixed reclaim window expires. */
++static void ttm_pool_shrink_idle(struct work_struct *work)
 +{
-+	struct jadard_tp *ts = input_get_drvdata(input);
-+	u8 buf[JD_TOUCH_DATA_SIZE];
-+	int ret;
++	const unsigned long batch = 1UL << (MAX_PAGE_ORDER / 2);
++	size_t nr_types;
++	int nid;
 +
-+	ret = jd_read_reg(ts->client, ts->coord_addr, buf, ts->touch_data_size);
-+	if (ret) {
-+		/* Panel/power cycle drops backdoor mode; re-open it. */
-+		if (jd_hw_init(ts))
-+			return;
-+		ret = jd_read_reg(ts->client, ts->coord_addr, buf,
-+				  ts->touch_data_size);
-+		if (ret)
-+			return;
++	spin_lock(&shrinker_lock);
++	nr_types = list_count_nodes(&shrinker_list);
++	spin_unlock(&shrinker_lock);
++
++	for_each_node_state(nid, N_MEMORY) {
++		unsigned long reserve = min(page_pool_idle_reserve,
++					    pool_node_limit[nid]);
++		long pages = atomic_long_read(&allocated_pages[nid]);
++		unsigned long budget;
++		size_t empty = 0;
++
++		if (pages <= 0 || pages <= reserve)
++			continue;
++
++		/* Bound freed pages and scans that make no progress. */
++		budget = pages - reserve;
++		while (budget && empty < nr_types && pages > 0 && pages > reserve) {
++			unsigned long freed;
++
++			freed = ttm_pool_shrink(nid, batch, min(budget, pages - reserve));
++			budget -= min(budget, freed);
++			empty = freed ? 0 : empty + 1;
++			cond_resched();
++			pages = atomic_long_read(&allocated_pages[nid]);
++		}
++
++		/* Concurrent returns or scans of empty lists can leave excess. */
++		if (pages > 0 && pages > reserve)
++			queue_delayed_work(system_dfl_long_wq, &pool_idle_work,
++					   pool_idle_delay);
 +	}
-+
-+	jd_report_touches(ts, buf);
 +}
 +
-+static int jadard_tp_probe(struct i2c_client *client)
-+{
-+	struct device *dev = &client->dev;
-+	struct jadard_tp *ts;
-+	struct input_dev *input;
-+	struct regulator_bulk_data supplies[2];
-+	u32 val;
-+	int error;
+ /* Return the allocation order based for a page */
+ static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
+ {
+@@ -978,13 +1103,14 @@ int ttm_pool_restore_and_alloc(struct ttm_pool *pool, struct ttm_tt *tt,
+ void ttm_pool_free(struct ttm_pool *pool, struct ttm_tt *tt)
+ {
+ 	int nid = ttm_pool_nid(pool);
++	unsigned long limit = pool_node_limit[nid];
++	long pages;
+ 
+ 	ttm_pool_free_range(pool, tt, tt->caching, 0, tt->num_pages);
+ 
+-	while (atomic_long_read(&allocated_pages[nid]) > pool_node_limit[nid]) {
+-		unsigned long diff = atomic_long_read(&allocated_pages[nid]) - pool_node_limit[nid];
+-		ttm_pool_shrink(nid, diff);
+-	}
++	while ((pages = atomic_long_read(&allocated_pages[nid])) > 0 &&
++	       pages > limit)
++		ttm_pool_shrink(nid, pages - limit, 0);
+ }
+ EXPORT_SYMBOL(ttm_pool_free);
+ 
+@@ -1309,7 +1435,7 @@ static unsigned long ttm_pool_shrinker_scan(struct shrinker *shrink,
+ 	unsigned long num_freed = 0;
+ 
+ 	do
+-		num_freed += ttm_pool_shrink(sc->nid, sc->nr_to_scan);
++		num_freed += ttm_pool_shrink(sc->nid, sc->nr_to_scan, 0);
+ 	while (num_freed < sc->nr_to_scan &&
+ 	       atomic_long_read(&allocated_pages[sc->nid]));
+ 
+@@ -1492,8 +1618,11 @@ static inline u64 ttm_get_node_memory_size(int nid)
+ int ttm_pool_mgr_init(unsigned long num_pages)
+ {
+ 	unsigned int i;
+-
+ 	int nid;
 +
-+	ts = devm_kzalloc(dev, sizeof(*ts), GFP_KERNEL);
-+	if (!ts)
-+		return -ENOMEM;
++	pool_idle_delay = msecs_to_jiffies(page_pool_idle_ms);
++	INIT_DELAYED_WORK(&pool_idle_work, ttm_pool_shrink_idle);
 +
-+	ts->client = client;
-+	ts->max_points = JD_MAX_POINTS;
-+	ts->poll_interval_ms = JD_DEFAULT_POLL_MS;
-+	ts->touch_data_size = JD_TOUCH_DATA_SIZE;
-+	ts->coord_addr = JD_DEFAULT_COORD_ADDR;
+ 	for_each_node(nid) {
+ 		if (!page_pool_size) {
+ 			u64 node_size = ttm_get_node_memory_size(nid);
+@@ -1551,6 +1680,8 @@ void ttm_pool_mgr_fini(void)
+ {
+ 	unsigned int i;
+ 
++	disable_delayed_work_sync(&pool_idle_work);
 +
-+	supplies[0].supply = "vdd";
-+	supplies[1].supply = "iovcc";
-+	error = devm_regulator_bulk_get_enable(dev, ARRAY_SIZE(supplies),
-+					       supplies);
-+	if (error)
-+		return error;
-+
-+	ts->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ts->reset))
-+		return PTR_ERR(ts->reset);
-+
-+	if (ts->reset) {
-+		gpiod_set_value_cansleep(ts->reset, 1);
-+		msleep(10);
-+		gpiod_set_value_cansleep(ts->reset, 0);
-+		msleep(20);
-+	}
-+
-+	error = jd_hw_init(ts);
-+	if (error)
-+		return error;
-+
-+	if (!device_property_read_u32(dev, "poll-interval", &val) &&
-+	    val >= 8 && val <= 100)
-+		ts->poll_interval_ms = val;
-+
-+	input = devm_input_allocate_device(dev);
-+	if (!input)
-+		return -ENOMEM;
-+
-+	input->name = "Jadard JD9365TX Touchscreen";
-+	input->id.bustype = BUS_I2C;
-+
-+	input_set_abs_params(input, ABS_MT_POSITION_X, 0, 719, 0, 0);
-+	input_set_abs_params(input, ABS_MT_POSITION_Y, 0, 1279, 0, 0);
-+	input_set_abs_params(input, ABS_MT_TOUCH_MAJOR, 0, 255, 0, 0);
-+
-+	touchscreen_parse_properties(input, true, &ts->prop);
-+
-+	error = input_mt_init_slots(input, ts->max_points, INPUT_MT_DIRECT);
-+	if (error)
-+		return error;
-+
-+	input_set_drvdata(input, ts);
-+	ts->input = input;
-+	i2c_set_clientdata(client, ts);
-+
-+	error = input_setup_polling(input, jd_poll);
-+	if (error)
-+		return error;
-+
-+	input_set_poll_interval(input, ts->poll_interval_ms);
-+
-+	error = input_register_device(input);
-+	if (error)
-+		return error;
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id jadard_tp_of_match[] = {
-+	{ .compatible = "jadard,jd9365tx" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, jadard_tp_of_match);
-+
-+static const struct i2c_device_id jadard_tp_id[] = {
-+	{ .name = "jd9365tx" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, jadard_tp_id);
-+
-+static struct i2c_driver jadard_tp_driver = {
-+	.driver = {
-+		.name = "jadard-tp-jd9365tx",
-+		.of_match_table = jadard_tp_of_match,
-+	},
-+	.probe = jadard_tp_probe,
-+	.id_table = jadard_tp_id,
-+};
-+module_i2c_driver(jadard_tp_driver);
-+
-+MODULE_AUTHOR("Hefei <3066883572@qq.com>");
-+MODULE_DESCRIPTION("Jadard JD9365TX in-cell touchscreen");
-+MODULE_LICENSE("GPL");
+ 	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
+ 		ttm_pool_type_fini(&global_write_combined[i]);
+ 		ttm_pool_type_fini(&global_uncached[i]);
+
+base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
 -- 
-2.55.0.windows.5
+2.55.0
 
