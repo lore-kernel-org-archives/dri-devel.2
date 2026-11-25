@@ -2,19 +2,20 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DB7606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:22:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D62606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:22:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=R4ec0tIw
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.a=rsa-sha256 header.s=default header.b=Ql6dAdDB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7831B10FB70;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8A42710FB75;
 	Wed, 25 Nov 2026 11:22:40 +0000 (UTC)
-Received: from mail-m6052.netease.com (mail-m6052.netease.com [210.79.60.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DA710FB6E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:22:03 +0000 (UTC)
+Received: from mail-m128222.netease.com (mail-m128222.netease.com
+ [103.209.128.222])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2458010FB5C
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:21:59 +0000 (UTC)
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
- by smtp.qiye.163.com (Hmail) with ESMTP id 55f816034;
- Wed, 25 Nov 2026 19:22:00 +0800 (GMT+08:00)
+ by smtp.qiye.163.com (Hmail) with ESMTP id 55f81602c;
+ Wed, 25 Nov 2026 19:21:56 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: Andrzej Hajda <andrzej.hajda@intel.com>,
  Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
@@ -36,26 +37,26 @@ Cc: Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
  dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
  linux-samsung-soc@vger.kernel.org, linux-rockchip@lists.infradead.org,
  Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v7 05/20] drm/bridge: analogix_dp: Take a runtime PM reference
- in bridge detect
-Date: Wed, 25 Nov 2026 19:21:26 +0800
-Message-Id: <20261125112141.1434903-6-damon.ding@rock-chips.com>
+Subject: [PATCH v7 02/20] drm/bridge: analogix_dp: Drop the redundant
+ pm_runtime_mark_last_busy() calls
+Date: Wed, 25 Nov 2026 19:21:23 +0800
+Message-Id: <20261125112141.1434903-3-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 References: <20261125112141.1434903-1-damon.ding@rock-chips.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa21270ef0a03a8kunm17c23050775874
+X-HM-Tid: 0aa21270dfad03a8kunm17c23050775861
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
- tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZTkhOVkNITE5ISEtNSxkfHlYVFA
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCSRlMVkNJSB8fTh9KHk9JGFYVFA
  kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
  pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
- b=R4ec0tIwlRkqHxRkqfOX5au00NmjTlwsoP2PRcpm7JNc3ZKGSuog77dhoHoJJq1Vbtt0ldyOzwgca1eicGhEXJMdIoE8ur04j77AXIUx26XflG7vx5cjtmfQh1g0xJ/WJOaGaIqzxhg1ELXuLzC5Ey6beo+HdsOoSFWyK61uVWU=;
+ b=Ql6dAdDBICliEpE0zaJBKkomwfjmr5mRu2VrmabrPTLBWAfg2j531J6ktUsjgmd+VE5ZkOgR1Bqm9tIm/qa6yI08cOosdZyeghzfsCrE+AdcMmWPjrYmoXfAgm7LiKAn9q1vf+MwcZtHBsE/u4tgdi5tK4MmxfhJMzFPmIde824=;
  s=default; c=relaxed/relaxed; d=rock-chips.com; v=1; 
- bh=Z53XmwzIfWNDI57WVKpOPzyROVqB2sBaHiSyG5zofnk=;
+ bh=LN55FevueCSpgrf/yglA1ahNWl9iVPOBwH9tWUd+Rbo=;
  h=date:mime-version:subject:message-id:from;
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -76,48 +77,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The analogix_dp_bridge_detect() calls analogix_dp_detect_hpd(), which
-reads the controller registers and may write them for the force HPD
-fallback. The connector is polled and can be queried by userspace at
-any time, so this runs while the device is runtime suspended when the
-display is disabled.
+Since commit b3db492e8335 ("PM: runtime: Mark last busy stamp in
+pm_runtime_put_autosuspend()"), pm_runtime_put_autosuspend() updates
+the last busy timestamp itself, so the explicit
+pm_runtime_mark_last_busy() calls right before it are no longer needed.
 
-Take a runtime PM reference around the HPD check, and report the
-connector status as unknown when the device cannot be resumed.
-
-Fixes: 2b77a2918c5d ("drm: bridge: analogix/dp: move hpd detect to connector detect function")
-CC: Marek Szyprowski <m.szyprowski@samsung.com>
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
 ---
 
 Changes in v7:
-- Add this patch to take a runtime PM reference in
-  analogix_dp_bridge_detect(), as the register accesses behind it may
-  run while the device is runtime suspended.
+- Add this patch to drop the redundant pm_runtime_mark_last_busy()
+  calls, as pm_runtime_put_autosuspend() updates the last busy stamp
+  since commit b3db492e8335.
 ---
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 2 --
+ 1 file changed, 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 46d4dd9d7cd7..b9f4e5757fc5 100644
+index 8bb4c48aa3b4..50da43d64034 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -908,9 +908,14 @@ analogix_dp_bridge_detect(struct drm_bridge *bridge, struct drm_connector *conne
- 	if (dp->force_connected_mode)
- 		return connector_status_connected;
+@@ -1369,7 +1369,6 @@ static ssize_t analogix_dpaux_transfer(struct drm_dp_aux *aux,
  
-+	if (pm_runtime_resume_and_get(dp->dev) < 0)
-+		return connector_status_unknown;
-+
- 	if (!analogix_dp_detect_hpd(dp))
- 		status = connector_status_connected;
+ 	ret = analogix_dp_transfer(dp, msg);
+ out:
+-	pm_runtime_mark_last_busy(dp->dev);
+ 	pm_runtime_put_autosuspend(dp->dev);
  
-+	pm_runtime_put_autosuspend(dp->dev);
-+
- 	return status;
- }
+ 	return ret;
+@@ -1389,7 +1388,6 @@ static int analogix_dpaux_wait_hpd_asserted(struct drm_dp_aux *aux, unsigned lon
+ 	ret = readx_poll_timeout(analogix_dp_get_plug_in_status, dp, val, !val,
+ 				 wait_us / 100, wait_us);
  
+-	pm_runtime_mark_last_busy(dp->dev);
+ 	pm_runtime_put_autosuspend(dp->dev);
+ 
+ 	return ret;
 -- 
 2.34.1
 
