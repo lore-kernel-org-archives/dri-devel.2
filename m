@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C5E8606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 13:08:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D103A606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 13:09:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FgT7q/Nr
+	dkim=pass (2048-bit key, unprotected) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=I6OYEWOF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 149A210FC05;
-	Wed, 25 Nov 2026 13:08:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3304510FC26;
+	Wed, 25 Nov 2026 13:09:02 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E596910FBD8
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:08:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C93F610FC05
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:08:40 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 5F9256213C;
- Wed, 25 Nov 2026 13:08:28 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 4DC9062B45;
+ Wed, 25 Nov 2026 13:08:40 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795612108;
- b=wjJqhX+fdbqISLcw4dR+ubga2EO42S24gsehbjA4C9BTjU8DgphR8MGV9sMoDtpA1BG9
- OL4br2UJu2esBkwDQguUg4O0sbVU9Vjca6faX4201LQHro0AZtxIhCrKRmC6AfxEpaUwQ
- PvtRQZVbR5cPFX5Tn8QNnSuSsrAPWT1aEDZze65A3SPlR7252vt4mTrm5HyY+hMAJoy9Q
- 7qsDiajHE/jM1tKd7iSpSpLMhvreLM8yD75InN6xd2zhV1PEMpKbeu2ND+fKnN+MNjZYe
- nPcK2nSTXApJlwS2tLLEyBBc7YoiDDdBegWSpnZ38PTPMbN47aTqRLkX3xe7yRs6A7g==
+ t=1795612120;
+ b=G4euRiEazQJqfCqNyUcxnd01IXO/tpwydroPDcplpVeyMdmnaqGd6vZ9LcUdcFiIPYwJ
+ zMN00y+rx9qSN3JAmEdWPIikfcsK8AO611mtSl0mZjfJRR2EBQYl54ERNIc+OUmien/uP
+ F6T8VRvvtDalPHU63rK/vRxiWpjilhjfDYlVbgGCxpPaszLFth6LCnmlpMG9E67g8+1aL
+ oAepR56OkLzf8p/4daopTnibhnqBuvTSfh9Lzou+Y/P5glcH9sJPmb8ct/9qC6PePItgk
+ boSSMYuXHX9Dojy7dcLpn63QwhbT+AcwV4lsnohAWR0VZ9quM63vJHuqBBf/DIjX3/A==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795612108;
+ c=relaxed/relaxed; t=1795612120;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=xD5ffAbmlqAPAsNuQWLkORiCRgPLqAADy8T77XTQEyE=;
- b=mw32k0Cy29fiJzQtJOkGIHTQq5gG1jfylvxb3S1cqNkjLAEDXqJ8lkML8kG2tvNnFNQ7
- wPcTTVwelQ401WcKKfk9D0PRYJHlvGgGhnpv7LMQYykkQXMf0QvxJ9vBOOkbkTQHag87+
- tNhdguRo6O7Q/cpURmLGJCdOyyDNteJrW8lRs2xCbvFlpqegN9znjXa9uM5gTmrAG+v2n
- cO++GoirpMESG/tDjAIJ/oynEK/QDV2m1pSGq/kNDd/viS97RhV+4cJR2XMBGnmSWkEeX
- ceg3tqez2mqql4rB3ICOeBnaOSbm5E8mhx637ku+v75wja5J0/3HrreWcr9dvuuT0bA==
+ bh=bC6BOA8lkj4euco4/6Bslnj1/a+liwPShT0rQp2o0u0=;
+ b=NxMMRlewSIzdqFn78OXIk3ZukxabJSqJmLgYkNg86BgK350pXxMYJrm+6dE6IG8HAqeU
+ s61WvOBuWZQyzVXsqMIcFPtfnumdazuxYe2ZIFRAR3BJt6FZm7jubazLrmHy2KTgLUSAA
+ /uk3LjnHRKRUyKJkU7AVtvG1IzhKCy8INC9luich0JqlRja3GABiHIe17W958VLhAH71d
+ j7KNgy4D+9kMkXxWbrPkn2m8A951M8w2caLLa4R2oXfKMPKe9T++PvsB1mJxpF+uYHo3h
+ yt8y9/khoRXS2b+zaxRJ0UrYnfxEOap+LACyxb8D27h6oBmcdyrrwzv3JFasknz1Q4Q==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 700021F000D0;
- Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 51F6C1F000E6;
+ Wed, 25 Nov 2026 13:08:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795612108;
- bh=xD5ffAbmlqAPAsNuQWLkORiCRgPLqAADy8T77XTQEyE=;
+ s=k20260515; t=1795612120;
+ bh=bC6BOA8lkj4euco4/6Bslnj1/a+liwPShT0rQp2o0u0=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=FgT7q/NrOgCVMl4hkiSf9tDnVIMphOXDFgI1XAz8Q0uOWS9O6k1dfMEXs5ZaYuSWZ
- POB/W8Fco1xlqxsT9tOOOxNR+FMRjRAuZqtELmrtD48ZpTQc/DUfvqvbdJlloY+T3k
- uJ0kunTp9WMrYEV9+aaOVqST2zeI15iFOSpTaH/B+iDTLv2AQIDhZELloTo0wTgehN
- cllVo/xVIN09XBKSTd3QTmhVm/DyRbruwH8+yJkRRLBL9p+eLBTRjUn7h5G+F6Ub1i
- afPQs9MnNSRnLmWDuUPqVjQrCZoK9rU9+/Js5alqH9u9wBWsWOxAMfYu4kHDLYIZFS
- uc4MM9EECuGGw==
+ b=I6OYEWOFxYvjfUY0UL5lTLq9+2Y16VdmRXx/HIcXeR7KyWvhyNY4ObG9u3o1sKYX0
+ xhbsDDv4zT3djYCftuyLn8oam9pIevC5JY1j/uLdH4YJfQe1gjR+R0qnK/QWA2lO24
+ Tyu6IihDjdne6ouhZajVjdwWNOqPzfpdvXSAj4IBLm3J35TeNWyk6y8g+HwsVBg9p+
+ EoYPJegrJhAcTM3GX7pd54BEaQHY5/wjN22p6RvKoi0H1UnvidyhLy/DjbQQXayn3k
+ GTKPUh8udWFwBP7fFAPIi6gewB3KUrpBukuNVLYkJSop8VgUesj71H+ubIT0ob2M2P
+ ACCK7mbLwJXyQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id E6DD84CEC3;
- Wed, 25 Nov 2026 13:08:18 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 742204CEDD;
+ Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 25 Nov 2026 14:08:12 +0100
-Subject: [PATCH v3 1/5] drm/panel: lg-sw43408: use the full DCS brightness
- range
+Date: Wed, 25 Nov 2026 14:08:16 +0100
+Subject: [PATCH v3 5/5] arm64: dts: qcom: sdm845-google: drop panel
+ regulator-always-on
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-fix-blueline-panel-v3-1-914b4a30b73e@ixit.cz>
+Message-Id: <20261125-fix-blueline-panel-v3-5-914b4a30b73e@ixit.cz>
 References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
 In-Reply-To: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
 To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
@@ -82,21 +82,21 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1238; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3724; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=BTFoVtQ+iUfQkeRFRyilwFinpDXvmQQRSApa2qXLTP0=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBt3BfYaMW928WOflnWdaGzyvapdChsW+JU+vU
- mLw7o1aUEKJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawbdwQAKCRBgAj/E00kg
- cizCD/9Q+0moQNafz3AdHRwJAvSxq/yQOdJqD/kUukDkcsb7HcP5EEsCAWxuzo5hP5IsoMWD+HP
- EY9ptHylH7xhn2CBnnbZo3JtG7+zzAMpNURQrzSBEyet5HP4MduD/Xr3+MdViWLFV3YssBbBuPh
- 7KPL8ixG6yP+rnyV2IyBzXhGeJZ6LLgdOVVZ8gP8EJIGoiz1c5ecXeD6YKdH62sjkvA3NMQErdo
- SSBhcTZU7GCLJIEt4l0zeQ6rvVZfVjTJBLQOud511b9xjBTP2l9T4nhgyyzXvvC7rJA8pkvkErT
- 4dzC3Aww5Czl+jn/9zhFUfRPp5HR7YM3wzHk761TkvRvpWiU5X20sOa7VjQiEnYv1iACwN1DXQq
- Mp0xf3zaucVTgKXgPe4Kn0K+qBlMiWqEv5h1gmP0AB4LahoPZsj7j5V1Mb2Jqt8X1MnMupOWJdn
- QjGbuVMrytRnI58OwfNsBu3JvBm7UkwAhMW59U8uGmnwfIWxCCouGkUjmJgJIhTXk4CcHLX+lQo
- 9/SBxzU12zDHAOZPVTStv2liMnNonq8vcCPYYRSo7uCkVOc9Teg3ot4GPRd7T9JlmDOH2sV0eKf
- q2knHBpZhtujT68zot7eH8B67mHyko2wNfheDUfb5Gu8HfDfi0Wc9sGZGn7DxC4LobIBzHwoRZa
- bHi6StcgAj9om+Q==
+ bh=7MbJWcOA7VgDjyx+wISNbX3wFon6Upjhtfj1PpZjQxE=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBt3BP5Lf1wO+j5Mx/5MSPqPEcwqPoMlGv/Zcc
+ PrK11+eEfiJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawbdwQAKCRBgAj/E00kg
+ clXoD/41wH4jQ2DlT9BhUtMArglYyo7sqm5aOY7yyZ5mM5eH9losiXE56sS8ihyEO/UZAN5vyDQ
+ QDPdpORQ5pxnA2Mmc1pxQYCl0TeEbjsxXji3wZ0CItqXEk/wettggKnb5hlaBU1z6EiGdp2f7De
+ Mx1IbciyUHEgSW9yzzuv94ZzWIkAVaKEi8gUiMSJBatJn7WFrpQrxD7aEGm2KV5vlsWKB7SqSJW
+ WtS4okXZrAbEGQGFRH+hFgddp0eHGZX3WAEyBgR0NaPt0sUoFMW2QmovUFAeEScVCy+puZdKwe3
+ GLE9pPCZyPRWgEdk2bl1XaxnnZJ+wa/Z724pbryOPx/XGP2Cld7DAgiQaTNYxTvK5Q0puBUoaFx
+ eWFbqdupYvQ9r5fBAt6tFu+0LbK8To9ylptdOYwzFmLIFBfH/saQDQARRgI2gznL3xATV1UDMrA
+ AJECdsfywp8KZqvE189QTe0NBFsktAw71L0A2LmT9dX699c0isV8Ks52dU6+xiIpECizTFSNkUI
+ 00CT5xZYa5XTm+WDFmyDHZWqEsV5erwrwWzHdrPAVkBvdC968m108HfBR0uJhLewZr0V5fW0x1T
+ b8SspazuuKf3Ee33ppR0y8O2/uONXGz/KohqS0E8O833dylOAUCa8kRBRT5hd5w8EVAWcVwaZbv
+ O8PzMa64wMKLTqA==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -123,39 +123,118 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: David Heidelberg <david@ixit.cz>
 
-The vendor changed the value multiple times. Last value for production
-devices was 900. HBM can go up to 1023, but keep value safe for now.
+Drop the regulator-always-on workaround from vreg_l14a_1p8 (vddi) and
+vreg_l28a_3p0 (vpnl/vci) now that the LG SW43408 panel driver keeps vpnl
+paired with vddi, allowing both rails to power down on Pixel 3 when
+neither the panel nor the touchscreen requires vddi.
 
-Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+Define the supplies on Pixel 3 XL's framebuffer0 node so simpledrm keeps
+the panel powered once regulator late cleanup runs, while intentionally
+leaving them off Pixel 3's framebuffer0 node so simpledrm handover does
+not drop vpnl independently of vddi.
+
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/panel-lg-sw43408.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts   |  2 ++
+ arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi    | 10 ----------
+ arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts |  3 +++
+ 3 files changed, 5 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-index 822318f546ef3..92cab6478ea61 100644
---- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
-+++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
-@@ -197,17 +197,18 @@ static const struct backlight_ops sw43408_backlight_ops = {
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+index a000c75494f1c..f916f4dbb89c5 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-blueline.dts
+@@ -14,16 +14,18 @@ &battery {
+ 	voltage-min-design-microvolt = <3600000>;
+ 	voltage-max-design-microvolt = <4400000>;
  };
  
- static int sw43408_backlight_init(struct sw43408_panel *ctx)
- {
- 	struct device *dev = &ctx->link->dev;
- 	const struct backlight_properties props = {
- 		.type = BACKLIGHT_PLATFORM,
- 		.brightness = 255,
--		.max_brightness = 255,
-+		/* HBM can go up to 1023, stay safe for now */
-+		.max_brightness = 900,
+ &framebuffer0 {
+ 	width = <1080>;
+ 	height = <2160>;
+ 	stride = <(1080 * 4)>;
++
++	/* intentionally no supplies here, see the LG SW43408 driver */
+ };
+ 
+ &i2c2 {
+ 	clock-frequency = <1000000>;
+ 
+ 	status = "okay";
+ 
+ 	/* ST,FTS @ 49 */
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+index 3c9656b88b696..c025b2df4ea25 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-common.dtsi
+@@ -246,21 +246,16 @@ vreg_l13a_2p95: ldo13 {
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+ 		vreg_l14a_1p8: ldo14 {
+ 			regulator-min-microvolt = <1800000>;
+ 			regulator-max-microvolt = <1800000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 			regulator-boot-on;
+-			/*
+-			 * We can't properly bring the panel back if it gets turned off
+-			 * so keep it's regulators always on for now.
+-			 */
+-			regulator-always-on;
+ 		};
+ 
+ 		vreg_l17a_1p3: ldo17 {
+ 			regulator-min-microvolt = <1304000>;
+ 			regulator-max-microvolt = <1304000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+ 		};
+ 
+@@ -308,21 +303,16 @@ vreg_l26a_1p2: ldo26 {
+ 			regulator-boot-on;
+ 		};
+ 
+ 		vreg_l28a_3p0: ldo28 {
+ 			regulator-min-microvolt = <2856000>;
+ 			regulator-max-microvolt = <3008000>;
+ 			regulator-initial-mode = <RPMH_REGULATOR_MODE_LPM>;
+ 			regulator-boot-on;
+-			/*
+-			 * We can't properly bring the panel back if it gets turned off
+-			 * so keep it's regulators always on for now.
+-			 */
+-			regulator-always-on;
+ 		};
  	};
  
- 	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
- 							     ctx->link,
- 							     &sw43408_backlight_ops,
- 							     &props);
+ 	regulators-1 {
+ 		compatible = "qcom,pmi8998-rpmh-regulators";
+ 		qcom,pmic-id = "b";
  
- 	if (IS_ERR(ctx->base.backlight))
+ 		vdd-bob-supply = <&vph_pwr>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+index 2a81ca1d00b1b..7591c6ebb1cb9 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+@@ -19,16 +19,19 @@ &dispcc {
+ 	/* Disable for now so simple-framebuffer continues working */
+ 	status = "disabled";
+ };
+ 
+ &framebuffer0 {
+ 	width = <1440>;
+ 	height = <2960>;
+ 	stride = <(1440 * 4)>;
++
++	vddi-supply = <&vreg_l14a_1p8>;
++	vci-supply = <&vreg_l28a_3p0>;
+ };
+ 
+ &mdss {
+ 	/* Disable for now so simple-framebuffer continues working */
+ 	status = "disabled";
+ };
+ 
+ &wifi {
 
 -- 
 2.55.0
