@@ -2,47 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6F7606A69A
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:49:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81881606A69D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:49:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=v8wl9xox
+	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.a=rsa-sha256 header.s=dk201812 header.b=TsxmZ+8W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0F41810FBEF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4C6DF10FBF0;
 	Wed, 25 Nov 2026 11:49:41 +0000 (UTC)
 Received: from mx08-00376f01.pphosted.com (mx08-00376f01.pphosted.com
  [91.207.212.86])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8630110FBE3;
- Wed, 25 Nov 2026 11:49:27 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4FA510FBE3;
+ Wed, 25 Nov 2026 11:49:21 +0000 (UTC)
 Received: from pps.filterd (m0168888.ppops.net [127.0.0.1])
  by mx08-00376f01.pphosted.com (8.18.1.12/8.18.1.12) with ESMTP id
- 6AP7RX6I1892955; Wed, 25 Nov 2026 11:49:05 GMT
+ 6AP88eQE1969148; Wed, 25 Nov 2026 11:49:02 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
  :content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=dk201812; bh=E
- tX8ND9Meh/kUyFsRIoVM0OVMDt3XGQx3QJmKrca9lk=; b=v8wl9xoxo1imA3q1A
- z7XjkK4PwPKGnuUPdixwl7rcTlxaGbfuV9Xj+3cUCwlwLnmLbQYj5YreP5HTxNaW
- gNeDr+MZRlaqwi/OwmeN0FhGg1GS25S0I811eu10Wam/R1oPKeWsRStzhXZnyoGf
- Hs7cmUVNc5B+hPvfFAEsWAD4uwXtj8h4JSThz6if3KWCDQI0MEMviaWE2mFm4ItZ
- 0cxH+nk0IdAV9+t6SIgt5pOtCaU/S2Sew+ftPKJGpb7a6V5epikHL7bmi+EaG4zt
- QKUNHE2VVAiPLb9Jd4hptsagWr0fvwyNCvUvp2wlQ9ri2SzCDmLxVjzMPZyuaDBc
- UpR8Q==
+ :message-id:mime-version:references:subject:to; s=dk201812; bh=r
+ 0vExMNN/CGu8pWPMVlot/fl967CpMMaULQYFGuV/tE=; b=TsxmZ+8WrVz+/P9O5
+ uFkmzO0ZKfDQc/fX8vbqmoIAJcFwaOP7BBPb4xr3XlIBXbcjBgPwql1/Encpjrkk
+ uIP0lB5SsQoFtjiWIcGDrXovIhyDrXZaILoUO6Rkk3uba9+RhHuSUNzW8K/YHPSw
+ K9gddp31gR6W+L2luxs+ZQoGflMF3alMmmj6a8rPSJ4ysJcFU8G1iht3TSJZ7tAE
+ m4927HPn1Jj8XXffVo2blpm+/SHhfnadO8RSbg0xHA2tpkUlR5FI83K2iyX9pxhi
+ Ncg2spvMxE7Rapk0Y91vBu3l38RZZkWiB72Sp42h4fFEx2qpze1lCzGHgjQMZ6Ld
+ jedWw==
 Received: from hhmail01.hh.imgtec.org
  (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
- by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4j32ev31p9-1
+ by mx08-00376f01.pphosted.com (PPS) with ESMTPS id 4j32ev31p5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT
- key_exchange=secp384r1); Wed, 25 Nov 2026 11:49:05 +0000 (GMT)
+ key_exchange=secp384r1); Wed, 25 Nov 2026 11:49:01 +0000 (GMT)
 Received: from [127.0.1.1] (172.25.10.203) by HHMAIL01.hh.imgtec.org
  (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.56; Wed, 25 Nov
- 2026 11:49:03 +0000
+ 2026 11:48:59 +0000
 From: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Date: Wed, 25 Nov 2026 13:48:33 +0200
-Subject: [PATCH 5/6] drm/imagination: Generalize FW segment loading
+Date: Wed, 25 Nov 2026 13:48:31 +0200
+Subject: [PATCH 3/6] drm/imagination: Save metadata from firmware
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261125-b4-commonize-fw-segment-loading-v1-5-69657fa52ac3@imgtec.com>
+Message-ID: <20261125-b4-commonize-fw-segment-loading-v1-3-69657fa52ac3@imgtec.com>
 References: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
 In-Reply-To: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, Luigi Santivetti
@@ -58,32 +58,32 @@ CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
  <linux-hardening@vger.kernel.org>, Alexandru Dadu
  <alexandru.dadu@imgtec.com>, Matt Coster <opensource@mtcoster.net>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795607333; l=35170;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795607333; l=36533;
  i=alexandru.dadu@imgtec.com; s=20260304; h=from:subject:message-id;
- bh=crczCPbx8R1rAVta/uTYc0p86e+qtY17umLVtiIVqM0=;
- b=aV3OhELsRC4xuYWFROBH4wt3E7T+eSPf+WhvLwV95ltk7x7mzJ6p6PdwMtT3UJuZdEP3F1c7i
- dDpBgtTBwVgCVCFX5g1T7R3vcuooYmUVdNOTKEtXh0XyX6wBQYL6tsn
+ bh=YWin0XPhBerhXyJg+3278pC1HUW9PhisPfnXz1pwI2M=;
+ b=KHfgBpYtjU/JBNM0+ghSHFtMMQN78BGobvfIa49BaVoB7YraZuEN6TShnVfPTW2B7IndayI/a
+ QrsP/foBagICtm97PBy/hVkVWlYPzgWl5maQXAw88jMS8moRjoHQb1h
 X-Developer-Key: i=alexandru.dadu@imgtec.com; a=ed25519;
  pk=FU07SyNrYGwhahqSxbWEuzyXlUh47xBXvLvOR7UA6+U=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX08Js4ERDa7sX
- NBW6cuk01Q/o3whJghLNDOqCLP8ti2kmJO1WzQZHSBkhd6KhwoIcMgsZShDdz0neyDi+b5Uwa7y
- jSKNHPrsGjzOQnDZQyc8jfNviZLENdU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX3FCOTPIrdA+x
- yyXN37bECnmBu96QagfF39xGIKv4YPj+pJQvpVd/gfGh5YU/+h4SwgqLOMKg6nPuVWpDqSo7x0+
- QKQkECmxthLU5js+RbBhRCLaGmhvrsbVoHW5CVGBgqjPuZypCLZjamdajvIF/Ms+WdXfSB5D/nd
- k5111IyvMJtPveV9xs0KOVLKp11qoFwBWz5a4mF/GlpzyUYGEMmDxh5vSrUTli3KGZ3EQi6SVtg
- S8Fp+8lMN+UqIciZR5gukAMJc4ezWj2jc4UEnrTuY157KuwLlrnEZSpJUnUnB5bySMoRLi9NwGX
- IlmeL+Bxdvy7I8sxzPpmBdQ3FjropFGNsu75pQIznTzvTj6BaFvYdvD1cffVHqsVmUwGu1fYwCE
- GTDBdmTWSbqohH9JtXDRUNVoHj6M6UE/KsimaS53Fv9UZcxr0jFecSRcG/cujNutQJZs/HdVEOp
- 2iNJls2fYc9GhCGfRxA==
-X-Authority-Analysis: v=2.4 cv=T7AZ3PKQ c=1 sm=1 tr=0 ts=6b06cb31 cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX3pbD3tGfsnrQ
+ YMYFioGVfA6fuRcuZRA2ngKi/nEDCzSAPYyspF1cuylbLg8eEZmdYySIqx4/GK835D16HcJlMCz
+ xfwUeNaAxlDdYKSDGIML4wgrfy1QY+U=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI1MDA0NiBTYWx0ZWRfX8OEPou7zkpeR
+ aWYpRPenHcYyCvZSC58+yfttAE6U3H+z3XEDMyRplm19Sst1ymOSSwhHPo/mqeq0/poEbEvvoxr
+ 3GmqvrsaK3ZRfpWlDBjq0LHyU7R25k95PeB9tLOcTwdijiinhQoN7kUTG1VM+M/QBCARNKZ4FBQ
+ qnrVJSrHEnOhEnc33u6Q1PTtySBYTQ90pRrTKehVPxbzJTzt2kVIwQaRYRNC4dG+Y+K13ig1i11
+ UdCTZOHgwS7PyYkxKpYPvE+HqNoqHt2ceQEv890Bro24Xg/L319zLDQAvLU37CU/5Szd69pHvHU
+ 6JsX1KJ58DZ+ckXnMxLR1h9hSUqJml79nt8S9k95Oxi++YW90eRz8aoq32v6YxmY9DEqgk0Da8B
+ Y37+id63VBw9YCibf8zDQ8lTTTH+z7m/HmdxrL1X5NQeFsyzK31S32NZJTbJsohxC2wLJi8uPQ1
+ wK1IKh1GNtCjIyln2jQ==
+X-Authority-Analysis: v=2.4 cv=T7AZ3PKQ c=1 sm=1 tr=0 ts=6b06cb2d cx=c_pps
  a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
  a=4EFqt8Tv61wA:10 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=qZQ2PDNLMSdLoqI-hfl9:22
- a=r_1tXGB3AAAA:8 a=TiqXqhx0olkZ1tBPAPwA:9 a=5e2WyIOXw8PF6d9t:21
- a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-GUID: 41dhQe25m753t1ZBNUqw58wDZcB-0IIN
-X-Proofpoint-ORIG-GUID: 41dhQe25m753t1ZBNUqw58wDZcB-0IIN
+ a=r_1tXGB3AAAA:8 a=lq00ibsSrNVZE3nmIhkA:9 a=QEXdDO2ut3YA:10
+ a=t8nPyN_e6usw4ciXM-Pk:22
+X-Proofpoint-GUID: lndzApfnbBThyrKH_PjkjurfiSHtgvA1
+X-Proofpoint-ORIG-GUID: lndzApfnbBThyrKH_PjkjurfiSHtgvA1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,913 +105,1076 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Matt Coster <matt.coster@imgtec.com>
 
-There are currently (up to) four firmware segments loaded from the file,
-mostly in the same way. To reduce duplication (and make it less
-error-prone to add support for new segments), replace all that with a
-descriptor table and iterate over the segments everywhere instead of
-copy-pasting things every time.
-Add id field to struct pvr_fw_segment.
+We only need a small amount of metadata from firmware files to stick
+around (besides the actual loaded code and data segments). To prepare
+for supporting multiple versions of the binary metadata format used in
+the firmware headers, extract this information and store it in a
+kernel-internal fashion.
 
 Signed-off-by: Matt Coster <matt.coster@imgtec.com>
 Signed-off-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
 ---
- drivers/gpu/drm/imagination/pvr_fw.c       | 329 +++++++++++------------------
- drivers/gpu/drm/imagination/pvr_fw.h       |  87 +++-----
- drivers/gpu/drm/imagination/pvr_fw_meta.c  |  58 +++--
- drivers/gpu/drm/imagination/pvr_fw_mips.c  |  23 +-
- drivers/gpu/drm/imagination/pvr_fw_riscv.c |  41 ++--
- drivers/gpu/drm/imagination/pvr_fw_util.c  |  17 +-
- 6 files changed, 219 insertions(+), 336 deletions(-)
+ drivers/gpu/drm/imagination/Makefile       |   1 +
+ drivers/gpu/drm/imagination/pvr_device.c   |   5 +-
+ drivers/gpu/drm/imagination/pvr_device.h   |  15 --
+ drivers/gpu/drm/imagination/pvr_fw.c       | 228 +++----------------
+ drivers/gpu/drm/imagination/pvr_fw.h       |  96 +++++++-
+ drivers/gpu/drm/imagination/pvr_fw_info.c  | 338 +++++++++++++++++++++++++++++
+ drivers/gpu/drm/imagination/pvr_fw_info.h  |   6 +
+ drivers/gpu/drm/imagination/pvr_fw_meta.c  |  19 +-
+ drivers/gpu/drm/imagination/pvr_fw_mips.c  |  26 +--
+ drivers/gpu/drm/imagination/pvr_fw_riscv.c |   1 -
+ 10 files changed, 487 insertions(+), 248 deletions(-)
 
-diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
-index 4e082f83cff0..fbd46231f580 100644
---- a/drivers/gpu/drm/imagination/pvr_fw.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw.c
-@@ -60,35 +60,17 @@ layout_get_sizes(struct pvr_device *pvr_dev)
+diff --git a/drivers/gpu/drm/imagination/Makefile b/drivers/gpu/drm/imagination/Makefile
+index a5c5e386f16a..9ff9694b2235 100644
+--- a/drivers/gpu/drm/imagination/Makefile
++++ b/drivers/gpu/drm/imagination/Makefile
+@@ -11,6 +11,7 @@ powervr-y := \
+ 	pvr_dump.o \
+ 	pvr_free_list.o \
+ 	pvr_fw.o \
++	pvr_fw_info.o \
+ 	pvr_fw_meta.o \
+ 	pvr_fw_mips.o \
+ 	pvr_fw_riscv.o \
+diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/imagination/pvr_device.c
+index 992509d95d28..0c4832d2cce1 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.c
++++ b/drivers/gpu/drm/imagination/pvr_device.c
+@@ -693,7 +693,7 @@ pvr_device_info_validate(struct pvr_device *pvr_dev)
+  *  * 0 on success,
+  *  * -%ENODEV if the GPU is not supported,
+  *  * Any error returned by pvr_request_firmware(),
+- *  * Any error returned by pvr_fw_validate_init_device_info(),
++ *  * Any error returned by pvr_fw_load_metadata_and_device_info(),
+  *  * Any error returned by pvr_device_info_validate(),
+  *  * Any error returned by pvr_set_dma_info(), or
+  *  * Any error returned by pvr_fw_init().
+@@ -711,7 +711,7 @@ pvr_device_gpu_init(struct pvr_device *pvr_dev)
+ 	if (err)
+ 		return err;
+ 
+-	err = pvr_fw_validate_init_device_info(pvr_dev);
++	err = pvr_fw_load_metadata_and_device_info(pvr_dev);
+ 	if (err)
+ 		return err;
+ 
+@@ -745,6 +745,7 @@ static void
+ pvr_device_gpu_fini(struct pvr_device *pvr_dev)
  {
- 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
- 
--	fw_mem->code_alloc_size = 0;
--	fw_mem->data_alloc_size = 0;
--	fw_mem->core_code_alloc_size = 0;
--	fw_mem->core_data_alloc_size = 0;
-+	for (int seg = 0; seg < PVR_FW_SEGMENT_COUNT; seg++)
-+		fw_mem->segments[seg].size = 0;
- 
- 	/* Extract section sizes from FW layout table. */
--	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc) {
--		switch (desc->segment) {
--		case PVR_FW_SEGMENT_CODE:
--			fw_mem->code_alloc_size += desc->size;
--			break;
--		case PVR_FW_SEGMENT_DATA:
--			fw_mem->data_alloc_size += desc->size;
--			break;
--		case PVR_FW_SEGMENT_CORE_CODE:
--			fw_mem->core_code_alloc_size += desc->size;
--			break;
--		case PVR_FW_SEGMENT_CORE_DATA:
--			fw_mem->core_data_alloc_size += desc->size;
--			break;
--		default:
--			break;
--		}
--	}
-+	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc)
-+		fw_mem->segments[desc->segment].size += desc->size;
+ 	pvr_fw_fini(pvr_dev);
++	pvr_fw_free_metadata_and_device_info(pvr_dev);
  }
  
- int
--pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw_code_ptr,
--			void *fw_data_ptr, void *fw_core_code_ptr, void *fw_core_data_ptr,
-+pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size,
-+			const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT],
+ /**
+diff --git a/drivers/gpu/drm/imagination/pvr_device.h b/drivers/gpu/drm/imagination/pvr_device.h
+index c246122b4caf..30b101bb0a49 100644
+--- a/drivers/gpu/drm/imagination/pvr_device.h
++++ b/drivers/gpu/drm/imagination/pvr_device.h
+@@ -33,9 +33,6 @@
+ /* Forward declaration from <linux/clk.h>. */
+ struct clk;
+ 
+-/* Forward declaration from <linux/firmware.h>. */
+-struct firmware;
+-
+ /* Forward declaration from <linux/pwrseq/consumer.h> */
+ struct pwrseq_desc;
+ 
+@@ -53,15 +50,6 @@ struct pvr_gpu_id {
+ 	u16 b, v, n, c;
+ };
+ 
+-/**
+- * struct pvr_fw_version - Firmware version information
+- * @major: Major version number.
+- * @minor: Minor version number.
+- */
+-struct pvr_fw_version {
+-	u16 major, minor;
+-};
+-
+ /**
+  * struct pvr_device_data - Platform specific data associated with a compatible string.
+  * @pwr_ops: Pointer to a structure with platform-specific power functions.
+@@ -108,9 +96,6 @@ struct pvr_device {
+ 	 */
+ 	struct pvr_device_enhancements enhancements;
+ 
+-	/** @fw_version: Firmware version detected at runtime. */
+-	struct pvr_fw_version fw_version;
+-
+ 	/** @device_data: Pointer to platform-specific data. */
+ 	const struct pvr_device_data *device_data;
+ 
+diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagination/pvr_fw.c
+index cbde54c7291c..2a5dcd9aeed7 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw.c
++++ b/drivers/gpu/drm/imagination/pvr_fw.c
+@@ -3,10 +3,8 @@
+ 
+ #include "pvr_ccb.h"
+ #include "pvr_device.h"
+-#include "pvr_device_info.h"
+ #include "pvr_drv.h"
+ #include "pvr_fw.h"
+-#include "pvr_fw_info.h"
+ #include "pvr_fw_startstop.h"
+ #include "pvr_fw_trace.h"
+ #include "pvr_gem.h"
+@@ -23,10 +21,9 @@
+ #include <linux/firmware.h>
+ #include <linux/math.h>
+ #include <linux/minmax.h>
++#include <linux/overflow.h>
+ #include <linux/sizes.h>
+ 
+-#define FW_MAX_SUPPORTED_MAJOR_VERSION 1
+-
+ #define FW_BOOT_TIMEOUT_USEC 5000000
+ 
+ /* Config heap occupies top 192k of the firmware heap. */
+@@ -47,153 +44,20 @@
+ 
+ #define PVR_SYNC_OBJ_SIZE sizeof(u32)
+ 
+-const struct pvr_fw_layout_entry *
+-pvr_fw_find_layout_entry(struct pvr_device *pvr_dev, enum pvr_fw_section_id id)
++const struct pvr_fw_section_desc *
++pvr_fw_get_section_desc(struct pvr_device *pvr_dev, enum pvr_fw_section_name section)
+ {
+-	const struct pvr_fw_layout_entry *layout_entries = pvr_dev->fw_dev.layout_entries;
+-	u32 num_layout_entries = pvr_dev->fw_dev.header->layout_entry_num;
+-
+-	for (u32 entry = 0; entry < num_layout_entries; entry++) {
+-		if (layout_entries[entry].id == id)
+-			return &layout_entries[entry];
++	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc) {
++		if (desc->name == section)
++			return desc;
+ 	}
+ 
+ 	return NULL;
+ }
+ 
+-static const struct pvr_fw_layout_entry *
+-pvr_fw_find_private_data(struct pvr_device *pvr_dev)
+-{
+-	const struct pvr_fw_layout_entry *layout_entries = pvr_dev->fw_dev.layout_entries;
+-	u32 num_layout_entries = pvr_dev->fw_dev.header->layout_entry_num;
+-
+-	for (u32 entry = 0; entry < num_layout_entries; entry++) {
+-		if (layout_entries[entry].id == META_PRIVATE_DATA ||
+-		    layout_entries[entry].id == MIPS_PRIVATE_DATA ||
+-		    layout_entries[entry].id == RISCV_PRIVATE_DATA)
+-			return &layout_entries[entry];
+-	}
+-
+-	return NULL;
+-}
+-
+-#define DEV_INFO_MASK_SIZE(x) DIV_ROUND_UP(x, 64)
+-
+-/**
+- * pvr_fw_validate() - Parse firmware header and check compatibility
+- * @pvr_dev: Device pointer.
+- *
+- * Returns:
+- *  * 0 on success, or
+- *  * -EINVAL if firmware is incompatible.
+- */
+-static int
+-pvr_fw_validate(struct pvr_device *pvr_dev)
+-{
+-	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
+-	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
+-	const struct pvr_fw_layout_entry *layout_entries;
+-	const struct pvr_fw_info_header *header;
+-	const u8 *fw = firmware->data;
+-	u32 fw_offset = firmware->size - SZ_4K;
+-	u32 layout_table_size;
+-
+-	if (firmware->size < SZ_4K || (firmware->size % FW_BLOCK_SIZE))
+-		return -EINVAL;
+-
+-	header = (const struct pvr_fw_info_header *)&fw[fw_offset];
+-
+-	if (header->info_version != PVR_FW_INFO_VERSION) {
+-		drm_err(drm_dev, "Unsupported fw info version %u\n",
+-			header->info_version);
+-		return -EINVAL;
+-	}
+-
+-	if (header->header_len != sizeof(struct pvr_fw_info_header) ||
+-	    header->layout_entry_size != sizeof(struct pvr_fw_layout_entry) ||
+-	    header->layout_entry_num > PVR_FW_INFO_MAX_NUM_ENTRIES) {
+-		drm_err(drm_dev, "FW info format mismatch\n");
+-		return -EINVAL;
+-	}
+-
+-	if (!(header->flags & PVR_FW_FLAGS_OPEN_SOURCE) ||
+-	    header->fw_version_major > FW_MAX_SUPPORTED_MAJOR_VERSION ||
+-	    header->fw_version_major == 0) {
+-		drm_err(drm_dev, "Unsupported FW version %u.%u (build: %u%s)\n",
+-			header->fw_version_major, header->fw_version_minor,
+-			header->fw_version_build,
+-			(header->flags & PVR_FW_FLAGS_OPEN_SOURCE) ? " OS" : "");
+-		return -EINVAL;
+-	}
+-
+-	if (pvr_gpu_id_to_packed_bvnc(&pvr_dev->gpu_id) != header->bvnc) {
+-		struct pvr_gpu_id fw_gpu_id;
+-
+-		packed_bvnc_to_pvr_gpu_id(header->bvnc, &fw_gpu_id);
+-		drm_err(drm_dev, "FW built for incorrect GPU ID %i.%i.%i.%i (expected %i.%i.%i.%i)\n",
+-			fw_gpu_id.b, fw_gpu_id.v, fw_gpu_id.n, fw_gpu_id.c,
+-			pvr_dev->gpu_id.b, pvr_dev->gpu_id.v, pvr_dev->gpu_id.n, pvr_dev->gpu_id.c);
+-		return -EINVAL;
+-	}
+-
+-	fw_offset += header->header_len;
+-	layout_table_size =
+-		header->layout_entry_size * header->layout_entry_num;
+-	if ((fw_offset + layout_table_size) > firmware->size)
+-		return -EINVAL;
+-
+-	layout_entries = (const struct pvr_fw_layout_entry *)&fw[fw_offset];
+-	for (u32 entry = 0; entry < header->layout_entry_num; entry++) {
+-		u32 start_addr = layout_entries[entry].base_addr;
+-		u32 end_addr = start_addr + layout_entries[entry].alloc_size;
+-
+-		if (start_addr >= end_addr)
+-			return -EINVAL;
+-	}
+-
+-	fw_offset = (firmware->size - SZ_4K) - header->device_info_size;
+-
+-	drm_info(drm_dev, "FW version v%u.%u (build %u OS)\n", header->fw_version_major,
+-		 header->fw_version_minor, header->fw_version_build);
+-
+-	pvr_dev->fw_version.major = header->fw_version_major;
+-	pvr_dev->fw_version.minor = header->fw_version_minor;
+-
+-	pvr_dev->fw_dev.header = header;
+-	pvr_dev->fw_dev.layout_entries = layout_entries;
+-
+-	return 0;
+-}
+-
+-static int
+-pvr_fw_get_device_info(struct pvr_device *pvr_dev)
+-{
+-	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
+-	struct pvr_fw_device_info_header *header;
+-	const u8 *fw = firmware->data;
+-	const u64 *dev_info;
+-	u32 fw_offset;
+-
+-	fw_offset = (firmware->size - SZ_4K) - pvr_dev->fw_dev.header->device_info_size;
+-
+-	header = (struct pvr_fw_device_info_header *)&fw[fw_offset];
+-	dev_info = (u64 *)(header + 1);
+-
+-	pvr_device_info_set_quirks(pvr_dev, dev_info, header->brn_mask_size);
+-	dev_info += header->brn_mask_size;
+-
+-	pvr_device_info_set_enhancements(pvr_dev, dev_info, header->ern_mask_size);
+-	dev_info += header->ern_mask_size;
+-
+-	return pvr_device_info_set_features(pvr_dev, dev_info, header->feature_mask_size,
+-					    header->feature_param_size);
+-}
+-
+ static void
+ layout_get_sizes(struct pvr_device *pvr_dev)
+ {
+-	const struct pvr_fw_layout_entry *layout_entries = pvr_dev->fw_dev.layout_entries;
+-	u32 num_layout_entries = pvr_dev->fw_dev.header->layout_entry_num;
+ 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
+ 
+ 	fw_mem->code_alloc_size = 0;
+@@ -202,23 +66,21 @@ layout_get_sizes(struct pvr_device *pvr_dev)
+ 	fw_mem->core_data_alloc_size = 0;
+ 
+ 	/* Extract section sizes from FW layout table. */
+-	for (u32 entry = 0; entry < num_layout_entries; entry++) {
+-		switch (layout_entries[entry].type) {
+-		case FW_CODE:
+-			fw_mem->code_alloc_size += layout_entries[entry].alloc_size;
++	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc) {
++		switch (desc->segment) {
++		case PVR_FW_SEGMENT_CODE:
++			fw_mem->code_alloc_size += desc->size;
+ 			break;
+-		case FW_DATA:
+-			fw_mem->data_alloc_size += layout_entries[entry].alloc_size;
++		case PVR_FW_SEGMENT_DATA:
++			fw_mem->data_alloc_size += desc->size;
+ 			break;
+-		case FW_COREMEM_CODE:
+-			fw_mem->core_code_alloc_size +=
+-				layout_entries[entry].alloc_size;
++		case PVR_FW_SEGMENT_CORE_CODE:
++			fw_mem->core_code_alloc_size += desc->size;
+ 			break;
+-		case FW_COREMEM_DATA:
+-			fw_mem->core_data_alloc_size +=
+-				layout_entries[entry].alloc_size;
++		case PVR_FW_SEGMENT_CORE_DATA:
++			fw_mem->core_data_alloc_size += desc->size;
+ 			break;
+-		case NONE:
++		default:
+ 			break;
+ 		}
+ 	}
+@@ -229,34 +91,32 @@ pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw
+ 			void *fw_data_ptr, void *fw_core_code_ptr, void *fw_core_data_ptr,
  			void **host_addr_out)
  {
- 	u32 end_addr;
-@@ -103,26 +85,8 @@ pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw
+-	const struct pvr_fw_layout_entry *layout_entries = pvr_dev->fw_dev.layout_entries;
+-	u32 num_layout_entries = pvr_dev->fw_dev.header->layout_entry_num;
+-	u32 end_addr = addr + size;
++	u32 end_addr;
+ 
+ 	/* Ensure requested range is not zero, and size is not causing addr to overflow. */
+-	if (end_addr <= addr)
++	if (!size || check_add_overflow(addr, size, &end_addr))
+ 		return -EINVAL;
+ 
+-	for (int entry = 0; entry < num_layout_entries; entry++) {
+-		u32 entry_start_addr = layout_entries[entry].base_addr;
+-		u32 entry_end_addr = entry_start_addr + layout_entries[entry].alloc_size;
++	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc) {
++		u32 entry_start_addr = desc->base_addr;
++		u32 entry_end_addr = entry_start_addr + desc->size;
  
  		if (addr >= entry_start_addr && addr < entry_end_addr &&
  		    end_addr > entry_start_addr && end_addr <= entry_end_addr) {
--			switch (desc->segment) {
--			case PVR_FW_SEGMENT_CODE:
--				*host_addr_out = fw_code_ptr;
--				break;
--
--			case PVR_FW_SEGMENT_DATA:
--				*host_addr_out = fw_data_ptr;
--				break;
--
--			case PVR_FW_SEGMENT_CORE_CODE:
--				*host_addr_out = fw_core_code_ptr;
--				break;
-+			*host_addr_out = segments[desc->segment].host_copy;
+-			switch (layout_entries[entry].type) {
+-			case FW_CODE:
++			switch (desc->segment) {
++			case PVR_FW_SEGMENT_CODE:
+ 				*host_addr_out = fw_code_ptr;
+ 				break;
  
--			case PVR_FW_SEGMENT_CORE_DATA:
--				*host_addr_out = fw_core_data_ptr;
--				break;
--
--			default:
--				return -EINVAL;
--			}
+-			case FW_DATA:
++			case PVR_FW_SEGMENT_DATA:
+ 				*host_addr_out = fw_data_ptr;
+ 				break;
+ 
+-			case FW_COREMEM_CODE:
++			case PVR_FW_SEGMENT_CORE_CODE:
+ 				*host_addr_out = fw_core_code_ptr;
+ 				break;
+ 
+-			case FW_COREMEM_DATA:
++			case PVR_FW_SEGMENT_CORE_DATA:
+ 				*host_addr_out = fw_core_data_ptr;
+ 				break;
+ 
+@@ -264,8 +124,8 @@ pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw
+ 				return -EINVAL;
+ 			}
  			/* Direct Mem write to mapped memory */
- 			addr -= desc->base_addr;
- 			addr += desc->alloc_offset;
-@@ -211,8 +175,8 @@ fw_sysinit_init(void *cpu_ptr, void *priv)
- 	pvr_fw_object_get_fw_addr(fw_mem->sysdata_obj, &fwif_sysinit->fw_sys_data_fw_addr);
- 	pvr_fw_object_get_fw_addr(fw_mem->gpu_util_fwcb_obj,
- 				  &fwif_sysinit->gpu_util_fw_cb_ctl_fw_addr);
--	if (fw_mem->core_data_obj) {
--		pvr_fw_object_get_fw_addr(fw_mem->core_data_obj,
-+	if (fw_mem->segments[PVR_FW_SEGMENT_CORE_DATA].obj) {
-+		pvr_fw_object_get_fw_addr(fw_mem->segments[PVR_FW_SEGMENT_CORE_DATA].obj,
- 					  &fwif_sysinit->coremem_data_store.fw_addr);
- 	}
+-			addr -= layout_entries[entry].base_addr;
+-			addr += layout_entries[entry].alloc_offset;
++			addr -= desc->base_addr;
++			addr += desc->alloc_offset;
  
-@@ -462,6 +426,76 @@ pvr_fw_destroy_structures(struct pvr_device *pvr_dev)
- 	pvr_fw_object_destroy(fw_mem->fwif_connection_ctl_obj);
- }
- 
-+static void *
-+pvr_fw_segment_map_standard(struct pvr_device *pvr_dev, struct pvr_fw_segment *segment,
-+			    __always_unused u32 fixed_data_addr)
-+{
-+	return pvr_fw_object_create_and_map(pvr_dev, segment->size,
-+					    PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+					    NULL, NULL,
-+					    &segment->obj);
-+}
-+
-+static void *
-+pvr_fw_segment_map_code(struct pvr_device *pvr_dev, struct pvr_fw_segment *segment,
-+			__always_unused u32 fixed_data_addr)
-+{
-+	/*
-+	 * Code allocation must be at the start of the firmware heap, otherwise
-+	 * firmware processor will be unable to boot.
-+	 *
-+	 * This has the useful side-effect that for every other object in the
-+	 * driver, a firmware address of 0 is invalid.
-+	 */
-+	return pvr_fw_object_create_and_map_offset(pvr_dev, 0, segment->size,
-+						   PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+						   NULL, NULL,
-+						   &segment->obj);
-+}
-+
-+static void *
-+pvr_fw_segment_map_data(struct pvr_device *pvr_dev, struct pvr_fw_segment *segment,
-+			u32 fixed_data_addr)
-+{
-+	if (pvr_dev->fw_dev.defs->has_fixed_data_addr) {
-+		u32 base_addr = fixed_data_addr & pvr_dev->fw_dev.fw_heap_info.offset_mask;
-+
-+		return pvr_fw_object_create_and_map_offset(pvr_dev, base_addr,
-+							   segment->size,
-+							   PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
-+							   NULL, NULL,
-+							   &segment->obj);
-+	}
-+
-+	return pvr_fw_segment_map_standard(pvr_dev, segment, fixed_data_addr);
-+}
-+
-+const struct pvr_fw_segment_desc pvr_fw_segment_descs[PVR_FW_SEGMENT_COUNT] = {
-+	[PVR_FW_SEGMENT_CODE] = { .name = "code", .required = true,
-+				  .create_and_map = pvr_fw_segment_map_code },
-+	[PVR_FW_SEGMENT_DATA] = { .name = "data", .required = true,
-+				  .create_and_map = pvr_fw_segment_map_data },
-+	[PVR_FW_SEGMENT_CORE_CODE] = { .name = "core_code", .required = false,
-+				       .create_and_map = pvr_fw_segment_map_standard },
-+	[PVR_FW_SEGMENT_CORE_DATA] = { .name = "core_data", .required = false,
-+				       .create_and_map = pvr_fw_segment_map_standard },
-+};
-+
-+static void
-+pvr_fw_destroy_segments(struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
-+{
-+	for (int i = PVR_FW_SEGMENT_COUNT - 1; i >= 0; i--) {
-+		struct pvr_fw_segment *segment = &segments[i];
-+
-+		if (segment->obj)
-+			pvr_fw_object_destroy(segment->obj);
-+		segment->obj = NULL;
-+
-+		kfree(segment->host_copy);
-+		segment->host_copy = NULL;
-+	}
-+}
-+
- /**
-  * pvr_fw_process() - Process firmware image, allocate FW memory and create boot
-  *                    arguments
-@@ -478,13 +512,13 @@ pvr_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware)
- {
+ 			/*
+ 			 * Add offset to pointer to FW allocation only if that
+@@ -618,7 +478,7 @@ pvr_fw_process(struct pvr_device *pvr_dev)
  	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
  	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
-+	void *host_ptrs[PVR_FW_SEGMENT_COUNT] = { NULL };
- 	const struct pvr_fw_section_desc *private_data;
--	u8 *fw_code_ptr;
--	u8 *fw_data_ptr;
--	u8 *fw_core_code_ptr;
--	u8 *fw_core_data_ptr;
- 	int err;
+ 	const u8 *fw = pvr_dev->fw_dev.firmware->data;
+-	const struct pvr_fw_layout_entry *private_data;
++	const struct pvr_fw_section_desc *private_data;
+ 	u8 *fw_code_ptr;
+ 	u8 *fw_data_ptr;
+ 	u8 *fw_core_code_ptr;
+@@ -627,7 +487,7 @@ pvr_fw_process(struct pvr_device *pvr_dev)
  
-+	for (int seg = 0; seg < PVR_FW_SEGMENT_COUNT; seg++)
-+		fw_mem->segments[seg].id = seg;
-+
  	layout_get_sizes(pvr_dev);
  
- 	private_data = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_PRIVATE_DATA);
-@@ -492,142 +526,58 @@ pvr_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware)
+-	private_data = pvr_fw_find_private_data(pvr_dev);
++	private_data = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_PRIVATE_DATA);
+ 	if (!private_data)
  		return -EINVAL;
  
- 	/* Allocate and map memory for firmware sections. */
-+	for (int seg = 0; seg < PVR_FW_SEGMENT_COUNT; seg++) {
-+		const struct pvr_fw_segment_desc *desc = &pvr_fw_segment_descs[seg];
-+		struct pvr_fw_segment *segment = &fw_mem->segments[seg];
-+		void *host_ptr;
-+
-+		if (!segment->size) {
-+			if (desc->required) {
-+				drm_err(drm_dev, "Required FW segment '%s' is empty\n", desc->name);
-+				err = -EINVAL;
-+				goto err_out;
-+			}
- 
--	/*
--	 * Code allocation must be at the start of the firmware heap, otherwise
--	 * firmware processor will be unable to boot.
--	 *
--	 * This has the useful side-effect that for every other object in the
--	 * driver, a firmware address of 0 is invalid.
--	 */
--	fw_code_ptr = pvr_fw_object_create_and_map_offset(pvr_dev, 0, fw_mem->code_alloc_size,
--							  PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--							  NULL, NULL, &fw_mem->code_obj);
--	if (IS_ERR(fw_code_ptr)) {
--		drm_err(drm_dev, "Unable to allocate FW code memory\n");
--		return PTR_ERR(fw_code_ptr);
--	}
--
--	if (pvr_dev->fw_dev.defs->has_fixed_data_addr) {
--		u32 base_addr = private_data->base_addr & pvr_dev->fw_dev.fw_heap_info.offset_mask;
--
--		fw_data_ptr =
--			pvr_fw_object_create_and_map_offset(pvr_dev, base_addr,
--							    fw_mem->data_alloc_size,
--							    PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--							    NULL, NULL, &fw_mem->data_obj);
--	} else {
--		fw_data_ptr = pvr_fw_object_create_and_map(pvr_dev, fw_mem->data_alloc_size,
--							   PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--							   NULL, NULL, &fw_mem->data_obj);
--	}
--	if (IS_ERR(fw_data_ptr)) {
--		drm_err(drm_dev, "Unable to allocate FW data memory\n");
--		err = PTR_ERR(fw_data_ptr);
--		goto err_free_fw_code_obj;
--	}
-+			continue;
-+		}
- 
--	/* Core code and data sections are optional. */
--	if (fw_mem->core_code_alloc_size) {
--		fw_core_code_ptr =
--			pvr_fw_object_create_and_map(pvr_dev, fw_mem->core_code_alloc_size,
--						     PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--						     NULL, NULL, &fw_mem->core_code_obj);
--		if (IS_ERR(fw_core_code_ptr)) {
--			drm_err(drm_dev,
--				"Unable to allocate FW core code memory\n");
--			err = PTR_ERR(fw_core_code_ptr);
--			goto err_free_fw_data_obj;
-+		segment->host_copy = kzalloc(segment->size, GFP_KERNEL);
-+		if (!segment->host_copy) {
-+			err = -ENOMEM;
-+			goto err_out;
- 		}
--	} else {
--		fw_core_code_ptr = NULL;
--	}
- 
--	if (fw_mem->core_data_alloc_size) {
--		fw_core_data_ptr =
--			pvr_fw_object_create_and_map(pvr_dev, fw_mem->core_data_alloc_size,
--						     PVR_BO_FW_FLAGS_DEVICE_UNCACHED,
--						     NULL, NULL, &fw_mem->core_data_obj);
--		if (IS_ERR(fw_core_data_ptr)) {
--			drm_err(drm_dev,
--				"Unable to allocate FW core data memory\n");
--			err = PTR_ERR(fw_core_data_ptr);
--			goto err_free_fw_core_code_obj;
-+		host_ptr = desc->create_and_map(pvr_dev, segment, private_data->base_addr);
-+		if (IS_ERR(host_ptr)) {
-+			drm_err(drm_dev, "Failed to allocate FW memory for segment '%s'\n",
-+				desc->name);
-+			err = PTR_ERR(host_ptr);
-+			goto err_out;
- 		}
--	} else {
--		fw_core_data_ptr = NULL;
--	}
- 
--	fw_mem->code = kzalloc(fw_mem->code_alloc_size, GFP_KERNEL);
--	fw_mem->data = kzalloc(fw_mem->data_alloc_size, GFP_KERNEL);
--	if (fw_mem->core_code_alloc_size)
--		fw_mem->core_code = kzalloc(fw_mem->core_code_alloc_size, GFP_KERNEL);
--	if (fw_mem->core_data_alloc_size)
--		fw_mem->core_data = kzalloc(fw_mem->core_data_alloc_size, GFP_KERNEL);
--
--	if (!fw_mem->code || !fw_mem->data ||
--	    (!fw_mem->core_code && fw_mem->core_code_alloc_size) ||
--	    (!fw_mem->core_data && fw_mem->core_data_alloc_size)) {
--		err = -ENOMEM;
--		goto err_free_kdata;
-+		host_ptrs[seg] = host_ptr;
- 	}
- 
--	err = pvr_dev->fw_dev.defs->fw_process(pvr_dev, firmware,
--					       fw_mem->code, fw_mem->data, fw_mem->core_code,
--					       fw_mem->core_data, fw_mem->core_code_alloc_size);
--
-+	err = pvr_dev->fw_dev.defs->fw_process(pvr_dev, firmware, fw_mem->segments);
- 	if (err)
--		goto err_free_kdata;
--
--	memcpy(fw_code_ptr, fw_mem->code, fw_mem->code_alloc_size);
--	memcpy(fw_data_ptr, fw_mem->data, fw_mem->data_alloc_size);
--	if (fw_mem->core_code)
--		memcpy(fw_core_code_ptr, fw_mem->core_code, fw_mem->core_code_alloc_size);
--	if (fw_mem->core_data)
--		memcpy(fw_core_data_ptr, fw_mem->core_data, fw_mem->core_data_alloc_size);
--
--	/* We're finished with the firmware section memory on the CPU, unmap. */
--	if (fw_core_data_ptr) {
--		pvr_fw_object_vunmap(fw_mem->core_data_obj);
--		fw_core_data_ptr = NULL;
--	}
--	if (fw_core_code_ptr) {
--		pvr_fw_object_vunmap(fw_mem->core_code_obj);
--		fw_core_code_ptr = NULL;
-+		goto err_out;
-+
-+	for (int seg = 0; seg < PVR_FW_SEGMENT_COUNT; seg++) {
-+		const struct pvr_fw_segment *segment = &fw_mem->segments[seg];
-+
-+		if (!segment->obj)
-+			continue;
-+
-+		memcpy(host_ptrs[seg], segment->host_copy, segment->size);
-+
-+		host_ptrs[seg] = NULL;
-+		pvr_fw_object_vunmap(segment->obj);
- 	}
--	pvr_fw_object_vunmap(fw_mem->data_obj);
--	fw_data_ptr = NULL;
--	pvr_fw_object_vunmap(fw_mem->code_obj);
--	fw_code_ptr = NULL;
- 
- 	return 0;
- 
--err_free_kdata:
--	kfree(fw_mem->core_data);
--	kfree(fw_mem->core_code);
--	kfree(fw_mem->data);
--	kfree(fw_mem->code);
--
--	if (fw_core_data_ptr)
--		pvr_fw_object_vunmap(fw_mem->core_data_obj);
--	if (fw_mem->core_data_obj)
--		pvr_fw_object_destroy(fw_mem->core_data_obj);
--
--err_free_fw_core_code_obj:
--	if (fw_core_code_ptr)
--		pvr_fw_object_vunmap(fw_mem->core_code_obj);
--	if (fw_mem->core_code_obj)
--		pvr_fw_object_destroy(fw_mem->core_code_obj);
--
--err_free_fw_data_obj:
--	if (fw_data_ptr)
--		pvr_fw_object_vunmap(fw_mem->data_obj);
--	pvr_fw_object_destroy(fw_mem->data_obj);
--
--err_free_fw_code_obj:
--	if (fw_code_ptr)
--		pvr_fw_object_vunmap(fw_mem->code_obj);
--	pvr_fw_object_destroy(fw_mem->code_obj);
-+err_out:
-+	pvr_fw_destroy_segments(fw_mem->segments);
- 
- 	return err;
- }
-@@ -653,24 +603,13 @@ pvr_fw_reinit_code_data(struct pvr_device *pvr_dev)
- 	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
- 	int err;
- 
--	err = pvr_copy_to_fw(fw_mem->code_obj, fw_mem->code, fw_mem->code_alloc_size);
--	if (err)
--		return err;
-+	for (int seg = 0; seg < PVR_FW_SEGMENT_COUNT; seg++) {
-+		auto segment = &fw_mem->segments[seg];
- 
--	err = pvr_copy_to_fw(fw_mem->data_obj, fw_mem->data, fw_mem->data_alloc_size);
--	if (err)
--		return err;
-+		if (!segment->obj)
-+			continue;
- 
--	if (fw_mem->core_code) {
--		err = pvr_copy_to_fw(fw_mem->core_code_obj, fw_mem->core_code,
--				     fw_mem->core_code_alloc_size);
--		if (err)
--			return err;
--	}
--
--	if (fw_mem->core_data) {
--		err = pvr_copy_to_fw(fw_mem->core_data_obj, fw_mem->core_data,
--				     fw_mem->core_data_alloc_size);
-+		err = pvr_copy_to_fw(segment->obj, segment->host_copy, segment->size);
- 		if (err)
- 			return err;
- 	}
-@@ -681,19 +620,7 @@ pvr_fw_reinit_code_data(struct pvr_device *pvr_dev)
- static void
- pvr_fw_cleanup(struct pvr_device *pvr_dev)
- {
--	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
--
--	kfree(fw_mem->core_data);
--	kfree(fw_mem->core_code);
--	kfree(fw_mem->data);
--	kfree(fw_mem->code);
--
--	if (fw_mem->core_code_obj)
--		pvr_fw_object_destroy(fw_mem->core_code_obj);
--	if (fw_mem->core_data_obj)
--		pvr_fw_object_destroy(fw_mem->core_data_obj);
--	pvr_fw_object_destroy(fw_mem->code_obj);
--	pvr_fw_object_destroy(fw_mem->data_obj);
-+	pvr_fw_destroy_segments(pvr_dev->fw_dev.mem.segments);
+@@ -880,28 +740,6 @@ pvr_fw_heap_info_init(struct pvr_device *pvr_dev, u32 log2_size, u32 reserved_si
+ 				    (PVR_ROGUE_FW_CONFIG_HEAP_SIZE + reserved_size);
  }
  
+-/**
+- * pvr_fw_validate_init_device_info() - Validate firmware and initialise device information
+- * @pvr_dev: Target PowerVR device.
+- *
+- * This function must be called before querying device information.
+- *
+- * Returns:
+- *  * 0 on success, or
+- *  * -%EINVAL if firmware validation fails.
+- */
+-int
+-pvr_fw_validate_init_device_info(struct pvr_device *pvr_dev)
+-{
+-	int err;
+-
+-	err = pvr_fw_validate(pvr_dev);
+-	if (err)
+-		return err;
+-
+-	return pvr_fw_get_device_info(pvr_dev);
+-}
+-
  /**
+  * pvr_fw_init() - Initialise and boot firmware
+  * @pvr_dev: Target PowerVR device
+@@ -1549,8 +1387,8 @@ pvr_fw_info_get(const struct pvr_device *pvr_dev,
+ 	if (fw_info._padding_4)
+ 		return -EINVAL;
+ 
+-	fw_info.major_version = pvr_dev->fw_version.major;
+-	fw_info.minor_version = pvr_dev->fw_version.minor;
++	fw_info.major_version = pvr_dev->fw_dev.metadata->version.major;
++	fw_info.minor_version = pvr_dev->fw_dev.metadata->version.minor;
+ 
+ 	err = PVR_UOBJ_SET(args->pointer, args->size, fw_info);
+ 	if (err < 0)
 diff --git a/drivers/gpu/drm/imagination/pvr_fw.h b/drivers/gpu/drm/imagination/pvr_fw.h
-index 45b38d9072a1..15e0cbe71a34 100644
+index dab8292a8479..51acefde73ee 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw.h
 +++ b/drivers/gpu/drm/imagination/pvr_fw.h
-@@ -9,6 +9,7 @@
+@@ -4,7 +4,6 @@
+ #ifndef PVR_FW_H
+ #define PVR_FW_H
  
- #include <drm/drm_mm.h>
+-#include "pvr_fw_info.h"
+ #include "pvr_fw_trace.h"
+ #include "pvr_gem.h"
  
-+#include <linux/array_size.h>
- #include <linux/types.h>
+@@ -23,6 +22,30 @@ struct pvr_vm_context;
  
- /* Forward declarations from "pvr_device.h". */
-@@ -136,6 +137,23 @@ struct pvr_fw_metadata {
- 	struct pvr_fw_section_desc sections[] __counted_by(num_sections);
+ #define ROGUE_FWIF_KCCB_NUMCMDS_LOG2_DEFAULT 7
+ 
++extern bool pvr_exp_fw_support;
++
++/**
++ * struct pvr_fw_version - Firmware version information
++ * @major: Major version number.
++ * @minor: Minor version number.
++ * @build: Build number. This is informative only.
++ * @open_source: Whether this firmware was built with open-source driver
++ *               compatibility enabled.
++ */
++struct pvr_fw_version {
++	u16 major;
++	u16 minor;
++	u32 build;
++	bool open_source;
++};
++
++#define PVR_FW_VERSION_FMT "v%u.%u (build %u%s)"
++#define PVR_FW_VERSION_FMT_ARGS(fw_version) \
++	(fw_version)->major, (fw_version)->minor, (fw_version)->build, \
++	(fw_version)->open_source ? " OS" : ""
++
++#define PVR_FW_MAX_SUPPORTED_MAJOR_VERSION 1
++
+ /**
+  * struct pvr_fw_object - container for firmware memory allocations
+  */
+@@ -59,6 +82,57 @@ struct pvr_fw_object {
+ 	struct list_head node;
  };
  
-+struct pvr_fw_segment {
-+	enum pvr_fw_segment_name id;
++enum pvr_fw_section_name {
++	PVR_FW_SECTION_CODE = 0,
++	PVR_FW_SECTION_PRIVATE_DATA,
++	PVR_FW_SECTION_RODATA,
++	PVR_FW_SECTION_COREMEM_CODE,
++	PVR_FW_SECTION_COREMEM_DATA,
++	PVR_FW_SECTION_EXCEPTIONS_CODE,
++	PVR_FW_SECTION_BOOT_CODE,
++	PVR_FW_SECTION_BOOT_DATA,
++	PVR_FW_SECTION_STACK,
++	PVR_FW_SECTION_UNCACHED_CODE,
++	PVR_FW_SECTION_CACHED_CODE,
++
++	PVR_FW_SECTION_COUNT,
++	PVR_FW_SECTION_INVALID = -1,
++};
++
++enum pvr_fw_segment_name {
++	PVR_FW_SEGMENT_CODE = 0,
++	PVR_FW_SEGMENT_DATA,
++	PVR_FW_SEGMENT_CORE_CODE,
++	PVR_FW_SEGMENT_CORE_DATA,
++
++	PVR_FW_SEGMENT_COUNT,
++	PVR_FW_SEGMENT_INVALID = -1,
++};
++
++struct pvr_fw_section_desc {
++	enum pvr_fw_section_name name;
++	enum pvr_fw_segment_name segment;
++	u32 base_addr;
 +	u32 size;
-+	struct pvr_fw_object *obj;
-+	void *host_copy;
++	u32 alloc_offset;
 +};
 +
-+struct pvr_fw_segment_desc {
-+	const char *name;
-+	bool required;
-+	void *(*create_and_map)(struct pvr_device *pvr_dev,
-+				struct pvr_fw_segment *segment,
-+				u32 fixed_data_addr);
-+};
++#define pvr_for_each_fw_section_desc(fw_metadata, name) \
++	for (const struct pvr_fw_section_desc *name = (fw_metadata)->sections; \
++	     name < (fw_metadata)->sections + (fw_metadata)->num_sections; \
++	     name++)
 +
-+extern const struct pvr_fw_segment_desc pvr_fw_segment_descs[PVR_FW_SEGMENT_COUNT];
++struct pvr_fw_metadata {
++	/** @version: Version of the loaded firmware file. */
++	struct pvr_fw_version version;
++
++	/** @num_sections: Number of section descriptors in @sections. */
++	u32 num_sections;
++
++	/** @sections: Section descriptors loaded from firmware header. */
++	struct pvr_fw_section_desc sections[] __counted_by(num_sections);
++};
 +
  /**
   * struct pvr_fw_defs - FW processor function table and static definitions
   */
-@@ -173,11 +191,8 @@ struct pvr_fw_defs {
- 	 * Load and process firmware image.
- 	 * @pvr_dev: Target PowerVR device.
- 	 * @firmware: Pointer to firmware image.
--	 * @fw_code_ptr: Pointer to firmware code section.
--	 * @fw_data_ptr: Pointer to firmware data section.
--	 * @fw_core_code_ptr: Pointer to firmware core code section. May be %NULL.
--	 * @fw_core_data_ptr: Pointer to firmware core data section. May be %NULL.
--	 * @core_code_alloc_size: Total allocation size of core code section.
-+	 * @segments: Firmware segments, includes host pointers for populating
-+	 * and firmware objects for reference.
- 	 *
- 	 * This function is mandatory.
- 	 *
-@@ -186,8 +201,7 @@ struct pvr_fw_defs {
- 	 *  * Any appropriate error on failure.
- 	 */
- 	int (*fw_process)(struct pvr_device *pvr_dev, const struct firmware *firmware,
--			  u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr,
--			  u8 *fw_core_data_ptr, u32 core_code_alloc_size);
-+			  const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT]);
+@@ -286,11 +360,8 @@ struct pvr_fw_device {
+ 	/** @firmware: Handle to the firmware loaded into the device. */
+ 	const struct firmware *firmware;
  
- 	/**
- 	 * @vm_map:
-@@ -274,53 +288,8 @@ struct pvr_fw_defs {
-  * struct pvr_fw_mem - FW memory allocations
-  */
- struct pvr_fw_mem {
--	/** @code_obj: Object representing firmware code. */
--	struct pvr_fw_object *code_obj;
+-	/** @header: Pointer to firmware header. */
+-	const struct pvr_fw_info_header *header;
 -
--	/** @data_obj: Object representing firmware data. */
--	struct pvr_fw_object *data_obj;
--
--	/**
--	 * @core_code_obj: Object representing firmware core code. May be
--	 *                 %NULL if firmware does not contain this section.
--	 */
--	struct pvr_fw_object *core_code_obj;
--
--	/**
--	 * @core_data_obj: Object representing firmware core data. May be
--	 *                 %NULL if firmware does not contain this section.
--	 */
--	struct pvr_fw_object *core_data_obj;
--
--	/** @code: Driver-side copy of firmware code. */
--	u8 *code;
--
--	/** @data: Driver-side copy of firmware data. */
--	u8 *data;
--
--	/**
--	 * @core_code: Driver-side copy of firmware core code. May be %NULL if firmware does not
--	 *             contain this section.
--	 */
--	u8 *core_code;
--
--	/**
--	 * @core_data: Driver-side copy of firmware core data. May be %NULL if firmware does not
--	 *             contain this section.
--	 */
--	u8 *core_data;
--
--	/** @code_alloc_size: Allocation size of firmware code section. */
--	u32 code_alloc_size;
--
--	/** @data_alloc_size: Allocation size of firmware data section. */
--	u32 data_alloc_size;
--
--	/** @core_code_alloc_size: Allocation size of firmware core code section. */
--	u32 core_code_alloc_size;
--
--	/** @core_data_alloc_size: Allocation size of firmware core data section. */
--	u32 core_data_alloc_size;
-+	/** @segments: Firmware segments loaded from file. */
-+	struct pvr_fw_segment segments[PVR_FW_SEGMENT_COUNT];
+-	/** @layout_entries: Pointer to firmware layout. */
+-	const struct pvr_fw_layout_entry *layout_entries;
++	/** @metadata: Metadata loaded from firmware headers. */
++	const struct pvr_fw_metadata *metadata;
  
- 	/**
- 	 * @fwif_connection_ctl_obj: Object representing FWIF connection control
-@@ -472,8 +441,8 @@ pvr_fw_heap_info_init(struct pvr_device *pvr_dev, u32 log2_size, u32 reserved_si
- const struct pvr_fw_section_desc *
- pvr_fw_get_section_desc(struct pvr_device *pvr_dev, enum pvr_fw_section_name section);
+ 	/** @mem: Structure containing objects representing firmware memory allocations. */
+ 	struct pvr_fw_mem mem;
+@@ -385,7 +456,6 @@ extern const struct pvr_fw_defs pvr_fw_defs_meta;
+ extern const struct pvr_fw_defs pvr_fw_defs_mips;
+ extern const struct pvr_fw_defs pvr_fw_defs_riscv;
+ 
+-int pvr_fw_validate_init_device_info(struct pvr_device *pvr_dev);
+ int pvr_fw_init(struct pvr_device *pvr_dev);
+ void pvr_fw_fini(struct pvr_device *pvr_dev);
+ 
+@@ -399,8 +469,8 @@ void pvr_fw_mts_schedule(struct pvr_device *pvr_dev, u32 val);
+ void
+ pvr_fw_heap_info_init(struct pvr_device *pvr_dev, u32 log2_size, u32 reserved_size);
+ 
+-const struct pvr_fw_layout_entry *
+-pvr_fw_find_layout_entry(struct pvr_device *pvr_dev, enum pvr_fw_section_id id);
++const struct pvr_fw_section_desc *
++pvr_fw_get_section_desc(struct pvr_device *pvr_dev, enum pvr_fw_section_name section);
  int
--pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw_code_ptr,
--			void *fw_data_ptr, void *fw_core_code_ptr, void *fw_core_data_ptr,
-+pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size,
-+			const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT],
- 			void **host_addr_out);
+ pvr_fw_find_mmu_segment(struct pvr_device *pvr_dev, u32 addr, u32 size, void *fw_code_ptr,
+ 			void *fw_data_ptr, void *fw_core_code_ptr, void *fw_core_data_ptr,
+@@ -485,6 +555,14 @@ pvr_fw_obj_get_object_size(struct pvr_fw_object *fw_obj)
+ 	return pvr_gem_object_size(fw_obj->gem);
+ }
  
- int
-@@ -565,9 +534,9 @@ int pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev,
- void pvr_fw_free_metadata_and_device_info(struct pvr_device *pvr_dev);
- 
++/*
++ * Declared in pvr_fw_info.c, these functions represent the entire bridge
++ * between the types defined above (and in pvr_device_info.h) and the ABI types
++ * defined in pvr_fw_info.h.
++ */
++int pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev);
++void pvr_fw_free_metadata_and_device_info(struct pvr_device *pvr_dev);
++
  /* Util functions defined in pvr_fw_util.c. These are intended for use in pvr_fw_<arch>.c files. */
--int
--pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
--				  u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr);
-+int pvr_fw_process_elf_command_stream(
-+	struct pvr_device *pvr_dev, const u8 *fw,
-+	const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT]);
- 
  int
- pvr_fw_info_get(const struct pvr_device *pvr_dev, struct drm_pvr_ioctl_dev_query_args *args);
+ pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw, u8 *fw_code_ptr,
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_info.c b/drivers/gpu/drm/imagination/pvr_fw_info.c
+new file mode 100644
+index 000000000000..2e7e9fb291b3
+--- /dev/null
++++ b/drivers/gpu/drm/imagination/pvr_fw_info.c
+@@ -0,0 +1,338 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/* Copyright (c) 2026 Imagination Technologies Ltd. */
++
++#include "pvr_device.h"
++#include "pvr_device_info.h"
++#include "pvr_fw.h"
++#include "pvr_fw_info.h"
++
++#include <drm/drm_print.h>
++
++#include <linux/err.h>
++#include <linux/errno.h>
++#include <linux/firmware.h>
++#include <linux/overflow.h>
++#include <linux/slab.h>
++#include <linux/types.h>
++
++/* Forward declaration from <drm/drm_device.h> */
++struct drm_device;
++
++static enum pvr_fw_section_name
++pvr_fw_section_for_section_id(enum pvr_fw_section_id section_id)
++{
++	switch (section_id) {
++	case META_CODE:
++	case MIPS_CODE:
++		return PVR_FW_SECTION_CODE;
++	case META_PRIVATE_DATA:
++	case MIPS_PRIVATE_DATA:
++	case RISCV_PRIVATE_DATA:
++		return PVR_FW_SECTION_PRIVATE_DATA;
++	case META_COREMEM_CODE:
++	case RISCV_COREMEM_CODE:
++		return PVR_FW_SECTION_COREMEM_CODE;
++	case META_COREMEM_DATA:
++	case RISCV_COREMEM_DATA:
++		return PVR_FW_SECTION_COREMEM_DATA;
++	case MIPS_EXCEPTIONS_CODE:
++		return PVR_FW_SECTION_EXCEPTIONS_CODE;
++	case MIPS_BOOT_CODE:
++		return PVR_FW_SECTION_BOOT_CODE;
++	case MIPS_BOOT_DATA:
++		return PVR_FW_SECTION_BOOT_DATA;
++	case MIPS_STACK:
++		return PVR_FW_SECTION_STACK;
++	case RISCV_UNCACHED_CODE:
++		return PVR_FW_SECTION_UNCACHED_CODE;
++	case RISCV_CACHED_CODE:
++		return PVR_FW_SECTION_CACHED_CODE;
++	default:
++		return PVR_FW_SECTION_INVALID;
++	}
++}
++
++static enum pvr_fw_segment_name
++pvr_fw_segment_for_section_type(enum pvr_fw_section_type section_type)
++{
++	switch (section_type) {
++	case FW_CODE:
++		return PVR_FW_SEGMENT_CODE;
++	case FW_DATA:
++		return PVR_FW_SEGMENT_DATA;
++	case FW_COREMEM_CODE:
++		return PVR_FW_SEGMENT_CORE_CODE;
++	case FW_COREMEM_DATA:
++		return PVR_FW_SEGMENT_CORE_DATA;
++	default:
++		return PVR_FW_SEGMENT_INVALID;
++	}
++}
++
++static int
++pvr_fw_section_desc_for_layout_entry(struct pvr_device *pvr_dev,
++				     const struct pvr_fw_layout_entry *entry,
++				     struct pvr_fw_section_desc *section_out)
++{
++	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
++	enum pvr_fw_segment_name segment;
++	enum pvr_fw_section_name name;
++	bool invalid = false;
++	u32 end_addr;
++
++	name = pvr_fw_section_for_section_id(entry->id);
++	if (name == PVR_FW_SECTION_INVALID) {
++		drm_err(drm_dev, "Firmware section with unknown id (%u)\n",
++			entry->id);
++		invalid = true;
++	}
++
++	segment = pvr_fw_segment_for_section_type(entry->type);
++	if (segment == PVR_FW_SEGMENT_INVALID) {
++		drm_err(drm_dev, "Firmware section with unknown type (%u)\n",
++			entry->type);
++		invalid = true;
++	}
++
++	if (entry->alloc_size == 0) {
++		drm_err(drm_dev, "Firmware section is empty\n");
++		invalid = true;
++	}
++
++	if (entry->max_size < entry->alloc_size) {
++		drm_err(drm_dev, "Firmware section size mismatch (max=0x%x < alloc=0x%x)\n",
++			entry->max_size, entry->alloc_size);
++		invalid = true;
++	}
++
++	if (check_add_overflow(entry->base_addr, entry->alloc_size, &end_addr)) {
++		drm_err(drm_dev, "Firmware section size overflow (end would be 0x%llx)\n",
++			(u64)entry->base_addr + (u64)entry->alloc_size);
++		invalid = true;
++	}
++
++	if (invalid)
++		return -EINVAL;
++
++	*section_out = (struct pvr_fw_section_desc){
++		.name = name,
++		.segment = segment,
++		.base_addr = entry->base_addr,
++		.size = entry->alloc_size,
++		.alloc_offset = entry->alloc_offset,
++	};
++
++	return 0;
++}
++
++static bool
++pvr_fw_load_version(struct pvr_device *pvr_dev,
++		    const struct pvr_fw_info_header *header,
++		    struct pvr_fw_version *version_out)
++{
++	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
++	bool invalid = false;
++
++	struct pvr_fw_version version = {
++		.major = header->fw_version_major,
++		.minor = header->fw_version_minor,
++		.build = header->fw_version_build,
++		.open_source = header->flags & PVR_FW_FLAGS_OPEN_SOURCE,
++	};
++
++	if (!version.open_source) {
++		drm_err(drm_dev, "Firmware is not open-source compatible (found version " PVR_FW_VERSION_FMT ")\n",
++			PVR_FW_VERSION_FMT_ARGS(&version));
++		invalid = true;
++	}
++
++	if (version.major == 0 ||
++	    (version.major > PVR_FW_MAX_SUPPORTED_MAJOR_VERSION && !pvr_exp_fw_support) ||
++	    (version.major != PVR_FW_MAX_SUPPORTED_MAJOR_VERSION && pvr_exp_fw_support)) {
++		drm_err(drm_dev, "Firmware version is unsupported (known range is 1..%u inclusive, found "
++				 PVR_FW_VERSION_FMT ")\n",
++			PVR_FW_MAX_SUPPORTED_MAJOR_VERSION,
++			PVR_FW_VERSION_FMT_ARGS(&version));
++		invalid = true;
++	}
++
++	if (invalid)
++		return false;
++
++	*version_out = version;
++	return true;
++}
++
++static int
++pvr_fw_info_header_validate(struct pvr_device *pvr_dev,
++			    const struct pvr_fw_info_header *header,
++			    struct pvr_fw_version *fw_version_out)
++{
++	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
++	bool invalid = false;
++
++	if (header->info_version != PVR_FW_INFO_VERSION) {
++		drm_err(drm_dev,
++			"Firmware version is unsupported (known version is %u, found %u)\n",
++			PVR_FW_INFO_VERSION, header->info_version);
++		return -EINVAL;
++	}
++
++	if (header->header_len != sizeof(struct pvr_fw_info_header)) {
++		drm_err(drm_dev, "Firmware header size mismatch (found=%u, expected=%zu)\n)",
++			header->header_len, sizeof(struct pvr_fw_info_header));
++		return -EINVAL;
++	}
++
++	if (!header->layout_entry_num || !header->layout_entry_size) {
++		drm_err(drm_dev, "Firmware layout table missing\n");
++		invalid = true;
++	} else if (header->layout_entry_size != sizeof(struct pvr_fw_layout_entry)) {
++		drm_err(drm_dev,
++			"Firmware layout table entry size mismatch (found=%u, expected=%zu)\n)",
++			header->layout_entry_size, sizeof(struct pvr_fw_layout_entry));
++		invalid = true;
++	} else if (header->layout_entry_num > PVR_FW_INFO_MAX_NUM_ENTRIES) {
++		drm_err(drm_dev, "Firmware layout table is too large (found=%u, max=%u)\n)",
++			header->layout_entry_num, PVR_FW_INFO_MAX_NUM_ENTRIES);
++		invalid = true;
++	} else if (header->layout_entry_size * header->layout_entry_num >
++		   FW_BLOCK_SIZE - header->header_len) {
++		drm_err(drm_dev, "Firmware layout table is too large (computed=0x%x, max=0x%x)\n",
++			header->layout_entry_size * header->layout_entry_num,
++			FW_BLOCK_SIZE - header->header_len);
++		invalid = true;
++	}
++
++	if (pvr_gpu_id_to_packed_bvnc(&pvr_dev->gpu_id) != header->bvnc) {
++		drm_err(drm_dev,
++			"Firmware built for incorrect GPU ID " PVR_GPU_ID_FORMAT
++			" (expected " PVR_GPU_ID_FORMAT ")\n",
++			(u16)(header->bvnc >> PVR_GPU_ID_ARG_B),
++			(u16)(header->bvnc >> PVR_GPU_ID_ARG_V),
++			(u16)(header->bvnc >> PVR_GPU_ID_ARG_N),
++			(u16)(header->bvnc >> PVR_GPU_ID_ARG_C),
++			pvr_dev->gpu_id.b,
++			pvr_dev->gpu_id.v,
++			pvr_dev->gpu_id.n,
++			pvr_dev->gpu_id.c);
++		invalid = true;
++	}
++
++	if (!pvr_fw_load_version(pvr_dev, header, fw_version_out))
++		invalid = true;
++
++	if (invalid)
++		return -EINVAL;
++
++	return 0;
++}
++
++static const struct pvr_fw_metadata *
++pvr_fw_load_metadata(struct pvr_device *pvr_dev, ptrdiff_t *device_info_offset_out)
++{
++	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
++	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
++	const struct pvr_fw_layout_entry *layout_entries;
++	const struct pvr_fw_info_header *header;
++	struct pvr_fw_version fw_version;
++	const void *fw = firmware->data;
++	struct pvr_fw_metadata *meta;
++	ptrdiff_t header_offset;
++	int err;
++
++	if (check_sub_overflow(firmware->size, FW_BLOCK_SIZE, &header_offset)) {
++		drm_err(drm_dev, "Firmware is smaller than one block\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	if (firmware->size % FW_BLOCK_SIZE) {
++		drm_err(drm_dev, "Firmware size is not block-aligned\n");
++		return ERR_PTR(-EINVAL);
++	}
++
++	header = fw + header_offset;
++
++	err = pvr_fw_info_header_validate(pvr_dev, header, &fw_version);
++	if (err)
++		return ERR_PTR(err);
++
++	layout_entries = fw + header_offset + header->header_len;
++
++	meta = kzalloc_flex(*meta, sections, header->layout_entry_num);
++	if (!meta)
++		return ERR_PTR(-ENOMEM);
++
++	meta->version = fw_version;
++	meta->num_sections = header->layout_entry_num;
++
++	for (int i = 0; i < header->layout_entry_num; i++) {
++		err = pvr_fw_section_desc_for_layout_entry(pvr_dev,
++							   &layout_entries[i],
++							   &meta->sections[i]);
++		if (err)
++			goto err_free_meta;
++	}
++
++	*device_info_offset_out = header_offset - header->device_info_size;
++
++	drm_info(drm_dev, "Loaded firmware " PVR_FW_VERSION_FMT "\n",
++		 PVR_FW_VERSION_FMT_ARGS(&meta->version));
++
++	return meta;
++
++err_free_meta:
++	kfree(meta);
++
++	return ERR_PTR(err);
++}
++
++static int
++pvr_fw_get_device_info(struct pvr_device *pvr_dev, const void *device_info_ptr)
++{
++	const struct pvr_fw_device_info_header *header = device_info_ptr;
++	const u64 *dev_info = (u64 *)(header + 1);
++
++	pvr_device_info_set_quirks(pvr_dev, dev_info, header->brn_mask_size);
++	dev_info += header->brn_mask_size;
++
++	pvr_device_info_set_enhancements(pvr_dev, dev_info, header->ern_mask_size);
++	dev_info += header->ern_mask_size;
++
++	return pvr_device_info_set_features(pvr_dev, dev_info, header->feature_mask_size,
++					    header->feature_param_size);
++}
++
++/**
++ * pvr_fw_load_metadata_and_device_info() - Load firmware metadata and
++ * initialise device information
++ * @pvr_dev: Target PowerVR device.
++ *
++ * This function must be called before querying device information.
++ *
++ * Returns:
++ *  * 0 on success, or
++ *  * -%EINVAL if firmware validation fails.
++ */
++int
++pvr_fw_load_metadata_and_device_info(struct pvr_device *pvr_dev)
++{
++	const struct firmware *firmware = pvr_dev->fw_dev.firmware;
++	const struct pvr_fw_metadata *metadata;
++	ptrdiff_t device_info_offset = 0;
++
++	metadata = pvr_fw_load_metadata(pvr_dev, &device_info_offset);
++	if (IS_ERR(metadata))
++		return PTR_ERR(metadata);
++
++	pvr_dev->fw_dev.metadata = metadata;
++
++	return pvr_fw_get_device_info(pvr_dev, firmware->data + device_info_offset);
++}
++
++void
++pvr_fw_free_metadata_and_device_info(struct pvr_device *pvr_dev)
++{
++	kfree(pvr_dev->fw_dev.metadata);
++	pvr_dev->fw_dev.metadata = NULL;
++}
+diff --git a/drivers/gpu/drm/imagination/pvr_fw_info.h b/drivers/gpu/drm/imagination/pvr_fw_info.h
+index 3ad79c59d5b1..10c5abc840f8 100644
+--- a/drivers/gpu/drm/imagination/pvr_fw_info.h
++++ b/drivers/gpu/drm/imagination/pvr_fw_info.h
+@@ -17,6 +17,12 @@
+ /* Maximum number of entries in firmware layout table. */
+ #define PVR_FW_INFO_MAX_NUM_ENTRIES 8
+ 
++#define PVR_GPU_ID_FORMAT "%u.%u.%u.%u"
++#define PVR_GPU_ID_ARG_B 48
++#define PVR_GPU_ID_ARG_V 32
++#define PVR_GPU_ID_ARG_N 16
++#define PVR_GPU_ID_ARG_C 0
++
+ enum pvr_fw_section_id {
+ 	META_CODE = 0,
+ 	META_PRIVATE_DATA,
 diff --git a/drivers/gpu/drm/imagination/pvr_fw_meta.c b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-index 8b231df27a60..53143a6ad2ca 100644
+index 74a0e4d255c3..9cbeb226527a 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw_meta.c
 +++ b/drivers/gpu/drm/imagination/pvr_fw_meta.c
-@@ -105,8 +105,9 @@ add_boot_arg(u32 **boot_conf, u32 param, u32 data)
+@@ -3,7 +3,6 @@
  
- static int
- meta_ldr_cmd_loadmem(struct drm_device *drm_dev, const u8 *fw,
--		     struct rogue_meta_ldr_l1_data_blk *l1_data, u32 coremem_size, u8 *fw_code_ptr,
--		     u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr, const u32 fw_size)
-+		     struct rogue_meta_ldr_l1_data_blk *l1_data, u32 coremem_size,
-+		     const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT],
-+		     const u32 fw_size)
- {
- 	struct rogue_meta_ldr_l2_data_blk *l2_block =
- 		(struct rogue_meta_ldr_l2_data_blk *)(fw +
-@@ -134,8 +135,7 @@ meta_ldr_cmd_loadmem(struct drm_device *drm_dev, const u8 *fw,
- 		offset &= ~META_MEM_GLOBAL_RANGE_BIT;
- 	}
- 
--	err = pvr_fw_find_mmu_segment(pvr_dev, offset, data_size, fw_code_ptr, fw_data_ptr,
--				      fw_core_code_ptr, fw_core_data_ptr, &write_addr);
-+	err = pvr_fw_find_mmu_segment(pvr_dev, offset, data_size, segments, &write_addr);
- 	if (err) {
- 		drm_err(drm_dev,
- 			"Addr 0x%x (size: %d) not found in any firmware segment",
-@@ -151,7 +151,7 @@ meta_ldr_cmd_loadmem(struct drm_device *drm_dev, const u8 *fw,
- static int
- meta_ldr_cmd_zeromem(struct drm_device *drm_dev,
- 		     struct rogue_meta_ldr_l1_data_blk *l1_data, u32 coremem_size,
--		     u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr)
-+		     const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
- {
- 	struct pvr_device *pvr_dev = to_pvr_device(drm_dev);
- 	u32 offset = l1_data->cmd_data[0];
-@@ -167,8 +167,7 @@ meta_ldr_cmd_zeromem(struct drm_device *drm_dev,
- 	/* Global range is aliased to local range */
- 	offset &= ~META_MEM_GLOBAL_RANGE_BIT;
- 
--	err = pvr_fw_find_mmu_segment(pvr_dev, offset, byte_count, fw_code_ptr, fw_data_ptr,
--				      fw_core_code_ptr, fw_core_data_ptr, &write_addr);
-+	err = pvr_fw_find_mmu_segment(pvr_dev, offset, byte_count, segments, &write_addr);
- 	if (err) {
- 		drm_err(drm_dev,
- 			"Addr 0x%x (size: %d) not found in any firmware segment",
-@@ -240,10 +239,8 @@ meta_ldr_cmd_config(struct drm_device *drm_dev, const u8 *fw,
-  *                                firmware sections
-  * @pvr_dev: Device pointer.
-  * @firmware: Pointer to firmware image.
-- * @fw_code_ptr: Pointer to FW code section.
-- * @fw_data_ptr: Pointer to FW data section.
-- * @fw_core_code_ptr: Pointer to FW coremem code section.
-- * @fw_core_data_ptr: Pointer to FW coremem data section.
-+ * @segments: Firmware segments, includes host pointers for populating and
-+ * firmware objects for reference.
-  * @boot_conf_ptr: Pointer to boot config argument pointer.
-  *
-  * Returns :
-@@ -252,9 +249,9 @@ meta_ldr_cmd_config(struct drm_device *drm_dev, const u8 *fw,
-  */
- static int
- process_ldr_command_stream(struct pvr_device *pvr_dev,
--			   const struct firmware *firmware, u8 *fw_code_ptr,
--			   u8 *fw_data_ptr, u8 *fw_core_code_ptr,
--			   u8 *fw_core_data_ptr, u32 **boot_conf_ptr)
-+			   const struct firmware *firmware,
-+			   const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT],
-+			   u32 **boot_conf_ptr)
- {
- 	struct drm_device *drm_dev = from_pvr_device(pvr_dev);
- 	const u8 *fw = firmware->data;
-@@ -287,10 +284,8 @@ process_ldr_command_stream(struct pvr_device *pvr_dev,
- 		switch (l1_data->cmd & ROGUE_META_LDR_CMD_MASK)
- 		case ROGUE_META_LDR_CMD_LOADMEM: {
- 			err = meta_ldr_cmd_loadmem(drm_dev, fw, l1_data,
--						   coremem_size,
--						   fw_code_ptr, fw_data_ptr,
--						   fw_core_code_ptr,
--						   fw_core_data_ptr, fw_size);
-+						   coremem_size, segments,
-+						   fw_size);
- 			if (err)
- 				return err;
- 			break;
-@@ -301,10 +296,7 @@ process_ldr_command_stream(struct pvr_device *pvr_dev,
- 
- 		case ROGUE_META_LDR_CMD_ZEROMEM:
- 			err = meta_ldr_cmd_zeromem(drm_dev, l1_data,
--						   coremem_size,
--						   fw_code_ptr, fw_data_ptr,
--						   fw_core_code_ptr,
--						   fw_core_data_ptr);
-+						   coremem_size, segments);
- 			if (err)
- 				return err;
- 			break;
-@@ -361,6 +353,8 @@ configure_seg_id(u64 seg_out_addr, u32 seg_base, u32 seg_limit, u32 seg_id,
+ #include "pvr_device.h"
+ #include "pvr_fw.h"
+-#include "pvr_fw_info.h"
+ #include "pvr_fw_meta.h"
+ #include "pvr_gem.h"
+ #include "pvr_rogue_cr_defs.h"
+@@ -360,32 +359,26 @@ configure_seg_id(u64 seg_out_addr, u32 seg_base, u32 seg_limit, u32 seg_id,
  static void
  configure_seg_mmu(struct pvr_device *pvr_dev, u32 **boot_conf_ptr)
  {
-+	u64 data_seg_gpu_addr =
-+		pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.segments[PVR_FW_SEGMENT_DATA].obj);
- 	u64 seg_out_addr_top =
+-	const struct pvr_fw_layout_entry *layout_entries = pvr_dev->fw_dev.layout_entries;
+-	u32 num_layout_entries = pvr_dev->fw_dev.header->layout_entry_num;
+-	u64 seg_out_addr_top;
+-
+-	seg_out_addr_top =
++	u64 seg_out_addr_top =
  		ROGUE_FW_SEGMMU_OUTADDR_TOP_SLC(MMU_CONTEXT_MAPPING_FWPRIV,
  						ROGUE_FW_SEGMMU_META_BIFDM_ID);
-@@ -373,7 +367,7 @@ configure_seg_mmu(struct pvr_device *pvr_dev, u32 **boot_conf_ptr)
+ 
+-	for (u32 i = 0; i < num_layout_entries; i++) {
++	pvr_for_each_fw_section_desc(pvr_dev->fw_dev.metadata, desc) {
+ 		/*
+ 		 * FW code is using the bootloader segment which is already
+ 		 * configured on boot. FW coremem code and data don't use the
+ 		 * segment MMU. Only the FW data segment needs to be configured.
  		 */
- 		if (desc->segment == PVR_FW_SEGMENT_DATA) {
+-		if (layout_entries[i].type == FW_DATA) {
++		if (desc->segment == PVR_FW_SEGMENT_DATA) {
  			u32 seg_id = ROGUE_FW_SEGMMU_DATA_ID;
--			u64 seg_out_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.data_obj);
-+			u64 seg_out_addr = data_seg_gpu_addr;
+ 			u64 seg_out_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.data_obj);
  
- 			seg_out_addr += desc->alloc_offset;
+-			seg_out_addr += layout_entries[i].alloc_offset;
++			seg_out_addr += desc->alloc_offset;
  			seg_out_addr |= seg_out_addr_top;
-@@ -441,14 +435,13 @@ configure_meta_caches(u32 **boot_conf_ptr)
  
- static int
- pvr_meta_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
--		    u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
--		    u32 core_code_alloc_size)
-+		    const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
- {
--	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
-+	const struct pvr_fw_segment *core_code_seg;
- 	u32 *boot_conf;
- 	int err;
+ 			/* Write the sequence to the bootldr. */
+-			configure_seg_id(seg_out_addr,
+-					 layout_entries[i].base_addr,
+-					 layout_entries[i].alloc_size, seg_id,
+-					 boot_conf_ptr);
++			configure_seg_id(seg_out_addr, desc->base_addr,
++					 desc->size, seg_id, boot_conf_ptr);
  
--	boot_conf = ((u32 *)fw_code_ptr) + ROGUE_FW_BOOTLDR_CONF_OFFSET;
-+	boot_conf = (u32 *)segments[PVR_FW_SEGMENT_CODE].host_copy + ROGUE_FW_BOOTLDR_CONF_OFFSET;
- 
- 	/* Slave port and JTAG accesses are privileged. */
- 	add_boot_arg(&boot_conf, META_CR_SYSC_JTAG_THREAD,
-@@ -457,9 +450,7 @@ pvr_meta_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 	configure_seg_mmu(pvr_dev, &boot_conf);
- 
- 	/* Populate FW sections from LDR image. */
--	err = process_ldr_command_stream(pvr_dev, firmware, fw_code_ptr,
--					 fw_data_ptr, fw_core_code_ptr,
--					 fw_core_data_ptr, &boot_conf);
-+	err = process_ldr_command_stream(pvr_dev, firmware, segments, &boot_conf);
- 	if (err)
- 		return err;
- 
-@@ -468,11 +459,12 @@ pvr_meta_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
- 	/* End argument list. */
- 	add_boot_arg(&boot_conf, 0, 0);
- 
--	if (fw_dev->mem.core_code_obj) {
-+	core_code_seg = &segments[PVR_FW_SEGMENT_CORE_CODE];
-+	if (core_code_seg->obj) {
- 		u32 core_code_fw_addr;
- 
--		pvr_fw_object_get_fw_addr(fw_dev->mem.core_code_obj, &core_code_fw_addr);
--		add_boot_arg(&boot_conf, core_code_fw_addr, core_code_alloc_size);
-+		pvr_fw_object_get_fw_addr(core_code_seg->obj, &core_code_fw_addr);
-+		add_boot_arg(&boot_conf, core_code_fw_addr, core_code_seg->size);
- 	} else {
- 		add_boot_arg(&boot_conf, 0, 0);
- 	}
+ 			break;
+ 		}
 diff --git a/drivers/gpu/drm/imagination/pvr_fw_mips.c b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-index db89a9bc50a9..a7ae45db5515 100644
+index 6914fc46db50..619bc844447b 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw_mips.c
 +++ b/drivers/gpu/drm/imagination/pvr_fw_mips.c
-@@ -32,11 +32,11 @@ pvr_mips_fini(struct pvr_device *pvr_dev)
- 
- static int
- pvr_mips_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
--		    u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
--		    u32 core_code_alloc_size)
-+		    const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
+@@ -35,11 +35,11 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 		    u32 core_code_alloc_size)
  {
--	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mips_data *fw_data = fw_dev->processor_data.mips_data;
-+	struct pvr_fw_mips_data *fw_data = pvr_dev->fw_dev.processor_data.mips_data;
-+	struct pvr_fw_object *code_obj = segments[PVR_FW_SEGMENT_CODE].obj;
-+	struct pvr_fw_object *data_obj = segments[PVR_FW_SEGMENT_DATA].obj;
- 	const struct pvr_fw_section_desc *boot_code_entry;
- 	const struct pvr_fw_section_desc *boot_data_entry;
- 	const struct pvr_fw_section_desc *exception_code_entry;
-@@ -45,8 +45,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
+ 	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
+-	struct pvr_fw_mips_data *mips_data = fw_dev->processor_data.mips_data;
+-	const struct pvr_fw_layout_entry *boot_code_entry;
+-	const struct pvr_fw_layout_entry *boot_data_entry;
+-	const struct pvr_fw_layout_entry *exception_code_entry;
+-	const struct pvr_fw_layout_entry *stack_entry;
++	struct pvr_fw_mips_data *fw_data = fw_dev->processor_data.mips_data;
++	const struct pvr_fw_section_desc *boot_code_entry;
++	const struct pvr_fw_section_desc *boot_data_entry;
++	const struct pvr_fw_section_desc *exception_code_entry;
++	const struct pvr_fw_section_desc *stack_entry;
+ 	struct rogue_mipsfw_boot_data *boot_data;
  	dma_addr_t dma_addr;
  	int err;
- 
--	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, fw_code_ptr, fw_data_ptr,
--						fw_core_code_ptr, fw_core_data_ptr);
-+	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, segments);
+@@ -49,21 +49,21 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
  	if (err)
  		return err;
  
-@@ -56,22 +55,22 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
+-	boot_code_entry = pvr_fw_find_layout_entry(pvr_dev, MIPS_BOOT_CODE);
+-	boot_data_entry = pvr_fw_find_layout_entry(pvr_dev, MIPS_BOOT_DATA);
+-	exception_code_entry = pvr_fw_find_layout_entry(pvr_dev, MIPS_EXCEPTIONS_CODE);
++	boot_code_entry = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_BOOT_CODE);
++	boot_data_entry = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_BOOT_DATA);
++	exception_code_entry = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_EXCEPTIONS_CODE);
  	if (!boot_code_entry || !boot_data_entry || !exception_code_entry)
  		return -EINVAL;
  
--	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem, boot_code_entry->alloc_offset,
-+	WARN_ON(pvr_gem_get_dma_addr(code_obj->gem, boot_code_entry->alloc_offset,
- 				     &fw_data->boot_code_dma_addr));
--	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.data_obj->gem, boot_data_entry->alloc_offset,
-+	WARN_ON(pvr_gem_get_dma_addr(data_obj->gem, boot_data_entry->alloc_offset,
- 				     &fw_data->boot_data_dma_addr));
--	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem,
--				     exception_code_entry->alloc_offset,
-+	WARN_ON(pvr_gem_get_dma_addr(code_obj->gem, exception_code_entry->alloc_offset,
- 				     &fw_data->exception_code_dma_addr));
+ 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem, boot_code_entry->alloc_offset,
+-				     &mips_data->boot_code_dma_addr));
++				     &fw_data->boot_code_dma_addr));
+ 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.data_obj->gem, boot_data_entry->alloc_offset,
+-				     &mips_data->boot_data_dma_addr));
++				     &fw_data->boot_data_dma_addr));
+ 	WARN_ON(pvr_gem_get_dma_addr(fw_dev->mem.code_obj->gem,
+ 				     exception_code_entry->alloc_offset,
+-				     &mips_data->exception_code_dma_addr));
++				     &fw_data->exception_code_dma_addr));
  
- 	stack_entry = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_STACK);
+-	stack_entry = pvr_fw_find_layout_entry(pvr_dev, MIPS_STACK);
++	stack_entry = pvr_fw_get_section_desc(pvr_dev, PVR_FW_SECTION_STACK);
  	if (!stack_entry)
  		return -EINVAL;
  
--	boot_data = (struct rogue_mipsfw_boot_data *)(fw_data_ptr + boot_data_entry->alloc_offset +
-+	boot_data = (struct rogue_mipsfw_boot_data *)(segments[PVR_FW_SEGMENT_DATA].host_copy +
-+						      boot_data_entry->alloc_offset +
- 						      ROGUE_MIPSFW_BOOTLDR_CONF_OFFSET);
+@@ -81,7 +81,7 @@ pvr_mips_fw_process(struct pvr_device *pvr_dev, const u8 *fw,
+ 		u32 src_page_nr = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) >> PAGE_SHIFT;
+ 		u32 page_offset = (page_nr * ROGUE_MIPSFW_PAGE_SIZE_4K) & ~PAGE_MASK;
  
--	WARN_ON(pvr_fw_object_get_dma_addr(fw_dev->mem.data_obj, stack_entry->alloc_offset,
-+	WARN_ON(pvr_fw_object_get_dma_addr(data_obj, stack_entry->alloc_offset,
- 					   &dma_addr));
- 	boot_data->stack_phys_addr = dma_addr;
+-		boot_data->pt_phys_addr[page_nr] = mips_data->pt_dma_addr[src_page_nr] +
++		boot_data->pt_phys_addr[page_nr] = fw_data->pt_dma_addr[src_page_nr] +
+ 						   page_offset;
+ 	}
  
 diff --git a/drivers/gpu/drm/imagination/pvr_fw_riscv.c b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-index a88a2b87f61e..c983c9d8a24f 100644
+index cd84635bb88d..c59716870677 100644
 --- a/drivers/gpu/drm/imagination/pvr_fw_riscv.c
 +++ b/drivers/gpu/drm/imagination/pvr_fw_riscv.c
-@@ -21,6 +21,8 @@
- static int
- pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
- {
-+	struct pvr_fw_mem *fw_mem = &pvr_dev->fw_dev.mem;
-+
- 	const u64 common_opts =
- 		((u64)(ROGUE_FW_HEAP_RISCV_SIZE
- 		       >> ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_SIZE_ALIGNSHIFT)
-@@ -28,8 +30,8 @@ pvr_riscv_wrapper_init(struct pvr_device *pvr_dev)
- 		((u64)MMU_CONTEXT_MAPPING_FWPRIV
- 		 << ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_CBASE_SHIFT);
+@@ -3,7 +3,6 @@
  
--	u64 code_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.code_obj);
--	u64 data_addr = pvr_fw_obj_get_gpu_addr(pvr_dev->fw_dev.mem.data_obj);
-+	u64 code_addr = pvr_fw_obj_get_gpu_addr(fw_mem->segments[PVR_FW_SEGMENT_CODE].obj);
-+	u64 data_addr = pvr_fw_obj_get_gpu_addr(fw_mem->segments[PVR_FW_SEGMENT_DATA].obj);
- 
- 	/* This condition allows us to OR the addresses into the register directly. */
- 	static_assert(ROGUE_CR_FWCORE_ADDR_REMAP_CONFIGx_DEVVADDR_SHIFT ==
-@@ -70,37 +72,34 @@ struct rogue_riscv_fw_boot_data {
- 
- static int
- pvr_riscv_fw_process(struct pvr_device *pvr_dev, const struct firmware *firmware,
--		     u8 *fw_code_ptr, u8 *fw_data_ptr, u8 *fw_core_code_ptr, u8 *fw_core_data_ptr,
--		     u32 core_code_alloc_size)
-+		     const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
- {
--	struct pvr_fw_device *fw_dev = &pvr_dev->fw_dev;
--	struct pvr_fw_mem *fw_mem = &fw_dev->mem;
- 	struct rogue_riscv_fw_boot_data *boot_data;
-+	struct pvr_fw_object *core_code_obj;
-+	struct pvr_fw_object *core_data_obj;
- 	int err;
- 
--	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, fw_code_ptr, fw_data_ptr,
--						fw_core_code_ptr, fw_core_data_ptr);
-+	err = pvr_fw_process_elf_command_stream(pvr_dev, firmware->data, segments);
- 	if (err)
--		goto err_out;
-+		return err;
- 
--	boot_data = (struct rogue_riscv_fw_boot_data *)fw_data_ptr;
-+	boot_data = segments[PVR_FW_SEGMENT_DATA].host_copy;
- 
--	if (fw_mem->core_code_obj) {
--		boot_data->coremem_code_dev_vaddr = pvr_fw_obj_get_gpu_addr(fw_mem->core_code_obj);
--		pvr_fw_object_get_fw_addr(fw_mem->core_code_obj, &boot_data->coremem_code_fw_addr);
--		boot_data->coremem_code_size = pvr_fw_obj_get_object_size(fw_mem->core_code_obj);
-+	core_code_obj = segments[PVR_FW_SEGMENT_CORE_CODE].obj;
-+	if (core_code_obj) {
-+		boot_data->coremem_code_dev_vaddr = pvr_fw_obj_get_gpu_addr(core_code_obj);
-+		pvr_fw_object_get_fw_addr(core_code_obj, &boot_data->coremem_code_fw_addr);
-+		boot_data->coremem_code_size = pvr_fw_obj_get_object_size(core_code_obj);
- 	}
- 
--	if (fw_mem->core_data_obj) {
--		boot_data->coremem_data_dev_vaddr = pvr_fw_obj_get_gpu_addr(fw_mem->core_data_obj);
--		pvr_fw_object_get_fw_addr(fw_mem->core_data_obj, &boot_data->coremem_data_fw_addr);
--		boot_data->coremem_data_size = pvr_fw_obj_get_object_size(fw_mem->core_data_obj);
-+	core_data_obj = segments[PVR_FW_SEGMENT_CORE_DATA].obj;
-+	if (core_data_obj) {
-+		boot_data->coremem_data_dev_vaddr = pvr_fw_obj_get_gpu_addr(core_data_obj);
-+		pvr_fw_object_get_fw_addr(core_data_obj, &boot_data->coremem_data_fw_addr);
-+		boot_data->coremem_data_size = pvr_fw_obj_get_object_size(core_data_obj);
- 	}
- 
- 	return 0;
--
--err_out:
--	return err;
- }
- 
- static int
-diff --git a/drivers/gpu/drm/imagination/pvr_fw_util.c b/drivers/gpu/drm/imagination/pvr_fw_util.c
-index 377fe72d86b8..0396b2aa111f 100644
---- a/drivers/gpu/drm/imagination/pvr_fw_util.c
-+++ b/drivers/gpu/drm/imagination/pvr_fw_util.c
-@@ -16,19 +16,16 @@
-  *                                       firmware sections
-  * @pvr_dev: Device pointer.
-  * @fw: Pointer to firmware image.
-- * @fw_code_ptr: Pointer to FW code section.
-- * @fw_data_ptr: Pointer to FW data section.
-- * @fw_core_code_ptr: Pointer to FW coremem code section.
-- * @fw_core_data_ptr: Pointer to FW coremem data section.
-+ * @segments: Firmware segments, includes host pointers for populating and
-+ * firmware objects for reference.
-  *
-- * Returns :
-+ * Returns:
-  *  * 0 on success, or
-- *  * -EINVAL on any error in ELF command stream.
-+ *  * -%EINVAL on any error in ELF command stream.
-  */
- int
- pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw,
--				  u8 *fw_code_ptr, u8 *fw_data_ptr,
--				  u8 *fw_core_code_ptr, u8 *fw_core_data_ptr)
-+				  const struct pvr_fw_segment segments[static PVR_FW_SEGMENT_COUNT])
- {
- 	struct elf32_hdr *header = (struct elf32_hdr *)fw;
- 	struct elf32_phdr *program_header = (struct elf32_phdr *)(fw + header->e_phoff);
-@@ -43,8 +40,8 @@ pvr_fw_process_elf_command_stream(struct pvr_device *pvr_dev, const u8 *fw,
- 			continue;
- 
- 		err = pvr_fw_find_mmu_segment(pvr_dev, program_header->p_vaddr,
--					      program_header->p_memsz, fw_code_ptr, fw_data_ptr,
--					      fw_core_code_ptr, fw_core_data_ptr, &write_addr);
-+					      program_header->p_memsz, segments,
-+					      &write_addr);
- 		if (err) {
- 			drm_err(drm_dev,
- 				"Addr 0x%x (size: %d) not found in any firmware segment",
+ #include "pvr_device.h"
+ #include "pvr_fw.h"
+-#include "pvr_fw_info.h"
+ #include "pvr_fw_mips.h"
+ #include "pvr_gem.h"
+ #include "pvr_rogue_cr_defs.h"
 
 -- 
 2.43.0
