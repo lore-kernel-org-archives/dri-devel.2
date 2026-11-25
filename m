@@ -2,93 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78F3B606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:27:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78387606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:29:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=YyQbI+96
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=jrSasNTU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DC73D10E21C;
-	Wed, 25 Nov 2026 18:27:26 +0000 (UTC)
-Received: from ixit.cz (ixit.cz [84.42.129.46])
- by gabe.freedesktop.org (Postfix) with ESMTPS id F382110E229
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:27:20 +0000 (UTC)
-Received: from [IPV6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9] (unknown
- [IPv6:2a02:830a:f787:8f00:f33c:cbcd:417b:d2b9])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519) (No client certificate requested)
- by ixit.cz (Postfix) with ESMTPSA id 3185553401F6;
- Wed, 25 Nov 2026 19:27:19 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
- t=1795631239;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=Q/Ht4mTVsZ8VXLHmxE/9TQE6M9RVX4AerJ+ZRy/407k=;
- b=YyQbI+96AQykSTN2+2red/GURWvIOEle1Nwbrx80ac2UEOe6m4DXx70HBcxxZcsdHsnvJ6
- xQa+Q492OWqpzUMAu2wf9dZUhGNXkDW75kyziM7eEjwFMModDY0JanP6/nN/86/qC00Kq8
- uondbQah5GuEKvk+YXhQAAt8ZBWkU30=
-Message-ID: <91d61e88-f9f7-464a-9151-4b2f2216411c@ixit.cz>
-Date: Wed, 25 Nov 2026 19:27:18 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 8/9] arm64: dts: qcom: sdm845-samsung-starqltechn:
- Update panel compatible
-To: sashiko-reviews@lists.linux.dev
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
- <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
- <sashiko-outbox-233966@kernel.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <sashiko-outbox-233966@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id D570B10E229;
+	Wed, 25 Nov 2026 18:29:01 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0775710E229
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:28:55 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 251E461380;
+ Wed, 25 Nov 2026 18:28:54 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 387DA1F000C6;
+ Wed, 25 Nov 2026 18:28:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795631333;
+ bh=kBLmM8S7+LArUBZJzYC3OCY4mci6rf9XWasnJyC7E7c=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=jrSasNTUmSm7iwUgKqjp4Y6nXnQz65j/NDzhploTyY0k3EFAlQSSQMRiix5p7Dy+u
+ Lnj9h/mFPltKgV3IAo9Wr0soelb74p8ONgdQs1gBqWq512uiqpUO8x9rWhJqz/VYtz
+ /XfU2VcDIJN7Asv3nLyI/1Kk//ktLQvdNZ0XHD9+WPIMVgjkY+6asCw7+/LLewnDhn
+ l2x0FYQZWHTTV+lCLs9xTfnKDBjgwbPb7rbEYK0fgd3mjxZ4C4PFkv2CKdS1x6OENp
+ xxy0YXWEqOt3xEqKNpmaa2Re+k5Ecig8WDuDxFkwR0QeTZo10arQVCZOvwt8gbXEn8
+ H1+skzPcxRtGg==
+Message-ID: <sashiko-outbox-233990@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 30/32] drm/bridge: shutdown encoder and detach
+ downstream bridges on bridge unplug
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20261125-drm-bridge-hotplug-v4-30-822722850492@bootlin.com>
+References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
+ <20261125-drm-bridge-hotplug-v4-30-822722850492@bootlin.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 18:28:52 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,75 +49,180 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 25/11/2026 19:20, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue to consider:
-> - [High] arm64: dts: qcom: incompatible panel@0 compatible and
->    reset-gpios change
-> --
-> 
-> commit fd433e980a7d2d9c4e491b9e6c72d47eb49cfd5c
-> Author: David Heidelberg <david@ixit.cz>
-> 
-> arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
-> 
-> This commit replaces the panel@0 compatible string with
-> "samsung,s6e3ha8-amb577px01" and changes its reset-gpios polarity to
-> GPIO_ACTIVE_LOW on Samsung Galaxy S9 (starqltechn).
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> index bd59f1dcd96dc..c156ed3733b4e 100644
->> --- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> +++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
->> @@ -267,13 +267,13 @@ &mdss_dsi0 {
->>   	status = "okay";
->>   
->>   	panel@0 {
->> -		compatible = "samsung,s6e3ha8";
->> +		compatible = "samsung,s6e3ha8-amb577px01";
->>   		reg = <0>;
->>   		vci-supply = <&s2dos05_ldo4>;
->>   		vddr-supply = <&s2dos05_buck>;
->>   		vdd3-supply = <&s2dos05_ldo1>;
->>   		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
->> -		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
->> +		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
->>   		pinctrl-0 = <&dsi_default &dsi_te>;
->>   		pinctrl-1 = <&dsi_suspend &dsi_te>;
->>   		pinctrl-names = "default", "suspend";
-> 
-> [Severity: High]
-> As reported by Krzysztof Kozlowski on v2 [1], does replacing the
-> "samsung,s6e3ha8" compatible string without a fallback and inverting
-> reset-gpios to GPIO_ACTIVE_LOW break DTB compatibility for existing
-> kernels and DTB consumers?
+Thank you for your contribution! Sashiko AI review found 4 potential
+issues to consider:
+- [High] drm/bridge: UAF of shared encoder-bridge container in
+  drm_bridge_remove()
+- [High] drm/bridge: TOCTOU race and NULL deref on encoder in
+  drm_bridge_remove()
+- [High] drm/bridge: cross-thread stack tmplist corruption in
+  drm_bridge_detach_from()
+- [Medium] drm/bridge: bridge left on bridge_list during detach in
+  drm_bridge_remove()
+--
 
-The only consumer here is Samsung S9 (Korea version), all known distributions 
-building kernels together with DTB, thus in this scenario it doesn't matter.
+commit ed101139b3ca92ec58e58cfca1356ce33f6b56c4
+Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-When old DT will be booted, the new kernel is able to handle it too with old 
-compatible and workaround for reversing polarity inside the driver.
+drm/bridge: shutdown encoder and detach downstream bridges on bridge unplug
 
-For booting old kernel with new DTBs, display will not bind (since the new 
-compatible), but that's not going to happen with current usage pattern.
+This commit shuts down the encoder pipeline and detaches the removed
+bridge and any downstream bridges from the encoder chain when
+drm_bridge_remove() is called on an attached bridge.
 
-> 
-> Any kernel or consumer that only matches "samsung,s6e3ha8" and expects
-> GPIO_ACTIVE_HIGH (established in 70005c18c9f7 ("arm64: dts: qcom:
-> sdm845-starqltechn: add graphics support")) will fail to bind or reset the
-> panel when booted with this DTB.  Earlier patches in this series already
-> handle the legacy "samsung,s6e3ha8" compatible and inverted reset polarity
-> in drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c via
-> broken_reset_polarity.
-> 
-> [1] https://lore.kernel.org/r/20260929-spirited-umber-hedgehog-300ebd@quoll
-> 
+> diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+> index d82e81b26ace2..d942c776db1a9 100644
+> --- a/drivers/gpu/drm/drm_bridge.c
+> +++ b/drivers/gpu/drm/drm_bridge.c
+[ ... ]
+> @@ -547,9 +548,17 @@ static void drm_bridge_detach_from(struct drm_bridge=
+ *bridge)
+>   * it won't be found by users via of_drm_find_and_get_bridge(), and add =
+it
+>   * to the lingering bridge list, to keep track of it until its allocated
+>   * memory is eventually freed.
+> + *
+> + * If the bridge is currently attached, also shut down the encoder pipel=
+ine
+> + * and detach this bridge and the following ones.
+>   */
+>  void drm_bridge_remove(struct drm_bridge *bridge)
+>  {
+> +	if (bridge->encoder) {
+> +		drm_atomic_shutdown_encoder(bridge->encoder);
+> +		drm_bridge_detach_from(bridge);
+> +	}
 
+[Severity: High]
+Does detaching the bridge in drm_bridge_remove() cause a use-after-free of
+the encoder in drivers that embed struct drm_bridge and struct drm_encoder
+in the same devm_drm_bridge_alloc() container, such as tidss and meson?
+
+drivers/gpu/drm/tidss/tidss_encoder.c:tidss_encoder_create() {
+	t_enc =3D devm_drm_bridge_alloc(tidss->dev, struct tidss_encoder,
+				      bridge, &tidss_bridge_funcs);
+	if (IS_ERR(t_enc))
+		return PTR_ERR(t_enc);
+
+	ret =3D drm_encoder_init(&tidss->ddev, &t_enc->encoder,
+			       &tidss_encoder_funcs, encoder_type, NULL);
+    ...
+}
+
+In tidss, devm_drm_dev_alloc() and drmm_mode_config_init() are registered
+before tidss_encoder_create() calls devm_drm_bridge_alloc(),
+drm_encoder_init(), devm_drm_bridge_add(), and drm_bridge_attach().
+
+On driver unbind or post-encoder probe failure, devres releases actions in
+reverse order: drm_bridge_remove_void() now detaches t_enc->bridge and
+drops both the attach and add references, and then drm_bridge_put_void()
+drops the final allocation reference.  __drm_bridge_free() calls
+kfree(bridge->container), freeing t_enc while t_enc->encoder is still on
+mode_config.encoder_list.  When devm_drm_dev_init_release() later runs
+drm_mode_config_cleanup(), it calls drm_encoder_cleanup() on the freed
+t_enc->encoder.
+
+[Severity: High]
+Can a concurrent upstream bridge removal clear bridge->encoder while
+drm_atomic_shutdown_encoder() is sleeping, causing a NULL pointer
+dereference in drm_bridge_detach_from()?
+
+CPU0 (downstream bridge B)        CPU1 (upstream bridge A)
+drm_bridge_remove(B)
+  if (B->encoder)
+    drm_atomic_shutdown_encoder()
+                                  drm_bridge_remove(A)
+                                    ...
+                                    drm_bridge_detach_from(A)
+                                      drm_bridge_detach(B)
+                                        B->encoder =3D NULL
+    drm_bridge_detach_from(B)
+      encoder =3D B->encoder
+      mutex_lock(&encoder->bridge_chain_mutex)
+        <-- NULL pointer dereference
+
+drm_bridge_detach_from() re-reads bridge->encoder without a NULL check
+before locking encoder->bridge_chain_mutex.  Similarly, if
+drm_bridge_remove() races with drm_encoder_cleanup(), the encoder and its
+mutex can be destroyed and freed before drm_bridge_detach_from() locks it;
+and if it races with drm_bridge_attach() after bridge->encoder is assigned
+but before bridge->chain_node is added to encoder->bridge_chain,
+drm_bridge_detach_from() sees list_empty(&bridge->chain_node) and leaves
+the removed bridge attached.
+
+[Severity: High]
+Can concurrent calls to drm_bridge_detach_from() on two bridges in the
+same chain corrupt the stack list head in the upstream caller?
+
+drivers/gpu/drm/drm_bridge.c:drm_bridge_detach_from() {
+    ...
+	mutex_lock(&encoder->bridge_chain_mutex);
+	if (!list_empty(&bridge->chain_node))
+		list_for_each_entry_safe_from(bridge, next, &encoder->bridge_chain, chain=
+_node)
+			list_move_tail(&bridge->chain_node, &tmplist);
+	mutex_unlock(&encoder->bridge_chain_mutex);
+
+	while (!list_empty(&tmplist))
+		drm_bridge_detach(list_first_entry(&tmplist, struct drm_bridge, chain_nod=
+e));
+}
+
+When drm_bridge_detach_from() moves bridge A and downstream bridge B onto
+its stack-allocated tmplist and drops encoder->bridge_chain_mutex, B's
+chain_node is still non-empty (linked into that stack tmplist) and
+B->encoder is still non-NULL until drm_bridge_detach(B) reaches
+list_del_init(&B->chain_node):
+
+CPU0 (upstream bridge A)          CPU1 (downstream bridge B)
+drm_bridge_detach_from(A)
+  mutex_lock(&bridge_chain_mutex)
+  /* moves A and B to CPU0 tmplist */
+  mutex_unlock(&bridge_chain_mutex)
+  drm_bridge_detach(A)
+    drm_atomic_private_obj_fini()
+                                  drm_bridge_remove(B)
+                                    ...
+                                    drm_bridge_detach_from(B)
+                                      mutex_lock(&bridge_chain_mutex)
+                                      if (!list_empty(&B->chain_node))
+                                        list_for_each_entry_safe_from(...)
+                                          list_move_tail(..., &tmplist)
+                                            <-- walks CPU0 tmplist past
+                                                its stack list head
+
+Because B->chain_node is on CPU0's tmplist rather than
+encoder->bridge_chain, CPU1's list_for_each_entry_safe_from() never sees
+&encoder->bridge_chain as the termination head.  It moves CPU0's stack
+tmplist head onto CPU1's tmplist and passes a bogus struct drm_bridge
+pointer derived from CPU0's stack frame to drm_bridge_detach().
+
+> +
+>  	mutex_lock(&bridge_lock);
+>  	list_move_tail(&bridge->list, &bridge_lingering_list);
+>  	mutex_unlock(&bridge_lock);
+
+[Severity: Medium]
+Should bridge->list be moved to bridge_lingering_list before shutting down
+the encoder and detaching the bridge?
+
+Leaving the bridge on bridge_list until after drm_bridge_detach_from()
+means the bridge is still discoverable via of_drm_find_and_get_bridge() or
+drm_bridge_get_next() while drm_bridge_detach() emits DRM_BRIDGE_DETACHED
+and clears bridge->dev and bridge->encoder, allowing a concurrent lookup
+to find and re-attach the bridge right before drm_bridge_remove() moves it
+to bridge_lingering_list and destroys its HPD mutexes.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
+-hotplug-v4-0-822722850492@bootlin.com?part=3D30
