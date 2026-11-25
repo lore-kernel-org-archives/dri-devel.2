@@ -2,86 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A170606A684
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5612E606A69C
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:43:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Px26KOns
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Hvj3d5u3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4D4EC10FA1D;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F18310FA21;
 	Wed, 25 Nov 2026 08:43:15 +0000 (UTC)
-Received: from us-smtp-delivery-124.mimecast.com
- (us-smtp-delivery-124.mimecast.com [170.10.133.124])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1358010FA0B
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:42:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
- s=mimecast20190719; t=1795596133;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- in-reply-to:in-reply-to:references:references;
- bh=bfedwSxwQLGGz+Z2vyd2vC4NVHhMFBOOXh9XyPwMEUc=;
- b=Px26KOnsf8VzWaT5M4+AXcSNp0xsxvL1F6fNbr7DrhkBSuZfc89DxLbq56hteEnSnsCC1P
- XC0DDlgCO9PWNvFGT8J1/10w32LNQmUSnDexmrqotpmPjGLs2yIpE9PleFJrHiOlcSpJF6
- hVsBNoRC49PsF4OsiUpxpOfl7krYqVU=
-Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
- [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-298-pG-Ch2cIOvWYO2zERzQ_-w-1; Wed, 25 Nov 2026 08:42:11 +0000
-X-MC-Unique: pG-Ch2cIOvWYO2zERzQ_-w-1
-X-Mimecast-MFC-AGG-ID: pG-Ch2cIOvWYO2zERzQ_-w_1795596130
-Received: by mail-wm1-f71.google.com with SMTP id
- 5b1f17b1804b1-4a35e1d2dddso47879795e9.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 00:42:11 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795596130; x=1796200930;
- h=content-type:mime-version:message-id:date:references:in-reply-to
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=bfedwSxwQLGGz+Z2vyd2vC4NVHhMFBOOXh9XyPwMEUc=;
- b=xpXem4wERb+LS3e6ur4LC3iYLVXoBnQ4MmWJpF+EUmZtnkyW/X3L0z40iim7TC9pr4
- dNsu/SguHbX6oyv0uIjSlmdH/UGitMlpGTS4FpBMJCSAKoTng/3JX/aWDtEr1TtptOyx
- UUbuTSw35AEV0abgZNeXT+nuWaEUvNZJhepoMVQykq/A9kiMqc49Iv/P61NRCZWyZpCE
- PNFwiBKmOfahle6qmQKD9nMhxsixTgA0epyBkgDm9n7OcpHJ1nLIuPmPojypBQkrjObO
- u1nTfLg29HovQuxZBetCbpsMcc8Vn5lePoslB1SIb6oHNqs/rxU4N43K0PfBxonYZTRL
- qaDg==
-X-Forwarded-Encrypted: i=1;
- AL+hErGYHFqnbnpHZyzOx0BpqiAxob+TEMjClzz+Avda7fHRBjHN8VYQ5y+1qpBlDfjzvDFQo3NZBd5vWVA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/B2mlVzvS3+wwY4ezejoG6OLS+Csb4c90Z8cJYrC/aOd17Tga2
- rEKZB3lC1OuOO1lvWhIYfn12PUpzrFZsLCILL2hJOI+qzaEKawsbC+ZhOtZMgCFWxK6/CuiOhTd
- rf2ZFGOZkKWVrvpERAI6REMKBEzBfmqu+30KcEkzq1pR5MtU44hZfGiDxsYMhMwXxlLzLjQ==
-X-Gm-Gg: AZFdTZeOQ26oqcv88ttNurg5Ywtzf5WJFC/2alTlhXIETEKZ8MdONnjq71YwjOrUqZF
- Z4MU4zxdvLiReSlxrJ0IEBACpdeX+sx/652AwxSYcDD4LqB+o2xYQswMWdgyxHats3ybIuSHOB+
- OZolFqr9Tztk6EiLouZuBcROkftgxN+Ujuo3mJHuRRG1fOOKWwkOhgmj3AaSA+hwgkTCmfmyjEe
- p+/chjXkP0+7KonXwKS0aB6rShEHgfWeK/8ZrOlWUah2n5JNLukqP+2lBEed1uUnw+7/1r4q5jS
- ha7A0BxzOYQKLuDq/flQ3HEcI7/3KGx6ForNX0aAl5uUE0XZu0KMjtPuU+u3ZoCovUipY1Vybsn
- n6kYiI887G2S4cc5zq1nBgO46BjoJIjwDTESQbZrF+8tj1Y1vfez9Au8LvUrUUfvYjHYKNbnHiG
- IhsiUce2egNaJKPCw6kUCz23Uq659vrUt5So8U5JY=
-X-Received: by 2002:a05:600c:4584:b0:4b8:4af2:88b3 with SMTP id
- 5b1f17b1804b1-4bb88817aa2mr346072955e9.22.1795596130182; 
- Wed, 25 Nov 2026 00:42:10 -0800 (PST)
-X-Received: by 2002:a05:600c:4584:b0:4b8:4af2:88b3 with SMTP id
- 5b1f17b1804b1-4bb88817aa2mr346072345e9.22.1795596129635; 
- Wed, 25 Nov 2026 00:42:09 -0800 (PST)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab658e2d55sm32983935f8f.5.2026.11.25.00.42.08
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 00:42:09 -0800 (PST)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Yige Jiang <yigejiang86@gmail.com>, Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Yige Jiang <yigejiang86@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] firmware: sysfb: Clear the device pointer on
- registration failure
-In-Reply-To: <confirmed-20261105-25-a16124b5ff57@gmail.com>
-References: <confirmed-20261105-25-a16124b5ff57@gmail.com>
-Date: Wed, 25 Nov 2026 09:42:07 +0100
-Message-ID: <xlv1mrqxl2u8.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: urPQJb5pmexOoGV_TBHZ19Ju0i48PMB_6ZQ4WdP7ag4_1795596130
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AEB3110FA1C
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:42:37 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 8B6F462349;
+ Wed, 25 Nov 2026 08:42:36 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 161701F000CF;
+ Wed, 25 Nov 2026 08:42:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795596156;
+ bh=b2yDRIhzP5CJkqqVGhSdPt7//ZwPkASE4isPCyWmxko=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Hvj3d5u3ZtA6hq0w8011Xj3EPjN+AQyGylKU09Xg1X9fw+qpqGlI0tZxtsBUJ1Nh6
+ GCC9BQMndGY1wsp+uAKw8kw0tC7PS+9bFFQ3HsRcV0t/nQ8T2tIQ+kSAG3pxRQir0C
+ IeFK8U/oVZAA8RtgoUbBNtjfDQ+t/WxoWLrTEDA+0uQH2wM4X010JpMjX62KdrGqua
+ jg0XXovdUCjmnQxQFewcY0afPNMLKqa3v+aV1Z4XgvMQxQW3M/pr92C4PrFllv3ktg
+ D+BUyku3bDKxBdSTKD9ENdv5oy+xPwKXBNSgU7INRL1jXRzsVTIfu6aQMTDE6/Uhaq
+ bMGvF4nZj+AwA==
+Message-ID: <sashiko-outbox-232926@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/imagination: guard fence release against device
+ removal
+To: "Lewis Lakerink" <lewis@retsim.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <010101a211d07983-72e5379a-adfd-4134-b23d-3e2b1422bc2e-000000@us-west-2.amazonses.com>
+References: <20261125082637.2839673-1-lewis@retsim.com>
+ <010101a211d07983-72e5379a-adfd-4134-b23d-3e2b1422bc2e-000000@us-west-2.amazonses.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 25 Nov 2026 08:42:34 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,41 +49,80 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Yige Jiang <yigejiang86@gmail.com> writes:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/imagination: context and drm_device leak in
+  pvr_queue_fence_release()
+--
 
-Hello,
+commit 98562e29f0071aecadfba68150e688168073f7c8
+Author: Lewis Lakerink <lewis@retsim.com>
 
-> sysfb_init() stores the legacy framebuffer device in the file-scope pd
-> pointer before adding its data and registering it. If either operation
-> fails, the error path drops the allocation reference but leaves pd set.
-> A later sysfb_disable() then passes this stale pointer to
-> platform_device_unregister().
->
-> Clear pd after releasing the failed device, while disable_lock is still
-> held. This makes sysfb_unregister() skip it just as it skips an absent
-> or already unregistered framebuffer.
->
-> Fixes: bde376e9de3c ("firmware: sysfb: Add sysfb_disable() helper function")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
-> ---
+drm/imagination: guard fence release against device removal
 
-Thanks for the fix.
+This commit guards work queueing in pvr_queue_fence_release() with
+drm_dev_enter(), freeing the fence directly and skipping pvr_context_put()
+when the device is unplugged.
 
-Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
+> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c b/drivers/gpu/drm/im=
+agination/pvr_queue.c
+> index 34b826381aa2b..2a6bfb090fadd 100644
+> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+[ ... ]
+> @@ -122,8 +123,19 @@ static void pvr_queue_fence_release(struct dma_fence=
+ *f)
+>  {
+>  	struct pvr_queue_fence *fence =3D container_of(f, struct pvr_queue_fenc=
+e, base);
+>  	struct pvr_device *pvr_dev =3D fence->queue->ctx->pvr_dev;
+> +	int idx;
+> =20
+> -	queue_work(pvr_dev->sched_wq, &fence->release_work);
+> +	/*
+> +	 * Fences held by drm_syncobj are released in drm_file_free() before
+> +	 * postclose. After unplug, sched_wq and kernel_vm_ctx may already be
+> +	 * torn down; free the fence directly and leak the context reference.
+> +	 */
+> +	if (drm_dev_enter(from_pvr_device(pvr_dev), &idx)) {
+> +		queue_work(pvr_dev->sched_wq, &fence->release_work);
+> +		drm_dev_exit(idx);
+> +	} else {
+> +		dma_fence_free(&fence->base);
+> +	}
+>  }
 
--- 
-Best regards,
+[Severity: High]
+Does leaking the fence->queue->ctx reference here also permanently leak
+pvr_dev and trigger teardown warnings?
 
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+drm_dev_unplug() is called not only during pvr_remove(), but also at
+runtime when a GPU reset or MMU flush fails:
 
+drivers/gpu/drm/imagination/pvr_power.c:pvr_device_lost() {
+	if (!pvr_dev->lost) {
+		pvr_dev->lost =3D true;
+		drm_dev_unplug(from_pvr_device(pvr_dev));
+	}
+}
+
+Once unplugged, dropping the context reference in the else branch prevents
+pvr_context_release() from ever running. That leaves the context in
+pvr_dev->ctx_ids and its firmware objects in fw_objs.list and fw_dev->fw_mm
+(triggering WARN_ONs in pvr_fw_fini() and pvr_context_device_fini()), and
+never drops ctx->vm_ctx, whose drm_gpuvm manager and GEM objects hold
+drm_device references that prevent drm_dev_release() from freeing pvr_dev.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/010101a211d07983-72=
+e5379a-adfd-4134-b23d-3e2b1422bc2e-000000@us-west-2.amazonses.com?part=3D1
