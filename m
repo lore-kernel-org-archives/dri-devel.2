@@ -2,70 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF730606A331
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:13:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95737606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:13:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=BAM2Ww7M
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hgvc7vhF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 329F410FE3A;
-	Wed, 25 Nov 2026 18:13:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB14410FEC5;
+	Wed, 25 Nov 2026 18:13:47 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B439210FE3A
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:13:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0777B10FE2E
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:13:00 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9A6044183E;
- Wed, 25 Nov 2026 18:13:10 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E301A46391;
+ Wed, 25 Nov 2026 18:12:59 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795630390;
- b=zerYsVqCouGVpjBJM8+UqxDWR5aY201Wou+VrtByQRosOIkkugE+4CL+Aa3k9BImsgwH
- GKmB4VOB2Xr+SHa8im+ObFzUyQRlPbsXjWP4tQweoNws5g1qdgLcHQvVWhZZR6b64lkeg
- zgnigw8cL1EhEKrVFqvJHz6MfWrXG/PC54cvtyO769oO++l6ANaMfYof8XDM5tDqUlLeK
- lkPpGYVb7hT5r1UT8p1W25YHKLG91JAvRthap66NK8g7mczk88Z0yJX6VIFfRzCZiwBrh
- f5SPoj19u8TfERovjzjhkt94C2LKS9t4eyVcAvRFuJ6w6laHZKfU8bvnlB5l0nJeFpA==
+ t=1795630379;
+ b=j5QCxM6qS5zzLOwwJUMZjoYz8Kzf2s4rJVplKyDXSRRW/DDNaufa0kK1SUHX5kepb/Us
+ QfysymlYRjDSDv5Va/ckED5VD9KnjkGRyHukAKEnGmHP6D+PS09ojrfXS4+tcIXdbTLwR
+ HXOlaK2jmauXK7X3TIbIz+7B/H53njPclKfLV+gLK+ImTOCG12POm3rYuUETzERt71Qfm
+ mybJZFBKWE2hGIFJZ93/Qy0yuuh8kBpGbucdwwk/QWtULLDdUO+U/P9u+2JywJyaUQoFl
+ ldniifu5YojySBDyOWCe5XS287Qwv3Y7YTZozzptKXhV3JHNOd73FgIRJDMzcuSh5pA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795630390;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=vzJcLx+SQa2Mzs4ezZQYK9idTcUYGwX4LPcGJ4IS7QA=;
- b=ssi+6EPEmyvOXkgOoNZhP2PQvoqwRLcufMnOnf25L1I3RGScb9Ipq4jjaJY13zMtpzaa
- 29yJix50MPxqY1dHYHY68S/Oqf4uAHvZXpuayxwNj1vZsAoiJ6VVupRlvacyRnoE728m/
- 7LuWEFooKF247GwIiphNTfHaDMqx89P3I5jYygRE3EFdn80aWp9hQhW8TBUWhxbF8RDkO
- WUtI5jzVF7faKs6rdyD8NF3rfx5fQRYN0BEzH8Xy6+33FiFl3GZPwb3bKmk/mxx2O4NVB
- MfBl+93/m09rGcsYPRtCtuEUaHfrgQZZbKXWVj8OvOU4kfFpjFbJgQfL0ofZOZkcuDA==
+ c=relaxed/relaxed; t=1795630379;
+ h=DKIM-Signature:Received:From:Subject:Date:Message-Id:MIME-Version:
+ Content-Type:Content-Transfer-Encoding:X-B4-Tracking:X-Change-ID:To:
+ Cc:X-Mailer:X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To;
+ bh=OO0R6iAuyt62WY8LQAxPucD4HgDtVrM36vo2ROZdtpw=;
+ b=azZ7RBVAUfg2j1PhfFB9OTNOIIrO0QOXxQJihMMtjpgNaxWnndDyhO/K1gcldu0J2YWS
+ ZMYE62EGXN5pZtKiz8AtvlUnsnhM5KlPqRXJkRzB4vlf++sKEhAcxN5d3lqiUc8paud/e
+ CF+pP11XhqzhrvnYNQzI4asOZOgWW5MCoo6RaCMaExkg5BnG/qgBN9HW/1wkggxQlOci+
+ AicOYMKiMDNcGzt8xaYtEI71HxeP11itxFy8+CUABWIkXiNyFpx0vTAF/FNESq7Ekwb/9
+ 4yHHmVAANuhOTTMJrOwCXwqetDkyWY8wUTCPt9ZMObeX/iRAobIeUKjk43isgY/sVYQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 65A081F01568;
- Wed, 25 Nov 2026 18:13:00 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id EE4811F000C0;
+ Wed, 25 Nov 2026 18:12:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795630390;
- bh=vzJcLx+SQa2Mzs4ezZQYK9idTcUYGwX4LPcGJ4IS7QA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=BAM2Ww7MFL32BaSme+2RwWvZVUnYP0F8MKCcKHDtoU/9/MGj3aneCrg7zrECffbVh
- SpRSe/QWboEi27azmH1CcRq7yHboGCkgttInO4tghRZO1O47bnWul22a28Vveyfr2q
- vMn+L4Kxl1MT1+/HIxP7iJZGaJl07XYrrxpUiODLP/+Mf9G/AX3Fiq6M5hItQI6ffB
- YKYG6SWBaYF66lAoHScKEfwlYoLQeyp7TSLzRm8jUicJ5W9sSVVbE2KuDK6DtjTuX2
- 6165uwSipZ5ByxsgznWfIiIu9kK5NRCxsbxXHqGbRTgqla7rCgo6Y3CWjvR6+Z3tSl
- HVI2J3T/VPj5A==
+ s=k20260515; t=1795630379;
+ bh=OO0R6iAuyt62WY8LQAxPucD4HgDtVrM36vo2ROZdtpw=;
+ h=From:Subject:Date:To:Cc:Reply-To;
+ b=hgvc7vhF2ge+45ls6F1yGNz+bps9moibQ8j2tNFDEU5K5cyJM1DYNp/ocSLMongvc
+ GQs+8FrwdnuJdbMXBrcmfoe5unc+daFhBIpnhwRPEtfR57a3jIZdqiBBujmNARJZNP
+ oDla3iwvZhLpiAZI1IKedtaCO0abGdQc8Xh5XhnTV0FlSCD4H/Jw+y/OxqSGkVgAG/
+ Lvp2T0i8EsLEkuizA9DD/+rEbSmvwvrYA9tf39hugT4G6yAivmmnq0dETWAHq8rmVp
+ dNpHrMlbNW6dqoBc+by9JuupaqmH5r4Pq19QeNv6gzdm2higTyAH++W+9D33h2YfeO
+ NzmhW0bjTw1GQ==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 5A3304CFBC;
- Wed, 25 Nov 2026 18:12:49 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 4A7684CFA0;
+ Wed, 25 Nov 2026 18:12:48 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 25 Nov 2026 19:12:52 +0100
-Subject: [PATCH v4 8/9] arm64: dts: qcom: sdm845-samsung-starqltechn:
- Update panel compatible
+Subject: [PATCH v4 0/9] Pixel 3 XL display panel support
+Date: Wed, 25 Nov 2026 19:12:44 +0100
+Message-Id: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-crosshatch-panel-v4-8-120adc58e737@ixit.cz>
-References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
-In-Reply-To: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/23N0Q6CIBTG8VdxXEcDMsCueo/WBR4OSWvqwJzVf
+ Pcwt2bLy287v/95kYjBYySH7EUC9j76pk4j32QEKlNfkHqbNhFMSKYZpxCaGCvTQUVbU+ONMgm
+ ojSxcqRxJrA3o/PBJns7zjvfyitBNnemi8rFrwuPzs+fT3ZwvBPvP95wyalFisefCmkIe/eC7L
+ TzJFO/FkucrXCTOtN2DKp0SDn757ss5Z3qF7xLXytocIXcKFnwcxzfKcvqWPgEAAA==
+X-Change-ID: 20260801-crosshatch-panel-06ce8a69fb7f
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
  Neil Armstrong <neil.armstrong@linaro.org>, 
  Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
@@ -82,26 +85,25 @@ Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>,
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
  David Heidelberg <david@ixit.cz>, Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1497; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2435; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=mkxVrIpbAVEtMAGbgohHi1tEOw9U/nu44YtOaqkhOKA=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrByUeUCj8JXk8HfdS7gJ6Hh+5fJFHcs4+F6ByI
- M5RKPhtxK2JAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawclHgAKCRBgAj/E00kg
- cuMoD/wJI6NkkyxeycrWfjgnO5bqmxt6xGPflHA7v7lshuX7fs6IrhhneCXg7SuTXEQDwmDO7io
- XUo1d/et6E0pLtMuO0C9ZGZfQ/ljDjP984HZxsBaGNNXsYILsBWO9xcLuJqqSha20nU9FExbIBB
- 48BFW526HfyPtetgXyqwqV3MoYKIjAT+cwSajMln0ycxN81uOJb0Gg+8RJEvZK9CBPxA6n6FXba
- 7KSJHFx6MGuWIBAz6Db2EMTM6bOim6qnWAZcDgBJC4WHX1Ol1ImTEeeRlHia7U/WE7iwVsBA0Xl
- lXoqALZwNoSktFA43G/qWrWT4qZfCuXVnob38cjC2+rQjc1g0abHl8JZcnko9iACr89eUiCa5Lg
- LlDDjvIDIrFTgD8bUW7VTBIGUhAn1jiMd7v3bYllfPqp78XzveCCZwpXslptAlREhiN7J5+F2BP
- tDED2AV2mRrbt0pHrWktZAr7IX7NDDXA6eAJSioOwDXERkxFcuwMpt7wa1K6HlbbqzLQTqKJhIK
- p73GOVjncaqYxedTnYR4vg3vAjM4gitZURLMs11+bkOg8fMU5oi4WZgu/9pK3lOBKE3Ad2h95Iw
- Tj7vAHwMoP69rbdeBeBoiQNMgV+pyErRZAOG1pAxlZRhDRwWL1IWOIfZMDtFLXAcTyKyMDYWRIQ
- J1ePZ5Q0zzaQHYg==
+ bh=YE6uRQHX3frxMj/6HJyZlh9S6ry+tb/5u1Co16RoWHM=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrByUdjIHhZsyDm0D45ADd1nzAhvMIdNhRlEJ5d
+ RCRlmigj2uJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawclHQAKCRBgAj/E00kg
+ cg6PD/wIDgT0i2YnmMltMCXjiIiAXM7Tw57g64kdw/CpoMXAUVGO8gTBower1KaV9G1lfUZ3j/T
+ adSF4+iDlSVVnvWSziJt1q9/IvBnuaG3gkZihfTny2Zu3cJzYMUZMYdESChgwU1ygiKcnrcl275
+ 6X5QS8Qc8ziYWAW9XHZLiAXP72IGpxMERZ10+jVix7nZZO7sP/SS9WkTuhGL4ngwXirv6gv2J5/
+ QN54hIgeSn0joz7ixjB5sMgaa2LK1mLMLTigRv33fdczbAbfknRM03nCEf2HCc1ZDa/g16PQP6Y
+ 2376qchOrs1BIfcSZBnA3NgpptvHHF3j9QdDEGT+JIcp6zG/q/VpCchnWpC/qb8MI4jNFHIQNJ6
+ wuSNepz4G0OLYjt419nikOg20EomKQ+MgCYVniixO4aOrMuMCKbzZNEVH9o5aly+A+dAPqFeDqF
+ UOy4gFHtaN+2b7vtYVGOtXCXPv9v28GLA8fwtwGRsFPsmWh/t2k4G/LZQSz4A1sufMmOEGLxy1D
+ EjlFh65pvCb3IBRnqYXDh/tDcT1Eml8uaN+HNijtMLTh+Hj1BBYKdSpd045bstPLcoW93Khkpii
+ nKNSmXsH36ZUzTgiBCMjBC/bFPyJo2LzqBawhhQr7OIPcdGnmMvEmBg1hdIrhcWXKP25CtGaFuu
+ Ca5N7Cd2m2xpfog==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
 X-Original-From: David Heidelberg <david@ixit.cz>
-Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,52 +123,58 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: David Heidelberg <david@ixit.cz>
+Introduce Samsung AMB630QY01 (Google Pixel 3 XL) panel.
 
-Original compatible describing only the DDIC used, but omit describing
-the panel used (Samsung AMB577PX01), which we have no way to detect.
+Includes refactoring and improvements to the S6E3HA8 DDIC which is also
+used by Samsung S9 (Korea version).
 
-New compatible allows without breaking ABI fixing the inverted reset.
+Patches 7 and 9 switch to the new compatibles, so they must not reach
+the qcom tree before the driver patches land.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Changes in v4:
+- Entire allOf goes after required: block. Now really. (Krzysztof)
+- Improved wording of 1st commit. (Krzysztof)
+- Link to v3: https://patch.msgid.link/20261108-crosshatch-panel-v3-0-87dd4ec4f7cc@ixit.cz
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-index bd59f1dcd96dc..c156ed3733b4e 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-samsung-starqltechn.dts
-@@ -262,23 +262,23 @@ &mdss {
- 	status = "okay";
- };
- 
- &mdss_dsi0 {
- 	vdda-supply = <&vreg_l26a_1p2>;
- 	status = "okay";
- 
- 	panel@0 {
--		compatible = "samsung,s6e3ha8";
-+		compatible = "samsung,s6e3ha8-amb577px01";
- 		reg = <0>;
- 		vci-supply = <&s2dos05_ldo4>;
- 		vddr-supply = <&s2dos05_buck>;
- 		vdd3-supply = <&s2dos05_ldo1>;
- 		te-gpios = <&tlmm 10 GPIO_ACTIVE_HIGH>;
--		reset-gpios = <&tlmm 6 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
- 		pinctrl-0 = <&dsi_default &dsi_te>;
- 		pinctrl-1 = <&dsi_suspend &dsi_te>;
- 		pinctrl-names = "default", "suspend";
- 
- 		port {
- 			panel_in: endpoint {
- 				remote-endpoint = <&mdss_dsi0_out>;
- 			};
+Changes in v3:
+- Entire allOf goes after required: block. (Krzysztof)
+- Expalin dt-bindings changes more explicitly. (Krzysztof)
+- Dropped "Really assert reset on the failure" as requested by (Krzysztof)
+- Not addressed: "No, this is wrong. You just broke all the users of
+  this DTS.", due to non-existent usage outside of Linux and DTB for
+  this device being shipped always together with the kernel.
+- Link to v2: https://patch.msgid.link/20260924-crosshatch-panel-v2-0-08d5c7bf72fc@ixit.cz
 
--- 
-2.55.0
+Changes in v2:
+- Rebase on top of next-20260923.
+- Cosmetic fix s/Cosmtetic/Cosmetic/ fix in the commit msg. (Neil)
+- Link to v1: https://patch.msgid.link/20260920-crosshatch-panel-v1-0-de6e9512da96@ixit.cz
+
+---
+David Heidelberg (9):
+      dt-bindings: display: panel: s6e3ha8: Adjust to reflect the DDIC and panel used
+      dt-bindings: display: panel: s6e3ha8: Add AMB630QY01 panel
+      drm/panel: s6e3ha8: Introduce AMB577PX01 panel compatible
+      drm/panel: s6e3ha8: Prepare for supporting multiple panels
+      drm/panel: s6e3ha8: Correct the polarity logic within
+      drm/panel: s6e3ha8: Assert reset GPIO in unprepare
+      drm/panel: s6e3ha8: Add Samsung AMB630QY01 (Google Pixel 3 XL) panel
+      arm64: dts: qcom: sdm845-samsung-starqltechn: Update panel compatible
+      arm64: dts: qcom: sdm845-google-crosshatch: Add display panel
+
+ .../bindings/display/panel/samsung,s6e3ha8.yaml    |  52 +++-
+ .../boot/dts/qcom/sdm845-google-crosshatch.dts     |  60 +++-
+ .../boot/dts/qcom/sdm845-samsung-starqltechn.dts   |   4 +-
+ drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c      | 304 +++++++++++++++++----
+ 4 files changed, 354 insertions(+), 66 deletions(-)
+---
+base-commit: 909ef7a9a30fa139e69e555e3606680f5cca7726
+change-id: 20260801-crosshatch-panel-06ce8a69fb7f
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
 
 
