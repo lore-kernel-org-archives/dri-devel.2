@@ -2,63 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE18E606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 09:55:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1456606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:04:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=ZMR5EAXP
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=q2Uujm96
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1EDEA10E29D;
-	Wed, 25 Nov 2026 09:55:41 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5DEB710E29D;
- Wed, 25 Nov 2026 09:55:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795600535; x=1827136535;
- h=message-id:date:mime-version:subject:to:cc:references:
- from:in-reply-to:content-transfer-encoding;
- bh=n+z4ONkDth3LAMEpm3e1qLmoHlYrXg9wa2r9okZZh3M=;
- b=ZMR5EAXPFB8qQklQa0gym0zNcLlhmJtBgjMHjlF6R0dnGh2wHhrTQgme
- XTAJ9P6d2Y2s2kglxdxDt961dErPMaTqJb1HL2XY8OxazoeADAPWglaQw
- /iwUynbaqyJ17snzRqKRh1Pp2+YwHe/P5d/L935IpdJTrAa+WtZ1A4DsC
- wjZiU+68CYrT3ea54YMLootpilQfuNrsBeLCDRyqRxWKv6ykEa12/cEOE
- C+raeZ2uLgTK1roiUA/ieb5Z6p/FsNmok/+R2gcCsJ9nhuJ/5PbzkwPSb
- jISQleFPcavWm7wMlyGSfxhhR7rPht4H3MEc0AnB/1JjescZTTxfA1qKK w==;
-X-CSE-ConnectionGUID: TDV3r4ISQWq+SE2UpqXPBg==
-X-CSE-MsgGUID: 1cYKbYIjQu+gKCF+6TX2dQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4475756"
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
-   d="scan'208";a="4475756"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
- by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 01:55:18 -0800
-X-CSE-ConnectionGUID: dqoO2yQ/SWa5u+soZJRBYQ==
-X-CSE-MsgGUID: WiHWsMkXTsKMCFw9iN6Yow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="11615793"
-Received: from fpallare-mobl4.ger.corp.intel.com (HELO [10.245.244.52])
- ([10.245.244.52])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 01:55:16 -0800
-Message-ID: <a4789efe-4abc-4b5f-a590-3d0d4dd27b7a@intel.com>
-Date: Wed, 25 Nov 2026 09:55:14 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C39D10E209;
+	Wed, 25 Nov 2026 10:04:04 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5D94310E209
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:03:58 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 73A7DC2F4E0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:04:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A0B0F60480;
+ Wed, 25 Nov 2026 10:03:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 0FBE311E69C2F; Wed, 25 Nov 2026 11:03:54 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795601036; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:content-language:in-reply-to:references;
+ bh=sTN+qvc7xCX3cggRlBV8dqr4F6FnoJ9KcbUquUQE+pI=;
+ b=q2Uujm96HZSej2CSWmINxToXXffqLO1n1b8JmM0IMTK9SCSz1AwtUC6JmpTefyIgr0FCcj
+ qo9X/9s1aCG0OMTYBI3aDpLmll+U4tAVSw6Do/AaMEwCwcB+v459f+HvU7S1jHj7J5Q6H1
+ RWEoG1rV5KTldSLzRc7Sk9w+tsBOlWv6vWmsZY6CdyNATdXFt7mScPt3OyZ5oey3L0NgBo
+ SQOY1zZyPDO+ZyRfG6IR9pVBC3ajqIRXUjj2O4QkRcgTN7icuCmcmYl0T2rYA53mwy2ze7
+ SJMqC/xNOD1+8of3R0oybSJt+hpCIzpvWGmatJYA+XoKJZ84iDAV2EwVifpWSw==
+Message-ID: <57bb208d-e220-4ae0-94bb-5e873d138f92@bootlin.com>
+Date: Wed, 25 Nov 2026 11:03:54 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/ttm: Destroy the ttm_tt in ttm_bo_move_null() when
- it's no longer needed
-To: =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+User-Agent: Betterbird (Linux)
+Subject: Re: [PATCH 7/8] drm/dp: Move eDP sink link rates reading helper out
+ of i915
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
  intel-xe@lists.freedesktop.org
-Cc: Natalie Vock <nat@pixelcluster.dev>,
- Arun Pravin <arunpravin.paneerselvam@amd.com>,
- Matthew Brost <matthew.brost@intel.com>, dri-devel@lists.freedesktop.org,
- stable@vger.kernel.org
-References: <20261124190954.47690-1-thomas.hellstrom@linux.intel.com>
-Content-Language: en-GB
-From: Matthew Auld <matthew.auld@intel.com>
-In-Reply-To: <20261124190954.47690-1-thomas.hellstrom@linux.intel.com>
+References: <20261118-feat_move_i915_helper-v1-0-652177f3107a@bootlin.com>
+ <20261118-feat_move_i915_helper-v1-7-652177f3107a@bootlin.com>
+ <sashiko-outbox-220759@kernel.org>
+From: Kory Maincent <kory.maincent@bootlin.com>
+Content-Language: en-US
+In-Reply-To: <sashiko-outbox-220759@kernel.org>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,37 +59,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 24/11/2026 19:09, Thomas Hellström wrote:
-> The xe kmd uses ttm_bo_move_null() when moving an unpopulated bo to
-> VRAM. In that case the bo may still carry a ttm_tt that was created
-> for its deferred placement, and it is left dangling on a bo whose new
-> resource doesn't use a ttm_tt.
-> 
-> Make ttm_bo_move_null() destroy the bo's ttm_tt when @new_mem is NULL
-> or its memory type manager doesn't use a ttm_tt.
-> 
-> ttm_bo_tt_destroy() is internal to TTM and not exported. Rather than
-> exporting it, move ttm_bo_move_null() out to ttm_bo_util.c and
-> export that instead.
-> 
-> Patch and commit message was drafted using an LLM.
-> 
-> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel GPUs")
-> Cc: Natalie Vock <nat@pixelcluster.dev>
-> Cc: Arun Pravin <arunpravin.paneerselvam@amd.com>
-> Cc: Matthew Auld <matthew.auld@intel.com>
-> Cc: Matthew Brost <matthew.brost@intel.com>
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: <stable@vger.kernel.org> # v6.8+
-> Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+
+On 11/18/26 11:53, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [Medium] drm/i915/dp: HBR2 quirk in intel_edp_set_sink_rates() skips
+>    fallback
+> --
+> 
+> commit b3bcea937e62f9aba672f8e2782fab0f2b184dbd
+> Author: Kory Maincent <kory.maincent@bootlin.com>
+> 
+> drm/dp: Move eDP sink link rates reading helper out of i915
+> 
+> This commit moves the eDP DP_SUPPORTED_LINK_RATES reading logic from i915
+> into a generic drm_dp_read_edp_sink_rates() helper.
+
+...
+
+>>   
+>>   	/*
+>>   	 * Use DP_LINK_RATE_SET if DP_SUPPORTED_LINK_RATES are available,
+>>   	 * default to DP_MAX_LINK_RATE and DP_LINK_BW_SET otherwise.
+>>   	 */
+>> -	if (intel_dp->num_sink_rates)
+>> +	if (num_sink_rates)
+>>   		intel_dp->use_rate_select = true;
+>>   	else
+>>   		intel_dp_set_sink_rates(intel_dp);
+> 
+> [Severity: Medium]
+> Can this leave intel_dp->num_sink_rates as 0 on platforms with
+> QUIRK_EDP_LIMIT_RATE_HBR2 if DP_SUPPORTED_LINK_RATES only lists rates
+> above 540000 kHz?
+> 
+> Previously, rates above 540000 kHz were filtered out before checking
+> intel_dp->num_sink_rates, so an empty filtered list fell back to
+> intel_dp_set_sink_rates().  Now num_sink_rates is checked before the
+> following intel_dp_rate_limit_len() call clamps intel_dp->sink_rates:
+> 
+> drivers/gpu/drm/i915/display/intel_dp.c:intel_edp_set_sink_rates() {
+> 	...
+> 	if (num_sink_rates)
+> 		intel_dp->use_rate_select = true;
+> 	else
+> 		intel_dp_set_sink_rates(intel_dp);
+> 	...
+> 	if (intel_dp->num_sink_rates && intel_has_quirk(display, QUIRK_EDP_LIMIT_RATE_HBR2))
+> 		intel_dp->num_sink_rates = intel_dp_rate_limit_len(intel_dp->sink_rates,
+> 								   intel_dp->num_sink_rates,
+> 								   540000);
+> }
+> 
+> When all entries in DP_SUPPORTED_LINK_RATES exceed 540000 kHz, this sets
+> intel_dp->use_rate_select to true, skips intel_dp_set_sink_rates(), and
+> then reduces intel_dp->num_sink_rates to 0, triggering drm_WARN_ON() in
+> intel_dp_get_common_rates() and breaking eDP link training.
+
+There is indeed maybe a small case where this can happen.
+I will fix it in next version.
+
+-- 
+Köry Maincent, Bootlin
+Embedded Linux and kernel engineering
+https://bootlin.com
 
