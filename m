@@ -2,121 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79965606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:15:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3CD5606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:15:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=TtZnrUJS
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ez5kgw3h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C79C810F99C;
-	Wed, 25 Nov 2026 08:15:02 +0000 (UTC)
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
- [209.85.128.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68BF010E29B
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:14:56 +0000 (UTC)
-Received: by mail-wm1-f50.google.com with SMTP id
- 5b1f17b1804b1-4bba5e17cbeso3346495e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 00:14:56 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1795594495; x=1796199295; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=Rc4aqCyzYBjWOigmv1O5fiE2Ptnz+1fYVaVELpdQ2fQ=;
- b=TtZnrUJS4LN8vf2V/o6nYMenvGdQYosZc2JCTFezay4w1L85x48oynMMl9rMehNr4T
- ERk9U+M7jtthJ2fbnsOOYODAuK9IOMBDaA8SuMmyAlpxF/H9a3af/ux4DmmwJ+izIFIk
- 3YH6Z0vGQbo9yMqaPxd5IeWKdiOyPTsd+TCV6gJfIAxwruL2fMzSlo3kh3ZFBQKHNGrb
- lTeDW0hFz0B8uY/4fvGBuAaYnbPY9px0gqj5/WPqrptOYejqQ0Z0j6kcS2kVMGXrH6os
- G/kyRWM71z0U6WUU81HLlqvBavMFTOdKs5VYgugIOWZYPsdH+o79LAf/y8lGotgEHsnj
- 06GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795594495; x=1796199295;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=Rc4aqCyzYBjWOigmv1O5fiE2Ptnz+1fYVaVELpdQ2fQ=;
- b=dC8DjJYKIqwbqA6Rd7zEHkYI9s9bwdf5kZ/YEgp8zK6WLtBX61LEEHnRaIaKvkNjtG
- 8DS8ISJjFVgahUlPGvMVXT4cPkWI65jLOy9M634w+N1MZq5FG804zM4Si6k0pnb9Iki5
- H8Qg90gF3MvT2z93M0EOrlykJEe2J3Dr6sP6s5Wcnw/FJYZuVEAl62B7aHryJ1DmWari
- BlebDoL9Ym8al9wsVXSbDUUQ+FMjafBtVgz3CPZkz0dsKC4Uiz2wFDwnEMZ4Pss7Zf6k
- 8VrCX1gbTHXDnKliRPg2AQz6AgAbnNRPbfH9hUDmA2LuayyeuRyFovi2wzQfAswq2nwb
- hXDw==
-X-Forwarded-Encrypted: i=1;
- AL+hErFVxcCNaN2sAIdWVO6omI4O9kZDnU7RfFnMD6cTqF/1cFU79PzLZWYQFCQPbiQLvDtMKmYPXiqboXo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9rY1YNUJgB/r9fa62KDXuI6x9vnbsRRBMimPEAgECfo7/v+pwP
- Y2R+tli/MNADk7WWD3C6WLNyqb1H3VQazlLf2EldNwO+tccjmGuES0a/FIaFViLvxoI=
-X-Gm-Gg: AZFdTZfGEOXWKR4vCKYYvogJUjaZVuH2pdk7DcCjQ954G7AaKeZrdMSA+6OHJGX6PIq
- XJX2X0/cir4rUd00EZ22jH4D/Rrn4YyvCGAIohnZbEClrHCGV8nPViRHjIazMWC4gic7j3b/Gti
- BLXQyUvgj1bQjrVxRef9rb5IUJ91ZmGVnpiRgZK6O4iQ/J/1Lvr7ovOBZRCBiHRhGWfgS3gJQt8
- E3IzbiFw3EIx8rEL83/WVboXQ3KJeOr0uqSQSbGu6La1wMXuLj6iD64L0mnV82vKcqqcFgqixsJ
- XutEO3+3QpdzKBucLS0h/p0OOt7b+7z9200ljR930L5d2DX8vfUs8klzaAflH+iXhWUjKgcK60g
- hT4MlBYnft9DpRqvkmFFMqwkxVJ5LXq8A9GpJ8Qvu7J0EgLijOB0LXaUhYW5Imciue+1B9bQWxU
- R4FIBQgcAhzN6atp3TJR9Q9gqDL2l7mXS+5zP4mNRIhQxJ/Go9R1KKq+xaCGRz1lGO2JfN0ljeA
- dUw8JYfS+bzfttNgZSst8W4xUDFaKdHRjDW+ZsgMyjRpnmgMmo6nMpeBmaEWLNPvcnTHvwrFDcu
- SvzhIYxbwlE+H8hkH971kn2KWn5+6Y7wGP+G4/qKScozazcNR5/HnRiioihr1ZgUDhSzbm8mSBc
- Cg61C6XoD
-X-Received: by 2002:a05:600c:1548:b0:4a1:e00b:a10b with SMTP id
- 5b1f17b1804b1-4bb88800020mr372318965e9.7.1795594494562; 
- Wed, 25 Nov 2026 00:14:54 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:f368:ae2e:e717:e970?
- ([2a01:e0a:106d:1080:f368:ae2e:e717:e970])
- by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bba3d3679bsm26993885e9.2.2026.11.25.00.14.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2026 00:14:54 -0800 (PST)
-Message-ID: <6e408f48-17ca-4927-ae09-c4153e294371@linaro.org>
-Date: Wed, 25 Nov 2026 09:14:53 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2CDCA10E7C3;
+	Wed, 25 Nov 2026 08:15:43 +0000 (UTC)
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012036.outbound.protection.outlook.com [52.101.48.36])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F74110E159
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:15:36 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DiuGSoFhwE1gvQme9urKyZtqGogOY2xU4pwVStfUjXNx7IqjxlHJwtZiQ+IWGIfcfKn1WY1E2mTXGdHlrC7mOuZNwZE4/8GMjqOM25i2eku0PDcYyVlF20HLxGdf3ZPtpXeAa0PM8GF4cZUCWO3dvdmiCq0t4/m+VKF6SsLYAonTYCNx8gpaFwu4b/hElPAzf6t2FK5JLKOC8dVoUqKnwH/pA8FkXNbye0XULf6y9n7d4r48wodqZWKblPY6H169rn1h/x5Z5UfEtsK59OF97uT6bfsMMask+klWVBkQvcjDxkv+mwNpGFzB2XA76wuC3XJxJ0jsNTeY7GhgjedYOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=hl1fcWuGOTw5bldQRqgAImMVWeWkgrDm5Qh7FC/A4PM=;
+ b=w/ZlUNuZ9ikLF6RrT0ga8DwYLSEuS4cUImQC0a3QZCdrdxxF4cFrrviWOHWTK19kCkmo+3xeDy2aLS0eAt9XcpiDVQXbXmYZBa1beA11ferjOAY7sF+hkjAHiz6wn7CHhWiJwLuh0nVVfaZ1pcLgashU8UneE0Yp4pol2xqPaEBSSP9jgTEmufbP/Ks0hx8kfIoYGIr7z03tjObYPxdwBI1jhgKtpBz2DGLVjgjvfuj8ODBRmbv4BZ9aZmhJ90gQnQgfCF9j2gE4YO8R4J5wuo57SWNU7Jq8OwL8Vx8owG+y817Nd3QyIYNsVhEPLy4KF3M7ipT+wOsp+FosOMZSxQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=hl1fcWuGOTw5bldQRqgAImMVWeWkgrDm5Qh7FC/A4PM=;
+ b=ez5kgw3hbJR1HjHqI9PCKnK/k+TuqhEBIxuIfPql7ocVsxATKwvOq9kDcAO5MuqSsZ9Wp5N727c40QyN+F47+FVQY82A+kdyFPz8m3kZwqhm3Xyja7mEOiqgED62jPIpcrqN/0n0Pg4p6WBSdHelUf7e1b76T39Wv5L5goDSSjcIB1XlVa5+rs1u1R/ChfA+bJwa489kNm94hXuX9amd1/IGO8ytHhPrTmNJku+Nph7pLtFFx2AwVgHQWYkslbWj5Tnztnhxvu55tNPm0fmeslgvhgccFpE4RTKMZg4rsc3GodJhm88ig9vgxZuQQVJbqtLXYB1d7kWtzOQX1N8N7w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by DS2PR12MB767817.namprd12.prod.outlook.com (2603:10b6:8:3c2::24)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Wed, 25 Nov
+ 2026 08:15:34 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0662.001; Wed, 25 Nov 2026
+ 08:15:34 +0000
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 25 Nov 2026 17:15:30 +0900
+Message-Id: <DN454ZNZ4E2C.1VQLLJ6KTK6JP@nvidia.com>
+Subject: Re: [PATCH v2] gpu: nova-core: use Init for firmware initialization
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
+Cc: <nova-gpu@lists.linux.dev>, <dri-devel@lists.freedesktop.org>,
+ <rust-for-linux@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+References: <20261122171353.963020-1-dakr@kernel.org>
+In-Reply-To: <20261122171353.963020-1-dakr@kernel.org>
+X-ClientProxiedBy: TYCP286CA0327.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:3b7::20) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 00/11] phy/drm: amlogic: Extract Meson HDMI TX PHY into
- a dedicated driver
-To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- linux-kernel-dev@aliel.fr
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>, Vinod Koul <vkoul@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Ulf Hansson <ulfh@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- dri-devel@lists.freedesktop.org, linux-pm@vger.kernel.org
-References: <20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr>
- <CAFBinCD822UPQrrd_8ZbVRUVCVJ-3pGN69vbZBxUE+0yeMcysg@mail.gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <CAFBinCD822UPQrrd_8ZbVRUVCVJ-3pGN69vbZBxUE+0yeMcysg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|DS2PR12MB767817:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3032c5a-f6da-46b5-a428-08df4acc4723
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|376014|366016|23010399003|10070799003|18002099003|22082099003|6133799003|261021121427099003|261102123227099003|10067099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info: A9FMqgCHCQQpY0fm9ltSK3enHgCKbXKpH/RRFEgteP6CYSoNe3nFlY4REPx1z/7zQVkavKfCdlK+eKU0jyhLRdG8nlTV1LE6WQHtUgWz09wRYNSp/oPLuXrRrnyeayIJyA2lcfMdzuPRZmEMW9Mw/pX0ZMG/zJL6LER/tEIgTvMFd6TxAXIdiFhSXWPN1av+szihdm+3IWVGRgOAdAPw+E2xfBqyCa89P0KbRYmYHBnk6qm0yv2tvN6S9tFF0pFd0lEZwdXf6G4ZpTwmxhbX2bT9b8nFD4N/zE5smJM22xflgOF/T3UUPSBgZKeDZ7YWzYFJdt3tSlCQ/pLAHaB7EAfvXQfK3eLJraPLXPfdLhVzlmYPHUY0mW1eJH3PXinRrnu6zK8YooIWh1CWd0exspuTt1BRUhUM16zu7hV+6bHWzG9zp6+OKLJKQI0idW1NKBBC9R70QSgoQqOhvDh/U0ybEM/EvkukE+t2CmNztsPlVyZ6bO0K2A1a5gb6CwSxCgaX0gj9U91u7LgflIKWEQHH9GKepLY9PbUX+MAXQw67HacV63Ul7qfjh181eheFXlsR0TfToaDEYR42M0XIDpaYGgSN3UgStuS5ehEqbnsH98usDeH1Wf405G8TGqqT1/OUoKXN7faCdZVX7/1LQOCQqbyNkt4XHosStt/CC/4=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(10070799003)(18002099003)(22082099003)(6133799003)(261021121427099003)(261102123227099003)(10067099003)(56012099006)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SlZadlpYdnRPUEJnRFc0QXpnTHJ4VUo1SWYxZkJtT2p0WGFNSEpTZVFrVEJH?=
+ =?utf-8?B?d2Y0emhlOGtXaWpiZEhwMjhOaFptQ3kwajFxRFlOZW5hTDQyekZFeEZZc01I?=
+ =?utf-8?B?SnJCTCtIVnJmWHJxR1B5L1JPUUZGZDVwLzY3SzlLQlpxcmVTWDJyV2VqcVBJ?=
+ =?utf-8?B?dlJVeUlYTGp6V29Kak9zQmRSYmZaelQ4SkszTXpHZm5pbWNJaGdJWEMwNVYz?=
+ =?utf-8?B?bzlHNFd2MEJyVCtSYTcvN3JacGFmR3BXcyt6ZzhvZDBDT2o1d08zcTZncWVj?=
+ =?utf-8?B?V3M1TWt6NnB1UVl1S0NpTWIvTEJBNWlMREc1K0FQK2RCS1JJdE5uRHFpVHN5?=
+ =?utf-8?B?WXpIWkJEZlI3QUVPcVA4bUwvOXM5SVFYVVd0Y1pHSGQ3amt6VHlrbWFWTSta?=
+ =?utf-8?B?UUhMcnNYZUVLWnVYM2NNVzdmbC8xcGFPZDFlRWozekg3eUx2emtXVjdQa29O?=
+ =?utf-8?B?K3pTY0g1OFp5dmdlT1E0S0ZIL2Mxc3ZVUGhSclBLTE10bGN2TDJ1U0NQa2xN?=
+ =?utf-8?B?L3M1b1FSLy9WcTBLRHR1U1FOSnJlbUozZDJORG8wU09QZkI1eUovdjNlSk4w?=
+ =?utf-8?B?dWtwbW9xTFdZbndTbWJPUGhoa3pEU2ozem05TXJVTWdVekdqSnp4UDdXR1Bq?=
+ =?utf-8?B?UmVYV0JyWDBvN25qSWFuVlJXa2JrRDlnNVZ2RURuYzg5YUtHZkUyVlZZTncy?=
+ =?utf-8?B?NTR6NytVeld6UGRMTFRwamJIQS9Hbng4QTI1ekFtRVE1RTJ3aDIrclZDa2Fp?=
+ =?utf-8?B?MTBqRDhDdUhheXVhbmVuYUR5cVYxV2k4aGg5a2t1eEFDNG1VdlFSSmFQVi96?=
+ =?utf-8?B?TkhINStaS2J0L0RJdldRU2gxK0lCVWF3V2xMVUtYY0pQY3hmbXhOVnZSZlBn?=
+ =?utf-8?B?TjBaWmhXYzJSOHJ4TDBYNC9rTG9NMWJkOFN0bnluT2dwbUNadXk4YU1xWnB0?=
+ =?utf-8?B?WnlaQVZ4anU0cUgybm5odHBpUXBxYVlhWGhjb2hGV2FJTFVBNmRVdC9WV0Qr?=
+ =?utf-8?B?dTZaMDJTSFRMaEVnTVlpWU8xeThNR2pCZ0t6Q1V6dWFnVjFFQmRVVGJicEFT?=
+ =?utf-8?B?Q2xrazYwVU50bmxaZHgxVy9ZWW85U2pXcUQ2N0pncm5ObmVjRERNcXQ5UkRS?=
+ =?utf-8?B?UnVDQ1ExV0FjTlJqVFpGUitTSE16L3AzNlhJSlZMdXRPT1JESUNqclVBbm1C?=
+ =?utf-8?B?VjM4RXJ2My9OUm1mQnB4OGl5b1licFl4Ynp5N01lTy9TYVJHMFZFV0JvUVZn?=
+ =?utf-8?B?MTVmbks5dFZnbm9jK1Axcm92NDNmMVFSeFZBRjltVXNXQnRMbnRhSG45Vmw0?=
+ =?utf-8?B?UGxkOXdaNzFLUlljOFR3RHRUVzVob05RTk9OSXhzalFwUFhzaGs0MGdYL1NX?=
+ =?utf-8?B?Vy9pTSs4cm9qcHlSMHhRQ3dlckEvODE1QkdjbUxnUUtNM3o4V3hrb0xvL251?=
+ =?utf-8?B?RXdsaGJsYTkzT2d6WERxbGMxSmF5MFlaVEVzTkJwZTlFNUZ6U1krZ0xtUGg2?=
+ =?utf-8?B?VmM1dXlhM1p1dUNpWGFCdmhsQWdRUFdlVGowbFU5TE5TRWFqRTNQTVdSb1lG?=
+ =?utf-8?B?dXR0Nng0M1c1dTdYTDFlRHhHL1RTZ25LOGxtc2xzZFdCMGttTTJNT0ZLcEV6?=
+ =?utf-8?B?R2pETnFRUGZUOUsvazBoejFBV0czSWNoUzRlQ3dCRGtWdEt5YWpVOWNWQ05O?=
+ =?utf-8?B?TW1WWkVaenJ5NGZvbk1wTmVTNldwYnJUd3B4MWljWUttWFZWalNXYWZmdTdw?=
+ =?utf-8?B?eWhNSE5ENWxUcG9ZMFBBYjZhNXQ3NUZTWVgycFBOVlNyV2hHOWM2cWtaMjFk?=
+ =?utf-8?B?VEF3c0V2RlFxaVJNZnMyMVhZVnNBc3VXbGkzdmdQNkliZlBDTFhucWZOY0pw?=
+ =?utf-8?B?S3BWOUFjYzBGSVVHZ0ZmcnpBN0M0VTVxd1Y1M2VYK0hXZVQ1dW42aHROam1R?=
+ =?utf-8?B?RnM2VFhXRGFlOHYwdXJhZk1JWUJxQnVqQWEvYXI5S2JhTHpZSnJFYTBZSnVi?=
+ =?utf-8?B?NzBrMzkwcXp0TmEraVpkeTZQT0U3ZENwb2pYbWlwWTZjSm9EbVplL2s0NEpI?=
+ =?utf-8?B?d3lTeVVDZG5UR2kvVTc3SkVzSTBERTVqNHNaYUF1ZkpWNDhGWVAzbDJUMDJN?=
+ =?utf-8?B?bWxLR2o3Vk5pSlI0WGt3U2hsWDU1ckI2ZXdCU1phRHN4M3FCbHQwSStWd040?=
+ =?utf-8?B?VTN2V1hCT29ndUUwNEt5a2ZrMUdUN1h3OXB0cWlvQTJGTXR0bmo1dm5YcmJF?=
+ =?utf-8?B?Q05PNkN0eUxhT1g1eEJ5bVhIU1AvOElaQjZPVU9xUDhUUy9kR0hSWkxwWEtD?=
+ =?utf-8?B?Uit3NUp5QWl1MUVCcjRQVUl6dEI4U1hpdVA1aUd1U0kxL3lYb2doc0RoUjho?=
+ =?utf-8?Q?IJAMhCOQDR+D/kFZnIROQCb3I8qmqCYGtXDMC/MnVtH7a?=
+X-MS-Exchange-AntiSpam-MessageData-1: +hu9Ul1iwgCbWg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3032c5a-f6da-46b5-a428-08df4acc4723
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 08:15:33.9268 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: yC7lnVW+qBjDxnPqZrSnHrB/moncqP0UKSF75DXrx2/2H3ke4SF06Ts7XjjEDOc6sJhdhM8xXUUB3UW32eBnlA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB767817
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,56 +129,27 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/24/26 23:05, Martin Blumenstingl wrote:
-> Hi Ronald, Hi Neil,
-> 
-> first of all: thanks Ronald for picking this up!
-> I like the overall approach. Before I dive deep into this series I
-> will finish the code-review of Valerio's AUDIN series.
-> 
-> Two quick notes below.
-> 
-> On Mon, Nov 23, 2026 at 8:38 PM Ronald Claveau via B4 Relay
-> <devnull+linux-kernel-dev.aliel.fr@kernel.org> wrote:
-> [...]
->> Overview of the series:
->> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
->>    add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
->>    "hdmi-phy" child node under the HHI syscon.
-> It's been a long time, but I think we've been asked by the devicetree
-> maintainers to have reg properties for the nodes within &hhi
-> But I can't find the message at the moment.
+On Mon Nov 23, 2026 at 2:13 AM JST, Danilo Krummrich wrote:
+> Now that SGTable no longer requires pinning, move Radix3 and GspFirmware
+> from PinInit to Init.
+>
+> In an x86-64 build, GspFirmware is 312 bytes, including its 216-byte
+> Radix3. This is reasonable for the stack, but returning it by value
+> increases boot()'s local stack reservation from 432 to 1040 bytes.
+>
+> On TU102 for instance, the nested hal.boot() call reserves another 1128
+> bytes for locals.
+>
+> Thus, keep the KBox allocation and in-place initialization.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
 
-The hhi syscon nodes doesn't have #[address|size]-cells and so far it
-wasn't required, let's wait for a review from DT maintainers, I'm fine
-with the current design
-
-> 
->> - Patch 4: Add the new Meson HDMI TX PHY driver implementing the HDMI
->>    PHY configuration ops, along with the temporary legacy creation
->>    helper.
-> At quick glance your PHY approach would also fit phy-meson8-hdmi-tx.c
-> There seem to be minor differences:
-> - two additional enable bits in HHI_HDMI_PHY_CNTL1 on GXBB and newer:
-> HDMI_FIFO_ENABLE=BIT(2) and  HDMI_FIFO_WR_ENALBE=BIT(3)
-> - newer SoCs seem to have HHI_HDMI_PHY_CNTL3..5
-> 
-> Meson8/8b/8m2 HDMI support is not upstream yet. That's why those SoC's
-> won't need the backwards compatibility code. So if you need to tweak
-> the driver: feel free, there's not much you can break!
-> 
-> 
-> Best regards,
-> Martin
-
-Thanks,
-Neil
+Reviewed-by: Alexandre Courbot <acourbot@nvidia.com>
