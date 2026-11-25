@@ -2,48 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14964606A33E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 07:14:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4690606A696
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 07:17:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WvEXUrd4
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d0s/MAJ7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7BEE910E0F8;
-	Wed, 25 Nov 2026 07:14:47 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1618010E0F8
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 07:14:42 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id EFFDE40A5E;
- Wed, 25 Nov 2026 07:14:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6F61F000C6;
- Wed, 25 Nov 2026 07:14:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795590881;
- bh=9O9vWon2AID/bXAvQdP8zYGG5/Ux/NpXmOMChYy6MoU=;
- h=Subject:From:To:Cc:In-Reply-To:References:Date;
- b=WvEXUrd48V04Um5yRGlR1O3i6XcYPHzzpMIBD9AacCfPfeZLoU+0DqeQX01NeK2CA
- 8+1da4KV9oXHQ7gD5JQEirTsNtgv3/u7B9vyfhIQgvHJlDqkZbln9EEYA1DMg1HWnC
- PD2ogIFnYWV9A/zNDimkm2Qmh7gHRTh2D3Fqh8stSr9EvPe3827pEuLM9qR8F7uwxG
- NABN5edtMh/SLXJTYjGAlFI1cyga1Wy5YsIT3LR98UfIHdV2OVtc6X9NiGXFd1lgH/
- 2FZOvRWkKfhcY3nwzafTZVcjoxmCFkVodBeBNU5xKf8eEjteI8fzrNEOevr3nzi2Kr
- 7mTQrNGMK2xdQ==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BE510E115;
+	Wed, 25 Nov 2026 07:17:13 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E674C10E115
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 07:17:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795591027; x=1827127027;
+ h=message-id:date:mime-version:subject:to:cc:references:
+ from:in-reply-to:content-transfer-encoding;
+ bh=Pont+xLt7mB8WFqEEdnXMc9zAOJJ5S20cpmTTUAm17I=;
+ b=d0s/MAJ7fflJQZaiMNUmVF4sokT8K8P/RfGn+PtQVP9WAjI7sg+afciN
+ 7gZKBn8X6wejtX6crEhS3b508okqB0rzvBMynH7nt0abYNx6LjkUvGQpu
+ GB7PfhKN4tXXyQ+OfTnxX2ca2wQ/X+SoAt0Y0zFKtodqmMlvptnwqi4X1
+ flh1pUIeEIX3tiwCqCZoGfgQVQ75v4Wy4spF9+qKK6en4FTIChnXXAGxp
+ OhIy/knJ8fLQmR6N30Jif2Y2GKT7PqGpsENGoC0TKWso3ekoSnMp3OCLy
+ HR6ya6lYryd2zkHD9hiraD1YzfwGRflsvi6lB95Q5yOyY1uPUpuZ57aVG A==;
+X-CSE-ConnectionGUID: MBXe7kMfRtCbqmz8FmQDPQ==
+X-CSE-MsgGUID: Zsb4XBWrTxqSP6XlPPo4+Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4536838"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4536838"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+ by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 23:17:06 -0800
+X-CSE-ConnectionGUID: /pZCn8WtRt+NehVundwMhQ==
+X-CSE-MsgGUID: PFURnVy5RTqI/UsDaiTheg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="11822714"
+Received: from unknown (HELO [10.94.255.201]) ([10.94.255.201])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 23:17:03 -0800
+Message-ID: <318a9e51-c288-4bec-8387-87d57ea91349@linux.intel.com>
+Date: Wed, 25 Nov 2026 08:17:00 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] accel/ivpu: Allocate a scatterlist per userptr dma-buf
+ mapping
+To: Alistair Popple <apopple@nvidia.com>
+Cc: dri-devel@lists.freedesktop.org,
+ Andrzej Kacprowski <andrzej.kacprowski@linux.intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>, Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+ dawid.osuchowski@linux.intel.com, christian.koenig@amd.com,
+ sumit.semwal@linaro.org
+References: <20261123102644.627963-1-karol.wachowski@linux.intel.com>
+ <awYORn499MM8Cf78@nvdebian.thelocal>
+Content-Language: en-US
+From: Karol Wachowski <karol.wachowski@linux.intel.com>
+In-Reply-To: <awYORn499MM8Cf78@nvdebian.thelocal>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v3 2/6] dt-bindings: input: add Jadard JD9365TX
- touchscreen binding
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Hefei <3066883572@qq.com>
-Cc: dri-devel@lists.freedesktop.org, linux-input@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, robh@kernel.org, 
- conor@kernel.org, Krzysztof Kozlowski <krzk@kernel.org>
-In-Reply-To: <tencent_50B2DF6754BBF1EA8F2CABA66F0342A8A707@qq.com>
-References: <20261125021127.1430-1-3066883572@qq.com>
- <tencent_50B2DF6754BBF1EA8F2CABA66F0342A8A707@qq.com>
-Date: Wed, 25 Nov 2026 08:14:38 +0100
-Message-Id: <179559087806.9063.7183621842723367523.b4-reply@b4>
-X-Mailer: b4 0.17-dev
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -55,25 +70,189 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 2026-11-25 10:11 +0800, Hefei wrote:
-> Signed-off-by: Hefei <3066883572@qq.com>
-> ---
->  .../input/touchscreen/jadard,jd9365tx.yaml    | 64 +++++++++++++++++++
->  1 file changed, 64 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
->
+On 24-Nov-26 23:29, Alistair Popple wrote:
+> On 2026-11-23 at 21:26 +1100, Karol Wachowski <karol.wachowski@linux.intel.com> wrote...
+>> The userptr dma-buf DMA maps the same sg_table on every map_dma_buf(),
+>> so a second mapping would overwrite the DMA addresses of the first one.
+>> It only works today because ivpu is the only importer.
+>>
+>> Build a new sg_table from the pinned pages on each map instead.
+>>
+>> Fixes: 57557964b582 ("accel/ivpu: Add support for userptr buffer objects")
+>> Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+>> ---
+>>
+>> Notes:
+>>      v2:
+>>      - Use the correct upstream sha in the Fixes: tag (Sashiko).
+>>      - v1: https://lore.kernel.org/r/20261123085935.623564-1-karol.wachowski@linux.intel.com
+>>
+>>      Alistair, your DMA-buf mapping types series [1] noted this as a
+>>      pre-existing issue in "[PATCH v3 15/24] accel/ivpu: Convert the userptr
+>>      exporter to the SGT mapping type" [2]. With this patch applied first,
+>>      ivpu becomes an exporter that allocates a table per map, so its
+>>      conversion reduces to the same pattern as "[PATCH v3 07/24] dma-buf:
+>>      Convert exporters allocating a table per map to the SGT mapping type"
+>>      (e.g. amdxdna_ubuf), without the shared header copy.
+> 
+> Yes, thanks for fixing this. I was avoiding going down too many different rabbit
+> holes at once, but this looks reasonable.
+> 
+> Reviewed-by: Alistair Popple <apopple@nvidia.com>
 
-Dropping all your patches from DT patchwork.
+Thanks, applied to drm-misc-next.
 
-Best regards,
-Krzysztof
+Karol
 
--- 
-Krzysztof Kozlowski <krzk@kernel.org>
+> 
+>>      [1] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com
+>>      [2] https://lore.kernel.org/r/20261120-dma_mapping_type_v4-v3-15-c0183a409bdf@nvidia.com
+>>
+>>   drivers/accel/ivpu/ivpu_gem_userptr.c | 65 ++++++++++++++++-----------
+>>   1 file changed, 38 insertions(+), 27 deletions(-)
+>>
+>> diff --git a/drivers/accel/ivpu/ivpu_gem_userptr.c b/drivers/accel/ivpu/ivpu_gem_userptr.c
+>> index 7cbf3a4cdc73..cfb2894b572d 100644
+>> --- a/drivers/accel/ivpu/ivpu_gem_userptr.c
+>> +++ b/drivers/accel/ivpu/ivpu_gem_userptr.c
+>> @@ -19,18 +19,39 @@
+>>   #include "ivpu_drv.h"
+>>   #include "ivpu_gem.h"
+>>   
+>> +struct ivpu_userptr {
+>> +	struct page **pages;
+>> +	unsigned long nr_pages;
+>> +};
+>> +
+>>   static struct sg_table *
+>>   ivpu_gem_userptr_dmabuf_map(struct dma_buf_attachment *attachment,
+>>   			    enum dma_data_direction direction)
+>>   {
+>> -	struct sg_table *sgt = attachment->dmabuf->priv;
+>> +	struct ivpu_userptr *userptr = attachment->dmabuf->priv;
+>> +	struct sg_table *sgt;
+>>   	int ret;
+>>   
+>> +	sgt = kmalloc_obj(*sgt);
+>> +	if (!sgt)
+>> +		return ERR_PTR(-ENOMEM);
+>> +
+>> +	ret = sg_alloc_table_from_pages(sgt, userptr->pages, userptr->nr_pages, 0,
+>> +					attachment->dmabuf->size, GFP_KERNEL);
+>> +	if (ret)
+>> +		goto free_sgt;
+>> +
+>>   	ret = dma_map_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
+>>   	if (ret)
+>> -		return ERR_PTR(ret);
+>> +		goto free_table;
+>>   
+>>   	return sgt;
+>> +
+>> +free_table:
+>> +	sg_free_table(sgt);
+>> +free_sgt:
+>> +	kfree(sgt);
+>> +	return ERR_PTR(ret);
+>>   }
+>>   
+>>   static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
+>> @@ -38,21 +59,17 @@ static void ivpu_gem_userptr_dmabuf_unmap(struct dma_buf_attachment *attachment,
+>>   					  enum dma_data_direction direction)
+>>   {
+>>   	dma_unmap_sgtable(attachment->dev, sgt, direction, DMA_ATTR_SKIP_CPU_SYNC);
+>> +	sg_free_table(sgt);
+>> +	kfree(sgt);
+>>   }
+>>   
+>>   static void ivpu_gem_userptr_dmabuf_release(struct dma_buf *dma_buf)
+>>   {
+>> -	struct sg_table *sgt = dma_buf->priv;
+>> -	struct sg_page_iter page_iter;
+>> -	struct page *page;
+>> -
+>> -	for_each_sgtable_page(sgt, &page_iter, 0) {
+>> -		page = sg_page_iter_page(&page_iter);
+>> -		unpin_user_page(page);
+>> -	}
+>> +	struct ivpu_userptr *userptr = dma_buf->priv;
+>>   
+>> -	sg_free_table(sgt);
+>> -	kfree(sgt);
+>> +	unpin_user_pages(userptr->pages, userptr->nr_pages);
+>> +	kvfree(userptr->pages);
+>> +	kfree(userptr);
+>>   }
+>>   
+>>   static const struct dma_buf_ops ivpu_gem_userptr_dmabuf_ops = {
+>> @@ -67,7 +84,7 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+>>   {
+>>   	struct dma_buf_export_info exp_info = {};
+>>   	struct dma_buf *dma_buf;
+>> -	struct sg_table *sgt;
+>> +	struct ivpu_userptr *userptr;
+>>   	struct page **pages;
+>>   	unsigned long nr_pages = size >> PAGE_SHIFT;
+>>   	unsigned int gup_flags = FOLL_LONGTERM;
+>> @@ -94,39 +111,33 @@ ivpu_create_userptr_dmabuf(struct ivpu_device *vdev, void __user *user_ptr,
+>>   		goto unpin_pages;
+>>   	}
+>>   
+>> -	sgt = kmalloc_obj(*sgt);
+>> -	if (!sgt) {
+>> +	userptr = kmalloc_obj(*userptr);
+>> +	if (!userptr) {
+>>   		ret = -ENOMEM;
+>>   		goto unpin_pages;
+>>   	}
+>>   
+>> -	ret = sg_alloc_table_from_pages(sgt, pages, nr_pages, 0, size, GFP_KERNEL);
+>> -	if (ret) {
+>> -		ivpu_dbg(vdev, IOCTL, "Failed to create sg table: %d\n", ret);
+>> -		goto free_sgt;
+>> -	}
+>> +	userptr->pages = pages;
+>> +	userptr->nr_pages = nr_pages;
+>>   
+>>   	exp_info.exp_name = "ivpu_userptr_dmabuf";
+>>   	exp_info.owner = THIS_MODULE;
+>>   	exp_info.ops = &ivpu_gem_userptr_dmabuf_ops;
+>>   	exp_info.size = size;
+>>   	exp_info.flags = O_RDWR | O_CLOEXEC;
+>> -	exp_info.priv = sgt;
+>> +	exp_info.priv = userptr;
+>>   
+>>   	dma_buf = dma_buf_export(&exp_info);
+>>   	if (IS_ERR(dma_buf)) {
+>>   		ret = PTR_ERR(dma_buf);
+>>   		ivpu_dbg(vdev, IOCTL, "Failed to export userptr dma-buf: %d\n", ret);
+>> -		goto free_sg_table;
+>> +		goto free_userptr;
+>>   	}
+>>   
+>> -	kvfree(pages);
+>>   	return dma_buf;
+>>   
+>> -free_sg_table:
+>> -	sg_free_table(sgt);
+>> -free_sgt:
+>> -	kfree(sgt);
+>> +free_userptr:
+>> +	kfree(userptr);
+>>   unpin_pages:
+>>   	for (i = 0; i < pinned; i++)
+>>   		unpin_user_page(pages[i]);
+>>
+>> base-commit: 5ffdc8f8361387a1b11553e5c95cd589c67a51f2
+>> -- 
+>> 2.43.0
+>>
+
