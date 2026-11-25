@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E948606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:51:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCE1606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:51:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1CA6yBKV
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bddZRKOY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1DBF10FE59;
-	Wed, 25 Nov 2026 17:51:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6CB3610FE57;
+	Wed, 25 Nov 2026 17:51:33 +0000 (UTC)
 Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AD0210FE3F
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:51:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED4A510FE57
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:51:17 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id B472F1A17F6;
- Wed, 25 Nov 2026 17:51:07 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id BCF441A17F8;
+ Wed, 25 Nov 2026 17:51:16 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 7B1B460480;
- Wed, 25 Nov 2026 17:51:07 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 8733660480;
+ Wed, 25 Nov 2026 17:51:16 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2FAB311E6B0AE; Wed, 25 Nov 2026 18:51:01 +0100 (CET)
+ with ESMTPSA id 0D7D411E6B0C5; Wed, 25 Nov 2026 18:51:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629065; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629070; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=3A5cjW5s6Vm9YexlzjVRgl0QgTWKhVvRpSlRJjfgWZs=;
- b=1CA6yBKVAq8sZAQ8KU+pXmBM+p/6F3rx+KOh79Vgstzg726iK4gp6c5SvZan88jxDuz0On
- lr9yEJXN9ytvidiRusLZr9sVNRQtBJ+A61Lkd0wzCfaT1ebpEiPnSqGNPu7WWzmpKBrsa6
- k3AiWy2Auo55wJCUexRoJ+z5R6vle71qRjUbYLh+ly8+rc6g7+y1MGkUftPi3QERU6ltCA
- PgL2cDm7L7GrE5PGWYuWCoShz+lym9GIcA8zy5JbzGHECXoc+RlrbvVth1GONZVUh/h7RR
- bykLFayrTiSnPT57mtgdssWSdoKK7yjSUaP79ljgMJ82DJqxvforJzpQDR+q5A==
+ bh=ClYvcSrRpaC6pZWIHyz8rgDbTBY3oEHTpkCcBqksDKY=;
+ b=bddZRKOY8oaptmIw9/nOBi226ysOKqyLjlmO+UELD0rno8H+n6KZq904c3Fu0HCGE2XTL7
+ bdEzjs9dgmQCln42SMqev0ZkIw5PyUwpDxq6i5KiC65X+j5LkpO3/D/zvjoJr3YN+6n9hR
+ fu7XKywA82W44EHTP68AUtmHlAZyUlO78KVhrJizi6pU2nUAisMh0pvfCYzNeCmg678v4b
+ KmE24l96W0muQHV2Ni6Ps0VDxm37vkBU0PHs/YpsRWiPltgUg9IZobB4aB+gX4MPcCuhCC
+ CE0dsB6nyTklHYXTEVJeMFS27vYmjM3ZLbXWK+HDXa5c8CoZOKyuY8DceHKpdw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:17 +0100
-Subject: [PATCH v4 04/32] drm/display: hdmi-cec-notifier-helper: add
- non-drmm API variant
+Date: Wed, 25 Nov 2026 18:50:18 +0100
+Subject: [PATCH v4 05/32] drm/connector: split drmm_connector_hdmi_init()
+ in 3 parts
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-4-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-5-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -83,108 +83,158 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-For bridge hotplug drmm allocations are not suitable because a connector
-may have to be added and removed multiple times in the lifetime of a card.
+In preparation for adding hotpluggable bridges we need connectors to be
+created dynamically, both regular connectors and HDMI ones.
 
-In preparation to support hotpluggable HDMI bridges (and the
-drm_bridge_connector) add a non-drmm variant of the CEC notifier
-(de)registration API, with an explicit unregister API.
+For non-HDMI connectors drm_connector_init() already has a dynamic
+variant, but there is none for HDMI. Creating one would be easy by creating
+a mostly-identical copy of drmm_connector_hdmi_init(), but it is a long
+function so there would be a lot of duplicated code.
+
+drmm_connector_hdmi_init() currently has 3 sections:
+
+ 1. sanity checks
+ 2. call drmm_connector_init()
+ 3. initialize HDMI-specific fields not initialized at step 2
+
+For the dynamic variant, sectons 1 and 3 would be an exact copy, while
+section 2 needs to be different.
+
+To avoid code duplication, split parts 1 and 3 to subfunctions. The next
+commit will introduce the dynamic variant.
+
+No functional changes. Just moving code around.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-New patch in v3.
+Changes in v2:
+- expanded commit message to clarify rationale
+- rebased on current drm-misc-next, which required a full rewrite after
+  the signature of drmm_connector_hdmi_init() changed in commit
+  400c9ede1ea4 ("drm/connector: Add drmm_connector_hdmi_init() with new
+  signature")
+- renamed drm_connector_hdmi_init() to drm_connector_hdmi_initialize() as
+  or it would look like an HDMI version of drm_connector_init()
 ---
- .../gpu/drm/display/drm_hdmi_cec_notifier_helper.c | 30 ++++++++++++++++++----
- include/drm/display/drm_hdmi_cec_helper.h          | 15 +++++++++++
- 2 files changed, 40 insertions(+), 5 deletions(-)
+ drivers/gpu/drm/drm_connector.c | 88 +++++++++++++++++++++++++----------------
+ 1 file changed, 55 insertions(+), 33 deletions(-)
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c b/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
-index 47662bdc5d08..2f30844fcdad 100644
---- a/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
-@@ -29,8 +29,7 @@ static void drmm_connector_hdmi_cec_notifier_unregister(struct drm_device *dev,
- {
- 	struct drm_connector *connector = res;
- 
--	cec_notifier_conn_unregister(connector->cec.data);
--	connector->cec.data = NULL;
-+	drm_connector_hdmi_cec_notifier_unregister(connector);
+diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
+index da0b16f25ac4..20120b6a05d5 100644
+--- a/drivers/gpu/drm/drm_connector.c
++++ b/drivers/gpu/drm/drm_connector.c
+@@ -542,37 +542,11 @@ int drmm_connector_init(struct drm_device *dev,
  }
+ EXPORT_SYMBOL(drmm_connector_init);
  
- static const struct drm_connector_cec_funcs drm_connector_cec_notifier_funcs = {
-@@ -38,9 +37,9 @@ static const struct drm_connector_cec_funcs drm_connector_cec_notifier_funcs = {
- 	.phys_addr_set = drm_connector_hdmi_cec_notifier_phys_addr_set,
- };
- 
--int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
--					      const char *port_name,
--					      struct device *dev)
-+int drm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
-+					     const char *port_name,
-+					     struct device *dev)
+-/**
+- * drmm_connector_hdmi_init - Init a preallocated HDMI connector
+- * @dev: DRM device
+- * @connector: A pointer to the HDMI connector to init
+- * @funcs: callbacks for this connector
+- * @hdmi_funcs: HDMI-related callbacks and capabilities for this connector
+- * @connector_type: user visible type of the connector
+- * @ddc: optional pointer to the associated ddc adapter
+- *
+- * Initialises a preallocated HDMI connector. Connectors can be
+- * subclassed as part of driver connector objects.
+- *
+- * Cleanup is automatically handled with a call to
+- * drm_connector_cleanup() in a DRM-managed action.
+- *
+- * The connector structure should be allocated with drmm_kzalloc().
+- *
+- * The @drm_connector_funcs.destroy hook must be NULL.
+- *
+- * Returns:
+- * Zero on success, error code on failure.
+- */
+-int drmm_connector_hdmi_init(struct drm_device *dev,
+-			     struct drm_connector *connector,
+-			     const struct drm_connector_funcs *funcs,
+-			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
+-			     int connector_type,
+-			     struct i2c_adapter *ddc)
++static int drm_connector_hdmi_sanity_checks(struct drm_device *dev,
++					    struct drm_connector *connector,
++					    const struct drm_connector_hdmi_funcs *hdmi_funcs,
++					    int connector_type)
  {
- 	struct cec_connector_info conn_info;
- 	struct cec_notifier *notifier;
-@@ -58,6 +57,27 @@ int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
+-	int ret;
+-
+ 	if (!hdmi_funcs)
+ 		return -EINVAL;
  
- 	mutex_unlock(&connector->cec.mutex);
+@@ -613,9 +587,15 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 	      connector_type == DRM_MODE_CONNECTOR_HDMIB))
+ 		return -EINVAL;
  
+-	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
+-	if (ret)
+-		return ret;
 +	return 0;
 +}
-+EXPORT_SYMBOL(drm_connector_hdmi_cec_notifier_register);
 +
-+void drm_connector_hdmi_cec_notifier_unregister(struct drm_connector *connector)
++/* Initialize HDMI-specific resources of a connector */
++static int drm_connector_hdmi_initialize(struct drm_device *dev,
++					 struct drm_connector *connector,
++					 const struct drm_connector_hdmi_funcs *hdmi_funcs)
 +{
-+	cec_notifier_conn_unregister(connector->cec.data);
-+	connector->cec.data = NULL;
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_cec_notifier_unregister);
++	int ret;
+ 
+ 	/* TODO: remove after conversion to new drmm_connector_hdmi_init() */
+ 	connector->hdmi.supported_formats = hdmi_funcs->supported_formats;
+@@ -680,6 +660,48 @@ int drmm_connector_hdmi_init(struct drm_device *dev,
+ 
+ 	return 0;
+ }
 +
-+int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
-+					      const char *port_name,
-+					      struct device *dev)
++/**
++ * drmm_connector_hdmi_init - Init a preallocated HDMI connector
++ * @dev: DRM device
++ * @connector: A pointer to the HDMI connector to init
++ * @funcs: callbacks for this connector
++ * @hdmi_funcs: HDMI-related callbacks and capabilities for this connector
++ * @connector_type: user visible type of the connector
++ * @ddc: optional pointer to the associated ddc adapter
++ *
++ * Initialises a preallocated HDMI connector. Connectors can be
++ * subclassed as part of driver connector objects.
++ *
++ * Cleanup is automatically handled with a call to
++ * drm_connector_cleanup() in a DRM-managed action.
++ *
++ * The connector structure should be allocated with drmm_kzalloc().
++ *
++ * The @drm_connector_funcs.destroy hook must be NULL.
++ *
++ * Returns:
++ * Zero on success, error code on failure.
++ */
++int drmm_connector_hdmi_init(struct drm_device *dev,
++			     struct drm_connector *connector,
++			     const struct drm_connector_funcs *funcs,
++			     const struct drm_connector_hdmi_funcs *hdmi_funcs,
++			     int connector_type,
++			     struct i2c_adapter *ddc)
 +{
 +	int ret;
 +
-+	ret = drm_connector_hdmi_cec_notifier_register(connector, port_name, dev);
++	ret = drm_connector_hdmi_sanity_checks(dev, connector, hdmi_funcs, connector_type);
 +	if (ret)
 +		return ret;
 +
- 	return drmm_add_action_or_reset(connector->dev,
- 					drmm_connector_hdmi_cec_notifier_unregister,
- 					connector);
-diff --git a/include/drm/display/drm_hdmi_cec_helper.h b/include/drm/display/drm_hdmi_cec_helper.h
-index 7e76a163e3a5..8d648532eeb7 100644
---- a/include/drm/display/drm_hdmi_cec_helper.h
-+++ b/include/drm/display/drm_hdmi_cec_helper.h
-@@ -63,10 +63,25 @@ void drm_connector_hdmi_cec_transmit_attempt_done(struct drm_connector *connecto
- 						  u8 status);
++	ret = drmm_connector_init(dev, connector, funcs, connector_type, ddc);
++	if (ret)
++		return ret;
++
++	return drm_connector_hdmi_initialize(dev, connector, hdmi_funcs);
++}
+ EXPORT_SYMBOL(drmm_connector_hdmi_init);
  
- #if IS_ENABLED(CONFIG_DRM_DISPLAY_HDMI_CEC_NOTIFIER_HELPER)
-+int drm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
-+					     const char *port_name,
-+					     struct device *dev);
-+void drm_connector_hdmi_cec_notifier_unregister(struct drm_connector *connector);
- int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
- 					      const char *port_name,
- 					      struct device *dev);
- #else
-+static inline int drm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
-+							   const char *port_name,
-+							   struct device *dev)
-+{
-+	return 0;
-+}
-+
-+static inline void drm_connector_hdmi_cec_notifier_unregister(struct drm_connector *connector)
-+{
-+}
-+
- static inline int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
- 							    const char *port_name,
- 							    struct device *dev)
+ /**
 
 -- 
 2.56.1
