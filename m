@@ -2,70 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FDF8606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:09:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F0F606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:11:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=mLS1FZtl
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HggI8zO0
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6F43210FA9A;
-	Wed, 25 Nov 2026 10:09:28 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9DF3910FA9A
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:09:21 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DF68110E2B2;
+	Wed, 25 Nov 2026 10:11:46 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3283A10E2B2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:11:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3FC3B407FC
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:09:21 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0C81F00A36
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:09:21 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 628C9626F8;
+ Wed, 25 Nov 2026 10:11:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EB1D1F000CA;
+ Wed, 25 Nov 2026 10:11:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795601361;
- bh=9Go3NrC6R1k3c+zu1uu0vGbFmy/uD6Bj5+pEG6pyJzc=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=mLS1FZtlW/uBOd8uYBASLUw7dL8m9Cq3WOCGR+qLTLOINHxdiJqcVBElWNdcIZRFD
- +A4pF2DOHjjuyoVAtTmsc5CVWjpwsNNyDXTel3uWZktq8sv/WR0vKkYJYdbImYJdgk
- X9hbN4TaNJzdQGYcPQzLRKg3GKj3gUS1YfjD82L+62CJk27+ndu/jcm0xKxhSnoLA8
- mcW4TfWVXpXvUgwpsd8YqCHdKdRngXZ4sWikgqiBwjXCXPFykO3fVB/0/dOkJMVNDr
- S60jEr5lffFgJaeQPPD8R3xWy0rT4hePGqw/JcIqfSFURZYQuE4+ivClmJJVs3FNSq
- 1yKmzXyQRPP/Q==
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-5be3d5927ceso7646772e87.3
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:09:20 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErEbKtFL1x1w1LJGt6a2hXasdD24qckRM16fI1Y0ZRGPMIkuqkcrLUfDZUxHCjvTWcPWiG0qWKsZ0lk=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8SjWaJuAkSG0c97PP0gsaE3Avci2eQfvcdXVYn97TphKQzGLvm
- PxOKbeepEv5PIqdhAMo4stTw1NNTTntoe1VQDtlplXtuj+fh1c1Cxxf/sTej2UORoIySrn0p9iq
- gNF9G5Ghd+x7v8pwtMGBdP7QphccZWIQ=
-X-Received: by 2002:a05:6512:3e1a:b0:5c1:4f34:922b with SMTP id
- 2adb3069b0e04-5c1bc8726b5mr4818493e87.54.1795601359755; Wed, 25 Nov 2026
- 02:09:19 -0800 (PST)
+ s=k20260515; t=1795601499;
+ bh=vIMVK/H+ptXLRryf3xoUHbNWFpkUNhdBFRcG4RVJPPA=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=HggI8zO06rx6k8G4RwkxR1RyZxRDsV+cpOF8pt726VzABaocp9OT1uFct/YtE2aMi
+ 6Z0sxequgsrYdrEnJW8vGGkytV2A048k6y2knY7kZ7FO+1Ui3OsROku3Qd2AS4TVQa
+ uOda35zoIM6T8Dbec6EDNtXHR5dPhmns2gDf9+TToOPCyo/5GbT5dhgUBBoIbM7zbu
+ Xzq5AyGw/Rgq+4LQObGFHMkrFEa37XVS5cJljSi8vR56pv42wCds1dkIVM7wy3b6QT
+ OcX+v+vk9d1qKS3SQbOiK9m8V/nMc80hGtER8gAy9cctMbKvaXRY30h/4lMZ0Sma3h
+ 4KzcLf5ICQaRQ==
+Date: Wed, 25 Nov 2026 11:11:36 +0100
+From: Maxime Ripard <mripard@kernel.org>
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
+ Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
+Message-ID: <awazkzDVZtpUsdQb@houat>
+References: <20261116142707.1299360-1-maximpedraza@gmail.com>
+ <20261116142707.1299360-4-maximpedraza@gmail.com>
+ <avs2dagfmQkv00H0@houat>
+ <20261118212114.150992-1-maximpedraza@gmail.com>
+ <20261124141119.441163-1-maximpedraza@gmail.com>
+ <e58a5ff5-9c1b-40cc-a65d-c7fbfdaf18d1@ideasonboard.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-15-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-15-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 25 Nov 2026 11:09:07 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=bXyBRP8oBr2xtzwkzbEPHXCKA0XPXRueY6pUSagbXtQ@mail.gmail.com>
-X-Gm-Features: Aa3M54rLQayJf3xCdY0Eq4zHAmpJ1R1cYyaDehvs8Q24SnEwz4VjC8tWxJP40dg
-Message-ID: <CAD++jL=bXyBRP8oBr2xtzwkzbEPHXCKA0XPXRueY6pUSagbXtQ@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 14/15] misc/arm-cla: Support exclusive context
- assignment
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, 
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha384;
+ protocol="application/pgp-signature"; boundary="kqlxxfgbcki63lze"
+Content-Disposition: inline
+In-Reply-To: <e58a5ff5-9c1b-40cc-a65d-c7fbfdaf18d1@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,112 +68,68 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ryan, Jean-Philippe,
 
-On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
- wrote:
+--kqlxxfgbcki63lze
+Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
+MIME-Version: 1.0
 
-> From: Jean-Philippe Brucker <jpb@kernel.org>
->
-> Introduce a nr_contexts members to cla_domain to count the mapped
-> contexts. At the moment PL0 contexts share the domain, while PL1
-> contexts require exclusive assignment, since there is no context
-> save/restore.
+On Tue, Nov 24, 2026 at 04:38:43PM +0200, Tomi Valkeinen wrote:
+> Hi,
+>=20
+> On 24/11/2026 16:11, M=E0xim Pedraza Padilla wrote:
+> > On Wed, Nov 18, 2026 at 10:21:14PM +0100, M=E0xim Pedraza Padilla wrote:
+> > > Makes sense, I'll use the same approach in tilcdc, and see if it can =
+be
+> > > turned into a common helper along the way.
+> >=20
+> > A follow-up on this one, now that I've rebased on v9. I ended up doing
+> > it differently, so I'd rather explain why before sending the next
+> > version.
+> >=20
+> > The tidss approach rounds the clock to the closest standard refresh rat=
+e.
+> > Panels driven by tilcdc often don't use one: with the timings from its
+> > datasheet, the panel on this board runs at 56.8 Hz (33.3 MHz), which wo=
+uld
+> > be read back as 60 Hz and 35.19 MHz. The adopted mode would then never
+> > match the panel mode, even with U-Boot programming exactly the same one.
+>=20
+> I felt that approach was a bit odd (and if I recall right, failed with my
+> OLDI panel), and in my tidss version I just used the clock rate directly
+> from the clk_get_rate() (see dispc_vp_readout_mode):
 
-Do you mean to say there is no context save/restore for the
-virtualiuzed users? Because there seems to be for the ordinary
-(kernel arbitrated) ones.
+The problem is that you're losing information when setting the clock.
+Especially for panels where you don't really have an established set of
+pixel clocks, the clock is very likely to not be able to give the exact
+frequency you asked for.
 
-> A negative count indicates the domain is exclusive.
+So when you're reading the clock frequency, the mode you're reading and
+the one you'd set at first modeset will not necessarily match, so you
+need to take that difference into account and try to get back on your
+feet.
 
-Exclusive to what? Please be more specific.
+Maxime
 
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
+--kqlxxfgbcki63lze
+Content-Type: application/pgp-signature; name="signature.asc"
 
-(...)
+-----BEGIN PGP SIGNATURE-----
 
-> diff --git a/drivers/misc/arm-cla/arm-cla.h b/drivers/misc/arm-cla/arm-cl=
-a.h
-> index c9ecab5ab6bf..43a58a329525 100644
-> --- a/drivers/misc/arm-cla/arm-cla.h
-> +++ b/drivers/misc/arm-cla/arm-cla.h
-> @@ -105,6 +105,7 @@ struct cla_dev {
->   * @lock:              Protects the following members.
->   * @ctxs:              All live contexts, keyed on cla_ctx_key.
->   * @queued_ctxs:       Queue of contexts waiting for assignment.
-> + * @nr_ctxs:           Context count. Negative value for exclusive assig=
-nment.
+iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawa0WAAKCRAnX84Zoj2+
+dgClAX9rukYht2cxkSUN2XMvv6LJwEaP4foPFEuJx1TpnX+0tKGD8XA06bHdq2Zi
+ucgepYUBgNIVV1+x0othQMl5SJyLHUQKUCM9Bk1DyyQvYde1UW25dY2kST4L9kma
+kIEeGQ4egQ==
+=NfU7
+-----END PGP SIGNATURE-----
 
-Describe here what it means if a context is excludive,
-
-> +static int cla_domain_get(struct cla_domain *domain, bool share)
-> +{
-> +       lockdep_assert_held(&domain->lock);
-> +
-> +       if (share) {
-> +               /* Time share the domain with other contexts. */
-> +               if (domain->nr_ctxs < 0)
-> +                       return -EBUSY;
-> +               domain->nr_ctxs++;
-> +               WARN_ON(domain->nr_ctxs < 0); /* LONG_MAX contexts?! */
-> +       } else {
-> +               /* Reserve the domain for exclusive assignment. */
-> +               if (domain->nr_ctxs !=3D 0)
-> +                       return -EBUSY;
-> +               domain->nr_ctxs--;
-
-Maybe:
-domain->nr_ctxs =3D -1;
-
-So it is clear what is going on?
-
-> +       }
-> +       return 0;
-> +}
-
-Notice that here the _get() semantics are reference counting as is
-proper, compared to the other _get() in the series that I complained about.
-
-> +/* Undo cla_domain_get() */
-> +static void cla_domain_put(struct cla_domain *domain)
-> +{
-> +       lockdep_assert_held(&domain->lock);
-> +
-> +       if (domain->nr_ctxs =3D=3D -1)
-> +               domain->nr_ctxs =3D 0;
-> +       else if (domain->nr_ctxs > 0)
-> +               domain->nr_ctxs--;nr_c
-> +       else
-> +               WARN(1, "invalid domain refcount %ld\n", domain->nr_ctxs)=
-;
-
-Looks good
-
-> @@ -53,7 +85,7 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *domai=
-n,
->                                struct cla_ctx_key *key)
->  {
->         struct cla_ctx *ctx;
-> -       int ret =3D -ENOMEM;
-> +       int ret;
->
->         mutex_lock(&domain->lock);
->         ctx =3D cla_domain_lookup_ctx(domain, key);
-> @@ -68,9 +100,14 @@ struct cla_ctx *cla_ctx_create(struct cla_domain *dom=
-ain,
->                 goto err_unlock;
->         }
->
-> +       ret =3D cla_domain_get(domain, key->type =3D=3D CLA_CTX_PL0);
-
-Add a comment that we can share PL0 domains only.
-
-Yours,
-Linus Walleij
+--kqlxxfgbcki63lze--
