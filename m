@@ -2,42 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF88B606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1244606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vy6dT5tI
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ehEZR/xm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6131310E26B;
-	Wed, 25 Nov 2026 11:02:59 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 201E410E2D2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:02:53 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05CAA10E2D2;
+	Wed, 25 Nov 2026 11:03:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4486010E2D2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:03:21 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id D444A45D98;
- Wed, 25 Nov 2026 11:02:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280301F00A36;
- Wed, 25 Nov 2026 11:02:49 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 3779E61CFF;
+ Wed, 25 Nov 2026 11:03:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81C211F000C6;
+ Wed, 25 Nov 2026 11:03:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795604572;
- bh=aajmODDlBdM3p//i7Wc3yiLuhTRx/OqprtSHdep7VFY=;
+ s=k20260515; t=1795604599;
+ bh=EKS7sk9f4gb4t3CNvTDLtElftgrVs6sbAVW6t0B6AjQ=;
  h=Date:Subject:To:Cc:References:From:In-Reply-To;
- b=Vy6dT5tIMZJR0G6YAijrkEG/KhQq/kwq0TlpT99xuJzUHLw2R7HG3ii8N6U6bwj4J
- uGDKLQEW9XSxvh4orj6F5jil1jOVuQK+37aNBB9hGZJgzclm/H98uZAqrcP9d4tkkj
- rC/bNWcJlwzqtdwM0b0TJntioAS2sQYNWitYTPfzfeK3xS51fUsf0+MwbKuRugV5+m
- tY5YAi7MN4gzPwVGqsvOf1xlWqLg+Z2YEk5FaLCz96N19fQEX9a1DrOJiWidHqgL+p
- EQ2zs2sHlDuspkiuXmXyg55B1cv4xtdxvAInChjXZQ1vG7FydZZIGPL8mTZO9QSMvd
- eG25sguAebwig==
-Message-ID: <c71378bf-e66d-4cb4-af6a-7f8163499709@kernel.org>
-Date: Wed, 25 Nov 2026 12:02:47 +0100
+ b=ehEZR/xmLze+jFOUHT0sSO0LL8JHwiw6F29MnFtCbS2cx4PsH7uKZ1aF0W0TOwkmf
+ /FH/ipP83G6RGYwQJNNwjbHigOP72FPwIOj84qHtzFXMOjZpQgFS7Ij+6kExorbPzq
+ lE1jsxGOwBk5+f08iiqI1QszM/lLej+/8cCqsBC+e35I2ZhzBH/oTXqDQdpMuYzwuj
+ pqWpK0ujDpYmoV1IgdUiTt1kW3ddBhp3iUVUP+GWJfGGzoVT3XDbHaLtK7PzeLKWU6
+ degKiekkTsDP8EwqEXUbo9qSv1piNHGrYaFzOuNNaXPJCorBMkWqdD3UBEvnpUfphI
+ 7fkuU8dPiM36g==
+Message-ID: <a8c3852e-2e3b-421a-81f9-643e46193ef1@kernel.org>
+Date: Wed, 25 Nov 2026 12:03:15 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/6] Add VIEWE 7" JD9365TX MIPI-DSI panel support
+Subject: Re: [PATCH v6 1/6] dt-bindings: display: add VIEWE 7KF82 JD9365TX
+ panel
 To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org,
  dmitry.torokhov@gmail.com
-References: <tencent_C93E80ACC0BEB9083D9EE87E575073C67D09@qq.com>
+References: <20261125102130.256-1-3066883572@qq.com>
+ <tencent_74A87DE3061F575671DF6384634FE4BFF908@qq.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -83,7 +85,7 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <tencent_C93E80ACC0BEB9083D9EE87E575073C67D09@qq.com>
+In-Reply-To: <tencent_74A87DE3061F575671DF6384634FE4BFF908@qq.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -97,45 +99,21 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On 25/11/2026 11:21, Hefei wrote:
-> Hi,
+> Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
+> JD9365TX MIPI-DSI panel, and register the viewe vendor prefix.
 > 
-> This series adds support for the VIEWE 7KF82 7" 720x1280 in-cell MIPI-DSI
-> panel based on Jadard JD9365TX (2-lane video mode), plus the companion
-> I2C touchscreen and I2C backlight MCU used on the same FPC.
-> 
-> This is a different programming model from the existing JD9365DA driver
-> (panel-jadard-jd9365da-h3.c): page select uses 0xDE (not 0xE0), bring-up
-> uses 0xDF unlock, and lane config is via 0xCC rather than 0x80.
-> 
+> Signed-off-by: Hefei <3066883572@qq.com>
 
-You still do not bother to use get_maintainers.pl and cc semi-random
-addresses. Please slow down and do it carefully.
-
-Please use scripts/get_maintainers.pl to get a list of necessary people
-and lists to CC (and consider --no-git-fallback argument, so you will
-not CC people just because they made one commit years ago). It might
-happen, that command when run on an older kernel, gives you outdated
-entries. Therefore please be sure you base your patches on recent Linux
-kernel.
-
-Tools like b4 or scripts/get_maintainer.pl provide you proper list of
-people, so fix your workflow. Tools might also fail if you work on some
-ancient tree (don't, instead use mainline) or work on fork of kernel
-(don't, instead use mainline). Just use b4 and everything should be
-fine, although remember about `b4 prep --auto-to-cc` if you added new
-patches to the patchset.
-
-
-
-
+You lost cover letter. Slow down and start using b4, like guides for
+beginners are asking.
 
 Best regards,
 Krzysztof
