@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B82BB606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26EE606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:51:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W1hUVnws
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Xvj90NZO
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 04C8E10FE43;
-	Wed, 25 Nov 2026 17:51:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8D33210FE4D;
+	Wed, 25 Nov 2026 17:51:16 +0000 (UTC)
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0056D10FE3F
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:50:58 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 38F2F10FE43
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:51:04 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 9688DC6221E;
- Wed, 25 Nov 2026 17:51:05 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id C1518C69149;
+ Wed, 25 Nov 2026 17:51:10 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9FA4A60480;
- Wed, 25 Nov 2026 17:50:57 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id C492460480;
+ Wed, 25 Nov 2026 17:51:02 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 19D8611E6B0AD; Wed, 25 Nov 2026 18:50:50 +0100 (CET)
+ with ESMTPSA id 16CA211E6B0C2; Wed, 25 Nov 2026 18:50:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629055; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629060; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=R32+wDXxmTkP/gEthbKPhXatwdXsuuJxCRpBzoKrIWQ=;
- b=W1hUVnwsiqKWJbspXP+GMe+L3xc0yhktOUgBlG5A/W5vbiRH2iDdAqdTif4mEQeP+LkF5v
- YbNMn4mGJN1s66/oSyVblattEwIeo9WUw8xpy3UPcbh5SZ+UqXY4YXvWuhsRnOj8zgC3mf
- Bl3eXaxQrT/dOPuHleFVawX+ayu99ke2dtOWrJMUhQUTF8IjG42H6O+J2DytlHQk1Dsu8+
- EkS34IZ39X0nBQ+tQHrD7xsJLJkxCAbLfNF/YZOwSPM2mUuPOeDDuTqBP/YPVyuDYeiE6F
- xDnkRtUYbKwt4cRTw9fVErSq06nmrgI4TzEezk5UWKkg643ofnxrJ3RonUhYYg==
+ bh=NSVFwobbVS+kCFYlT7jJw4a90W2mwlRdcZOgwxJZDjc=;
+ b=Xvj90NZOjovPN9vPRfnQJgKIl11B7lHWDG49Iv3SgSbmjrbDkrm0XAVu4ewjF13Z4ohmwd
+ p8eUVPvzW2iczDIcAokJYiH5gsM1Ao4LEBK25MXa+kvI8U50G/qU9RLN3D2bUG7RUrE7IN
+ cFvxGGlknMApLv4rKMi/X9Sd/RFLBOaVaVOPeYcLBZ7xAbWbz1ENrrog7j0YWr/PhKgUHz
+ gzL2uvN/k+Z9kW2Wj5HNTQlnDpJrR3PKvKhEL7d0CQ73h/MhMWNuw140C74CokJAbsN4hr
+ IX/yDYIM9bXzzXyAT/okiQ9C6YpFF3AUDJy8n35c7tPxYYXPkMKSdH86rJ56hQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:15 +0100
-Subject: [PATCH v4 02/32] drm/display: hdmi-cec-helper: add non-drmm API
- variant
+Date: Wed, 25 Nov 2026 18:50:16 +0100
+Subject: [PATCH v4 03/32] drm/display: hdmi-cec-notifier-helper: use drmm_
+ prefix for drmm action
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-2-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-3-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -87,132 +87,43 @@ For bridge hotplug drmm allocations are not suitable because a connector
 may have to be added and removed multiple times in the lifetime of a card.
 
 In preparation to support hotpluggable HDMI bridges (and the
-drm_bridge_connector) add a non-drmm variant of the CEC adapter
+drm_bridge_connector) we need a non-drmm variant of the CEC notifier
 (de)registration API, with an explicit unregister API.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
----
- drivers/gpu/drm/display/drm_hdmi_cec_helper.c | 60 ++++++++++++++++++---------
- include/drm/display/drm_hdmi_cec_helper.h     |  6 +++
- 2 files changed, 47 insertions(+), 19 deletions(-)
+To differentiate the new explicit unregister API from the existing drmm
+cleanup action, use the drmm_ prefix for the latter.
 
-diff --git a/drivers/gpu/drm/display/drm_hdmi_cec_helper.c b/drivers/gpu/drm/display/drm_hdmi_cec_helper.c
-index b79c41703d53..81b271659ad9 100644
---- a/drivers/gpu/drm/display/drm_hdmi_cec_helper.c
-+++ b/drivers/gpu/drm/display/drm_hdmi_cec_helper.c
-@@ -67,15 +67,8 @@ static void drm_connector_hdmi_cec_adapter_phys_addr_set(struct drm_connector *c
- static void drmm_connector_hdmi_cec_adapter_unregister(struct drm_device *dev, void *res)
+Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
+---
+
+New patch in v3.
+---
+ drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c b/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
+index 31b8e4a93e24..47662bdc5d08 100644
+--- a/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
++++ b/drivers/gpu/drm/display/drm_hdmi_cec_notifier_helper.c
+@@ -25,7 +25,7 @@ static void drm_connector_hdmi_cec_notifier_phys_addr_set(struct drm_connector *
+ 	cec_notifier_set_phys_addr(connector->cec.data, addr);
+ }
+ 
+-static void drm_connector_hdmi_cec_notifier_unregister(struct drm_device *dev, void *res)
++static void drmm_connector_hdmi_cec_notifier_unregister(struct drm_device *dev, void *res)
  {
  	struct drm_connector *connector = res;
--	struct drm_connector_hdmi_cec_data *data = connector->cec.data;
--
--	cec_unregister_adapter(data->adapter);
--
--	if (data->funcs->uninit)
--		data->funcs->uninit(connector);
  
--	kfree(data);
--	connector->cec.data = NULL;
-+	drm_connector_hdmi_cec_unregister(connector);
- }
- 
- static struct drm_connector_cec_funcs drm_connector_hdmi_cec_adapter_funcs = {
-@@ -83,11 +76,11 @@ static struct drm_connector_cec_funcs drm_connector_hdmi_cec_adapter_funcs = {
- 	.phys_addr_set = drm_connector_hdmi_cec_adapter_phys_addr_set,
- };
- 
--int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
--				     const struct drm_connector_hdmi_cec_funcs *funcs,
--				     const char *name,
--				     u8 available_las,
--				     struct device *dev)
-+int drm_connector_hdmi_cec_register(struct drm_connector *connector,
-+				    const struct drm_connector_hdmi_cec_funcs *funcs,
-+				    const char *name,
-+				    u8 available_las,
-+				    struct device *dev)
- {
- 	struct drm_connector_hdmi_cec_data *data;
- 	struct cec_connector_info conn_info;
-@@ -125,9 +118,8 @@ int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
- 		goto err_delete_adapter;
- 
- 	/*
--	 * NOTE: the CEC adapter will be unregistered by drmm cleanup from
--	 * drm_managed_release(), which is called from drm_dev_release()
--	 * during device unbind.
-+	 * NOTE: the CEC adapter will be unregistered by
-+	 * cec_unregister_adapter().
- 	 *
- 	 * However, the CEC framework cleans up the CEC adapter only when the
- 	 * last user has closed its file descriptor, so we don't need to handle
-@@ -144,9 +136,7 @@ int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
- 
+@@ -59,7 +59,7 @@ int drmm_connector_hdmi_cec_notifier_register(struct drm_connector *connector,
  	mutex_unlock(&connector->cec.mutex);
  
--	return drmm_add_action_or_reset(connector->dev,
--					drmm_connector_hdmi_cec_adapter_unregister,
--					connector);
-+	return 0;
- 
- err_delete_adapter:
- 	cec_delete_adapter(cec_adap);
-@@ -160,6 +150,38 @@ int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
- 
- 	return ret;
+ 	return drmm_add_action_or_reset(connector->dev,
+-					drm_connector_hdmi_cec_notifier_unregister,
++					drmm_connector_hdmi_cec_notifier_unregister,
+ 					connector);
  }
-+EXPORT_SYMBOL(drm_connector_hdmi_cec_register);
-+
-+void drm_connector_hdmi_cec_unregister(struct drm_connector *connector)
-+{
-+	struct drm_connector_hdmi_cec_data *data = connector->cec.data;
-+
-+	cec_unregister_adapter(data->adapter);
-+
-+	if (data->funcs->uninit)
-+		data->funcs->uninit(connector);
-+
-+	kfree(data);
-+	connector->cec.data = NULL;
-+}
-+EXPORT_SYMBOL(drm_connector_hdmi_cec_unregister);
-+
-+int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
-+				     const struct drm_connector_hdmi_cec_funcs *funcs,
-+				     const char *name,
-+				     u8 available_las,
-+				     struct device *dev)
-+{
-+	int ret;
-+
-+	ret = drm_connector_hdmi_cec_register(connector, funcs, name, available_las, dev);
-+	if (ret)
-+		return ret;
-+
-+	return drmm_add_action_or_reset(connector->dev,
-+					drmm_connector_hdmi_cec_adapter_unregister,
-+					connector);
-+}
- EXPORT_SYMBOL(drmm_connector_hdmi_cec_register);
- 
- void drm_connector_hdmi_cec_received_msg(struct drm_connector *connector,
-diff --git a/include/drm/display/drm_hdmi_cec_helper.h b/include/drm/display/drm_hdmi_cec_helper.h
-index fd8f4d2f02c1..7e76a163e3a5 100644
---- a/include/drm/display/drm_hdmi_cec_helper.h
-+++ b/include/drm/display/drm_hdmi_cec_helper.h
-@@ -39,6 +39,12 @@ struct drm_connector_hdmi_cec_funcs {
- 			u32 signal_free_time, struct cec_msg *msg);
- };
- 
-+int drm_connector_hdmi_cec_register(struct drm_connector *connector,
-+				    const struct drm_connector_hdmi_cec_funcs *funcs,
-+				    const char *name,
-+				    u8 available_las,
-+				    struct device *dev);
-+void drm_connector_hdmi_cec_unregister(struct drm_connector *connector);
- int drmm_connector_hdmi_cec_register(struct drm_connector *connector,
- 				     const struct drm_connector_hdmi_cec_funcs *funcs,
- 				     const char *name,
+ EXPORT_SYMBOL(drmm_connector_hdmi_cec_notifier_register);
 
 -- 
 2.56.1
