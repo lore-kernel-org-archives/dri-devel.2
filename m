@@ -2,57 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9F3360A2612
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:21:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE74606A688
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:21:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FL8mOuh5
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=saXLmMwc
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1F6410FAC0;
-	Wed, 25 Nov 2026 10:21:45 +0000 (UTC)
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com
- [203.205.221.209])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5535710FAA0
+	by gabe.freedesktop.org (Postfix) with ESMTP id 055DE10FAEE;
+	Wed, 25 Nov 2026 10:21:46 +0000 (UTC)
+Received: from out203-205-221-249.mail.qq.com (out203-205-221-249.mail.qq.com
+ [203.205.221.249])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 48F4A10F03F
  for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:21:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795602096; bh=aIpeZjTArpTO9hBQW2ZRDB+FyscOXf3k2X7KmsTeoNI=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FL8mOuh55BsBSQa4RfKqyefEeAvFgfxLyXyoYHsGfNavZi24BLhLUce5I6uC7mPpv
- OgOa9wyGdz/fLaZmuY1kvjOgh4mJ9wy+847qmV85ny/jRbyZA4G3o0uK2htf7CuXEi
- 7GjSmJ6lYIITWcSYMWz43jbK7XOm3qu421RBP3c4=
+ t=1795602095; bh=RhzwVySpil2bsJ3XRlzOZ6xss+IteEEgqAFBYLD2X84=;
+ h=From:To:Cc:Subject:Date;
+ b=saXLmMwcuKkcnRwNvbcs9/jyJj83g39SdB5kuKGBfL+pxduFwyCtXhyxwydr7cd/+
+ 4wdd8tCY0JjhbU2V8v46E7Lkj5o2fsAhj3tcwlFB0xc9eCdZ1Au4jpf1hidH8x33rX
+ SHut2iSXRU5wzt+XbgD9M80F1DGUiE0rEXqISlZs=
 Received: from HF ([240e:47e:32f9:92c3:8064:1335:aef9:f3d1])
  by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
  id 56009AF2; Wed, 25 Nov 2026 18:21:32 +0800
-X-QQ-mid: xmsmtpt1795602093t3w1n9ww0
-Message-ID: <tencent_74A87DE3061F575671DF6384634FE4BFF908@qq.com>
-X-QQ-XMAILINFO: OATpkVjS499ujgVPpIcRVvuwvlWYOY/GTb8oXkt2fA7rk5j/u/z9BJAcpbaqmP
- jW1WwfKEw8rc2tdbQj/Dp7FrsjV2/GNcZ7FPTmvcTxzbjyv8uRXqjrZWVNiYd9m75McOcOz7UQGd
- y+VJe6xlz0p1ssY7nENJl1olMwDd/uYDe4X/Is73HYD3BBSlL6DZEqzcruGf1VIeNnssHqqQ3KCR
- d2XIk/EFx2Pg+WJzQaSSn4p1QlwJ7hwcagzNBgCPg60izUnz/Sp1XBZ/67Y60hPzBqp2RJ3/1N6Q
- 9Tmc70beCzG4sZJ/STl0WppJvobSxwrz4gC5j0p/J1BgsA2yyfdU9w1hKGCCs6c2fwNmKYLM+1zW
- DWhzNZDfRiL9WgxA9ZhLQvUEGbJXgBkLuS4tvt87tv1UssNmdeZq+K59n4WbUqgMK5i9/rZqRxW7
- UvGM1eyBC2ms/k16o1Wi8kUvH7vE2JfJYQ7ZjE5usGvG7P+lzMRUFfXQxA01o+ttXYvbklDxFl87
- anqtfS9e0nWk3c99LVp2cvOiWBwfbz2qWePWO33LBSTOrS4fH/Tx8GvxIUv/vGPcGzU4KSs7BfAR
- rLf3CFr1fDrkXxTm/oMFhMBple85Xjs2oUA4wRczalaHa2WteRmGuBrpKusQKVQpZ4ihMrkkxuEK
- 6Z/Dt43SyZZ48YEs4CheAwTkDYwqOSC6ZChPa9w6HmA2HyScz7MpN2p4f2PhT5pELQud+J23lsUn
- Csnh5gV591nNM2ATU8HF6bb5kt2f8euQeD/P2z2xr5Ir5+lHRyFZ5r9MP+8HPgclQbC+Drdsn60R
- KXQp7L7aemDu9leenhPrViNdDWTdlsYd12mMF7vk55Xjfx1ChVn/2Liu+YHFQjcnLV2+TAyGJ0tP
- lAKOjJzU27noakT4XLJywzTjFsiJR8jkgNbhM4HHzlVw3cn2JWYhw/Lz+E09iGJbqTrONWlocj9w
- dbNbyLZ6ah5v4P2QjVE1Nt+SnEyFwX9V8fg6v+NlMCkSSX2EtSxjsFtpftCf4LuYWydD4ywbXxyk
- 80yTck/Cd2fLdxXJ55wK9nbS8sV1xPcN+5LlNSUCGuvmpodFpA3MwyOa5RfS3j+soTWb32Zqk/6n
- w0tf70MSDfLEEEAqzID3uDm/vp63860n5to991GVPVsjjIpUiKB4N5AbB4CgKAvu4Hq9Kf75YrWZ
- uzXpo=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+X-QQ-mid: xmsmtpt1795602092t21usev7s
+Message-ID: <tencent_C93E80ACC0BEB9083D9EE87E575073C67D09@qq.com>
+X-QQ-XMAILINFO: N/WmRbclY25G7reDaoii8Bn3W7x9rG8mXONCSlI+NI0LL6ZPaZRNJnIPrX2eAD
+ y3BLE4v0jPIw2ba0yHSwdxFjLD4kBHRYO2AI3DKUyIVBuYzwWrNLYygs1IoU5fpTX1ksLxQwJ+gg
+ rpBpdz8e33ornRtQYWqsy1BLwo4UfbLA0X821xug2p7Hg8Cgi3NEeB3WN1+USloO/pCeuWPWWdts
+ HwgS0GiXQuE/rFL71BpI8nu5yMN/8LGuxw/NSk7s6/q6Rss01ZlPTSnkBk/GfYPfn9bsdSTezuSq
+ xBdUlz1Xdwht9N+K+5+8QMNd9vIGpHzC4Kimip9PGVPI527cz1oO4OQZMl+Wk/3cQ3T0v2vf1onq
+ U6ut1z6Mr4p70apQ0AsB36rnNaaAjFS05UZl9N/krdo2rEyOIOdHHLkf0jju3KGX9jdtQC65R+x3
+ BIz1GpZghpJpy1W5qpKCMDLOKsweF9rsbWTpFSpVnCvznnJhTwCCib3jTPiEGLDaulLDso8A7wIR
+ qBcUE+/GEJp7ziaACmgiTN9rPveoPRIrcIoXvDSTzCPyYrjvf4kXwCHCoXd9ciz4DJ3f897U3vau
+ Mz7WE9eFCawl0KUu2/NI0W9aOlq6tivzN/w8Q6VZhGLktsj6gnG6pkp4t5kj2dhQXZ3Z1hddoKef
+ RSdAiWlYrZl4qo1VZx0iOvkaTr0jX6GHMrrdCc8htiZ0R6s55fJy40pXMWaW6svsAHd7IEctgmV/
+ 6jwm8tdCTSASl4YUk1++hDLHHTSlPgiyjkLTz1Zapcqwi0bQSFH+hw13Xiqx6yqVGZt/N5jxmRrb
+ AtnE7v4xSFB51Uf8JmCH1tLawYSwamzuIBYq0V0rNYcOXh328eBMKs7sJd4VBEuKhPH/stdI7EMo
+ 6FxQEkYYdAnh8vNO+U23MDndT1OWAaYagqMtY36Cb9P24afXeQxrR6yJ8Gh7IAYld5O2haBJtwrG
+ iZta+jhnlDebPN9IvA4IKzvGUl9IsvP5UoyE1UnmReVnbKBdF5BL119HDunuu/c22JfnzHVpn4kx
+ EqmscuorpvJD4VUFhGbr90mc1rufRksZrWpAbMqSOr7cZqiWSBrB4ri7OON9Xe5cXHmb4/uEbOGb
+ 6gBIR5jp2NZhAy0Y9Nh0rGVs+u6Q==
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-USESPAMBG: true
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, krzk@kernel.org,
  conor+dt@kernel.org, dmitry.torokhov@gmail.com, Hefei <3066883572@qq.com>
-Subject: [PATCH v6 1/6] dt-bindings: display: add VIEWE 7KF82 JD9365TX panel
-Date: Wed, 25 Nov 2026 18:21:25 +0800
-X-OQ-MSGID: <20261125102130.256-2-3066883572@qq.com>
+Subject: [PATCH v6 0/6] Add VIEWE 7" JD9365TX MIPI-DSI panel support
+Date: Wed, 25 Nov 2026 18:21:24 +0800
+X-OQ-MSGID: <20261125102130.256-1-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
-In-Reply-To: <20261125102130.256-1-3066883572@qq.com>
-References: <20261125102130.256-1-3066883572@qq.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -67,110 +65,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the device tree binding for the VIEWE 7KF82 720x1280 Jadard
-JD9365TX MIPI-DSI panel, and register the viewe vendor prefix.
+Hi,
 
-Signed-off-by: Hefei <3066883572@qq.com>
----
- .../bindings/display/panel/viewe,7kf82.yaml   | 67 +++++++++++++++++++
- .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
- 2 files changed, 69 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,7kf82.yaml
+This series adds support for the VIEWE 7KF82 7" 720x1280 in-cell MIPI-DSI
+panel based on Jadard JD9365TX (2-lane video mode), plus the companion
+I2C touchscreen and I2C backlight MCU used on the same FPC.
 
-diff --git a/Documentation/devicetree/bindings/display/panel/viewe,7kf82.yaml b/Documentation/devicetree/bindings/display/panel/viewe,7kf82.yaml
-new file mode 100644
-index 000000000..1ece39080
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/panel/viewe,7kf82.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/panel/viewe,7kf82.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: VIEWE 7.0" 720x1280 Jadard JD9365TX MIPI-DSI in-cell panel
-+
-+maintainers:
-+  - Hefei <3066883572@qq.com>
-+
-+description: |
-+  The VIEWE 7KF82 module is a 720x1280 RGB888 video-mode MIPI-DSI panel
-+  based on Jadard JD9365TX. It uses two DSI data lanes and exposes in-cell
-+  touch over I2C on the same FPC.
-+
-+allOf:
-+  - $ref: panel-common.yaml#
-+
-+properties:
-+  compatible:
-+    const: viewe,7kf82
-+
-+  reg:
-+    maxItems: 1
-+
-+  vdd-supply:
-+    description: Panel VDD supply, usually 3.3V
-+
-+  iovcc-supply:
-+    description: Panel IO voltage supply, usually 3.3V
-+
-+  reset-gpios: true
-+  backlight: true
-+  rotation: true
-+  port: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - vdd-supply
-+  - iovcc-supply
-+  - port
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    dsi {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        panel@0 {
-+            compatible = "viewe,7kf82";
-+            reg = <0>;
-+            vdd-supply = <&reg_vdd>;
-+            iovcc-supply = <&reg_iovcc>;
-+            backlight = <&viewe_bl>;
-+
-+            port {
-+                endpoint {
-+                    remote-endpoint = <&dsi_out>;
-+                };
-+            };
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-index 9ac7e0bf7..9135da689 100644
---- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-+++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-@@ -1739,6 +1739,8 @@ patternProperties:
-     description: Vicor Corporation
-   "^videostrong,.*":
-     description: Videostrong Technology Co., Ltd.
-+  "^viewe,.*":
-+    description: VIEWE Technology Co., Ltd.
-   "^virtio,.*":
-     description: Virtual I/O Device Specification, developed by the OASIS consortium
-   "^virtual,.*":
+This is a different programming model from the existing JD9365DA driver
+(panel-jadard-jd9365da-h3.c): page select uses 0xDE (not 0xE0), bring-up
+uses 0xDF unlock, and lane config is via 0xCC rather than 0x80.
+
+Tested on Raspberry Pi 4 and Raspberry Pi 5 with a downstream dtoverlay
+(not included here):
+  https://github.com/raspberrypi/linux/pull/7633
+
+Changes in v6:
+- Run checkpatch / checkpatch --strict; add MAINTAINERS entries
+- panel: drm_of_get_panel_orientation(); mipi_dsi_dcs_write_seq_multi()
+- touch: usleep_range for short delays
+- backlight: expand Kconfig help text
+
+Please prefer this v6 over earlier revisions.
+
+Thanks,
+Hefei
+
+Hefei (6):
+  dt-bindings: display: add VIEWE 7KF82 JD9365TX panel
+  dt-bindings: input: add Jadard JD9365TX touchscreen
+  dt-bindings: backlight: add VIEWE 7KF82 I2C backlight
+  drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+  Input: add Jadard JD9365TX in-cell touchscreen driver
+  backlight: add VIEWE 7KF82 I2C backlight driver
+
 -- 
-2.55.0.windows.5
+2.55.0
 
