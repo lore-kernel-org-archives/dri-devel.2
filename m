@@ -2,67 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9FDC606A326
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 15:59:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16395606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:01:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=bI8w4cs2
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=BhSsgMOI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0833C10FD66;
-	Wed, 25 Nov 2026 15:59:27 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BFA7110FD4A;
- Wed, 25 Nov 2026 15:59:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795622361; x=1827158361;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:content-transfer-encoding:in-reply-to;
- bh=6UmMlg9QQaOS1il33yRRnEhhIt7G/Cm/OZEfblVd9Mg=;
- b=bI8w4cs2xwXOYx6+3S4eaHNiJlBFpe7edeQ9aDgjalVT6S4L/fOJrPRu
- A+f+w1B7bivnaVOMeZrle/C0s6HJTlr3JHwhFSOBNcfmJSGYwlo09Cyon
- PSiDTpuykLMzLoF+XvJ9l+Ei5Q4nBUAiwOpnVBIMfVklnSqM2QYo5FlrC
- zhptYWaZi/ZARwDnSjbhuZFhBYdH06ZgOZJMzPk8PFxvm/uaBbMxnoAji
- 6ofxcZUmiS/CwdL/wprfXwECVGae5hU1boIkFe7EZj43or/x5lpTKSO5v
- Au4ibRydB8hlNzjuDdzfRFKdyq6UsnZnCgBy3/H8Nt7F0IpgjaU4KUdt8 Q==;
-X-CSE-ConnectionGUID: fQsPHp4uQLCPdqFJc4HO1g==
-X-CSE-MsgGUID: wQzH1wV4QZ2SK0sER1yTAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4563336"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4563336"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
- by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 07:41:49 -0800
-X-CSE-ConnectionGUID: bLRALCkxRbmeWeMo+EtOZA==
-X-CSE-MsgGUID: BsA3SM6yTjyQu96dFq5UXA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="13698968"
-Received: from inaky-mobl1.amr.corp.intel.com (HELO localhost)
- ([10.245.244.100])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 07:41:47 -0800
-Date: Wed, 25 Nov 2026 17:41:43 +0200
-From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
-To: M Henning <mhenning@darkrefraction.com>
-Cc: airlied@redhat.com, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- nova-gpu@lists.linux.dev
-Subject: Re: [PATCH v3 1/2] drm/nouveau: add option to leave GSP-capable GPUs
- to other drivers
-Message-ID: <awcBt3KD-j1sOzhE@intel.com>
-References: <20261124-nova-nouveau-gsp-v3-0-e1440479ded6@redhat.com>
- <20261124-nova-nouveau-gsp-v3-1-e1440479ded6@redhat.com>
- <CAAgWFh2VmmZfdEM1hDB+8921ktfRrD81kXFqEc6dJ3ys+=vJYw@mail.gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4019410FD69;
+	Wed, 25 Nov 2026 16:01:05 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BD56A10FD90
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:00:58 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 258864E41781;
+ Wed, 25 Nov 2026 16:00:57 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E6ECA60480;
+ Wed, 25 Nov 2026 16:00:56 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id CF85C11E6A266; Wed, 25 Nov 2026 17:00:51 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795622455; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=O2FhQ28BkwHMz0BlMN0lhmQRX/4NW+TVcvstggEiWjo=;
+ b=BhSsgMOId9ds5R/JtaFW1SS+E0dKG0E6FYPhlLPf50JYFu4iZ2Z5cYMU3ZZHDd+dOJ+bFY
+ A9ycPnjGWiHkUg5AiUc7/tKeUZLyOK05PQX7MSlYUqUeVp2gRnCZe/co1LZvSscga2XRab
+ /6AV8PD/32kEIlWCXV/PLNQANhQvEo/f0yXzOOk0VRZdHMD27KSrkDjVAOzuhBwuGzSex/
+ WiEIvNixDYuzwERPq0PsrVPOGChFrVEBaWs9NrYRaa1CDpbomEebFVB3klxnd8P055fe/Q
+ kc+pzQVOVgp2TjMmflMbA6f1FU0vVhnxAobtGJJN00LpaS8efa1D9gJzMErB/g==
+From: Louis Chauvet <louis.chauvet@bootlin.com>
+To: Leandro Ribeiro <leandro.ribeiro@collabora.com>
+Cc: airlied@gmail.com, alex.hung@amd.com, daniel@fooishbar.org, 
+ hamohammed.sa@gmail.com, harry.wentland@amd.com, 
+ maarten.lankhorst@linux.intel.com, melissa.srw@gmail.com, 
+ mripard@kernel.org, pekka.paalanen@collabora.com, 
+ robert.mader@collabora.com, simona@ffwll.ch, tzimmermann@suse.de, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+References: <20261106201813.129911-1-leandro.ribeiro@collabora.com>
+Subject: Re: [PATCH v2 00/12] drm/vkms: improve color curve LUTs precision
+Message-Id: <179562245064.2664231.526335218759807383.b4-ty@b4>
+Date: Wed, 25 Nov 2026 17:00:50 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAgWFh2VmmZfdEM1hDB+8921ktfRrD81kXFqEc6dJ3ys+=vJYw@mail.gmail.com>
-X-Patchwork-Hint: comment
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,41 +59,54 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 11:43:59PM -0500, M Henning wrote:
-> On Tue, Nov 24, 2026 at 12:50 AM Dave Airlie via B4 Relay
-> <devnull+airlied.redhat.com@kernel.org> wrote:
-> > +config DRM_NOUVEAU_BIND_GSP
-> > +       bool "Make nouveau the default driver for GSP-capable GPUs"
-> > +       depends on DRM_NOUVEAU
-> > +       default y
-> > +       help
-> > +         Make nouveau bind to all NVIDIA GPUs by default, as it always
-> > +         has.
-> > +
-> > +         If another NVIDIA driver, such as nova-core, should claim the
-> > +         GSP-capable (Turing and later) GPUs instead, say N here; nouveau
-> > +         then leaves those GPUs alone and continues to bind to pre-Turing
-> > +         GPUs itself. nouveau can also be prevented from binding to
-> > +         GSP-capable GPUs at boot with nouveau.bind_gsp=0 on the kernel
-> > +         command line.
-> > +
-> > +         If unsure, say Y.
+
+On Fri, 06 Nov 2026 17:18:01 -0300, Leandro Ribeiro wrote:
+> Currently VKMS only supports uniform LUTs. Besides the userspace
+> provided LUTs, it also represents color curves with LUTs, as it can't
+> simply implement the continuous curve formulas (floating-point would be
+> required).
 > 
-> Maybe the documentation should make this option sound a little
-> scarier? Right now all this does is break nouveau (unless you're a
-> nova developer),. We really don't want users or distros turning it on.
+> This adds support to represent color curves with non-uniform LUTs,
+> improving the precision significantly. It also provides a script
+> that can be used to create these LUTs.
+> 
+> [...]
 
-I doubt people actually read these descriptions with any real though,
-if at all. My suggestion for an option that breaks existing setups is
-to mark it BROKEN, or at the very least EXPERT.
+Applied, thanks!
 
+[01/12] drm/vkms: rename VKMS_LUT_SIZE to VKMS_GAMMA_LUT_SIZE
+        commit: 41b1a8294e3696a219e74cf47cb6e135f0b83fbf
+[02/12] vkms: properly compute gamma LUT size in vkms_atomic_check()
+        commit: 812c119f486c91f5bcf2944cd4228f468e292fac
+[03/12] drm/vkms: allow color curve LUTs to have different sizes
+        commit: df3941f15e96a0f5f34d3b7ef8516f51be256e4d
+[04/12] drm/vkms: remove TEST_LUT_SIZE
+        commit: 16a9f629d75545541ba37f1f86b8c006e950f28a
+[05/12] drm/vkms: remove linear_eotf
+        commit: 3d4ec3afd6e1ecb494d886ac4aecf4ce7f6d17fa
+[06/12] drm/vkms: improve the way in which we access LUT member
+        commit: 801fe02d8d2a29c624804f6dec0bd880567af4f1
+[07/12] drm/vkms: rename struct vkms_color_lut::base to y
+        commit: 094024f659091ca8a3c5958b68533f179498b2ee
+[08/12] drm/vkms: rename get_lut_index() to get_uniform_lut_index()
+        commit: 27174eb6b985694913d188792d5f6f315f2c4b03
+[09/12] drm/vkms: add support to non-uniform LUT for internal color curves
+        commit: 978864c62a34b7057912b27221bdf1e2fedf4f56
+[10/12] drm/vkms: test sRGB and inverse sRGB LUTs using more samples
+        commit: 8564a537fc0391825c4827adb5be8618662c0778
+[11/12] drm/vkms: add script to create optimized LUTs for color curves
+        commit: e64f6256cd12388ce0ecc72ce78686fe2cc01191
+[12/12] drm/vkms: replace uniform sRGB LUT and its inverse with optimal ones
+        commit: 3c7c3c12dfc7704ca614abbfa266ca00a2b5a994
+
+Best regards,
 -- 
-Ville Syrjälä
-Intel
+Louis Chauvet <louis.chauvet@bootlin.com>
+
