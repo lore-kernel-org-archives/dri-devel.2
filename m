@@ -2,65 +2,106 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C1C9606A330
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 13:05:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2611E606A331
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 13:08:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ktH/Sfpu
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=POZ/j5hl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D293110FBD4;
-	Wed, 25 Nov 2026 13:05:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 619AD10FBCA
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:05:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8298310E8E2;
+	Wed, 25 Nov 2026 13:08:32 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4CB310E8E2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:08:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1AEF043BCB;
- Wed, 25 Nov 2026 13:05:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C071F000C0;
- Wed, 25 Nov 2026 13:05:27 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A71861294;
+ Wed, 25 Nov 2026 13:08:26 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795612105;
+ b=SGvkDDEDRtU4Fuq/2fThCHqHJwVWqm3PO4CvvyW1PmjXuZ3GVGvXDhlj2pff34AHF/Oy
+ lAiI6dB+z/rGOaX1VmjC7oGDVNxU8c5msQ2jkCkbA5CLuOjh+/DCYOhAq3zanWkbJrJIA
+ /zxNDh4oLHgPrfQYCBlK0MIZbOh4AWvjWzzDMagkaLC2waAVBKzbNq8gDcnjCPeo+Vmmy
+ /rSPtgEW0KVxdKCzofbDNW0NXwc2sUF+kXfcb9INPYnZbfcskjAm+gRhKa5Hy2Bnv4BkX
+ CkJa1X9CSiqPfEvvP/wNaNEu+JW64ZOuEDj5rId7day5WiZtXiVLHBraGu4cVBkI5xg==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795612105;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=f/FCqPMcelLJtnBc1Fj6P9Vb+dxo5SMFYG34OAlZLHo=;
+ b=Pag9lHJkrC3QHBGQC6CxMKfuas6zbT2qxHIcC5YNzafFuKEAmTrJ22DzlbIxE4w4loul
+ x6m9tP9FVvDcAOzPsl8ztXf34hKJ6kr7IhmFpuKP4PB+TC5hMd6Q519hE21+6Q2l6+E6a
+ XelvL90gEOr4Pzb6x5HwsV852N6AKh7q3xSedIVsefvlW5oXJFzCU0E3XGk0R5LiIZPF/
+ 0iRTQfFAN73QPSfx+x6sEsP1VlBgx4DPfLxTADUGOeMXuMnRUUjvlxp8HQ9o5ojhvY58Y
+ cojHi/A0IJIVpxnzT2nWtna1APLjWRRaCntOZu16Ll2hLMwVrXU40PbnBHOPM25aGfA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id 8CB3E1F000D2;
+ Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795611928;
- bh=yVX4Z3Av7ryf3LrYZitag57whdLEpy0ywu2taML45gM=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ktH/SfpunRXeT5zhR2dhHk+SUijyNgYhqdbNDA+/vCr1uelXzxHG/fKzVW7++5xli
- fWf6Rhvy9ACSMIP779/1E8qr4WQ8w4gP+yrpgkFlySmBtoX0zZtbRjpBf+l+AHsZfp
- okwt56Uy+bQaMXe5mhRcR355F+5I2VD/cjGyWTlB5ACAfJx/LEIx2qBxWsThIlI9P5
- Hk1U+jfVMg3rtLglt7jY56D43XFWBdlUW/ORxoA6GY/wFSzTuuqdNNKApUTGkW+ijQ
- 7eRaPy/29Q3q3qbWQnQ1cqDPJr6mjeSR8FIrFbJ/XdVB4f6WZyvhYfNqbmm4u4++mq
- SgSVN16/1gUPA==
-Message-ID: <sashiko-outbox-233449@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 7/7] selftests/dmabuf-heaps: Add dma-buf memcg
- accounting tests
-To: "Albert Esteve" <aesteve@redhat.com>, "Tejun Heo" <tj@kernel.org>,
- "Johannes Weiner" <hannes@cmpxchg.org>,
- =?utf-8?b?TWljaGFsIEtvdXRuw70=?= <mkoutny@suse.com>, "Jonathan
- Corbet" <corbet@lwn.net>, "Shuah Khan" <skhan@linuxfoundation.org>, "Sumit
- Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?b?Q2hyaXN0aWFuIEvDtm5pZw==?= <christian.koenig@amd.com>, "Michal
- Hocko" <mhocko@kernel.org>, "Roman Gushchin" <roman.gushchin@linux.dev>,
- "Shakeel
- Butt" <shakeel.butt@linux.dev>, "Muchun Song" <muchun.song@linux.dev>, "Andrew
- Morton" <akpm@linux-foundation.org>,
- "Benjamin Gaignard" <benjamin.gaignard@collabora.com>, "Brian
- Starkey" <Brian.Starkey@arm.com>, "John Stultz" <jstultz@google.com>, "T.J.
- Mercier" <tjmercier@google.com>, "Christian Brauner" <brauner@kernel.org>,
- "Paul
- Moore" <paul@paul-moore.com>, "James Morris" <jmorris@namei.org>, "Serge E.
- Hallyn" <serge@hallyn.com>, "Stephen Smalley" <stephen.smalley.work@gmail.com>,
- "Shuah Khan" <shuah@kernel.org>, "Randy Dunlap" <rdunlap@infradead.org>,
- =?utf-8?b?T25kcmVqIE1vc27DocSNZWs=?= <omosnacek@gmail.com>,
- "Jens Wiklander" <jenswi@kernel.org>, "Sumit
- Garg" <sumit.garg@kernel.org>, "Philipp Stanner" <phasta@kernel.org>
-Cc: airlied@gmail.com, dri-devel@lists.freedesktop.org, linux-mm@kvack.org,
- linux-security-module@vger.kernel.org, selinux@vger.kernel.org,
- op-tee@lists.trustedfirmware.org, echanude@redhat.com, mripard@kernel.org,
- media-ci@linuxtv.org
-In-Reply-To: <20261124-v2_20230123_tjmercier_google_com-v6-7-dce12fa03ad6@redhat.com>
-References: <20261124-v2_20230123_tjmercier_google_com-v6-0-dce12fa03ad6@redhat.com>
- <20261124-v2_20230123_tjmercier_google_com-v6-7-dce12fa03ad6@redhat.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 13:05:26 +0000
+ s=k20260515; t=1795612105;
+ bh=f/FCqPMcelLJtnBc1Fj6P9Vb+dxo5SMFYG34OAlZLHo=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=POZ/j5hlAS5+Rq3H6o+PIOxHo6MPrORbfR5seEwA4KF5Vym8dLFLQ69/rZ0CVGwft
+ EkIDzsoSQw0d3lDoYPYA5hnvBNne5wW0nfu8ZnJD/EfnPKm2+UZ47/QiEpkPPnrcKw
+ 2pkO6qndc+3DA+oOZbXe4kY1zJBBX+b/kU20MUgsE/QQCVqemap6Q0si54IktXu9Y2
+ jup6b1PIo8WiLxhrW728icqVWJnpoR4CsVP2y9lmZECtXTyA0pQWuI03ZPGRnNkw1T
+ L9N3SxIFORJFYoOrh23IJQUJVc0mXUokT3uJoosXi554iy2W9JeYwralrA4gatHCRL
+ +s4DxfKIgFnvw==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 1513D4CED1;
+ Wed, 25 Nov 2026 13:08:19 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Date: Wed, 25 Nov 2026 14:08:13 +0100
+Subject: [PATCH v3 2/5] drm/panel: lg-sw43408: skip backlight updates when
+ unprepared
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261125-fix-blueline-panel-v3-2-914b4a30b73e@ixit.cz>
+References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
+In-Reply-To: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
+To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Casey Connolly <casey.connolly@linaro.org>, 
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Dmitry Baryshkov <lumag@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Marijn Suijten <marijn.suijten@somainline.org>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Simona Vetter <simona@ffwll.ch>, Sumit Semwal <sumit.semwal@linaro.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, Vinod Koul <vkoul@kernel.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, David Heidelberg <david@ixit.cz>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2376; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=eVtvNYF6Jw8G9i6E3BdhxsPEl/EphHJG2zF/4pJIRNY=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrBt3BU/zs+0xLgw8sbeQMDWdbnEnjAHYDFIFcU
+ a4B+64hqpeJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawbdwQAKCRBgAj/E00kg
+ crz7D/9B3BrWRhTlBxnU+3RW/MIdg6N0RlHDN9rWz2Szg9W0wGtGJ564NXWE5cemGMm6gqq6j1O
+ oZQ45evMbnxKADAaBgshhOnaUdCFnHLQJEEPKPguHH0z1V7I/22q23Zap8QmaDY2+rR6jI1GMD2
+ K9qvib52tQXT/UlPDtNC+KqyK0SoU+XdMSYSLaAhswWndbA7dcVpuJx5MyCb1PXOHdIjW/u4qFE
+ MYrN+mosXGWVejeOu/M44ig39sQev97rKlUytd5X17Lm0nu/V5chi5QjnZHHAFxSbaAR3VjYudJ
+ AQQ11Ia7+QbGNd2IBlB/cTIa6K6HysGOPfNVd/qOl5fDOhkFGHJzXLHco5IoANKWLHkUrp4wdpc
+ kWAKomEwqm//8CirPVO0IE0hFRl5s6rbjfY+V18A9Ik0OCWT28x3k0HW3jp+RzyQw/OlVfjWXoZ
+ o7c/I4WEGfF1nGP/1Y44XKNOkuVA3pEoUM8OKkP6/P/O5DNeEim9hLPP6qQm5PnYo2Ps8OJ4diY
+ QduR3Dsxukuf7A8zoY45WvJxp41dJMB/N0WxCvwCmA8/f3Mwamvt9SwPC2QgCkPe1UPhw/3VfgH
+ Q018ShRjmK/Ei3mwTqy+UJ2drkk9BM25uQuQQMxImX3U8PsNfH+KZ/NFQBHtmFC5cbNeIOhmXpg
+ bqcOgQJisRC1+xg==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,286 +112,83 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
+Reply-To: david@ixit.cz
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 9 potential
-issues to consider:
-- [Medium] selftests/cgroup: test_memcg_dmabuf_xfer_at_limit() misses
-  skip checks
-- [Medium] selftests/cgroup: dmabuf tests read memory.stat below rstat
-  flush threshold
-- [Medium] selftests/dmabuf-heaps: pidfd_alloc_supported() mishandles
-  disabled memcg
-- [Medium] selftests/dmabuf-heaps: open_self_cgroupfd() misses memory
-  controller check
-- [Medium] selftests/dmabuf-heaps: check_deps() runs before
-  handle_build() in vmtest.sh
-- [Low] selftests/cgroup: child_cg leak on cg_create() error in
-  test_memcg_dmabuf()
-- [Low] selftests/cgroup: unused MEMCG_SOCKSTAT_WAIT_RETRIES macro in
-  test_memcontrol
-- [Low] selftests/dmabuf-heaps: make_runner() omits
-  test_memcg_dmabuf_dead_cgroup
-- [Low] selftests/dmabuf-heaps: vmtest.sh creates TMP_DIR before setting
-  EXIT trap
---
+From: David Heidelberg <david@ixit.cz>
 
-commit 65b17f139f560196804a32a9dffe9eb0a344be15
-Author: Albert Esteve <aesteve@redhat.com>
+sw43408_backlight_update_status() unconditionally sends a MIPI DSI DCS
+brightness command even when the panel is unprepared and the DSI host is
+powered down, causing sysfs brightness writes while blanked to fail with
+-EIO.
 
-selftests/dmabuf-heaps: Add dma-buf memcg accounting tests
+Pass struct sw43408_panel as the backlight device private data and return
+early when !ctx->base.prepared, matching other mainline MIPI DSI panel
+drivers.
 
-This commit adds selftests for dma-buf memcg accounting via charge_fd and
-DMA_BUF_IOCTL_XFER_CHARGE in dmabuf-heaps and cgroup/test_memcontrol, along
-with a virtme-ng test runner script and config fragment.
+Fixes: 069a6c0e94f9 ("drm: panel: Add LG sw43408 panel driver")
+Signed-off-by: David Heidelberg <david@ixit.cz>
+---
+ drivers/gpu/drm/panel/panel-lg-sw43408.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-> diff --git a/tools/testing/selftests/cgroup/test_memcontrol.c b/tools/tes=
-ting/selftests/cgroup/test_memcontrol.c
-> index bb673012dcf08..f612726bd9af7 100644
-> --- a/tools/testing/selftests/cgroup/test_memcontrol.c
-> +++ b/tools/testing/selftests/cgroup/test_memcontrol.c
-> @@ -27,6 +34,13 @@
->  #define MEMCG_FLUSH_BYTES	\
->  	(2 * sysconf(_SC_PAGESIZE) * MEMCG_CHARGE_BATCH * get_nprocs())
-> =20
-> +#define DMA_HEAP_SYSTEM		"/dev/dma_heap/system"
-> +#define ONE_MEG			(1024 * 1024)
-> +
-> +#define MEMCG_SOCKSTAT_WAIT_RETRIES        30
+diff --git a/drivers/gpu/drm/panel/panel-lg-sw43408.c b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+index 92cab6478ea61..7f7d7b6b17f61 100644
+--- a/drivers/gpu/drm/panel/panel-lg-sw43408.c
++++ b/drivers/gpu/drm/panel/panel-lg-sw43408.c
+@@ -181,20 +181,23 @@ static const struct drm_display_mode lh546wf1_ed01_mode = {
+ static int sw43408_get_modes(struct drm_panel *panel,
+ 			     struct drm_connector *connector)
+ {
+ 	return drm_connector_helper_get_modes_fixed(connector, &lh546wf1_ed01_mode);
+ }
+ 
+ static int sw43408_backlight_update_status(struct backlight_device *bl)
+ {
+-	struct mipi_dsi_device *dsi = bl_get_data(bl);
++	struct sw43408_panel *ctx = bl_get_data(bl);
+ 	u16 brightness = backlight_get_brightness(bl);
+ 
+-	return mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
++	if (!ctx->base.prepared)
++		return 0;
++
++	return mipi_dsi_dcs_set_display_brightness_large(ctx->link, brightness);
+ }
+ 
+ static const struct backlight_ops sw43408_backlight_ops = {
+ 	.update_status = sw43408_backlight_update_status,
+ };
+ 
+ static int sw43408_backlight_init(struct sw43408_panel *ctx)
+ {
+@@ -202,17 +205,17 @@ static int sw43408_backlight_init(struct sw43408_panel *ctx)
+ 	const struct backlight_properties props = {
+ 		.type = BACKLIGHT_PLATFORM,
+ 		.brightness = 255,
+ 		/* HBM can go up to 1023, stay safe for now */
+ 		.max_brightness = 900,
+ 	};
+ 
+ 	ctx->base.backlight = devm_backlight_device_register(dev, dev_name(dev), dev,
+-							     ctx->link,
++							     ctx,
+ 							     &sw43408_backlight_ops,
+ 							     &props);
+ 
+ 	if (IS_ERR(ctx->base.backlight))
+ 		return dev_err_probe(dev, PTR_ERR(ctx->base.backlight),
+ 				     "Failed to create backlight\n");
+ 
+ 	return 0;
 
-[Severity: Low]
-MEMCG_SOCKSTAT_WAIT_RETRIES was removed by eb69e955de7b ("selftests:
-cgroup: make test_memcg_sock check flushed sock stats") and has no users.
-Was it re-added here by mistake during a rebase?
+-- 
+2.55.0
 
-> +#define MEMCG_DMABUF_WAIT_RETRIES          30
-> +#define MEMCG_DMABUF_DEAD_WAIT_RETRIES     80
-> +
->  static bool has_localevents;
->  static bool has_recursiveprot;
->  static int page_size;
-> @@ -1797,6 +1811,417 @@ static int test_memcg_inotify_delete_dir(const ch=
-ar *root)
->  	return ret;
->  }
-> =20
-[ ... ]
-> +static int test_memcg_dmabuf(const char *root)
-> +{
-> +	char *parent =3D NULL, *child_cg =3D NULL;
-> +	int ret =3D KSFT_FAIL;
-[ ... ]
-> +	child_cg =3D cg_name(parent, "child");
-> +	if (!child_cg)
-> +		goto cleanup_parent;
-> +
-> +	if (cg_create(child_cg))
-> +		goto cleanup_parent;
 
-[Severity: Low]
-Does this leak child_cg when cg_create(child_cg) fails?  Jumping to
-cleanup_parent skips free(child_cg) in cleanup_child.
-
-[ ... ]
-> +	dmabuf_stat =3D cg_read_key_long(child_cg, "memory.stat", "dmabuf ");
-> +	if (dmabuf_stat =3D=3D -1) {
-> +		ret =3D KSFT_SKIP;
-> +		goto cleanup_dmabuf;
-> +	}
-> +	if (dmabuf_stat !=3D ONE_MEG)
-> +		dmabuf_stat =3D cg_read_key_long_poll(child_cg, "memory.stat",
-> +						    "dmabuf ", ONE_MEG,
-> +						    MEMCG_DMABUF_WAIT_RETRIES,
-> +						    DEFAULT_WAIT_INTERVAL_US);
-
-[Severity: Medium]
-Can polling memory.stat for ONE_MEG miss the rstat flush threshold in
-test_memcg_dmabuf(), test_memcg_dmabuf_xfer_at_limit(), and
-test_memcg_dmabuf_dead_cgroup()?
-
-Reading memory.stat only flushes rstat synchronously when pending updates
-exceed MEMCG_CHARGE_BATCH * num_online_cpus() pages.  On systems with 4 or
-more CPUs (or 64 KB pages), a 1 MB charge or uncharge is below that
-threshold, so cg_read_key_long_poll() relies on the periodic 2s deferrable
-stats_flush_dwork running within the 3s poll window (the same issue fixed
-for test_memcg_sock by eb69e955de7b ("selftests: cgroup: make
-test_memcg_sock check flushed sock stats") using MEMCG_FLUSH_BYTES).
-
-In addition, when test_memcg_dmabuf_xfer_at_limit() polls cg_a for ONE_MEG
-after DMA_BUF_IOCTL_XFER_CHARGE fails with ENOMEM, cg_read_key_long_poll()
-immediately matches the pre-existing cached ONE_MEG value on its first read
-without flushing rstat after the ioctl.
-
-[ ... ]
-> +static int test_memcg_dmabuf_xfer_at_limit(const char *root)
-> +{
-[ ... ]
-> +	if (ioctl(heap_fd, DMA_HEAP_IOCTL_ALLOC, &alloc) < 0) {
-> +		close(alloc.charge_fd);
-> +		goto cleanup_heap;
-> +	}
-> +	close(alloc.charge_fd);
-> +	dmabuf_fd =3D (int)alloc.fd;
-[ ... ]
-> +	xfer.charge_fd =3D (__u32)cg_b_fd;
-> +	if (ioctl(dmabuf_fd, DMA_BUF_IOCTL_XFER_CHARGE, &xfer) =3D=3D 0) {
-> +		fprintf(stderr, "xfer_charge should have failed at limit\n");
-> +		goto cleanup_cgfd;
-> +	}
-> +	if (errno !=3D ENOMEM) {
-> +		fprintf(stderr, "Expected ENOMEM, got %s\n", strerror(errno));
-> +		goto cleanup_cgfd;
-> +	}
-
-[Severity: Medium]
-Should test_memcg_dmabuf_xfer_at_limit() set ret =3D KSFT_SKIP when
-DMA_HEAP_IOCTL_ALLOC or DMA_BUF_IOCTL_XFER_CHARGE fails with EINVAL,
-ENOTTY, or EOPNOTSUPP?
-
-Unlike test_memcg_dmabuf() and test_memcg_dmabuf_dead_cgroup(), neither
-ioctl failure path sets ret =3D KSFT_SKIP, so this test fails instead of
-skipping on unpatched kernels or when dma_heap.mem_accounting=3D0.
-
-> diff --git a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c b/tools/t=
-esting/selftests/dmabuf-heaps/dmabuf-heap.c
-> index 1d49df6719198..44e3f33acf877 100644
-> --- a/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-> +++ b/tools/testing/selftests/dmabuf-heaps/dmabuf-heap.c
-[ ... ]
-> +static bool pidfd_alloc_supported(int heap_fd)
-> +{
-> +	int devnull_fd, dmabuf_fd =3D -1, ret;
-> +
-> +	devnull_fd =3D open("/dev/null", O_RDONLY);
-> +	if (devnull_fd < 0)
-> +		return false;
-> +
-> +	ret =3D dmabuf_heap_alloc_pidfd(heap_fd, ONE_MEG, 0, devnull_fd, &dmabu=
-f_fd);
-> +	if (dmabuf_fd >=3D 0) {
-> +		close(dmabuf_fd);
-> +		dmabuf_fd =3D -1;
-> +	}
-> +	close(devnull_fd);
-> +	return ret < 0;
-> +}
-
-[Severity: Medium]
-Does pidfd_alloc_supported() return true when memory cgroups are disabled?
-
-When CONFIG_MEMCG=3Dn or cgroup_disable=3Dmemory is passed at boot,
-get_obj_cgroup_from_fd() returns ERR_PTR(-EOPNOTSUPP) before inspecting the
-fd.  Because ret < 0 is true, pidfd_alloc_supported() reports charge_fd as
-supported (whereas active memcg rejects /dev/null with EBADF), and
-test_alloc_pidfd_self(), test_alloc_pidfd_child(), and
-test_alloc_cgroupfd_self() then fail with EOPNOTSUPP instead of skipping.
-
-[ ... ]
-> +static int open_self_cgroupfd(void)
-> +{
-> +	char cgroup_path[PATH_MAX];
-> +	char line[PATH_MAX];
-> +	int ret =3D -1;
-> +	FILE *f;
-> +
-> +	f =3D fopen("/proc/self/cgroup", "r");
-> +	if (!f)
-> +		return -1;
-> +	while (fgets(line, sizeof(line), f)) {
-> +		if (strncmp(line, "0::", 3))
-> +			continue;
-> +		line[strcspn(line, "\n")] =3D '\0';
-> +		if (snprintf(cgroup_path, sizeof(cgroup_path),
-> +			     "/sys/fs/cgroup%s", line + 3) < PATH_MAX)
-> +			ret =3D 0;
-> +		break;
-> +	}
-> +	fclose(f);
-> +
-> +	if (ret)
-> +		return -1;
-> +
-> +	return open(cgroup_path, O_RDONLY | O_DIRECTORY);
-> +}
-
-[Severity: Medium]
-What happens in test_alloc_cgroupfd_self() and
-test_xfer_charge_cgroupfd_self() if the calling process runs in a cgroup
-where the memory controller is not enabled?
-
-Unlike the pidfd path in get_obj_cgroup_from_fd(), which resolves the
-effective ancestor CSS via task_css(), the cgroup directory fd path calls
-css_tryget_online_from_dir() directly on that directory and fails with
-ENOENT when +memory is not enabled in its parent's cgroup.subtree_control,
-causing both tests to fail instead of skipping.
-
-> diff --git a/tools/testing/selftests/dmabuf-heaps/vmtest.sh b/tools/testi=
-ng/selftests/dmabuf-heaps/vmtest.sh
-> new file mode 100755
-> index 0000000000000..3574b71ca83e8
-> --- /dev/null
-> +++ b/tools/testing/selftests/dmabuf-heaps/vmtest.sh
-> @@ -0,0 +1,226 @@
-[ ... ]
-> +readonly DMABUF_HEAP_TEST=3D"${SCRIPT_DIR}"/dmabuf-heap
-> +readonly MEMCONTROL_TEST=3D"${CGROUP_DIR}"/test_memcontrol
-> +readonly TMP_DIR=3D$(mktemp -d /tmp/dmabuf-vmtest.XXXXXXXX)
-
-[Severity: Low]
-Does creating TMP_DIR before getopts leak /tmp/dmabuf-vmtest.XXXXXXXX when
-usage() exits on -h or an invalid option before trap cleanup EXIT is
-installed?
-
-[ ... ]
-> +check_deps() {
-> +	for dep in vng make; do
-> +		if [[ ! -x $(command -v "${dep}") ]]; then
-> +			echo -e "skip:    dependency ${dep} not found!\n"
-> +			exit "${KSFT_SKIP}"
-> +		fi
-> +	done
-> +
-> +	if ${SHELL_MODE}; then
-> +		return
-> +	fi
-> +
-> +	if [[ ! -x "${DMABUF_HEAP_TEST}" ]]; then
-> +		printf "skip:    %s not found!" "${DMABUF_HEAP_TEST}"
-> +		printf " Please build the kselftest dmabuf-heaps target (or use -b).\n"
-> +		exit "${KSFT_SKIP}"
-> +	fi
-> +
-> +	if [[ ! -x "${MEMCONTROL_TEST}" ]]; then
-> +		printf "skip:    %s not found!" "${MEMCONTROL_TEST}"
-> +		printf " Please build the kselftest cgroup target (or use -b).\n"
-> +		exit "${KSFT_SKIP}"
-> +	fi
-> +}
-
-[Severity: Medium]
-Does check_deps() exit with KSFT_SKIP when vmtest.sh -b is run on an
-unbuilt tree?
-
-check_deps() runs before handle_build() compiles DMABUF_HEAP_TEST and
-MEMCONTROL_TEST, and it only returns early for SHELL_MODE, not BUILD.
-
-[ ... ]
-> +	run "dmabuf-heap charge_fd ioctl"	${DMABUF_HEAP_TEST}
-> +	run "memcontrol dma-buf memcg"	${MEMCONTROL_TEST} test_memcg_dmabuf
-> +	run "memcontrol dma-buf xfer limit" \
-> +		${MEMCONTROL_TEST} test_memcg_dmabuf_xfer_at_limit
-
-[Severity: Low]
-Should make_runner() also run test_memcg_dmabuf_dead_cgroup here?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124-v2_2023012=
-3_tjmercier_google_com-v6-0-dce12fa03ad6@redhat.com?part=3D7
