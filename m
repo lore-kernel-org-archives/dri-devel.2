@@ -2,61 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84F0F606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:11:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4660F606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:14:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HggI8zO0
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=RtY3rSzi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF68110E2B2;
-	Wed, 25 Nov 2026 10:11:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3283A10E2B2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:11:41 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 628C9626F8;
- Wed, 25 Nov 2026 10:11:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EB1D1F000CA;
- Wed, 25 Nov 2026 10:11:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795601499;
- bh=vIMVK/H+ptXLRryf3xoUHbNWFpkUNhdBFRcG4RVJPPA=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=HggI8zO06rx6k8G4RwkxR1RyZxRDsV+cpOF8pt726VzABaocp9OT1uFct/YtE2aMi
- 6Z0sxequgsrYdrEnJW8vGGkytV2A048k6y2knY7kZ7FO+1Ui3OsROku3Qd2AS4TVQa
- uOda35zoIM6T8Dbec6EDNtXHR5dPhmns2gDf9+TToOPCyo/5GbT5dhgUBBoIbM7zbu
- Xzq5AyGw/Rgq+4LQObGFHMkrFEa37XVS5cJljSi8vR56pv42wCds1dkIVM7wy3b6QT
- OcX+v+vk9d1qKS3SQbOiK9m8V/nMc80hGtER8gAy9cctMbKvaXRY30h/4lMZ0Sma3h
- 4KzcLf5ICQaRQ==
-Date: Wed, 25 Nov 2026 11:11:36 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-Message-ID: <awazkzDVZtpUsdQb@houat>
-References: <20261116142707.1299360-1-maximpedraza@gmail.com>
- <20261116142707.1299360-4-maximpedraza@gmail.com>
- <avs2dagfmQkv00H0@houat>
- <20261118212114.150992-1-maximpedraza@gmail.com>
- <20261124141119.441163-1-maximpedraza@gmail.com>
- <e58a5ff5-9c1b-40cc-a65d-c7fbfdaf18d1@ideasonboard.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B24F510E86A;
+	Wed, 25 Nov 2026 10:14:49 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2989E10E86A
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:14:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795601683; x=1827137683;
+ h=message-id:subject:from:to:cc:date:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=dTu7nQvatqpgXj9AzDc4jgoXS905m6bwfqi4OHSfyo4=;
+ b=RtY3rSziFD2bQsAmd5e8VRKo0QEm7VurPnlKA46t9HcHJ3Gv29Zyl9j4
+ 68LW66VNkC4UEDEClGlTinn6pV1nk6RxJ87piVNkdyCqoaeYWFUxnYuj8
+ sDFU+Nu6f8teguSrE5xK+93/bd2VCYFbnQEA7mmHO9jygE06oycK5Sdo7
+ +ClhjaTzqk+RpH8JCJkbn4MGEWtG8wCVRNcTOfMxLiiOVRHOF1ffHXOfp
+ otIyCG9wgrx91johqqKZRzI0QRQwPY5iA4tIBeH1nqgiw0me3aZllzwk1
+ +WWasPX7e8n9qHjN4JSyFpDSui1uWN0mLupFnWfKFljDl0gyZzF/0VVM+ Q==;
+X-CSE-ConnectionGUID: fcGKqJpJQ4iI+DqHeUlD3g==
+X-CSE-MsgGUID: Ahl0alPsTYO6Y9LnlXf2ng==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4488158"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4488158"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+ by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 02:14:43 -0800
+X-CSE-ConnectionGUID: lDcscIMqRhOeZF6FN422nw==
+X-CSE-MsgGUID: xpgseFCXQnWbAyBs3wVw7g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="13500075"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO [10.245.244.74])
+ ([10.245.244.74])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 02:14:42 -0800
+Message-ID: <114377fd4c275215e40c3991bb935b8c41aa3d36.camel@linux.intel.com>
+Subject: Re: [RFC PATCH 0/2] drm/ttm: fix excessive idle memory retention
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>,
+ nat@pixelcluster.dev, 	arunpravin.paneerselvam@amd.com
+Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com, 
+ matthew.brost@intel.com
+Date: Wed, 25 Nov 2026 11:14:39 +0100
+In-Reply-To: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
+References: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="kqlxxfgbcki63lze"
-Content-Disposition: inline
-In-Reply-To: <e58a5ff5-9c1b-40cc-a65d-c7fbfdaf18d1@ideasonboard.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,68 +67,73 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+Hi Eduardo,
 
---kqlxxfgbcki63lze
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-MIME-Version: 1.0
+On Tue, 2026-11-24 at 19:28 -0300, Eduardo P. Gomez wrote:
+> I started looking into this after my Intel Xe desktop with 32 GiB of
+> RAM
+> would eventually freeze following repeated graphics allocations (A
+> test
+> program allocated around 12 GiB without freeing up). In a
+> separate test, a standalone kernel module exercised the TTM page pool
+> directly. On unpatched 7.4-rc4 in a single-node QEMU guest, 768 MiB
+> remained in the pool 60s after the module returned its pages.
 
-On Tue, Nov 24, 2026 at 04:38:43PM +0200, Tomi Valkeinen wrote:
-> Hi,
+This series fails to explain why this is necessary? That is, why
+doesn't the TTM pool shrinker reclaim the pages on memory pressure,
+which is the way this is intended to work?
+
+Thanks,
+Thomas
+
+
+
 >=20
-> On 24/11/2026 16:11, M=E0xim Pedraza Padilla wrote:
-> > On Wed, Nov 18, 2026 at 10:21:14PM +0100, M=E0xim Pedraza Padilla wrote:
-> > > Makes sense, I'll use the same approach in tilcdc, and see if it can =
-be
-> > > turned into a common helper along the way.
-> >=20
-> > A follow-up on this one, now that I've rebased on v9. I ended up doing
-> > it differently, so I'd rather explain why before sending the next
-> > version.
-> >=20
-> > The tidss approach rounds the clock to the closest standard refresh rat=
-e.
-> > Panels driven by tilcdc often don't use one: with the timings from its
-> > datasheet, the panel on this board runs at 56.8 Hz (33.3 MHz), which wo=
-uld
-> > be read back as 60 Hz and 35.19 MHz. The adopted mode would then never
-> > match the panel mode, even with U-Boot programming exactly the same one.
+> Patch 1 adds a 5s timeout after the last page return. It can
+> stand on its own and drains the idle pool. In QEMU, the pool was
+> empty
+> at the eight-second sample. The trade-off is that the next burst may
+> have to allocate and prepare those pages again.
 >=20
-> I felt that approach was a bit odd (and if I recall right, failed with my
-> OLDI panel), and in my tidss version I just used the clock rate directly
-> from the clk_get_rate() (see dispc_vp_readout_mode):
-
-The problem is that you're losing information when setting the clock.
-Especially for panels where you don't really have an established set of
-pixel clocks, the clock is very likely to not be able to give the exact
-frequency you asked for.
-
-So when you're reading the clock frequency, the mode you're reading and
-the one you'd set at first modeset will not necessarily match, so you
-need to take that difference into account and try to get back on your
-feet.
-
-Maxime
-
---kqlxxfgbcki63lze
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawa0WAAKCRAnX84Zoj2+
-dgClAX9rukYht2cxkSUN2XMvv6LJwEaP4foPFEuJx1TpnX+0tKGD8XA06bHdq2Zi
-ucgepYUBgNIVV1+x0othQMl5SJyLHUQKUCM9Bk1DyyQvYde1UW25dY2kST4L9kma
-kIEeGQ4egQ==
-=NfU7
------END PGP SIGNATURE-----
-
---kqlxxfgbcki63lze--
+> Patch 2 builds on the timeout and keeps a 128 MiB reserve per NUMA
+> node
+> to reduce that trade-off. With both patches, the same 768 MiB test
+> left
+> 128 MiB in the pool at the 8s and 60s samples. The
+> shrinker can still reclaim the reserve under memory pressure.
+>=20
+> In a separate QEMU benchmark with a 750ms timeout, the median time to
+> allocate 128 MiB after expiry was 185ms after a full drain and 0.45ms
+> with the reserve. A 768 MiB request took 1.13s after a full drain and
+> 0.95s with the reserve. The unpatched kernel kept the entire pool and
+> reused those 768 MiB in about 2ms. These tests measure idle retention
+> and allocation latency in QEMU.
+>=20
+> The test files can be downloaded at
+> https://codeberg.org/EduApps-CDG/linux-ttm-pool.
+> It includes 2 C files (one for test and another for benchmark), my
+> logs,
+> some build/test helping bash scripts and the compiled binary I'm
+> using
+> on my machine right now.
+>=20
+> Feedback and change requests are welcome.
+>=20
+> Eduardo P. Gomez (2):
+> =C2=A0 drm/ttm: reclaim pooled pages after a period of inactivity
+> =C2=A0 drm/ttm: retain a reserve during idle pool reclaim
+>=20
+> =C2=A0drivers/gpu/drm/ttm/ttm_pool.c | 92 +++++++++++++++++++++++++++++++=
+-
+> --
+> =C2=A01 file changed, 85 insertions(+), 7 deletions(-)
+>=20
+>=20
+> base-commit: 8d7fe9885c62fc9a95bf55d9db244d9672a8aadc
