@@ -2,67 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCE03606A6AE
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:13:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE2F606A32E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:13:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EH+3nzdL
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=P1XeMII5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9613810FEC0;
-	Wed, 25 Nov 2026 18:13:23 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B810510FE51;
+	Wed, 25 Nov 2026 18:13:41 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9129B10FE2E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:13:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 416A010FE51
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:13:22 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 01893635BA;
- Wed, 25 Nov 2026 18:13:10 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B9D4C63387;
+ Wed, 25 Nov 2026 18:13:21 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795630389;
- b=NvrACpr4wElO+igVeg2KTFf0CJAsyd5bPAUQAWX0bCYYXSEcqfSNtXM2jkAze2dw/GRA
- HWB8ovlDircXKa/lOZIabDn7JgsDJdslDIy+4DHhrjYSQSO2+4fPI2HKTugDvUgj+0XBJ
- yqEkzrXhRv48KCknMgswKh96ZSwoe78XxaIwG5WclTVc3x3YuVNakEXqagY3t8Gwj/Xsn
- /JiVhpqOjNahwdG3ElCIDyk3f2ZA4epubQI6n4IxBY58ncbNdtKbA/l/o5bFWf705AL+L
- CPDTvtWx/IgaQV5ZDJsHICJwo5GuoRSGn6YPCrvXYHzDDH1mCDC2D3wFhNVA15hmDIg==
+ t=1795630401;
+ b=km/Qzj8E9GmT5p07pXYkc7Luk8PISLx+yfpg2lLwEFEJgr/rB6t1geZZ9DjDS3ZY0C17
+ 2bWHzgY/EN4qQr/s0D8OYSf61w+PFRRCNIeHqWBjFMTMDNA4UU0GShmlOhHpgvhSO0jGW
+ 8wvrYrIjWxgo8AiEVoYdH/BmxEu3nQVJmGw+xcR5KXCU8UPHK/yvZSlzbWKuxmNft3AZ6
+ mRaGY9UiaPLz+NbJZi7cMLVwby1CJf6z3MX7I9prXhdsA/CTbhBqzzLdcesBJEgbJVpT2
+ IPnXhE1vqKamIawW41mVME9zI+8Sl6cyopj+X7y7jx1v0Hh5qcoPl7QwNYURhGeTgAg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795630389;
+ c=relaxed/relaxed; t=1795630401;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
- b=ZGET8rt9OvkTZhoPDMVo/VzoNkqFDs/8wVl4z6njAE1dv80atfiUuK4xYwtlUHbAahOw
- NRJJC61bDx679uFBU6/ptbkdNF6F8ElR6Eb4yMYdfznmpNEC8C07w3kW83LrdJaqSg5he
- Ey745/whqNij523M+PL5D6DSvM6jSx/DgJ9gkXuXjT+2YGysC/k91JxF8TM/W+53vijvv
- kAVWKpbbWzWcKDegvcnd2By2njs8Zmoov5SPgU/d+Lb9GF1Oe6A1DaybaR5wVdkTutq2N
- b4h8zqdCc2lxXbc48em2SwSID9WHuXUfhsXFX3+Y5gepwF63B+31bpyuYiVDZTRJONg==
+ bh=zf9Zr5En+UCqIPqNRpzp1CqfGD38nha38omPOjmNrFY=;
+ b=ocqcYwLJzQpO1oKA1gX2SZnlVQmMwIu9GbhE0HIdtAf0uHLwe4OZ+MPOS0bVIjo3DCKY
+ /gh15PWupejxn0PQ3kt5tPZd9o3a0aovYSHjVYu8SiwoUdrkrSS3xRoZizbENMc4F3O2w
+ h+BmjYRzIYMnMwbrXkoe8WffnbQpxVBHkvwgmBGv0r6aNPAqza8+zqw1zU2EqPFvYTaKM
+ drB6mPcQtJ3B+j2a86DsolYRqdtWUlygULFeTvh9iJebKYQ1Ix7rsh86L2sp9x1rUTopO
+ 9G8VC6YvBT5g+/rPsKuGQlNEXbkpuHoGA2CaJZERrH7CVLqo6DnLsKaQYY0BWKER8MA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 460181F000ED;
- Wed, 25 Nov 2026 18:12:55 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 7E8A71F0156A;
+ Wed, 25 Nov 2026 18:13:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795630389;
- bh=1tb1rlv5upXEuUm1cKuFA83fMwXrR6g7cRh9cWFDULI=;
+ s=k20260515; t=1795630401;
+ bh=zf9Zr5En+UCqIPqNRpzp1CqfGD38nha38omPOjmNrFY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=EH+3nzdLd/XYtTCRZvKnB9+ZGJjXVut/gb2elwT6kNhOL8nrbu+BmHkUi7xrgUCmc
- xywIE8lwwepx5tx/d2lqtp2yyEBbriINrXYWDlEn+P/b6OhpYJ0ba3tvunJt6JgX79
- R9JVoAN9aIIKmHAsWP+nDGuq5mwXufu9414bJZwWYc+twj8boUH8keFuaE1YPr2c3U
- 1t1AyOi4fgvxBZhEZRzRzc8R4TvXJEYpPkxHq1+qBwHQZTdL4TIrpd5gk7EI5sJDnS
- fqowBaKUWxMDFdEaujnuoPwp5N17RrnAwDGd/iWpRxwjCS9fAO7Jg/YGEEkQP8My/M
- XvlYe4aRcou1Q==
+ b=P1XeMII5tm63Ft5UzX2QusbSN+EmGIXr0NG4YLs8DeKUl/CrxIpAh32UYJFWLtdw0
+ 286LW64cwGIsmdUdO9vtNvlMeKFKKYDBKwJpHb2ma3k+0+6zhyQ0yEHDgT2cTvoa0B
+ i+VN3KFD8Oxm8X5zKqsVxWLGvGEl3sYgkS1fiOU2OkCBPaqYtNxpe2kb7GfMYgZ9ZE
+ zNyHPGCo3aZwiFA4HHMhLsdxvVKYq8Yom8Uy4bbZLWeQvMnL+viuIFhKFWC5N82c0h
+ wD6veZsTLzDue7GrXh5l/Wj61gzUET8CNNygF1e7ccHnNYIPdyGthwi/mKxzgRMrwt
+ LzCSBgHaQHM7Q==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 18CE54CFB4;
+ by lkml.kernel.org (Postfix) with ESMTP id 7A29C4CFC0;
  Wed, 25 Nov 2026 18:12:49 +0000 (UTC)
 From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 25 Nov 2026 19:12:50 +0100
-Subject: [PATCH v4 6/9] drm/panel: s6e3ha8: Assert reset GPIO in unprepare
+Date: Wed, 25 Nov 2026 19:12:53 +0100
+Subject: [PATCH v4 9/9] arm64: dts: qcom: sdm845-google-crosshatch: Add
+ display panel
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261125-crosshatch-panel-v4-6-120adc58e737@ixit.cz>
+Message-Id: <20261125-crosshatch-panel-v4-9-120adc58e737@ixit.cz>
 References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
 In-Reply-To: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
 To: Dzmitry Sankouski <dsankouski@gmail.com>, 
@@ -79,23 +80,23 @@ Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>,
  Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>
+ David Heidelberg <david@ixit.cz>, Abel Vesa <abel.vesa@oss.qualcomm.com>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1129; i=david@ixit.cz;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2357; i=david@ixit.cz;
  h=from:subject:message-id;
- bh=YoR8O/9CziH74UhYPjrFBAlu0YEV4HfID7khfmE7WHM=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrByUeXjhNqg1Il1wuxj2H7RwoaQiUOVFCvR4aA
- DkR/LV7ZbuJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawclHgAKCRBgAj/E00kg
- cgItD/9zboRb9u6jw6iHWKJzQFwFH0Z6HMNJekQQ154IEmmmvysEAfE7wlnLWnJNj4joZ4OsHS3
- tJKtYm9oa3emHik9vUnnrc/kb9VxTi4kKn8HxMy1EkF0PwDxv0f7eudwzZo0qsgMhjIBUuxMhed
- epTaW9tCKcT5n1Lw0hnZ4DAGpbDBCl/wvRe+36i7TcQBLCZX4P02aKvwLd/mzX5aODwAiwP3RL0
- gviH3Qn0DFUowCB/pYJYPdtNctLW0jie1X46A/QkYKfYd91Ps1Kgnq0QzIhMSlwT965MADf9X7S
- d4Ny5kJMbHqmKQlR8qrnMkgY7d3KgQoqf4/e8RabRmRJyRkGi2+1pTkFsDqKNuuI1+Pe3mzWa0Y
- 6TOBAyYFrDsyUA2d4CdRZqxMzwxjL8sEhFSAL//oOQ4HRkX5t9khGc3Kjwl+CfmyI5LhNSg2Y4a
- n8NP5ih5Hrr5fp88jUCVEEXDHzUjtpMD/90PQiTx0zAlra5fv92nfAq+6V+djMix2SV6iaFZSoC
- I3OB7FijYrjCAwWSPHGkbacT7edL0V+pok/AkFj+rkZdVP0DwLcoMeDSHqPEAiaC/RUkpcp5lQH
- uEV1uRGgpxvu/DnvkNQ9WZGc56zFZoiPd9qgWrdC2wfUxqrh2zEMQuSfdCc2c1VcB0f/X9oLtSs
- dsypsNwch5PeMLw==
+ bh=A+2cpgTKZsuyPaY65ARPRtY967sq4BpFSqvnoaIMPGw=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBrByUe51AB0/xnlO5MuDoBhNQVQ6rTFJH08qj84
+ xflJayGh7yJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCawclHgAKCRBgAj/E00kg
+ crNHD/sFUXcq1AMMwnsUYItZGc7eUg+E1Qu47rIXPgA4HXXxY4PgxEvZvvq+jywnV8WTCxsGVt1
+ JUkeo1HRf5nOiU0A2aAr0vtsvm4lvrS0a0xfWOw3TSJeGkoicz1z5+ZGRrba+u0wamzr6alQ2lO
+ 1nz3AYZbzrJuqC8obgXo8r8Bb3w3ylg9xJs//RhqHBkqiMnTH72z79S6bObZY4N4UBmWlpEuMbc
+ lQoFWjd0vGs06jdqAM3LHbGTd2eA7bge+5rRwRQXc1XygeSTkfCdx7+LH+J58c0nM8HkJVaTxSc
+ yVfB3N8JPwkao/+jrW+Q+VexMZlcQrqy87k0dgo+zFWx735IqC0tY1JuE8RQSmntdd99Tuv3KyK
+ w1cypzsmdm0bzxkSc+gs58+9fqKEdYt/RtvqXfSw4TSfKVuJl/WPm2QEKl+dOM4MzRLH+h+sScE
+ QgXs6Kx+E76KfrAhd+nILkEFD0jqODC5IQ0M2E+juKDjLPzaBLfVVvxtamyA5qHpeboC/pIrM/7
+ pKj//CGYokosPlAdswNIJThs8M3cumXuF1+KtJQxfQlhwdQz9l25yenmjPA3AItAMtw52KiNagQ
+ jn9zTy+QNe/w3s4gB8R0C9iZ0ZBrfzLbuT9+sByXvsMA29MBpRxaX+KzGGD0epaczvNZiOSN2ve
+ FPSSa48rbITYYAg==
 X-Developer-Key: i=david@ixit.cz; a=openpgp;
  fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
 X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
@@ -122,36 +123,100 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: David Heidelberg <david@ixit.cz>
 
-For correct shutdown, the reset should be asserted.
+Wire up the Samsung AMB630QY01 AMOLED panel on the Pixel 3 XL and drop
+the MDSS/DISPCC disables that kept simple-framebuffer alive.
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c | 1 +
- 1 file changed, 1 insertion(+)
+ .../boot/dts/qcom/sdm845-google-crosshatch.dts     | 60 +++++++++++++++++++---
+ 1 file changed, 52 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-index 99290913de69a..2591b8c1a7753 100644
---- a/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-+++ b/drivers/gpu/drm/panel/panel-samsung-s6e3ha8.c
-@@ -58,16 +58,17 @@ static int s6e3ha8_get_modes(struct drm_panel *panel,
+diff --git a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+index 2a81ca1d00b1b..3b788757b7303 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
++++ b/arch/arm64/boot/dts/qcom/sdm845-google-crosshatch.dts
+@@ -10,27 +10,71 @@ / {
+ };
  
- 	return drm_connector_helper_get_modes_fixed(connector, priv->desc->mode);
- }
+ &battery {
+ 	charge-full-design-microamp-hours = <3480000>;
+ 	voltage-min-design-microvolt = <3600000>;
+ 	voltage-max-design-microvolt = <4400000>;
+ };
  
- static int s6e3ha8_unprepare(struct drm_panel *panel)
- {
- 	struct s6e3ha8 *priv = to_s6e3ha8(panel);
+-&dispcc {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
+-};
+-
+ &framebuffer0 {
+ 	width = <1440>;
+ 	height = <2960>;
+ 	stride = <(1440 * 4)>;
+ };
  
-+	gpiod_set_value_cansleep(priv->reset_gpio, 1);
- 	return regulator_bulk_disable(priv->desc->num_supplies, priv->supplies);
- }
+-&mdss {
+-	/* Disable for now so simple-framebuffer continues working */
+-	status = "disabled";
++&ibb {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-over-current-protection;
++	regulator-pull-down;
++	regulator-soft-start;
++};
++
++&lab {
++	regulator-min-microvolt = <4600000>;
++	regulator-max-microvolt = <6000000>;
++	regulator-soft-start;
++	regulator-pull-down;
++};
++
++&mdss_dsi0 {
++	vdda-supply = <&vdda_mipi_dsi0_1p2>;
++
++	status = "okay";
++
++	panel@0 {
++		compatible = "samsung,s6e3ha8-amb630qy01";
++		reg = <0>;
++
++		vdd3-supply = <&vreg_l14a_1p8>;
++		vci-supply = <&vreg_l28a_3p0>;
++		vddpos-supply = <&lab>;
++		vddneg-supply = <&ibb>;
++
++		reset-gpios = <&tlmm 6 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&panel_default>;
++		pinctrl-names = "default";
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	data-lanes = <0 1 2 3>;
++	remote-endpoint = <&panel_in>;
++	qcom,te-source = "mdp_vsync_e";
++};
++
++&mdss_dsi0_phy {
++	vdds-supply = <&vdda_mipi_dsi0_pll>;
++
++	status = "okay";
+ };
  
- static void s6e3ha8_amb577px01_wqhd_reset(struct s6e3ha8 *priv)
- {
- 	gpiod_set_value_cansleep(priv->reset_gpio, 0);
- 	usleep_range(5000, 6000);
- 	gpiod_set_value_cansleep(priv->reset_gpio, 1);
+ &wifi {
+ 	qcom,calibration-variant = "Google_crosshatch";
+ };
 
 -- 
 2.55.0
