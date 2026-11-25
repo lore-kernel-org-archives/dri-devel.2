@@ -2,67 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EBF606A32C
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:54:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0936606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:58:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=io0Xf+/y
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fz7TbJU/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1F84B10FE9B;
-	Wed, 25 Nov 2026 17:54:51 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B43CD10FE90
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:54:35 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7967D1A1802;
- Wed, 25 Nov 2026 17:54:34 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 44C0760480;
- Wed, 25 Nov 2026 17:54:34 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0015D11E6B0D5; Wed, 25 Nov 2026 18:54:23 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629268; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=DXSGE8zndzbOvx0I1VcqKxrraBhjgygWU5lIu97CM3Q=;
- b=io0Xf+/yoDo0TehiAHr/DSIC5GVPPwBKLeqyvcqJUW49v5lvs9coiM7UGM3KDE+qqvP8Mz
- dwXkr39b0lN/yczChB+veVFx4DxrZFRnnhmb1HW6HSawcbmNtrnQfjYUWqE5TUAuL2Ab+A
- QkbVOXM0jeWL9oC7NgHBxHzu/1N6rI7wHMelJYc5rsCh6f3OduTDXy3bUsWc29Dd8ivVjA
- A+Zx5TiHnBHS0irFzB0FvZQDNtLP1t70hn0A6EXbe084EkcpbdAZx4l3Ra8oLCIaN7j9/c
- Y9hnojQaGLyU/KQV2fTaGAqOUvt8IdQeFERZ4ZDrj3faFRzgVAYkZtmh8KfI2g==
-From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:45 +0100
-Subject: [PATCH v4 32/32] drm/mxsfb/lcdif: enable bridge hotplug
+	by gabe.freedesktop.org (Postfix) with ESMTP id 138CA10FEA7;
+	Wed, 25 Nov 2026 17:57:57 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 766C410FEBA
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:57:51 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9A01F618BE;
+ Wed, 25 Nov 2026 17:57:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC71C1F000C6;
+ Wed, 25 Nov 2026 17:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795629470;
+ bh=2f9ij5G5D/y6Pj/3zdLsa4eDisdRz/W4PkKF8qTAmDs=;
+ h=Date:To:From:Subject:Cc:References:In-Reply-To;
+ b=fz7TbJU/3glP8YXf/jae8naiAwKy0x5vxOMI5AC7hWWLBflpbagoU2pKrdY18YziL
+ vu4U6UIOQcTnHcq+XV7npbS18NHnvSvBuQuY0aToG1eUsHcXobqCwKrRE4UJYhksdJ
+ KIz/xIW6QkCXRAoiiWGIVXV9gG4/KRAoH/Q79MuJVohZ3qwnA0EyNYbYpjcC2UBFRx
+ 0DOOSg2fUj12hb2m5JzXU8aud7xqWtexLbwZ6+S2SjX7+GxYByCa+SI0XguEuV6TuP
+ ILrujJLjtZEmbFaV96gsOEd2C2I51S/CBcIM0Gd4shhinKiVIVvPj6g6UUIbSc1T9N
+ nRWB3kauLJn1Q==
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-32-822722850492@bootlin.com>
-References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>, 
- Marek Szyprowski <m.szyprowski@samsung.com>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Douglas Anderson <dianders@chromium.org>, Marek Vasut <marex@denx.de>, 
- Stefan Agner <stefan@agner.ch>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Hui Pu <Hui.Pu@gehealthcare.com>, Ian Ray <ian.ray@gehealthcare.com>, 
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-X-Mailer: b4 0.16.0
-X-Last-TLS-Session-Version: TLSv1.3
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 25 Nov 2026 18:57:40 +0100
+Message-Id: <DN4HIQ5VPWEI.FFVR53SNX54Y@kernel.org>
+To: "Simon Song" <xinmengs@nvidia.com>
+From: "Danilo Krummrich" <dakr@kernel.org>
+Subject: Re: [PATCH v3 6/9] rust: vfio: add common VFIO device handling
+Cc: <acourbot@nvidia.com>, <kvm@vger.kernel.org>,
+ <rust-for-linux@vger.kernel.org>, <nova-gpu@lists.linux.dev>,
+ <linux-pci@vger.kernel.org>, "Zhi Wang" <zhiw@nvidia.com>,
+ <alex@shazbot.org>, <jgg@nvidia.com>, <yishaih@nvidia.com>,
+ <skolothumtho@nvidia.com>, <kevin.tian@intel.com>, <airlied@gmail.com>,
+ <simona@ffwll.ch>, <ojeda@kernel.org>, <alex.gaynor@gmail.com>,
+ <boqun.feng@gmail.com>, <gary@garyguo.net>, <bjorn3_gh@protonmail.com>,
+ <lossin@kernel.org>, <a.hindborg@kernel.org>, <aliceryhl@google.com>,
+ <tmgross@umich.edu>, <jhubbard@nvidia.com>, <ecourtney@nvidia.com>,
+ <cjia@nvidia.com>, <smitra@nvidia.com>, <kjaju@nvidia.com>,
+ <alkumar@nvidia.com>, <ankita@nvidia.com>, <aniketa@nvidia.com>,
+ <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiwang@kernel.org>, <boqun@kernel.org>,
+ <daniel.almeida@collabora.com>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <jgg@ziepe.ca>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <peter@colberg.org>
+References: <20261119215046.2892839-1-xinmengs@nvidia.com>
+ <20261119215046.2892839-7-xinmengs@nvidia.com>
+In-Reply-To: <20261119215046.2892839-7-xinmengs@nvidia.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,151 +66,421 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Switch to the new drm_hotplug_helper() to handle bridge hotplugging:
+On Thu Nov 19, 2026 at 10:50 PM CET, Simon Song wrote:
+> +/// Maps a C device structure to its embedded VFIO device.
+> +///
+> +/// # Safety
+> +///
+> +/// Implementations must return the address of the `vfio_device` at the =
+beginning of `Self`,
 
- * use the new drm_hotplug_helper to handle hotplug, including finding
-   the first bridge and attaching the bridge chain
- * use the connector add/remove callback to enable/disable HPD on
-   added/removed connectors
- * move drm_kms_helper_poll_init() before creating the drm_hotplug_helper
-   so that HPD polling is initialized before connectors can be hotplugged
+I think "at the beginning of `Self`" is not a safety requirement for this t=
+rait,
+it's an implementation detail of the current implementation on the C side, =
+that
+could be a type invariant of DeviceBase.
 
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Besides that, I think the abstraction we currently need with DeviceBase and
+RawDevice (which I proposed to deal with the current implementation) could =
+be
+simplified if the C code would be more flexible regarding the layout of a s=
+truct
+subclassing a struct vfio_device.
 
----
+However, this could be a subsequent consideration and nothing that needs to=
+ be
+tackled now; it is mostly an implementation detail of this abstraction.
 
-Changes in v4:
-- fix UAF when hot-plugged connectors implement HPD by using the new
-  per-connector HPD enable/disable API
+> +/// preserving the input pointer's provenance.
+> +pub unsafe trait RawDevice {
+> +    /// Returns the `vfio_device` embedded in `raw`.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `raw` must point to an initialized, live `Self`.
+> +    unsafe fn raw_vfio_device(raw: *mut Self) -> *mut bindings::vfio_dev=
+ice;
 
-Changes in v3:
-- Adapt to the v3 version of the drm_hotplug_helper, which also handles HPD
+I think this could be safe by taking &Opaque<Self>.
 
-Changes in v2:
-- Use the hotplug helper callback to enable HPD on the hotplugged connector
----
- drivers/gpu/drm/mxsfb/Kconfig     |  2 +-
- drivers/gpu/drm/mxsfb/lcdif_drv.c | 42 +++++++++++++++++++--------------------
- 2 files changed, 22 insertions(+), 22 deletions(-)
+> +}
+> +
+> +// SAFETY: A `vfio_device` is its own VFIO device.
+> +unsafe impl RawDevice for bindings::vfio_device {
+> +    unsafe fn raw_vfio_device(raw: *mut Self) -> *mut bindings::vfio_dev=
+ice {
+> +        raw
+> +    }
+> +}
+> +
+> +/// Callback data stored after the C device structure.
+> +///
+> +/// `R` is the type of the registration data and `O` the type of the ope=
+n data, both written
+> +/// with the placeholder lifetime `'static`, because the device has no l=
+ifetime to name.
+> +///
+> +/// # Invariants
+> +///
+> +/// `reg_data` is `None` until a registration publishes its data, and is=
+ not changed again. The
+> +/// data is pinned and remains valid while the device is registered. Aft=
+er unregistration or a
+> +/// failed registration attempt, the pointer may dangle; its pointee mus=
+t never again be
+> +/// accessed through this device.
+> +/// `open_data` is null outside a successful first open, otherwise it ow=
+ns a pinned allocation
+> +/// until the last close. The bus-specific layer drains callbacks before=
+ either is released.
+> +struct CallbackData<R, O> {
+> +    reg_data: UnsafeCell<Option<NonNull<R>>>,
+> +    open_data: UnsafeCell<*mut O>,
 
-diff --git a/drivers/gpu/drm/mxsfb/Kconfig b/drivers/gpu/drm/mxsfb/Kconfig
-index 31db7a824a93..ada9a9334ea4 100644
---- a/drivers/gpu/drm/mxsfb/Kconfig
-+++ b/drivers/gpu/drm/mxsfb/Kconfig
-@@ -34,7 +34,7 @@ config DRM_IMX_LCDIF
- 	select DRM_PANEL
- 	select DRM_PANEL_BRIDGE
- 	select DRM_DISPLAY_HELPER
--	select DRM_BRIDGE_CONNECTOR
-+	select DRM_HOTPLUG_HELPER
- 	help
- 	  Choose this option if you have an LCDIFv3 LCD controller.
- 	  Those devices are found in various i.MX SoC (i.MX8MP,
-diff --git a/drivers/gpu/drm/mxsfb/lcdif_drv.c b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-index 2be5a76e936f..591653b39310 100644
---- a/drivers/gpu/drm/mxsfb/lcdif_drv.c
-+++ b/drivers/gpu/drm/mxsfb/lcdif_drv.c
-@@ -18,7 +18,7 @@
- #include <drm/clients/drm_client_setup.h>
- #include <drm/drm_atomic_helper.h>
- #include <drm/drm_bridge.h>
--#include <drm/drm_bridge_connector.h>
-+#include <drm/drm_hotplug_helper.h>
- #include <drm/drm_drv.h>
- #include <drm/drm_encoder.h>
- #include <drm/drm_fbdev_dma.h>
-@@ -44,6 +44,19 @@ static const struct drm_mode_config_helper_funcs lcdif_mode_config_helpers = {
- 	.atomic_commit_tail = drm_atomic_helper_commit_tail_rpm,
- };
- 
-+static void lcdif_hotplug_event(enum drm_hotplug_helper_event event,
-+				struct drm_connector *connector)
-+{
-+	switch (event) {
-+	case DRM_HOTPLUG_HELPER_CONNECTOR_ADDED:
-+		drm_kms_helper_poll_enable_connector(connector);
-+	break;
-+	case DRM_HOTPLUG_HELPER_CONNECTOR_REMOVING:
-+		drm_kms_helper_poll_disable_connector(connector);
-+		break;
-+	}
-+}
-+
- static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- {
- 	struct device *dev = lcdif->drm->dev;
-@@ -53,9 +66,8 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		struct device_node *remote __free(device_node) =
- 			of_graph_get_remote_port_parent(ep);
- 		struct of_endpoint of_ep;
--		struct drm_bridge *bridge;
- 		struct drm_encoder *encoder;
--		struct drm_connector *connector;
-+		struct drm_hotplug_helper *hotplug_helper;
- 		int ret;
- 
- 		if (!of_device_is_available(remote))
-@@ -65,12 +77,6 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 		if (ret < 0)
- 			return dev_err_probe(dev, ret, "Failed to parse endpoint %pOF\n", ep);
- 
--		bridge = devm_drm_of_get_bridge(dev, dev->of_node, 0, of_ep.id);
--		if (IS_ERR(bridge))
--			return dev_err_probe(dev, PTR_ERR(bridge),
--					     "Failed to get bridge for endpoint%u\n",
--					     of_ep.id);
--
- 		encoder = drmm_plain_encoder_alloc(lcdif->drm, NULL,
- 						   DRM_MODE_ENCODER_NONE, NULL);
- 		if (IS_ERR(encoder))
-@@ -80,16 +86,10 @@ static int lcdif_attach_bridge(struct lcdif_drm_private *lcdif)
- 
- 		encoder->possible_crtcs = drm_crtc_mask(&lcdif->crtc);
- 
--		ret = drm_bridge_attach(encoder, bridge, NULL, DRM_BRIDGE_ATTACH_NO_CONNECTOR);
--		if (ret)
--			return dev_err_probe(dev, ret,
--					     "Failed to attach bridge for endpoint%u\n",
--					     of_ep.id);
--
--		connector = drm_bridge_connector_init(lcdif->drm, encoder);
--		if (IS_ERR(connector))
--			return dev_err_probe(dev, PTR_ERR(connector),
--					     "Failed to init bridge_connector for endpoint%u\n",
-+		hotplug_helper = drmm_hotplug_helper_init(encoder, lcdif_hotplug_event, ep);
-+		if (IS_ERR(hotplug_helper))
-+			return dev_err_probe(dev, PTR_ERR(hotplug_helper),
-+					     "Failed to init hotplug_helper for endpoint%u\n",
- 					     of_ep.id);
- 	}
- 
-@@ -176,6 +176,8 @@ static int lcdif_load(struct drm_device *drm)
- 	/* Start with vertical blanking interrupt reporting disabled. */
- 	drm_crtc_vblank_off(&lcdif->crtc);
- 
-+	drm_kms_helper_poll_init(drm);
-+
- 	ret = lcdif_attach_bridge(lcdif);
- 	if (ret)
- 		return ret;
-@@ -203,8 +205,6 @@ static int lcdif_load(struct drm_device *drm)
- 		return ret;
- 	}
- 
--	drm_kms_helper_poll_init(drm);
--
- 	drm_helper_hpd_irq_event(drm);
- 
- 	pm_runtime_enable(drm->dev);
+I think this should be Option<NonNull<O>> as well.
 
--- 
-2.56.1
+> +}
+> +
+> +/// A C VFIO device structure `Raw`, followed by the callback data of th=
+e driver `T`.
+> +///
+> +/// `raw` is the first field, so the `vfio_device` at the beginning of `=
+Raw` is also at the
+> +/// beginning of `Self`, as `vfio_alloc_device()` requires.
+> +///
+> +/// `R` and `O` are the types of the registration data and the open data=
+ of `T`, written with
+> +/// the placeholder lifetime `'static`. Use the alias [`Device`], which =
+takes both from the
+> +/// operations trait of `T`.
+> +///
+> +/// # Invariants
+> +///
+> +/// - `R` and `O` are the registration data and open data types of `T` w=
+ith all lifetimes
+> +///   replaced by `'static`. The data stored is only valid as described =
+for `CallbackData`.
+> +/// - `raw` is initialized and remains alive while borrowed. The referen=
+ce count of its embedded
+> +///   `vfio_device` owns the allocation.
+> +/// - The device is registered with VFIO only after its registration dat=
+a has been published.
 
+That's more of a description of the registration protocal than a type invar=
+iant.
+
+Maybe something like:
+
+"For [`Open`] and [`IoContext`] references, registration data is published =
+and
+remains valid for the reference's lifetime."
+
+Also note that type invariants should be justified with an // INVARIANT com=
+ment
+when the type is constructed, or re-created from a raw pointer.
+
+> +/// - Callback contexts are borrowed only for the corresponding callback=
+ and thread; only
+> +///   [`Normal`] references can be reference-counted.
+
+I'd remove this one.
+
+I'd also keep the documentation private with #[doc(hidden)] as the type is =
+not
+supposed to be used outside of the Rust core code.
+
+> +#[repr(C)]
+> +pub struct DeviceBase<Raw, R, O, T, Ctx: DeviceContext =3D Normal> {
+> +    raw: Opaque<Raw>,
+> +    data: CallbackData<R, O>,
+> +    _context: PhantomData<(T, Ctx, NotThreadSafe)>,
+> +}
+
+If we declare CallbackData as
+
+	struct CallbackData<T: Operations> {
+	    reg_data: UnsafeCell<Option<NonNull<T::RegistrationData<'static>>>>,
+	    open_data: UnsafeCell<Option<NonNull<T::OpenData<'static, 'static>>>>,
+	}
+
+we can get rid of R, O, right? Then DeviceBase could be simplified to:
+
+	pub struct DeviceBase<Raw, T: Operations, Ctx: DeviceContext =3D Normal> {
+	    raw: Opaque<Raw>,
+	    data: CallbackData<T>,
+	    _context: PhantomData<(T, Ctx, NotThreadSafe)>,
+	}
+
+I think this also needs a change in the subsequent patch, so
+vfio::pci::Operations extend vfio::Operations.
+
+	pub trait Operations: super::Operations
+
+> +/// A VFIO device, wrapping `struct vfio_device`.
+> +pub type Device<T, Ctx =3D Normal> =3D DeviceBase<
+> +    bindings::vfio_device,
+> +    <T as Operations>::RegistrationData<'static>,
+> +    <T as Operations>::OpenData<'static, 'static>,
+> +    T,
+> +    Ctx,
+> +>;
+
+...and this simplifies to:
+
+	pub type Device<T, Ctx =3D Normal> =3D DeviceBase<bindings::vfio_device, T=
+, Ctx>;
+
+> +#[expect(dead_code)]
+> +impl<Raw: RawDevice, R, O, T, Ctx: DeviceContext> DeviceBase<Raw, R, O, =
+T, Ctx> {
+> +    /// Initializes the Rust fields of a newly allocated device.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `this` must point to an allocation with the size and alignment o=
+f `Self`, whose `raw`
+> +    /// has been initialized. Nothing else may access the allocation dur=
+ing this call.
+> +    unsafe fn init(this: *mut Self) {
+> +        // SAFETY: The caller provides exclusive access to a suitable al=
+location.
+> +        unsafe {
+> +            (&raw mut (*this).data).write(CallbackData {
+> +                reg_data: UnsafeCell::new(None),
+> +                open_data: UnsafeCell::new(core::ptr::null_mut()),
+> +            });
+> +            (&raw mut (*this)._context).write(PhantomData);
+> +        }
+> +    }
+> +
+> +    /// Recovers `&Self` from the `vfio_device` VFIO passes to a callbac=
+k.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `vdev` must point to the `vfio_device` at the beginning of a `Se=
+lf` that remains alive
+> +    /// for `'a`. The caller must provide the guarantees of `Ctx` throug=
+hout the borrow.
+> +    unsafe fn from_raw_vfio<'a>(vdev: *mut bindings::vfio_device) -> &'a=
+ Self {
+> +        // SAFETY: `Raw` begins with its `vfio_device` and is the first =
+field of `Self`. The
+> +        // caller guarantees validity and the context.
+> +        unsafe { &*vdev.cast() }
+
+If we rely on this layout guarantee here, there's no point to have the RawD=
+evice
+trait dealing with the layout.
+
+Either we add from_raw_vfio() to RawDevice, or we just remove RawDevice and=
+ make
+the layout guarantee a type invariant.
+
+Either is fine with me, but maybe the RawDevice trait is a bit overengineer=
+ed
+and a type invaraint is sufficient.
+
+> +    }
+> +
+> +    fn as_raw(&self) -> *mut Raw {
+> +        self.raw.get()
+> +    }
+> +
+> +    fn as_raw_vfio(&self) -> *mut bindings::vfio_device {
+> +        // SAFETY: By the type invariants, `raw` is initialized and aliv=
+e.
+> +        unsafe { Raw::raw_vfio_device(self.as_raw()) }
+> +    }
+> +}
+> +
+> +#[expect(dead_code)]
+> +impl<Raw: RawDevice, R, O, T> DeviceBase<Raw, R, O, T> {
+> +    /// Publishes the registration data passed to callbacks.
+> +    ///
+> +    /// Returns [`EBUSY`] if registration data has been published before=
+, so that a device can
+> +    /// be registered at most once.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// The caller must serialize calls for this device. `data` must poi=
+nt to pinned data that
+> +    /// remains valid until the device has been unregistered or, if regi=
+stration fails, is not
+> +    /// accessed through this device.
+> +    unsafe fn publish_registration_data(&self, data: NonNull<R>) -> Resu=
+lt {
+
+I'd use:
+
+	data: NonNull<T::RegistrationData<'a>>,
+
+and erase the lifetime internally.
+
+> +        // SAFETY: The caller serializes publication, and callbacks only=
+ read the slot.
+> +        if unsafe { (*self.data.reg_data.get()).is_some() } {
+> +            return Err(EBUSY);
+> +        }
+> +        // SAFETY: The slot is unpublished, so the device has not been r=
+egistered and no
+> +        // callback can read the slot.
+> +        // INVARIANT: The slot is written once; the caller keeps `data` =
+valid.
+> +        unsafe { *self.data.reg_data.get() =3D Some(data) };
+> +        Ok(())
+> +    }
+> +
+> +    /// Destroys the open data.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// Call once after a successful [`DeviceBase::open`], with all I/O =
+callbacks drained and
+> +    /// the next first open excluded. Registration data and the resource=
+s the open data borrows
+> +    /// must remain alive.
+> +    unsafe fn close(&self) {
+> +        // SAFETY: The last close exclusively takes the allocation publi=
+shed by `open()`.
+> +        let raw =3D
+> +            unsafe { core::mem::replace(&mut *self.data.open_data.get(),=
+ core::ptr::null_mut()) };
+
+With the type changed to Option<NonNull>> this becomes:
+
+	let raw =3D unsafe { &mut *self.data.open_data.get() }
+	    .take()
+	    .expect("VFIO OpenData is expected to be populated.");
+
+> +        // SAFETY: The allocation came from `KBox::into_raw()` and is de=
+stroyed without moving
+> +        // it. Lifetimes do not affect its layout.
+> +        unsafe { drop(KBox::from_raw(raw)) };
+> +    }
+> +}
+> +
+> +#[expect(dead_code)]
+> +impl<Raw: RawDevice, R, O, T> DeviceBase<Raw, R, O, T, Open> {
+> +    /// Creates the open data from the registration data.
+> +    ///
+> +    /// The [`Open`] context guarantees an exclusive first open of a reg=
+istered device, whose
+> +    /// registration data remains valid until the last close.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// - No open data may exist.
+> +    /// - `OD` must be `O`, except for lifetimes.
+> +    /// - `R` names the registration data with the placeholder lifetime =
+`'static`, and the
+> +    ///   caller chooses the lifetimes of `OD`; this function cannot tie=
+ either to the time the
+> +    ///   data is valid. `init` must therefore use the registration data=
+ parametrically, as a
+> +    ///   function generic over its lifetimes does: nothing borrowed fro=
+m it may escape, other
+> +    ///   than into the returned open data.
+> +    /// - `init` must not capture references that are only valid for the=
+ callback and store
+> +    ///   them in the open data, which outlives the callback.
+> +    /// - The open data must be destroyed with [`DeviceBase::close`] at =
+the last close.
+> +    unsafe fn open<'a, OD, I>(&'a self, init: impl FnOnce(&'a R) -> I) -=
+> Result
+> +    where
+> +        I: PinInit<OD, Error>,
+> +    {
+
+I think this can just use the associated types of T:
+
+	unsafe fn open<'a, 'data: 'a, I>(
+	    &'a self,
+	    init: impl FnOnce(&'a T::RegistrationData<'data>) -> I,
+	) -> Result
+	where
+	    I: PinInit<T::OpenData<'a, 'data>, Error>,
+	{
+
+> +        // SAFETY: By the type invariants, an `Open` reference only exis=
+ts for a registered
+> +        // device, which has published registration data that nothing ch=
+anges anymore. The
+> +        // data remains valid until the last close.
+> +        let reg_data =3D unsafe { (*self.data.reg_data.get()).unwrap_unc=
+hecked().as_ref() };
+> +
+> +        // Allocate before calling the driver so allocation failure cann=
+ot follow open.
+> +        let data =3D KBox::<OD>::new_uninit(GFP_KERNEL)?;
+> +        let data =3D data.write_pin_init(init(reg_data))?;
+> +
+> +        // SAFETY: Only the owning pointer moves; `close()` drops the al=
+location in place.
+> +        let raw =3D KBox::into_raw(unsafe { Pin::into_inner_unchecked(da=
+ta) });
+
+I think this can just be
+
+	let data =3D KBox::pin_init(init(reg_data), GFP_KERNEL)?;
+	let raw =3D data.into_foreign().cast::<T::OpenData<'static, 'static>>();
+
+> +        // SAFETY: The first open is exclusive, and no I/O callback runs=
+ before it returns.
+> +        // The caller guarantees that `OD` and `O` only differ in lifeti=
+mes, which do not
+> +        // affect the layout.
+> +        // INVARIANT: The allocation is pinned and owned by the slot unt=
+il `close()`.
+> +        unsafe { *self.data.open_data.get() =3D raw.cast::<O>() };
+> +        Ok(())
+> +    }
+> +}
+> +
+> +#[expect(dead_code)]
+> +impl<Raw: RawDevice, R, O, T, Ctx: IoContext> DeviceBase<Raw, R, O, T, C=
+tx> {
+> +    /// Returns the registration data and the open data, for an I/O call=
+back.
+> +    ///
+> +    /// # Safety
+> +    ///
+> +    /// `R` and `O` name the data with the placeholder lifetime `'static=
+`, which is not the time
+> +    /// the data is valid. The caller must use both parametrically, as a=
+ function generic over
+> +    /// their lifetimes does: nothing borrowed from them may outlive the=
+ callback, and nothing
+> +    /// borrowed for the callback may be stored in them.
+> +    unsafe fn callback_data(&self) -> (&R, Pin<&O>) {
+
+Same here, can we use the associated types of T?
+
+> +        // SAFETY: By the type invariants, an `IoContext` reference only=
+ exists during an I/O
+> +        // callback on an open, registered device. VFIO excludes the las=
+t close and
+> +        // unregistration for its duration, so by the type invariants of=
+ `CallbackData` both
+> +        // slots hold valid data that nothing changes, and the open data=
+ is pinned.
+> +        unsafe {
+> +            let reg_data =3D (*self.data.reg_data.get()).unwrap_unchecke=
+d();
+
+I'd use expect() instead.
+
+> +            let open_data =3D *self.data.open_data.get();
+> +            (reg_data.as_ref(), Pin::new_unchecked(&*open_data))
+> +        }
+
+Multiple unsafe operations should have their own unsafe block and justifica=
+tion.
