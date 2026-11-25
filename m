@@ -2,61 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9C8606A68B
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:06:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCFC606A695
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:10:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lPURuigo
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=GktkfY+S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BB2AC10EEBF;
-	Wed, 25 Nov 2026 02:06:20 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1794E10EEBF;
- Wed, 25 Nov 2026 02:06:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795572375; x=1827108375;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=J6tI0oNu5ipgac+ZyULfo7Y10gS1m3hJ23/QN8OCwxg=;
- b=lPURuigo9ihLMOXBpAf/OUH7TzGdZGKLPCypgF4aUjvSOYgdg8jPt4Al
- oJ96zBaHStNx2wzhe62KvVPFLAfgEKHNAHhx1PIrF9aq8vDdZWbl5LoZZ
- Hs4EjeqwLM+s9R17UBZpZAmFSjwcNyFuRhW8AYXruynwrqmjzLL7VXKR1
- Mhg+8URgeZDECOyB+pjPjHfxBR2BY0LgRrskZEC2IQQcmqmNO/36nCp47
- scgZwVf9JBSKQ2A6RkYWXHICNjPTnhu4N+KatCrj4wKSXIHO1XGyhV+se
- Ki4kcunUvSs2xClhceT6S84Hqq+v36LO3sBC3026Lwa5yivEtIcPMXW0C A==;
-X-CSE-ConnectionGUID: 5ASUCf0kTAycTHWXfDfJqQ==
-X-CSE-MsgGUID: 2TLT2F2TRMWNO0cUqG/Vvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4322166"
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
-   d="scan'208";a="4322166"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
- by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 24 Nov 2026 18:06:15 -0800
-X-CSE-ConnectionGUID: puKRDXZcRYeLkoNKbfjorw==
-X-CSE-MsgGUID: ClHvdapeSayvNMoP7nMyIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="12161971"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa009.fm.intel.com with ESMTP; 24 Nov 2026 18:06:12 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xW2Of-00000001Qg2-44Mj;
- Wed, 25 Nov 2026 02:06:09 +0000
-Date: Wed, 25 Nov 2026 10:06:00 +0800
-From: kernel test robot <lkp@intel.com>
-To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
- Intel Graphics <intel-gfx@lists.freedesktop.org>,
- DRI <dri-devel@lists.freedesktop.org>
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Linux Next Mailing List <linux-next@vger.kernel.org>
-Subject: Re: linux-next: build failure after merge of the drm-misc tree
-Message-ID: <20261125095513.u60l5aJo-lkp@intel.com>
-References: <awXJ__-grexFFPb4@sirena.org.uk>
+	by gabe.freedesktop.org (Postfix) with ESMTP id D457A10F976;
+	Wed, 25 Nov 2026 02:09:57 +0000 (UTC)
+Received: from out203-205-221-155.mail.qq.com (out203-205-221-155.mail.qq.com
+ [203.205.221.155])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7C14210E0E8
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:09:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1795572588; bh=/9SwPiWhiBnTiI/QEs//Qf7SOEv4t9Rs+700JULo1Ws=;
+ h=From:To:Cc:Subject:Date;
+ b=GktkfY+SaYhWGlsLLPrExND6ghacT5RABJ17D3/NS5hbD/839a62wOpfxfz5GmzmM
+ c/WJR6qqBwZksP/ondrfFSB5Xyct4uYwHKMlVV7AhDlYAl0u/2THM0cy44Jmg8WQW1
+ BsS4aa5bWu8SVnPl+UwX8K/IoyqrnKdmx6xKUgWY=
+Received: from HF ([113.90.236.90])
+ by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+ id 26DABE38; Wed, 25 Nov 2026 10:09:45 +0800
+X-QQ-mid: xmsmtpt1795572585tkfnwwiyy
+Message-ID: <tencent_B1CEBF7BA831E39D1F11561FDFFB84FA4F08@qq.com>
+X-QQ-XMAILINFO: N8ysMrv1QVb8otuyQC1xOVIZRrRDFTJQpIG2BwQdvEPnCfjHJoY7vW9IGoo2OT
+ jkctPbsAhI9nh9ZM2glorbp25c4XDfLQ6SJm8uiIMMXrPVUyQ9dwWb/hs38asDXxyXd7D/12Uesu
+ ZNN+9NE4OTfcqxg4VcqJa0XzRbBM2q6lQvwMMhsaTzIg0KrJmRdc4hLVs+mefhrtv9WVmDHgLwWZ
+ bPbgoZ61hzIdPqhWRwu1GtWNq4Smc3sBWxg1M9VVhg1+P47Bxz19fvx+H9UMlWx7/h8X98/ll9YW
+ +viOIIzyihjlT6WQa8Nqvl+2P0wd/GxIGVnYSXsNLIgUUBDa8x8zpN24MOdtKnhELpgpq4zJg29C
+ TGCkugsLZep2IqDQL1EjADgSgyMy4XguDtJeC5I/OHD5RI9cVhuji5QxMHvUQRutorLuKDcwsKWz
+ d1BijXBmseAmu3os9tmvZeTtpr9+4QPIkmhJLwHBtUUalaCswGHvjLLcDWj38yCGVLobf7Sayv77
+ m6VDGNLZH/5S29udbMx4NXff15nSjeSCMsVyb/KP2rG2sYtKtwr5vlPSFAzpUpXoULXTFz5WXm04
+ JZAGaV3sOqqfs0tqJya6h4ZiNnh+mIRfqrT36CweUfyMyesEXUIqYlzvX/mW3p7sh2AB4fLxy4bV
+ f00o9QFRE5mCIk/NZZiEk7Zaz+XBHgKoaqHEGf6lXVK0ZFwsD76gcYw7WPM7Bdnlwb9tVLCy6wt3
+ 80RlMa5qspPvkE6iXfjwLmXjbAO3zoNEXGvI4+gJrp1r8uGfal0//fdXJMoEPu14OQSJ8Q/5LZq4
+ iLGCG+B6L8zQBKge0bq3Zcme5gXNPJiqgHRLrga87TVPZVwVF9w5x5FMnYZyoVmnaPXV6I2TLSYM
+ uD/003ue9jJoLDsEMbWrTLltu1bM9hBVberwrm0UaQT9JUn0YgEfL+tYPEeOapX4rR/uODCUXh9h
+ 6+gPq6vW/Zvsx1jHK+ElYUdx3XEwV4pAhwGbI0DHpTrdLEQpl82O+JWUYbNeIIz5TMrSfUoVC9j9
+ UOtiae6OsZ6J/0tHW8oahqYDEKZYY54uhWNL7wYi9ujEbT5polSCy9D2YTzu/nlk9ltrgNhQ==
+X-QQ-XMRINFO: Nq+8W0+stu50tPAe92KXseR0ZZmBTk3gLg==
+From: Hefei <3066883572@qq.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
+ Hefei <3066883572@qq.com>
+Subject: [PATCH v2 0/6] Add VIEWE 7" JD9365TX MIPI-DSI panel support
+Date: Wed, 25 Nov 2026 10:09:38 +0800
+X-OQ-MSGID: <20261125020944.137-1-3066883572@qq.com>
+X-Mailer: git-send-email 2.55.0.windows.5
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <awXJ__-grexFFPb4@sirena.org.uk>
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,83 +63,72 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Mark,
+Hi,
 
-kernel test robot noticed the following build errors:
+This series adds support for the VIEWE 7KF82 7" 720x1280 in-cell MIPI-DSI
+panel based on Jadard JD9365TX (2-lane video mode), plus the companion
+I2C touchscreen and I2C backlight MCU used on the same FPC.
 
-[auto build test ERROR on next-20261123]
-[cannot apply to drm-tip/drm-tip linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This is a different programming model from the existing JD9365DA driver
+(panel-jadard-jd9365da-h3.c): page select uses 0xDE (not 0xE0), bring-up
+uses 0xDF unlock, and lane config is via 0xCC rather than 0x80. The init
+sequence and bindings are therefore kept separate.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/linux-next-build-failure-after-merge-of-the-drm-misc-tree/20261124-173143
-base:   next-20261123
-patch link:    https://lore.kernel.org/r/awXJ__-grexFFPb4%40sirena.org.uk
-patch subject: linux-next: build failure after merge of the drm-misc tree
-config: arm64-randconfig-1002-20261125 (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/reproduce)
+Tested on Raspberry Pi 4 and Raspberry Pi 5 with a downstream dtoverlay
+(not included here). A matching series is also under review for the
+Raspberry Pi downstream kernel:
+  https://github.com/raspberrypi/linux/pull/7633
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261125095513.u60l5aJo-lkp@intel.com/
+Changes in v2:
+- panel binding: drop data-lanes from the example; require iovcc-supply
+- touch binding/driver: drop jadard,coord-addr; add vdd/iovcc supplies
+- backlight: use module-specific compatible viewe,7kf82-backlight
+- panel driver: drop per-command 1ms delays and pre-reset NOP; use
+  mipi_dsi *_multi helpers; remove redundant enable()
+- touch driver: accept only known chip IDs; drop duplicate backdoor enter
+- backlight driver: drop unused wrapper struct
 
-All errors (new ones prefixed by >>):
+Please review.
 
->> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     217 |                 dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
-         |                 ^
-   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: note: did you mean 'dma_buf_vunmap_unlocked'?
-   include/linux/dma-buf.h:596:6: note: 'dma_buf_vunmap_unlocked' declared here
-     596 | void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-         |      ^
->> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: error: call to undeclared function 'dma_buf_map_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
-         |               ^
-   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: note: did you mean 'dma_buf_vmap_unlocked'?
-   include/linux/dma-buf.h:595:5: note: 'dma_buf_vmap_unlocked' declared here
-     595 | int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
-         |     ^
-   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:6: error: incompatible integer to pointer conversion assigning to 'struct sg_table *' from 'int' [-Wint-conversion]
-     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
-         |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:552:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     552 |                 dma_buf_unmap_sgt_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
-         |                 ^
-   4 errors generated.
+Thanks,
+Hefei
 
+Hefei (6):
+  dt-bindings: display: add VIEWE JD9365TX panel binding
+  dt-bindings: input: add Jadard JD9365TX touchscreen binding
+  dt-bindings: backlight: add VIEWE I2C backlight binding
+  drm/panel: add VIEWE JD9365TX 7 inch DSI panel
+  Input: add Jadard JD9365TX in-cell touchscreen driver
+  backlight: add VIEWE I2C backlight driver
 
-vim +/dma_buf_unmap_sgt_unlocked +217 drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
-
-   208	
-   209	/*
-   210	 * Cleans up imported dmabuf.
-   211	 * Should be called with mutex held.
-   212	 */
-   213	static void vc_sm_clean_up_dmabuf(struct vc_sm_buffer *buffer)
-   214	{
-   215		/* Handle cleaning up imported dmabufs */
-   216		if (buffer->sgt) {
- > 217			dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
-   218						   DMA_BIDIRECTIONAL);
-   219			buffer->sgt = NULL;
-   220		}
-   221		if (buffer->attach) {
-   222			dma_buf_detach(buffer->imported_dma_buf, buffer->attach);
-   223			buffer->attach = NULL;
-   224		}
-   225	}
-   226	
+ .../display/panel/viewe,jd9365tx.yaml         |  70 ++++
+ .../input/touchscreen/jadard,jd9365tx.yaml    |  64 +++
+ .../leds/backlight/viewe,i2c-backlight.yaml   |  46 +++
+ drivers/gpu/drm/panel/Kconfig                 |  11 +
+ drivers/gpu/drm/panel/Makefile                |   1 +
+ drivers/gpu/drm/panel/panel-viewe-jd9365tx.c  | 353 +++++++++++++++++
+ drivers/input/touchscreen/Kconfig             |  12 +
+ drivers/input/touchscreen/Makefile            |   1 +
+ drivers/input/touchscreen/jadard_jd9365tx.c   | 373 ++++++++++++++++++
+ drivers/video/backlight/Kconfig               |   7 +
+ drivers/video/backlight/Makefile              |   1 +
+ drivers/video/backlight/viewe_bl_i2c.c        |  79 ++++
+ 12 files changed, 1018 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+ create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,i2c-backlight.yaml
+ create mode 100644 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
+ create mode 100644 drivers/input/touchscreen/jadard_jd9365tx.c
+ create mode 100644 drivers/video/backlight/viewe_bl_i2c.c
 
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.55.0.windows.5
+
