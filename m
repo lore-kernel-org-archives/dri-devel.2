@@ -2,90 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57A4C606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384C9606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=okonski-org.20260707.gappssmtp.com header.i=@okonski-org.20260707.gappssmtp.com header.a=rsa-sha256 header.s=20260707 header.b=LBT9sySw
+	dkim=pass (1024-bit key, unprotected) header.d=retsim.com header.i=@retsim.com header.a=rsa-sha256 header.s=abaygg6onarqet2uti4t4yyiczbpngnf header.b=n9EJaXqI;
+	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=Xw7a4k3F;
+	dkim=temperror header.d=retsim.com header.i=@retsim.com header.a=rsa-sha256 header.s=dkim header.b=DQqf6kmE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AD7EC1120F3;
-	Thu, 26 Nov 2026 08:09:08 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B6CFE10E317
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 21:57:14 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c5118deebcfso948612866b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:57:14 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=okonski-org.20260707.gappssmtp.com; s=20260707; t=1795643833; x=1796248633;
- darn=lists.freedesktop.org; 
- h=in-reply-to:references:to:from:cc:subject:message-id:date
- :content-type:content-transfer-encoding:mime-version:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=EscVSvEEWXaJWdMSZsEK6jUAQTPG/3riC+SyPLRH0Y4=;
- b=LBT9sySwW41fres4uyzikYD1sXIKQfA3AdaFDfoMOVkhdp+GlcGgRh9m2FFGE4TKpr
- v3iAMvUqf5a0dF2AKv+pO/Asu/yH49QHIA+rQP3tG3qzJy7VgvsvRBhSiozm5CjLQBN0
- US7iYy0KdLsFcKPElfUfYEui1NlHVLCSGqPmhsEAL2pgsY771BXOHCZdkMGMxTsYYOVY
- nKvyS8Mk9xn2pm9pydZ3vDvaC11MbWgFlms1pRfwwdxvcln2f9iCX7C7IHMQK3yiNsIW
- JbLKVah9Oo7nexXRSq2Npxjd4t1uzF1Cm8314tZ1ZFXfErLpPEZ9r/SY3mkbmatsqRTv
- Vdiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795643833; x=1796248633;
- h=in-reply-to:references:to:from:cc:subject:message-id:date
- :content-type:content-transfer-encoding:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=EscVSvEEWXaJWdMSZsEK6jUAQTPG/3riC+SyPLRH0Y4=;
- b=F6uecELfD+yAlYogOgSucaRXOKbUSqmNLEdMroZ+rXnr5ww5lCZdajkWEE0f0qI1Jo
- VNC5VMUcqk3LUKoVCmcYA8OOWPheY+BjOWSfubGr9krLMt5tSD7cJR3hTYEL9W2RiSMB
- c0NzoqCwje4WjbEVJgFVht+Z4yBMF5wxD3Pc0O5Cs1YA8R8peQtP0YeGTQmSeog6hfLv
- w5Wr+Jj7zxq4qbMfRchteRF0gmsWBmCrUBQcZuHLJ5HA4+Dv9A0esYaLfdn4e00nhNPW
- Cwd+hA7+80WuECp9CxbxvQq2fPCfg7d5z5YwmPQtkpvZ/s2ob0TOk/TiBbnpqFF9iBvo
- fhVg==
-X-Gm-Message-State: APuU4Z/HISTQ2HsAdmnG1ftnrZYD3Qi9LhWhEekGE6lX5vgQsjCcnFQ3
- qKbh2yVmv7EE9e0p9btaaq8xUFOtg18Y+jJ02m7fIADPKZ0D9GHc9q+81kz0HA1VFNQ=
-X-Gm-Gg: AZFdTZe61wrtpVx21/Eco6SyN8xe/daAoB6itmw1XoqzedpFpWuXJUvVVkDPfygSxqK
- UFzfH29ZHTKm4W4i5w9Qc0nKe5T62iQQvLjiNmX0RidKrCNGRK9fUjDEpELEtu/mZKNA9ayYyEQ
- T/DvGW93IhsVpl7zqOLs/jAdzK2Pxi6GDZJ0+qx0HlWySd/u6L9uRQa1flNLJ4oxkHSYK25etkj
- EozyJ7AxQe7oYFzN1emW4gG3XyfehsDzYQHTymU9Eii4FZXWVCsICkZ5JJjNKbylFaOFrNfp+2/
- YyTQiKH+4W2gZ7D+2AArrYWjd9qcaJSdF3wXtLALxQWqgkf0+nepI1+C3i0dOmhdi8kJAMlifLc
- AUKVlRbsIKa8Qv2TX1z03V+QtrYQhT6l89ZFOrHM6gxrGncnM83FiaH4HyrHtqrrgG08qaiJ6os
- PDyvZxrj5SK5dES32DvMProCrd+SnibwKysPUXxElLn9Vop8RneXfPHwh7mJEjyKyWWmz5bBp99
- yWhBZlftAj63zaRXg09ZQGtM+t5hGNy2Uq8YPhAKrnJSdMX4LMlIWDn4uJBRzsc3zTbFrwLSX1a
- SibnC55azv7kxnoDQ/831WPkfoN8sOFTg5Gm/uCIuwNmqWLNNUMkTU9FCdkbMjH1kvChMvz8VRE
- uKzPyY1w990hK5CLplZg3NMr6obFInNqaZaf8OLdHPzA5cD4n
-X-Received: by 2002:a17:907:c07:b0:c50:c04d:cbb3 with SMTP id
- a640c23a62f3a-c516adc890cmr999837066b.0.1795643832968; 
- Wed, 25 Nov 2026 13:57:12 -0800 (PST)
-Received: from localhost ([2a02:21a0:10:748:2::2])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513acfeda1sm731381166b.6.2026.11.25.13.57.11
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 25 Nov 2026 13:57:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DD76C10E90E;
+	Thu, 26 Nov 2026 08:09:00 +0000 (UTC)
+X-Greylist: delayed 384 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Nov 2026 08:54:15 UTC
+Received: from a27-35.smtp-out.us-west-2.amazonses.com
+ (a27-35.smtp-out.us-west-2.amazonses.com [54.240.27.35])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0288910FA44
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:54:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=abaygg6onarqet2uti4t4yyiczbpngnf; d=retsim.com; t=1795596470;
+ h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:Content-Type:Content-Transfer-Encoding;
+ bh=d/yl+vck61lXSmVP41IN7VueHC4X7NY9GxB6VsCVKOQ=;
+ b=n9EJaXqIHSYzeMtteApLwO54Yo28hUi/O0f6RjvIOxLz1s9lT7GtBquOx6II9MEj
+ MKk0cdNca06obS+C/ay5JxFD7kfy1bTwYVVKWHJngr7vnH/bvUlUrQSaVZ//ltLPX9n
+ jYZ2BuQ36MQqStURYMhcwtPt0YGjLqz/6eNan8WM=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+ s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1795596470;
+ h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:Message-ID:Content-Type:Content-Transfer-Encoding:Feedback-ID;
+ bh=d/yl+vck61lXSmVP41IN7VueHC4X7NY9GxB6VsCVKOQ=;
+ b=Xw7a4k3FnL2pHaJuHkRteHtXR7IUKb18RDzKReVSKT6bcvd65MqJBn/5PC/XzXb1
+ OsBT3tlmFZc4swLUb/I1CsWz+tmZhdK4CVJwTKTjPHHlaDA2En+B75aqBH3rzAQ/ogD
+ O3e8hJO/LhizWsMOzNMPLwcEoCeIlfvfDGrrEvTo=
+Authentication-Results: mailserver.retsim.com (amavis); dkim=pass
+ reason="pass (just generated, assumed good)" header.d=retsim.com
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=retsim.com; h=
+ content-transfer-encoding:content-type:message-id:user-agent
+ :references:in-reply-to:subject:to:from:date:mime-version; s=
+ dkim; t=1795596466; x=1798188467; bh=d/yl+vck61lXSmVP41IN7VueHC4
+ X7NY9GxB6VsCVKOQ=; b=DQqf6kmE2u5TgsWdtSrRjS6VsksRTlC+EC1CnNrNKCt
+ Cu8g3Nx24eayB0Dxr6zUiDYfGzA81pOpndZzHmq8OpiBhXwQ+grBLbLdw9YDFs59
+ q7KW04GCHp7W97IhM/u4vravxNvmyUAyP8Gd68aQN6WJjyq96UQh5kWdCcRlIpF4
+ +CQ6cfWrmdlgtR1WOseuTH07kgr8Q0ioi9uqLfsL4rT0L8fdfSRBrwWDcd8wW4bF
+ YwExgAV5isqEH9VYdIXnzl2B75mok0kJZS3kCRmoiiMYBMMz1iIfoHsWJS1tfHU3
+ Vn2f6RBPHTAj3PGueuOOdvOO4Ml+zb9wNPgcHBE2GiQ==
+X-Virus-Scanned: Debian amavis at 
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Wed, 25 Nov 2026 22:57:10 +0100
-Message-Id: <DN4MM3ZE5TZY.2P79WE24F8DZX@okonski.org>
-Subject: Re: [RFC PATCH 2/2] drm/amd/display: Skip flip_done wait for
- non-modeset TEST_ONLY checks
-Cc: <dri-devel@lists.freedesktop.org>, <sunpeng.li@amd.com>,
- <siqueira@igalia.com>, <alexander.deucher@amd.com>,
- <christian.koenig@amd.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <amd-gfx@lists.freedesktop.org>, "dri-devel"
- <dri-devel-bounces@lists.freedesktop.org>
-From: =?utf-8?q?Jakub_Oko=C5=84ski?= <jakub@okonski.org>
-To: "Harry Wentland" <harry.wentland@amd.com>,
- =?utf-8?q?Michel_D=C3=A4nzer?= <michel.daenzer@mailbox.org>
-X-Mailer: aerc 0.22.0
-References: <20261123220913.937402-1-jakub@okonski.org>
- <20261123220913.937402-3-jakub@okonski.org>
- <47ee6326-08ca-4dcd-866b-3a543cb15665@mailbox.org>
- <4daad602-10e4-4cd6-9cf9-7f47f77a7922@okonski.org>
- <a1dee5ea-2a50-47d3-9a81-eb1a94869815@amd.com>
-In-Reply-To: <a1dee5ea-2a50-47d3-9a81-eb1a94869815@amd.com>
+MIME-Version: 1.0
+Date: Wed, 25 Nov 2026 08:47:50 +0000
+From: lewis@retsim.com
+To: sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 1/2] drm/imagination: guard fence release against device
+ removal
+In-Reply-To: <sashiko-outbox-232926@kernel.org>
+References: <20261125082637.2839673-1-lewis@retsim.com>
+ <010101a211d07983-72e5379a-adfd-4134-b23d-3e2b1422bc2e-000000@us-west-2.amazonses.com>
+ <sashiko-outbox-232926@kernel.org>
+User-Agent: Roundcube Webmail
+Message-ID: <010101a211e3c747-fb7c38a8-2ba0-4b54-bb1c-7c0758b44f7b-000000@us-west-2.amazonses.com>
+X-Sender: lewis@retsim.com
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
+Content-Transfer-Encoding: 7bit
+Feedback-ID: ::1.us-west-2.jZ+gdeR9TqNTaB6Dq50UPG8S0IjuYZETsFsi7SlhF6Q=:AmazonSES
+X-SES-Outgoing: 2026.11.25-54.240.27.35
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -98,40 +76,93 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue Nov 24, 2026 at 7:29 PM CET, Harry Wentland wrote:
->
->
-> On 2026-11-24 09:07, Jakub Oko=C5=84ski wrote:
->> [You don't often get email from jakub@okonski.org. Learn why this is imp=
-ortant at https://aka.ms/LearnAboutSenderIdentification ]
->>=20
->> On 11/24/26 14:05, Michel D=C3=A4nzer wrote:
->>> Does a commit with both DRM_MODE_ATOMIC_ALLOW_MODESET & DRM_MODE_ATOMIC=
-_TEST_ONLY set really need to wait for pending flips to complete? Why?
->>=20
->> I was not confident at all and tried to keep this change narrow. It's
->> possible this could be relaxed further but I have not tried it.
->
-> I have a branch that removes the need for that stall in atomic check and=
-=20
-> passed the work on to someone else for validation and review.
->
-> The problem with the existing code is that IRQ handlers reference=20
-> in-flight state, especially dc_stream_state. The solution is to decouple=
-=20
-> the state the IRQ handlers need from anything in flight. But its liable=
-=20
-> to break things, hence I'd rather be a bit more thorough with validation.
->
-> I hope you'll see patches for it soon-ish.
->
-> Harry
+Yes, that leak (including the drm_gpuvm -> drm_dev_put() reference on
+pvr_dev, and on pvr_device_lost() as well as pvr_remove()) is
+intentional here.
 
-Great! Does that mean you'll be going further and superseding my patch
-to cover the hw_done waits and potentially other sources of stalls too?
+pvr_queue_fence_release() runs under rcu_read_lock(), and
+pvr_context_release() tears down FW objects against kernel_vm_ctx and
+fw_mm, which pvr_remove() -> pvr_device_fini() destroys after
+drm_dev_unplug().  Avoiding the leak cleanly requires moving device
+teardown to drmm_ / refcounted lifetime (noted in [PATCH 0/2]), which
+was left out so these use-after-free fixes remain minimal and
+backportable.
+
+On 2026-11-25 19:42, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue to consider:
+> - [High] drm/imagination: context and drm_device leak in
+>   pvr_queue_fence_release()
+> --
+> 
+> commit 98562e29f0071aecadfba68150e688168073f7c8
+> Author: Lewis Lakerink <lewis@retsim.com>
+> 
+> drm/imagination: guard fence release against device removal
+> 
+> This commit guards work queueing in pvr_queue_fence_release() with
+> drm_dev_enter(), freeing the fence directly and skipping 
+> pvr_context_put()
+> when the device is unplugged.
+> 
+>> diff --git a/drivers/gpu/drm/imagination/pvr_queue.c 
+>> b/drivers/gpu/drm/imagination/pvr_queue.c
+>> index 34b826381aa2b..2a6bfb090fadd 100644
+>> --- a/drivers/gpu/drm/imagination/pvr_queue.c
+>> +++ b/drivers/gpu/drm/imagination/pvr_queue.c
+> [ ... ]
+>> @@ -122,8 +123,19 @@ static void pvr_queue_fence_release(struct 
+>> dma_fence *f)
+>>  {
+>>  	struct pvr_queue_fence *fence = container_of(f, struct 
+>> pvr_queue_fence, base);
+>>  	struct pvr_device *pvr_dev = fence->queue->ctx->pvr_dev;
+>> +	int idx;
+>> 
+>> -	queue_work(pvr_dev->sched_wq, &fence->release_work);
+>> +	/*
+>> +	 * Fences held by drm_syncobj are released in drm_file_free() before
+>> +	 * postclose. After unplug, sched_wq and kernel_vm_ctx may already 
+>> be
+>> +	 * torn down; free the fence directly and leak the context 
+>> reference.
+>> +	 */
+>> +	if (drm_dev_enter(from_pvr_device(pvr_dev), &idx)) {
+>> +		queue_work(pvr_dev->sched_wq, &fence->release_work);
+>> +		drm_dev_exit(idx);
+>> +	} else {
+>> +		dma_fence_free(&fence->base);
+>> +	}
+>>  }
+> 
+> [Severity: High]
+> Does leaking the fence->queue->ctx reference here also permanently leak
+> pvr_dev and trigger teardown warnings?
+> 
+> drm_dev_unplug() is called not only during pvr_remove(), but also at
+> runtime when a GPU reset or MMU flush fails:
+> 
+> drivers/gpu/drm/imagination/pvr_power.c:pvr_device_lost() {
+> 	if (!pvr_dev->lost) {
+> 		pvr_dev->lost = true;
+> 		drm_dev_unplug(from_pvr_device(pvr_dev));
+> 	}
+> }
+> 
+> Once unplugged, dropping the context reference in the else branch 
+> prevents
+> pvr_context_release() from ever running. That leaves the context in
+> pvr_dev->ctx_ids and its firmware objects in fw_objs.list and 
+> fw_dev->fw_mm
+> (triggering WARN_ONs in pvr_fw_fini() and pvr_context_device_fini()), 
+> and
+> never drops ctx->vm_ctx, whose drm_gpuvm manager and GEM objects hold
+> drm_device references that prevent drm_dev_release() from freeing 
+> pvr_dev.
