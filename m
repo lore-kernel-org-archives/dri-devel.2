@@ -2,63 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A3D0606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 15:03:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26679606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 15:03:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=kAF+QGt7
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=bt0aNUML
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3C7C210E927;
-	Wed, 25 Nov 2026 15:03:30 +0000 (UTC)
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8E33A10FCEB
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:03:18 +0000 (UTC)
-Received: by mail-wm1-f70.google.com with SMTP id
- 5b1f17b1804b1-4ad3d35e899so50034265e9.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 07:03:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5978D10FCEB;
+	Wed, 25 Nov 2026 15:03:38 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37CAD10E927
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:03:17 +0000 (UTC)
+Received: by mail-wm1-f71.google.com with SMTP id
+ 5b1f17b1804b1-4bb66fc3aa6so50325945e9.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 07:03:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795618997; x=1796223797;
+ d=google.com; s=20260707; t=1795618995; x=1796223795;
  darn=lists.freedesktop.org; 
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=8Jz8ssl/IqO+cdkuoUF1XK1hhhFDc4ccWMMZLEDHfAk=;
- b=kAF+QGt7OgdAvmXdqe6YA0E8X4L6YiTnr5C8UryEPApbCev9jV9mx06o2rCOerKRG0
- HhajtlETPBX+zrnEVE3Y0dcT1zb+N0NQV8OI0owdfC/R2yYIDdHiTRycAYdxGxi2GwjI
- OeHRlkdx7I2b8RrOSakiu6pEVz74rq/7wcxyeJpnKTtJkvotuNGKqDrpGR9tZ8NvYt5v
- GjU0sOucvc5x88zY3yexQSpvNYj6p/dtEcYO+EKFWeW663HOOBzdtRXLdFE+SoGI00bN
- BgaH6ZmbxCQ8sqHKlVlUAT4chIM22zhQBkMX45lDcZoyg1nSpurabOj1zE3JsXXEb2Dv
- XQcA==
+ :content-type; bh=N4O2DbAYKqujXPOE3qGC4/NB1PRFQz/yrJhP3BnWqGc=;
+ b=bt0aNUML1lJvZ3wCL59azuBwmpaFBlp8nh18gjRxzRKal/dBYAEt8+A+QYfAEYg2Gd
+ zv+eJltNr7tOenT6t8fE+eALT1yDKits91fvuqk3OXtnmERgY5nEeZs1QcBjvAsF6Djm
+ fhyGtFNkWW2g/ZOPoinQOXWq8P1d+pHDmxPJTrayweI3vgNeSEwzEsYOJDtP9mY5WlQF
+ hY0pfzX+ilxFtrPT7ui4k48jEWkpuAvmRzsqx3ByD+E919CcF2xWB8N3hrPDRIPoxE0j
+ s1mKbO4rheIk7Dfk+exihx80PqwmcPG4KotsdOU+3GhaACOJy0mx3wsXnw510iU0G5x0
+ NvXg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795618997; x=1796223797;
+ d=1e100.net; s=20260707; t=1795618995; x=1796223795;
  h=content-type:cc:to:from:subject:message-id:references:mime-version
  :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=8Jz8ssl/IqO+cdkuoUF1XK1hhhFDc4ccWMMZLEDHfAk=;
- b=t5q6V4vE4Y+tLL53WS4S2fAWtWr7bc0YQUtqgA+ieer7lMx/KG+Le0yLp+mbTFLgDN
- CuK/IZvQSVi8QlTuv1QyBGR++7+DWOS0WGuul8heMiBHV545kVCzQbzd9ULwmYgx/+Qs
- GHOxw67HNELsCCWvFoV9nenb9VtCOQSncAWcKBFEKpNRowyREZNepD8IjGrjLBAYyOpF
- 5gS+fQrRvtdYsrxq+Eeba43oWzrHrMBb/bYtGrS9Xac60TCyBYzvSHVDU5H31+MkFLHA
- 7KP4qISL3OWcGqgNppoeRATQ4y7zdNe1e5tVSk2eCQw0B5qEBfQ7H+vVDpGy9HhzOApK
- /izg==
+ bh=N4O2DbAYKqujXPOE3qGC4/NB1PRFQz/yrJhP3BnWqGc=;
+ b=ybVnJgsdkRDcmG7OWxSiiA4ELK8e3OK9s3DmXJGz2bm3xBTFBcPAC7ugDcEEkIAE2q
+ 2zKoN6cQFGPSjQ6nNHrTrqKSnchoPAg7SbRLSv+UuhN1x/lQBqpEtnQz+LIPVbO72Po5
+ Kh2iwjR3ZWz/Dh4gSi1x9NqSsf4dQiTeX2NJA+e/+NWWB32QeTq16OCvPYLvl7b5VBLh
+ gUm7faQPCqMfrdpsiQihz1W5cYQdVc/QdlG41qtkELUUOFlpr1mQfF+8fYeBaXYujl7h
+ yXsXqN+Z+7lWd+XuVqOKn73pOVMPqPrS9RUCFQ5Ck1Wr4BnrMlqe6FHQI1sA7p4C7ElZ
+ nyzw==
 X-Forwarded-Encrypted: i=1;
- AL+hErF7H6w68WjVeLmkcLSj8xao3E0hroShXZLX1FnWyu2TCJXoj1utYyIZ/WuvHMQ7yeQCJNvWCutAt08=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+wmk4muJICdjBb3cKwr1tiASer8xvTr6URQ0bwE60qDLzJDCtK
- ybDSkysFtZnZ94GmrkqWMDYPGT0PsJ1ig3CRn8rakiZkwJZk+jS08yLBNyTt70ZiAEgJQF6GBkX
- XXc9MnqRetoFjfzOJvg==
-X-Received: from wmpr23.prod.google.com ([2002:a05:600c:3217:b0:4a2:e03:1f55])
+ AL+hErFsZ37WNza1VHQ86P+mMMJks+mpr/MeeaqLeVOGLRSbvE5KbU9wGxcBW4cRBi37qV2qUgHLx1xdiA0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/l2l6/LAzagJGQLLIssmJYpBzj2+hKKQI/ZlXvQVEDqNKfQAod
+ 72Md/vpu5SBEQ48W5WQKxIkUI6mUeGNk37jraUaT4XwbBZpQloJvjlIzEqbcoU7iD9RdQOhVSEL
+ w8cyo1rtLqt0ZrZrmQw==
+X-Received: from wrpy15.prod.google.com ([2002:adf:f6cf:0:b0:4a4:8614:8907])
  (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600c:1d08:b0:4a2:392:9de2 with SMTP id
- 5b1f17b1804b1-4bb8882bd7bmr363816705e9.28.1795618996639; 
- Wed, 25 Nov 2026 07:03:16 -0800 (PST)
-Date: Wed, 25 Nov 2026 15:03:15 +0000
-In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-4-000f7a9ccb8d@jannau.net>
+ 2002:a05:600c:6748:b0:4ba:761:97a1 with SMTP id
+ 5b1f17b1804b1-4bb888251bfmr350875475e9.14.1795618995334; 
+ Wed, 25 Nov 2026 07:03:15 -0800 (PST)
+Date: Wed, 25 Nov 2026 15:03:14 +0000
+In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-2-000f7a9ccb8d@jannau.net>
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
- <20261124-rust-drm-gem-shmem-imported-sgt-v2-4-000f7a9ccb8d@jannau.net>
+ <20261124-rust-drm-gem-shmem-imported-sgt-v2-2-000f7a9ccb8d@jannau.net>
 X-Mailer: git-send-email 2.56.1.831.g720f3f5937-goog
-Message-ID: <20261125150315.1587936-1-aliceryhl@google.com>
-Subject: Re: [PATCH v2 4/5] rust: drm: gem: add an is_imported() accessor
+Message-ID: <20261125150314.1587795-1-aliceryhl@google.com>
+Subject: Re: [PATCH v2 2/5] drm/gem/shmem: Initialize private objects via
+ drm_gem_shmem_init() too
 From: Alice Ryhl <aliceryhl@google.com>
 To: Janne Grunau <j@jannau.net>
 Cc: Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
@@ -97,18 +98,14 @@ X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 12:37:46PM +0100, Janne Grunau wrote:
-> From: Sami Tolvanen <samitolvanen@google.com>
+On Tue, Nov 24, 2026 at 12:37:44PM +0100, Janne Grunau wrote:
+> Rust drivers need to initialize private gem objects when importing
+> DMA-bufs. As with regular objects the ideal way is to allocate the
+> object in Rust and initialize it via the DRM gem shmem helper. Expose
+> the `private` to the exported drm_gem_shmem_init() function.
 > 
-> Drivers need to check whether a GEM object is PRIME-imported.
-> 
-> Add BaseObject::is_imported(), wrapping drm_gem_is_imported() through a
-> C helper shim.
-> 
-> Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-> Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+> Link: https://lore.kernel.org/rust-for-linux/20261118114102.490384-1-aliceryhl@google.com/ [1]
+> Suggested-by: Alice Ryhl <aliceryhl@google.com>
 > Signed-off-by: Janne Grunau <j@jannau.net>
 
 Reviewed-by: Alice Ryhl <aliceryhl@google.com>
-
-Alice
