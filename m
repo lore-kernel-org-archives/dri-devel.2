@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2766C606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3544606A31E
 	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:54:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=nGhmE+SH
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=F9Hoe0Jw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 743E810FE97;
-	Wed, 25 Nov 2026 17:54:28 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CDF5810FE91
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:54:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0F35310FE99;
+	Wed, 25 Nov 2026 17:54:29 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A0BC410FE91
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:54:17 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 8BCE74E41796;
- Wed, 25 Nov 2026 17:54:10 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 6F15D1A17FA;
+ Wed, 25 Nov 2026 17:54:16 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 6109360480;
- Wed, 25 Nov 2026 17:54:10 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 3A0A560480;
+ Wed, 25 Nov 2026 17:54:16 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 0CEFA11E6B0AE; Wed, 25 Nov 2026 18:54:03 +0100 (CET)
+ with ESMTPSA id 0F75411E6B0CA; Wed, 25 Nov 2026 18:54:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629248; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629254; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=uVOZcTNesWkxQue4smQ34ukC/TjgYibdayPA5A159MA=;
- b=nGhmE+SHu6Q6Yt6/Cq67MPgFEVQCPrG5iVyfi0K+Izo1bSo6FZVQKFWDro9im1XRLi8hkk
- jcpo35BEFslgmciJ0IPO+k/Qobg3K+W2ua5BtqtsCBKIrO6yVuHmTe7PvVgPuRygwcs8g0
- lgZrWdygCcCoBbI0bjRBtqr8j/f9L/+M+M6UYjagzIz9AOwRHLKDvoaaVjNAxgmdqOotkf
- v5uWMKmgwYzkdCPPgUZGSQOQ5uo+z49OjNQU6mPorVNBjb/AnEx8W4SBCO5jZu4Oxmz1/W
- 0GwTUDc3q2dXB2VTMHoAvNZ6ZwKU1lXeDYjy52EnnfK6HbUdH7ylqy8OqIyF5w==
+ bh=ASSBGT3kIF8HMn738GqJjgyGhYuB+a+EzuLMKqOT5K4=;
+ b=F9Hoe0Jwv0B7vRuPw5GL/CXXP7rOF26K3c+pz4ybkcxhJFMexZ1uMKkVD0yHjA69iVdEMu
+ HcTQ9476ysHSYMoKov+0hyrFJ8uBcQb2miISO/TNyePjfNJHt/Pi7nTkCALWsWaOdXi0p7
+ HKl4rgjoaLkiVNXPoM4rUzg6/GmVUH6453HSNAfqhjpFUZ52ISNxgDzUjvWLCKmVsrRttD
+ 4PBI4aGnZjFeLi7L00k+W/A7vW6KMvQu427r7EBk7HikO+4YaLYIRKnRc5IG3smCBAaDsC
+ FEFdAomMS6nLgv7aSZlpM6CcoQjg/64SEooOaW1OabDxzecUrFnNjay852f3bQ==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:42 +0100
-Subject: [PATCH v4 29/32] drm/bridge: clear bridge->encoder on detach
+Date: Wed, 25 Nov 2026 18:50:43 +0100
+Subject: [PATCH v4 30/32] drm/bridge: shutdown encoder and detach
+ downstream bridges on bridge unplug
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-29-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-30-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,40 +83,52 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Attaching a bridge to an encoder rightfully sets bridge->encoder to point
-to the encoder. It also sets it to NULL in the error management path.
-
-However drm_bridge_detach() does not set bridge->encoder to NULL.
-
-This will create a potential NULL pointer dereference in a following commit
-(part of when introducing DRM bridge hotplug) because drm_bridge_remove()
-will have to detach bridges attached to an encoder, so it needs to use 'if
-(bridge->encoder)' to know whether the bridge is attached to an
-encoder. For this to work, the bridge->encoder pointer must NULL whenever
-the bridge is not attached to an encoder.
+With the upcoming support for DRM bridge hot(un)plugging, bridges can be
+removed at any time. When this happens, shutdown the affected pipeline
+components and detach from the encoder chain the bridge being removed along
+with all the following ones.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Issue found by sashiko:
-https://lore.kernel.org/all/20261001131425.A001E1F000FF@smtp.kernel.org/
+changes in v3:
+- do not shutdown the whole card
+- adapt to use drm_bridge_detach_from()
 ---
- drivers/gpu/drm/drm_bridge.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_bridge.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index c00d5276e55b..d82e81b26ace 100644
+index d82e81b26ace..d942c776db1a 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -751,6 +751,7 @@ void drm_bridge_detach(struct drm_bridge *bridge)
- 	drm_hotplug_event_notifier_notify(DRM_BRIDGE_DETACHED, bridge);
+@@ -29,6 +29,7 @@
+ #include <linux/mutex.h>
+ #include <linux/srcu.h>
  
- 	bridge->dev = NULL;
-+	bridge->encoder = NULL;
- 	drm_bridge_put(bridge);
- }
- 
++#include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_state_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_debugfs.h>
+@@ -547,9 +548,17 @@ static void drm_bridge_detach_from(struct drm_bridge *bridge)
+  * it won't be found by users via of_drm_find_and_get_bridge(), and add it
+  * to the lingering bridge list, to keep track of it until its allocated
+  * memory is eventually freed.
++ *
++ * If the bridge is currently attached, also shut down the encoder pipeline
++ * and detach this bridge and the following ones.
+  */
+ void drm_bridge_remove(struct drm_bridge *bridge)
+ {
++	if (bridge->encoder) {
++		drm_atomic_shutdown_encoder(bridge->encoder);
++		drm_bridge_detach_from(bridge);
++	}
++
+ 	mutex_lock(&bridge_lock);
+ 	list_move_tail(&bridge->list, &bridge_lingering_list);
+ 	mutex_unlock(&bridge_lock);
 
 -- 
 2.56.1
