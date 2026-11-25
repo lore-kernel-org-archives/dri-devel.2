@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E79606A330
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:59:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B55C606A326
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 12:00:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEkurMEw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Poy43gBY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1963D10FBF2;
-	Wed, 25 Nov 2026 11:59:22 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 013B810FBF2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7100610FBF6;
+	Wed, 25 Nov 2026 12:00:22 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EFB110FBF6
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 12:00:16 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B67FA45EC1;
- Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F5F1F0089F;
- Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 2BA9B6291F;
+ Wed, 25 Nov 2026 12:00:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 556011F000CF;
+ Wed, 25 Nov 2026 12:00:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795607955;
- bh=pT4w/2V+q5Vq1P7jobZdTaAEMqWVdX82CGH5VChTN0E=;
+ s=k20260515; t=1795608014;
+ bh=8xU8pe7v1ajfOGkshSSlloICMZKg//ySjf/N4Dymhs0=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=lEkurMEwRDzpqu8ExXzRid5vRwc6/LiXdW2nLPy+alawIklxUSomOoW9ADIZ/3PgX
- T+a20/0tgkC4Lclu2AxEqfxAjt2bgW74yL6g1qLDRPlsAbR/vvsDy0x9YuusI2kkGP
- LLZydYDxwicvObalKa4oaFNn2unOurmGfGNMcYcuzcRozicR2lEmm0f+mxavu4To7t
- NzWCI/kLoiHPD+c3adVyZ38pWWFUSIoqIOG8kIZEGzmHTVPr9GF+pyeALkfG22e5ty
- oe1aS7Jip1HyVvf5PtpYorV6kVClM9S1FQhm6VpJ7CmGdXDqDpCv15gwDEqzA1wmTg
- rItL155U4ko7A==
-Message-ID: <sashiko-outbox-233307@kernel.org>
+ b=Poy43gBYUcZADQ3GCMwvZ9bYk4HJeJOGmTgSa5nm/J0E7ywtErYZwJPuTN7QgXNgf
+ aXXyXDolqR62pFwBpma2neqoZqu1QlodTZcIDf+XJwyIXIYVQ4tyXEbKxZcZbEoU5z
+ RY6azXGKFFWVIzbkp4KTJoMSQDp8k5N1dBZMfttoZgU0UMzVyQ73RUx+S+XKtsnOJ7
+ QILlO5/B+Zgon7BSFbWtx6DlJRvsXnKI4s2nLBMretFWm113xSrFm5ccI/tjv/ovMX
+ nbVCvQV/vMgjiANZhwI2GTC6BCQzXJSZRFP3fHWB91J8zmSZKLgzFk9Wm88mafduor
+ 0H9Hnof7BCoPA==
+Message-ID: <sashiko-outbox-233318@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/6] drm/imagination: Release firmware after init
+Subject: Re: [PATCH 5/6] drm/imagination: Generalize FW segment loading
 To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261125-b4-commonize-fw-segment-loading-v1-4-69657fa52ac3@imgtec.com>
+In-Reply-To: <20261125-b4-commonize-fw-segment-loading-v1-5-69657fa52ac3@imgtec.com>
 References: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
- <20261125-b4-commonize-fw-segment-loading-v1-4-69657fa52ac3@imgtec.com>
+ <20261125-b4-commonize-fw-segment-loading-v1-5-69657fa52ac3@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 11:59:15 +0000
+Date: Wed, 25 Nov 2026 12:00:13 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,103 +60,119 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/imagination: memory leak of fw_dev.metadata on GPU init
-  error paths
+- [Medium] drm/imagination: missing pvr_fw_object_vunmap() on
+  pvr_fw_process() error path
 --
 
-commit 8d2db63e357e744b233475780670c4fc83790aca
+commit 77938768831abdc044ee8cfa1b2e3bb5e025c962
 Author: Matt Coster <opensource@mtcoster.net>
 
-drm/imagination: Release firmware after init
+drm/imagination: Generalize FW segment loading
 
-This commit stops storing struct firmware in pvr_fw_device and instead
-passes it through the initialization functions and releases it at the end
-of pvr_device_gpu_init().
+This commit replaces the per-segment firmware loading code and fields in
+struct pvr_fw_mem with a segment descriptor table and an array of struct
+pvr_fw_segment entries.
 
-> diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/i=
-magination/pvr_device.c
-> index 0c4832d2cce1b..210eeb91f4ecf 100644
-> --- a/drivers/gpu/drm/imagination/pvr_device.c
-> +++ b/drivers/gpu/drm/imagination/pvr_device.c
-
+> diff --git a/drivers/gpu/drm/imagination/pvr_fw.c b/drivers/gpu/drm/imagi=
+nation/pvr_fw.c
+> index 4e082f83cff02..fbd46231f5803 100644
+> --- a/drivers/gpu/drm/imagination/pvr_fw.c
+> +++ b/drivers/gpu/drm/imagination/pvr_fw.c
 [ ... ]
-
-> @@ -701,40 +691,52 @@ pvr_device_info_validate(struct pvr_device *pvr_dev)
->  static int
->  pvr_device_gpu_init(struct pvr_device *pvr_dev)
->  {
-> +	const struct firmware *firmware;
->  	int err;
-> =20
->  	err =3D pvr_load_gpu_id(pvr_dev);
->  	if (err)
->  		return err;
-> =20
-> -	err =3D pvr_request_firmware(pvr_dev);
-> -	if (err)
-> -		return err;
-> +	firmware =3D pvr_request_firmware(pvr_dev);
-> +	if (IS_ERR(firmware))
-> +		return PTR_ERR(firmware);
-> =20
-> -	err =3D pvr_fw_load_metadata_and_device_info(pvr_dev);
-> +	err =3D pvr_fw_load_metadata_and_device_info(pvr_dev, firmware);
->  	if (err)
-> -		return err;
-> +		goto out_release_firmware;
-> =20
-> -	if (PVR_HAS_FEATURE(pvr_dev, meta))
-> +	if (PVR_HAS_FEATURE(pvr_dev, meta)) {
->  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_META;
-> -	else if (PVR_HAS_FEATURE(pvr_dev, mips))
-> +	} else if (PVR_HAS_FEATURE(pvr_dev, mips)) {
->  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_MIPS;
-> -	else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor))
-> +	} else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor)) {
->  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_RISCV;
-> -	else
-> -		return -EINVAL;
-> +	} else {
-> +		err =3D -EINVAL;
-> +		goto out_release_firmware;
+> @@ -462,6 +426,76 @@ pvr_fw_destroy_structures(struct pvr_device *pvr_dev)
+[ ... ]
+> +static void
+> +pvr_fw_destroy_segments(struct pvr_fw_segment segments[static PVR_FW_SEG=
+MENT_COUNT])
+> +{
+> +	for (int i =3D PVR_FW_SEGMENT_COUNT - 1; i >=3D 0; i--) {
+> +		struct pvr_fw_segment *segment =3D &segments[i];
+> +
+> +		if (segment->obj)
+> +			pvr_fw_object_destroy(segment->obj);
+> +		segment->obj =3D NULL;
+> +
+> +		kfree(segment->host_copy);
+> +		segment->host_copy =3D NULL;
 > +	}
+> +}
+[ ... ]
+> @@ -492,142 +526,58 @@ pvr_fw_process(struct pvr_device *pvr_dev, const s=
+truct firmware *firmware)
+>  		return -EINVAL;
 > =20
->  	err =3D pvr_device_info_validate(pvr_dev);
+>  	/* Allocate and map memory for firmware sections. */
+> +	for (int seg =3D 0; seg < PVR_FW_SEGMENT_COUNT; seg++) {
+> +		const struct pvr_fw_segment_desc *desc =3D &pvr_fw_segment_descs[seg];
+> +		struct pvr_fw_segment *segment =3D &fw_mem->segments[seg];
+> +		void *host_ptr;
+> +
+> +		if (!segment->size) {
+> +			if (desc->required) {
+> +				drm_err(drm_dev, "Required FW segment '%s' is empty\n", desc->name);
+> +				err =3D -EINVAL;
+> +				goto err_out;
+> +			}
+> =20
+> +			continue;
+> +		}
+> =20
+> +		segment->host_copy =3D kzalloc(segment->size, GFP_KERNEL);
+> +		if (!segment->host_copy) {
+> +			err =3D -ENOMEM;
+> +			goto err_out;
+> +		}
+> =20
+> +		host_ptr =3D desc->create_and_map(pvr_dev, segment, private_data->base=
+_addr);
+> +		if (IS_ERR(host_ptr)) {
+> +			drm_err(drm_dev, "Failed to allocate FW memory for segment '%s'\n",
+> +				desc->name);
+> +			err =3D PTR_ERR(host_ptr);
+> +			goto err_out;
+> +		}
+> =20
+> +		host_ptrs[seg] =3D host_ptr;
+>  	}
+> =20
+> +	err =3D pvr_dev->fw_dev.defs->fw_process(pvr_dev, firmware, fw_mem->seg=
+ments);
 >  	if (err)
-> -		return err;
-> +		goto out_release_firmware;
-> =20
->  	pvr_stream_create_musthave_masks(pvr_dev);
-> =20
->  	err =3D pvr_set_dma_info(pvr_dev);
->  	if (err)
-> -		return err;
-> +		goto out_release_firmware;
-> =20
-> -	return pvr_fw_init(pvr_dev);
-> +	err =3D pvr_fw_init(pvr_dev, firmware);
-> +	if (err)
-> +		goto out_release_firmware;
+> +		goto err_out;
 > +
-> +	err =3D 0;
+> +	for (int seg =3D 0; seg < PVR_FW_SEGMENT_COUNT; seg++) {
+> +		const struct pvr_fw_segment *segment =3D &fw_mem->segments[seg];
 > +
-> +out_release_firmware:
-> +	release_firmware(firmware);
+> +		if (!segment->obj)
+> +			continue;
 > +
-> +	return err;
+> +		memcpy(host_ptrs[seg], segment->host_copy, segment->size);
+> +
+> +		host_ptrs[seg] =3D NULL;
+> +		pvr_fw_object_vunmap(segment->obj);
+>  	}
+> =20
+>  	return 0;
+> =20
+> +err_out:
+> +	pvr_fw_destroy_segments(fw_mem->segments);
+> =20
+>  	return err;
 >  }
 
 [Severity: Medium]
-Do the error paths here leak pvr_dev->fw_dev.metadata?
+Does the err_out path in pvr_fw_process() miss calling
+pvr_fw_object_vunmap() on segments that were already mapped by
+desc->create_and_map()?
 
-pvr_fw_load_metadata() allocates metadata with kzalloc_flex() and
-pvr_fw_load_metadata_and_device_info() assigns it to
-pvr_dev->fw_dev.metadata before calling pvr_fw_get_device_info().  If
-pvr_fw_get_device_info() or any later step in pvr_device_gpu_init()
-such as pvr_fw_init() fails, pvr_device_init() jumps past
-pvr_device_gpu_fini(), so pvr_fw_free_metadata_and_device_info() is
-never called.
+If a later segment allocation or defs->fw_process() fails,
+pvr_fw_destroy_segments() destroys each segment->obj while its CPU mapping
+in host_ptrs[seg] is still active.  Unlike the pre-patch cleanup path,
+which called pvr_fw_object_vunmap() before pvr_fw_object_destroy(),
+destroying the still-mapped GEM shmem object triggers drm_WARN_ON() in
+drm_gem_shmem_release() and leaks the vmap mapping and pinned backing
+pages.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-b4-commoni=
-ze-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com?part=3D4
+ze-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com?part=3D5
