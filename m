@@ -2,82 +2,92 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E645606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88BA606A31C
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pT35UGj2
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xLUKz4tM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 145E61120E6;
+	by gabe.freedesktop.org (Postfix) with ESMTP id D8A481120EA;
 	Thu, 26 Nov 2026 08:09:06 +0000 (UTC)
-Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C01510E008
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:59:02 +0000 (UTC)
-Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1b589050416so999154c88.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 21:59:02 -0800 (PST)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E59DE10FB95
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:24:18 +0000 (UTC)
+Received: by mail-ed1-f51.google.com with SMTP id
+ 4fb4d7f45d1cf-6ba1e22ff4dso6651134a12.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 03:24:18 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795605857; cv=none;
+ d=google.com; s=arc-20260327;
+ b=TCg1Yyi7ZLTNr8Rvp8FWMFIZ4whxEuasdsvr4l/oxnVerybJf6ZL0+qD08SMGByXFO
+ sVyVb/NLC92pqJj26eZZRSRyJpx7IlrLS3tIJqrBj3F8Qu5gUOvpmX3EzKizHIRgy1sk
+ KiMhEiV7xtr8p1K99eMy74MRkyU5xxhqPzfUr8icoEtPTaD6fEI3rmWaorxh7INRihKk
+ Ls5h1/ErdP3OKh9rpXjFRAVPE/tZSJWx9Z7txvpwvPJAsfxmKxKaCVWie4ZyHQxJ/oEG
+ ymikz4r9T3B9GeqHPCzm+v95O8V65YD3n901hqa72BIfkOSyx6b6dM+2JCsSGfFwl8dR
+ f9kQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=to:subject:message-id:date:from:mime-version:dkim-signature;
+ bh=bKcB04rSkuOWm7b4FPOKw09aZL7f06yLsTu8uJOudL4=;
+ fh=sBTc3++QkhDY1hRhN5wnYtrSm7ux9GYketQuwZA4BYk=;
+ b=gfOegREVuv81+fYaK+wh0c9iwJ86CPCIAX6d7yKkiv2AJnAYVud4s2IXIcR5n0BneC
+ tHygox/Ml7J0JrnpJwG0EJQR/Z+CvK2nX5gzVMxth3Q34wg7O0olbkqduXFEY+Apc355
+ FiJFzm/xAHCChGzP4AUpsa3FN6J/f/3gPCL4g25RB90AJ3v377NtZJCsLbRGDhxfr1UX
+ Yk/FCmy40gTEFDes/ags++2U6rTbOIQkrDc3ejJU3wkHYj2wY524pRbQJVMv0bwa333K
+ FNyd07+nmI/0Uy4x4/EA2Wmd2AT7WDXIWuNkzGvsWDuZVFw7JJ5wok8hvCYpiMledx2p
+ cHDA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795672741; x=1796277541; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
- b=pT35UGj2QgEKj7GO+2riuhx3s9gd1Y19emSe7SBYMsFWytgCljbYjlfwEv0tl/iRzi
- GNBstIHi8vS0wd7cFgUn5I4sMDRJQIGNa19f3EqoONAgceHiPphkWD8fN2BgH3CO3jrB
- AyeMTnGegbIRY5VYjf/dP7P3G0kSq9loawAhjodFOuLh8xdVQgCSzgOH6LCo2RqBO/1M
- PFKRhxBB/c6geGrDdyoCB0/wICsNtsLRSxrPsqDtGR/1TmUyfinjSkqIBi7Kuw3fnw5Z
- 1DD7QjUL17e3Nw06VbhmqlThDOaFJlDST1NdpUp0RtD0FnwckBaUbDSf17JyldWl7MzZ
- wIkg==
+ d=gmail.com; s=20260707; t=1795605857; x=1796210657; darn=lists.freedesktop.org;
+ h=content-type:to:subject:message-id:date:from:mime-version:from:to
+ :cc:subject:date:message-id:reply-to:content-type;
+ bh=bKcB04rSkuOWm7b4FPOKw09aZL7f06yLsTu8uJOudL4=;
+ b=xLUKz4tMDvCCLWuAWNSnY/4NbA5xK+FbY9iTZ6IxPbqTmllBcjLuNB47r8LpKz7vwB
+ Le4dFR/+STXI6m9B0jyh5xy3nU3nCX1MRrezLQbAR+DG0c9tYdHyUApcURk8F/qw8t99
+ IPnWCvYCkaQw9jl0Vnnrr6x6mIsghncfnEC3DCT/QS6UgPmlSHvC9mfptTYb7WPy240N
+ nuKCT45zxS5u+O390hd/luEn6LMGHNr4MzLOowN2bdd1CKtd4P0Mx7eH2vD5zOBOq2DC
+ SE2z1jO6gfOZ4IopxGQ6lQSCNG7FFstdwEAbsQ28MIUgdUkP66/FFuZq/x/DD81lwk/n
+ xphA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795672741; x=1796277541;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
- b=ENT7RhsyMpEQY/xLgZIWCB6yDVn6mmEyJnsEdh9WKrBiiUfYNLozNWck8Mi6CaTN89
- d+5MWjxhqHZAOnwwnPW/o6/4qu1gU4k6e/VzByjpfhh/Fe0C8KEg/WKi39zDZj3JA9pf
- qQ7flWTrwNmL/hgva5QhPyRnHgjsyZSbl43/PV8pRI4xkdN6gHMqzwt7yGqa0FH8dd3z
- jgp/17d+TFoJop9gwIYPawwrOq9z5lpNmocvDquj6BvMi2MuW1VI3hx/rsXkin35D1pl
- Wvm+5h1oNtLAoK6qu48mHVkP5vIsprBnVSCeTdEzQXNqTViz/a16I8YSQT8K+vS3aAUm
- 5iZg==
+ d=1e100.net; s=20260707; t=1795605857; x=1796210657;
+ h=content-type:to:subject:message-id:date:from:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=bKcB04rSkuOWm7b4FPOKw09aZL7f06yLsTu8uJOudL4=;
+ b=1aGUls2LS7oIf9sNbAtMFotecSGPTpaDt7g0yDRQOX9maglf+X3ecNuH8qnT5DlrCr
+ MUXSL0wxZH2tMaOI3zs1iTnSew5uPkvv2SIpttgirIC5LLkr7GuwWaNNy3Mg4KxWqx2c
+ HtkPfm0z9g8WsiRQK6dw6hf9tK4gYl/lTrYVCA4bymoqEsBZ2rI+gHG9Skz9bqZ3Q0QW
+ P8qJK5HMlJZ3hsRGxIC2CvQpAgm/IWfmS3ZaZmOoCAhAMYCzz4FGcHWMuXUJ/N+H+Vxy
+ O29wAyb3KL8hc8vmc76/cUowExdhx2lcRjwFlnYvJLG/b++Wpqy9u/0qaK8rSMDK97CT
+ mBqA==
 X-Forwarded-Encrypted: i=1;
- AL+hErFy41Ro9PJEl7Uccti8S0LP3DhqhIr/1f38rMb/Lt0UurZWObltKLS65Q5s7DH0Ouwv9b4eLpHubJQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9cig8xViWCuLRsvt8mw5Z9Ce+WKRAGFvVuGHuhGLE8nRYec2TX
- 1EzlthcX/9TEa+jccotqTEl3ewJ2unB1JcOzH1Gw9P0ao8smPR72YvI=
-X-Gm-Gg: AZFdTZfqPPEXfoO3BuFgiCu931y4OPJ8496Z2MP9PhSIzlrUsKVXGryeMyfWOIURvlb
- FY1Rvo8KxNhuE8JVKsDNVySLf/Llor6vEwl2pqhGKkdNdlEYsJ3wvlDohGjHQYPnhPX14JPh/k3
- GHienEoOOgOjR31K9enX99VAg7jPn+GH6W9kA1fwjKk+bhWKqQ9mgYnGI0qPFPI/rzbkbiB1CoW
- pCX5fXwMzPZWa5C/wILgMEel4y0JYIQOZAgjZrHKQIHgUvUgoo0An5+e2nZQeU8ASQRqxClqWpe
- wAVB4MUKrxeXDh3dInmGpQ9PjEcbN4utt2JCfU4EDbUcbJ4cenP7DHU2zJCv2VfAbENMIy7xObi
- jwmv79LPzpJdogCVRED5aFMlt2XLNxvWrLFKaZm8oMtYyMop1aNtB4/m/md8uGW9AN4aU0Y3KDJ
- EQZ5r/+qQNbqq+43J7/l7khJ+qHkdS63yEI7KbNDrZBJwacHYhayvrmAV71HFa04X1evvmcwBXC
- KWXx8BSoBRk2ItnYY5JGP+4VZhXTv7zF+Eg6qOxvPKXkeH4nprAryflpSYTs42yOsjRLYCLQS5y
- rsA8DRWwxn5+9AHEtJ8cLZLEEA6BOmFLXAA4B5ccPkDT6tQuvhJvo4QLD+VrmoT96hk=
-X-Received: by 2002:a05:701b:2816:b0:1b5:3b83:5374 with SMTP id
- a92af1059eb24-1b5568cfbd9mr18022188c88.19.1795672741112; 
- Wed, 25 Nov 2026 21:59:01 -0800 (PST)
-Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5566c1142sm45249439c88.2.2026.11.25.21.58.57
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Wed, 25 Nov 2026 21:59:00 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
- Kyungmin Park <kyungmin.park@samsung.com>
-Cc: Yige Jiang <yigejiang86@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
- linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] drm/exynos: hdmi: put bridge reference on probe failure
-Date: Thu, 26 Nov 2026 13:58:53 +0800
-Message-ID: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
-X-Mailer: git-send-email 2.50.1
+ AL+hErFgfu/3DetxQH+UhKiW574v01Q9K6K3VCXm1CXysQ42869Txycy2mRn29Jr4cUFfghGIDCZvLuUPVY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+a4GktVVgRYB9PiU8fedViKbzXBA9/uamIOrUWgTtweatBwMS/
+ 6JJ1y82H9hDk50XLSnzwSbk+Uxm5T5QqkygpmZqVIMVZxNcJ9yNM65a2IdHp0w6IKfBK9AgxYoc
+ YSXHZ5QTnTHHPi3pHnBxnnaX7MJkT2tA=
+X-Gm-Gg: AZFdTZc6ib0QCK6HGwwi9r6ozdjCgxv73cFSKsUi+9MSDaDU5ltrZA1Nh+LFagT8RTe
+ IX6ZT6BjUAIlZysfkj70b8GelEYte3m6PpuuPtpZgqH4NS+FEnSmEpKXiqvF/lylWLP9Sw/4aKb
+ FJaNM3pVchy5xDsJeAqe1CArpXBsLr2k2yKjP7I/xO3YxDGiTubpoTHxBNj3VJFCN7mCqTqAfh+
+ 1Ex8s+J4o6csDrY5ZjN01urdqFWaijKBnEPOt0J773VA18MqXoFeZCHteMV5PlbaOui7j4wjDC+
+ 5x8Pz+azQb1LN25j97ia2ILEMQqMsd6OwwwmYRXWmmZQ1S5zDw3Dqd1ukgLWaVN9CTHnBWzGuh5
+ /qbfC0eLjqykFhSJBmJks3DZbph3syA0GCMsxR1SPtoOgaDv4bRarj3kFoZU3VNIlVs7rEPjs8a
+ iZStTJVeaO99QPzvVDChV+ksvdtIPfRxdV6XY4k2tlDuRNZi/f
+X-Received: by 2002:aa7:d287:0:b0:6bb:12db:8234 with SMTP id
+ 4fb4d7f45d1cf-6bb12db84e7mr1799402a12.2.1795605857019; Wed, 25 Nov 2026
+ 03:24:17 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+From: Herman Semenoff <germanaizek0@gmail.com>
+Date: Wed, 25 Nov 2026 14:24:34 +0300
+X-Gm-Features: Aa3M54pJ_uqM-aO8I_etcGL7mZiC9V0bQpHkeguXT2AOfz945hpX194hsCU4hyw
+Message-ID: <CAMnMt5aufzBXQvs2OeFpBqdh1_VgNUxstvkVX61dPPcfo94QOg@mail.gmail.com>
+Subject: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
+To: Dave Airlie <airlied@redhat.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Jocelyn Falempe <jfalempe@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -90,68 +100,176 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
+	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-hdmi_resources_init() ends with hdmi_bridge_init(), which takes a
-reference on the next bridge with of_drm_find_and_get_bridge(). That
-reference is only dropped in hdmi_remove(). When hdmi_probe() fails
-after hdmi_resources_init(), including the -EPROBE_DEFER returns for
-the DDC adapter, the PHY and the syscon lookups, the reference is
-leaked, once per failed probe attempt.
+From f9574b5a246bf9021ea75f530a9a8ab7c9995274 Mon Sep 17 00:00:00 2001
+From: Herman Semenoff <GermanAizek@yandex.ru>
+Date: Tue, 24 Nov 2026 12:53:31 +0300
+Subject: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
 
-The sashiko AI review bot pointed this out on dri-devel on 2026-07-16,
-in its review of an unrelated exynos_hdmi patch.
+On server platforms equipped with ASPEED BMC GPUs (such as AST2400 on
+Lenovo RD450X), VRAM is mapped over a slow PCIe link with limited
+bandwidth.
 
-Drop the reference at the end of the probe error path and route the two
-early returns after hdmi_resources_init() through it. drm_bridge_put()
-ignores NULL, which covers boards without a bridge on port 1.
+Currently, on every cursor move (e.g. via drmModeMoveCursor or atomic
+commit updating plane coordinates without damage clips),
+ast_cursor_plane_helper_atomic_update() invokes
+drm_atomic_helper_damage_merged(). Because userspace does not provide
+damage clips for pure cursor movements,
+drm_atomic_helper_damage_iter_init() treats the absence of clips as a
+full plane update. Consequently, on every mouse move event:
+ 1. ast_cursor_plane_get_argb4444() performs format conversion on CPU
+ 2. ast_set_cursor_image() recalculates 32-bit checksum on CPU
+ 3. memcpy_toio() pushes 8192 bytes over the slow PCIe link into VRAM
+ 4. Cursor base registers are reprogrammed
 
-Fixes: 2db0d298f22d ("drm/exynos: hdmi: convert to of_drm_find_and_get_bridge()")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/r/20260716132919.A3EA81F000E9@smtp.kernel.org
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Fix this by only updating the cursor image and base when the image
+actually changes (fb != old_fb, plane was previously invisible, or
+damage clips were provided). For pure position updates, only update
+the coordinates in the hardware cursor signature and registers,
+skipping VRAM transfer, format conversion, and checksum calculation.
+
+Additionally:
+- Add DRM_FORMAT_XRGB8888 support to ast_cursor_plane_formats and handle
+  it with opaque alpha in ast_cursor_plane_get_argb4444(), preventing
+  compositors from unnecessarily falling back to software cursors on the
+  primary plane
+- Implement .panic_flush in ast_primary_plane_helper_funcs to disable the
+  hardware cursor during kernel panics (CONFIG_DRM_PANIC)
+
+Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
+Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
 ---
-Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_DRM_EXYNOS=m, CONFIG_DRM_EXYNOS_HDMI=y, CONFIG_DRM_EXYNOS_MIXER=y, CONFIG_COMPILE_TEST=y; baseline and patched exynos_hdmi.o, no new warnings.
-No hardware or runtime test was performed.
-The path needs a bridge on HDMI port 1 and a later probe failure or deferral, e.g. a DDC adapter or PHY that is not ready yet.
+ drivers/gpu/drm/ast/ast_cursor.c | 39 +++++++++++++++++++++++++++++---
+ drivers/gpu/drm/ast/ast_drv.h    |  1 +
+ drivers/gpu/drm/ast/ast_mode.c   |  8 +++++++
+ 3 files changed, 45 insertions(+), 3 deletions(-)
 
- drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
-index d67a493c8fe4..cf570be8fdc3 100644
---- a/drivers/gpu/drm/exynos/exynos_hdmi.c
-+++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
-@@ -1997,12 +1997,12 @@ static int hdmi_probe(struct platform_device *pdev)
- 	hdata->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(hdata->regs)) {
- 		ret = PTR_ERR(hdata->regs);
--		return ret;
-+		goto err_bridge;
- 	}
- 
- 	ret = hdmi_get_ddc_adapter(hdata);
- 	if (ret)
--		return ret;
-+		goto err_bridge;
- 
- 	ret = hdmi_get_phy_io(hdata);
- 	if (ret)
-@@ -2079,6 +2079,8 @@ static int hdmi_probe(struct platform_device *pdev)
- 		iounmap(hdata->regs_hdmiphy);
- err_ddc:
- 	i2c_put_adapter(hdata->ddc_adpt);
-+err_bridge:
-+	drm_bridge_put(hdata->bridge);
- 
- 	return ret;
+diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast_cursor.c
+index 690d4cd1db5e..883d1e6f20bd 100644
+--- a/drivers/gpu/drm/ast/ast_cursor.c
++++ b/drivers/gpu/drm/ast/ast_cursor.c
+@@ -142,7 +142,7 @@ static void ast_set_cursor_location(struct
+ast_device *ast, u16 x, u16 y,
+  ast_set_index_reg(ast, AST_IO_VGACRI, 0xc7, y1);
  }
 
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+-static void ast_set_cursor_enabled(struct ast_device *ast, bool enabled)
++void ast_set_cursor_enabled(struct ast_device *ast, bool enabled)
+ {
+  static const u8 mask = (u8)~(AST_IO_VGACRCB_HWC_16BPP |
+      AST_IO_VGACRCB_HWC_ENABLED);
+@@ -162,6 +162,7 @@ static void ast_set_cursor_enabled(struct
+ast_device *ast, bool enabled)
+ static const uint32_t ast_cursor_plane_formats[] = {
+  DRM_FORMAT_ARGB4444,
+  DRM_FORMAT_ARGB8888,
++ DRM_FORMAT_XRGB8888,
+ };
+
+ static int ast_cursor_plane_helper_atomic_check(struct drm_plane *plane,
+@@ -229,6 +230,30 @@ static const u8
+*ast_cursor_plane_get_argb4444(struct ast_cursor_plane *ast_curs
+  argb4444 = argb4444_dst[0].vaddr;
+  }
+  break;
++ case DRM_FORMAT_XRGB8888:
++ {
++ struct iosys_map argb4444_dst[DRM_FORMAT_MAX_PLANES] = {
++ IOSYS_MAP_INIT_VADDR(ast_cursor_plane->argb4444),
++ };
++ unsigned int argb4444_dst_pitch[DRM_FORMAT_MAX_PLANES] = {
++ AST_HWC_PITCH,
++ };
++ unsigned int x, y;
++ u16 *dst16;
++
++ drm_fb_argb8888_to_argb4444(argb4444_dst, argb4444_dst_pitch,
++    shadow_plane_state->data, fb, clip,
++    &shadow_plane_state->fmtcnv_state);
++
++ for (y = clip->y1; y < clip->y2; y++) {
++ dst16 = (u16 *)(ast_cursor_plane->argb4444 +
++ y * AST_HWC_PITCH);
++ for (x = clip->x1; x < clip->x2; x++)
++ dst16[x] |= 0xf000;
++ }
++ argb4444 = argb4444_dst[0].vaddr;
++ }
++ break;
+  }
+
+  drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
+@@ -261,13 +286,21 @@ static void
+ast_cursor_plane_helper_atomic_update(struct drm_plane *plane,
+  unsigned int offset_x, offset_y;
+  u16 x, y;
+  u8 x_offset, y_offset;
++ bool update_image;
+
+  /*
+  * Do data transfer to hardware buffer and point the scanout
+- * engine to the offset.
++ * engine to the offset only if the cursor image actually changed
++ * or the plane became visible. For pure cursor moves, avoid
++ * expensive PCIe bus transfers, format conversion, and checksum
++ * calculation.
+  */
++ update_image = (fb != old_plane_state->fb) ||
++       !old_plane_state->visible ||
++       drm_plane_get_damage_clips_count(plane_state);
+
+- if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &damage)) {
++ if (update_image &&
++    drm_atomic_helper_damage_merged(old_plane_state, plane_state, &damage)) {
+  const u8 *argb4444 = ast_cursor_plane_get_argb4444(ast_cursor_plane,
+    shadow_plane_state,
+    &damage);
+diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_drv.h
+index 4f221b848d68..d846d5cf4f5e 100644
+--- a/drivers/gpu/drm/ast/ast_drv.h
++++ b/drivers/gpu/drm/ast/ast_drv.h
+@@ -542,6 +542,7 @@ int ast_sil164_output_init(struct ast_device *ast);
+ /* ast_cursor.c */
+ long ast_cursor_vram_offset(struct ast_device *ast);
+ int ast_cursor_plane_init(struct ast_device *ast);
++void ast_set_cursor_enabled(struct ast_device *ast, bool enabled);
+
+ /* ast dp501 */
+ bool ast_backup_fw(struct ast_device *ast, u8 *addr, u32 size);
+diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_mode.c
+index 08db132acae8..f94f849d157b 100644
+--- a/drivers/gpu/drm/ast/ast_mode.c
++++ b/drivers/gpu/drm/ast/ast_mode.c
+@@ -639,6 +639,13 @@ static int
+ast_primary_plane_helper_get_scanout_buffer(struct drm_plane *plane,
+  return -ENODEV;
+ }
+
++static void ast_primary_plane_helper_panic_flush(struct drm_plane *plane)
++{
++ struct ast_device *ast = to_ast_device(plane->dev);
++
++ ast_set_cursor_enabled(ast, false);
++}
++
+ static const struct drm_plane_helper_funcs ast_primary_plane_helper_funcs = {
+  DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+  .atomic_check = ast_primary_plane_helper_atomic_check,
+@@ -646,6 +653,7 @@ static const struct drm_plane_helper_funcs
+ast_primary_plane_helper_funcs = {
+  .atomic_enable = ast_primary_plane_helper_atomic_enable,
+  .atomic_disable = ast_primary_plane_helper_atomic_disable,
+  .get_scanout_buffer = ast_primary_plane_helper_get_scanout_buffer,
++ .panic_flush = ast_primary_plane_helper_panic_flush,
+ };
+
+ static const struct drm_plane_funcs ast_primary_plane_funcs = {
+-- 
+2.55.0
