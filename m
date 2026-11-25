@@ -2,79 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B375D606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F4C9606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=G2b20yBN
+	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.a=rsa-sha256 header.s=default header.b=aKmJIWCR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A3BED1120F0;
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB7581120EC;
 	Thu, 26 Nov 2026 08:09:07 +0000 (UTC)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com
- [74.125.82.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 860A610E191
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:47:35 +0000 (UTC)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-385c497bf94so4398025eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:47:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795661255; x=1796266055; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=3MxnqOC+HvmSMfN8r198TjSpJ0x8uZyT0+qz3vMDZEs=;
- b=G2b20yBNBsJ9jAobfb++sb+YCcZyezQm+gWRH2tmJF+49cq1d7jvmthXIO9qd1ignn
- MRhCrx7alLWkq8RIwmE7uFNfn6JwykdeehiWvo8K9lxFqxGnS5rSJCU1bxHDK6Al5bIQ
- ldeLMN0Qxy2Ud1CTRIPbPL/FGgePITtjipVhQBbr2dO9FkJGhD9TKMkNV0ENRAZ80nly
- ZrGQTA8UR0p4dv2nGQLcXZcXjjBPOcUPvZNLLX9h+CuNsVXKHxRpIQsVSaumVZNN3BNK
- ebvaTlsOr5iblXnHqs+OPDHoAPlKcmZjm8JokFuSO6BNkyjZg1wJ+bHFMA/iVIP003XN
- JOGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795661255; x=1796266055;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=3MxnqOC+HvmSMfN8r198TjSpJ0x8uZyT0+qz3vMDZEs=;
- b=OFXOVfz6dp63LHeaihUJxjKg9xDX2hSzdx2zj5uAyugOkfM6+9l8+SFyuAQvNVoyKJ
- /NuqZJslkJ4puygZQ0qS2cipkQB5l0n7dbkM7f62BUxaXDXZqnql33RaTaOPlPJ3xFkk
- w94bsOxA46GhoqBSy6GFaSEBnRF+nRLbC9stX7iJkgtSvAUyE6arqtVtSe4odoYh7Cn5
- ImqufNIKT8Ewjg/d0nb4gbs8rTcVoyJZjFpC4DCYYpgsLh/RwP1CNY97Ah27OQFLzHif
- P5JzuC3WXQ72oXjNzQLAdjWAkE7tl2BupAaAA3/1Q1auSqO3hkJYQL5QAtpSWPA2X1U8
- wnvw==
-X-Gm-Message-State: APuU4Z9rbd3IFQlCP7AGnxqLNCDfojX0O8RtgukNGx5NbII332r7bByH
- /OQ0vbu5OCqbiP6NhXZQkRQQqp0lVF7O0XlKUQstBXazGmbOAVneYWHw79qkq9ah
-X-Gm-Gg: AZFdTZfvpVlrvPk41SgoGAX2aUMTOJKahDbPZ9j64q+szJC81NDocf7j3Ab+hw5cGEi
- Uiu0XMz+NQgYw+yFs5odejJSQxDyxV/mzWr8ETlZ5vzhv+3oLpSkq003QoRBIPojknUd3lYScRk
- daRFaZ9mcAuOcCJXMUvpHgcLKngWRSij6y8JtzYUaLSwigJ1W/zsogdRpqc+g4shG5eIAFRXpN6
- nP6Nm+/ovP2jNy+V3i9iqAGHUZSTOZz8f3pfhey6BRy1vOV/00RzRJXWtX1TahJWcXUBG7fk/lE
- IQG7f3yLAFzoh6LmC+VCyg6BwkoY4tl1SmC3UzIb8F8uB123OY3HeP9QyjF0xZS7IMU85cUBaS4
- CvQvX4NeuMdwNgMIYHIh4qC8x6f20u5zIbn9p9YRwMWjFR7nLG8LTnqNdX8OW1N/1e2USK5+fLj
- sZmhGyUKQUo0raeQbVdb9tFIAtNrY9fcAj+lOgqf6LfSzB0p7dDSbynFTmQr3q+kgmtQqi7FUtY
- uAf78DCteh7kO0hZbWOu8iKdyTMiZOo6fdVVhUkMotum6uOtjcG0oyxHIBZrme+MDMHJeE7DW6K
- KFaHTrk2FwuH9nV9kiKKZ9HedoCIWMCohV5t5ZvCEzX+8xuYe2r5QXAXSihre6E=
-X-Received: by 2002:a05:693c:805a:b0:376:a6d7:8f51 with SMTP id
- 5a478bee46e88-3856e63bbe9mr23527078eec.12.1795661254780; 
- Wed, 25 Nov 2026 18:47:34 -0800 (PST)
-Received: from a-VirtualBox ([168.188.125.88])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385666e99fdsm70815493eec.5.2026.11.25.18.47.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 18:47:34 -0800 (PST)
-From: Minseo Park <hiyoukou@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, alain.volmat@foss.st.com, rgallaispou@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, benjamin.gaignard@collabora.com,
- Minseo Park <hiyoukou@gmail.com>
-Subject: [PATCH v2 4/4] drm/sti: hqvdp: register the VTG client from
- .atomic_update()
-Date: Thu, 26 Nov 2026 11:47:10 +0900
-Message-ID: <20261126024710.33401-5-hiyoukou@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126024710.33401-1-hiyoukou@gmail.com>
-References: <20261126024710.33401-1-hiyoukou@gmail.com>
+Received: from forwardcorp2e.mail.yandex.net (forwardcorp2e.mail.yandex.net
+ [93.77.172.5])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4683410FDCD
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:11:02 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-corp-main-80
+ (mail-nwsmtp-smtp-corp-main-80.yp-c.yandex.net)
+ by forwardcorp2e.mail.yandex.net (postfix) with ESMTPS id BDD10C02AF;
+ Wed, 25 Nov 2026 20:03:39 +0300 (MSK)
+Received: from [127.0.1.1]
+ by mail-nwsmtp-smtp-corp-main-80 with ESMTPSA id a3lrP22Zo8c0-42NguKdy;
+ Wed, 25 Nov 2026 20:03:39 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; t=1795626219;
+ bh=5fyibea5xsAv0DxgVuzf78dNLQbsIr/IVZ3YzJ6A8X0=;
+ h=Cc:To:Message-Id:Date:Subject:From;
+ b=aKmJIWCRFpLJGwyIXhwL4qDqJkPOWvlFxpoxvA7QEnoOKlkJVev9qiCttoz75Zteg
+ +d4EUsuZmhd0Rg/y1xuane2A+gLvyZrCJ4Czbd3aYSSnxNj6WrIdb6g6m/lJ+cmn1n
+ GOAGkFjoRZTu+pswm7r6h5p2Yf8m1pwa2WbgZ+oY=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-80;
+ dkim=pass header.i=@yandex-team.ru
+From: Mikhail Rudenko <xyzzy@yandex-team.ru>
+Subject: [PATCH 0/3] Implement handoff for EFI earlycon
+Date: Wed, 25 Nov 2026 20:03:24 +0300
+Message-Id: <20261125-efi-earlycon-v1-0-49ac2c0a430b@yandex-team.ru>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDQyNT3dS0TN3UxKKcyuT8PF1Tw+QUk6RUk1SLFGMloJaCIqB0Bdi46Fg
+ Iv7g0KSs1uQRkhlJtLQCwffS9cAAAAA==
+X-Change-ID: 20261125-efi-earlycon-51cd4be4e8d3
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Peter Jones <pjones@redhat.com>, 
+ Helge Deller <deller@gmx.de>, Hans de Goede <hansg@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Mikhail Rudenko <xyzzy@yandex-team.ru>
+X-Mailer: b4 0.15.2
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,94 +68,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-sti_hqvdp_atomic_check() enables the main pixel clock and registers the
-VTG vsync notifier.
+This small series aims at making EFI earlycon a better debugging
+tool. Currently, when earlycon=efifb us requested, there are two
+options. (1) By default, earlycon is unregistered as soon as real
+console comes up, before devices init. Sometimes, "real" device is VT
+with dummycon, resulting in no console output untile framebuffer/drm
+console takes over. (2) When keep_bootcon option is used, earlycon
+never unregisters. This solves the issue of (1), but results in
+display corruption when both EFI earlycon and framebuffer/drm drivers
+write to the same aperture.
 
-.atomic_check() must not touch the hardware.  A commit with
-DRM_MODE_ATOMIC_TEST_ONLY only runs the check hooks, and a commit that
-fails a later check is dropped, so either way the clock is left enabled
-and the notifier registered for a configuration that was never applied.
+The approach here is to take the best from (1) and (2): EFI earlycon
+unregisters exactly when the frambuffer/drm driver claims
+aperture. This new behavior is gated with 'earlycon=efifb,handoff'
+option, so the default case does not change.
 
-Neither of the two belongs in device init.  sti_vtg_register_client()
-stores the CRTC the plane is attached to, which a commit provides and
-device init does not, and the clock enable is undone by the matching
-clk_disable_unprepare() in sti_hqvdp_disable(), so it follows the
-streaming lifetime rather than the device lifetime.  Move both to
-.atomic_update(), where sti_gdp already registers its own VTG client the
-same way.
+Patch 1 aligns EFI earlycon framebuffer unmapping time with actual
+console unregistration.
 
-The failure paths can no longer reject the commit, so they are logged
-once and the plane is left alone.
+Patch 2 moves aperture ackquisition in efifb and simplefb before
+mapping the framebuffer. Also it moves resource size checks before
+aperture ackquisition in simpledrm.
 
-Fixes: dd86dc2f9ae1 ("drm/sti: implement atomic_check for the planes")
-Signed-off-by: Minseo Park <hiyoukou@gmail.com>
+Finally, patch 3 implements "handoff" option for efifb, and wires
+conditional EFI earlycon unregistration to
+devm_aperture_acquire_for_platform_device(),
+aperture_remove_conflicting_devices() and
+aperture_remove_conflicting_pci_devices().
+
+Signed-off-by: Mikhail Rudenko <xyzzy@yandex-team.ru>
 ---
- drivers/gpu/drm/sti/sti_hqvdp.c | 37 +++++++++++++++++----------------
- 1 file changed, 19 insertions(+), 18 deletions(-)
+Mikhail Rudenko (3):
+      efi: earlycon: unmap framebuffer when the console is unregistered
+      video: acquire firmware framebuffer apertures before mapping
+      video: aperture: hand off EFI earlycon on aperture ackquisition
 
-diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hqvdp.c
-index c6b6ed54b899..17c7f5a7854c 100644
---- a/drivers/gpu/drm/sti/sti_hqvdp.c
-+++ b/drivers/gpu/drm/sti/sti_hqvdp.c
-@@ -1081,24 +1081,6 @@ static int sti_hqvdp_atomic_check(struct drm_plane *drm_plane,
- 		return -EINVAL;
- 	}
- 
--	if (!hqvdp->vtg_registered) {
--		/* Prevent VTG shutdown */
--		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
--			DRM_ERROR("Failed to prepare/enable pix main clk\n");
--			return -EINVAL;
--		}
--
--		/* Register VTG Vsync callback to handle bottom fields */
--		if (sti_vtg_register_client(hqvdp->vtg,
--					    &hqvdp->vtg_nb,
--					    crtc)) {
--			DRM_ERROR("Cannot register VTG notifier\n");
--			clk_disable_unprepare(hqvdp->clk_pix_main);
--			return -EINVAL;
--		}
--		hqvdp->vtg_registered = true;
--	}
--
- 	DRM_DEBUG_KMS("CRTC:%d (%s) drm plane:%d (%s)\n",
- 		      crtc->base.id, sti_mixer_to_str(to_sti_mixer(crtc)),
- 		      drm_plane->base.id, sti_plane_to_str(plane));
-@@ -1148,6 +1130,25 @@ static void sti_hqvdp_atomic_update(struct drm_plane *drm_plane,
- 	}
- 
- 	mode = &crtc->mode;
-+
-+	if (!hqvdp->vtg_registered) {
-+		/* Prevent VTG shutdown */
-+		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
-+			drm_err_once(drm_plane->dev,
-+				     "Failed to prepare/enable pix main clk\n");
-+			return;
-+		}
-+
-+		/* Register VTG Vsync callback to handle bottom fields */
-+		if (sti_vtg_register_client(hqvdp->vtg, &hqvdp->vtg_nb, crtc)) {
-+			drm_err_once(drm_plane->dev,
-+				     "Cannot register VTG notifier\n");
-+			clk_disable_unprepare(hqvdp->clk_pix_main);
-+			return;
-+		}
-+		hqvdp->vtg_registered = true;
-+	}
-+
- 	dst_x = newstate->crtc_x;
- 	dst_y = newstate->crtc_y;
- 	dst_w = clamp_val(newstate->crtc_w, 0, mode->hdisplay - dst_x);
--- 
-2.43.0
+ Documentation/admin-guide/kernel-parameters.txt |  5 ++-
+ drivers/firmware/efi/earlycon.c                 | 49 ++++++++++++++++++++++---
+ drivers/gpu/drm/sysfb/simpledrm.c               | 28 +++++++-------
+ drivers/video/aperture.c                        | 13 ++++++-
+ drivers/video/fbdev/efifb.c                     | 12 +++---
+ drivers/video/fbdev/simplefb.c                  | 11 +++---
+ include/linux/efi.h                             |  7 ++++
+ 7 files changed, 93 insertions(+), 32 deletions(-)
+---
+base-commit: 6628e7d4c6b25c8d18f1345e3a20d21829aae7e4
+change-id: 20261125-efi-earlycon-51cd4be4e8d3
+
+Best regards,
+--  
+Mikhail Rudenko <xyzzy@yandex-team.ru>
 
