@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F575606A695
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F78606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=shAo7SdN
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=anXMl4pv
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B7F5A10FE73;
-	Wed, 25 Nov 2026 17:52:44 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 05C4910E286
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F291210FE78;
+	Wed, 25 Nov 2026 17:52:51 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 057BA10E286
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:42 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id C85E51A17FA;
- Wed, 25 Nov 2026 17:52:34 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 9A43FC2B9C3;
+ Wed, 25 Nov 2026 17:52:48 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 9C9E060480;
- Wed, 25 Nov 2026 17:52:34 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id A26E860480;
+ Wed, 25 Nov 2026 17:52:40 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AC1C811E6B0D2; Wed, 25 Nov 2026 18:52:25 +0100 (CET)
+ with ESMTPSA id 90B6D11E6B0CA; Wed, 25 Nov 2026 18:52:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629152; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629158; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=K/q1yAvr6XkI84cojadbVWLoEVrZ2+B7AbCD60d4iaI=;
- b=shAo7SdNlXc1r7UxuO7i9mk83cTF+LUto5PoOa2Brwk0Lh/A4DY7a7ccttQQT5RQkbb0iJ
- 2pmbSAL7oZzDwTgL6bjk7ia4uvxzzSVYWPzUVMKDgWQzbN3YZ19ffD2MQV913semqpp5Hy
- dbPxW8nZmD7O3c/mZo2Bdo0rT2PJl9M4w02p4cffcXujcf9elqOZeqScq2xo+U7FS3R9pR
- xMUYgP6VM1Uboea7pPAR1cMarXhawpG3/++O+fqJ7tpP9jyOFVrboJC21kQ8JPU9cxr0Pc
- gnM6lZLsuurXaFuXdc1fqUYVKPCxZUrKN2TVBk4SFjYszvp6NVnhn0+aeQI0Nw==
+ bh=6cbsoztBQcTi641oZ6OxIPoBLguf/ah1kPl/rYJNvpY=;
+ b=anXMl4pvSSNFgVY/qlO/0Fs59i17Xq9P02OZgtWSEzIcXcLB4qmfuWpMDhRAU1649frZbw
+ OCqUUVBIgKyajIQKNU5i+KMMmxe/UvqH4lWK0SnOoGZkeckzSfY7/vWh8aI/JYA0hOhSwn
+ 3ASSNiPb+1QSIDHT8LzpFO1597uIaMjDpjb/5Si4XDxf08QDC0Im8nSvpN0u5mfTtU4PW7
+ CoKnSpbFe8GuoFy4opoFh2D4Adcd/ukL0ioqjEvy1pMYshNGJkCjLMUUhQc+zqUofnlKPx
+ OPE1UfOlmcuVec2D1jrwTaNS7wiP4odJdLFe9lOm9H4zAeNwwoWrfQao3IAwoA==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:28 +0100
-Subject: [PATCH v4 15/32] drm/atomic: drm_atomic_private_obj_fini: protect
- private_obj removal from list
+Date: Wed, 25 Nov 2026 18:50:29 +0100
+Subject: [PATCH v4 16/32] drm/probe-helper: add per-connector polling
+ enable/disable
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-15-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-16-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -83,88 +83,173 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Currently drm_bridge_detach() expects that the bridge private_obj is not
-locked by a drm_modeset_acquire_ctx, and it warns in case that happens:
+With the upcoming DRM bridge hotplug support, drm_connectors will be added
+and removed at any time after initial card probing.
 
-  drm_bridge_detach()
-  -> drm_atomic_private_obj_fini()
-     -> list_del(&obj->head) // removes priv_obj from
-                             // dev->mode_config.privobj_list
-     -> obj->funcs->atomic_destroy_state()
-     -> drm_modeset_lock_fini(&obj->lock)
-        -> WARN_ON(!list_empty(&lock->head)) // warn if priv_obj->lock
-	                                     // is still in ctx->locked
+This means the existing calls to drm_kms_helper_poll_init() at probe time
+will not enable HPD on connectors added later on (and potentially not start
+the polling work), so late connectors cannot perform HPD polling.
 
-The expectation is not respected when introducing bridge hot-plugging. In
-such case the warning triggers if the bridge is being removed concurrently
-to an operation that locks the private object using a
-drm_modeset_acquire_ctx, such as in this execution scenario:
+Similarly, drm_kms_helper_poll_fini() cannot disable HPD for hot-unplugged
+connectors without disabling it for other connectors.
 
-  CPU0:
-  drm_mode_obj_get_properties_ioctl() // userspace request
-  -> DRM_MODESET_LOCK_ALL_BEGIN()
-  .  -> drm_for_each_privobj() // loop on dev->mode_config.privobj_list
-  .     - lock the privobj mutex
-  .	- add priv_obj->lock to ctx->locked
-  .	  (list of locks to be released later)
-  .
-  .                         CPU1:
-  .                         drm_bridge_detach() // bridge hot-unplug
-  .		            -> WARN triggers!
-  .
-  -> DRM_MODESET_LOCK_ALL_END()
-     -> for each lock in ctx->locked
-	- remove priv_obj->lock from ctx->locked
-        - unlock the privobj mutex
+Add drm_kms_helper_poll_enable_connector() and
+drm_kms_helper_poll_disable_connector() to enable or disable HPD for a
+single connector, and also arm the work when an enabled connector requests
+polling and stop on disable it unless other connectors still need it.
 
-Fix this by using DRM_MODESET_LOCK_ALL_BEGIN/END() around the list removal
-in drm_atomic_private_obj_fini() to ensure the two threads above
-(CPU0/CPU1) cannot happen concurrently.
+Polling must still be initialized once per device with
+drm_kms_helper_poll_init() and finally torn down with
+drm_kms_helper_poll_fini().
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Changes in v4:
-- fixed conflicts after commit 6386ba453468 ("drm/atomic: Fix private obj
-  error handling")
-
-Notes:
- * This patch was sent separately in the past [0]
- * The issue is still happening with hotplug without this patch
- * The issue has also been reported by sashiko when reviewing v2 [1]
-
-[0] https://lore.kernel.org/dri-devel/20260324-drm-bridge-atomic-vs-remove-private_obj-v3-1-64deefe84044@bootlin.com/
-[1] https://lore.kernel.org/all/20261001130542.A40D11F00898@smtp.kernel.org/
+New patch in v4
 ---
- drivers/gpu/drm/drm_atomic.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/gpu/drm/drm_probe_helper.c | 92 ++++++++++++++++++++++++++++++++++++++
+ include/drm/drm_probe_helper.h     |  2 +
+ 2 files changed, 94 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_atomic.c b/drivers/gpu/drm/drm_atomic.c
-index 1c3fe07b327e..096f85419b36 100644
---- a/drivers/gpu/drm/drm_atomic.c
-+++ b/drivers/gpu/drm/drm_atomic.c
-@@ -1106,6 +1106,9 @@ EXPORT_SYMBOL(drm_atomic_private_obj_init);
- void
- drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- {
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret = 0;
-+
- 	/*
- 	 * Some callers ignore drm_atomic_private_obj_init() failures
- 	 * and unconditionally register a teardown action that calls
-@@ -1117,7 +1120,10 @@ drm_atomic_private_obj_fini(struct drm_private_obj *obj)
- 	if (list_empty(&obj->head))
- 		return;
- 
-+	DRM_MODESET_LOCK_ALL_BEGIN(obj->dev, ctx, 0, ret);
- 	list_del_init(&obj->head);
-+	DRM_MODESET_LOCK_ALL_END(obj->dev, ctx, ret);
-+
- 	obj->funcs->atomic_destroy_state(obj, obj->state);
- 	drm_modeset_lock_fini(&obj->lock);
+diff --git a/drivers/gpu/drm/drm_probe_helper.c b/drivers/gpu/drm/drm_probe_helper.c
+index 856b40fdaac4..e468971ab642 100644
+--- a/drivers/gpu/drm/drm_probe_helper.c
++++ b/drivers/gpu/drm/drm_probe_helper.c
+@@ -224,6 +224,14 @@ drm_connector_mode_valid(struct drm_connector *connector,
+ 	return ret;
  }
+ 
++static void drm_kms_helper_disable_hpd_connector(struct drm_connector *connector)
++{
++	const struct drm_connector_helper_funcs *funcs = connector->helper_private;
++
++	if (funcs && funcs->disable_hpd)
++		funcs->disable_hpd(connector);
++}
++
+ static void drm_kms_helper_disable_hpd(struct drm_device *dev)
+ {
+ 	struct drm_connector *connector;
+@@ -240,6 +248,16 @@ static void drm_kms_helper_disable_hpd(struct drm_device *dev)
+ 	drm_connector_list_iter_end(&conn_iter);
+ }
+ 
++static bool drm_kms_helper_enable_hpd_connector(struct drm_connector *connector)
++{
++	const struct drm_connector_helper_funcs *funcs = connector->helper_private;
++
++	if (funcs && funcs->enable_hpd)
++		funcs->enable_hpd(connector);
++
++	return (connector->polled & (DRM_CONNECTOR_POLL_CONNECT | DRM_CONNECTOR_POLL_DISCONNECT));
++}
++
+ static bool drm_kms_helper_enable_hpd(struct drm_device *dev)
+ {
+ 	bool poll = false;
+@@ -316,6 +334,32 @@ void drm_kms_helper_poll_enable(struct drm_device *dev)
+ }
+ EXPORT_SYMBOL(drm_kms_helper_poll_enable);
+ 
++/**
++ * drm_kms_helper_poll_enable_connector - enable output polling for a connector
++ * @connector: the connector
++ *
++ * Enables output polling @connector and reschdules the polling work if
++ * needed. Intended for connectors which are added after initial probing.
++ *
++ * This must be called after polling has been initialized by
++ * drm_kms_helper_poll_init(). Safe to call while polling is already
++ * running.
++ */
++void drm_kms_helper_poll_enable_connector(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++
++	if (drm_WARN_ON_ONCE(dev, !dev->mode_config.poll_enabled) || !drm_kms_helper_poll)
++		return;
++
++	if (drm_kms_helper_enable_hpd_connector(connector) ||
++	    dev->mode_config.delayed_event)
++		reschedule_output_poll_work(dev);
++
++	dev->mode_config.poll_running = true;
++}
++EXPORT_SYMBOL(drm_kms_helper_poll_enable_connector);
++
+ /**
+  * drm_kms_helper_poll_reschedule - reschedule the output polling work
+  * @dev: drm_device
+@@ -927,6 +971,54 @@ void drm_kms_helper_poll_disable(struct drm_device *dev)
+ }
+ EXPORT_SYMBOL(drm_kms_helper_poll_disable);
+ 
++static bool drm_kms_helper_has_other_connectors(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++	struct drm_connector *curr;
++	struct drm_connector_list_iter conn_iter;
++	bool remaining = false;
++
++	drm_connector_list_iter_begin(dev, &conn_iter);
++	drm_for_each_connector_iter(curr, &conn_iter) {
++		if (curr != connector &&
++		    curr->registration_state == DRM_CONNECTOR_REGISTERED) {
++			remaining = true;
++			break;
++		}
++	}
++	drm_connector_list_iter_end(&conn_iter);
++
++	return remaining;
++}
++
++/**
++ * drm_kms_helper_poll_disable_connector - disable output polling for a connector
++ * @connector: the connector
++ *
++ * Disables output polling for @connector. If there are no other registered
++ * connectors, also disables the output poll work.
++ *
++ * Polling stays initialized; call drm_kms_helper_poll_fini() to tear it
++ * down. Does nothing if output polling is not initialized by
++ * drm_kms_helper_poll_init().
++ */
++void drm_kms_helper_poll_disable_connector(struct drm_connector *connector)
++{
++	struct drm_device *dev = connector->dev;
++
++	if (!dev->mode_config.poll_enabled)
++		return;
++
++	drm_kms_helper_disable_hpd_connector(connector);
++
++	if (dev->mode_config.poll_running &&
++	    !drm_kms_helper_has_other_connectors(connector)) {
++		cancel_delayed_work_sync(&dev->mode_config.output_poll_work);
++		dev->mode_config.poll_running = false;
++	}
++}
++EXPORT_SYMBOL(drm_kms_helper_poll_disable_connector);
++
+ /**
+  * drm_kms_helper_poll_init - initialize and enable output polling
+  * @dev: drm_device
+diff --git a/include/drm/drm_probe_helper.h b/include/drm/drm_probe_helper.h
+index 840ae5f798c2..ae58c1b078fe 100644
+--- a/include/drm/drm_probe_helper.h
++++ b/include/drm/drm_probe_helper.h
+@@ -26,7 +26,9 @@ void drm_kms_helper_hotplug_event(struct drm_device *dev);
+ void drm_kms_helper_connector_hotplug_event(struct drm_connector *connector);
+ 
+ void drm_kms_helper_poll_disable(struct drm_device *dev);
++void drm_kms_helper_poll_disable_connector(struct drm_connector *connector);
+ void drm_kms_helper_poll_enable(struct drm_device *dev);
++void drm_kms_helper_poll_enable_connector(struct drm_connector *connector);
+ void drm_kms_helper_poll_reschedule(struct drm_device *dev);
+ bool drm_kms_helper_is_poll_worker(void);
+ 
 
 -- 
 2.56.1
