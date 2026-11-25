@@ -2,44 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5E8606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 22:47:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F01C606A32A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 22:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=Gt2P0ZVz
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=HjUMR54I
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 829DA10FFD9;
-	Wed, 25 Nov 2026 22:47:38 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9FB9810FFE4;
+	Wed, 25 Nov 2026 22:47:45 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 389FD10E525
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:47:27 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795646835; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 05F7010E525
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:47:35 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795646843; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=nQFoYGV41ffDsF1IRkYk+kKZxQr+eNNvxssOZlhsDku4O0oXeAJfIkI765/ijMbRn5S4vg1tEV9+4+EN9UIsEsQi7i4YNrLZLk7DtPYnMcHiACpH2Ezmg9EEnrinTQwiLmOaYDp6gnjyrl+tvYGDvXSOK98uB9b2mZ1dbKKaP1g=
+ b=GcH9Vp6CU1ED8YNzdFNZu/sNdRopYC8GWq+kvQO2KwIedRr5UNDXkv8izOgreElxtWC0nv+nmr+4J7AIMTKXcrDkV94bo33Lzk0O6mDdwdwVCSRS0p0xB1IFOSDmV2O6bPKvY3aNJqMuRSQzzFwxINo42sFML8ri0IChulA4+s4=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795646835;
+ s=zohoarc; t=1795646843;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=ZdWRi8zA1ua11I581iM4xwj+4Pga6MDcixxXt5D4L/o=; 
- b=bclh7U3Rt2WfpM/srLLvX6yORbAw5w091jVAmMQxCyk2FkONAVwUDNe+hUM9KxZqHDEMZuJAi6D65f7oC6Lf/urh70gWDflGe04VYRoZP4ZxvfkQ5mdjCdofT0T3rvk4erkEACcx9Orcu8Tu+6divGIEwfFEm56KXJukj4VZMzU=
+ bh=oyf1Ba7uOLMZNhpIzJe7ZwyMF7MLDDOOqAlfIKIFlO8=; 
+ b=WFcfeM0tiYxKvEXQWaEqHmxcX7kE+KvVk7i5bD83KJtJ9J8coYps9/9E1+SFH7Xg4gmWvbPorann+3F6FLE3uWf+eoaLWXrh3Ytkea9oFx7hlbTpnl4Mrehml9p8izcrD+AE+PiXa2yVhw4Z7yjw0T/u9tbzKxaalhT5KjdgTYk=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=Gt2P0ZVzekEySP2CNLLGPfWHKqaLglWKrA8842B689/03OFib3MivfMOn/PP2JQUiKcbkI3QRyfBph+4C81cuvJZBPpJcQE9iY6jVCC7KCWxoKaM4ssiasMM8PH5uhAXYdIt4lgyjUZOtuUs2ZKhPBnBSXrz5/kAQAD3XAz/fAI=;
+ b=HjUMR54ItSE4LcaTq/Xgogoc+AMMk4iaankM2Tx569/MJ0obxeU8IOV6FrrLbKIPRep2kunYzGeAmQXaHi6qBOZyx7m5jkDpiD2sFKM47nPBkqFp6Jk1UGyuDfFyNRfSLIk0V+rFwDjQbI/GYLFBSvLOAY3pBO5AoSP4S1E71f0=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=ZdWRi8zA1ua11I581iM4xwj+4Pga6MDcixxXt5D4L/o=;
+ bh=oyf1Ba7uOLMZNhpIzJe7ZwyMF7MLDDOOqAlfIKIFlO8=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795646832404642.2890147683337;
- Wed, 25 Nov 2026 14:47:12 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795646842109819.1062793227454;
+ Wed, 25 Nov 2026 14:47:22 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Wed, 25 Nov 2026 19:46:52 -0300
-Subject: [PATCH 01/13] drm/tyr: convert SeatInfo::slot from u8 to usize
+Date: Wed, 25 Nov 2026 19:46:54 -0300
+Subject: [PATCH 03/13] drm/tyr: convert the lock region exponents from u8
+ to u32
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-b4-tyr-as-casts-v1-1-2b2f53164d86@collabora.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261125-b4-tyr-as-casts-v1-3-2b2f53164d86@collabora.com>
 References: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 In-Reply-To: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -76,153 +77,50 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 An `as` cast silently drops the bits that do not fit the target type,
 and nothing at the cast shows whether that can happen. As part of a
-larger effort to reduce the number of `as` casts in Tyr, convert
-`SeatInfo::slot` from `u8` to `usize`.
+larger effort to reduce the number of `as` casts in Tyr, convert the
+lock region exponents in `as_start_update()` from `u8` to `u32`.
 
-The slot index is stored as a `u8`, while the code that uses it takes a
-`usize`. The casts follow from that choice. The index is cast with `as`
-on the way into a `SeatInfo` and on the way out, and
-`SlotManager::new()` rejects more than 256 slots so that the cast to
-`u8` cannot truncate.
+`as_start_update()` works out the size of the region to lock as a power
+of two. It takes the exponents from `trailing_zeros()` and
+`leading_zeros()`, which return `u32`, and narrows them to `u8` with
+`as`. The result is then widened back to `u32` for `checked_shl()`.
 
-Store the index as `usize`, which removes the casts and the limit.
+Keep the exponents as `u32`, which removes the casts.
+
+No functional change intended.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- drivers/gpu/drm/tyr/mmu/address_space.rs | 15 +++------------
- drivers/gpu/drm/tyr/slot.rs              | 23 +++++++++--------------
- 2 files changed, 12 insertions(+), 26 deletions(-)
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
-index 76e3d2df6afd..dd6377bee989 100644
+index a388c0087b20..f6ccb0d7e3ed 100644
 --- a/drivers/gpu/drm/tyr/mmu/address_space.rs
 +++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
-@@ -467,10 +467,7 @@ pub(super) fn start_vm_update(
-     ) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-         match seat.slot() {
--            Some(slot) => {
--                let as_nr = slot as usize;
--                self.as_start_update(as_nr, region)
--            }
-+            Some(slot) => self.as_start_update(slot, region),
-             _ => Ok(()),
-         }
-     }
-@@ -479,10 +476,7 @@ pub(super) fn start_vm_update(
-     pub(super) fn end_vm_update(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-         match seat.slot() {
--            Some(slot) => {
--                let as_nr = slot as usize;
--                self.as_end_update(as_nr)
--            }
-+            Some(slot) => self.as_end_update(slot),
-             _ => Ok(()),
-         }
-     }
-@@ -491,10 +485,7 @@ pub(super) fn end_vm_update(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-     pub(super) fn flush_vm(&mut self, vm_as_data: &VmAsData<'drm>) -> Result {
-         let seat = vm_as_data.as_seat.access(self);
-         match seat.slot() {
--            Some(slot) => {
--                let as_nr = slot as usize;
--                self.as_flush(as_nr)
--            }
-+            Some(slot) => self.as_flush(slot),
-             _ => Ok(()),
-         }
-     }
-diff --git a/drivers/gpu/drm/tyr/slot.rs b/drivers/gpu/drm/tyr/slot.rs
-index d194ead53f71..0e153dc025c5 100644
---- a/drivers/gpu/drm/tyr/slot.rs
-+++ b/drivers/gpu/drm/tyr/slot.rs
-@@ -47,7 +47,7 @@ pub(crate) struct SeatInfo {
-     /// it means the object has been evicted from the hardware slot,
-     /// and a new slot needs to be acquired to make this object
-     /// resident again.
--    slot: u8,
-+    slot: usize,
+@@ -362,7 +362,7 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
+         // Count the number of trailing zero bits (zeros at the right/least-significant
+         // end of the binary representation). For a power-of-two value, this equals the
+         // base-2 exponent (e.g., 32 KiB = 2^15 → 15).
+-        let lock_region_min_size_log2 = lock_region_min_size.trailing_zeros() as u8;
++        let lock_region_min_size_log2 = lock_region_min_size.trailing_zeros();
  
-     /// Sequence number encoding the last time this seat was active.
-     /// We also use it to check if a slot is still bound to a seat.
-@@ -98,7 +98,7 @@ impl Seat {
-     /// If the seat is not `Seat::Active` we can't trust the
-     /// `SeatInfo`. In that case `None` is returned, otherwise
-     /// `Some(SeatInfo::slot)` is returned.
--    pub(crate) fn slot(&self) -> Option<u8> {
-+    pub(crate) fn slot(&self) -> Option<usize> {
-         match self {
-             Self::Active(info) => Some(info.slot),
-             _ => None,
-@@ -174,10 +174,6 @@ pub(crate) fn new(manager: T, slot_count: usize) -> Result<Self> {
-         if slot_count > MAX_SLOTS {
-             return Err(EINVAL);
-         }
--        // Since the slot index is stored in SeatInfo as a u8, the maximum number of slots is 256.
--        if slot_count > u8::MAX as usize + 1 {
--            return Err(EINVAL);
--        }
+         // XOR the first and last addresses to identify which bits differ between them.
+         // The highest set bit in the result determines the exponent of the smallest
+@@ -373,11 +373,11 @@ fn as_start_update(&mut self, as_nr: usize, region: &Range<u64>) -> Result {
+         //   highest set bit in 0x3FFF is bit 13
+         //   minimum region size = 2^(13 + 1) = 16 KiB
+         let addr_xor = region.start ^ (region.end - 1);
+-        let region_size_log2 = 64 - addr_xor.leading_zeros() as u8;
++        let region_size_log2 = 64 - addr_xor.leading_zeros();
  
-         Ok(Self {
-             manager,
-@@ -193,7 +189,7 @@ fn record_active_slot(&mut self, slot_idx: usize, slot_data: T::SlotData) {
-         let cur_seqno = self.use_seqno;
+         let lock_region_log2 = core::cmp::max(region_size_log2, lock_region_min_size_log2);
  
-         *T::seat(&slot_data).access_mut(self) = Seat::Active(SeatInfo {
--            slot: slot_idx as u8,
-+            slot: slot_idx,
-             seqno: cur_seqno,
-         });
- 
-@@ -221,7 +217,7 @@ fn reactivate_slot(&mut self, slot_idx: usize, slot_data: &T::SlotData) -> Resul
-         };
- 
-         *T::seat(slot_data).access_mut(self) = Seat::Active(SeatInfo {
--            slot: slot_idx as u8,
-+            slot: slot_idx,
-             seqno: cur_seqno,
-         });
- 
-@@ -325,8 +321,8 @@ fn evict_slot(&mut self, slot_idx: usize, locked_seat: &LockedSeat<T, MAX_SLOTS>
-     /// If they don't match, the seat is stale and is reset to `NoSeat`.
-     fn check_seat(&mut self, locked_seat: &LockedSeat<T, MAX_SLOTS>) {
-         let (slot_idx, seat_seqno, is_active) = match locked_seat.access(self) {
--            Seat::Active(seat_info) => (seat_info.slot as usize, seat_info.seqno, true),
--            Seat::Idle(seat_info) => (seat_info.slot as usize, seat_info.seqno, false),
-+            Seat::Active(seat_info) => (seat_info.slot, seat_info.seqno, true),
-+            Seat::Idle(seat_info) => (seat_info.slot, seat_info.seqno, false),
-             _ => return,
-         };
- 
-@@ -353,7 +349,7 @@ pub(crate) fn activate(&mut self, slot_data: T::SlotData) -> Result {
- 
-         // Copy out only the slot index so the borrow of slot_data ends here.
-         let slot_idx = match T::seat(&slot_data).access(self) {
--            Seat::Active(seat_info) | Seat::Idle(seat_info) => Some(seat_info.slot as usize),
-+            Seat::Active(seat_info) | Seat::Idle(seat_info) => Some(seat_info.slot),
-             Seat::NoSeat => None,
-         };
- 
-@@ -368,7 +364,7 @@ pub(crate) fn activate(&mut self, slot_data: T::SlotData) -> Result {
-     pub(crate) fn idle(&mut self, locked_seat: &LockedSeat<T, MAX_SLOTS>) -> Result {
-         self.check_seat(locked_seat);
-         if let Seat::Active(seat_info) = locked_seat.access(self) {
--            self.idle_slot(seat_info.slot as usize, locked_seat)?;
-+            self.idle_slot(seat_info.slot, locked_seat)?;
-         }
-         Ok(())
-     }
-@@ -379,8 +375,7 @@ pub(crate) fn evict(&mut self, locked_seat: &LockedSeat<T, MAX_SLOTS>) -> Result
- 
-         match locked_seat.access(self) {
-             Seat::Active(seat_info) | Seat::Idle(seat_info) => {
--                let slot_idx = seat_info.slot as usize;
--                self.evict_slot(slot_idx, locked_seat)?;
-+                self.evict_slot(seat_info.slot, locked_seat)?;
-             }
-             _ => (),
-         }
+-        let lock_region_size = 1u64.checked_shl(lock_region_log2.into()).ok_or(EINVAL)?;
++        let lock_region_size = 1u64.checked_shl(lock_region_log2).ok_or(EINVAL)?;
+         // Align the LOCKADDR base address down to the lock region size (1 << lock_region_log2).
+         //
+         // The MMU ignores the low lock_region_log2 bits of LOCKADDR base, so ensure
 
 -- 
 2.56.0
