@@ -2,101 +2,86 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69574606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:01:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B84F606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=wiOYoVjP
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=e1U02Z80
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BD3A710FD6D;
-	Wed, 25 Nov 2026 16:01:47 +0000 (UTC)
-Received: from mail-oo1-f53.google.com (mail-oo1-f53.google.com
- [209.85.161.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0C9EE10FD63
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:01:41 +0000 (UTC)
-Received: by mail-oo1-f53.google.com with SMTP id
- 006d021491bc7-703e2625ce6so218027eaf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:01:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795622500; cv=none;
- d=google.com; s=arc-20260327;
- b=P1NGB+sYjyfwJS9ggkAJqHH20rPLaoRCsvP7ZrsRYHwSFZs+TByHK/SE2z990n90NO
- br1/axFAA0pVyRtQtX3slsQkHUKR//8D88NMECs0n80RNo3nQGhV+w5Wyzzn7s0QBem/
- ACdKBI8yB3XNzwc1pdLnNyTkMxKIrknekJq/9iueUCdes4XNxOeOirp+iY0UuxQLwyHI
- HtAInirCZLPch4Mf2F20DozurI2NAEjwfYb10vD7PiO47SlykTQw2xj7JvZ6Lktodt4+
- u1r48XnSgMyA+9y+V7rxdYe6mPZBwopQ1XaxmfHeqTLGm40oCx8ha38FaDBcpZtcxe44
- laNg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=fI4P20bQCmfh6R7YugF4cBFoiAc+EQcossZkRSNDFiM=;
- fh=eNSPyX2+hUhP9MQVprUi2lKzrzWA8wHb7iI5vT8Pxro=;
- b=sY5tPbH/293J5Nsl5Wxj8iY+BbR/AR/w4CwTkwNk7IJDTjk62soHIFPpmETFnP5TQz
- jMVnesC9vOS6Gyaj403VDnm4Kb2w7OTA7IRA9YuSl8MPRvKzYDegz3AbJ8402010kvxY
- 76qeWDIMLN1KMlK+vFX2+SfhtBHZSJjF2VIs6BzU43XNoWGvZqVyWrebdQ/vpUi9avmZ
- FoFWC0iFqEON+HIBaMLYquQ9k/nwsc8724lF4PmSLh5E5yIU0HKFJaG3A5jnT0O2Cejt
- sXrNJ10VTadxmXTGYlW3Cl0usYsVPAr7wXRGRWqpzDQIY4UZga0GyLwM7ULbWgqQHTfm
- EQWg==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795622500; x=1796227300; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=fI4P20bQCmfh6R7YugF4cBFoiAc+EQcossZkRSNDFiM=;
- b=wiOYoVjPbS1MftjCO+bBEP4PsxnKTwEhv710g5WS6RjIKbotbgZ6WLS14n1SSfpHI7
- tNxfC6nOw8uHf24RFdLrKK0bcD/B9znhkfEJVjETS3cLSMhmjChUPNIs6wclbL5FsV23
- 3/AMGkiNg3Bf19DCjHzUK1MYOBz9yrxvJ1dwfn/syGOI54t5br/jYJ20may3g2tW35Cm
- iKwMy8V6Ru4yps30F5/2RCs8FCrnERM8CZR0pGJ5oSPxsh6T+GuVGNf0mPldLBZOE3Ec
- m0+9iwwgJ1uOMTDgm1wP1qE4WnNHpGNRV5DbxnTpLefgEs2kezmrChsdymUlGrDRNVUX
- i3Mg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795622500; x=1796227300;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=fI4P20bQCmfh6R7YugF4cBFoiAc+EQcossZkRSNDFiM=;
- b=LuCnEyVGn82LSaeS6tigWi1y+YZPJk/Jxjz3d/vlKL2rmxw7w+ONKhSIoCUi9N9WvI
- Kw1gKLjxnHkr6chzEOjjDtaWdQBfQNXaH+YO955AiJlwyZQ8wGPmDEv0i8hm/9/7o3a8
- bC0lqB+Ge3JTOcz3yUo4Ayk0DUM9o0nONwbr99Nxrk+OY8QqDLMSQOGt0H6g7NbNS8lH
- v1XaN2Y07x0ePbNoTDZDI59ZFZ7P6Pkdbi5n+/7Xhux5m24ONLorzPsb8QSXXSnjgPxe
- TAaKf9io+h1JRm3buJ658mivfFm6mMuq/GoW0Vl0zYPC1Klt9dAwH/QneoKHC5PmHvS0
- 8Flg==
-X-Forwarded-Encrypted: i=1;
- AL+hErHA49XdCiFsXXvQZMJPWkpnT1rST2lRVV2HqDZdoD3O+GQWzfrczRY4MJ6y5sLXmHY3taqmXsEX9zw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/bGkylSU9N1mj5oH1PlGSqg/A5jebVUQ9sykevhPP/hqcSnnzz
- PHJnTYIjHpMNM1AC3f86rsbUAYTQWmPqnvnrkqX1GpUEPeRlU1ewadm+3+OO9kQA4qohwbYvDGY
- 5ps29aoL6dHaVcvDQH72PgnvFkOBkypU=
-X-Gm-Gg: AZFdTZf9GC/W1EVAgODQznvsn+vWWL6NDG/qXK9Og2O+zbi/5mHOx3zTISAuQHmloMA
- kaY7UkZ+VqfWQmCG2HTBGT5pg7dmQ0Tab0hG4AD9eXi3Oh221kezjNVX8pq66m+O72dGUQzknnU
- m9EgkK6RZiRdGmEKT9DcURnsKnTJaB9VvkCM4ohf2v8fEpUmYBE1MGa8ZHte+Hf3YfbmLunplBS
- Ae2F+9UevuC5p/DW8hdEmk/5+qHdpCVFyiTsIZKJvjW8YJIrK40yEn+0o/KVZvLK1ZJh0nT2Mgh
- 4rWtTeoUTLALSKdJGZQAtdlZtQogEwxw4QMwqTjiS3Pe5+Oeg5Eo4dcN5VK1rBJP7LcRvcUw6sZ
- U1PYYbCwe5VzqJbjiYsa6wPPZ6GP2C5Fs8XFspw4NFZ+jEGQBacitha69T5XldrdVxDHtUA6YZd
- vYexyjCkkFkVD/kH27hLN+QxDio6XLGAetSwke9akim3FXtNn4XKFICxUkaYo=
-X-Received: by 2002:a05:6820:840d:b0:71a:ee8a:5d26 with SMTP id
- 006d021491bc7-71b3903669fmr16310397eaf.0.1795622499664; Wed, 25 Nov 2026
- 08:01:39 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A4F8F10E909;
+	Wed, 25 Nov 2026 16:02:53 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9F25C10E909
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:02:47 +0000 (UTC)
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20261125160245euoutp01643ec134cd0c29416f15b98b4c0d8cc6~rVTXAYGFq2394723947euoutp01V;
+ Wed, 25 Nov 2026 16:02:45 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20261125160245euoutp01643ec134cd0c29416f15b98b4c0d8cc6~rVTXAYGFq2394723947euoutp01V
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1795622565;
+ bh=ndbQ4zOYDp69YxH+vSmF4c25f0epkpIi0n8RI4ocFgM=;
+ h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+ b=e1U02Z80qtk/nwxit57Qm6MpSrKZqhLaXn1xXYc34Vn0Eip6382b1av0O6PBF68d/
+ B+Dumn3anLrajMn3xyffUdgm+em8ubtrl2UA1YPq6TqsDRgnUrgdx/z+eBTbv/89Nr
+ BFOGepG56xBXw0iJaV/CwLUtCghah3S95AlnkChA=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20261125160245eucas1p1beac30b8fac0db60d40e99f0990a67bf~rVTWtiIWT1277212772eucas1p1A;
+ Wed, 25 Nov 2026 16:02:45 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+ eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20261125160243eusmtip277776f891a27dfa466a595a92f06eb14~rVTVBDesA3197031970eusmtip2F;
+ Wed, 25 Nov 2026 16:02:43 +0000 (GMT)
+Message-ID: <f432f455-f393-49f6-94e1-48caf1e35565@samsung.com>
+Date: Wed, 25 Nov 2026 17:02:43 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <8342fe8e-5c52-408e-a2f5-0f04b10f332e@gmail.com>
-In-Reply-To: <8342fe8e-5c52-408e-a2f5-0f04b10f332e@gmail.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Wed, 25 Nov 2026 11:01:28 -0500
-X-Gm-Features: Aa3M54rIbsxve4YKvieiQM2tewmvhaZrVPRdb31u5oTtH2lIeVSsCz--7sCAIE8
-Message-ID: <CADnq5_ObYb3d7V=cp7bm8qOoPi7bp9+B8LxPcx-0DiNxvJ=d5A@mail.gmail.com>
-Subject: Re: [PATCH v3 0/3] drm/amd: Enable 2x1 tiled display support on Apple
- Retina iMacs
-To: Richard Lane <richardlanedev@gmail.com>
-Cc: amd-gfx@lists.freedesktop.org, Alex Deucher <alexander.deucher@amd.com>, 
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>, 
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>, 
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 16/18] drm/bridge: starfive: Add JH7110 HDMI
+ controller driver
+To: Philipp Zabel <p.zabel@pengutronix.de>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, Laurent
+ Pinchart <Laurent.pinchart@ideasonboard.com>, Jernej Skrabec
+ <jernej.skrabec@gmail.com>, Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+ <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Emil Renner
+ Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>, Heiko
+ Stuebner <heiko@sntech.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+ <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+ <alex@ghiti.fr>, Dominique Belhachemi <db@domibel.de>, Andy Yan
+ <andyshrk@163.com>, David Airlie <airlied@gmail.com>, Simona Vetter
+ <simona@ffwll.ch>, Yakir Yang <kuankuan.y@gmail.com>, Dmitry Baryshkov
+ <dmitry.baryshkov@oss.qualcomm.com>, Conor Dooley <conor@kernel.org>,
+ William Qiu <william.qiu@starfivetech.com>, Xingyu Wu
+ <xingyu.wu@starfivetech.com>, Sandy Huang <hjc@rock-chips.com>, Manivannan
+ Sadhasivam <mani@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+ Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+ <maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+ Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, Cristian Ciocaltea
+ <cristian.ciocaltea@collabora.com>, Byron Stanoszek <gandalf@winds.org>,
+ Owen O'Hehir <oo.hehir@gmail.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <831aebd692fc5ddbbd1cf57f1aad3bcc0d3f30d2.camel@pengutronix.de>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261125160245eucas1p1beac30b8fac0db60d40e99f0990a67bf
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
+X-EPHeader: CA
+X-CMS-RootMailID: 20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6
+References: <20261124-jh7110-clean-send-v8-0-de92635dd857@samsung.com>
+ <CGME20261124155429eucas1p1015c7cd9beec294fefdcd6900dd407f6@eucas1p1.samsung.com>
+ <20261124-jh7110-clean-send-v8-16-de92635dd857@samsung.com>
+ <831aebd692fc5ddbbd1cf57f1aad3bcc0d3f30d2.camel@pengutronix.de>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,109 +93,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 8:06=E2=80=AFPM Richard Lane <richardlanedev@gmail.=
-com> wrote:
->
-> Hi folks,
->
-> Apple 21.5" 4K (iMac18,2, iMac19,2) and 27" 5K (iMac15,1, iMac17,1,
-> iMac18,3, Polaris-based iMac19,1) Retina iMacs drive their internal
-> 4096x2304 or 5120x2880 panel as a 2x1 tiled display using two streams
-> over an internal eDP root link and a secondary DP link.
->
-> At boot, the Apple EFI firmware initializes only a single pipe and
-> leaves the secondary DP tile unlatched with HPD deasserted. Because the
-> secondary tile reports HPD low and requires a vendor-specific DPCD
-> handshake before it responds as a DisplayPort sink, amdgpu currently
-> fails to detect the second tile, leaving Linux limited to single-tile
-> resolutions.
->
-> This series enables full dual-tile operation on DCE < 12 Apple 4K/5K
-> Retina iMacs so that the internal panel behaves like a standard
-> DisplayID tiled monitor:
->
-> 1. Calculate the pre-OS framebuffer reservation in GMC v7 and v8 using
->    mmGRPH_PITCH and the mmGRPH_PRIMARY_SURFACE_ADDRESS offset from
->    vram_start so the full relocated Apple EFI scanout surface is
->    preserved during boot handover without vendor-specific quirks.
-> 2. Latch the root eDP link via DPCD 0x4F1 prior to EDID read on Apple
->    hardware (DCE < 12), point the secondary DP link to the root eDP
->    link (apple_imac_peer) via an EDID quirk covering 4K and 5K Retina
->    iMacs, latch the secondary tile via DPCD 0x4F1 on the root eDP link,
->    write the 3-byte Boot Camp source table (0x310) on the secondary
->    link, keep the secondary tile out of D3 power-down, and unlatch the
->    TCON back to single-pipe mode on suspend/shutdown. Once unlocked,
->    DRM's DisplayID parser populates has_tile, tile_group, and
->    tile_is_single_monitor on both connectors natively. (DCE >=3D 12
->    support for Vega-equipped iMac19,1, iMacPro1,1, and 2020 iMac20,x is
->    noted as TODO.)
-> 3. Compute context->bw_ctx.bw.dce.all_displays_in_sync in
->    dce100_validate_bandwidth() using
->    resource_are_streams_timing_synchronizable() and copy it to
->    pp_display_cfg->all_displays_in_sync in
->    dce_pplib_apply_display_requirements(), matching the existing DCE 11
->    bw_calcs() flow so SMU7 can downclock MCLK at idle on DCE <=3D 10
->    without modeset underflows.
 
-I've reviewed and applied patches 1 and 3.  I had a question on patch 2.
 
-Alex
+On 11/24/26 17:50, Philipp Zabel wrote:
+> On Di, 2026-11-24 at 16:52 +0100, Michal Wilczynski wrote:
+>> Add the HDMI controller (bridge) driver for the StarFive JH7110.
+>>
+> [...]
+>>
+>> Tested-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+>> Tested-by: Byron Stanoszek <gandalf@winds.org>
+>> Tested-by: Owen O'Hehir <oo.hehir@gmail.com>
+>> Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
+>> ---
+>>  drivers/gpu/drm/bridge/Kconfig            |  11 ++
+>>  drivers/gpu/drm/bridge/Makefile           |   1 +
+>>  drivers/gpu/drm/bridge/jh7110-inno-hdmi.c | 297 ++++++++++++++++++++++++++++++
+>>  3 files changed, 309 insertions(+)
+>>
+> [...]
+>> diff --git a/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
+>> new file mode 100644
+>> index 0000000000000000000000000000000000000000..a0283f83ddc93e3e6c9e9192b73dca9a63f9d9ab
+>> --- /dev/null
+>> +++ b/drivers/gpu/drm/bridge/jh7110-inno-hdmi.c
+>> @@ -0,0 +1,297 @@
+> [...]
+>> +
+>> +struct stf_inno_hdmi_controller {
+>> +	struct clk_bulk_data clks[CLK_CTRL_NUM];
+>> +	struct reset_control *tx_rst;
+> 
+> tx_rst is never used outside of starfive_inno_hdmi_controller_probe(),
+> it could be a local variable.
 
->
-> Changes in v3:
-> - Patch 2: Added pre-EDID DPCD 0x4F1 latch on the root eDP link in
->   dm_helpers_read_local_edid() so dual-tile detection works even when
->   third party bootloaders are not present on the EFI partition. Added
->   21.5" 4K Retina iMac panel IDs (AE19/1A for iMac18,2 and iMac19,2)
->   and renamed apple_5k_peer / amdgpu_dm_apple5k_unlatch() to
->   apple_imac_peer / amdgpu_dm_apple_imac_unlatch().
-> - Patch 3: Dropped the dm_pp_apply_display_requirements() call in
->   amdgpu_dm.c and instead computed all_displays_in_sync in
->   dce100_validate_bandwidth() and copied it in
->   dce_pplib_apply_display_requirements() (dce_clk_mgr.c) to match the
->   existing DCE 11 bw_calcs() path.
->
-> Changes in v2:
-> - Patch 1: Replaced the hardcoded 64 MiB Apple quirk in amdgpu_gmc.c
->   with a generic calculation in gmc_v7_0_get_vbios_fb_size() and
->   gmc_v8_0_get_vbios_fb_size() using mmGRPH_PITCH and
->   mmGRPH_PRIMARY_SURFACE_ADDRESS.
-> - Patch 2: Dropped the DRM_MODE_CONNECTOR_eDP override in
->   amdgpu_dm_connector.c in favor of DRM's native DisplayID tile
->   properties (has_tile, tile_group, tile_is_single_monitor).
->   Renamed tiled_peer to apple_5k_peer and set it only on the secondary
->   DP link, removing dm_helpers_wire_tiled_peer(),
->   dc_link_is_apple_5k_secondary(), and inline explanatory comments.
-> - Patch 3: Made the PowerPlay sync check generic for any combination of
->   synchronized displays by checking timing_sync_info.group_size =3D=3D
->   params.stream_count instead of tiled_peer.
->
-> Regards,
-> Richard
->
-> Richard Lane (3):
->   drm/amdgpu: use pitch and surface offset for GMC v7/v8 fb size
->   drm/amd/display: unlock secondary tile on Apple 4K/5K iMac panels
->   drm/amd/display: report synced displays to PowerPlay on DCE <=3D 10
->
->  drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |  8 +++--
->  drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |  8 +++--
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 +++++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 34 +++++++++++++++++++
->  .../display/dc/clk_mgr/dce100/dce_clk_mgr.c   |  3 ++
->  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
->  .../drm/amd/display/dc/link/link_detection.c  |  7 +++-
->  .../dc/link/protocols/link_dp_capability.c    |  4 +++
->  .../display/dc/link/protocols/link_dp_phy.c   |  3 ++
->  .../dc/resource/dce100/dce100_resource.c      |  9 +++++
->  10 files changed, 89 insertions(+), 7 deletions(-)
->
-> --
-> 2.55.0
+agree, thanks will fix in v9
+
+> 
+>> +	struct phy *phy;
+>> +	bool enabled;
+>> +};
+>> +
+> [...]
+>> +static void stf_inno_hdmi_rst_assert(void *data)
+>> +{
+>> +	reset_control_assert(data);
+>> +}
+>> +
+>> +static int starfive_inno_hdmi_controller_probe(struct platform_device *pdev)
+>> +{
+> [...]
+>> +	ctrl->tx_rst = devm_reset_control_get_exclusive(dev, NULL);
+>> +	if (IS_ERR(ctrl->tx_rst))
+>> +		return dev_err_probe(dev, PTR_ERR(ctrl->tx_rst), "failed to get tx reset\n");
+>> +
+> [...]
+>> +
+>> +	ret = reset_control_deassert(ctrl->tx_rst);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret = devm_add_action_or_reset(dev, stf_inno_hdmi_rst_assert,
+>> +				       ctrl->tx_rst);
+>> +	if (ret)
+>> +		return ret;
+> 
+> This looks like it could be simplified with
+> devm_reset_control_get_exclusive_deasserted().
+
+Yes I think this can be simplified, thanks !
+
+> 
+> regards
+> Philipp
+> 
+
+Best regards,
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
