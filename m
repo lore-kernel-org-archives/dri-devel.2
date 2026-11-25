@@ -2,60 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3398606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455EE606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 10:08:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lhtQCyCk
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=PKNDBXrd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2A8CA10E046;
-	Wed, 25 Nov 2026 10:07:28 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DF2310E046
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:07:21 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 498E460F7C;
- Wed, 25 Nov 2026 10:07:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 724F81F000D1;
- Wed, 25 Nov 2026 10:07:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795601240;
- bh=t5t2s7Ii+LFKy46c9t+nabqsrotZJfh3u1iVlFeZZJ4=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=lhtQCyCk0LHIE2S2NytEYTRnql/je5PXZxgn3EPkj1G2lccSl5wh6167eZMrDAslP
- /PLHs7fI0VB3ThkJrY64+EhQP+p2qCIJYGNAPwYS5pZs22u3KE53u96mbqruz1CPwY
- Ctf7KIMm7yT8OG3qP3bCBtdvAeSd8zeYCNZz4j/E86SzmZdzpspsJ02/NaNccP0U8r
- AdbU/3K900ogg2bfB91w8DCIR3TsmjmfCatpLlA4Q8tBp5yal/lrNFwfcNd/WYFGAw
- X7Oi+daG8SmXgnfF/n1cRz4H3mmVEifl+PM83NWXXq2k70M/9AgzX2OXCSW3RECdFS
- ZReup0mCFYCOA==
-Date: Wed, 25 Nov 2026 11:07:17 +0100
-From: Maxime Ripard <mripard@kernel.org>
-To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-Message-ID: <awau4IF7KE7hUg6U@houat>
-References: <20261116142707.1299360-1-maximpedraza@gmail.com>
- <20261116142707.1299360-4-maximpedraza@gmail.com>
- <avs2dagfmQkv00H0@houat>
- <20261118212114.150992-1-maximpedraza@gmail.com>
- <20261124141119.441163-1-maximpedraza@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A74A710FAB5;
+	Wed, 25 Nov 2026 10:08:01 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D886310E2B2;
+ Wed, 25 Nov 2026 10:07:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795601275; x=1827137275;
+ h=from:to:cc:subject:date:message-id:mime-version:
+ content-transfer-encoding;
+ bh=O471qYqK7zzo3vxo3o50F807nmuwvHPPeHEMJDu7Baw=;
+ b=PKNDBXrdBQWlw/NzW80P7a7RCRWShL+28BSSVhLVQVGchqzs4TU+7xZZ
+ KpwWaBY3PXqczWoDxKIH4VKixPYCPgUSgbc1NiUPg2tnyClo7fbzXTHFu
+ aa1bqRcqzuEhu/0vC90Odf/bohTjBgdvDAHUVgSho+MAB0oC1ilI9c/0q
+ aZpUVKs3wTHKrvdPrbkEMivKsFy23MSpbhGBGSMiQJS0lyi7rCLKlAQpk
+ Iuu8KuUkXDUnVkPtC/EbZ9PlC2F2eKP4cHvEHuydPF4B+78qdOX/g9lKN
+ S8GBP9ibW1j3OEz44Bx8XyM3+HE4bwUhYUgqh6I0yVuQQoOTdFjQpMCAE w==;
+X-CSE-ConnectionGUID: 54uwslqpShyQkYSiFp3DvQ==
+X-CSE-MsgGUID: 6iPlD9jNRfmTwFZ8ytVvcg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4450573"
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; 
+   d="scan'208";a="4450573"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+ by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 02:07:55 -0800
+X-CSE-ConnectionGUID: h3zZC9+SRE+RmXr+c6fNcA==
+X-CSE-MsgGUID: xIOI8HO/Rfe6CnKbOytYkQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,232,1787036400"; d="scan'208";a="12136432"
+Received: from varungup-desk.iind.intel.com ([10.190.238.71])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 25 Nov 2026 02:07:52 -0800
+From: Arvind Yadav <arvind.yadav@intel.com>
+To: intel-xe@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: rodrigo.vivi@intel.com, matthew.brost@intel.com,
+ himal.prasad.ghimiray@intel.com, thomas.hellstrom@linux.intel.com,
+ tejas.upadhyay@intel.com
+Subject: [PATCH] drm/xe/vm: Cancel pending rebind work before freeing the VM
+Date: Wed, 25 Nov 2026 15:37:44 +0530
+Message-ID: <20261125100744.1440957-1-arvind.yadav@intel.com>
+X-Mailer: git-send-email 2.43.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="6ijf6s26eb2pqdmi"
-Content-Disposition: inline
-In-Reply-To: <20261124141119.441163-1-maximpedraza@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,68 +64,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+vm_destroy_work_func() runs on xe->destroy_wq and flushes rebind work
+on xe->ordered_wq. The destroy queue has WQ_MEM_RECLAIM, but the
+ordered queue has no rescuer. The kernel warns because this wait can
+stall memory reclaim.
 
---6ijf6s26eb2pqdmi
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-MIME-Version: 1.0
+The VM is already closed, so a pending rebind would return immediately.
+Use cancel_work_sync() to cancel pending work and wait for a running
+rebind to finish before freeing the VM.
 
-On Tue, Nov 24, 2026 at 03:11:19PM +0100, M=E0xim Pedraza Padilla wrote:
-> On Wed, Nov 18, 2026 at 10:21:14PM +0100, M=E0xim Pedraza Padilla wrote:
-> > Makes sense, I'll use the same approach in tilcdc, and see if it can be
-> > turned into a common helper along the way.
->=20
-> A follow-up on this one, now that I've rebased on v9. I ended up doing
-> it differently, so I'd rather explain why before sending the next
-> version.
->=20
-> The tidss approach rounds the clock to the closest standard refresh rate.
-> Panels driven by tilcdc often don't use one: with the timings from its
-> datasheet, the panel on this board runs at 56.8 Hz (33.3 MHz), which would
-> be read back as 60 Hz and 35.19 MHz. The adopted mode would then never
-> match the panel mode, even with U-Boot programming exactly the same one.
+[  727.067318] ------------[ cut here ]------------
+[  727.067552] workqueue: WQ_MEM_RECLAIM xe-destroy-wq:vm_destroy_work_func [xe] is flushing !WQ_MEM_RECLAIM xe-ordered-wq:preempt_rebind_work_func [xe]
+[  727.067726] WARNING: kernel/workqueue.c:4043 at check_flush_dependency.part.0+0xd9/0x110, CPU#1: kworker/1:0/33641
+[  727.067876] Workqueue: xe-destroy-wq vm_destroy_work_func [xe]
+[  727.067963] Call Trace:
+[  727.067964]  <TASK>
+[  727.067967]  __flush_work+0x44b/0x660
+[  727.067970]  ? __lock_acquire+0x584/0x29c0
+[  727.067974]  ? lock_is_held_type+0xa3/0x130
+[  727.067980]  flush_work+0x28/0x40
+[  727.067982]  vm_destroy_work_func+0x1a9/0x350 [xe]
+[  727.068061]  ? lock_release+0xd0/0x2c0
+[  727.068065]  process_one_work+0x2ad/0x890
+[  727.068071]  worker_thread+0x200/0x3f0
+[  727.068074]  ? __pfx_worker_thread+0x10/0x10
+[  727.068077]  kthread+0x113/0x150
+[  727.068079]  ? __pfx_kthread+0x10/0x10
+[  727.068081]  ret_from_fork+0x3bf/0x470
+[  727.068085]  ? __pfx_kthread+0x10/0x10
+[  727.068087]  ret_from_fork_asm+0x1a/0x30
+[  727.068096]  </TASK>
+[  727.068108] ---[ end trace 0000000000000000 ]---
 
-This is *very* surprising. Do you have the datasheet available somewhere?
+Fixes: 61e18525023a ("drm/xe: Route deferred xe_vma/xe_vm teardown off system_dfl_wq")
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: Himal Prasad Ghimiray <himal.prasad.ghimiray@intel.com>
+Cc: Tejas Upadhyay <tejas.upadhyay@intel.com>
+Signed-off-by: Arvind Yadav <arvind.yadav@intel.com>
+---
+ drivers/gpu/drm/xe/xe_vm.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> So the readout keeps the actual rate (rounded to the nearest kHz), and
-> tilcdc's CRTC compare hook accepts a 1% difference on the pixel clock
-> before calling drm_atomic_helper_crtc_compare_state(). That's what the
-> leeway is needed for: tilcdc_crtc_set_clk() only gets as close as the
-> clock tree allows. I checked it with modesets at 20 pixel clocks between
-> 16.9 and 45 MHz: the PLL misses some of them by up to 0.015%, which the
-> exact comparison reported as mismatches, and they all pass now.
+diff --git a/drivers/gpu/drm/xe/xe_vm.c b/drivers/gpu/drm/xe/xe_vm.c
+index dd855876f571..2ba99c083db8 100644
+--- a/drivers/gpu/drm/xe/xe_vm.c
++++ b/drivers/gpu/drm/xe/xe_vm.c
+@@ -2091,7 +2091,7 @@ static void vm_destroy_work_func(struct work_struct *w)
+ 	xe_assert(xe, !vm->size);
+ 
+ 	if (xe_vm_in_preempt_fence_mode(vm))
+-		flush_work(&vm->preempt.rebind_work);
++		cancel_work_sync(&vm->preempt.rebind_work);
+ 
+ 	mutex_destroy(&vm->snap_mutex);
+ 
+-- 
+2.43.0
 
-Yes, that's why we need the above mentionned helper, and more generally
-why a lot of drivers allow some deviation from the clock.
-
-> Testing on v9 also found a bug in my readout: re-enabling the CRTC
-> (ACTIVE=3D0 then 1) with the adopted framebuffer crashed in set_scanout(),
-> since it has no GEM object. It now keeps the DMA address the bootloader
-> programmed.
-
-It should be fixed in v10, I'm now creating a gem object.
-
-Maxime
-
---6ijf6s26eb2pqdmi
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawazVAAKCRAnX84Zoj2+
-duDQAYD3l+AIc0jBEhcEx3zw9GYOTIEqQ6qLxBxX11q81+y3MIRBQOxNNnTGnIWK
-3wKSJwgBfiML+3gV/MN9hoyRBHy2vr9iDT99Js+wWKGc5hUe1MRVkU2CuRA9plqu
-iANu/2EzIQ==
-=GcoH
------END PGP SIGNATURE-----
-
---6ijf6s26eb2pqdmi--
