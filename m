@@ -2,79 +2,134 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40D13606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:41:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24B2F606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 08:41:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fR7aD2y8
+	dkim=pass (2048-bit key, unprotected) header.d=nxp.com header.i=@nxp.com header.a=rsa-sha256 header.s=selector1 header.b=Djz2WANC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8A39110E45A;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8BE3510F9EE;
 	Wed, 25 Nov 2026 08:41:25 +0000 (UTC)
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com
- [209.85.222.53])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5F68D10F0D3
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 22:29:04 +0000 (UTC)
-Received: by mail-ua1-f53.google.com with SMTP id
- a1e0cc1a2514c-9906870a9baso2606140241.0
- for <dri-devel@lists.freedesktop.org>; Tue, 24 Nov 2026 14:29:04 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795559343; x=1796164143; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=PoOj+my22IFHd/VtbAjuDS6sJG0ydal9flflm2eSZtE=;
- b=fR7aD2y8TPr9sU6YT5OWMHIu3mIq84CkfSmPhtc8iPtdTcJdxIAkl98oeJcsCNn3Jq
- m5xNW5p9EWURgKyvE3y5fEdZTKTJkawRDgB2BTSXD1DB3doaZcqaQC2slD3gkuSbXgBg
- UaO63iDvmMUPTWe6424MFhC9WJk5yPj0S08lkJrbOCkAg2HNvyLLZaVQjI7mq3mrE2RT
- 0wb/C0W0YIpKV9YecEu6kxLSzh62mHURgWojF16OB4kY3M8c5JzEphmJpw1C6jl/p6wZ
- 0DTfjFWKNe/dRSZ7mHYKRN+OwkLUARq+waVeNQH0Yo8rU2HRGGq+LaxaYeJyl5tFDXaj
- cnHg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795559343; x=1796164143;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=PoOj+my22IFHd/VtbAjuDS6sJG0ydal9flflm2eSZtE=;
- b=bY5v5Asfm9OdLiaFrf9esowW1o9EaVqqdMNuIF2dUquRNfjctJEbQYESohClyVBcBV
- 0PWbl6j3v25mCN3Ec+mBb0MJE66W/XvDz9MOvVZsIbmu6ixDlb6Y6AeiblmIHPyjULay
- jEERDBShZhlxs9U7JQPHw+hEeeBUcS6qtyRKDQffJ5o7RNs3J2xdeqQQX78SEATJ7Lu0
- pafO+i35oO4znjjdSogfqNBsV7AUbuqU+hks2saTjWHvpFvHTBhSF2niKUpLs00zf4A5
- wL++WstWjobcMOHu2AH9Iv/RXsaDYUqk1VzMpm2dHDq6Cc0BQWtL9ZW/fL4wsNjwzOMj
- xp3Q==
-X-Gm-Message-State: APuU4Z+EF9o4ZTDzfxMX6pSxHYcf2+lJJYpFTS4VlCetgthzvibW6k7G
- HsAVXcnEPIBZ+27ZejITYiecQCo0ho9hfqtZ0N01SXEWoFv9Dnrb93Xi
-X-Gm-Gg: AZFdTZdDcWrnZp3d9ncVPLh77hXVG53143g1qkcpDh6VeB72Luj1hMSfGSaCjWhCdh6
- iGrCu798OuV8TvvTyAXT1ZIki40802uZpthgtscLAIApyExcFYHcisZJ2ZgePEtvLZL6c0m8Txg
- neXMGbo+kTdEyGKzic7BizXGSspSRTlhigIvgcv+aZMFdQcE+nMIywEgsCUSN4E3t5F2Aixbz8Q
- mUsRkZWaxX/ff3uJ9C/wBpptlleqaWvcTiaOQmzeHDQ6v8WQmF/SJiR+3o6GT1bpFFSuXumEaY9
- 7JLDxdNElJCrvkNsUufb2gTpHDNG3y1m7+iYQ69B3Sn2LW6rLZbIXnfHdPq84/PYPDIe0QBg+7x
- Rp8Rrbjp0yF92+OT44Q+qgQ1+PUOTv6AeMadEVJyHLfnwIkoFZdsCtkVWkHX51MSg4LcVC61r9s
- 0/V3qMh2mglxLrMXG+q5so7mmEUjetAjz6GPLD19hdI2xxOVrSkk/oN8wSA0vyeeK1xOOX9XE5s
- 5XEIcZe/c8jXoSTiM7AyriJjpBu+kdujZPnHtrZIEc64UgQhI1RuWzi6cLKnOxtwHVhwijJFg3i
- Oax9XnG2n3OWniSSANWBwLd8/nfB6AgPU5UnP0UtPWjq
-X-Received: by 2002:a05:6102:41a9:b0:7c7:f976:ea9c with SMTP id
- ada2fe7eead31-7d7393aff31mr9173319137.13.1795559343183; 
- Tue, 24 Nov 2026 14:29:03 -0800 (PST)
-Received: from eduapps.lan ([2804:f04:9074:7a00:92e6:2643:ce63:2792])
- by smtp.gmail.com with ESMTPSA id
- ada2fe7eead31-7d6e822a085sm16403831137.10.2026.11.24.14.29.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 24 Nov 2026 14:29:02 -0800 (PST)
-From: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
-To: nat@pixelcluster.dev,
-	arunpravin.paneerselvam@amd.com
-Cc: dri-devel@lists.freedesktop.org, matthew.auld@intel.com,
- matthew.brost@intel.com, thomas.hellstrom@linux.intel.com,
- "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
-Subject: [RFC PATCH 1/2] drm/ttm: reclaim pooled pages after a period of
- inactivity
-Date: Tue, 24 Nov 2026 19:28:11 -0300
-Message-ID: <20261124222812.511867-2-eduardoprocopiogomez@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
-References: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
+Received: from MRWPR03CU001.outbound.protection.outlook.com
+ (mail-francesouthazon11011016.outbound.protection.outlook.com
+ [40.107.130.16])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C871B10E1D2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 07:55:11 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=mOyGjAQvNQb2bjR0aUXueHpLKclgbDeF2hLv0E4ltGjgrTL53PJtbQDX0RwFPbAcnXzE1Sx6rDATiEs06WTNtl8NLZVzI7HbRtpc9aSuC3wSuwrpsJmqOw/vnhz+o5p5ECyw80VMTWmjaAQIdJ78y6TpVwns9hcRIxvRa7+eZ0/YPmXrWqWQiRkkofSU8611fnNgDm6M2B0xM2BErTaNUQK07/iRvUbdy0YFe1MyDXgMtqQ6sDipKvU+u6NxKfUBwuvuBMCZizfGkYfybnr+OMjqxjM7/nNOcKmtQr286PsAismRkbmqpcFVE3GGCMSU+2/nptyYFPLEuiJAPR/ETQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rdPYH/njZ6agywqcT+6bb3gwyYfCXqKA8yIzRa3s1Vo=;
+ b=BjwV+PEeOlEn/bkCn/8CayaMuZMe6pztN0MuK6ZTiy82HIic2Dm1woSUDbnQOURvscMXri7trujKwmk50VF/4GSJCQrmlbX8sNczX7Gnk0o8yYFY/tIhQjwTE6JkxU5cV/qd2v3gDVzOPTav6DfUJpratfN/TY/uHWSrFWSVD9oBty06trpCIbMOJBA91QKvCKTZ4X5sieSRSoHgYyEYC+vwDViN72/ayeeWNIJQYQ3YWCZDrpr4yBv0Z6gVBGN3rzBm9KojWsQTbilBMTj0VmcjOTa9wrYwDHN25VGuuV3QE8F+CGiBBnJ44asKubUDwkU40ew6QPbUfBrwv3KVuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rdPYH/njZ6agywqcT+6bb3gwyYfCXqKA8yIzRa3s1Vo=;
+ b=Djz2WANCGzS4kkypQDf4q4exJfhS5Ub3WD9Fym480V/GRQ1BulyStLYkQRKq6ebgS1peKgcRZzywdV1y5+3fTYUo8mtYFEi6PdNLbaHX3hhzY69dqBCGyPvQiD7GDNEkfaJsLHcoM9cE0Z/hdJ+4y09FDp40JfhnNnKNsu8Xr0fouGN01sgQWtzdbzKCldIaLfy4d6PnAv9LkWm2UnoNQ0/OwosUmYQryBG0DfwdtZdLsQDO2h26Q5d+rNlKK3PXtYXLembxUNiOLhf/zaSs4SBsRzavrjePpRo5gv+S7CAkYQjJSFhZvtI8aDO+g4Y9XWtNtaXlsxLYsQqyFlza0A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com (2603:10a6:20b:23::20)
+ by BR0PR04MB503013.eurprd04.prod.outlook.com (2603:10a6:2c8:4c::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.14; Wed, 25 Nov
+ 2026 07:55:04 +0000
+Received: from AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0]) by AM6PR04MB4472.eurprd04.prod.outlook.com
+ ([fe80::aed9:e8b9:c352:9ba0%6]) with mapi id 15.21.0639.010; Wed, 25 Nov 2026
+ 07:55:04 +0000
+From: Stefan Ghetu <stefan.ghetu@nxp.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ =?UTF-8?q?Guido=20G=C3=BCnther?= <agx@sigxcpu.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Philippe Cornu <philippe.cornu@foss.st.com>,
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>,
+ Robert Chiras <robert.chiras@nxp.com>, Robert Foss <rfoss@kernel.org>,
+ Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Yannick Fertre <yannick.fertre@foss.st.com>, Liu Ying <victor.liu@nxp.com>,
+ Stefan Ghetu <stefan.ghetu@nxp.com>
+Subject: [PATCH 1/2] drm/bridge: nwl-dsi: Move DSI host disablement to
+ ->atomic_post_disable()
+Date: Wed, 25 Nov 2026 09:54:54 +0200
+Message-ID: <20261125075455.772826-2-stefan.ghetu@nxp.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261125075455.772826-1-stefan.ghetu@nxp.com>
+References: <20261125075455.772826-1-stefan.ghetu@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR4P281CA0431.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:d1::19) To AM6PR04MB4472.eurprd04.prod.outlook.com
+ (2603:10a6:20b:23::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM6PR04MB4472:EE_|BR0PR04MB503013:EE_
+X-MS-Office365-Filtering-Correlation-Id: a4599d9a-5f98-4183-bf59-08df4ac96a4d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|1800799024|376014|7416014|19092799006|23010399003|261009223027099003|261009221227099003|18002099003|22082099003|3023799007|261026121527099003|56012099006|261028144727099003|261022105027099003|261021123027099003|261021121427099003|261102123227099003|10067099003|261026140227099003|11063799006;
+X-Microsoft-Antispam-Message-Info: TrLqj9Q1Ye+Zih+23k6lSFseeVpJnYbdfVoEUpgs+xfxFTU9NytJRXwQqw1sR+nmTJuhn6iQRYV97Ghfv8Ule+jNRy5gOXG0rdaryTfPJoGhWcYpZhAlMcNtL4L3J9OS9iRkUGLT9UM48iflnV1K6uIhDBXGh/G7NQx+H2UU6OmWT48HyxsFe0pRwUAQtnbdcJ/knkggKMCTErtw23L/GyjS/qnDnL36rSgpXYw0rVyzzSbdQUsMK/hZKLkcOnRzRedtnQ5zjhIlk87tFImP82vLrhYNzwkKd2DFGUlVt01ZIqXD9PRHFrkgc6X1EiRX4EFi2qzIqM0t12tz3moCMEaDXY5Rk58tXohddDHdrmMTK9fFjjAEdZieL2pW98OItewz9/NhsD7sAdAxZwvjOGJKBvt6MO1HaLGWykFFFk5cpKvRCPlEtGDEzSwW9j02Gcp95luJnbvTgSUhw3fkhK9SxWcvIecaL+2WOpTaRFUwHw6VEctO5cExqcLEhnGxXwlb3b0WVufb0QqRCQblurRC2UcLp+wJ17YehDmyNjqs3m80Kc+ZHep3OcSQ5UfEXKy0d+hb1mf4pbPIYw2YH2xoXxU6r+Azsii28QqGHg8jwkcVhyB2yIdpYkxvphtjYB6AG/G75c0UBiAtW0Bj4jpYQq3NJmd2MKVeilKeoKM=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AM6PR04MB4472.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(1800799024)(376014)(7416014)(19092799006)(23010399003)(261009223027099003)(261009221227099003)(18002099003)(22082099003)(3023799007)(261026121527099003)(56012099006)(261028144727099003)(261022105027099003)(261021123027099003)(261021121427099003)(261102123227099003)(10067099003)(261026140227099003)(11063799006);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Djzgpf3j2b86V/DGDLkbd8p1tD2UbEk7PojDgoYcd8y1h1JyVk457qKkD25y?=
+ =?us-ascii?Q?F51+VtJyEx00ITOlvhC+HHFXgyvmPvSVAGTMZN8exhohNM5+SX81bQ6H1yII?=
+ =?us-ascii?Q?DtMIfptZ8o1fGdGdI1y+5z8gURzM60tIxJ2A7vsRWTJoZc/Jr7U8G2QyGxfH?=
+ =?us-ascii?Q?/zkb2+aWA++u6Z3MXaJVD6B+8YyQJm2SKX0gzDqwd/9F0edFs8tO9e8MphkF?=
+ =?us-ascii?Q?PRVMm20h81CIop5tTAgCXaaF3E/hFwTQgv2RtElI9qA+djOnhSJwKCe8lHl/?=
+ =?us-ascii?Q?rhIslE9TIKvZ9a0pl5xuWJ5RjohutkwF47uWj1olj2TxV2ER/KvPWCWVlN4R?=
+ =?us-ascii?Q?yq7dL1763/F0wt8yju0VBapo4ADF4ATJRPsNBpjMBIDG59Zbdc+eDVNW0GIa?=
+ =?us-ascii?Q?W/d7/muJmVrf1SG3ll2PrINTRoJr4WLvQraPORz2Y+BlvkF9k3KasCKcyvPN?=
+ =?us-ascii?Q?Pw+6LIOtOWPY49Eg10FuxlxiKieGeiVXW4/NIGUYJXoRsNtXGpM4ybPLiLjw?=
+ =?us-ascii?Q?zncBfykP+ALtm9dqbEdZPbm1yktcfK2xMTYHYCoGLzKYLjdnt9kbbHiEUYU/?=
+ =?us-ascii?Q?7g8NrSHMXG/vABJYSYKdvQh+PxvPj92W7qVk8TCMlP4ZKham1d7LCoJpe1t1?=
+ =?us-ascii?Q?Z7xJCEnI/fqU7kbMn1ZtJtlKC3YbGXHChCRcpNvoKMXt8IzqjeHJmyBHTDwQ?=
+ =?us-ascii?Q?xlaqThWjUKRZzeJiOJfMasM6ujuUQrTSceMOIAgfOItiAK9EseY+aX6OZKM/?=
+ =?us-ascii?Q?Cg+8zOokQ9URcgKd10y2O6xPxXRWd4roT5jY0rHPVOWfFceP7Zk41S4YoBL1?=
+ =?us-ascii?Q?gSa+YO/JDiXqWQuXOYb407jl1/2IByNNNraPFouU61NXUR29Q2qQez/enzg6?=
+ =?us-ascii?Q?hd+IYgAmXq5PcGkBcaD6yigXAB33YFEMnvbAMtMxnLWuHecz1ap00xmwX6M1?=
+ =?us-ascii?Q?zU2nz4YuG2ochztvVgn3OC9ZvOfO2KEefw1YSrlmzCncR652of8bg4lOf3VT?=
+ =?us-ascii?Q?OJ/C8mDkHy/LbIIBRUucVpUoaIWSPJ1Vet6OMAc/kuPkBeRWOFMN8aHIsEYy?=
+ =?us-ascii?Q?T1njIYnXq8mAlg3YJt/5ELxmwhENHBaS/R0ghTwjUBu1zCN8zIMruIngNwXr?=
+ =?us-ascii?Q?n9GoOpoNECmR3paemirC/s0DvcabvDRYqsit3BWniIzt+7m4/2Nf8ctT1rZF?=
+ =?us-ascii?Q?2QyVbrLcSbh4mqkIdNNfikE0SnWVf58ZY1jK5/aG+TWIE5xg1YPFaAPvyW23?=
+ =?us-ascii?Q?7WJ8tsICFiWTRKsMf/XdfJl/hB6xwZGdrL4gexYojFIdx7VZraFrVO+qTgPP?=
+ =?us-ascii?Q?fKAn5zcic2ML2/SfBTJURE8w4qy1t18FDSpzStZNoQKMag6lMunUvjrMrx20?=
+ =?us-ascii?Q?vYZOzlETtGOtQFgvxBEplltMnoy3YxFo8llh/YdHvGJR0lcU63BxJNnfi375?=
+ =?us-ascii?Q?JZaySkHfu3QjQSxz724XSiAB3w+bzvuuQevLlONIGuW73ftWFqNhyChyOw9A?=
+ =?us-ascii?Q?HBE9bAOnzXSRfWvyHm9A4my5K0T29mz7GuuCnaYTsh+gANLU6UzogWK8zWHh?=
+ =?us-ascii?Q?MWKs+/5bKXFS8gdVY8SIL5Kw7eVAKuAulMoJab7f2tVb1aO13fDiO/wnOUPX?=
+ =?us-ascii?Q?oup7q5Sc6Xs9lUBW/Y7tSqhk6pOinDTuyk3dA5IqAU6yWWmcq/EFQY7x6HbM?=
+ =?us-ascii?Q?D4DsS4o1qYXlXnytkOXHEyrYEf7YqNlpIacuGk3HQVD4JYOT?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a4599d9a-5f98-4183-bf59-08df4ac96a4d
+X-MS-Exchange-CrossTenant-AuthSource: AM6PR04MB4472.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 Nov 2026 07:55:04.3266 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 21o9NFCAcu2DJnyVwd7wbKeaK+mis1b5BjKYc58G8tM8zddeXkUUsVQsbWmPYeMHSGFrXr4hguF19r8ZXbjpRQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BR0PR04MB503013
 X-Mailman-Approved-At: Wed, 25 Nov 2026 08:41:18 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,163 +142,64 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Below the pool limit, TTM can retain returned pages after a workload
-exits. Use delayed work to drain the pool through the existing per-node
-shrink path after five seconds without new page returns.
+From: Liu Ying <victor.liu@nxp.com>
 
-Update page accounting before publishing pages to the pool so
-concurrent reclaim sees consistent counts. Cancel the worker before
-tearing down the pool. Set ttm.page_pool_idle_ms to zero to disable idle
-reclaim.
+Some MIPI DSI panels, like the Raydium RM68200, send DCS commands such
+as MIPI_DCS_SET_DISPLAY_OFF and MIPI_DCS_ENTER_SLEEP_MODE from their
+drm_panel_funcs::unprepare() callback. For those commands to reach the
+panel, the DSI host controller and its PHY must still be running.
 
-In QEMU, 768 MiB remained pooled after 60 seconds without the patch and
-had returned to the allocator by the eight-second sample with it.
+The panel bridge calls drm_panel_unprepare() from its post_disable
+hook, while nwl-dsi currently shuts down the controller, the PHY and
+the clocks from ->atomic_disable(). Since all ->atomic_disable() hooks
+in a bridge chain run before any ->atomic_post_disable() hook, the DSI
+link is already down by the time the panel tries to talk to it.
 
-Signed-off-by: Eduardo P. Gomez <eduardoprocopiogomez@gmail.com>
+Move the disablement to ->atomic_post_disable(), so that a downstream
+panel bridge that sets pre_enable_prev_first gets a chance to send its
+shutdown commands first. The enable side is unaffected: the controller
+is brought out of reset in ->mode_set(), which runs before any
+pre_enable hook.
+
+Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+Signed-off-by: Liu Ying <victor.liu@nxp.com>
+Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 70 ++++++++++++++++++++++++++++++++--
- 1 file changed, 66 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/bridge/nwl-dsi.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index 1bf37023f..6af8a9c89 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -36,7 +36,9 @@
- #include <linux/dma-mapping.h>
- #include <linux/debugfs.h>
- #include <linux/highmem.h>
-+#include <linux/jiffies.h>
- #include <linux/sched/mm.h>
-+#include <linux/workqueue.h>
- 
- #ifdef CONFIG_X86
- #include <asm/set_memory.h>
-@@ -134,8 +136,17 @@ static unsigned long page_pool_size;
- MODULE_PARM_DESC(page_pool_size, "Number of pages in the WC/UC/DMA pool per NUMA node");
- module_param(page_pool_size, ulong, 0644);
- 
-+static unsigned int page_pool_idle_ms = 5000;
-+
-+MODULE_PARM_DESC(page_pool_idle_ms, "TTM page pool idle timeout in ms (0 disables it)");
-+module_param(page_pool_idle_ms, uint, 0444);
-+
- static unsigned long pool_node_limit[MAX_NUMNODES];
- static atomic_long_t allocated_pages[MAX_NUMNODES];
-+static struct delayed_work pool_idle_work;
-+static DEFINE_SPINLOCK(pool_idle_lock);
-+static unsigned long pool_idle_delay;
-+static unsigned long pool_last_return;
- 
- static struct ttm_pool_type global_write_combined[NR_PAGE_ORDERS];
- static struct ttm_pool_type global_uncached[NR_PAGE_ORDERS];
-@@ -322,6 +333,25 @@ static void ttm_pool_unmap(struct ttm_pool *pool, dma_addr_t dma_addr,
- 		       DMA_BIDIRECTIONAL);
+diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+index 09992529f3d85..5c82f0986eabb 100644
+--- a/drivers/gpu/drm/bridge/nwl-dsi.c
++++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+@@ -736,8 +736,8 @@ static int nwl_dsi_disable(struct nwl_dsi *dsi)
+ 	return 0;
  }
  
-+/* Arm idle reclaim once and let the worker check for more recent returns. */
-+static void ttm_pool_note_return(void)
-+{
-+	unsigned long now;
-+
-+	if (!pool_idle_delay)
-+		return;
-+
-+	now = jiffies;
-+	if (READ_ONCE(pool_last_return) != now) {
-+		spin_lock(&pool_idle_lock);
-+		WRITE_ONCE(pool_last_return, jiffies);
-+		spin_unlock(&pool_idle_lock);
-+	}
-+	if (!delayed_work_pending(&pool_idle_work))
-+		queue_delayed_work(system_dfl_long_wq, &pool_idle_work,
-+				   pool_idle_delay);
-+}
-+
- /* Give pages into a specific pool_type */
- static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
+-static void nwl_dsi_bridge_atomic_disable(struct drm_bridge *bridge,
+-					  struct drm_atomic_commit *state)
++static void nwl_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
++					       struct drm_atomic_commit *state)
  {
-@@ -335,14 +365,17 @@ static void ttm_pool_type_give(struct ttm_pool_type *pt, struct page *p)
- 			clear_page(page_address(p + i));
- 	}
- 
-+	/* Account for the pages before a concurrent shrinker can take them. */
-+	atomic_long_add(num_pages, &allocated_pages[nid]);
-+	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
-+	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
-+
- 	INIT_LIST_HEAD(&p->lru);
- 	rcu_read_lock();
- 	list_lru_add(&pt->pages, &p->lru, nid, NULL);
- 	rcu_read_unlock();
- 
--	atomic_long_add(num_pages, &allocated_pages[nid]);
--	mod_lruvec_page_state(p, NR_GPU_ACTIVE, -num_pages);
--	mod_lruvec_page_state(p, NR_GPU_RECLAIM, num_pages);
-+	ttm_pool_note_return();
- }
- 
- static enum lru_status take_one_from_lru(struct list_head *item,
-@@ -473,6 +506,30 @@ static unsigned int ttm_pool_shrink(int nid, unsigned long num_to_free)
- 	return num_pages;
- }
- 
-+/* Return unused pool pages after the last return has aged out. */
-+static void ttm_pool_shrink_idle(struct work_struct *work)
-+{
-+	const unsigned long batch = 1UL << (MAX_PAGE_ORDER / 2);
-+	int nid;
-+
-+	for_each_node_state(nid, N_MEMORY) {
-+		while (atomic_long_read(&allocated_pages[nid]) > 0) {
-+			unsigned long now = jiffies;
-+			unsigned long expires = READ_ONCE(pool_last_return) +
-+						pool_idle_delay;
-+
-+			if (time_before(now, expires)) {
-+				queue_delayed_work(system_dfl_long_wq, &pool_idle_work,
-+						   expires - now);
-+				return;
-+			}
-+
-+			ttm_pool_shrink(nid, batch);
-+			cond_resched();
-+		}
-+	}
-+}
-+
- /* Return the allocation order based for a page */
- static unsigned int ttm_pool_page_order(struct ttm_pool *pool, struct page *p)
- {
-@@ -1492,8 +1549,11 @@ static inline u64 ttm_get_node_memory_size(int nid)
- int ttm_pool_mgr_init(unsigned long num_pages)
- {
- 	unsigned int i;
--
- 	int nid;
-+
-+	pool_idle_delay = msecs_to_jiffies(page_pool_idle_ms);
-+	INIT_DELAYED_WORK(&pool_idle_work, ttm_pool_shrink_idle);
-+
- 	for_each_node(nid) {
- 		if (!page_pool_size) {
- 			u64 node_size = ttm_get_node_memory_size(nid);
-@@ -1551,6 +1611,8 @@ void ttm_pool_mgr_fini(void)
- {
- 	unsigned int i;
- 
-+	disable_delayed_work_sync(&pool_idle_work);
-+
- 	for (i = 0; i < NR_PAGE_ORDERS; ++i) {
- 		ttm_pool_type_fini(&global_write_combined[i]);
- 		ttm_pool_type_fini(&global_uncached[i]);
+ 	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+ 	int ret;
+@@ -963,7 +963,7 @@ static const struct drm_bridge_funcs nwl_dsi_bridge_funcs = {
+ 	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
+ 	.atomic_check		= nwl_dsi_bridge_atomic_check,
+ 	.atomic_enable		= nwl_dsi_bridge_atomic_enable,
+-	.atomic_disable		= nwl_dsi_bridge_atomic_disable,
++	.atomic_post_disable	= nwl_dsi_bridge_atomic_post_disable,
+ 	.atomic_get_input_bus_fmts = nwl_bridge_atomic_get_input_bus_fmts,
+ 	.mode_set		= nwl_dsi_bridge_mode_set,
+ 	.mode_valid		= nwl_dsi_bridge_mode_valid,
 -- 
-2.55.0
+2.53.0
 
