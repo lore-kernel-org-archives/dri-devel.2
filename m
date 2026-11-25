@@ -2,69 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C10F606A323
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 12:43:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5C1606A696
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 12:47:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IdfGlUQL
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dzGnUyHJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 98F6A10E630;
-	Wed, 25 Nov 2026 12:43:19 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 069F010E630
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 12:43:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B48BA45B5E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 12:43:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E65E1F01561
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 12:43:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795610593;
- bh=Soe9AbyJje/CanHZy+BPUS7HyCw3W/h9mWpxWG3+h70=;
- h=References:In-Reply-To:From:Date:Subject:To:Cc;
- b=IdfGlUQLVdZd+HqGeJmpnmm6ZOvD2DCF88z9GcmsjUrKh5xMoOWAGEOagnXAmAYta
- k5dXwiF8fnMKU/56Us9yLAAPPjZbLDyyIyN4SJwaz6ZYK/x07tMrfYIXK6AieI6mSB
- d1AdCCTdQcqGyELTARAP/FzRjeNQGlDxqnuOgdfoKJ9MFiO7BSIcyxarVyn4QpJp5/
- Te6SJK2tPRq87NZfNEoUCKt9Lc9PfZf9imw1XgFkYesMHxgV5ZIhH3PFZPEcykyjTn
- BdRChy9Mk6ypZdqC9qPqHPRw/g6YkI8qu84PKcwRhIcA1Rxl6OclJCgqXskhY5I66W
- DQPweoAUVnWBw==
-Received: by mail-lf1-f53.google.com with SMTP id
- 2adb3069b0e04-5c14f3dab66so5384636e87.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 04:43:13 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B982410E02A;
+	Wed, 25 Nov 2026 12:47:00 +0000 (UTC)
+Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
+ [209.85.218.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2ABFF10E02A
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 12:46:54 +0000 (UTC)
+Received: by mail-ej1-f41.google.com with SMTP id
+ a640c23a62f3a-c50933bdf4bso1098983066b.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 04:46:54 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795610812; cv=none;
+ d=google.com; s=arc-20260327;
+ b=o7A9q5zwU9CiJVGhvp/EDN1+yhinutTmH8S0BrAbXe/7PYiDUWpcJESfYu1FvduuYM
+ /Gt9k73gV4uWnRosXvLuRlvv0XtxX5l9od9mJglc9N9+bTveyo6WX1/Ofxen2lEcSzHj
+ WmqWZsZhK5ImWBxczEa39roJjHd+WPvqf9yIPpgojN3iPMYe3tiP1k7acIKDkfHHosB8
+ UuKqIJNyIDw+A9ccqu4GDlQD3oexgg4zWv8cOdijiJV3Pcw3XOoXJ6OJyHBaje6H2n7Q
+ B3X05VMDAwq8WpQeOy/12f63aFXImtSfErSCvUMkq2yZl/z1Yc/FeDZn38888VQps64+
+ V1zA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=IuRRg7o5Crk5KRLDhtoQ7ekunhWpm8sN3gL4hQuQRLw=;
+ fh=BCybw0R/MC58O6FZfepFZU+qOdInDNW/3MISRQdfIZA=;
+ b=FaaaoREi/FasoFy50j5Zj5ML7xPD968+v/7sxEjirH2WvF5ZcwNOmZiCzGGuWOAyjd
+ 3QPporGsAILPZ082y27JToGIa7ASlOa3Lx0gEp3yWN5Tzgu22jazPm6b2AZyKPAhLclu
+ IdZywDt03n5lAQxmAyy/32BFsl8oRdMML1+WuwtnbRn7MrdoCSUS3n9WBKSqN4TPECNw
+ i1P7SdvhsSQXrGVwPmiCxLvZVRsLJK0UIUA1ZGVfzmFP02LW/Mi0fkwVIpesgeRWLxP9
+ n0igbcmOsrRiszTiETmXjZc0yeoUEpKBPZRWQ2O+ywf0xcVewO22tx+EQnOmmhMeBYX5
+ mr7A==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795610812; x=1796215612; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=IuRRg7o5Crk5KRLDhtoQ7ekunhWpm8sN3gL4hQuQRLw=;
+ b=dzGnUyHJ78bnuDj3psG08mFLgogGRa/nL4qRXMuNSLDOxC+wphBwKEFUo5+My/tDUz
+ 67KqSkb6jpPv9Y8ezRNYQytOhEeQyYW20J6icCmFSVDqtc/2vZMFGeEsuS5JqQj7edMT
+ sD/ac3WU/91x2O4PAybFVHsjilNTwhkCpy6Oe3yct0zSi6r8B0S5UUAnKymu3r11s3QM
+ sCG/ypI3ln3eZLNuQ6qD8hVBWiZka8yPRCgKKipk5g4HZVU5/GBFvoyoQP6UodbGfPav
+ Qj3g+FhwkhHDc7Z/zRKZuLhQxZJTrmeS3WoGdHvTx6rlmUG3RJKqXHKbGDZfhGILQgv7
+ eivQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795610812; x=1796215612;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=IuRRg7o5Crk5KRLDhtoQ7ekunhWpm8sN3gL4hQuQRLw=;
+ b=cOAh1F+pW8pJO7ayFNR5zflF31OJWwj6emM9qw8pOKPz2rgEAZax0rSDaJuQwPFK6Z
+ vBqKOd1yfXPNn72pxEEqwfo5ClhBSY54Dq/5ILYPBPd9clbNgzSv8rMvi8Gz882EbmOP
+ gI9Q5+TmDgBhsAdzN0zk/Y5RdaJkYCp6GT6RCFarDKNWUkylqOV6JD/m7fonbbPIMN3G
+ Rh9OY13U48KAPrZ1kpJtRzjTL9QClljQU3lB7Whsd/B22YpmD7Ho5Pg+cnM6lrzQfVVP
+ vZVlBVmABhhLW4r1KDC4qAidxv+O+z2WmTDPSg5TTOD7PHXQRt8VteGrGCagkHZgwt8W
+ u7Gw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHvsuot2E0fOugq6MwwWOGoOs0crwWFid0GLVfifDAV0YE0PzjBRw+9vdK3bN7FhyL1Q5hVPJipv3k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9gNiCQm61QLVjRaYVYYH66fMDDV4zFb1BWl+iDsE6VuVdwAaeX
- Pdq8liBoKbiSBLp744u/DVv1iEokxEU4z6gr8IAqjSkiNXm2dT7UZ+a/kBXn5qi5XaK7w5Fc81d
- IBuE2vaKhPxb6h3QPyHC/IH29YytdHGg=
-X-Received: by 2002:a05:6512:3e1a:b0:5c1:4d49:cd84 with SMTP id
- 2adb3069b0e04-5c1bc89a84emr4500196e87.17.1795610592062; Wed, 25 Nov 2026
- 04:43:12 -0800 (PST)
+ AL+hErHEG9WD5HJZxuxUM24ZtIDc4LBEgH17JhhozW0+2LIK+uit1NfVbzkYCL8SyEZlW5WcMYg0QLegqoY=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9P0aUpcx3ukkZ0ZIH9t19SH8+ZSxyqoOFm2HtfdBNo37M6CQCT
+ km1g07SeQLu6HhH0MYnGG6cZSaKrff6z7v85Fhah4HZzRwOBkI+/03XFLEMN26apDVGeDKu+cKl
+ HNmBa4TddoFAHKtQcK1fvoQ59JdH7AlI=
+X-Gm-Gg: AZFdTZfcfDZex5xi4thuERq9C/Xw7XAe9gl30PQk9hvZPhklxzRXq2ODKs/XKBi+9z3
+ iODtPIEV2NKG0aa9sTECCY/J581G5I5RwVHSmWT/CH+BBbmMajdiDdoqa3iPH/BXq/qX7TgDXCY
+ Pv1xdMjVXVik4yPZZQnAv9L/w6fXmtuxuAhfwoBYC+wotxyL0yGVRjbXgwYu+z3pyRULjdjctWb
+ oHxq3KzBb4+2mz8CmEarvkI3Ny/bst8varK72cLzM9Cv2SQi2fFZ6RdM7RXghcw+epowz+YyGIq
+ TkZtI3Mito9Uw9A97zYdfYk7p9pG6eweqk1o4+1vOBbNmBcHkAAUSJqneVId6YYae53dkcwbYol
+ rw26hObPXwWE+VBbhWnivTTH+JJQSgC3UGFupLQieppq+3XQMRuA9RUhc93/5mVPOu7s=
+X-Received: by 2002:a17:907:82a4:b0:c51:37e6:e036 with SMTP id
+ a640c23a62f3a-c513a86d2d9mr981007666b.16.1795610812360; Wed, 25 Nov 2026
+ 04:46:52 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261015142552.4128028-1-ryan.roberts@arm.com>
- <20261015142552.4128028-16-ryan.roberts@arm.com>
-In-Reply-To: <20261015142552.4128028-16-ryan.roberts@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 25 Nov 2026 13:42:59 +0100
-X-Gmail-Original-Message-ID: <CAD++jL=h8iMU1sxjopoGBuniv_vsi2uhggJNQiyoWaTsOV+-Tw@mail.gmail.com>
-X-Gm-Features: Aa3M54pGhuvz2evFxcjQ_z7LSxF4iu4SVrSPElv7BkwMOHJcq9BoFVwsp0UZH2I
-Message-ID: <CAD++jL=h8iMU1sxjopoGBuniv_vsi2uhggJNQiyoWaTsOV+-Tw@mail.gmail.com>
-Subject: Re: [RFC PATCH v2 15/15] misc/arm-cla: Add vfio-mdev user interface
-To: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Arnd Bergmann <arnd@arndb.de>, 
- Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, 
- Mark Rutland <mark.rutland@arm.com>, Marc Zyngier <maz@kernel.org>,
- Oliver Upton <oupton@kernel.org>, 
- Alex Williamson <alex@shazbot.org>, Jason Gunthorpe <jgg@nvidia.com>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Jean-Philippe Brucker <jpb@kernel.org>, Oded Gabbay <ogabbay@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- kvmarm@lists.linux.dev, kvm@vger.kernel.org, devicetree@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-doc@vger.kernel.org
+References: <20260514174008.4515-1-ms.bulatov7@gmail.com>
+In-Reply-To: <20260514174008.4515-1-ms.bulatov7@gmail.com>
+From: =?UTF-8?B?0JzQsNGA0Log0JHRg9C70LDRgtC+0LI=?= <ms.bulatov7@gmail.com>
+Date: Wed, 25 Nov 2026 15:46:40 +0300
+X-Gm-Features: Aa3M54raFHFC1wO72gQwKLcaw9Cis1_IurPLDhyy4bIilG0T4ZS0DTaSVjpcl5w
+Message-ID: <CAEyM3Y1QBGHedKixcW7o+9F=p7wQfDow6p2vzaK3fS4ZWP5Fxg@mail.gmail.com>
+Subject: Re: [PATCH] drm/nouveau: handle nouveau_hw_get_clock() return value
+To: Lyude Paul <lyude@redhat.com>
+Cc: Danilo Krummrich <dakr@kernel.org>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Ben Skeggs <bskeggs@redhat.com>, 
+ Dave Airlie <airlied@redhat.com>, dri-devel@lists.freedesktop.org, 
+ nouveau@lists.freedesktop.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,100 +103,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Ryan, Jean-Philippe,
+Hi,
+Gentle ping on this patch. Please let me know if any changes or further
+information are needed.
+Thanks,
+Mark.
 
-this patch series now moves into the virtualization stratosphere where
-my knowledge doesn't even reach the level of "a little knowledge
-is dangerous", people versed with virtualization need to review this.
 
-A few general remarks though:
-
-On Thu, Oct 15, 2026 at 4:27=E2=80=AFPM Ryan Roberts <ryan.roberts@arm.com>=
- wrote:
-
-> From: Jean-Philippe Brucker <jpb@kernel.org>
+On Thu, 14 May 2026 at 20:41, Bulatov Mark <ms.bulatov7@gmail.com> wrote:
 >
-> Implement an interface to assign CLA devices to KVM guests. To creates a
-> CLA instance:
+> From: Mark Bulatov <ms.bulatov7@gmail.com>
 >
->     uuid=3D$(uuidgen)
->     echo $uuid > /sys/class/mdev_bus/<pdev>/mdev_supported_types/arm-cla-=
-pl1/create
->     cla_cpu=3D$(< /sys/bus/mdev/devices/$uuid/cpu)
+> In the nv04_update_arb() function, MClk and NVClk are passed to
+> nv04_calc_arb() or nv10_calc_arb(), where they are used as divisors.
+> MClk and NVClk are calculated using nouveau_hw_get_clock(), which, via
+> nouveau_hw_pllvals_to_clk(), can return 0, resulting in division by 0.
 >
-> This creates a user interface in /dev/vfio: a VFIO group in
-> /dev/vfio/<n>, discoverable by reading the symlink
-> /sys/bus/mdev/devices/$uuid/iommu_group. Although CLA does not use an
-> IOMMU, VFIO relies on IOMMU groups as an assignable unit. Here they
-> correspond to CLA domains, whose devices communicate through a private
-> bus.
+> The result of nouveau_hw_get_pllvals() in the nouveau_hw_get_clock()
+> function can also return -ENOENT, which is not checked anywhere.
 >
-> The CLA device gets assigned exclusively to the first VMM that opens the
-> VFIO group and device. To launch a VM with a CLA attached to vCPU #4,
-> with kvmtool:
+> Fix all this by adding a check.
 >
->     lkvm run -k Image --console virtio -c 8
->         --vfio-platform $uuid,type=3Darm-cla,vcpu=3D4
->         --vcpu-affinity 4=3D$cla_cpu      # Bind vCPU 4 to the CLA's CPU
+> Found by Linux Verification Center (linuxtesting.org) with SVACE.
 >
-> Opens the group, gets the device fd, mmaps the frame, and launches the
-> guest. The given vCPU thread is pinned to the CLA's CPU.
+> Fixes: 6ee738610f41 ("drm/nouveau: Add DRM driver for NVIDIA GPUs")
+> Signed-off-by: Mark Bulatov <ms.bulatov7@gmail.com>
+> ---
+>  drivers/gpu/drm/nouveau/dispnv04/arb.c | 3 +++
+>  1 file changed, 3 insertions(+)
 >
-> Pinning vCPUs is not guaranteed. If the host decides to power off the
-> CPUs with assigned CLAs, the guest application can't access the assigned
-> device anymore. It would now access a RAZ/WI memory region.
+> diff --git a/drivers/gpu/drm/nouveau/dispnv04/arb.c b/drivers/gpu/drm/nouveau/dispnv04/arb.c
+> index 1d3542d6006b..2f59b8739fc1 100644
+> --- a/drivers/gpu/drm/nouveau/dispnv04/arb.c
+> +++ b/drivers/gpu/drm/nouveau/dispnv04/arb.c
+> @@ -202,6 +202,9 @@ nv04_update_arb(struct drm_device *dev, int VClk, int bpp,
+>         uint32_t cfg1 = nvif_rd32(device, NV04_PFB_CFG1);
+>         struct pci_dev *pdev = to_pci_dev(dev->dev);
 >
-> For DMA, because the TLB entries tagged with VMID+ASID are shared
-> between CPU and accelerator, we pin the VMID. The stage 2 page tables
-> are shared between CPU and CLA. CLA reports DMA page faults directly to
-> the user, who performs the access from the CPU to handle both stage 1
-> and stage 2 faults.
+> +       if (MClk <= 0 || NVClk <= 0)
+> +               return;
+> +
+>         sim_data.pclk_khz = VClk;
+>         sim_data.mclk_khz = MClk;
+>         sim_data.nvclk_khz = NVClk;
+> --
+> 2.39.5
 >
-> Signed-off-by: Jean-Philippe Brucker <jpb@kernel.org>
-
-I understand the patch as this:
-
-The CLA register window of the CLA attached to one certain CPU
-can be exposed to a virtual machine by way of VFIO, that is, this
-virtual machine can see that memory as if was its own.
-
-This makes me ask the following questions:
-
-1. Is the intended user of that VFIO window a kernel driver or
-"some userspace mockery", i.e. a plain old userspace driver just
-using the hardware from userspace. This is something I have
-seen in code trees from the likes of SpaceX, where VFIO is
-used for antenna array hardware and handled with userspace
-drivers (and the userspace driver
-is run with realtime priorities for high responsivity usecases).
-The use case matters for the design of the VFIO exposure,
-because if in-kernel users of the same hardware from the
-host can be expected this could become less than elegant.
-I don't know for sure, it may make perfect sense if the user
-is some userspace process doing some computation I need
-not worry my head about.
-
-2.The affinity story again: certainly this VM must be pinned to
-the CPU exposing the CLA and the VM will see *one* CPU
-in its world, or this would never work, right? We are not doing
-any multicore virtualized machines because then you would
-need each to expose a different VFIO window for each CPU?
-(I think I saw the kvm usecase only allowing for one instance,
-no domains, so I guess yes.)
-
-I don't know how much VMs migrate on a running system.
-But if a "normal" VFIO window pertains to the "normal"
-physical address space I suppose this is not a problem, you
-can move the VM to another CPU and everything else
-remains the same. But not so with CLA! So how do you
-intend to impose this restriction?
-
-Yours,
-Linus Walleij
