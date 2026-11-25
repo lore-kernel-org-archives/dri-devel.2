@@ -2,42 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC91606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D87D606A69A
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:11:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RMPJ5lDH
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=H9w5dsB1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4734010F983;
-	Wed, 25 Nov 2026 02:10:32 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E713B10F968
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:10:15 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 703E743506;
- Wed, 25 Nov 2026 02:10:15 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 380721F000C0;
- Wed, 25 Nov 2026 02:10:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795572615;
- bh=dPuuSVMD/cCxQHd+LDsv0nJStalPoX/AFEjPFfdYT4A=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=RMPJ5lDHYn7URIUfEuwOKxye1fU+JWT4JZIJBXXkquFxag4NFYsbiwhpwYy2RYYeL
- 69lD1+BVWdgWalpVAUKoHw24QGfFBmZcgk/JZ+fOhHx+dfpvGdD7wagoHSEv+bYsuM
- v84InBblMRLgaRX1HNy8U7xwVOG4uN3jXCFQrqayKL07KlULsWVWITdSOC+QBU+vhB
- muKEKB3Yy3qhxU/bgidqytDUINSQFAOf6Vst/50reaGQ/rlP5i64Bu/mw+zbqNVUhJ
- 5jihdF1AN3YDXW4FaBGTgSO2/EIcIrSdHOX682taF9GzciZswJyT9bQbruTrUPKSW7
- NadBoHReqi3wg==
-Message-ID: <sashiko-outbox-232393@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH v2] drm/ttm: reclaim excess pooled pages after a
- fixed delay
-To: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261125015613.127297-1-eduardoprocopiogomez@gmail.com>
-References: <20261125015613.127297-1-eduardoprocopiogomez@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 02:10:14 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id BF16D10F97E;
+	Wed, 25 Nov 2026 02:11:39 +0000 (UTC)
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4E11210F984
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:11:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+ t=1795572691; bh=rafo5xWjZms4ztNLZo9OnFsViieRHJz9Eo0soR6mdv0=;
+ h=From:To:Cc:Subject:Date:In-Reply-To:References;
+ b=H9w5dsB1epE/tT/RHIivgLs/FHKmx/OjcXoVSJtJdRKPMfv5j3o/eJ2+Jgm/wd54g
+ atliziec+d5ItpKx2qrl0JsFwMuY3bZZNg8lCk558laTrwHWbfySJkIZSIpgmG4GxU
+ T3QjClkeVoljXhHaFZUrdDWhS+xzR3ywJKSWUjMU=
+Received: from HF ([113.90.236.90])
+ by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+ id 2DCBA053; Wed, 25 Nov 2026 10:11:28 +0800
+X-QQ-mid: xmsmtpt1795572690tsm562vfn
+Message-ID: <tencent_A3BF23A8B6E3691F0D567ADF8B84194F4408@qq.com>
+X-QQ-XMAILINFO: MQePU1RDD2O4a6xKmHerYUdNWDnm+wkbK7PXNdYKnsVS9cW4wQisMtIr5iFRX2
+ 9S7WBis5IfNInk/TlNo9TjVfS5qAcOYkU3yG8oZxKZ52VYMwV92igEHGqVz2vdarHwiTYH+RNNA5
+ qV+fmlBRcc00bqLGO8nirWGC9M/9KTklDYDdAbVNwFODZB8F8cKIPCGBxRz58lbos+F/R/x4Z9W9
+ qe/U6Mu5K/uXi/i1bTfp1Gn1SXnJ6DMlH8SbDLg7m0zDcQwc9/dCcEmqzwqPYHrLcoAT9pcHkG/q
+ /qItFtxQlM03sOXXff/0W9t8Vac3w1lb3VEIlntvy0/rEPLrMHnbp1/+5aqQiUlt61d5F7tvOful
+ qIyYfDjJRxAXV+ENroQmT4opfFrbnooxWl2Gd5kvUzpmGrczPBY794bHvZh59UWs/XVIkqz597ez
+ LSjcM6DSA6w+h5n13sQdck36c70OU5WjSrfj/nxrnv0Dk0SnuYGc3WAmPMJsvbuWa2RxZXUcKXoI
+ n+Z0H+JFuwVKHU3STbSwh9+/k57JWN417lNmTETrBHTGxb+2fP9IToamA+EGHDIcXc7/AUr1hwY+
+ 6NEvt0srwH5v7YiMeyedp4kvKiFIteTvkTO5m6+5lYXs1R5kWyhcCpiD9R5Go4KKrwiUbStmdVwC
+ fZw0w4N9luuwlKrdqBrAQmzOawGvmeatipxaa7d+uv3uDIOM/0ByChc7JQMmVctnJkCxneh7U/BP
+ 0wUkYKGgZiMhQXtiv9tAYKxGshHOBz40t7qgC0RRemGlNQcP+dTCGW5QayN/CQMumC4HypN5T0nM
+ pq4nMep1zBMSi05Pkf5jwSHYQ0IQgIq3P1RyHAWOcA5gtkBi6gs9SyPlFp3VIPHRo6UxuUEFRgui
+ 5ReOwW5Naxjc2EJeIdN7XVKhzZjZ6+nBK+GTmVr71jr7eSkeoJHQnM8jFvb+X4hPRy/zxiUEmBre
+ /FN0FpLqF3GzIZVeMPQwaKgNkMvBCjWTANrcS1kR53rJ5zSfXszP8Xk7L4+KkMSRKCY+cV6KHcSK
+ f1cF+Y1/5wIvIF3mToyASFphs007qQxDfIbEXT94UoMFogefLArbGbXeaBxyWF0k4Enx3jw6zUn+
+ EJ6z8MdAtIAeGV7cpn0nc78MkGKio6drvFsO5GG3dtc96xs3fGzO4WPw7L8KkrOAlSoMgUkCTUnV
+ q5tCk=
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+From: Hefei <3066883572@qq.com>
+To: dri-devel@lists.freedesktop.org
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
+ Hefei <3066883572@qq.com>
+Subject: [PATCH v3 1/6] dt-bindings: display: add VIEWE JD9365TX panel binding
+Date: Wed, 25 Nov 2026 10:11:22 +0800
+X-OQ-MSGID: <20261125021127.1430-2-3066883572@qq.com>
+X-Mailer: git-send-email 2.55.0.windows.5
+In-Reply-To: <20261125021127.1430-1-3066883572@qq.com>
+References: <20261125021127.1430-1-3066883572@qq.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,108 +65,97 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/ttm: unbatched set_pages_wb() IPI storm in
-  ttm_pool_shrink_idle()
---
+Signed-off-by: Hefei <3066883572@qq.com>
+---
+ .../display/panel/viewe,jd9365tx.yaml         | 70 +++++++++++++++++++
+ 1 file changed, 70 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
 
-commit e91f541d87136a66bf36718752a8777d95e748f4
-Author: Eduardo P. Gomez <eduardoprocopiogomez@gmail.com>
+diff --git a/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml b/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+new file mode 100644
+index 0000000..1043f93
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/viewe,jd9365tx.yaml
+@@ -0,0 +1,70 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/viewe,jd9365tx.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: VIEWE 7.0" 720x1280 Jadard JD9365TX MIPI-DSI in-cell panel
++
++maintainers:
++  - Hefei <3066883572@qq.com>
++
++description: |
++  The VIEWE 7KF82 module is a 720x1280 RGB888 video-mode MIPI-DSI panel
++  based on Jadard JD9365TX. It uses two DSI data lanes and exposes in-cell
++  touch over I2C on the same FPC.
++
++allOf:
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    const: viewe,7kf82
++
++  reg:
++    maxItems: 1
++
++  vdd-supply:
++    description: Panel VDD supply, usually 3.3V
++
++  iovcc-supply:
++    description: Panel IO voltage supply, usually 3.3V
++
++  reset-gpios:
++    description: Optional panel reset GPIO (omit if board uses POR only).
++    maxItems: 1
++
++  backlight: true
++  rotation: true
++  port: true
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - iovcc-supply
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        panel@0 {
++            compatible = "viewe,7kf82";
++            reg = <0>;
++            vdd-supply = <&reg_vdd>;
++            iovcc-supply = <&reg_iovcc>;
++            backlight = <&viewe_bl>;
++
++            port {
++                endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
++        };
++    };
++...
+-- 
+2.55.0.windows.5
 
-drm/ttm: reclaim excess pooled pages after a fixed delay
-
-This commit schedules delayed work to reclaim pooled TTM pages above a
-per-node reserve after a fixed five-second window and uses a single
-counter read in ttm_pool_free() when checking the node limit.
-
-> diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_poo=
-l.c
-> index 1bf37023fed66..09766496d8810 100644
-> --- a/drivers/gpu/drm/ttm/ttm_pool.c
-> +++ b/drivers/gpu/drm/ttm/ttm_pool.c
-[ ... ]
-> @@ -473,6 +511,46 @@ static unsigned int ttm_pool_shrink(int nid, unsigne=
-d long num_to_free)
->  	return num_pages;
->  }
-> =20
-> +/* Trim excess pooled pages when the fixed reclaim window expires. */
-> +static void ttm_pool_shrink_idle(struct work_struct *work)
-> +{
-> +	const unsigned long batch =3D 1UL << (MAX_PAGE_ORDER / 2);
-> +	size_t nr_types;
-> +	int nid;
-> +
-> +	spin_lock(&shrinker_lock);
-> +	nr_types =3D list_count_nodes(&shrinker_list);
-> +	spin_unlock(&shrinker_lock);
-> +
-> +	for_each_node_state(nid, N_MEMORY) {
-> +		unsigned long reserve =3D min(page_pool_idle_reserve,
-> +					    pool_node_limit[nid]);
-> +		long pages =3D atomic_long_read(&allocated_pages[nid]);
-> +		unsigned long budget;
-> +		size_t empty =3D 0;
-> +
-> +		if (pages <=3D 0 || pages <=3D reserve)
-> +			continue;
-> +
-> +		/* Bound freed pages and scans that make no progress. */
-> +		budget =3D pages - reserve;
-> +		while (budget && empty < nr_types && pages > 0 && pages > reserve) {
-> +			unsigned long freed;
-> +
-> +			freed =3D ttm_pool_shrink(nid, batch, min(budget, pages - reserve));
-> +			budget -=3D min(budget, freed);
-> +			empty =3D freed ? 0 : empty + 1;
-> +			cond_resched();
-> +			pages =3D atomic_long_read(&allocated_pages[nid]);
-> +		}
-
-[Severity: Medium]
-Can draining the entire excess in one ttm_pool_shrink_idle() pass cause an
-unbatched set_pages_wb() TLB shootdown storm on x86?
-
-ttm_pool_shrink() -> ttm_pool_dispose_list() calls ttm_pool_free_page()
-once per isolated entry, which restores write-back caching individually:
-
-drivers/gpu/drm/ttm/ttm_pool.c:ttm_pool_free_page() {
-	...
-#ifdef CONFIG_X86
-	/* We don't care that set_pages_wb is inefficient here. This is only
-	 * used when we have to shrink and CPU overhead is irrelevant then.
-	 */
-	if (caching !=3D ttm_cached && !PageHighMem(p))
-		set_pages_wb(p, 1 << order);
-#endif
-	...
-}
-
-Each set_pages_wb() call takes cpa_lock and broadcasts a synchronous
-cross-CPU TLB shootdown IPI, so reclaiming 1 GiB of order-0 write-combined
-pages in one pass issues 262,144 individual set_pages_wb() calls while also
-rotating through all empty shrinker_list entries after every 32-entry
-batch.  Because ttm_pool_note_return() uses a fixed five-second timer that
-is not deferred by ongoing pool activity, an active GPU workload cycling
-more than 128 MiB of WC/UC buffers will repeatedly pay this unbatched
-set_pages_wb() shootdown storm and subsequent set_pages_array_wc() or
-set_pages_array_uc() allocation shootdowns every five seconds.
-
-Batching the caching transition across dispose list entries with
-set_pages_array_wb() (as ttm_pool_backup() does) would avoid per-page CPA
-shootdowns.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125015613.1272=
-97-1-eduardoprocopiogomez@gmail.com?part=3D1
