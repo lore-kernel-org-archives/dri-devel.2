@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E297F606A6AB
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 22:48:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED86F606A33F
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 22:48:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=dAXiLM45
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IGWs9USx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 441A110FFF2;
-	Wed, 25 Nov 2026 22:48:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3B058112001;
+	Wed, 25 Nov 2026 22:48:47 +0000 (UTC)
 Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
  [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1F14210FFFB
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:48:18 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795646888; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D018D10FFF2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:48:17 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795646892; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=nbLBmnbXUfx9q3j+ElyaWIfPjSAgRIYCDhM25KbmFJWTBSnq0Ys7AwybcGiBdLdRpPxcDRZXAuIu2pFkO908JawbvZTAJI9HSIeOMc9uW+D9A1X3bwe+kgmZ4twmvMSNqGUWr9INRj7RjP5+cQWvDUVRgh0ASlXGDRpWMwLCXeY=
+ b=EQgbQv5ge2ir6H8NNZrU9e+g/p+N5gabMcJ8MV4s5D3mcWSERzBjaYjDb3tS4ICH9gmvpCwO3dzAXdCJYZD8PLOYh3cmd5xAOJk/FuIk8AzsZVKUkz+EGGqLOxypTMWH0HlI4f7dpkGKUKBa6texTzeaomgp7X6f4X+1gc+YqNc=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795646888;
+ s=zohoarc; t=1795646892;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=mz9ZaEp5GpbURwHwKVcvQ4Ypmw1Fz7gWPB79WrWZZSw=; 
- b=i5t4gc1t7IuH11ruuBUtRbLFkFEV3bv+J/zK42xGSwhAWCCHqfrwciMfUH4dKNW4y30cKnfG9JjOt7jFe2N6GLoXNS1tCkOaVdvTs10R8DaRTc/UZboYXBSqkGlrb8NsHTkMXIDsQCKWSjdfGYcSd1zLES/g0jgVZfKhqvIwdBU=
+ bh=89a+DyuMeQJsG4Oq5bs30wnrcAo2VSWhNCr/+dnzrqA=; 
+ b=XqOZBMrO6mP4lYq/5sghitOR2VWKLvAFlF1gL+zjY45U8Z6AWbT/AQj7JwPgMEJQj15vbjnheIKYHkDZVT9otfN4InP5hWRpwpwIIADg5kexI2z0V/RkLZd1Ro+7g0+TlLkQRe0WcsLEYy6rNTU1g6+hTJKWZXsyHmaJyKSlmcE=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=dAXiLM45t3kuCNXEQUfRrrgYNVGisbtUJrl+P/Jw9axMMpMgLCVzDY3WbnyDoHK4ykIgEURzMXY+x6fZHG5BZAkQLyB8wPA6EcQP51K6lmne4qfmBUMnovnvaxomA77MY02CDI5w97h7wvAYwoNpGX4us0Lrlbe0NPLEHPs+Yig=;
+ b=IGWs9USxhQMoUKhfIHpO2NunOsVRzaC9xMrHPZJOnBk0UP7Wvj1QfT8r9qAz1mEdr6dV57uPUbeIiIQDauJWRx1LeENMTjgicv06lbLDFrxFHjrsOsotSrGCLXUWKmRkXuYWjUkgaj0n2sbIyGISiKRHdYaSTamk5OwHTznpAdA=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=mz9ZaEp5GpbURwHwKVcvQ4Ypmw1Fz7gWPB79WrWZZSw=;
+ bh=89a+DyuMeQJsG4Oq5bs30wnrcAo2VSWhNCr/+dnzrqA=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795646885641703.1452437482217;
- Wed, 25 Nov 2026 14:48:05 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795646890481658.6372610063196;
+ Wed, 25 Nov 2026 14:48:10 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Wed, 25 Nov 2026 19:47:03 -0300
-Subject: [PATCH 12/13] drm/tyr: justify the physical address cast in pt_map()
+Date: Wed, 25 Nov 2026 19:47:04 -0300
+Subject: [PATCH 13/13] drm/tyr: deny `clippy::as_conversions`
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-b4-tyr-as-casts-v1-12-2b2f53164d86@collabora.com>
+Message-Id: <20261125-b4-tyr-as-casts-v1-13-2b2f53164d86@collabora.com>
 References: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 In-Reply-To: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
@@ -76,50 +76,34 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 An `as` cast silently drops the bits that do not fit the target type,
 and nothing at the cast shows whether that can happen. As part of a
-larger effort to reduce the number of `as` casts in Tyr, justify the
-cast of the DMA address to `PhysAddr` in `pt_map()`. It stays, with a
-`// CAST:` comment and an `#[expect(clippy::as_conversions)]`.
+larger effort to reduce the number of `as` casts in Tyr, deny
+`clippy::as_conversions` in the driver, so that Clippy rejects a new
+cast unless it carries an `#[expect]`.
 
-No functional change intended.
+The casts that remain are all justified in a `// CAST:` comment and
+marked that way.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- drivers/gpu/drm/tyr/vm.rs | 16 ++++++----------
- 1 file changed, 6 insertions(+), 10 deletions(-)
+ drivers/gpu/drm/tyr/tyr.rs | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/drivers/gpu/drm/tyr/vm.rs b/drivers/gpu/drm/tyr/vm.rs
-index 673fc6819070..3e2ed43f07a0 100644
---- a/drivers/gpu/drm/tyr/vm.rs
-+++ b/drivers/gpu/drm/tyr/vm.rs
-@@ -866,22 +866,18 @@ fn pt_map(
-             }
-         };
+diff --git a/drivers/gpu/drm/tyr/tyr.rs b/drivers/gpu/drm/tyr/tyr.rs
+index e7ec450bdc9c..ced937af4c53 100644
+--- a/drivers/gpu/drm/tyr/tyr.rs
++++ b/drivers/gpu/drm/tyr/tyr.rs
+@@ -5,6 +5,11 @@
+ //! The name "Tyr" is inspired by Norse mythology, reflecting Arm's tradition of
+ //! naming their GPUs after Nordic mythological figures and places.
  
-+        // CAST: `PhysAddr` is as wide as a DMA address on the platforms we care about.
-+        #[expect(clippy::as_conversions)]
-+        let curr_paddr = curr_paddr as PhysAddr;
++// `as` conversions can silently truncate, so they are denied by default in
++// this driver. A conversion that cannot be avoided is justified in a
++// `// CAST:` comment and marked with `#[expect(clippy::as_conversions)]`.
++#![deny(clippy::as_conversions)]
 +
-         // SAFETY:
-         // No other io-pgtable operation can currently access this range because Tyr holds
-         // the gpuvm_unique mutex for the entire sm_map() operation.
-         // The addresses being mapped won't overlap any existing mappings in this
-         // page table because drm_gpuvm_sm_map() checks each requested mapping and either unmaps
-         // or remaps any overlap before creating the new mapping.
--        let (mapped, result) = unsafe {
--            pt.map_pages(
--                curr_iova,
--                curr_paddr as PhysAddr,
--                pgsize,
--                pgcount,
--                prot,
--                GFP_KERNEL,
--            )
--        };
-+        let (mapped, result) =
-+            unsafe { pt.map_pages(curr_iova, curr_paddr, pgsize, pgcount, prot, GFP_KERNEL) };
+ use crate::driver::TyrPlatformDriver;
  
-         if let Err(e) = result {
-             // If map_pages fails, mapped will be zero because the ARM LPAE backend
+ mod driver;
 
 -- 
 2.56.0
