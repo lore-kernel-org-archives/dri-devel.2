@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC811606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:03:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A31F606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:03:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aH/AGNF+
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=K3ru4BVM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4521010FD99;
-	Wed, 25 Nov 2026 18:03:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id CB25710FEA1;
+	Wed, 25 Nov 2026 18:03:49 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6ED4910FD99
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:03:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5AC6D10FEA1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:03:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 114694078E;
+ by sea.source.kernel.org (Postfix) with ESMTP id 3DAE3461F3;
+ Wed, 25 Nov 2026 18:03:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBC961F000CF;
  Wed, 25 Nov 2026 18:03:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0CB1F000C6;
- Wed, 25 Nov 2026 18:03:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795629815;
- bh=/nAs+9oe/ZAPQ2IOcnzz3tcX+2G1AUK0PK5PTZPJeEo=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=aH/AGNF+ur4rKHL8DqiuAmofnVZQ3pdiVwOvA5yFi6ifXRUI5bZTmKtvYf81rrY/9
- iyYpbZYu6xj3hSlAA97NuRTPmLarTEsOcD2pMfxc4HAgx96IjHDgUpqXArIunsRove
- yYZKpFrHmRnrZcxroG6ic0BfZlQlMml5HWkztOeC7wJd9oBq77TH+iLIdjQyDQ/9C7
- kX3KETJPUB0J7+N6pfPObYKeMSON/AFUnYMsqMW2P1RKHzbgMs8irxpPNQMx1YFXp2
- 2YoS4bR0yBTsl0z2QMuCejtvTqQo8ssTzSfx9o80Kh+B+qrKLo4zU5oeV9YevrzxbH
- pKbHeewLKrs6A==
-Message-ID: <sashiko-outbox-233897@kernel.org>
+ s=k20260515; t=1795629817;
+ bh=Jjg2AizMoO8fgmQX9TPrWTlZoBJhv6b0qu+vOHQoQVE=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=K3ru4BVMi1a/1cpmTvefmjUQCfyRawe3Ce6r/Htv1He99OJnaLEGr9A10J8N3v7cN
+ SwX6cn91KSzn8hUdta9hrw7PlaZOt5EsMxSXOhKyWPJjlkxSsw0fdcb0sPHBed4EjM
+ D7SpB6j7IkXDBac36tR1Css38nbbPE8Xzpp+9SumJSBUAzrUK1Xgv4m1Pc5CqTdIw6
+ bwU+sGcf/Jx616UBrhvJnshce9ZeRMR/uJIEvOF6Gcdqsl3d6WtGrt2rSA2+xG2qTx
+ ggvzSLJf63goWxQdKmpQNg1FI17uoYvKocTOkTtbFG4CjLUXXHMyAnoi+RThhUrayT
+ thmVDCj1kH/dQ==
+Message-ID: <sashiko-outbox-233898@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 4/4] accel/qaic: Add callbacks for DRM RAS netlink
- telemetry
-To: "Zack McKevitt" <zachary.mckevitt@oss.qualcomm.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261124180137.616249-5-zachary.mckevitt@oss.qualcomm.com>
-References: <20261124180137.616249-1-zachary.mckevitt@oss.qualcomm.com>
- <20261124180137.616249-5-zachary.mckevitt@oss.qualcomm.com>
+Subject: Re: [PATCH v4 08/32] drm/display: bridge-connector: hoist error
+ management to common code
+To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
+Cc: dri-devel@lists.freedesktop.org, imx@lists.linux.dev, Frank.Li@kernel.org
+In-Reply-To: <20261125-drm-bridge-hotplug-v4-8-822722850492@bootlin.com>
+References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
+ <20261125-drm-bridge-hotplug-v4-8-822722850492@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 18:03:35 +0000
+Date: Wed, 25 Nov 2026 18:03:36 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,89 +59,50 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] accel/qaic: Kconfig depends on default-n DRM_RAS despite
-  stubbed API
-- [Low] accel/qaic: ignored qaic_telemetry_register() failure in
-  qaic_init()
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/bridge-connector: int return in
+  drm_bridge_connector_initialize()
 --
 
-commit 8ce3ab45dd93c62906cce075f4239c57f0d04fc1
-Author: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+commit a701ba5bb1c19c7b9fcfc98010ada24b2c5ec042
+Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-accel/qaic: Add callbacks for DRM RAS netlink telemetry
+drm/display: bridge-connector: hoist error management to common code
 
-This commit adds MHI telemetry channel support for QAIC devices and
-registers a DRM RAS telemetry node to expose device telemetry fields over
-netlink.
+This commit moves the error check for drmm_connector_hdmi_init() and
+drmm_connector_init() out of the if/else branches in
+drm_bridge_connector_initialize().
 
-> diff --git a/drivers/accel/qaic/Kconfig b/drivers/accel/qaic/Kconfig
-> index 116e42d152ca8..6a07db0c402e7 100644
-> --- a/drivers/accel/qaic/Kconfig
-> +++ b/drivers/accel/qaic/Kconfig
-> @@ -8,6 +8,7 @@ config DRM_ACCEL_QAIC
->  	depends on DRM_ACCEL
->  	depends on PCI && HAS_IOMEM
->  	depends on MHI_BUS
-> +	depends on DRM_RAS
->  	select CRC32
->  	select WANT_DEV_COREDUMP
->  	help
-
-[Severity: Medium]
-Does DRM_ACCEL_QAIC need to depend on DRM_RAS?
-
-DRM_RAS defaults to n (and depends on NET), so adding this dependency
-causes existing configs with CONFIG_DRM_ACCEL_QAIC enabled to silently
-drop the driver during olddefconfig unless CONFIG_DRM_RAS is also enabled.
-Since include/drm/drm_ras.h provides no-op stubs for
-drm_ras_node_register() and drm_ras_node_unregister() when CONFIG_DRM_RAS
-is disabled, qaic_telemetry.c can build without this dependency.
-
-[ ... ]
-
-> diff --git a/drivers/accel/qaic/qaic_drv.c b/drivers/accel/qaic/qaic_drv.c
-> index 90c0d31e414ae..6d185151a0a69 100644
-> --- a/drivers/accel/qaic/qaic_drv.c
-> +++ b/drivers/accel/qaic/qaic_drv.c
-[ ... ]
-> @@ -854,12 +863,17 @@ static int __init qaic_init(void)
->  	ret =3D qaic_ras_register();
->  	if (ret)
->  		pr_debug("qaic: qaic_ras_register failed %d\n", ret);
-> +
->  	ret =3D qaic_ssr_register();
->  	if (ret) {
->  		pr_debug("qaic: qaic_ssr_register failed %d\n", ret);
->  		goto free_bootlog;
+> diff --git a/drivers/gpu/drm/display/drm_bridge_connector.c b/drivers/gpu=
+/drm/display/drm_bridge_connector.c
+> index 19cacae617dce..f4a71801e8a3b 100644
+> --- a/drivers/gpu/drm/display/drm_bridge_connector.c
+> +++ b/drivers/gpu/drm/display/drm_bridge_connector.c
+> @@ -1057,15 +1057,13 @@ drm_bridge_connector_initialize(struct drm_bridge=
+_connector *bridge_connector,
+>  					       &drm_bridge_connector_funcs,
+>  					       &bridge_connector->hdmi_funcs,
+>  					       connector_type, ddc);
+> -		if (ret)
+> -			return ERR_PTR(ret);
+>  	} else {
+>  		ret =3D drmm_connector_init(drm, connector,
+>  					  &drm_bridge_connector_funcs,
+>  					  connector_type, ddc);
+> -		if (ret)
+> -			return ERR_PTR(ret);
 >  	}
-> =20
-> +	ret =3D qaic_telemetry_register();
 > +	if (ret)
-> +		pr_debug("qaic: qaic_telemetry_register failed %d\n", ret);
-> +
->  	return 0;
-> =20
->  free_bootlog:
-> @@ -889,6 +903,7 @@ static void __exit qaic_exit(void)
->  	 * reinitializing the link_up state after the cleanup is done.
->  	 */
->  	link_up =3D true;
-> +	qaic_telemetry_unregister();
->  	qaic_ssr_unregister();
->  	qaic_ras_unregister();
->  	qaic_bootlog_unregister();
+> +		return ret;
 
-[Severity: Low]
-If qaic_telemetry_register() fails in qaic_init(), module load still
-succeeds and leaves qaic_telemetry_mhi_driver unregistered.  On module
-unload, qaic_exit() unconditionally calls qaic_telemetry_unregister() ->
-mhi_driver_unregister() -> driver_unregister(), which hits
-WARN(1, "Unexpected driver unregister!\n") because drv->p is NULL.  Should
-qaic_init() unwind and return the error when qaic_telemetry_register()
-fails?
+[Severity: High]
+Should this return ERR_PTR(ret) instead of ret?
+drm_bridge_connector_initialize() returns a struct drm_connector *, so
+returning an int fails to build with -Werror=3Dint-conversion (and breaks
+git bisect before commit "drm/display: bridge-connector: use a dynamic
+connector" restores ERR_PTR(ret) later in the series).
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261124180137.6162=
-49-1-zachary.mckevitt@oss.qualcomm.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-bridge=
+-hotplug-v4-0-822722850492@bootlin.com?part=3D8
