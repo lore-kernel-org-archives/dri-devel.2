@@ -2,60 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C76F5606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:18:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEAEE606A323
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 16:26:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=c8vX9bEe
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=w22kui8A
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 26E4110E07A;
-	Wed, 25 Nov 2026 16:18:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DF85910E07A
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:18:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795623489; x=1827159489;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=9+tiGBNKlGAcbgLvr/9pQGLti36ZdFJyzGzi5HXaUoE=;
- b=c8vX9bEeLTML4tMpf8utLXlQtQCgMO3xiimgmpiezaNd8IrXXJ1P12dj
- qFATB0OFAU+yAEQqT3mjtspPec83HnaenJPf/8RqmwPS9yHItqPqeEW3/
- QLlYgMky46LwX+hW9ynshf32EdRRF6p4XKuvE6BPTchdmJgvTyee1thkm
- 0ngw4A+PQR/wIgPdgPvteOVlJ1lFF3vugcWhS5EQAkRQlwGaCBoxisQHr
- exNLkDOeiNHJl2t2u58rot+8vVoPxHatRhJhmxeo79dygH0xEj1tfQOcQ
- NCIheQ2zlnRKOclJvxGmZ90ad21ELVXcd2jLncm7RmjO6I6uT5qSL2Qb+ w==;
-X-CSE-ConnectionGUID: /xixVbHRRESToS2dLQ3E1w==
-X-CSE-MsgGUID: 9fGJvibIRdyWJGBSM02J6Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4498983"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4498983"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
- by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 08:07:03 -0800
-X-CSE-ConnectionGUID: rs80A/RtRHmkmjDfIQjjAQ==
-X-CSE-MsgGUID: DiFJ+MTDSaW9EKAtEObxag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="12375211"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa001.fm.intel.com with ESMTP; 25 Nov 2026 08:03:58 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xWFTP-00000001S0s-3iSt;
- Wed, 25 Nov 2026 16:03:55 +0000
-Date: Thu, 26 Nov 2026 00:03:08 +0800
-From: kernel test robot <lkp@intel.com>
-To: Hefei <3066883572@qq.com>, dri-devel@lists.freedesktop.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
- Hefei <3066883572@qq.com>
-Subject: Re: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
-Message-ID: <20261125235231.H9Nhpv9l-lkp@intel.com>
-References: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6DBEB10E2C6;
+	Wed, 25 Nov 2026 16:26:42 +0000 (UTC)
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D94610E93A
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 16:26:36 +0000 (UTC)
+Received: from [IPV6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd] (unknown
+ [IPv6:2a02:830a:f787:8f00:8bb2:f125:24d:78cd])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519) (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id D94B953401EE;
+ Wed, 25 Nov 2026 17:26:33 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1795623993;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=gQ4dWEwpgcq8XaO874dWWeVVziSNkBxKz3Y1ekE3l2k=;
+ b=w22kui8AP7h1bSN0+oVLvRo4iHTS0y6Af5439ZvMzPC8i0/P3ePdpL49wFeS+CNFrq0WH5
+ dZ+Sb6daiR9ydJU+CQvq+CbH40XOau/G3Yxu0ilTshNr2ydmD5JhmBVyK9WTN1lj+3q/uE
+ eKBvRYk1ymSL1d8feF819qdYWOsximM=
+Message-ID: <8488344d-85d0-40a8-a526-a17fe69cb00a@ixit.cz>
+Date: Wed, 25 Nov 2026 17:26:33 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07@qq.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 4/5] drm/panel: lg-sw43408: keep VPNL paired with VDDI
+ and reset deasserted
+To: sashiko-reviews@lists.linux.dev, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ robh@kernel.org, conor+dt@kernel.org
+References: <20261125-fix-blueline-panel-v3-0-914b4a30b73e@ixit.cz>
+ <20261125-fix-blueline-panel-v3-4-914b4a30b73e@ixit.cz>
+ <sashiko-outbox-233481@kernel.org>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <sashiko-outbox-233481@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,103 +100,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Hefei,
+On 25/11/2026 14:19, sashiko-bot@kernel.org wrote:
 
-kernel test robot noticed the following build errors:
+[...]
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on dtor-input/next dtor-input/for-linus lee-backlight/for-backlight-next lee-backlight/for-backlight-fixes linus/master v7.4-rc4 next-20261124]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+>> +static const struct dev_pm_ops sw43408_pm_ops = {
+>> +	LATE_SYSTEM_SLEEP_PM_OPS(sw43408_suspend_late, NULL)
+>> +};
+> 
+> [Severity: High]
+> Does sw43408_pm_ops also need an early resume callback to re-enable vpnl
+> when vddi turns back on during system resume?
+> 
+> During system suspend, DRM unprepares the panel in .prepare
+> (dpu_pm_ops.prepare -> msm_kms_pm_prepare()), stmfts_suspend() drops the
+> touchscreen's vddi vote in .suspend, and sw43408_suspend_late() then sees
+> regulator_is_enabled(vddi) == 0 and disables vpnl.
+> 
+> On resume, stmfts_resume() unconditionally re-enables vddi during the
+> .resume phase, while DRM does not resume the panel until .complete (or not
+> at all during resume if the display was blanked before suspend).  That
+> leaves the panel in the vddi-on, vpnl-off state across .resume, and when
+> sw43408_prepare() later runs, vddi is already held enabled by stmfts so
+> regulator_enable(vddi) does not power-cycle vddi to recover the DDIC.
+> 
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Hefei/dt-bindings-input-add-Jadard-JD9365TX-touchscreen-binding/20261125-101123
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/tencent_3D3EC29E27E9DF37D4C9F1A60F2F2BA3EF07%40qq.com
-patch subject: [PATCH v3 4/6] drm/panel: add VIEWE JD9365TX 7 inch DSI panel
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261125/20261125235231.H9Nhpv9l-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125235231.H9Nhpv9l-lkp@intel.com/reproduce)
+I ran automated stress testing for all states, and it seems it's necessary here.
+Report below the line.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261125235231.H9Nhpv9l-lkp@intel.com/
+ From maintainer point view, if there would be need to make it bulletproof I can 
+explore Option 1/2 to address it, but hardware-wise it seems to be not required.
 
-All errors (new ones prefixed by >>):
+I can send v4 with more verbose explanation within the commit msg / code, if needed.
 
-   drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:304:8: error: call to undeclared function 'of_drm_get_panel_orientation'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     304 |         ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-         |               ^
->> drivers/gpu/drm/panel/panel-viewe-jd9365tx.c:308:2: error: call to undeclared function 'drm_panel_init'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
-     308 |         drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
-         |         ^
-   2 errors generated.
+David
 
+---
 
-vim +/drm_panel_init +308 drivers/gpu/drm/panel/panel-viewe-jd9365tx.c
+     Good catch to check the resume path, but hardware testing on Pixel 3
+     shows no resume callback is needed here.
 
-   273	
-   274	static int jd9365tx_probe(struct mipi_dsi_device *dsi)
-   275	{
-   276		struct device *dev = &dsi->dev;
-   277		struct jd9365tx_panel *ctx;
-   278		int ret;
-   279	
-   280		ctx = devm_kzalloc(dev, sizeof(*ctx), GFP_KERNEL);
-   281		if (!ctx)
-   282			return -ENOMEM;
-   283	
-   284		ctx->dsi = dsi;
-   285		mipi_dsi_set_drvdata(dsi, ctx);
-   286	
-   287		dsi->lanes = 2;
-   288		dsi->format = MIPI_DSI_FMT_RGB888;
-   289		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
-   290				  MIPI_DSI_MODE_LPM;
-   291	
-   292		ctx->reset = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
-   293		if (IS_ERR(ctx->reset))
-   294			return PTR_ERR(ctx->reset);
-   295	
-   296		ctx->vdd = devm_regulator_get(dev, "vdd");
-   297		if (IS_ERR(ctx->vdd))
-   298			return PTR_ERR(ctx->vdd);
-   299	
-   300		ctx->iovcc = devm_regulator_get(dev, "iovcc");
-   301		if (IS_ERR(ctx->iovcc))
-   302			return PTR_ERR(ctx->iovcc);
-   303	
-   304		ret = of_drm_get_panel_orientation(dev->of_node, &ctx->orientation);
-   305		if (ret)
-   306			return ret;
-   307	
- > 308		drm_panel_init(&ctx->panel, dev, &jd9365tx_funcs, DRM_MODE_CONNECTOR_DSI);
-   309		ctx->panel.prepare_prev_first = true;
-   310	
-   311		ret = drm_panel_of_backlight(&ctx->panel);
-   312		if (ret)
-   313			return ret;
-   314	
-   315		drm_panel_add(&ctx->panel);
-   316	
-   317		ret = mipi_dsi_attach(dsi);
-   318		if (ret < 0) {
-   319			drm_panel_remove(&ctx->panel);
-   320			return ret;
-   321		}
-   322	
-   323		return 0;
-   324	}
-   325	
+     The non-recoverable DDIC state occurs when vpnl is dropped while vddi
+     remains powered ((VDDI=ON, VPNL=ON) -> (VDDI=ON, VPNL=OFF)), not when
+     powering up from a cold both-rails-off state with vddi rising ahead of
+     vpnl.
 
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+     I explicitly tested the exact rail sequence on Pixel 3:
+     1. Both vddi (ldo14) and vpnl (ldo28) off, reset deasserted (the state
+        left by sw43408_suspend_late()).
+     2. Re-enabled vddi alone via stmfts while vpnl remained off, and held
+        (VDDI=ON, VPNL=OFF, reset=HIGH) for 6 seconds.
+     3. Ran sw43408_prepare() with vddi still continuously held on by stmfts
+        (no vddi power cycle).
+
+     The panel recovered cleanly and lit up normally.
+
+     Also note that an early resume callback (.resume_early) would run before
+     stmfts_resume() re-enables vddi, so enabling vpnl there would either see
+     regulator_is_enabled(vddi) == 0 (no-op) or unconditionally power up
+     3.0 V vpnl before 1.8 V vddi (reversing the power-on sequence and
+     leaving vpnl enabled when no shared consumer brings vddi up).
