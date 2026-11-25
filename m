@@ -2,76 +2,75 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D68B606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 23:26:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D1C7606A31E
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 23:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E8d75sZ0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=BTJJYr8o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5411611200B;
-	Wed, 25 Nov 2026 23:26:48 +0000 (UTC)
-Received: from mail-oo2-f7.google.com (mail-oo2-f7.google.com [74.125.231.135])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 45670112009
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 23:26:42 +0000 (UTC)
-Received: by mail-oo2-f7.google.com with SMTP id
- 006d021491bc7-71abadc4460so1963109eaf.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:26:42 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5CC19112014;
+	Wed, 25 Nov 2026 23:26:55 +0000 (UTC)
+Received: from mail-oo2-f5.google.com (mail-oo2-f5.google.com [74.125.231.133])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 762B511200E
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 23:26:44 +0000 (UTC)
+Received: by mail-oo2-f5.google.com with SMTP id
+ 46e09a7af769-862a1dbb516so1149307a34.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:26:44 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795649201; x=1796254001; darn=lists.freedesktop.org;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=z0QB7Z5jkpv7pdrIgKYxDo+vWMbTwUMEbHjEmTz2knQ=;
- b=E8d75sZ0k8D2lXQKq9y7SVHZSrNENEGNPvDkEiWISRasxb0JI5QtMVFE2cMTHQf3bL
- BLis4at2Zw2k/OpQu1oIKTP0HoRjL20RC0s4Gw0/m12nGwj51ocKDXNNY3SZCk7DfSQS
- R8WKuuTCpJdWb27h6XpXnGjKLRWJfAGXAKE2btfYlNqYwFcuutlYsq3NBpggolVTrV30
- XOk7APW+KGwc+KmqelZHmH9Zg/VvUGG+DMoGwAOE+ZK3A4g5m7F18ujgL297u+a+IYGa
- J3PbA4Y1g0PHGuPMJ2QoEVG+87wUGiJkn+EYVwpQSHbaTeOa6FdreQzkaCNiq+bnFuFz
- mF0g==
+ d=gmail.com; s=20260707; t=1795649203; x=1796254003; darn=lists.freedesktop.org;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=6h7kwsZNiIakcDOBteqgCk42cVXx+EQMyY+qUW44Ixg=;
+ b=BTJJYr8oIjNc04srcBA/cgamA8n7xYKEyAtczJnyYpN8IOUcHA8QvuK8OacgnqV+do
+ RDGreWRnRpYe1OvFs7zEeO8Kgo+j7fBkUAWRhSTWoTCTZRylrNOWJAb3gcuXgP+yadHD
+ TC1oca2H4fZI4CFpwN8zTfTDzTq5bJrV9zdTBI/Hpc2uhN5ZwBusACieW6h9UQMXcQf+
+ aBDxWr6hlKfEtC3Amcn0NAzrTjyRoc7pk4W4eG0PWaTfT4IZIEUK8ZGZ2Z25lHNy+FGX
+ gxzejvZWaHC/XLC9yfoIvCA7rFAX3m65vhJZ5uA9oIiOd/P44vK4FuMxstPTorSHQgT+
+ Agdg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795649201; x=1796254001;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=z0QB7Z5jkpv7pdrIgKYxDo+vWMbTwUMEbHjEmTz2knQ=;
- b=RcvRFVRRHkKSvXwR32NJKbWgbR7KdVfxatAKQ0Oy+ZMukfCAb0uo2uH3IM3nJaOvtu
- rASiJHtLhGklKIadtghh6h3L3C5iEXlhxWWZ8d175WG7T1v+c0rrQtB2a8xckjifhI7h
- p+xSltNT2zWsKnt/SYUjxiFNRIt/6b0+9t6wJphlP2qbk5hwUcHjQT79tH4zx9e0NTy/
- cRQDISFZfGe6sJtW+WjVsD4u+i0FnGIzQrb2vr57jEcaXuvlwNvEy8/EjRj9JZOITnF9
- mNDjqjQbCpxKDF+vzQZ2l3V+pZAYquJ6A+dcu6BrcFqz7sA2mOdUevrF4T7E4rZoL42F
- PUZg==
+ d=1e100.net; s=20260707; t=1795649203; x=1796254003;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6h7kwsZNiIakcDOBteqgCk42cVXx+EQMyY+qUW44Ixg=;
+ b=wH5/SAdeVKzBaHRJ24KvJR5LGY3Hi8h3xfl3Jc7OxiSK7kwhH2tZfFqaItB91SPL72
+ 251XkYLQXwt59SJqpRdlcZGr/qt6mfHW4kVjTFl8YJyk35KBeExvitO7jr37pYCFJnw2
+ CGcAT6g6meqrGlrgjANDcomEsX6wLKeyddJEZgtOPZKzHUTDDheXOI1Qqd1LUk/WiAWR
+ uxVLA/rEGHOrjCw07xxOc+MiVd1BZ9TGMeZ/d3XGv0fDERgOE1gS8/hqzclMQk3egMye
+ p6ajARaM+Au+J1pWGPah8vEeArYkmP1WcVeqzBsfnNIcRxTiWKtYv1Wjq63DZ8G5j4W3
+ Al1w==
 X-Forwarded-Encrypted: i=1;
- AL+hErFg7FbdoMnCFMxuMoqccaeV5vIglj5rdEUsYAm/y8liccLPYvGxcQi0Ny+npRBzfw+KH1PI6QAgnbU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/Bzf3s4VDUE0upKSSEu6r97wAwE1fTska5ryibrWNllL587GT2
- D5r+3IWOsj+RVClAXGL5boHCFDhOW2Vv8OZcz/yNvPOau1Ib6LteC8JF
-X-Gm-Gg: AZFdTZeUzDioMhKqfbMaIy/o4Mhu8buynSbCLCKEChPtDHqLDRDEFZVqpeRBOvko3oM
- N/s9Lezdwa0Tka4/DJ4zKl5oBGHWiopvPQZHHaMnhfKJvlkooTDOjpkXECmiKyAIrYBGvf+NdI/
- eZOUulCaknuMxtoCSM19CZzz4U/QsXr0nyvivNzm3WnBK821eNfHmjQafbnnosOIVPTd0Q20AyX
- TfvSx4fVrP96gvWFo2drbI53AAc5qKtlALNN/nCyzIl7P+vdXviiuTFdUbiysB4S4UoQk1CGbKt
- I0Godx5zFc2TeSmUwAoyIxY6Cxvbse3UPWh58A4WLQt8Gnih1mKzyYByAF1Rtv642z59pGGioJp
- ORKPyPSub88SjZ+2uU4IQsfmHYV69bCOJ2l1aKMe2vEdtA8bR7G2nLVefDDQ5RIaytZJFPdAPSR
- Kyic3ZGLU5NK5PBm/REULe0gNV1dxvjo1COMJtNJ7O/A4P2xxuqZPqgWi5Mx+zJLxAbxjMQRNhB
- apGxm1mrBQewCvQPnYrBEpD+89I1Z2vJGtlVGKFbLGENMMIBNyaUqRZY+0INBbC9aQll9seKUbl
- T6cjeVucnCckN8IFefFxm05+BbDSR2b+bmhdNDUHDQq3k3OzuVOr3kCP
-X-Received: by 2002:a05:6820:4a19:b0:71a:ea6a:4f64 with SMTP id
- 006d021491bc7-71b394eff5cmr13989163eaf.50.1795649201237; 
- Wed, 25 Nov 2026 15:26:41 -0800 (PST)
+ AL+hErE1eBHLfpkfp0netT6kt7pfqfrfgka3ROKIo879K2FQkMQ1uZ0HXbiwTyimNxYJm4nN+ELj6+HIs5M=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+AWr2F/6G+UY6vnESm5cYojgNsc1oNDvl29slHchdrd1XWOeaz
+ 1BqHNYQrf7d1s7ri/4i2QA56Lml41GZ5Nk82FaOaLc7iaOMgxRGY99x8
+X-Gm-Gg: AZFdTZcgtJbzjWukBAr/HvxnC/2putP2a+GaJQ5PQqRA0XMLH3cDlRnYeEFBqI45ygt
+ s7x2yK/zhQGB5l6X0IBs2ZqM0mn0VOVCUln4xvq0DNhhLxR+8dhM5OD1dtpqNOEUPQQUCZSDnfU
+ RXeOIoOl3rPGdcFeON3C5IGGrPVK55yQF66wMxKpY51byXC6GzslKjfJIjGaUydAllDrC7mzckI
+ SF5rpcLpdvznEoBn11aRR4CEWeHCCYL17ARnDg96uTe/jJnjg7iJ1r7tgt2isCqcZjG2BcESJhf
+ 95sOxX/wddsnbbykdkyTteKOvHIDXXn1z9t/TdYv/IqAHf8Ky57iHMz0xRJ1JavdEH4VzsDIQ+g
+ d+f3uAvCsRdnc/E+AnUJ+ThEahx0BJkbnGBCaqq+V5zlZE/myPGZO8yMt2EGXSEYgYE2QgIzjFn
+ w5mFLTZ7/YBNJ5qYrABD5LJnPn1IpR3X6qSLHaNuZ8+0HqOsXVxodrSMcQLIACOCI10KfjhzYcg
+ 81982WZDWDYweC20GqlOxpglNkHf48Wdzzc3C2iKJxCmKiLcCa4ICAc6lOkELPtacEsoZtl4S4P
+ HDbNubSyqxSmPbtI5a5xjADKRl8FRLoa94o=
+X-Received: by 2002:a05:6830:310d:b0:83f:f24d:fe19 with SMTP id
+ 46e09a7af769-863151bafcamr28010483a34.3.1795649203395; 
+ Wed, 25 Nov 2026 15:26:43 -0800 (PST)
 Received: from [192.168.0.98] ([50.26.120.197])
  by smtp.gmail.com with ESMTPSA id
- 46e09a7af769-8631692f049sm14304892a34.25.2026.11.25.15.26.38
+ 46e09a7af769-8631692f049sm14304892a34.25.2026.11.25.15.26.41
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 15:26:39 -0800 (PST)
+ Wed, 25 Nov 2026 15:26:42 -0800 (PST)
 From: Ryan Brue <ryanbrue.dev@gmail.com>
-Subject: [PATCH 0/2] drm/imagination: Hard reset fixes for META firmware cores
-Date: Wed, 25 Nov 2026 17:26:05 -0600
-Message-Id: <20261125-rbrue-suez-pvr-reset-recovery-v1-0-2cea8b163e7e@gmail.com>
+Date: Wed, 25 Nov 2026 17:26:06 -0600
+Subject: [PATCH 1/2] drm/imagination: Report firmware page faults
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAA/x3MQQrCQAwF0KuErBtwCtYwVxEXnfFXs2lLYge19
- O6C7wBv54AbgjPt7GgWtsycKXXE9TnOD4jdORP3p35IKal48Q0SG76yNhdH4CWOujT4R8o46KW
- qlknP3BGvjsne//96O44foHpfG28AAAA=
-X-Change-ID: 20261118-rbrue-suez-pvr-reset-recovery-ba687c88bf85
+Message-Id: <20261125-rbrue-suez-pvr-reset-recovery-v1-1-2cea8b163e7e@gmail.com>
+References: <20261125-rbrue-suez-pvr-reset-recovery-v1-0-2cea8b163e7e@gmail.com>
+In-Reply-To: <20261125-rbrue-suez-pvr-reset-recovery-v1-0-2cea8b163e7e@gmail.com>
 To: Alessio Belle <alessio.belle@imgtec.com>, 
  Luigi Santivetti <luigi.santivetti@imgtec.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -82,11 +81,11 @@ To: Alessio Belle <alessio.belle@imgtec.com>,
 Cc: imagination@lists.freedesktop.org, dri-devel@lists.freedesktop.org, 
  linux-kernel@vger.kernel.org, Ryan Brue <ryanbrue.dev@gmail.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795649198; l=2234;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795649198; l=1161;
  i=ryanbrue.dev@gmail.com; s=20260906; h=from:subject:message-id;
- bh=lkEeogA18QR5ZUQab4hqwxSvIcO221SDwijc6qoyQnk=;
- b=JDtsFvDvlwWCk6Tsxcp50PSYzaNzHOuoyL9IpilsW3rOapT46GqCpUu7ptjf4eUxNexFo9Pa6
- Kykh/ogXyvTA6WrZar1k+v6Lmlnj5ckxeMJwqEdaCaBericGI8U/cBp
+ bh=0immpeEVfo1V2B9tlmsJ5GtsVBowBS1U3ikCLcI8PL8=;
+ b=VxmzF7BQwsqcVZ+C2zOAWyW7mWer5SCFRdV+aW4tFsuXDHQHHURY7JLUxsHbLkW6L7d1zPeZS
+ dmX18LpCAF6AydZWUlqXqDAxXO/qGDUfztNAHSS8d0RR+sQdtNLRLuO
 X-Developer-Key: i=ryanbrue.dev@gmail.com; a=ed25519;
  pk=KsUvVaP//v/2q+ZBuacc7cLbsyEYn+AD71Sn28oZWKo=
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -108,53 +107,35 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Two fixes found while chasing GPU freezes on an MT8173 tablet (GX6250,
-BVNC 4.40.2.51, META firmware processor).
+The firmware tells the host about a page fault of its own with
+ROGUE_FWIF_FWCCB_CMD_CONTEXT_FW_PF_NOTIFICATION. The driver has no case
+for it, so it logs "Received unknown FWCCB command (type=112)" and
+drops the faulting address.
 
-The firmware reports page faults of its own with FWCCB command 112,
-which the driver logs as unknown and drops; patch 1 logs the address.
-
-Patch 2: every hard reset on this core ended with "GPU device lost".
-pvr_fw_stop() waits for the Garten wrapper to go idle, and a META that
-was not asked to idle first keeps it busy; all the other idle polls
-pass. Skipping that one wait on a hard reset, as the driver already does
-when a debugger has halted META, lets the soft reset that follows stop
-the core. Other firmware processors, and the other polls, are
-unchanged.
-
-On the board, with lockdep and a local debug hook that forces a hard
-reset from the watchdog under glmark2, every hard reset recovered
-without losing the device: 13 forced and 8 that the watchdog started on
-its own, on this series over drm-misc-next. New GPU work ran correctly
-afterwards. Contexts that had jobs in flight at the reset are flagged
-guilty as before, and the clients using them (here KWin, through zink)
-stop rendering.
-
-I do not have Imagination's documentation for the META stop sequence. If
-halting the META threads through the slave port first is the right
-shape, I am happy to test that instead.
-
-This series was developed with the help of an LLM.
+Log the address as an error.
 
 Signed-off-by: Ryan Brue <ryanbrue.dev@gmail.com>
 ---
-Ryan Brue (2):
-      drm/imagination: Report firmware page faults
-      drm/imagination: Don't wait for a running META to idle on a hard reset
+ drivers/gpu/drm/imagination/pvr_ccb.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/gpu/drm/imagination/pvr_ccb.c          |  5 +++++
- drivers/gpu/drm/imagination/pvr_fw.c           |  2 +-
- drivers/gpu/drm/imagination/pvr_fw.h           |  3 ++-
- drivers/gpu/drm/imagination/pvr_fw_meta.c      |  6 ++++--
- drivers/gpu/drm/imagination/pvr_fw_startstop.c | 10 ++++++----
- drivers/gpu/drm/imagination/pvr_fw_startstop.h |  4 +++-
- drivers/gpu/drm/imagination/pvr_power.c        |  4 ++--
- 7 files changed, 23 insertions(+), 11 deletions(-)
----
-base-commit: 479e381e77dcde0dfcc9d51e89ff3273da199804
-change-id: 20261118-rbrue-suez-pvr-reset-recovery-ba687c88bf85
+diff --git a/drivers/gpu/drm/imagination/pvr_ccb.c b/drivers/gpu/drm/imagination/pvr_ccb.c
+index 7043b491fe54..0a4d338ca47e 100644
+--- a/drivers/gpu/drm/imagination/pvr_ccb.c
++++ b/drivers/gpu/drm/imagination/pvr_ccb.c
+@@ -167,6 +167,11 @@ process_fwccb_command(struct pvr_device *pvr_dev, struct rogue_fwif_fwccb_cmd *c
+ 						    &cmd->cmd_data.cmd_context_reset_notification);
+ 		break;
+ 
++	case ROGUE_FWIF_FWCCB_CMD_CONTEXT_FW_PF_NOTIFICATION:
++		drm_err_ratelimited(drm_dev, "Firmware page fault at address 0x%llx\n",
++				    cmd->cmd_data.cmd_fw_pagefault.fw_fault_addr);
++		break;
++
+ 	default:
+ 		drm_info(drm_dev, "Received unknown FWCCB command (type=%d)\n",
+ 			 cmd->cmd_type & ~ROGUE_CMD_MAGIC_DWORD_MASK);
 
-Best regards,
 -- 
-Ryan Brue <ryanbrue.dev@gmail.com>
+2.56.1
 
