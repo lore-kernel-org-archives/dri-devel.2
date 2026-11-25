@@ -2,100 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB97606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3419F606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VTE6XHu8
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=OEOwaz4P
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BAB381120FD;
-	Thu, 26 Nov 2026 08:09:23 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B22D710E394
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:16:32 +0000 (UTC)
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-8b4c2da74c0so42485967b3.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:16:32 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795655791; x=1796260591; darn=lists.freedesktop.org;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=QlSPO9+8YS67Tn4rbTFkn+Zhwur7gCmRYFgUkoNRUs4=;
- b=VTE6XHu8PeFhxxEMtCEWS2qvd3ZVikIN7rZi6znUvFhKNEj5bSAqs8+gpqvVOD1FRf
- EQGEWIlV0FM2RaNq+nV2Q/vg5DYCWHLWMRKbDJqcn8A5aRFpT+A+YU2kdwtn4BAZC5/Y
- 0WTVrK3ELjIihwj8ggwoYMQCqO8vEiEDzY8KP0iT6iIEiZjFytAk5d9D7csWzccG7Ysh
- uMtgGyh63ZE0n9vBbMlM0nyTRo8bqXSs2NVN/PeLZh5MeB4/hgAsPYoNs3zFmi4Qr7m9
- UM4hnhdOIE62pCNTjYQ9Y+4N5gR+khLxWYVPj3Btq7dGzI2uubIPlvxEMvt+lpyxNBQs
- c9NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795655791; x=1796260591;
- h=mime-version:content-transfer-encoding:content-type:references
- :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=QlSPO9+8YS67Tn4rbTFkn+Zhwur7gCmRYFgUkoNRUs4=;
- b=YdfPdbl/QTkoJoKQkYsFEu2ojAlL648RdqJYX78Lj1E42RyQGU9utqlFaRBfkqeTUB
- pOW8auLfChBWpLaNAhou6WXXArilzYpNOtZfOGi4To1PeFpSER321dNP2a3LkIEk0B9w
- VoGfIja6ykZAP/MbegjJBQ0uRG1mN0qolvWC+JFIC40Cfz4DLzTFTM3VWpoq3fGATBE8
- djyTfvjATx90oDstoAPchCr1uxmidlTHQdTnLu/nE4CbpiabTFto/MqiW/BoukeONnsO
- oMMHoEbSisBlXAZbAB12W4lW/k7Ty7q2gz86lFk2hNlj7Ee438ekVlcU0zsSP8qlFmrP
- 7IBA==
-X-Forwarded-Encrypted: i=1;
- AL+hErEHv3r28lLeQ1/Td5OIrCiPFT0OOQTsznALPkcfsK7GbrFr0DjTCIJduhDaxL8Sgerphiru8qOYutg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8+adym67AF4o7/wTq6MplsVpbLiqbGpY/diQpnD521QUqSzm6v
- H+ovyRaUUjikAHYlzqCoVHrvTY+uciNPf+5wQslr79hPVaXXGHl/hfQp
-X-Gm-Gg: AZFdTZdQ7GmisufeJRtG8kHCMYYaHsd0wCIxUjJiGd1jVHSJreE7CXMlSBTvlPnQx85
- Rr82s2AiG/OWrfFtuYQKVoyLG1JVMGPMcdi5pYV373z5btKospksfN8EDlbB+SCXu/xgZaXjsQ5
- +fvFbSdR15OFeZ/QwzOqDPMG7CzT11U6Jfsg9It8cBf80FZAgTsblBpHv0r+NrMotqX2Ps1cj0i
- UgTvfZpLJofzylYii+246GUTYNnWyypz68wKE+GWBrly/BaFU2q/MMbirezffOqT6SSpLztBkz2
- IAEslAIReJC8j+6GPeO9yGZIEAW2KhXYTaPyeeKgF43iyyWH7enManXDxhes74bR8i8KpQGyygZ
- r+6R9Gm3/fOMl03PWUH6T2hXsPTS2L/L+gD4cBvdTsBmegPIXOp21jQtQMPSXGMstyX3W5gJb3v
- 9vKOfOaV5G19Jvwmu6Zkw515dWg7Ok+iK5qdhaZ9cNXHbQlHNH11gPdWqyJZ1irZRIPlROrkz6s
- zfY7u576ttAWIoYuEQtIsEKsSH2+/EL07LydFTCNqkMQp5rCkZHEsGHo43yGY7WPrlKAqRxCUzq
- pa5LUv74TwxTHVfMGYHRrjL4
-X-Received: by 2002:a05:690c:6a06:b0:8b4:d0ea:ca9d with SMTP id
- 00721157ae682-8b52045f6c5mr70876907b3.25.1795655791098; 
- Wed, 25 Nov 2026 17:16:31 -0800 (PST)
-Received: from localhost ([120.244.9.31]) by smtp.gmail.com with ESMTPSA id
- 00721157ae682-8b575ff89c0sm12140497b3.0.2026.11.25.17.16.29
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 17:16:30 -0800 (PST)
-Date: Wed, 25 Nov 2026 20:16:25 -0500
-Message-ID: <9ec2f818084f2e723e8b82218a302258.docular.xu@gmail.com>
-From: Guodong Xu <docular.xu@gmail.com>
-To: Cody Kang <codykang.hk@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
- Troy Mitchell <troy.mitchell@linux.spacemit.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Haylen Chu <heylenay@4d2.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
- Brian Masney <bmasney+clk@redhat.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Yao Zi <me@ziyao.cc>,
- Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
- Icenowy Zheng <uwu@icenowy.me>, Jerome Brunet <jbrunet+clk@baylibre.com>,
- Sarah Emery <sarah.emery@canonical.com>, Ze Huang <ze.huang@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, Cody Kang <codykang@vsit.ai>,
- dri-devel@lists.freedesktop.org, linux-riscv@lists.infradead.org,
- devicetree@vger.kernel.org, spacemit@lists.linux.dev,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-clk@vger.kernel.org, Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 12/17] drm/spacemit: add Innosilicon DP/eDP controller
- bridge driver
-In-Reply-To: <20261121-k3-display-v3-12-ec419e8e96b8@gmail.com>
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
- <20261121-k3-display-v3-12-ec419e8e96b8@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7CCF61120FE;
+	Thu, 26 Nov 2026 08:09:29 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id 6F7F610FC9C;
+ Wed, 25 Nov 2026 14:35:28 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F08452F;
+ Wed, 25 Nov 2026 06:35:24 -0800 (PST)
+Received: from raptor (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EB9363F632;
+ Wed, 25 Nov 2026 06:35:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795617327; bh=4OnLXcyH+3nxy+UqjmCUFLS/iPRrnFaplDXqUSdFAN4=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+ b=OEOwaz4P8yBepfgoKqq2OH7lJmaO9j5N/4V0GnvFAb5H5bZc6EZxf8gvc8y4tq19x
+ ZX4nxN7aWAHdFDjk3VLQ/Ctc/lrJam3XcmHZ5XcsdBF4uzuquUw3yt2EqIkCeHm4DQ
+ v2Vjob7MOmNCMngwST95GWcTwAvGb8AuvyP/jWpw=
+Date: Wed, 25 Nov 2026 14:35:22 +0000
+From: Alexandru Elisei <alexandru.elisei@arm.com>
+To: Mika =?utf-8?B?UGVudHRpbMOk?= <mpenttil@redhat.com>
+Cc: linux-mm@kvack.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ David Hildenbrand <david@kernel.org>, Jason Gunthorpe <jgg@nvidia.com>,
+ Leon Romanovsky <leonro@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
+ Balbir Singh <balbirs@nvidia.com>, Zi Yan <ziy@nvidia.com>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Andrew Morton <akpm@linux-foundation.org>,
+ Lorenzo Stoakes <ljs@kernel.org>, "Liam R. Howlett" <liam@infradead.org>,
+ Vlastimil Babka <vbabka@suse.cz>, Mike Rapoport <rppt@kernel.org>,
+ Suren Baghdasaryan <surenb@google.com>,
+ Michal Hocko <mhocko@suse.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v17 00/12] migrate on fault for device pages
+Message-ID: <awbyKnmLcqdwWBKw@raptor>
+References: <20261103061629.972669-1-mpenttil@redhat.com>
+ <avWpWBl1nPcRVmpQ@raptor>
+ <79f33ab0-2e43-4efb-94d0-addaf40745ec@redhat.com>
+ <avtBqGb4R2y9QJM8@raptor>
+ <574af521-6b8e-41c6-bf68-1d14b78c4645@redhat.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <574af521-6b8e-41c6-bf68-1d14b78c4645@redhat.com>
+X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,73 +64,460 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
 	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Cody,
+Hi Mika,
 
-On Sat, 21 Nov 2026 15:40:51 +0800, Cody Kang via B4 Relay wrote:
-[...]
-> diff --git a/drivers/gpu/drm/spacemit/Kconfig b/drivers/gpu/drm/spacemit/Kconfig
-> index 8326a7b98151a..4667cb624401a 100644
-> --- a/drivers/gpu/drm/spacemit/Kconfig
-> +++ b/drivers/gpu/drm/spacemit/Kconfig
-> @@ -16,3 +16,22 @@ config DRM_SPACEMIT
-[...]
-> +config SPACEMIT_INNO_DP
-> +	tristate "SpacemiT Innosilicon DP/eDP controller support"
-[...]
-> diff --git a/drivers/gpu/drm/spacemit/Makefile b/drivers/gpu/drm/spacemit/Makefile
-> index b3b148000cf7b..260d316a271b5 100644
-> --- a/drivers/gpu/drm/spacemit/Makefile
-> +++ b/drivers/gpu/drm/spacemit/Makefile
-> @@ -9,4 +9,7 @@ spacemit-drm-y := spacemit_drm.o \
->  		  dpu/dpu_saturn_hee.o \
->  		  dpu/saturn_fbcmem.o
->
-> +spacemit-inno-dp-y := spacemit_inno_dp.o
-> +
->  obj-$(CONFIG_DRM_SPACEMIT) += spacemit-drm.o
-> +obj-$(CONFIG_SPACEMIT_INNO_DP) += spacemit-inno-dp.o
+On Mon, Nov 16, 2026 at 09:12:38PM +0200, Mika Penttilä wrote:
+> Hi,
+> 
+> On 11/16/26 19:47, Alexandru Elisei wrote:
+> > Hi Mika,
+> >
+> > On Thu, Nov 12, 2026 at 04:00:09PM +0200, Mika Penttilä wrote:
+> >> Hi Alexandru!
+> >>
+> >> On 11/12/26 13:56, Alexandru Elisei wrote:
+> >>> Hi Mika,
+> >>>
+> >>> I want to help getting this series merged, and I've been familiarizing myself
+> >>> with hmm and device migration, please bare with me if the questions I'm asking
+> >>> are obvious or downright silly.
+> >> Thanks for the interest and willing to help! I am preparing a v18 of the
+> >> series and plan to post it early next week.
+> >>
+> >> I try to answer your questions, there are quite a bunch of them!
+> >>
+> >>> On Tue, Nov 03, 2026 at 08:16:17AM +0200, mpenttil@redhat.com wrote:
+> >>>> From: Mika Penttilä <mpenttil@redhat.com>
+> >>>>
+> >>>> Currently, the way device page faulting and migration works
+> >>>> is not optimal, if you want to do both fault handling and
+> >>>> migration at once.
+> >>>>
+> >>>> Being able to migrate not present pages (or pages mapped with incorrect
+> >>>> permissions, eg. COW) to the GPU requires doing either of the
+> >>>> following sequences:
+> >>>>
+> >>>> 1. hmm_range_fault() - fault in non-present pages with correct permissions, etc.
+> >>>> 2. migrate_vma_*() - migrate the pages
+> >>>>
+> >>>> Or:
+> >>>>
+> >>>> 1. migrate_vma_*() - migrate present pages
+> >>>> 2. If non-present pages detected by migrate_vma_*():
+> >>>>    a) call hmm_range_fault() to fault pages in
+> >>>>    b) call migrate_vma_*() again to migrate now present pages
+> >>> Regarding both sequences, I'm trying to get a better understanding of what
+> >>> the issue is. I assume the caller wants to fault in system memory, and then
+> >>> migrate it to the device. Is that correct?
+> >> Yes that's the common thing to do.
+> > Gotcha, thanks.
+> >
+> >>
+> >>> In my analysis I'm also not going to refer to THPs, since that would make
+> >>> things even more complicated than they are. I think we can come back to
+> >>> THPs later if we think it would be useful.
+> >>>
+> >>> For the !pte_present() case:
+> >>>
+> >>> Sequence 1: hmm_range_fault() -> .. -> hmm_vma_handle_pte() handles
+> >>> !pte_present() pages in two ways: faults in swap pages and device private
+> >>> pages belonging to a different device, and waits on migration entries. Then
+> >>> the migrate_vma_*() flow is used to migrate the range.
+> >>>
+> >>> Sequence 2: migrate_vma_setup() ignores !pte_present() page table entries
+> >>> After this, the caller follows the same steps as in sequence 1 -
+> >>> hmm_range_fault() faults in !pte_present() pages, and migrate_vma_*() is
+> >>> called again to migrate the pages that were faulted in/waited on by
+> >>> hmm_range_fault().
+> >>>
+> >>> Now, for the CoW case that you mentioned, I'm going to assume that the
+> >>> caller wants write permissions otherwise nothing needs to be done:
+> >>>
+> >>> Sequence 1: hmm_range_fault() -> hmm_vma_handle_pte() records a fault
+> >>> (hmm_pte_need_fault() returns HMM_NEED_FAULT | HMM_NEED_WRITE_FAULT),
+> >>> handle_mm_fault() -> .. -> do_wp_page() breaks CoW and maps an exclusive
+> >>> folio with write permissions, then the migrate_vma_* flow will take care of
+> >>>
+> >>> Sequence 2, migrate_vma_setup() installs migration entries for the page,
+> >>> then migrate_vma_finalize() replaces the migration entries with device
+> >>> private entries.
+> >>>
+> >>> Looks to me that for CoW pages, all that's needed is migrate_vma_*(), and
+> >>> the subsequent calls to hmm_range_fault() and migrate_vma_*() are not
+> >>> necessary. Is that your conclusion too?
+> >> For  a device fault: the driver want the data in device memory with the
+> >> permissions the device asked for. Your !pte_present() analysis matches;
+> >> note that pte_none() in anonymous vmas and the zero page don't need
+> >> hmm_range_fault() at all, migrate_vma_*() populates them directly.
+> >> That's why the common case is cheap with sequence 2, and only swap
+> >> entries, other devices private pages and migration entries need the
+> >> extra walks.
+> > Yes.
+> >
+> >> For cow with write intent migrate_vma_*() alone is enough.
+> >> migrate_vma_setup() doesnt break cow: it collects the shared page
+> >> through its read-only pte, so there's no MIGRATE_PFN_WRITE, and
+> >> try_to_migrate() unmaps all its mappings, so finalize installs a
+> >> read-only device private entry. 
+> >>
+> >> The device still cant write; a write then has to go through
+> >> migrate_to_ram() and break cow in system memory, and migrate again. To
+> >> get an exclusive writable copy on the device, cow has to be broken
+> >> before collectin, i.e. hmm_range_fault() with HMM_PFN_REQ_WRITE first,
+> >> then migrate: two walks.
+> > Makes sense, something did seem fishy with my analysis of the CoW case.
+> >
+> >> With this series that's one walk,
+> >> HMM_PFN_REQ_FAULT | HMM_PFN_REQ_WRITE | HMM_PFN_REQ_MIGRATE (or
+> >> MIGRATE_VMA_WRITE for migrate_vma_setup() users), and only the
+> >> now-exclusive page is migrated.
+> >>
+> >>>> The problem with the first sequence is that you always have to do two
+> >>>> page walks even when most of the time the pages are present or zero page
+> >>>> mappings so the common case takes a performance hit.
+> >>> This is the first mention of the zero page. Is the caller specifying
+> >>> HMM_PFN_REQ_WRITE? That makes a difference, because it triggers fault
+> >>> handling for the zero page, and that's an extra walk. Can you give more
+> >>> details here?
+> >> Good question on the zero page. With a read request it need no fault:
+> >> migrate_vma_*() populates it like pte_none(), and the HMM walk collects
+> >> it the same way. With HMM_PFN_REQ_WRITE it's write-faulted first, in
+> >> sequence 1 and with this series alike; the difference is that the series
+> >> faults and collects in the same walk.
+> >>
+> >>
+> >>> Let's count page table walks when a page is mapped with a valid entry, and
+> >>> with the required permissions. Let's say N is the number of mappings for
+> >>> the page (equivalent to the number of VMAs that map the page):
+> >>>
+> >>> hmm_range_fault() -> .. -> hmm_vma_handle_pte() does one page table walk,
+> >>> migrate_vma_setup() does N page tables walks, to replace all valid mappings
+> >>> of the page with migration entries, migrate_vma_finalize() does N page
+> >>> table walks, to replace the migration entries with device entries.
+> >>>
+> >>> In total 1 + 2*N walks. Best case scenario, N == 1 (PageAnonExclusive()),
+> >>> that's three walks.
+> >>>
+> >>> Do you have any data regarding how often the best case scenario happens?
+> >>> That's what you seem to be referring to in your comment.
+> >>>
+> >>> Now let's count the number of walks for a !pte_present() page mapped in P
+> >>> VMAs, where P != N: one from hmm_range_fault(), if the entry is not a
+> >>> migration entry, another walk in the fault handler, then 2*P walks from the
+> >>> migrate_vma_*() flow.
+> >>>
+> >>> If it's a migration entry, it requires 1 + 2*P walks, PLUS waiting on
+> >>> migration to complete, which cannot be skipped.
+> >>>
+> >>> If it's a swap entry, it requires 2 + 2*P walks, PLUS waiting on swap.
+> >>>
+> >>> If it's a device private entry belonging to a different device, it requires
+> >>> 2 + 2*P walks, plus waiting on the device to sync the memory with the
+> >>> device in migrate_to_ram().
+> >>>
+> >>> To summarize:
+> >>>
+> >>> pte_present()	1 + 2*N walks
+> >>> migration entry	1 + 2*P walks + waiting on migration
+> >>> swap entry	2 + 2*P walks + waiting on swap
+> >>> device private	2 + 2*P walks + waiting on device->memory sync
+> >> On counting: the 2N (or 2P) rmap walks that replace the mappings with
+> >> migration entries and then device entries are inherent to migrating the
+> >> page and are the same in all variants. What differs is the number of
+> >> page table walks over the range: sequence 1 allways does two
+> >> (hmm_range_fault(), then migrate_vma_setup()), sequence 2 one if
+> >> everything is present and three otherwise, and the HMM walk one, with
+> >> faults handled in place and the walk resuming from the faulting
+> >> address.  The saving is per range walk, so it scales with the range.
+> > I think we might need to define what you mean by 'saving'. Normally, I
+> > would assume that you mean that 'the total time of migration is decreased',
+> > but the fact that the benchmark that you offered doesn't show this makes me
+> > wonder.
+> >
+> > The more !pte_present() pages are in the range, the smaller the amortized
+> > cost of a walk per page in the range. For example, using sequence one, for
+> > 512 !pte_present() pages, the current code does an extra 1/512 page table
+> > walks per page (for sequence two, an extra 1/512 * 2 walks). At the same
+> > time, for each page it needs to do a fault, or swap in, or wait on
+> > migration, or break CoW, or put migration+device entries in each VMA that
+> > maps the page.
+> >
+> > I think the worst case scenario is the device wanting to fault in one page
+> > from system memory. Is that what usually happens?
+> 
+> Well that's what the nouveau does currently, but as I write in the
+> commit log, a better policy would be nice... Otoh, that works as a good
+> stress test on the code when pages migrate back and forth on demand.
+> 
+> 
+> >
+> >> I don't have data on how often the best case happens. The motivation
+> >> came from earlier prototyping of migrate on fault on the current
+> >> interfaces, where the extra walks showed up in perf traces. For the
+> >> typical SVM case of private anonymous memory without fork the pages are
+> >> exclusive (N == 1) or not yet populated, but I haven't measured a
+> >> distribution.
+> > Got it, that's what I wanted to know, the typical case is exclusive memory.
+> >
+> >>>> The second sequence is better for the common case, but far worse if
+> >>>> pages aren't present because now you have to walk the page tables three
+> >>>> times (once to find the page is not present, once so hmm_range_fault()
+> >>>> can find a non-present page to fault in and once again to setup the
+> >>>> migration). It is also tricky to code correctly. One page table walk
+> >>> Valid entry, the page is mapped in N VMAs: migrate_vma_*() does 2*N walks,
+> >>> best case scenario (PageAnonExclusive) two walks.
+> >>>
+> >>> !pte_present, the page is mapped in P VMAs:
+> >>>
+> >>> migrate_vma_setup() -> migrate_vma_collect() will always do one page table
+> >>> walk, regardless of what it finds, valid or invalid entries.
+> >>> migrate_vma_collect() ignores !pte_present() entries, and they will not
+> >>> trigger new walks in the next steps in the migrate_vma_* flow. Worst case
+> >>> is that all the pages are !pte_present(), that's one walk to find them all
+> >>> which I would say it translates to zero extra walks for an individual page.
+> >>>
+> >>> For hmm_range_fault(), it's the same situation as above: 1 + 2*P or 2 + 2*P
+> >>> walks.
+> >>>
+> >>> To summarize:
+> >>>
+> >>> pte_present()	2*N walks
+> >>> migration_entry	1 + 2*P walks + waiting on migration
+> >>> swap entry	2 + 2*P walks + waiting on migration
+> >>> device private	2 + 2*P walks + waiting on device memory->memory sync
+> >>>
+> >>> I agree with you, this second sequence is better for the common case.
+> >>>
+> >>> I think it would interesting to know:
+> >>>
+> >>> 1. Is there a relationship between N and P, and if there is, what is it?
+> >>> Are they equal, on average? I doubt it. Is a !pte_present() page likely to
+> >>> be mapped in more VMAs than a pte_present() page, or fewer?
+> >>>
+> >>> 2. What is the likelyhood of P being equal to 1 (PageAnonExclusive)? That
+> >>> would be interesting to know because the larger P is, the contribution of
+> >>> that extra walk (or two walks) to the total time becomes less and less
+> >>> significant.
+> >>>
+> >>> 3. How does the time to do the walk compare to the time spent waiting on
+> >>> migration, or waiting on swap, or waiting on device to memory sync? How
+> >>> often each of them happen? I have a hunch that these will tend to dominate
+> >>> the total time.
+> >> Yes, when a page needs swap-in, a migration wait or a device sync, that
+> >> wait dominates..
+> >> The walk saving matters on the common device fault path, with small
+> >> ranges (one page per fault in the nouveau patch) and present or
+> >> unpopulated pages: one walk instead of two, and without sequence 2's
+> >> three when part of the range isn't present. But the main point is one
+> >> call that faults and collects consistently, instead of two with a window
+> >> in between where the range can change.
+> > This is introducing another variable into the mix. It's not just the number
+> > of page table walks, it's also the fact that in between walks the mapping
+> > might have changed. I think this is why it's good to have a representative
+> > benchmarks :)
+> ack
+> >> I don't have data on N and P. For private anonymous memory without fork
+> >> or KSM both are normally 1, but I haven't measured it.
+> >>>> could costs over 1000 cpu cycles on X86-64, which is a significant hit.
+> >>>>
+> >>>> We should be able to walk the page table once, faulting
+> >>>> pages in as required and replacing them with migration entries if
+> >>>> requested.
+> >>>>
+> >>>> Add a new flag to HMM APIs, HMM_PFN_REQ_MIGRATE,
+> >>>> which tells to prepare for migration also during fault handling.
+> >>>> For the migrate_vma_setup() call paths, new flags, MIGRATE_VMA_FAULT,
+> >>>> and MIGRATE_VMA_WRITE are added to tell to add fault handling to migrate.
+> >>>>
+> >>>> An extra benefit of migrating with hmm_range_fault() path
+> >>>> is the migrate_vma.vma gets populated, so no need to
+> >>>> retrieve that separataly.
+> >>>>
+> >>>> This series avoids the problems in current collecting implementation,
+> >>>> where racing MADV_DONTNEED could make the collecting arrays overflow.
+> >>> Can you provide more details here? How does it happen?
+> >> migrate_vma_collect_pmd() drops the pte lock to split a large folio and
+> >> restarts with [start, addr) already appended to src[]/dst[]. If a racing
+> >> MADV_DONTNEED zaps the range and frees the pte table meanwhile, the re
+> >> start takes the hole path from start and append [start, addr) again,
+> >> writing past the arrays. "mm/migrate_device: don't collect a range
+> >> twice" in Lorenzo's batch fixes that instance; this series collects into
+> >> the address-indexed hmm_pfns and fills src[] only lastly, so re-walking
+> >> cant overrun. Also, the correct pages are collected with the re-walk
+> >> with this series(rollback takes care of the old ones).
+> > That can be accomplished with the upstream code too, this series isn't
+> > required (just off the top of my head, keep a local counter for the total
+> > number of pages collected by migrate_vma_collect_pmd(), use it as an offset
+> > into migrate->src and migrate->dst, and reset the counter on the 'again'
+> > label).
+> 
+> It's not that simple.. you have to rollback (unlock + unref) the so far
+> collected pages. And to collect then the right pages from the start you
+> have to rewalk and collect those again (and possibly a PMD as huge). Of
+> course something like that can be done to current code, but address
+> based indexing is more robust, and you end up with something like the
+> HMM based collector :)
 
-I noticed a corner case when testing module unload on v3.
-spacemit_inno_dp can be removed while a process still has cardN open
-(say Xorg or kmscube is running and somebody does rmmod
-spacemit_inno_dp), and the DRM device then still holds references on
-the bridge. When that process closes cardN later, the kernel oopses. On
-a CoM260-IFX:
+Okay.
 
-	sleep 20 < /dev/dri/card0 &
-	rmmod spacemit_inno_dp
+> 
+> 
+> >
+> >> There are couple other defects the series fixed along the way.
+> > Hmm... the size of this series might put off some people who are interested
+> > only in the fixes. Have you considered splitting them into standalone
+> > patches/series?
+> 
+> I might, but they don't apply directly to current collector.
 
-  Unable to handle kernel paging request at virtual address ffffffff01ac5188
-  Modules linked in: spacemit_drm [...] [last unloaded: spacemit_inno_dp]
-  epc : drm_bridge_put.part.0+0x72/0xb6 [drm]
-  [...]
-  [<ffffffff01b0b142>] drm_bridge_put.part.0+0x72/0xb6 [drm]
-  [<ffffffff01b0b19e>] drm_bridge_put+0x18/0x22 [drm]
-  [<ffffffff01c41318>] drm_bridge_connector_put_bridges+0x34/0x7a [drm_display_helper]
-  [<ffffffff01b23400>] drm_managed_release+0x86/0x116 [drm]
-  [<ffffffff01b13cce>] drm_minor_release+0x68/0x80 [drm]
-  [<ffffffff01b1ce2a>] drm_release+0xd2/0x102 [drm]
-  [<ffffffff802b325c>] __fput+0xa8/0x248
+Okay, so the fixes require your patches and they cannot be adapted to the
+upstream code, have I understood correctly?
 
-An open cardN pins spacemit-drm only. The last drm_bridge_put() comes
-at the final close and reads bridge->funcs, which was in the module
-of spacemit_inno_dp that is already gone.
+> 
+> 
+> >
+> >>>> This is achieved mainly by having a rollback mechanism and
+> >>>> populating the collecting array as the last step.
+> >>>>
+> >>>> Tested in X86-64 VM with HMM test device, passing the selftests.
+> >>> Have you tested that this series doesn't regress other architectures?
+> >> Only tested on x86-64 (VM with test_hmm, and nouveau on a GP102). The
+> >> code is arch-independent, but it isn't tested elsewhere.
+> > Sorry, I'm a bit confused - what do you mean by it isn't tested elsewhere?
+> > x86-64 specific code is the only user for the arch-independent code?
+> 
+> I haven't personally tested on other arches the selftest (though I don't
+> see why there would be problems to do so).
 
-Other DRM drivers with the same structure, rockchipdrm for example,
-put the bridge driver and the DRM driver into one module. I think doing
-the same here (add spacemit_inno_dp.o to spacemit-drm) is the better
-solution.
+Okay, but you might be surprised. The selftests I can run myself an arm64
+machine.
 
-Luca (added to Cc), is module unload something your bridge hotplug
-series [1] is meant to cover?
+> 
+> 
+> >
+> >>
+> >>>> The main goal of this patchset is to provide a new feature,
+> >>>> migrate efficiently on fault, and not directly improve performance
+> >>>> of current migrate_vma_setup() (which is now routed thru
+> >>> I'm a bit confused by what 'on fault' means in this context? Userspace
+> >>> accesses a device entry, access that causes a fault, or using
+> >>> hmm_range_fault()? I assume the latter, but it pays to make sure.
+> >>>
+> >>> Also, can you define efficiently? Usually that's related in some way to
+> >>> performance, but immediately you say that the series doesn't aim to improve
+> >>> performance.
+> >> "On fault" means a device fault: the driver services a GPU fault with
+> >> hmm_range_fault(HMM_PFN_REQ_FAULT | HMM_PFN_REQ_MIGRATE) and migrates
+> > Got it, thanks.
+> >
+> >> the page while handling it. "Efficiently" was the wrong word: I meant
+> >> faulting and collecting in a single walk, instead of two or three calls
+> >> with a window in between. I'll reword the cover letter.
+> > Ok, gotcha.
+> >
+> >>>> hmm_range_fault()) callers. That said, the migrate throughput tests
+> >>>> from the selftests show that there is at least no regression for
+> >>>> current migrate_vma_setup() callers.
+> >>> If the premise of the series is to reduce the number of page table walks in
+> >>> the !pte_present() case, then I think benchmarks that show a performance
+> >>> improvement would make a compelling case for this approach.
+> >>>
+> >>> Some thoughts, if I may:
+> >>>
+> >>> - Perhaps the existing test is not the right test to highlight the
+> >>>   performance gains?
+> >>>
+> >>> - Perhaps there are other parts of the migration process that dominate the
+> >>>   walks? If so, maybe we should be focusing our attention on those?
+> >>>
+> >>> - Perhaps the series adds overhead that reduces or cancels the gains from
+> >>>   reducing the number of walks?
+> >> I don't have a benchmark showing a gain: nouveau had no migrate on fault
+> >> to compare against, and the selfftest throughput tests use
+> >> migrate_vma_setup() on present pages, so they can only show there's no
+> >> regression, including from the extra work in the HMM walk. Also, any
+> >> help with new tests is greatly welcome :). My primary focus atm is
+> >> getting the final corner case details sorted out in the core and
+> >> addressing sashiko; with v18  i hope being there. 
+> > This is how I see this series, please correct me if I got something wrong.
+> > The aim is to reduce the total number of page table walks over the range by
+> > one or two (depending on the sequence of functions used) when
+> > !pte_present(), or when pte_present(), but without write permissions.
+> >
+> > From our discussion so far it seems to me that the total migration time in
+> > the above cases depends on a number of things:
+> >
+> > - In how many other VMAs these pages are mapped, as each mapping needs to
+> >   be replaced with migration entries, and then with device special entries.
+> > - How long it takes to swap in the page, if the page is mapped using a swap
+> >   entry.
+> > - How long it takes to complete a concurrent migration, if the page is
+> >   mapped using a migration entry.
+> > - How long it takes to migrate a device entry back to system memory, if the
+> >   page belongs to a different device.
+> > - If the page is CoW, how long it takes to break CoW.
+> > - What happens in between walks.
+> >
+> > The code touches 2,600+ lines of code, with almost 1,300 lines added.  It
+> > removes those extra page table walks, of course, but it also offers plenty
+> > of scope to add new inefficiencies (or bugs), and if that's the case, we
+> > don't gain anything other than complexity. 
+> 
+> The saving isn't only for !pte_present() or read-only ptes. Migrating on
+> device fault today takes two separate steps: hmm_range_fault() to fault
+> the range in, then migrate_vma_setup() to collect it. That's two walks
+> even when every page is already present and writeable, and the range can
 
-[1] https://lore.kernel.org/r/20261118-drm-bridge-hotplug-v3-0-44bb3b4a828f@bootlin.com
+If all the pages are present and with the required permissions, why isn't
+migrate_vma_*() enough?
 
-Guodong
+> change in between, which is your "what happens in between walks". The
+> driver then has to detect that and retry, error prone and nasty task...
+
+Yeah, that 'what happens in between' looks very unpredictable.
+
+> With HMM_PFN_REQ_MIGRATE, faulting and collecting happen in one walk, so
+> there's no window to recheck. I think migrate-on-fault fills an
+> important gap in the Linux SVM toolbox by integrating page fault
+> handling and memory migration into a unified operation.
+> 
+> The costs you list (other mappings, swap-in, waitting for a concurrent
+> migration, migrating another device's page back, breaking cow) are
+> inherent to migrating those pages. They're the same with or without this
+> series. 
+
+Indeed, and my point was that those costs dominate the cost of the two
+walks. And because of that, it is entirely possible that removing the
+two walks does not reduce the time to do migration in any meaningful way.
+
+> 
+> On size: in mm/ and include/ it's +1378/-602. Most of the removval is
+> the old migrate_vma_collect*() walker, since migrate_vma_setup() now
+> collects through the same hmm_range_fault() walk. Existing
+> migrate_vma_setup() users get that path without driver changes. The rest
+> is nouveau as a user (+561, including two independent dmem fixes split
+> out as separate patches), test_hmm and the selftest (+283), and
+> documentation (+121). These are my current numbers.
+
+Of course.
+
+> 
+> > I think having a benchmark
+> > representative of a real workload, or a real workload, that shows a
+> > decrease in the total migration time will be great to demonstrate that we
+> > are on the right track :)
+> 
+> Absolutely - cool if you could work on that side perhaps :) ?
+
+Sorry, but I don't think I'm the right person to do that. I'm don't know
+what a representative workload would be, and I'm not entirely convinced
+that these changes actually make things faster.
+
+Thanks,
+Alex
