@@ -2,57 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1937A606A321
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 01:58:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C9C8606A68B
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:06:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=Mjbu5DqC
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=lPURuigo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7038710E8C7;
-	Wed, 25 Nov 2026 01:58:27 +0000 (UTC)
-Received: from bali.collaboradmins.com (bali.collaboradmins.com
- [148.251.105.195])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 41B3B10E8C7
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 01:58:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
- s=mail; t=1795571899;
- bh=RCwXdv4tItxKQe6YiWspccVkhW7JD4JZcpfpSEyn4tc=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=Mjbu5DqCZbhkGyqBolZeWH8RzEGyzS6Gv37b+Roq6+qV3mqjtjIQ7KM2nxVRNCxQj
- AloSyowdAROpG8C99PjqVwwE9YxKZADD6vuSvi9ixy0vcpIovKc9I9Oo44IK703rk5
- PGBb8OQXO3/tLulRqXxZAcoo+g/7R+pg7gTkQZdqn1o1nPjff/01696W3CRKOzUD5U
- eZqJilK/AiQDKdtbMwVW1gsK0DqvLzn5dEMtLXqU+ct99XGCGlaUjbBDn0ZTca0C/n
- NqehYBHGWCpGfiYmpmr6vFSF89pr77q88uI9v4n9cXbCe5eoAPssSHaeCa5pW5UIXw
- 9UcIjsUCwoZJg==
-Received: from [100.64.0.241] (unknown [100.64.0.241])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: cristicc)
- by bali.collaboradmins.com (Postfix) with ESMTPSA id 4363F17E00C4;
- Wed, 25 Nov 2026 02:58:19 +0100 (CET)
-Message-ID: <3c203ba7-6a0b-45bf-ac88-9928ad0b4a11@collabora.com>
-Date: Wed, 25 Nov 2026 03:58:18 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id BB2AC10EEBF;
+	Wed, 25 Nov 2026 02:06:20 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1794E10EEBF;
+ Wed, 25 Nov 2026 02:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795572375; x=1827108375;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:in-reply-to;
+ bh=J6tI0oNu5ipgac+ZyULfo7Y10gS1m3hJ23/QN8OCwxg=;
+ b=lPURuigo9ihLMOXBpAf/OUH7TzGdZGKLPCypgF4aUjvSOYgdg8jPt4Al
+ oJ96zBaHStNx2wzhe62KvVPFLAfgEKHNAHhx1PIrF9aq8vDdZWbl5LoZZ
+ Hs4EjeqwLM+s9R17UBZpZAmFSjwcNyFuRhW8AYXruynwrqmjzLL7VXKR1
+ Mhg+8URgeZDECOyB+pjPjHfxBR2BY0LgRrskZEC2IQQcmqmNO/36nCp47
+ scgZwVf9JBSKQ2A6RkYWXHICNjPTnhu4N+KatCrj4wKSXIHO1XGyhV+se
+ Ki4kcunUvSs2xClhceT6S84Hqq+v36LO3sBC3026Lwa5yivEtIcPMXW0C A==;
+X-CSE-ConnectionGUID: 5ASUCf0kTAycTHWXfDfJqQ==
+X-CSE-MsgGUID: 2TLT2F2TRMWNO0cUqG/Vvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11976"; a="4322166"
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; 
+   d="scan'208";a="4322166"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+ by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 24 Nov 2026 18:06:15 -0800
+X-CSE-ConnectionGUID: puKRDXZcRYeLkoNKbfjorw==
+X-CSE-MsgGUID: ClHvdapeSayvNMoP7nMyIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,231,1787036400"; d="scan'208";a="12161971"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+ by fmviesa009.fm.intel.com with ESMTP; 24 Nov 2026 18:06:12 -0800
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+ (envelope-from <lkp@intel.com>) id 1xW2Of-00000001Qg2-44Mj;
+ Wed, 25 Nov 2026 02:06:09 +0000
+Date: Wed, 25 Nov 2026 10:06:00 +0800
+From: kernel test robot <lkp@intel.com>
+To: Mark Brown <broonie@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>,
+ Intel Graphics <intel-gfx@lists.freedesktop.org>,
+ DRI <dri-devel@lists.freedesktop.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Linux Next Mailing List <linux-next@vger.kernel.org>
+Subject: Re: linux-next: build failure after merge of the drm-misc tree
+Message-ID: <20261125095513.u60l5aJo-lkp@intel.com>
+References: <awXJ__-grexFFPb4@sirena.org.uk>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 07/15] drm/rockchip: vop2: Reset AXI and DCLK to
- improve robustness
-To: Tim Surber <me@timsurber.de>, Heiko Stuebner <heiko@sntech.de>
-Cc: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andyshrk@163.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>,
- Daniel Stone <daniel@fooishbar.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
- Igor Paunovic <royalnet026@gmail.com>, kernel@collabora.com,
- dri-devel@lists.freedesktop.org, linux-rockchip@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261105-dw-hdmi-qp-yuv-v6-0-1bb63ef5766e@collabora.com>
- <20261105-dw-hdmi-qp-yuv-v6-7-1bb63ef5766e@collabora.com>
- <20261121023139.3515640-1-me@timsurber.de>
-Content-Language: en-US
-From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-In-Reply-To: <20261121023139.3515640-1-me@timsurber.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <awXJ__-grexFFPb4@sirena.org.uk>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,92 +68,83 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Tim,
+Hi Mark,
 
-On 11/21/26 4:31 AM, Tim Surber wrote:
-> Hi Cristian,
-> 
-> On Thu, 05 Nov 2026 03:00:41 +0200, Cristian Ciocaltea wrote:
->> @@ -953,6 +974,8 @@ static int vop2_enable(struct vop2 *vop2)
->>
->>  static void vop2_disable(struct vop2 *vop2)
->>  {
->> +	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
->> +
->>  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
-> 
-> with this patch my RK3588 board (FriendlyElec
-> CM3588) hangs hard sometimes when the last CRTC is switched off. Without the series
-> or with the AXI reset in vop2_disable() removed it does not happen.
-> 
-> Here is a minimal reproducer, run as root, with a display on HDMI and fbcon on it:
-> 
->   python3 - <<'EOF' &
->   import fcntl, os, struct
->   fd = os.open("/dev/dri/by-path/platform-display-subsystem-card", os.O_RDWR)
->   try:
->       fcntl.ioctl(fd, 0x641F)        # DRM_IOCTL_DROP_MASTER: leave KMS to fbcon
->   except OSError:
->       pass
->   while True:
->       b = bytearray(struct.pack("6IQ", 2160, 3840, 32, 0, 0, 0, 0))
->       fcntl.ioctl(fd, 0xC02064B2, b)                         # DRM_IOCTL_MODE_CREATE_DUMB
->       handle = struct.unpack("6IQ", b)[4]
->       fcntl.ioctl(fd, 0xC00464B4, struct.pack("I", handle))  # DRM_IOCTL_MODE_DESTROY_DUMB
->   EOF
->   while :; do
->   	echo 4 > /sys/class/graphics/fb0/blank; sleep 0.3
->   	echo 0 > /sys/class/graphics/fb0/blank; sleep 0.7
->   done
-> 
-> This hangs the board within a few blank cycles. In
-> practice I hit it when a KMS application exits: it frees its buffers
-> while fbcon takes the display back with a full modeset.
+kernel test robot noticed the following build errors:
 
-Thanks for reporting this - with your reproducer I could also trigger the hang
-on my Rock5B board, after ~15 cycles.
+[auto build test ERROR on next-20261123]
+[cannot apply to drm-tip/drm-tip linus/master v7.4-rc4 v7.4-rc3 v7.4-rc2 v7.4-rc4]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> This issue can be fixed for me by moving vop2_reset_assert_deassert(vop2, vop2->axi_rst) from vop2_disable to vop2_enable.
-> 
-> --8<--
-> diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-> @@ -913,6 +913,9 @@ static int vop2_enable(struct vop2 *vop2)
->  	if (ret)
->  		goto err_put_pm;
-> 
-> +	/* Reset while idle; doing it in vop2_disable() can hang the SoC */
-> +	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-> +
->  	ret = rockchip_drm_dma_attach_device(vop2->drm, vop2->dev);
->  	if (ret) {
->  		drm_err(vop2->drm, "failed to attach dma mapping: %d\n", ret);
-> @@ -973,8 +976,6 @@ static int vop2_enable(struct vop2 *vop2)
-> 
->  static void vop2_disable(struct vop2 *vop2)
->  {
-> -	vop2_reset_assert_deassert(vop2, vop2->axi_rst);
-> -
->  	rockchip_drm_dma_detach_device(vop2->drm, vop2->dev);
-> 
->  	regcache_drop_region(vop2->map, 0, vop2_regmap_config.max_register);
-> -->8--
-> 
-> Does that work for the cases the reset was added for (the RGB <-> YUV420
-> switch glitches and the DSI panel on the EVB1)? I can't test those here.
+url:    https://github.com/intel-lab-lkp/linux/commits/Mark-Brown/linux-next-build-failure-after-merge-of-the-drm-misc-tree/20261124-173143
+base:   next-20261123
+patch link:    https://lore.kernel.org/r/awXJ__-grexFFPb4%40sirena.org.uk
+patch subject: linux-next: build failure after merge of the drm-misc tree
+config: arm64-randconfig-1002-20261125 (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/config)
+compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 2012344e5da8e03ea4b8283ecd6fad6e13f09d64)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261125/20261125095513.u60l5aJo-lkp@intel.com/reproduce)
 
-I briefly tested the RGB <-> YUV420 mode switches and didn't notice any obvious
-regressions. For the EVB1 we need Sebastian's help, as I don't have that board.
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/20261125095513.u60l5aJo-lkp@intel.com/
 
-Would you like to send a proper patch in the meantime? 
+All errors (new ones prefixed by >>):
 
-Regards,
-Cristian
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     217 |                 dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+         |                 ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:217:3: note: did you mean 'dma_buf_vunmap_unlocked'?
+   include/linux/dma-buf.h:596:6: note: 'dma_buf_vunmap_unlocked' declared here
+     596 | void dma_buf_vunmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+         |      ^
+>> drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: error: call to undeclared function 'dma_buf_map_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |               ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:8: note: did you mean 'dma_buf_vmap_unlocked'?
+   include/linux/dma-buf.h:595:5: note: 'dma_buf_vmap_unlocked' declared here
+     595 | int dma_buf_vmap_unlocked(struct dma_buf *dmabuf, struct iosys_map *map);
+         |     ^
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:437:6: error: incompatible integer to pointer conversion assigning to 'struct sg_table *' from 'int' [-Wint-conversion]
+     437 |         sgt = dma_buf_map_sgt_unlocked(attach, DMA_BIDIRECTIONAL);
+         |             ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c:552:3: error: call to undeclared function 'dma_buf_unmap_sgt_unlocked'; ISO C99 and later do not support implicit function declarations [-Wimplicit-function-declaration]
+     552 |                 dma_buf_unmap_sgt_unlocked(attach, sgt, DMA_BIDIRECTIONAL);
+         |                 ^
+   4 errors generated.
+
+
+vim +/dma_buf_unmap_sgt_unlocked +217 drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c
+
+   208	
+   209	/*
+   210	 * Cleans up imported dmabuf.
+   211	 * Should be called with mutex held.
+   212	 */
+   213	static void vc_sm_clean_up_dmabuf(struct vc_sm_buffer *buffer)
+   214	{
+   215		/* Handle cleaning up imported dmabufs */
+   216		if (buffer->sgt) {
+ > 217			dma_buf_unmap_sgt_unlocked(buffer->attach, buffer->sgt,
+   218						   DMA_BIDIRECTIONAL);
+   219			buffer->sgt = NULL;
+   220		}
+   221		if (buffer->attach) {
+   222			dma_buf_detach(buffer->imported_dma_buf, buffer->attach);
+   223			buffer->attach = NULL;
+   224		}
+   225	}
+   226	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
