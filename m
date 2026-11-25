@@ -2,54 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89889606A688
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:42:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675E3606A335
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:42:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=FIEOWiWo
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OfmTAq/h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CB5E210E851;
-	Wed, 25 Nov 2026 02:42:39 +0000 (UTC)
-Received: from out203-205-221-240.mail.qq.com (out203-205-221-240.mail.qq.com
- [203.205.221.240])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD02710E6D2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:42:32 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B9D7D10E8B1;
+	Wed, 25 Nov 2026 02:42:44 +0000 (UTC)
+Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com
+ [203.205.221.209])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 332F410E8B1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:42:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795574551; bh=IzcclkVTG1KnK0341G5dFq2gzXEaIhA/6RUSjtt6e5w=;
+ t=1795574552; bh=o2ZBOBSK4J6IpmVXYBOJZpEDX+16cuL5L8cVT4NeqK0=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=FIEOWiWoj5hIUz82R9dCcuO3zoHLnn3qDdDksuzw3kfh4SPtaThJrK3BnY36OFKZZ
- RFXDfhdZmOe96EWeRp4PmSSqqJKP5Jq0bWPRVoDbppEqTyk1MqkOpdMVnD+NTOleUc
- qpXeHKnY5jNCiOFHVbyl0ezOQdE2Pb+dtPUhmiYw=
+ b=OfmTAq/hSZktBWJJmk23Z6EkJvP4bDGrZj5BydV9eVSJ7QJyPqxxCKWfqP292eYQ7
+ BfuMexWS15UrZIDkywllQKX9Wer9/lqb9kJiR22yNMAUhbTjL5tKHLQgoRnEPrjPnV
+ aZ8Vzavf/oZh54XSpXui6YDMryy5ZdvF1v7THy4E=
 Received: from HF ([113.90.236.90])
  by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
  id A9B394D4; Wed, 25 Nov 2026 10:42:27 +0800
-X-QQ-mid: xmsmtpt1795574549tjxyx0iab
-Message-ID: <tencent_091F19565BDF5D847E4F80BFC3A86DE36608@qq.com>
-X-QQ-XMAILINFO: OaNVrcLgj+8PuYxdXA9bFLAW3kQAz/0gi/RjhTReY3xcbO97F0AOdXlx07qXuk
- rv2EYfG+8DPpO3uHtYYhLjYwa3j3/0/FtW8SYht1pjIDEfC1A3xqcZ38eWUD9TJ35g6VqMu8hTPO
- jPL6aAQ3OL0l836J6Q8+cH2sjbs4gg1yxZBO1uuXazN5b7gaP6newZBy9+ZWtiGodnw4TsY/ck9w
- IeDQnSTBr+gI2J+4+Vr6UkcLbf52I1hIlwlZIY2FmAR0l36yr6ugtmMUhbl460ncRDdmm9M00c//
- yxlYsdCCcN9zxn+wUkAQC4GVqBF6SQPsZuSn2EBN5hO+zePASnUjUjznmJIP2iBQ0Qey/Y6d/bw1
- HVlmyaWon15+0SLXbrPKqyTkoDtpE/3iVYhwb2L3e0F66TmrYfY3XYAmtVVwc8uOwA+zXi+TjpnP
- aIDkFn9G3/EzDwTF2Kyk7JHCRfkj733YwNFWRnGupjWeEFoDWAKXjxc18Pw5nAn5YZONRkm3UizP
- XgSzwRU2otpJgeRaYBbEFKKYyKMtD2hEWwD4ne034F45PhJ9kPpqSLaUuO+Pu+9Ioqq3BnJ3stQ/
- Ze6rgn0un9CxXJoYqjODK+YiJPRVz2KdBq2IhdKMu3rwlLAxN7YbLyCCAupAeaLv4wbj5ua8vPF9
- QF8WiwH1ElSXmxsoDHTKSv6YZF4b69r/5QRpSXpfSx1POd7o5YVJnSBcUt0Fhkqj/2zwTY076isN
- zOI5wfL+lZh0EccYyxA1dxgNijjrUmO2WN30KIvsLIzwgH66B4hXqp9WJKrvRL+J3Z7XPToOv4+L
- vNt/L4K5x/jxeQgpRvfX+XtVg2faAoGWbWjXHvsRtIU95XEAxdDLEKl4XcM7sBibLpG/xotM2xYV
- VoBN65DdF/cZQpIY7bM6IL9BNFTgf2SRBRDOYemysmPjJzbVD3GfJbzka2+0k8oWEeACJgqHO6Cy
- xZWQgKgKKWrE7mqxxfYd1plC/qzlN7108R2Ki6TLAo3h4KxtAapKye/WbNwDLXAMIv474zF8YYjw
- of2wN61mDuqoXOi87qe4wt1+SB5+GIjTtgI6FX04vnX21vulCTmw0DZT8sgUTs0ElbYMmQzTem8s
- EAQVHOGhcVWj70gol578x4ZqrvnPO+xZRgxpKnDajFZ/g13mlzN6MucXCGbTVr/XBOITOjPqYJbf
- RtvHCUulv0lzIGk9FEh4VJb21XVbALpQmnr+ZhxvNPzwMyYA==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
+X-QQ-mid: xmsmtpt1795574550t42d4g49m
+Message-ID: <tencent_65A800E3961F185694DF3284554F14BFAD08@qq.com>
+X-QQ-XMAILINFO: OZ2MtRmBbS53QTDtoG5ja4yZCowRkSPMV0ca++xAPCZicfMbsGLt0mtfiHI0l0
+ P8fziz7431EAbSkLp3CkSId1EGarw1icPIYsvmAIneV6NrB/r2uIZHog7eSWglwKDSHQJxiOouVU
+ CZgF5WBXuFv+WUOOPOzkY3zL2JAFDwXpqnkydbNOEBJOedEFXMlLayOgnyK9jTGKZCZYmwvCbFrl
+ Wu9Ct9Ko092srZiSUrK4pJgmvnohLlznQivhwTy9SfMQmblhWwwbNooiz4v3YDjLWgEJjQidBmXA
+ rX4j7+a3j2p25Vv9e3gvpIvx4kZLlIU5NPW07kDfWNR/+pUwomgfO64xRuIGHINuV4/xoi8JZcTR
+ foOi+9Xlzfz4lgOJFzV5QJWpWAuQVAgK71yL/7C6C1GDE6bBHCp4M+DVP2WEiTFkeXeRvklN66NX
+ lZcVQcl3RTGwLsOvQZcvKHRuB/9PAx1wrbZhYC4IBmKTDgzBQOdwppYfUiW7edN/UFk6hZq8cZ2u
+ EmxxsDljrsd0aHP+UXk4RQHNbTuZAzmwFV0fY4szBF0K+2rTWRhSTH5MVlkpscfRaBjUTaMwi86X
+ 9IX8be6W/8XTsZRmOdmWvdOxbVxhM8e2i4lgPNG8ZFviajMYyUKAaKKzDlmxCjO9rRBwgFsIFiHA
+ q5WlIstrNeKXiAtAc0DrAi6okPhGTJNalAnA05UL5+bNahJhHQaj/vC9FhxtVZHr6YEAHVi8fuWd
+ L8we/qPa/uur2mhIVj3ZgI86CN8dbBRBNkkcIi7UKf6abVZsFsAXyWNxW/99cB3rTEDE/UzddrWX
+ +gh8010csdFoo6V6y960DkDcSUEOXuS6HLs+wC08uc+FRd3+vKIXq3ItfwgvtCOJ2GCQ400jIx1L
+ 2XZg/7aSbaseGBk/bMqBfFf8p4OftaQH5ghWxS5f5B9yaKq7Uei8cnlr48B/IGZ64k+fpx/4B3p0
+ WrsAcr3iX0Fv2LYQh0AvqUe1B74UJS7aAMxOh0HMSLNimHkRq0cAwq2IIU4oQSE+39FUpbgE1p/1
+ TvUy2LTh86e+GsujQ2yCBV0aYNrWsrQtgAa+Biq3cSJeh/9gOvBoOqpxpFVYFbDmZ94PUbsDQ0Eb
+ jZlRPECH4oWH8SuaFwaSWvL64AVqH8dPdc3tiN7mPJQVPF+TzOGrgFHUVWpN6x5jg0O2MaGWWsNs
+ egAyr525SVseM7Fg==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
  Hefei <3066883572@qq.com>
-Subject: [PATCH v4 2/6] dt-bindings: input: add Jadard JD9365TX touchscreen
-Date: Wed, 25 Nov 2026 10:42:22 +0800
-X-OQ-MSGID: <20261125024226.1293-3-3066883572@qq.com>
+Subject: [PATCH v4 3/6] dt-bindings: backlight: add VIEWE 7KF82 I2C backlight
+Date: Wed, 25 Nov 2026 10:42:23 +0800
+X-OQ-MSGID: <20261125024226.1293-4-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261125024226.1293-1-3066883572@qq.com>
 References: <20261125024226.1293-1-3066883572@qq.com>
@@ -75,59 +75,46 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the in-cell I2C touch companion used on JD9365TX modules.
-Many FPCs omit the interrupt line; boards may still wire one.
+Document the I2C backlight MCU on the VIEWE 7KF82 module
+(address 0x45, register 0x86, brightness 0..255).
 
 Signed-off-by: Hefei <3066883572@qq.com>
 ---
- .../input/touchscreen/jadard,jd9365tx.yaml    | 63 +++++++++++++++++++
- 1 file changed, 63 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+ .../leds/backlight/viewe,7kf82-backlight.yaml | 46 +++++++++++++++++++
+ 1 file changed, 46 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml b/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
+diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
 new file mode 100644
-index 0000000..a49a558
+index 0000000..e65aa4c
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/input/touchscreen/jadard,jd9365tx.yaml
-@@ -0,0 +1,63 @@
++++ b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
+@@ -0,0 +1,46 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/input/touchscreen/jadard,jd9365tx.yaml#
++$id: http://devicetree.org/schemas/leds/backlight/viewe,7kf82-backlight.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: Jadard JD9365TX in-cell touchscreen
++title: VIEWE 7KF82 I2C panel backlight
 +
 +maintainers:
 +  - Hefei <3066883572@qq.com>
 +
 +description: |
-+  In-cell touch integrated with Jadard JD9365TX DSI panels. Many module FPCs
-+  expose only the I2C bus; some boards also wire an interrupt GPIO. The
-+  touch controller is commonly powered from the same rails as the panel.
++  I2C backlight MCU used on the VIEWE 7KF82 DSI module. Protocol is device
++  address 0x45, register 0x86, brightness 0..255. A discrete MCU part number
++  is not exposed on the FPC silk; the binding is therefore keyed to the
++  module.
 +
 +allOf:
-+  - $ref: touchscreen.yaml#
++  - $ref: common.yaml#
 +
 +properties:
 +  compatible:
-+    const: jadard,jd9365tx
++    const: viewe,7kf82-backlight
 +
 +  reg:
-+    maxItems: 1
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  poll-interval: true
-+
-+  vdd-supply:
-+    description: Analog / touch power supply
-+
-+  iovcc-supply:
-+    description: Digital I/O power supply
-+
-+  reset-gpios:
 +    maxItems: 1
 +
 +required:
@@ -142,14 +129,10 @@ index 0000000..a49a558
 +        #address-cells = <1>;
 +        #size-cells = <0>;
 +
-+        touchscreen@68 {
-+            compatible = "jadard,jd9365tx";
-+            reg = <0x68>;
-+            vdd-supply = <&reg_vdd>;
-+            iovcc-supply = <&reg_iovcc>;
-+            touchscreen-size-x = <720>;
-+            touchscreen-size-y = <1280>;
-+            poll-interval = <16>;
++        backlight@45 {
++            compatible = "viewe,7kf82-backlight";
++            reg = <0x45>;
++            default-brightness = <200>;
 +        };
 +    };
 +...
