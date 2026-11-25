@@ -2,60 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E2A4606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ED32606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=yandex-team.ru header.i=@yandex-team.ru header.a=rsa-sha256 header.s=default header.b=ifVmvqKT
+	dkim=pass (2048-bit key, unprotected) header.d=siemens.com header.i=alessandro.zini@siemens.com header.a=rsa-sha256 header.s=fm1 header.b=VdHVFlvm
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2DCAE1120CF;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 55C501120DB;
 	Thu, 26 Nov 2026 08:09:02 +0000 (UTC)
-Received: from forwardcorp1e.mail.yandex.net (forwardcorp1e.mail.yandex.net
- [93.77.172.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ACE1010FDD8
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:08:42 +0000 (UTC)
-Received: from mail-nwsmtp-smtp-corp-main-80
- (mail-nwsmtp-smtp-corp-main-80.yp-c.yandex.net)
- by forwardcorp1e.mail.yandex.net (postfix) with ESMTPS id A80E8100336;
- Wed, 25 Nov 2026 20:03:43 +0300 (MSK)
-Received: from [127.0.1.1]
- by mail-nwsmtp-smtp-corp-main-80 with ESMTPSA id a3lrP22Zo8c0-sRAf1WTV;
- Wed, 25 Nov 2026 20:03:42 +0300
-X-Yandex-Fwd: 1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
- s=default; t=1795626222;
- bh=D6e784RAfl1zWvIKf8VvIP9R0Xn4wVs0JRUhlpHhbJQ=;
- h=Cc:In-Reply-To:Message-Id:To:Date:References:From:Subject;
- b=ifVmvqKT+7d8cLgAMMnVyYRRibQhivvzVTfOsbHcwGY6thKnU6SohPfAebPCA5IEc
- 7PK52KMI7IMwADqJ25ILkCbacC70sVC0GIW8AVFA0sPa65dm8lYp9FjEZZjdDy2bTR
- PIQplQ8qdAO1AkGxZBGrZbFrYhZZ500fP9Tz8cl4=
-Authentication-Results: mail-nwsmtp-smtp-corp-main-80;
- dkim=pass header.i=@yandex-team.ru
-From: Mikhail Rudenko <xyzzy@yandex-team.ru>
-Date: Wed, 25 Nov 2026 20:03:27 +0300
-Subject: [PATCH 3/3] video: aperture: hand off EFI earlycon on aperture
- ackquisition
+X-Greylist: delayed 602 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Nov 2026 10:29:55 UTC
+Received: from mta-64-227.siemens.flowmailer.net
+ (mta-64-227.siemens.flowmailer.net [185.136.64.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85EFE10FB06
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:29:55 +0000 (UTC)
+Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id
+ 2026112510195163cecdbf3400020763
+ for <dri-devel@lists.freedesktop.org>;
+ Wed, 25 Nov 2026 11:19:51 +0100
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
+ d=siemens.com; i=alessandro.zini@siemens.com;
+ h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc:References:In-Reply-To;
+ bh=P/qDb93psmYu3KOkMzDXsv4Tt820FhpXDB93gJkIxRo=;
+ b=VdHVFlvmptoJBl8kFclQTPJVqz3lFkwBHmleZQHxH259bD+Nu1G1DlRxcGwmfukZNI6xF6
+ 9cTdmyh88nf7A5See8uN3VHxIdTe1cciwnYiSzvu8HUsNqN77EMDhYvnmzo9JcFksrnzw4Au
+ pCe85Zm77HV2eodV3347MtnA4wyNjLrHPd5TL/z+zP+fP7e+GgYvpswv3/9fYZaV66is5cv5
+ SR0cQCmsFEmlOaAGT1sMoByhqspWD20MO2aRErawz6Kb94dTy0T2+liiMRROItLnGM6GXCQA
+ zNu8Z9zRNf33FXK3u3dt6CyHoDU9kvE0eoc2tQKrPmfXdUg58GJpvUyA==;
+From: Alessandro Zini <alessandro.zini@siemens.com>
+To: neil.armstrong@linaro.org, jesszhan0024@gmail.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org
+Cc: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, thierry.reding@gmail.com,
+ sam@ravnborg.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, Andrej Valek <andrej.v@skyrain.eu>,
+ Alessandro Zini <alessandro.zini@siemens.com>
+Subject: [PATCH 3/3] drm/panel: simple: Add support for Techshine TS-P0700031A
+ panel
+Date: Wed, 25 Nov 2026 11:19:36 +0100
+Message-ID: <20261125101936.103094-4-alessandro.zini@siemens.com>
+In-Reply-To: <20261125101936.103094-1-alessandro.zini@siemens.com>
+References: <20261125101936.103094-1-alessandro.zini@siemens.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-efi-earlycon-v1-3-49ac2c0a430b@yandex-team.ru>
-References: <20261125-efi-earlycon-v1-0-49ac2c0a430b@yandex-team.ru>
-In-Reply-To: <20261125-efi-earlycon-v1-0-49ac2c0a430b@yandex-team.ru>
-To: Ard Biesheuvel <ardb@kernel.org>, 
- Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, 
- Javier Martinez Canillas <javierm@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Peter Jones <pjones@redhat.com>, 
- Helge Deller <deller@gmx.de>, Hans de Goede <hansg@kernel.org>, 
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
- Randy Dunlap <rdunlap@infradead.org>
-Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
- linux-doc@vger.kernel.org, Mikhail Rudenko <xyzzy@yandex-team.ru>
-X-Mailer: b4 0.15.2
-X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:58 +0000
+Content-Transfer-Encoding: 8bit
+X-Flowmailer-Platform: Siemens
+Feedback-ID: 519:519-1327013:519-21489:flowmailer
+X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -67,176 +59,76 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-With keep_bootcon, EFI earlycon can keep writing to the firmware
-framebuffer while a graphics driver takes over. Add a handoff option
-that unregisters it after framebuffer/drm device successfully acquires
-its aperture or when a conflicting-device removal helper is
-called. The option opt-in, default behavior is preserved.
+From: Andrej Valek <andrej.v@skyrain.eu>
 
-When handoff option is effective, unregister the EFI earlycon when a
-graphics device driver ackquires aperture (unless it was unregistered
-earlier).
+Add display timing and panel descriptor for the Techshine TS-P0700031A
+LCD panel.
+Register the panel in the of_device_id table with the compatible string
+"techshine,ts-p0700031a".
 
-Signed-off-by: Mikhail Rudenko <xyzzy@yandex-team.ru>
+Signed-off-by: Andrej Valek <andrej.v@skyrain.eu>
+Signed-off-by: Alessandro Zini <alessandro.zini@siemens.com>
 ---
- Documentation/admin-guide/kernel-parameters.txt |  5 +++-
- drivers/firmware/efi/earlycon.c                 | 37 ++++++++++++++++++++++++-
- drivers/video/aperture.c                        | 13 ++++++++-
- include/linux/efi.h                             |  7 +++++
- 4 files changed, 59 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/panel/panel-simple.c | 32 ++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd94..829bb01cc10d0 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1532,7 +1532,10 @@ Kernel parameters
- 			memory mapped framebuffer (if available). On cache
- 			coherent non-x86 systems that use system memory for
- 			the framebuffer, pass the 'ram' option so that it is
--			mapped with the correct attributes.
-+			mapped with the correct attributes. Pass 'handoff' with
-+			keep_bootcon to retain EFI earlycon until a graphics
-+			driver acquires a firmware framebuffer aperture. Options
-+			may be combined, e.g. earlycon=efifb,ram,handoff.
+diff --git a/drivers/gpu/drm/panel/panel-simple.c b/drivers/gpu/drm/panel/panel-simple.c
+index 33d954f3ee289..8eda4f74bc44f 100644
+--- a/drivers/gpu/drm/panel/panel-simple.c
++++ b/drivers/gpu/drm/panel/panel-simple.c
+@@ -4827,6 +4827,35 @@ static const struct panel_desc tsd_tst043015cmhx = {
+ 	.bus_flags = DRM_BUS_FLAG_DE_HIGH | DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE,
+ };
  
- 		linflex,<addr>
- 			Use early console provided by Freescale LINFlexD UART
-diff --git a/drivers/firmware/efi/earlycon.c b/drivers/firmware/efi/earlycon.c
-index 3a6eaf5481f40..9d65777d225e1 100644
---- a/drivers/firmware/efi/earlycon.c
-+++ b/drivers/firmware/efi/earlycon.c
-@@ -21,8 +21,20 @@ static u32 efi_x_array[1024];
- static u32 efi_x, efi_y;
- static u64 fb_base;
- static bool fb_wb;
-+static bool fb_handoff;
- static void *efi_fb;
- 
-+void efi_earlycon_unregister(void)
-+{
-+	struct console *con = READ_ONCE(earlycon_console);
++static const struct display_timing techshine_ts_p0700031a_timing = {
++	.pixelclock = { 44900000, 51200000, 63000000 },
++	.hactive = { 1024, 1024, 1024 },
++	.hfront_porch = { 16, 160, 216 },
++	.hback_porch = { 160, 160, 160 },
++	.hsync_len = { 1, 1, 256 },
++	.vactive = { 600, 600, 600 },
++	.vfront_porch = { 1, 12, 127 },
++	.vback_porch = { 23, 23, 23 },
++	.vsync_len = { 1, 1, 128 },
++	.flags = DISPLAY_FLAGS_DE_HIGH,
++};
 +
-+	if (!con || !fb_handoff)
-+		return;
++static const struct panel_desc techshine_ts_p0700031a = {
++	.timings = &techshine_ts_p0700031a_timing,
++	.num_timings = 1,
++	.bpc = 8,
++	.size = {
++		.width = 165,
++		.height = 105,
++	},
++	.delay = {
++		.enable = 25,
++		.disable = 25,
++	},
++	.bus_format = MEDIA_BUS_FMT_RGB888_1X7X4_SPWG,
++	.connector_type = DRM_MODE_CONNECTOR_LVDS,
++};
 +
-+	if (console_is_registered(con))
-+		unregister_console(con);
-+}
-+
- /*
-  * EFI earlycon needs to use early_memremap() to map the framebuffer.
-  * But early_memremap() is not usable for 'earlycon=efifb keep_bootcon',
-@@ -219,6 +231,29 @@ efi_earlycon_write(struct console *con, const char *str, unsigned int num)
- 
- static bool __initdata fb_probed;
- 
-+static void __init efi_earlycon_parse_options(const char *opt)
-+{
-+	/* Reprobe has no options; retain those parsed on the first attempt. */
-+	if (!opt)
-+		return;
-+
-+	fb_wb = false;
-+	fb_handoff = false;
-+
-+	while (*opt) {
-+		size_t len = strcspn(opt, ",");
-+
-+		if (len == 3 && !strncmp(opt, "ram", len))
-+			fb_wb = true;
-+		else if (len == 7 && !strncmp(opt, "handoff", len))
-+			fb_handoff = true;
-+
-+		opt += len;
-+		if (*opt)
-+			opt++;
-+	}
-+}
-+
- void __init efi_earlycon_reprobe(void)
- {
- 	if (fb_probed)
-@@ -232,7 +267,7 @@ static int __init efi_earlycon_setup(struct earlycon_device *device,
- 	u16 xres, yres;
- 	u32 i;
- 
--	fb_wb = opt && !strcmp(opt, "ram");
-+	efi_earlycon_parse_options(opt);
- 
- 	if (si->orig_video_isVGA != VIDEO_TYPE_EFI) {
- 		fb_probed = true;
-diff --git a/drivers/video/aperture.c b/drivers/video/aperture.c
-index 2b5a1e666e9b2..249b037562103 100644
---- a/drivers/video/aperture.c
-+++ b/drivers/video/aperture.c
-@@ -2,6 +2,7 @@
- 
- #include <linux/aperture.h>
- #include <linux/device.h>
-+#include <linux/efi.h>
- #include <linux/list.h>
- #include <linux/mutex.h>
- #include <linux/pci.h>
-@@ -240,7 +241,13 @@ int devm_aperture_acquire_for_platform_device(struct platform_device *pdev,
- 					      resource_size_t base,
- 					      resource_size_t size)
- {
--	return devm_aperture_acquire(&pdev->dev, base, size, aperture_detach_platform_device);
-+	int ret;
-+
-+	ret = devm_aperture_acquire(&pdev->dev, base, size, aperture_detach_platform_device);
-+	if (!ret)
-+		efi_earlycon_unregister();
-+
-+	return ret;
- }
- EXPORT_SYMBOL(devm_aperture_acquire_for_platform_device);
- 
-@@ -284,6 +291,8 @@ static void aperture_detach_devices(resource_size_t base, resource_size_t size)
- int aperture_remove_conflicting_devices(resource_size_t base, resource_size_t size,
- 					const char *name)
- {
-+	efi_earlycon_unregister();
-+
- 	/*
- 	 * If a driver asked to unregister a platform device registered by
- 	 * sysfb, then can be assumed that this is a driver for a display
-@@ -349,6 +358,8 @@ int aperture_remove_conflicting_pci_devices(struct pci_dev *pdev, const char *na
- 	resource_size_t base, size;
- 	int bar, ret = 0;
- 
-+	efi_earlycon_unregister();
-+
- 	sysfb_disable(&pdev->dev);
- 
- 	for (bar = 0; bar < PCI_STD_NUM_BARS; ++bar) {
-diff --git a/include/linux/efi.h b/include/linux/efi.h
-index cc1df1577d5fb..44cff6fe53f90 100644
---- a/include/linux/efi.h
-+++ b/include/linux/efi.h
-@@ -720,6 +720,13 @@ efi_guid_to_str(const efi_guid_t *guid, char *out)
- 
- extern void efi_init (void);
- extern void efi_earlycon_reprobe(void);
-+#ifdef CONFIG_EFI_EARLYCON
-+void efi_earlycon_unregister(void);
-+#else
-+static inline void efi_earlycon_unregister(void)
-+{
-+}
-+#endif
- #ifdef CONFIG_EFI
- extern void efi_enter_virtual_mode (void);	/* switch EFI to virtual mode, if possible */
- #else
-
+ static const struct drm_display_mode tfc_s9700rtwv43tr_01b_mode = {
+ 	.clock = 30000,
+ 	.hdisplay = 800,
+@@ -6179,6 +6208,9 @@ static const struct of_device_id platform_of_match[] = {
+ 	}, {
+ 		.compatible = "team-source-display,tst043015cmhx",
+ 		.data = &tsd_tst043015cmhx,
++	}, {
++		.compatible = "techshine,ts-p0700031a",
++		.data = &techshine_ts_p0700031a,
+ 	}, {
+ 		.compatible = "tfc,s9700rtwv43tr-01b",
+ 		.data = &tfc_s9700rtwv43tr_01b,
 -- 
 2.56.1
 
