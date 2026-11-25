@@ -2,64 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06598606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:48:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC785606A321
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 18:48:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ug2KI/Hc
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WL9BeSYt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5E9AF10E383;
-	Wed, 25 Nov 2026 18:48:25 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DCC0D10E383
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:48:18 +0000 (UTC)
-Received: by mail-ej1-f50.google.com with SMTP id
- a640c23a62f3a-c51a02ad3acso173548766b.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:48:18 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 36E5710FEF6;
+	Wed, 25 Nov 2026 18:48:32 +0000 (UTC)
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com
+ [209.85.218.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8819F10FEFE
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:48:21 +0000 (UTC)
+Received: by mail-ej1-f43.google.com with SMTP id
+ a640c23a62f3a-c4d5b2db4bbso1170043566b.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 10:48:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795632497; x=1796237297; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
- b=Ug2KI/HcobYTQRXI+AS65g9wKFlqjqj+qFu9dFMMotmN4A6grpm67WozadmdcEQ3fj
- FfnEGgDpSdJsLiwJHijrLgf9b1idmDPiCuKqAJ/tE0jqolQEdAJOmWbFAgD0trcHdKmw
- 2RAykSjGGkPa9t7RI9BIi8GyNPaKegiyfcoiuxwpEv1WKMuhQVgopMEPAaA98ipB/TCa
- CGY2sT5eoJU4/QoiZi2if0zcfO74x2rCuUUFeohjCAXGZvWfzvXWcWXdHwNMsIJrktY4
- RMS4lUQ7myv5D5h4Uj4Ozlm0p8F6CW7Z8wl/DGi18pzFtGzx5QZ8BKAm7GHzhzOcFjT7
- TY5w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795632497; x=1796237297;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=gmail.com; s=20260707; t=1795632500; x=1796237300; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=VQW/Ymb8D+uLvIjWbZ057G5GtIuukitNqjLkdiNCMvE=;
- b=jV1IeYzwK91jQQMYxAjLM7eQVxjaQZZ4b54Q+LMTbk8j8+/oE9li+N0UxWvYjhSxre
- japNLeXotL+Mq1N7MmI/pqwISrREh54St3XkPRQ11ESI99WmGIS+pZfwNq+61z+3EB6q
- ail0rBRhac2s+OGsd121Z6NzsXitosx35OdJfdTG1YkQaAKvVDrxeWjYdaEjWDphHZ1T
- uZ8zcd5tdBwSg/OQZWf35bKZTi619wSZM5o0XJ/eX/40GpDMXuLP3NgwlaVtnAEiWajK
- kWS1vSwIkdXfCihXYioldyJYxin0DeboX6ptXHHEV6apqVoegf6BzdtrBGux/vQF2/CK
- 3abw==
+ bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
+ b=WL9BeSYtJZtf/CGQIiMOIxtM4qF+bTvYIKSTn7hSYuf81y3ObFBO+XgHSy0aVTpZ77
+ n4iWSZpURwhC1odoUexJQ8HcpASpYySLUZ26MVDWLgvG8Kp65eJrC44sekI4XH7SvE4Y
+ viwgN80qSHA5aM+Tlqp6jbYjJryPOFUqKEM1uuDjI3h3lz3FumZfRQQhzI+QDFfuSe9w
+ k+f5B0WPA/9px7KcVGpeVcNnkREUhz1Tv1pQ3zwMgiveAuld9yGPjxnZVtJzNF1mm/n/
+ Ps2/JusKWYiDmxQ/vlsi2qbtTXIwRgAss2adwPd1FTrnZWCTye3ZBLRc56xUYLtZX7j/
+ Tj6w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795632500; x=1796237300;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HLK3d7iXciTA3gYlWpBInCkheLbOB6EwrTlus+ykLsk=;
+ b=UxssGCbkrjMmxNxjEJC9A+ZT+Kz/29eAEnNCVEoZ2QbTv1dZUwyDCn/4CBZrRderCv
+ M8YgEKPE7Wvv1xBenrVlU9ODukt7L1lFNF8PedQsgroFa0K5ZgGnadOuUUVT0YY/LS3L
+ yDvBtEQYP0y4OAiI0HLpotjYxlECOChIWoVE7S5PmmEvaEl914zswGA9bRJqt0Wta3oC
+ uGKnNG/8zIX+geW/4Od3HonHO4aqaE1oot14LYhWI7Zc13BbgPZbQ3J1JjFDqlMgisgK
+ vcinPwPenfb0QtVRT75yhqccNzI1KwLYK90Vxvr5tI8bfW2Eu8ZGwl68lcrdBVV9QHU7
+ 5ngg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFnbWUkOxdvMOIiQIKomyzE7qnxB/hT8Yr8yB37qbnTwF/cJuOk4vAOPUXwRi4MBt13SqR2wSS10iU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+0vVOm3jOd96G3osZMpoTmR/2EIBiWAIztroaWnhX/nWfXWsQd
- at1km1X8tJi5Q8ELiydKhHetSL4jX8ZCpdfgTKCobqMUcHKQbZ6w3jj3
-X-Gm-Gg: AZFdTZeFUQy24PipkGlFY2A19FrK+wBz5lFdSXIFY3RwMh4rAsHOpdaDIk4cNQ2pruc
- x87cS9CnR6/J030U1/07v6iicqymNVHtkzV/BthLXptlTtZF9kW3VgIwGzwMQwlhm4jABlWGCuR
- RqdCQ1V19wtID5U9Nc3kB0lRE3Cz0JRj7kfNq6ju8BpovlP2blGJX6iL3ypVPFuQPjeg2/xMvfe
- OlV7Lx160d64am3JqbhIvIadS+RuCD4tKWcar+YS6o+4xb7cEySYVY/DIqhTDYrVoC45L4XKNuu
- As519GoS5NqSlZu61nNBNzfPfY+WhbeRL9vyZifxtZRd05Et2ZqgrbHyGJQpmRtZwxE7ERJykP1
- V5XqbPDO5JCp75tbPenWkx/+vAVEDVBY+AispnkxK7CR0LD06cdo/Sb++ra4jlapzJeyAZGE3+Q
- vli2Cz9NuiKlkqhfG0taPlZmfIEa7tROCtHmgniwJjmQdipkJVyA/uIie55R1W6+LaHxS/Dlp36
- 3dM8QkiDy7nxSJjddX6aByKVnFRzUYZsGcgtg9R5421jr6zaLu7cIPs3fZuJmZ0O9alNq+Veuh0
- 1io6iwma4AIMNfGwRY495YiMmkltNnjDG4hPCn1N20zGdBzb51RrX2aSDXA=
-X-Received: by 2002:a17:907:20e4:b0:c40:9b75:84af with SMTP id
- a640c23a62f3a-c513a5ec7cbmr1173636366b.8.1795632496938; 
- Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+ AL+hErF02p6JUQzYAzNvgooNxpcsdCuOETxMYgQPkIbkSG7bajrKrkBlGSM4rpWsN9ajdVNwCZhw8mz/vBs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/woOH60nprN4klgxaGtnVcFEubPUNEI/nTrYXjl6XE0wdGGigE
+ 0sghvXJGJieBGWhAj3g8SUgCN91BvUjWNBaJ+iswmo2apsQlJTj+pXrZ
+X-Gm-Gg: AZFdTZemj+A8+kgBUAZr0qAwwU03XZQsHCgsU3EeWnCETBI+DK3YUmE1sGiJAwevhnf
+ A6GFkuclHQtGQhyGne+I4nHl/yXyJq3NQjOoYFibF1xemlpjuwx+kNck45hidhQVuA00sVmWefa
+ m49+QIjae62egha3EygSl/92eAbOJ8HMGLb4yuo58Ymgpz8k6eFlUG5zFTaCKz6eWYkJYRPkt5T
+ gCzbjAaQx9kEQCmh8kjOWQUzY392DSbF4jAD3ien2I32iL7wEqonUyOkmTC2bpXPVegy7/wHUst
+ ARezyMQbiDBRXJuEXJusfOssz4w9LgoTDvIKxfDk6DcW4EtCZApC9J2Wag7K0Bqu896s/iia3QX
+ TF4NOh9J3GHkU7b/XmkR6lqnX6IUQLzVcAFdleKqBqXvAFul1NrqZCEXE9sYOly437dYBNbAPws
+ pWzWYZPPpfczWBvW+fUNoo94nfxNc5ieyM1upx5hK+lG8vJN/Amxm0AnZjX/dyknbZHJ+0+i0L0
+ QUtCo7ITao6pGi8YJGvWldEmP3eiIxp28Gmv3tdlyN8ykNLcK/gWLdzW6Xexv6JpzhC1/4Rq3AD
+ bj672XXML+aw6Kd5gSdvaq6MPlpE6CT6hNGbzeSztSMOklNOvaFJTV1jZrM=
+X-Received: by 2002:a17:907:6d0b:b0:c41:1781:a2af with SMTP id
+ a640c23a62f3a-c51317e3353mr1702989166b.9.1795632499856; 
+ Wed, 25 Nov 2026 10:48:19 -0800 (PST)
 Received: from antoniarch (84-40-239-22.cgnat.inetia.pl. [84.40.239.22])
  by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.15
+ a640c23a62f3a-c513afc73d3sm677226666b.64.2026.11.25.10.48.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 10:48:16 -0800 (PST)
+ Wed, 25 Nov 2026 10:48:19 -0800 (PST)
 From: Antoni Pokusinski <apokusinski01@gmail.com>
 To: vigneshr@ti.com, andi.shyti@kernel.org, robh@kernel.org,
  krzk+dt@kernel.org, conor+dt@kernel.org, aaro.koskinen@iki.fi,
@@ -70,10 +71,13 @@ Cc: linux-omap@vger.kernel.org, linux-i2c@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linaro-mm-sig@lists.linaro.org, Antoni Pokusinski <apokusinski01@gmail.com>
-Subject: [PATCH v4 0/3] i2c: omap: add support for DMA
-Date: Wed, 25 Nov 2026 19:47:45 +0100
-Message-ID: <20261125184750.57866-1-apokusinski01@gmail.com>
+Subject: [PATCH v4 2/3] ARM: dts: am33xx-l4: Add missing DMAs for I2C
+ controllers
+Date: Wed, 25 Nov 2026 19:47:47 +0100
+Message-ID: <20261125184750.57866-3-apokusinski01@gmail.com>
 X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261125184750.57866-1-apokusinski01@gmail.com>
+References: <20261125184750.57866-1-apokusinski01@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -88,65 +92,45 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hello,
-This patchset introduces support for the TX & RX DMA transfers in the
-am335x/omap I2C controller. I tested this implementation on AM335x 
-(Beaglebone Black) and things seem to work fine.
+The i2c0 and i2c1 controllers on AM33xx support TX and RX DMA
+requests. Add the EDMA request mappings and DMA names for
+both controllers.
 
-Kind regards,
-Antoni Pokusinski
+Signed-off-by: Antoni Pokusinski <apokusinski01@gmail.com>
 ---
-Changes since v3:
-Some minor changes to fix the issues reported by sashiko:
-* resize_fifo: changed type of the `size` argument from u8 to u16
-* xfer_msg: fixed style of the REVISIT comment
-* xfer_msg: implemented fallback to PIO if DMA transfer setup fails
-* xfer_msg: disable the DMA request as the first step of the cleanup
-            (instead of the last step)
-* probe: introduced intermediate `dma` variable
-* probe: all DMA init errors except EPROBE_DEFER are now treated the
-         same way: dev_warn() + fallback to PIO
+ arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes since v2:
-* dropped patch "i2c: omap: remove unused is_rdr and is_xdr function arguments"
-* added `omap_i2c_disable/enable_pio_irqs()` helper functions
-* probe: added `if (omap->dma)` before the DMA free
-* xfer_data: signal DMA completion in the case of NACK interrupt
-* complete_cmd: signal DMA completion in the case of bus error (e.g. AL)
-* xfer_msg: removed incorrect checks `if (!omap->cmd_err)`
-* xfer_msg: added handling of DMA/IRQ cleanup in the `b_hw && stop` path
-
-Changes since v1:
-* new patch "i2c: omap: remove unused is_rdr and is_xdr ..."
-* probe: added `goto err_dma_free` instead of `return`
-         in the case of failed `i2c_add_numbered_adapter()`
-* changes in XRDY/RRDY, XDR/RDR interrupts management:
-  - init: do not enable the above-mentioned intrerupts
-  - xfer_msg: enable the interrupts before any non-DMA transfer
-  - xfer_msg: disable the interrupts after any non-DMA transfer
-* xfer_msg: added checks on `omap->cmd_err` to catch
-            NACK or AL error occured during DMA transfers
-* general: moved scheme-related macros to the top of the file
-
-
-Antoni Pokusinski (3):
-  dt-bindings: i2c: ti,omap4-i2c: Add DMA properties
-  ARM: dts: am33xx-l4: Add missing DMAs for I2C controllers
-  i2c: omap: add DMA support
-
- .../devicetree/bindings/i2c/ti,omap4-i2c.yaml |  12 +
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi      |   4 +
- drivers/i2c/busses/i2c-omap.c                 | 377 ++++++++++++++++--
- 3 files changed, 370 insertions(+), 23 deletions(-)
-
+diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
+index 57a45609f9f5..89fb1d1eb049 100644
+--- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
++++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
+@@ -239,6 +239,8 @@ i2c0: i2c@0 {
+ 				reg = <0x0 0x1000>;
+ 				interrupts = <70>;
+ 				status = "disabled";
++				dmas = <&edma 58 0>, <&edma 59 0>;
++				dma-names = "tx", "rx";
+ 			};
+ 		};
+ 
+@@ -1189,6 +1191,8 @@ i2c1: i2c@0 {
+ 				reg = <0x0 0x1000>;
+ 				interrupts = <71>;
+ 				status = "disabled";
++				dmas = <&edma 60 0>, <&edma 61 0>;
++				dma-names = "tx", "rx";
+ 			};
+ 		};
+ 
 -- 
 2.56.1
 
