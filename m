@@ -2,21 +2,21 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF7D2606A68C
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:49:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE876606A688
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:49:19 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D8B3510FBE2;
-	Wed, 25 Nov 2026 11:49:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id F2F0610FBE1;
+	Wed, 25 Nov 2026 11:49:18 +0000 (UTC)
 Received: from exchange.fintech.ru (exchange.fintech.ru [195.54.195.159])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A32110FBE1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:49:06 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9882C10FBE1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:49:16 +0000 (UTC)
 Received: from Ex16-01.fintech.ru (10.0.10.18) by exchange.fintech.ru
  (195.54.195.159) with Microsoft SMTP Server (TLS) id 14.3.498.0; Wed, 25 Nov
- 2026 14:43:38 +0300
+ 2026 14:43:47 +0300
 Received: from localhost (10.0.253.153) by Ex16-01.fintech.ru (10.0.10.18)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2242.4; Wed, 25 Nov
- 2026 14:43:37 +0300
+ 2026 14:43:46 +0300
 From: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 To: Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong
  <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>
@@ -33,10 +33,10 @@ CC: Nikita Zhandarovich <n.zhandarovich@fintech.ru>, Laurent Pinchart
  Szyprowski" <m.szyprowski@samsung.com>, <linux-rockchip@lists.infradead.org>, 
  <linux-arm-kernel@lists.infradead.org>, <dri-devel@lists.freedesktop.org>,
  <linux-kernel@vger.kernel.org>, <lvc-project@linuxtesting.org>
-Subject: [PATCH 1/3] drm/bridge: analogix_dp: Check runtime resume before
- accessing hardware
-Date: Wed, 25 Nov 2026 14:43:13 +0300
-Message-ID: <20261125114319.1089186-2-n.zhandarovich@fintech.ru>
+Subject: [PATCH 3/3] drm/bridge: analogix_dp: Propagate errors from runtime
+ resume
+Date: Wed, 25 Nov 2026 14:43:15 +0300
+Message-ID: <20261125114319.1089186-4-n.zhandarovich@fintech.ru>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261125114319.1089186-1-n.zhandarovich@fintech.ru>
 References: <20261125114319.1089186-1-n.zhandarovich@fintech.ru>
@@ -64,66 +64,74 @@ X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Check runtime resume before continuing with the bridge's initialization
-or accessing AUX registers. A failed resume may leave the controller
-clock disabled.
+Stop controller initialization when platform or PHY power-on fails and
+return the original error to the resume caller. Unwind the platform
+power callback only after it has completed successfully, then release
+the controller clock. Do not call phy_power_off() after a failed
+phy_power_on(), since no successful PHY power reference was acquired.
 
-Therefore, use pm_runtime_resume_and_get() so that an error return
-does not retain a runtime-PM usage reference.
+Also stop and unwind platform power if setting the PHY mode fails.
 
 Fixes: 3424e3a4f844 ("drm: bridge: analogix/dp: split exynos dp driver to bridge directory")
-Fixes: 8fb6c44fe846 ("drm/bridge: analogix_dp: Grab runtime PM reference for DP-AUX")
-Fixes: c8f0b7cb01ea ("drm/bridge: analogix_dp: Add support for &drm_dp_aux.wait_hpd_asserted()")
+Fixes: 2c0883459ed6 ("drm/bridge: analogix_dp: Add support for phy configuration.")
 Signed-off-by: Nikita Zhandarovich <n.zhandarovich@fintech.ru>
 ---
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 ++++++++++---
- 1 file changed, 10 insertions(+), 3 deletions(-)
+Depends on patches 1 and 2 of this series, also on Alexandre Marquet's
+Exynos pipe-clock conversion [1], or Marek Szyprowski's equivalent [2].
+Without [1] or [2], propagating errors from old Exynos power_on() step
+may break AUX access.
+
+This is an updated version of the patch suggested by "Pengpeng Hou"
+<pengpeng@iscas.ac.cn> in [3]. It takes into account issues brought
+up by Sashiko, specifically, an issue of possible unbalanced clock
+disables. This patch was prepared using dependency [1].
+
+[1] https://lore.kernel.org/all/20261027-drm-misc-next-manta-auxbus-v1-2-3a45c3cf531d@a-marquet.fr/
+[2] https://lore.kernel.org/all/20261119223843.3694307-1-m.szyprowski@samsung.com/
+[3] https://lore.kernel.org/all/20260828091334.5793-1-pengpeng@iscas.ac.cn/
+
+ .../drm/bridge/analogix/analogix_dp_core.c    | 23 +++++++++++++++----
+ 1 file changed, 19 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 6df6963740d2..9d77c1d54a6d 100644
+index 9d77c1d54a6d..3326b51aaeb5 100644
 --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
 +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -19,6 +19,7 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
-+#include <linux/pm_runtime.h>
+@@ -1538,15 +1538,30 @@ int analogix_dp_resume(struct analogix_dp_device *dp)
+ 		return ret;
+ 	}
  
- #include <drm/bridge/analogix_dp.h>
- #include <drm/display/drm_dp_aux_bus.h>
-@@ -994,7 +995,9 @@ static int analogix_dp_set_bridge(struct analogix_dp_device *dp)
- {
- 	int ret;
+-	if (dp->plat_data->power_on)
+-		dp->plat_data->power_on(dp->plat_data);
++	if (dp->plat_data->power_on) {
++		ret = dp->plat_data->power_on(dp->plat_data);
++		if (ret)
++			goto err_disable_clk;
++	}
  
--	pm_runtime_get_sync(dp->dev);
-+	ret = pm_runtime_resume_and_get(dp->dev);
+-	phy_set_mode(dp->phy, PHY_MODE_DP);
+-	phy_power_on(dp->phy);
++	ret = phy_set_mode(dp->phy, PHY_MODE_DP);
 +	if (ret)
-+		return ret;
- 
- 	ret = analogix_dp_init_analog_func(dp);
- 	if (ret)
-@@ -1360,7 +1363,9 @@ static ssize_t analogix_dpaux_transfer(struct drm_dp_aux *aux,
- 	struct analogix_dp_device *dp = to_dp(aux);
- 	int ret;
- 
--	pm_runtime_get_sync(dp->dev);
-+	ret = pm_runtime_resume_and_get(dp->dev);
++		goto err_power_off;
++
++	ret = phy_power_on(dp->phy);
 +	if (ret)
-+		return ret;
++		goto err_power_off;
  
- 	ret = analogix_dp_detect_hpd(dp);
- 	if (ret)
-@@ -1383,7 +1388,9 @@ static int analogix_dpaux_wait_hpd_asserted(struct drm_dp_aux *aux, unsigned lon
- 	if (dp->force_hpd)
- 		return 0;
+ 	analogix_dp_init_dp(dp);
  
--	pm_runtime_get_sync(dp->dev);
-+	ret = pm_runtime_resume_and_get(dp->dev);
-+	if (ret)
-+		return ret;
+ 	return 0;
++
++err_power_off:
++	if (dp->plat_data->power_on && dp->plat_data->power_off)
++		dp->plat_data->power_off(dp->plat_data);
++err_disable_clk:
++	clk_disable_unprepare(dp->clock);
++	return ret;
+ }
+ EXPORT_SYMBOL_GPL(analogix_dp_resume);
  
- 	ret = readx_poll_timeout(analogix_dp_get_plug_in_status, dp, val, !val,
- 				 wait_us / 100, wait_us);
 -- 
 2.43.0
 
