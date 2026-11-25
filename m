@@ -2,54 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675E3606A335
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:42:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A8D5606A329
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 02:42:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=OfmTAq/h
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.a=rsa-sha256 header.s=s201512 header.b=Fph5A+JP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B9D7D10E8B1;
-	Wed, 25 Nov 2026 02:42:44 +0000 (UTC)
-Received: from out203-205-221-209.mail.qq.com (out203-205-221-209.mail.qq.com
- [203.205.221.209])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 332F410E8B1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:42:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5948310E8C1;
+	Wed, 25 Nov 2026 02:42:45 +0000 (UTC)
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D87BB10E8DA
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 02:42:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
- t=1795574552; bh=o2ZBOBSK4J6IpmVXYBOJZpEDX+16cuL5L8cVT4NeqK0=;
+ t=1795574555; bh=fbu9uDIZ7L32gOC7ibbK3yEo/s2Yqhso0UM/iF/DqSw=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=OfmTAq/hSZktBWJJmk23Z6EkJvP4bDGrZj5BydV9eVSJ7QJyPqxxCKWfqP292eYQ7
- BfuMexWS15UrZIDkywllQKX9Wer9/lqb9kJiR22yNMAUhbTjL5tKHLQgoRnEPrjPnV
- aZ8Vzavf/oZh54XSpXui6YDMryy5ZdvF1v7THy4E=
+ b=Fph5A+JPDd8nSfjTO+kTXuC1m8dUE20cYF5fnk0OpVrA9NmzWQAFcZCpJlll7OEkv
+ BTlFn8NcpbC0savwSckoUSEx6yYGwSodVmQM8LChT3jZ6XgloQn2tYccg4GWYMH88C
+ ddxsKPTga/a7vK9HuYzdCAIELhXdjBuJEIoSHxuQ=
 Received: from HF ([113.90.236.90])
  by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
  id A9B394D4; Wed, 25 Nov 2026 10:42:27 +0800
-X-QQ-mid: xmsmtpt1795574550t42d4g49m
-Message-ID: <tencent_65A800E3961F185694DF3284554F14BFAD08@qq.com>
-X-QQ-XMAILINFO: OZ2MtRmBbS53QTDtoG5ja4yZCowRkSPMV0ca++xAPCZicfMbsGLt0mtfiHI0l0
- P8fziz7431EAbSkLp3CkSId1EGarw1icPIYsvmAIneV6NrB/r2uIZHog7eSWglwKDSHQJxiOouVU
- CZgF5WBXuFv+WUOOPOzkY3zL2JAFDwXpqnkydbNOEBJOedEFXMlLayOgnyK9jTGKZCZYmwvCbFrl
- Wu9Ct9Ko092srZiSUrK4pJgmvnohLlznQivhwTy9SfMQmblhWwwbNooiz4v3YDjLWgEJjQidBmXA
- rX4j7+a3j2p25Vv9e3gvpIvx4kZLlIU5NPW07kDfWNR/+pUwomgfO64xRuIGHINuV4/xoi8JZcTR
- foOi+9Xlzfz4lgOJFzV5QJWpWAuQVAgK71yL/7C6C1GDE6bBHCp4M+DVP2WEiTFkeXeRvklN66NX
- lZcVQcl3RTGwLsOvQZcvKHRuB/9PAx1wrbZhYC4IBmKTDgzBQOdwppYfUiW7edN/UFk6hZq8cZ2u
- EmxxsDljrsd0aHP+UXk4RQHNbTuZAzmwFV0fY4szBF0K+2rTWRhSTH5MVlkpscfRaBjUTaMwi86X
- 9IX8be6W/8XTsZRmOdmWvdOxbVxhM8e2i4lgPNG8ZFviajMYyUKAaKKzDlmxCjO9rRBwgFsIFiHA
- q5WlIstrNeKXiAtAc0DrAi6okPhGTJNalAnA05UL5+bNahJhHQaj/vC9FhxtVZHr6YEAHVi8fuWd
- L8we/qPa/uur2mhIVj3ZgI86CN8dbBRBNkkcIi7UKf6abVZsFsAXyWNxW/99cB3rTEDE/UzddrWX
- +gh8010csdFoo6V6y960DkDcSUEOXuS6HLs+wC08uc+FRd3+vKIXq3ItfwgvtCOJ2GCQ400jIx1L
- 2XZg/7aSbaseGBk/bMqBfFf8p4OftaQH5ghWxS5f5B9yaKq7Uei8cnlr48B/IGZ64k+fpx/4B3p0
- WrsAcr3iX0Fv2LYQh0AvqUe1B74UJS7aAMxOh0HMSLNimHkRq0cAwq2IIU4oQSE+39FUpbgE1p/1
- TvUy2LTh86e+GsujQ2yCBV0aYNrWsrQtgAa+Biq3cSJeh/9gOvBoOqpxpFVYFbDmZ94PUbsDQ0Eb
- jZlRPECH4oWH8SuaFwaSWvL64AVqH8dPdc3tiN7mPJQVPF+TzOGrgFHUVWpN6x5jg0O2MaGWWsNs
- egAyr525SVseM7Fg==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+X-QQ-mid: xmsmtpt1795574553t13bnoa9a
+Message-ID: <tencent_7F6A3DBDFF7EA3F68F5B7D5C58F57FBB120A@qq.com>
+X-QQ-XMAILINFO: MzNwb/pqyJTk3v8LTyckX8ntDCs5L5+2jfyDrScMMZwM5NUat3vq4vxDCsZ/v8
+ LZ7hLj5OIFT9h5Mrb1WnP/Eg2mXzTaEFsj9KoFegYos80Ya23iHAuxvZTSgwHgo0j/Ta39SXUUG1
+ GFY/9K788R+teW/+uoLdRpH1WtcgUcaVSwJHt1PrG5jnpGrVXS1HeqvzvScudadkxFcra3tk60pt
+ mc9vBNW+9LYqPrRPh91nTLzX2TuYyCPXDRv8dgst6k0Eo/ePMTkiUweXay5xyNMbWC/bV5+U/BtG
+ 4Wd3tLnyxgmqq5K3JzJj1QamWv/tphS96jSXJ0qFt4DR1cmIkYflVq26/ycviW5z93ZK8jXG9NeY
+ lkb7t8INaoK5rZv/V6aFWh272xZ95bTMx45omTN3DeuMyflNaLd2lBScNHCDuLh/xHxrbuaWF02d
+ ozF25QVdh9pjmuWFD00D3YL8plc85EG4CMn1mXnvQvatLG5+pcBiP2yfloFZuPZ9vLQNziNSd49B
+ kGi0PPTNTnIRnyxTvkpT6BVpN4hw3zJQzPf6ukfVYLhsvCM2lVtEzngBRZwSeeJ8q7VIENNWqGUE
+ k3ZelSTDBE6fxsXx3wnXxyLuifLCJQN3e3+7SDaPA1xz2hRfeGxn38emU9wtqMhJre+vBpEYRa4V
+ UVfKNqtyOp/rf3Cj7Jaxzh1xW6vTdQ8bW46xC5oALuJo2qfX/LYoL+BPSPrj7l01xyC6Xi8bTEsG
+ PAK7KoodBehwzzmDDiBX5bp2uXmQkUsEMjxDLiGJrY0KPFkQbV0cPt13XP+JMOGTr2wXxvwBg8Hi
+ DPG4JBhkzsVNTomuFF1j+2A2BDJqcqhkInCUohztoI8v7yhGj6VqQsPM7vz2Poqo34z9JnqjSqIt
+ 8tF+za0FBbuuZ5klYbsXSbX1n0eJdWpl2nxZ/5hKdcnRnhm+nvdo2S/+PQncmXLzFCHJ44Guf5jq
+ nQlB+m9vWYOoQY6d+rn+tT2NwrCz7EBVl9/ws3s9/lt7XcymXHrBxp21PUzFGrow/XT9faNUrQtL
+ 8ADpo+4U+HSIehTip8MOBxKR2Hu8p/zr9LL0VspApQCD044K+2kDn46Z0Wea9RnCxh0ONLunGnmI
+ ccWl8h
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
 From: Hefei <3066883572@qq.com>
 To: dri-devel@lists.freedesktop.org
 Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, robh@kernel.org, conor@kernel.org,
  Hefei <3066883572@qq.com>
-Subject: [PATCH v4 3/6] dt-bindings: backlight: add VIEWE 7KF82 I2C backlight
-Date: Wed, 25 Nov 2026 10:42:23 +0800
-X-OQ-MSGID: <20261125024226.1293-4-3066883572@qq.com>
+Subject: [PATCH v4 6/6] backlight: add VIEWE 7KF82 I2C backlight driver
+Date: Wed, 25 Nov 2026 10:42:26 +0800
+X-OQ-MSGID: <20261125024226.1293-7-3066883572@qq.com>
 X-Mailer: git-send-email 2.55.0.windows.5
 In-Reply-To: <20261125024226.1293-1-3066883572@qq.com>
 References: <20261125024226.1293-1-3066883572@qq.com>
@@ -75,67 +73,132 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Document the I2C backlight MCU on the VIEWE 7KF82 module
-(address 0x45, register 0x86, brightness 0..255).
+Drive the VIEWE 7KF82 backlight MCU over I2C (register 0x86).
+The MCU has no public discrete part number on the FPC silk.
 
 Signed-off-by: Hefei <3066883572@qq.com>
 ---
- .../leds/backlight/viewe,7kf82-backlight.yaml | 46 +++++++++++++++++++
- 1 file changed, 46 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
+ drivers/video/backlight/Kconfig        |  7 +++
+ drivers/video/backlight/Makefile       |  1 +
+ drivers/video/backlight/viewe_bl_i2c.c | 82 ++++++++++++++++++++++++++
+ 3 files changed, 90 insertions(+)
+ create mode 100644 drivers/video/backlight/viewe_bl_i2c.c
 
-diff --git a/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
+diff --git a/drivers/video/backlight/Kconfig b/drivers/video/backlight/Kconfig
+index 7b836f9..8ea7332 100644
+--- a/drivers/video/backlight/Kconfig
++++ b/drivers/video/backlight/Kconfig
+@@ -501,6 +501,13 @@ config BACKLIGHT_LED
+ 	  If you have a LCD backlight adjustable by LED class driver, say Y
+ 	  to enable this driver.
+ 
++config BACKLIGHT_VIEWE_I2C
++	tristate "VIEWE I2C backlight"
++	depends on I2C
++	help
++	  Backlight driver for VIEWE DSI panels. Brightness is written to
++	  the panel MCU at I2C address 0x45, register 0x86.
++
+ endif # BACKLIGHT_CLASS_DEVICE
+ 
+ endmenu
+diff --git a/drivers/video/backlight/Makefile b/drivers/video/backlight/Makefile
+index bcb568a..b82d959 100644
+--- a/drivers/video/backlight/Makefile
++++ b/drivers/video/backlight/Makefile
+@@ -61,3 +61,4 @@ obj-$(CONFIG_BACKLIGHT_WM831X)		+= wm831x_bl.o
+ obj-$(CONFIG_BACKLIGHT_ARCXCNN) 	+= arcxcnn_bl.o
+ obj-$(CONFIG_BACKLIGHT_RAVE_SP)		+= rave-sp-backlight.o
+ obj-$(CONFIG_BACKLIGHT_LED)		+= led_bl.o
++obj-$(CONFIG_BACKLIGHT_VIEWE_I2C)	+= viewe_bl_i2c.o
+diff --git a/drivers/video/backlight/viewe_bl_i2c.c b/drivers/video/backlight/viewe_bl_i2c.c
 new file mode 100644
-index 0000000..e65aa4c
+index 0000000..fe9ed47
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/backlight/viewe,7kf82-backlight.yaml
-@@ -0,0 +1,46 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/backlight/viewe,7kf82-backlight.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/video/backlight/viewe_bl_i2c.c
+@@ -0,0 +1,82 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) 2026 VIEWE
++ *
++ * I2C backlight for VIEWE 7KF82 DSI modules (MCU @0x45, register 0x86, 0..255).
++ */
 +
-+title: VIEWE 7KF82 I2C panel backlight
++#include <linux/backlight.h>
++#include <linux/i2c.h>
++#include <linux/module.h>
++#include <linux/property.h>
 +
-+maintainers:
-+  - Hefei <3066883572@qq.com>
++#define VIEWE_BL_REG		0x86
++#define VIEWE_BL_MAX		255
++#define VIEWE_BL_DEFAULT	200
 +
-+description: |
-+  I2C backlight MCU used on the VIEWE 7KF82 DSI module. Protocol is device
-+  address 0x45, register 0x86, brightness 0..255. A discrete MCU part number
-+  is not exposed on the FPC silk; the binding is therefore keyed to the
-+  module.
++static int viewe_bl_update_status(struct backlight_device *bd)
++{
++	struct i2c_client *client = bl_get_data(bd);
 +
-+allOf:
-+  - $ref: common.yaml#
++	return i2c_smbus_write_byte_data(client, VIEWE_BL_REG,
++					 backlight_get_brightness(bd));
++}
 +
-+properties:
-+  compatible:
-+    const: viewe,7kf82-backlight
++static const struct backlight_ops viewe_bl_ops = {
++	.options = BL_CORE_SUSPENDRESUME,
++	.update_status = viewe_bl_update_status,
++};
 +
-+  reg:
-+    maxItems: 1
++static int viewe_bl_probe(struct i2c_client *client)
++{
++	struct backlight_properties props = {
++		.type = BACKLIGHT_RAW,
++		.max_brightness = VIEWE_BL_MAX,
++	};
++	struct backlight_device *bd;
++	u32 brightness = VIEWE_BL_DEFAULT;
++	int error;
 +
-+required:
-+  - compatible
-+  - reg
++	device_property_read_u32(&client->dev, "default-brightness", &brightness);
++	if (brightness > VIEWE_BL_MAX)
++		brightness = VIEWE_BL_MAX;
++	props.brightness = brightness;
 +
-+unevaluatedProperties: false
++	bd = devm_backlight_device_register(&client->dev, dev_name(&client->dev),
++					   &client->dev, client, &viewe_bl_ops,
++					   &props);
++	if (IS_ERR(bd))
++		return PTR_ERR(bd);
 +
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++	error = backlight_update_status(bd);
++	if (error)
++		return error;
 +
-+        backlight@45 {
-+            compatible = "viewe,7kf82-backlight";
-+            reg = <0x45>;
-+            default-brightness = <200>;
-+        };
-+    };
-+...
++	return 0;
++}
++
++static const struct of_device_id viewe_bl_of_match[] = {
++	{ .compatible = "viewe,7kf82-backlight" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, viewe_bl_of_match);
++
++static const struct i2c_device_id viewe_bl_id[] = {
++	{ .name = "7kf82-backlight" },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, viewe_bl_id);
++
++static struct i2c_driver viewe_bl_driver = {
++	.driver = {
++		.name = "viewe_bl_i2c",
++		.of_match_table = viewe_bl_of_match,
++	},
++	.probe = viewe_bl_probe,
++	.id_table = viewe_bl_id,
++};
++module_i2c_driver(viewe_bl_driver);
++
++MODULE_AUTHOR("Hefei <3066883572@qq.com>");
++MODULE_DESCRIPTION("VIEWE 7KF82 I2C backlight");
++MODULE_LICENSE("GPL");
 -- 
 2.55.0.windows.5
 
