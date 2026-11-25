@@ -2,83 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B7D606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4708E606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=OiRub9bP
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.a=rsa-sha256 header.s=dkim header.b=Au1x/Qfi
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C68D211212B;
-	Thu, 26 Nov 2026 08:11:05 +0000 (UTC)
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
- [74.125.82.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0A67710E3C5
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:23:21 +0000 (UTC)
-Received: by mail-dy1-f170.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso13706293eec.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:23:21 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795656200; x=1796261000; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=6Urp5/OJ9NylMBAWTCtZAf0CBN7LWkjVlT2t9qwaMlY=;
- b=OiRub9bPHaZ+7EGQGZqqbBhTt6CFukW7kf6UoWm6tiOWWZcJvlv5gPz/uJqa8e25sH
- VtjnscbSw1C6iK8rTPrxiY4MintC4qCY37IwXuppFHdkdiCAdfPz00c0J67niBwztOTT
- gJcTj4IRVVA1nmX2F+OpFsdrXDB5pKFtZOMm1LEQI1p00MgPtSfucuM1/6HL1sHtBmWF
- 3u0kZUr5BLJ+/viIFbUeKcGygvtCBlDje0SaLpDd4ChRQHfbAPZ7/6JlNwp+y9GBqwjJ
- 6L4xFMc5WOrcZog7eAHbE0Gmfyu3DtqQRKgqszcAE6ypd8v2jN6Fipsd7sqNbInHJlzc
- Fuqg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795656200; x=1796261000;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=6Urp5/OJ9NylMBAWTCtZAf0CBN7LWkjVlT2t9qwaMlY=;
- b=A0HLlbeisJJfhY853sBl5W4+Y5EtoKDdQPmaBcK8xMBW5UJSxMf3d9mRrIEynMKP3a
- sqdHyJTcYAD5NuY/QpxnooSnyJSLrv8821u9lrOTNev92YFji5dtavHGMzyYruuY2lde
- AuhFo27O1zNJgnx1Hwa9UQCnIROoDdMMpHJA/RJ4qnJtt7211pNJDlf4EVFckP0e4+5D
- Cve24ZuFgLNKZVY9FpdVL9bC7JTlVgxfv+n5BVcrCpsQKtwXii7ylv6er/CDbR2KseLI
- KaiVM45sKWDau3cE/+BfRVvwah5HZCgJUXjp+zCuS+4OALATHaCpKHgu4owBDOHZ//16
- 5lMQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErH/LaDwkhSe9cXuyZPg8DB14PJEHb0BOVTqOXeCKnOgoamxcJqH6CT4UrNXyXlpZe7ySWTAYDmOhes=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8nahfvxAruBggUPxLvT5E1DsSIA+SH+bhtyqgXEsvYRrd+g64i
- A1MnO87dIgNArPcJubjvVa9rhuGBHaeAcdr2wpM1EkrQ0n5j7WMdjYX/
-X-Gm-Gg: AZFdTZd8SczAIbHlB74UGKxDB7zzydF/pZEX+N2aHaPAQV1RzFBB7T43F0CfrG8Jigt
- CJhsoqE9/JX0rGIiUrUPm3famxTBObSF73WUDsQC/GzjDOeQEWxO0aqzdgz1X0Y2SfhMGC1sxVV
- WlSj7rBDgxQRQjDXBxftK2XIb/sl9/nEIAn7lCayH/W39/SUBCv6gnIOuCnf2xRcNJYmnchzwbZ
- iAD6mTWMBIxrP+LDE88BNdW4c3iRkZeXI7PFEBYVNsWPIPmiBVZbkPnBsClF5/+oZftoAR7gkVX
- C2pzNSYPQYps9IDJgPYmBgMqrcs26Baf/DxhkKk9/Q/4yZUEeBGzargloLaKgqoYLuI8QUUaz25
- eKRnOsGKGcg04Oid9Non4L5Olx4l4ODluyUkA55deUEALQwwYBFlXqgC0d3KJORwflk0k+0YTsd
- wfXBUzwFCxcCEyhxADoPRzckZ3XzUIAzuVx97zfEjKRtpa7MOAu105BBf+wUG2uBr2KMxpeT5hu
- GqwSRLjutjuF4UIBy8ndrTuW4xTosYKzxvdBaPjxU9+N9RtRZ7lREPiyOugCtHO2hMrTiyN/VcM
- B07jgn05wcH24wBvLJTqRKg/7LXRAxXDro2rfjUrDg==
-X-Received: by 2002:a05:7300:c00f:10b0:36c:a321:9fbc with SMTP id
- 5a478bee46e88-3856c9a6858mr22818091eec.1.1795656200044; 
- Wed, 25 Nov 2026 17:23:20 -0800 (PST)
-Received: from a1-free ([2603:c021:8021:f000:0:1865:8c38:18fc])
- by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-38566cd4efesm59360148eec.12.2026.11.25.17.23.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 17:23:19 -0800 (PST)
-From: TAKANO Mitsuhiro <takano32@gmail.com>
-To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
- Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
-Cc: Rodrigo Siqueira <siqueira@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- TAKANO Mitsuhiro <takano32@gmail.com>
-Subject: [PATCH v2 1/2] drm/amd/display: Document the union in dc_probe_status
-Date: Thu, 26 Nov 2026 01:23:15 +0000
-Message-ID: <20261126012316.2624853-1-takano32@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261121041427.1743954-1-takano32@gmail.com>
-References: <20261121041427.1743954-1-takano32@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1DC8A112132;
+	Thu, 26 Nov 2026 08:11:08 +0000 (UTC)
+X-Greylist: delayed 1073 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Nov 2026 16:38:43 UTC
+Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D9E010FA1E;
+ Wed, 25 Nov 2026 16:38:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
+ In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
+ Content-Transfer-Encoding:Content-ID:Content-Description;
+ bh=MFjp1Epxvbzt1A9g4t7Y/jDE3CxQAavGU4RMdlNgNPA=; b=Au1x/Qfixdt8Oeg5ELWQmTzZ7d
+ wr1MiZso849kQQI90RjKYgtWlHvOsL4sUODQa+yJU/QJtei3+nwrCl8XPzyxSYVWxD0jEkv9ZHfHG
+ OmNUZEcDaNBk4Nn1E9cP7BuRGcZNEM6J6xtS4Ket7/m79g97o7hU8kn2wKyFBLeu8gwPpXcQdviQ+
+ Hln2JCas14QUSmhfJsWIjqhstDco/PUWJlhmY/+248fQXkeCIGO5O9nEwcb7Q1W2v+0HrcyzdyrIT
+ XwITUgiGSX5J7ehQY0B1lclNs46kSXv1DsiPlzDA2AP0RSCXykcJrKqmOyVKoOLO8j21CyIPiZYaT
+ T4+/q8fw==;
+Received: from pc by mx1.manguebit.org with local (Exim 4.100.1)
+ id 1xWFjN-00000000vNZ-3XTu; Wed, 25 Nov 2026 13:20:25 -0300
+Message-ID: <9afd33b0951849b9a48c5a0783d76fde@manguebit.org>
+From: Paulo Alcantara <pc@manguebit.org>
+To: Randy Dunlap <rdunlap@infradead.org>, linux-kernel@vger.kernel.org
+Cc: Randy Dunlap <rdunlap@infradead.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, linux-doc@vger.kernel.org, David
+ Hildenbrand <david@kernel.org>, Andrew Morton <akpm@linux-foundation.org>,
+ Jason Gunthorpe <jgg@nvidia.com>, Leon Romanovsky <leonro@nvidia.com>,
+ linux-mm@kvack.org, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai
+ <tiwai@suse.com>, linux-sound@vger.kernel.org, Jens Axboe
+ <axboe@kernel.dk>, linux-block@vger.kernel.org, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ linux-bluetooth@vger.kernel.org, Willem de Bruijn
+ <willemdebruijn.kernel@gmail.com>, Jason Wang <jasowangio@gmail.com>,
+ David Heidelberg <david@ixit.cz>, oe-linux-nfc@lists.linux.dev, Chas
+ Williams <3chas3@gmail.com>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, netdev@vger.kernel.org, Helge Deller
+ <deller@gmx.de>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, MPT-FusionLinux.pdl@broadcom.com, "James
+ E.J. Bottomley" <James.Bottomley@HansenPartnership.com>, "Martin K.
+ Petersen" <mkp@kernel.org>, linux-scsi@vger.kernel.org, Miquel Raynal
+ <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, Vignesh
+ Raghavendra <vigneshr@ti.com>, Zhihao Cheng <chengzhihao1@huawei.com>,
+ linux-mtd@lists.infradead.org, Neill Kapron <nkapron@google.com>, Andrey
+ Konovalov <andreyknvl@gmail.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, Juergen Gross
+ <jgross@suse.com>, Stefano Stabellini <sstabellini@kernel.org>,
+ xen-devel@lists.xenproject.org, Hans de Goede <hansg@kernel.org>, Arnd
+ Bergmann <arnd@arndb.de>, "Michael S. Tsirkin" <mst@redhat.com>, Eugenio
+ =?utf-8?Q?P=C3=A9rez?= <eperezma@redhat.com>, Sean Christopherson
+ <seanjc@google.com>,
+ Paolo Bonzini <pbonzini@redhat.com>, kvm@vger.kernel.org,
+ virtualization@lists.linux.dev, Jan Kara <jack@suse.cz>,
+ linux-fsdevel@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ linux-ext4@vger.kernel.org, Mike Marshall <hubcap@omnibond.com>,
+ devel@lists.orangefs.org, Namjae Jeon <linkinjeon@kernel.org>,
+ linux-cifs@vger.kernel.org, Jaegeuk Kim <jaegeuk@kernel.org>, Chao Yu
+ <chao@kernel.org>, linux-f2fs-devel@lists.sourceforge.net, Florian
+ Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review
+ list <bcm-kernel-feedback-list@broadcom.com>, Tzung-Bi Shih
+ <tzungbi@kernel.org>, Benson Leung <bleung@chromium.org>, David Airlie
+ <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Alex Deucher
+ <alexander.deucher@amd.com>, Christian =?utf-8?Q?K=C3=B6nig?=
+ <christian.koenig@amd.com>,
+ amd-gfx@lists.freedesktop.org, Jani Nikula <jani.nikula@linux.intel.com>,
+ Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, Rodrigo Vivi
+ <rodrigo.vivi@intel.com>, Tvrtko Ursulin <tursulin@ursulin.net>,
+ intel-gfx@lists.freedesktop.org, Matthew Brost <matthew.brost@intel.com>,
+ Thomas =?utf-8?Q?Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH v2 10/12] docs: ioctl-number: update FS entries
+In-Reply-To: <20261119053514.255348-11-rdunlap@infradead.org>
+References: <20261119053514.255348-1-rdunlap@infradead.org>
+ <20261119053514.255348-11-rdunlap@infradead.org>
+Date: Wed, 25 Nov 2026 13:20:25 -0300
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -91,51 +96,21 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_ADSP_ALL,
+	DKIM_INVALID,DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The members of the union in dc_probe_status are described one by one as
-@u.bandwidth_mbps and so on, but the union itself has no description, so
-kernel-doc reports:
+Randy Dunlap <rdunlap@infradead.org> writes:
 
-  dc.h:2225 struct member 'u' not described in
-  'dc_probe_status'
+> Update the list of files where filesystem ioctls are defined and update
+> the ranges of function numbers that are used.
+>
+> Signed-off-by: Randy Dunlap <rdunlap@infradead.org>
+> ---
+> v2: address sashiko review comment (ext4 00-2F range referred to
+>     the wrong file name)
 
-Describe it, saying that the member holding the result depends on the
-probe type.
-
-Fixes: 52771a3254ea ("drm/amd/display: Wire probe commit path into dc_update_state")
-Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
----
-v2: The disclosure moves below the --- line, where Weijie Yuan asked for
-    it; the commit message keeps the change alone.  The patches are
-    unchanged otherwise, so the diff is the one already posted.
-
-Written with Hermes Agent, an LLM assistant; the author reviewed it and
-ran kernel-doc on the file with and without the change.
-
- drivers/gpu/drm/amd/display/dc/dc.h | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-index d3c484f45333..debdd69bbe4e 100644
---- a/drivers/gpu/drm/amd/display/dc/dc.h
-+++ b/drivers/gpu/drm/amd/display/dc/dc.h
-@@ -2207,6 +2207,7 @@ struct dc_probe_latencies {
-  * @valid: true if a measurement was latched.
-  * @measuring: true if the hardware counter is currently running.
-  * @type: type of the probe that produced this result.
-+ * @u: probe result; the member holding it depends on @type.
-  * @u.bandwidth_mbps:         peak BW in Mbps (DC_PROBE_PEAK_MEM_BW).
-  * @u.latency:                min/max/avg memory latency in ns (DC_PROBE_MEM_LATENCY),
-  *                            stored as struct dc_probe_latencies.
-
-base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
--- 
-2.53.0
-
+Reviewed-by: Paulo Alcantara <pc@manguebit.org>
