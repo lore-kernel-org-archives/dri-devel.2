@@ -2,47 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59273606BF65
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 15:42:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42C5A607DE9F
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 15:43:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=EjfTl75B
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=q+fsZSKh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 801AD10FCF0;
-	Wed, 25 Nov 2026 15:42:41 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9549310FD04
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:42:35 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5D6CB10FD15;
+	Wed, 25 Nov 2026 15:43:00 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AF03810FD04
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 15:42:41 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 18E654E41601;
- Wed, 25 Nov 2026 15:42:33 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 30240C6221D;
+ Wed, 25 Nov 2026 15:42:47 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D95E360480;
- Wed, 25 Nov 2026 15:42:32 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 43BAD60480;
+ Wed, 25 Nov 2026 15:42:39 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 236F611E6A0D5; Wed, 25 Nov 2026 16:42:27 +0100 (CET)
+ with ESMTPSA id A8E6B11E6A0D7; Wed, 25 Nov 2026 16:42:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795621351; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795621357; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=QrZy3+lhRmQHvF7PcBAfYtc4rhFm3+J8F9mGHGADgfY=;
- b=EjfTl75BrRCZYU4JoDWaf/E7vLb9RVOGESPtlMBMI8u0yeuDgfEBvuVHBguGYUU/OZFbD8
- GS5b1O5X7znThnWGHfAR1E/2N8ecGmSVFSP9QFPb9ovlwiOQhQBMoHjiSzINKvgCW++ngj
- 9q5EEszawlsT/mbl1cbTfIhMJEIsfHgmfxWwqSQbXJ70UWiX63TrxMGOUWGzAksFtBH+U3
- bXcGcanETFVbzGZfuvomNhxZteNr2duXK/cW7G7SmZ0juePS6NYAe3gE+W156h3u7x2yaE
- IMUHUqTlgrPxDfhYPfS/lJ3wFYQ5GZPB4+b3Vh00sweAdToxY4IoXw3usy1Qlg==
+ bh=hZ6aFvwj2O387fKbMKxhHV3O1W/lkVQrorBhCvcytw8=;
+ b=q+fsZSKhmVhhOWJkMw2q14k3bPgEMKg5HdhwEEz3LR96EPw0iXwIMqIVyvv8PYHEMKQihD
+ 9NF8jyP9rWsuJpbVdK6GC3YZQu2bVdKKLjmZrVVp6Bj20f7k0wS+dcwe/P7ni0/tRKpPDn
+ ybHlyCbBycJMuSYCk6RScCUI4bm4BNohsM9LMVpZGTYM+GSQ+i2Lnm7zntlVsi/pyklNMt
+ SEEjMepX6imJjbTmvuJGIRSUbDXugT4MY9m3KUT29TIzuRV6ZEniEtI92BKPcNFoGY+5al
+ Z9VS8iQtwkerSG7h/SmjF4240uznnGzbMDI2Sc1dUStN6i1uEaNj6x7qpKSiAw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Arnd Bergmann <arnd@kernel.org>
-Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Damon Ding <damon.ding@rock-chips.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- David Lechner <david@lechnology.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261111092404.2117072-1-arnd@kernel.org>
-References: <20261111092404.2117072-1-arnd@kernel.org>
-Subject: Re: [PATCH] drm/mipi-dbi: hide unused mipi_dbi_dcs_read_commands array
-Message-Id: <179562134757.656989.4812864039990894547.b4-ty@b4>
-Date: Wed, 25 Nov 2026 16:42:27 +0100
+ Heiko Stuebner <heiko@sntech.de>, Thorsten Blum <blum@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20261111164243.77775-2-blum@kernel.org>
+References: <20261111164243.77775-2-blum@kernel.org>
+Subject: Re: [PATCH RESEND] drm/bridge: analogix_dp: Use
+ str_supported_unsupported() helper
+Message-Id: <179562135215.656989.6398184433108139062.b4-ty@b4>
+Date: Wed, 25 Nov 2026 16:42:32 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
@@ -68,20 +72,15 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 
-On Wed, 11 Nov 2026 10:23:55 +0100, Arnd Bergmann wrote:
-> When -Wunused-const-variable is enabled and SPI is turned off, gcc
-> warns about this array being unused but defined locally:
-> 
-> drivers/gpu/drm/drm_mipi_dbi.c:79:17: error: 'mipi_dbi_dcs_read_commands' defined but not used [-Werror=unused-const-variable=]
->    79 | static const u8 mipi_dbi_dcs_read_commands[] = {
->       |                 ^~~~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> [...]
+On Wed, 11 Nov 2026 17:42:41 +0100, Thorsten Blum wrote:
+> Replace hard-coded strings with the str_supported_unsupported() helper.
+> This unifies the output and helps the linker with deduplication, which
+> can result in a smaller binary.
 
 Applied, thanks!
 
-[1/1] drm/mipi-dbi: hide unused mipi_dbi_dcs_read_commands array
-      commit: 75f3faa2835c9bf588caeedabc10d5676aa01f79
+[1/1] drm/bridge: analogix_dp: Use str_supported_unsupported() helper
+      commit: aad74288f6bf622e5560cf83564fa1b3891e2a95
 
 Best regards,
 -- 
