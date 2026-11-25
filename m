@@ -2,51 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FF5E606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10AC606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=protonmail.com header.i=@protonmail.com header.a=rsa-sha256 header.s=protonmail3 header.b=w+r1rJX8
+	dkim=pass (1024-bit key, unprotected) header.d=yandex-team.ru header.i=@yandex-team.ru header.a=rsa-sha256 header.s=default header.b=sp3XbSIG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EEA74112077;
-	Thu, 26 Nov 2026 08:09:00 +0000 (UTC)
-Received: from mail-4327.protonmail.ch (mail-4327.protonmail.ch [185.70.43.27])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9D57910E2BA
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 20:29:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
- s=protonmail3; t=1795638400; x=1795897600;
- bh=dyItsAdwCo4xMj3bus0BCLCIqJPEYeY2E2MYEhkeGY0=;
- h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
- Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
- b=w+r1rJX8pk6m7kRJ7LnO+M/5aEticPshtEPxzXCH7DoKPTB/igFWWyttAXpehAcyy
- 3gzrXEgb1l4yWHYkMvdSTq+Btv2PsRlwgyq2abwyY52SI0be70pgU0nRwDh7XbQrAf
- qLvmCjc9Zl9Sk/wv6nQL8g2MGj8128zNWS1rMN23pxV4ZOLavVzN2s2FC4UIyTJ/FH
- h/7zadZw4alrwMik9AMRrFueJlSase7iaFq2on5bm/4KJUmHWl9kHd0pGxuVHsNO+j
- jIJJmK9nF9lQE14I9EJgONbrGjdQOKcLT6oMIxKfSaDf34qVSs5ZY4BGbuezpX8+qP
- 6RUBOCYxpsV0w==
-Date: Wed, 25 Nov 2026 20:26:34 +0000
-To: nabige.aala@oss.qualcomm.com
-From: Victor Mora <vjmoralesmora@protonmail.com>
-Cc: abhinav.kumar@linux.dev, airlied@gmail.com, andersson@kernel.org,
- conor+dt@kernel.org, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- jesszhan0024@gmail.com, krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org, lumag@kernel.org,
- maarten.lankhorst@linux.intel.com, mahadevan.p@oss.qualcomm.com,
- mani@kernel.org, marijn.suijten@somainline.org, mripard@kernel.org,
- neil.armstrong@linaro.org, quic_khsieh@quicinc.com,
- ritesh.kumar@oss.qualcomm.com, robh@kernel.org, robin.clark@oss.qualcomm.com,
- sean@poorly.run, shengchao.guo@oss.qualcomm.com, simona@ffwll.ch,
- tzimmermann@suse.de, vkoul@kernel.org
-Subject: Re: [PATCH v3 09/11] phy: qcom: edp: Generalize power-on path for
- per-SoC overrides
-Message-ID: <20261125202615.74643-1-vjmoralesmora@protonmail.com>
-Feedback-ID: 122405522:user:proton
-X-Pm-Message-ID: 29c171b79d6c124dc6a3f80b30588bf4c7651e30
+	by gabe.freedesktop.org (Postfix) with ESMTP id A1A621120A1;
+	Thu, 26 Nov 2026 08:09:01 +0000 (UTC)
+X-Greylist: delayed 300 seconds by postgrey-1.36 at gabe;
+ Wed, 25 Nov 2026 17:08:42 UTC
+Received: from forwardcorp1e.mail.yandex.net (forwardcorp1e.mail.yandex.net
+ [93.77.172.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ACDBA10FDCD
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:08:42 +0000 (UTC)
+Received: from mail-nwsmtp-smtp-corp-main-80
+ (mail-nwsmtp-smtp-corp-main-80.yp-c.yandex.net)
+ by forwardcorp1e.mail.yandex.net (postfix) with ESMTPS id E617B10031F;
+ Wed, 25 Nov 2026 20:03:40 +0300 (MSK)
+Received: from [127.0.1.1]
+ by mail-nwsmtp-smtp-corp-main-80 with ESMTPSA id a3lrP22Zo8c0-skm5dOxa;
+ Wed, 25 Nov 2026 20:03:40 +0300
+X-Yandex-Fwd: 1
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yandex-team.ru;
+ s=default; t=1795626220;
+ bh=hQzOlpIe7Macc6jkr29wJlXF7KJ+0xfNYtPVrAFrPjI=;
+ h=Cc:In-Reply-To:Message-Id:To:Date:References:From:Subject;
+ b=sp3XbSIGnCe95K7Azy4+apRXQGPldONKo8EZZtcR4MkhxVqr3LriDbkYR32FY7j4Y
+ +71vB4RUEowKwoKeP4+Zk5h1OaiOwBbgn0E8m8xHsRRINjGS2gGpI168gP5Fvcdgsg
+ MSGOLn/dML7TTkDQFYBiV2qytGraDEhHl3GY7BaE=
+Authentication-Results: mail-nwsmtp-smtp-corp-main-80;
+ dkim=pass header.i=@yandex-team.ru
+From: Mikhail Rudenko <xyzzy@yandex-team.ru>
+Date: Wed, 25 Nov 2026 20:03:25 +0300
+Subject: [PATCH 1/3] efi: earlycon: unmap framebuffer when the console is
+ unregistered
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261125-efi-earlycon-v1-1-49ac2c0a430b@yandex-team.ru>
+References: <20261125-efi-earlycon-v1-0-49ac2c0a430b@yandex-team.ru>
+In-Reply-To: <20261125-efi-earlycon-v1-0-49ac2c0a430b@yandex-team.ru>
+To: Ard Biesheuvel <ardb@kernel.org>, 
+ Ilias Apalodimas <ilias.apalodimas@linaro.org>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, 
+ Javier Martinez Canillas <javierm@redhat.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Peter Jones <pjones@redhat.com>, 
+ Helge Deller <deller@gmx.de>, Hans de Goede <hansg@kernel.org>, 
+ Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>
+Cc: linux-efi@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org, 
+ linux-doc@vger.kernel.org, Mikhail Rudenko <xyzzy@yandex-team.ru>
+X-Mailer: b4 0.15.2
+X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:58 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,35 +69,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Nabige, Ritesh,
+EFI earlycon currently unmaps its framebuffer at a late initcall only if
+the boot console has already been unregistered. With keep_bootcon, the
+console is still registered at that point, so the mapping is retained.
 
-On Mon, Nov 16, 2026 at 06:46:48PM +0530, Nabige Aala wrote:
->  static struct qcom_edp_phy_cfg glymur_phy_cfg =3D {
-> @@ -1087,6 +1124,8 @@ static struct qcom_edp_phy_cfg glymur_phy_cfg =3D {
->       .dp_swing_pre_emph_cfg =3D &dp_phy_swing_pre_emph_cfg_v8,
->       .edp_swing_pre_emph_cfg =3D &edp_phy_swing_pre_emph_cfg,
->       .ver_ops =3D &qcom_edp_phy_ops_v8,
-> +     .phy_status_reg =3D DP_PHY_STATUS,
+Move the unmap to the console exit callback. This ties the mapping's
+lifetime to the console's lifetime and releases it after console writers
+have stopped. Clear the saved console pointer on exit.
 
-On my Glymur-based laptop (Lenovo IdeaPad Slim 5 13Q8Y11, X2P-42-100),
-the eDP panel only works when the PHY status is read from 0x114
-(QSERDES_V8_DP_PHY_STATUS in phy-qcom-qmp-dp-phy-v8.h) instead of
-0x0e0. With 0x0e0 the panel stays black.
+Signed-off-by: Mikhail Rudenko <xyzzy@yandex-team.ru>
+---
+ drivers/firmware/efi/earlycon.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-Could Glymur use 0x114 here? I'm happy to send a follow-up patch on top
-of this series if you'd prefer.
+diff --git a/drivers/firmware/efi/earlycon.c b/drivers/firmware/efi/earlycon.c
+index 3d060d59968cf..3a6eaf5481f40 100644
+--- a/drivers/firmware/efi/earlycon.c
++++ b/drivers/firmware/efi/earlycon.c
+@@ -14,7 +14,7 @@
+ 
+ #include <asm/early_ioremap.h>
+ 
+-static const struct console *earlycon_console __initdata;
++static struct console *earlycon_console;
+ static const struct font_desc *font;
+ static u16 cur_line_y, max_line_y;
+ static u32 efi_x_array[1024];
+@@ -44,14 +44,15 @@ static int __init efi_earlycon_remap_fb(void)
+ }
+ early_initcall(efi_earlycon_remap_fb);
+ 
+-static int __init efi_earlycon_unmap_fb(void)
++static int efi_earlycon_exit(struct console *con)
+ {
+-	/* unmap the bootconsole fb unless keep_bootcon left it registered */
+-	if (efi_fb && !console_is_registered(earlycon_console))
++	if (efi_fb) {
+ 		memunmap(efi_fb);
++		efi_fb = NULL;
++	}
++	WRITE_ONCE(earlycon_console, NULL);
+ 	return 0;
+ }
+-late_initcall(efi_earlycon_unmap_fb);
+ 
+ static __ref void *efi_earlycon_map(unsigned long start, unsigned long len)
+ {
+@@ -269,6 +270,7 @@ static int __init efi_earlycon_setup(struct earlycon_device *device,
+ 		efi_earlycon_scroll_up(si);
+ 
+ 	device->con->write = efi_earlycon_write;
++	device->con->exit = efi_earlycon_exit;
+ 	earlycon_console = device->con;
+ 	return 0;
+ }
 
-This was tested together with a v8 PLL fix I sent separately:
-https://lore.kernel.org/r/20261125-glymur-edp-pll-v1-1-068a4d95a12f@protonm=
-ail.com
-
-Thanks,
-Mora, Victor
+-- 
+2.56.1
 
