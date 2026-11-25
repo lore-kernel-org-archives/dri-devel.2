@@ -2,34 +2,33 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ABD0606A31E
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:38:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E36B606A32D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=RAtvSNkl
+	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.a=rsa-sha256 header.s=20220719 header.b=Qj0wwXMB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 340FF10FBAB;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A74010FBB1;
 	Wed, 25 Nov 2026 11:38:31 +0000 (UTC)
 Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EBA3110FBB1
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EA25910E3F2
  for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:38:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
  d=kemnade.info; s=20220719; h=Cc:To:In-Reply-To:References:Subject:From:
  Reply-To:Content-ID:Content-Description;
- bh=ZfR/6lnsUE/pnRQi/PbCLWIsXUsmgZSZZiyw7HHwysA=; t=1795606704; x=1796816304; 
- b=RAtvSNklGjsZtDEb1OTwI+q7msTMd9VS723Q3+2aIqoQ7cMm0sP3c63UWB1EA7nJj7xAn3hdIPs
- ZuZmKgYmmcYHyjZ7WT553lplWwUGzQrmS4Ficw2WPLURVDETngw3Wj/lG78wVdn9xdFzifI/8ODqu
- fOdjbEqSRJA/gMatmVBhr7EJt64//d0/j7dDT44a15f2024emT/kmPEDe652J6F/aqtOdUla9sHcQ
- AA2PeF/HDnovDKNp3Zcvvr0i34QbTEwKx4x0qNfNyRTjPkR5hD446+wUIlcgdiaQH6tIsV3N6oa8a
- wyrJeH8QMUZzrWyIoPBW/EUCXC2RBuwaCgMA==;
+ bh=Rc12+Qxfj+pRyznOM+oj0p8w87O3IAgt5AtZYMqUvXY=; t=1795606704; x=1796816304; 
+ b=Qj0wwXMB2oOYYC+BSS9dlfeDMJyHcxanS7vHk7kH2dkPhE+WoZov93h8eCLjHPBg8+MjAaQ14tm
+ x9m/y2NS1ZIffKEmR0/4+1n5hRtfrXy3pSjpXvH0jTe27HF5Tly+wmKcW9s5DdZn61jc7jN1mWatP
+ dYke5fFgIeQYRHQsnsXkaeH/ZNO3amgeU8x8yaIayTowOJaKZDXZy4NJx6V/ZItvKeLKRaEdoBi0+
+ 9qEXNty7SOq1enz/2rRQ7gvys19UppFBQV9orwVzpmjwP1zFckcYdVZW8mF33xaQd/j53Pn6z9R6b
+ FXj7VPZY4xda96hTnNGM+y8wrF6yTG/Jk9xA==;
 From: Andreas Kemnade <andreas@kemnade.info>
-Date: Wed, 25 Nov 2026 12:37:21 +0100
-Subject: [PATCH v2 2/2] ARM: dts: st: stm32mp15xx-dhsom: fix bridge reset
- polarity
+Date: Wed, 25 Nov 2026 12:37:20 +0100
+Subject: [PATCH v2 1/2] gpio: tc358762: fix reset gpio handling
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-tc3-reset-v2-2-32eefcaf1460@kemnade.info>
+Message-Id: <20261125-tc3-reset-v2-1-32eefcaf1460@kemnade.info>
 References: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
 In-Reply-To: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
 To: Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -53,20 +52,21 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
  Andreas Kemnade <andreas@kemnade.info>
 X-Mailer: b4 0.17-dev-1b309
-X-Developer-Signature: v=1; a=openpgp-sha256; l=987; i=andreas@kemnade.info;
- h=from:subject:message-id; bh=GLBUHsrqFLUlRWZt8GXXwr1nDsTd3sjuIa8AxQT8QUI=;
- b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBsicxJ39BdQawPVS1vsqyb5pVVpsEPBznjhCy
- lM2FgQvhcKJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawbInAAKCRCEYUX6QCjc
- 8X6uD/9Scm2vnKjdVnjiK5Wq/OAU/DMB13MUnnPQJBPhn+RvKcdBp1h/Bl4EO4jPp4H4/GoiKve
- vD0lq7mk5bkSwVuIs2Prj/GRLhLE6+689XkMZeMnn/4EMC5KojJKgllX4fsxY/bm3hD7Opy0nI3
- iIh3JeJisk29PvsHfXFjBhMmZyZg4r32CRZ05Mobm4JXdbEuVkk5pKW+r6n7XcGbdJdr6IDaw0c
- cOVlrOPiJ3+MdZmXv/o3Is+prFMav19unYmeqVgHmb6DF1WbxCAMI2dSP+hkHviyqyYWYaiykSG
- HWEEhIABxryHExQPvnGtLaN0qiJbLAg6aAm4B4iLe1Mb1M1TmnR2HNYMBPzPBlvPR11vxPfllYx
- qvzn+vIyJ/T83NAGMyHxx+KGqun/XBG33sH19RzTmV77MfBfOT9JB53BfWpXY+EPdUFbM4grLfx
- fnrNweEdrr/aOIaI5Bi4HVGpU3ADxNV4VvY7YVN56SGRm4TOE0SD6yIHb1vDRVN1XBtpu9gqrsu
- xt/l6fQD9/9o4SAlFtWM879aOj4U4r6GG406AalpbLhdTAz5AyLJEqr0YZ2JVFm8JAqQfK5w/bm
- Q780iaMF1ec4FyGszAoWNk/IyRfXKRqVxumnvmUtkBitCLKy1DqlZP3ZZNGZ8YcORRNI7ImFDSW
- v41YspPCfrD4cCw==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2575; i=andreas@kemnade.info; 
+ h=from:subject:message-id;
+ bh=wU4wkOa8ZT1slECgh2Hx2RYzKMa5lDr0TLYh4KH4XO0=; 
+ b=owEBbQKS/ZANAwAKAYRhRfpAKNzxAcsmYgBrBsiZ0Zp5Dsx1TRnVT3MvvFGzoAD5NqI4NJjAr
+ uDB5IrkRFSJAjMEAAEKAB0WIQTY6xCZL0TEE1XHfFiEYUX6QCjc8QUCawbImQAKCRCEYUX6QCjc
+ 8dmBD/wPG6HRPZAQmBRZiipwKPZmfCRiEfDq7OCv1qu3yD7Hjf8YmKcKMAhRv4J0eN7pssu6Pbn
+ aNUN0slN/3ENo6RD3I7zfrFU7RzZGGuG7XCJGJ9r3SnybWG1MFsWrAuGix1bRTg01Xagi9+g6/Q
+ +z1oP1KLYe10sIG8rlKaEqMUvuL1xZK9NMOgxHR3iiSDMIi/sW7iq813+T5s3ZbSwXkhVekDeI+
+ jEgyc5GHY8TBe1jfvBcIfTW6qsCHHJMJVZAl1YtCGYTlEQ8red0nZaE6rzv/B7JGxBd0dJdSw51
+ Sd9mVEgXrJzVmNqwhZKjPoRNoJC9K12D+4bUfowpn73ebtCoRaj8jcPLn6hNnFdbZmIG7iyK/mQ
+ 9VyGQZXgsDw649Nw5TIsI+NVI57j9NQ1mM4d25sZ6j099iEM0PtElpjze5zm3xcww8lqpiVxKPy
+ 4uuUPW/Rbcao3XrjoTDFyKnO4Ol4CPbFcD73vHGvAX2KSgFHn+ppfbwFLRSh+3E0XCHHdI+VbS8
+ rDQ8mheYL8q8uDz450FlK3vnIEQxvGEaERWI/T4+S2hMzxA8Q7zUY30ej1cj2pX/4VZo23891Ji
+ xepHODg/MXZy7EX6sk3Qsw/HDU4p3pJgMe8KGH60CKVHrKI5W2W5cJ7mo14a119vBR9mSvo1Nzq
+ qjuOv+Tz3hq7uFw==
 X-Developer-Key: i=andreas@kemnade.info; a=openpgp;
  fpr=EEC0DB858E66C0DA70620AC07DBD6AC74DE29324
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -88,27 +88,69 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Reset is active low. It is apparently set to active high to work around
-a driver bug but not to indicate an additional inverter in the signal
-path. Correcly describe the hardware.
+Reset gpio is asserted when the chip should be active, deasserted when
+the chip is enabled. That is the wrong way. Apparently users are working
+around this by using GPIO_ACTIVE_HIGH to compensate for that bug but that
+is not correcly describing the hardware.
+Since this chip is used in a RPi Touchscreen hat, apparently with
+devicetree overlays floating around, add a gpio quirk.
+Also prepare for using the reset-gpio driver.
 
+Fixes: 3355f4ee561d ("drm/bridge: tc358762: Add reset GPIO support")
 Signed-off-by: Andreas Kemnade <andreas@kemnade.info>
 ---
- arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpio/gpiolib-of.c         | 7 +++++++
+ drivers/gpu/drm/bridge/tc358762.c | 6 +++---
+ 2 files changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-index 518c269a1dba1..6342a6e757c12 100644
---- a/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-+++ b/arch/arm/boot/dts/st/stm32mp15xx-dhsom-overlay-panel-dsi-rpi7inch.dtsi
-@@ -35,7 +35,7 @@ &dsi {
- 	bridge@0 {
- 		compatible = "toshiba,tc358762";
- 		reg = <0>;
--		reset-gpios = <&attiny 0 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&attiny 0 GPIO_ACTIVE_LOW>;
- 		vddc-supply = <&attiny>;
- 		status = "okay";
+diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+index 8f8454d596046..6519be933db8d 100644
+--- a/drivers/gpio/gpiolib-of.c
++++ b/drivers/gpio/gpiolib-of.c
+@@ -241,6 +241,13 @@ static void of_gpio_try_fixup_polarity(const struct device_node *np,
+ 		 */
+ 		{ "ti,tsc2005",		"reset-gpios",	false },
+ #endif
++#if IS_ENABLED(CONFIG_DRM_TOSHIBA_TC358762)
++		/*
++		 * reset is active low, but RPi touchscreen overlays
++		 * specify this as active high
++		 */
++		{"toshiba,tc358762",	"reset-gpios",	false },
++#endif
+ #if IS_ENABLED(CONFIG_SND_SOC_WSA881X)
+ 		/*
+ 		 * WSA881 powerdown is always active low, but some device trees
+diff --git a/drivers/gpu/drm/bridge/tc358762.c b/drivers/gpu/drm/bridge/tc358762.c
+index 76564d5e4f69f..63b02693c0b9b 100644
+--- a/drivers/gpu/drm/bridge/tc358762.c
++++ b/drivers/gpu/drm/bridge/tc358762.c
+@@ -164,7 +164,7 @@ static void tc358762_post_disable(struct drm_bridge *bridge,
+ 	ctx->pre_enabled = false;
+ 
+ 	if (ctx->reset_gpio)
+-		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+ 
+ 	ret = regulator_disable(ctx->regulator);
+ 	if (ret < 0)
+@@ -182,7 +182,7 @@ static void tc358762_pre_enable(struct drm_bridge *bridge,
+ 		dev_err(ctx->dev, "error enabling regulators (%d)\n", ret);
+ 
+ 	if (ctx->reset_gpio) {
+-		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
++		gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+ 		usleep_range(5000, 10000);
+ 	}
+ 
+@@ -242,7 +242,7 @@ static int tc358762_parse_dt(struct tc358762 *ctx)
+ 	ctx->panel_bridge = panel_bridge;
+ 
+ 	/* Reset GPIO is optional */
+-	ctx->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_LOW);
++	ctx->reset_gpio = devm_gpiod_get_optional(dev, "reset", GPIOD_OUT_HIGH);
+ 	if (IS_ERR(ctx->reset_gpio))
+ 		return PTR_ERR(ctx->reset_gpio);
  
 
 -- 
