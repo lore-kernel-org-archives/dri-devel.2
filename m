@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E13A606A32A
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:56:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21E79606A330
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 11:59:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dlc3kWRy
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lEkurMEw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70DBD10FBF1;
-	Wed, 25 Nov 2026 11:56:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C021110FBF1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:56:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1963D10FBF2;
+	Wed, 25 Nov 2026 11:59:22 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 013B810FBF2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id C7CF062974;
- Wed, 25 Nov 2026 11:56:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F8521F000C6;
- Wed, 25 Nov 2026 11:56:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id B67FA45EC1;
+ Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F5F1F0089F;
+ Wed, 25 Nov 2026 11:59:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795607765;
- bh=juffY9NjQaGpSpObJ1qqI/GuvyuvkWIQ43A+NfXBYfI=;
+ s=k20260515; t=1795607955;
+ bh=pT4w/2V+q5Vq1P7jobZdTaAEMqWVdX82CGH5VChTN0E=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dlc3kWRyE20y/tviu2U777Mlo33/hcXx3ZiJF9FYcVJYV30BFVBeYpMD+Dtd/y8Wq
- yPi2M//CmOp70mLNMbYl/CAjI80ALLPBt8pI2HqTAyYTJsUFbV8zmgpd0yP3vwJxsq
- ahp8zSqdTQ1CqhCQ8niMm9SWT0PpXtXnWCIf+53vwxm2FO3u9DwoA7TAVTdh5y5yOT
- Q7gwBOvwbtc3u5pfT1R0JsVQTt1WuqSuYyE09jQ16L0kYsYaPJrjE0E2/eY+ZR2rmW
- MjdrxcFsGi28KVRCbPtwWNm5n+WP1MWI0kEHtJLpXvm5QoZr5VdyGkxLz7lyqhS0OE
- Aq4LVz9A2TGTA==
-Message-ID: <sashiko-outbox-233304@kernel.org>
+ b=lEkurMEwRDzpqu8ExXzRid5vRwc6/LiXdW2nLPy+alawIklxUSomOoW9ADIZ/3PgX
+ T+a20/0tgkC4Lclu2AxEqfxAjt2bgW74yL6g1qLDRPlsAbR/vvsDy0x9YuusI2kkGP
+ LLZydYDxwicvObalKa4oaFNn2unOurmGfGNMcYcuzcRozicR2lEmm0f+mxavu4To7t
+ NzWCI/kLoiHPD+c3adVyZ38pWWFUSIoqIOG8kIZEGzmHTVPr9GF+pyeALkfG22e5ty
+ oe1aS7Jip1HyVvf5PtpYorV6kVClM9S1FQhm6VpJ7CmGdXDqDpCv15gwDEqzA1wmTg
+ rItL155U4ko7A==
+Message-ID: <sashiko-outbox-233307@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] drm/msm/dp: clear AUX_TRANS_CTRL on reset and enable
- HPD_REFTIMER
-To: "Robert Ijtsma" <robertijtsma@gmail.com>
+Subject: Re: [PATCH 4/6] drm/imagination: Release firmware after init
+To: "Alexandru Dadu" <alexandru.dadu@imgtec.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261125-drm-msm-dp-aux-resume-v1-1-17f5a40b9a61@gmail.com>
-References: <20261125-drm-msm-dp-aux-resume-v1-1-17f5a40b9a61@gmail.com>
+In-Reply-To: <20261125-b4-commonize-fw-segment-loading-v1-4-69657fa52ac3@imgtec.com>
+References: <20261125-b4-commonize-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com>
+ <20261125-b4-commonize-fw-segment-loading-v1-4-69657fa52ac3@imgtec.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 25 Nov 2026 11:56:04 +0000
+Date: Wed, 25 Nov 2026 11:59:15 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,98 +58,105 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [Medium] drm/msm/dp: msm_dp_aux_reset() gated on internal HPD and
-  skipped on timeout
-- [Medium] drm/msm/dp: msm_dp_aux_hpd_disable() disables reftimer while
-  AUX is active
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] drm/imagination: memory leak of fw_dev.metadata on GPU init
+  error paths
 --
 
-commit 348e835311cd64ac96d86e0a747eaee01eb395a2
-Author: Robert Ijtsma <robertijtsma@gmail.com>
+commit 8d2db63e357e744b233475780670c4fc83790aca
+Author: Matt Coster <opensource@mtcoster.net>
 
-drm/msm/dp: clear AUX_TRANS_CTRL on reset and enable HPD_REFTIMER
+drm/imagination: Release firmware after init
 
-This commit clears REG_DP_AUX_TRANS_CTRL in msm_dp_aux_reset() and enables
-DP_DP_HPD_REFTIMER_ENABLE in msm_dp_aux_enable() so AUX transactions work
-on boards that do not use internal HPD.
+This commit stops storing struct firmware in pvr_fw_device and instead
+passes it through the initialization functions and releases it at the end
+of pvr_device_gpu_init().
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_=
-aux.c
-> index b52393dcc0670..2584dbf960431 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_aux.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-> @@ -76,6 +76,8 @@ static void msm_dp_aux_reset(struct msm_dp_aux_private =
-*aux)
+> diff --git a/drivers/gpu/drm/imagination/pvr_device.c b/drivers/gpu/drm/i=
+magination/pvr_device.c
+> index 0c4832d2cce1b..210eeb91f4ecf 100644
+> --- a/drivers/gpu/drm/imagination/pvr_device.c
+> +++ b/drivers/gpu/drm/imagination/pvr_device.c
+
+[ ... ]
+
+> @@ -701,40 +691,52 @@ pvr_device_info_validate(struct pvr_device *pvr_dev)
+>  static int
+>  pvr_device_gpu_init(struct pvr_device *pvr_dev)
 >  {
->  	u32 aux_ctrl;
+> +	const struct firmware *firmware;
+>  	int err;
 > =20
-> +	msm_dp_write_aux(aux, REG_DP_AUX_TRANS_CTRL, 0);
+>  	err =3D pvr_load_gpu_id(pvr_dev);
+>  	if (err)
+>  		return err;
+> =20
+> -	err =3D pvr_request_firmware(pvr_dev);
+> -	if (err)
+> -		return err;
+> +	firmware =3D pvr_request_firmware(pvr_dev);
+> +	if (IS_ERR(firmware))
+> +		return PTR_ERR(firmware);
+> =20
+> -	err =3D pvr_fw_load_metadata_and_device_info(pvr_dev);
+> +	err =3D pvr_fw_load_metadata_and_device_info(pvr_dev, firmware);
+>  	if (err)
+> -		return err;
+> +		goto out_release_firmware;
+> =20
+> -	if (PVR_HAS_FEATURE(pvr_dev, meta))
+> +	if (PVR_HAS_FEATURE(pvr_dev, meta)) {
+>  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_META;
+> -	else if (PVR_HAS_FEATURE(pvr_dev, mips))
+> +	} else if (PVR_HAS_FEATURE(pvr_dev, mips)) {
+>  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_MIPS;
+> -	else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor))
+> +	} else if (PVR_HAS_FEATURE(pvr_dev, riscv_fw_processor)) {
+>  		pvr_dev->fw_dev.processor_type =3D PVR_FW_PROCESSOR_TYPE_RISCV;
+> -	else
+> -		return -EINVAL;
+> +	} else {
+> +		err =3D -EINVAL;
+> +		goto out_release_firmware;
+> +	}
+> =20
+>  	err =3D pvr_device_info_validate(pvr_dev);
+>  	if (err)
+> -		return err;
+> +		goto out_release_firmware;
+> =20
+>  	pvr_stream_create_musthave_masks(pvr_dev);
+> =20
+>  	err =3D pvr_set_dma_info(pvr_dev);
+>  	if (err)
+> -		return err;
+> +		goto out_release_firmware;
+> =20
+> -	return pvr_fw_init(pvr_dev);
+> +	err =3D pvr_fw_init(pvr_dev, firmware);
+> +	if (err)
+> +		goto out_release_firmware;
+> +
+> +	err =3D 0;
+> +
+> +out_release_firmware:
+> +	release_firmware(firmware);
+> +
+> +	return err;
+>  }
 
 [Severity: Medium]
-Is msm_dp_aux_reset() ever reached when internal HPD is disabled?
+Do the error paths here leak pvr_dev->fw_dev.metadata?
 
-The only active caller is msm_dp_aux_transfer(), which gates the reset on
-msm_dp_aux_is_link_connected():
-
-drivers/gpu/drm/msm/dp/dp_aux.c:msm_dp_aux_transfer() {
-    ...
-	if (ret < 0) {
-		if (aux->native) {
-			aux->retry_cnt++;
-			if (!(aux->retry_cnt % MAX_AUX_RETRIES))
-				phy_calibrate(aux->phy);
-		}
-		/* reset aux if link is in connected state */
-		if (msm_dp_aux_is_link_connected(msm_dp_aux))
-			msm_dp_aux_reset(aux);
-	} else {
-    ...
-}
-
-msm_dp_aux_is_link_connected() reads the internal HPD state machine status
-bits from REG_DP_DP_HPD_INT_STATUS, which stay 0 when internal HPD_CTRL is
-never enabled, so msm_dp_aux_reset() is skipped on external-HPD boards.
-
-In addition, once DP_DP_HPD_REFTIMER_ENABLE is set, hardware AUX timeouts
-raise DP_INTR_TIMEOUT in msm_dp_aux_isr(), which sets aux->aux_error_num =3D
-DP_AUX_ERR_TOUT and completes aux->comp.  msm_dp_aux_cmd_fifo_tx() then
-returns a non-negative value and msm_dp_aux_transfer() takes the else
-branch, returning -ETIMEDOUT without calling msm_dp_aux_reset() or clearing
-REG_DP_AUX_TRANS_CTRL.
-
-> +
->  	aux_ctrl =3D msm_dp_read_aux(aux, REG_DP_AUX_CTRL);
-> =20
->  	aux_ctrl |=3D DP_AUX_CTRL_RESET;
-> @@ -88,7 +90,12 @@ static void msm_dp_aux_reset(struct msm_dp_aux_private=
- *aux)
-> =20
->  static void msm_dp_aux_enable(struct msm_dp_aux_private *aux)
->  {
-> -	u32 aux_ctrl;
-> +	u32 aux_ctrl, reftimer;
-> +
-> +	/* Keep the 1us AUX/HPD reference timer running without internal HPD. */
-> +	reftimer =3D msm_dp_read_aux(aux, REG_DP_DP_HPD_REFTIMER);
-> +	reftimer |=3D DP_DP_HPD_REFTIMER_ENABLE;
-> +	msm_dp_write_aux(aux, REG_DP_DP_HPD_REFTIMER, reftimer);
-
-[Severity: Medium]
-Will msm_dp_aux_hpd_disable() turn off DP_DP_HPD_REFTIMER_ENABLE while the
-AUX controller is still active?
-
-msm_dp_aux_hpd_disable() unconditionally clears DP_DP_HPD_REFTIMER_ENABLE
-in REG_DP_DP_HPD_REFTIMER (while msm_dp_aux_disable() leaves it untouched).
-During system suspend, drm_mode_config_helper_suspend() runs
-drm_kms_helper_poll_disable() -> msm_dp_bridge_hpd_disable() ->
-msm_dp_aux_hpd_disable() before drm_atomic_helper_suspend() disables active
-displays.  When a display is connected and holds runtime PM active, any AUX
-transactions during drm_atomic_helper_suspend() (such as
-msm_dp_link_psm_config() in msm_dp_display_unprepare()) will run with the
-reference timer disabled.
+pvr_fw_load_metadata() allocates metadata with kzalloc_flex() and
+pvr_fw_load_metadata_and_device_info() assigns it to
+pvr_dev->fw_dev.metadata before calling pvr_fw_get_device_info().  If
+pvr_fw_get_device_info() or any later step in pvr_device_gpu_init()
+such as pvr_fw_init() fails, pvr_device_init() jumps past
+pvr_device_gpu_fini(), so pvr_fw_free_metadata_and_device_info() is
+never called.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-drm-msm-dp=
--aux-resume-v1-1-17f5a40b9a61@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261125-b4-commoni=
+ze-fw-segment-loading-v1-0-69657fa52ac3@imgtec.com?part=3D4
