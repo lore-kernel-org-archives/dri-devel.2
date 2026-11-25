@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41104606A32D
-	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02B5A60A260D
+	for <dri-devel@archiver.kernel.org>; Wed, 25 Nov 2026 17:52:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=Qb0FqT+N
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=ijCcDjVV
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6CD5D10FE6D;
-	Wed, 25 Nov 2026 17:52:23 +0000 (UTC)
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C027210FE68
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:14 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29CEC10FE6F;
+	Wed, 25 Nov 2026 17:52:30 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 04D0210E286
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:52:23 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-04.galae.net (Postfix) with ESMTPS id 208ABC2B9C0;
+ by smtpout-02.galae.net (Postfix) with ESMTPS id CAA171A17F9;
  Wed, 25 Nov 2026 17:52:21 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 2A5BE60480;
- Wed, 25 Nov 2026 17:52:13 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 94DF060480;
+ Wed, 25 Nov 2026 17:52:21 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 39A2D11E6B0C5; Wed, 25 Nov 2026 18:52:03 +0100 (CET)
+ with ESMTPSA id 9706311E6B0D0; Wed, 25 Nov 2026 18:52:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795629130; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795629137; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=FMid6O9mGLNFycapWTq3yUgUfBXm/Q/2lSdG/OTscvI=;
- b=Qb0FqT+NefijqTx6CjCGrvFAbYAkLTGXqqp2ExyZwuwqFXsep9cTJ3T4htyLGnHqvGMQo+
- yxp3YQtRqJnoVdBqMtgTR6VToqgebKdujyUpu/sO4dEO5J2LYtQ+uiTktxizRlYHf32i2Q
- iLZOghzurnMkFAUmJ7ZydXRiP+bIbjWZKegyfdcA+Yx7t1cKP7XoYAsXM9L//fe0ps/YaT
- L8/6CxK4ZmkO1cfx5ki/Bwa4S1Zwk1+0vVq8ZwVkaVSRcNf22e0XYlR1OfKqNajPsiup9r
- fwoUoSnYuJ8lGZLqWkuozH7o3zQKrgyTbOQDOE+dDj+oBV072dnXSs7kkww+xw==
+ bh=1DxMNbouVynawZta17OcaCgH7VNF6J/H0q5Ot2fi1p8=;
+ b=ijCcDjVVGumRXpuzom8IfVaX/I0PgOEt2m6cbluiKfknSmeVG6v3LSPqLdimM51uW3ngN3
+ S0DpV16kGFKxLQ1sFQP0b8C9wIObnHFXem+clamSwZiNSL0qeFPo1MB39/zZVNXUojWdge
+ 3UT3eZYXLICVPKmXnnv4fS0ZrODq/A9qwxNgvbqVHZiLADLyHRmumPtIbKettb89nSY5E+
+ HwNqx/wibHKXvD2/0VbDKrJtRMIf6WTA1LohmIIkpY6vawENGjrPxGY+iE0c9JSRiykg/5
+ PVZXf9SOCqi33cWehEemmwrsczRQgoaYgqrfPJLEm5k5w6u/r7z/l7RptGjALw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Wed, 25 Nov 2026 18:50:25 +0100
-Subject: [PATCH v4 12/32] drm/bridge: initialize chain_node list head on
- allocation
+Date: Wed, 25 Nov 2026 18:50:26 +0100
+Subject: [PATCH v4 13/32] drm/bridge: initialize chain_node list head on
+ detach and attach errors
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261125-drm-bridge-hotplug-v4-12-822722850492@bootlin.com>
+Message-Id: <20261125-drm-bridge-hotplug-v4-13-822722850492@bootlin.com>
 References: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 In-Reply-To: <20261125-drm-bridge-hotplug-v4-0-822722850492@bootlin.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -83,27 +83,47 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-In preparation to add a check to detect whether a bridge is not yet
-attached, ensure the chain_node list_head is always empty [as in
-list_empty()] since it is allocated, until it is attached.
+When a bridge is detached it is removed from the encoder bridge_chain list,
+but the bridge::chain_node list head is not cleared. This is going to be
+problematic with the upcoming hotplug bridge support because if a bridge is
+detached from the encoder chain but not yet removed, when later detaching
+it the encoder code may think it is still attached, thus trying to detach
+it twice.
+
+Avoid this by clearing the list head on detach, so there's a clear and
+simple way to know when a bridge is not attached anymore.
+
+Do the same in the error management code in drm_bridge_attach(), so that
+chain_node is always empty [as in list_empty()] when it is not
+(yet|anymore) in the bridge chain.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 ---
- drivers/gpu/drm/drm_bridge.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/gpu/drm/drm_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
-index 76242165292f..14ed4ac52e71 100644
+index 14ed4ac52e71..310f03bdb744 100644
 --- a/drivers/gpu/drm/drm_bridge.c
 +++ b/drivers/gpu/drm/drm_bridge.c
-@@ -419,6 +419,7 @@ void *__devm_drm_bridge_alloc(struct device *dev, size_t size, size_t offset,
- 		return ERR_PTR(-ENOMEM);
+@@ -679,7 +679,7 @@ int drm_bridge_attach(struct drm_encoder *encoder, struct drm_bridge *bridge,
+ 	bridge->dev = NULL;
+ 	bridge->encoder = NULL;
+ 	mutex_lock(&encoder->bridge_chain_mutex);
+-	list_del(&bridge->chain_node);
++	list_del_init(&bridge->chain_node);
+ 	mutex_unlock(&encoder->bridge_chain_mutex);
  
- 	bridge = container + offset;
-+	INIT_LIST_HEAD(&bridge->chain_node);
- 	INIT_LIST_HEAD(&bridge->list);
- 	bridge->container = container;
- 	bridge->funcs = funcs;
+ 	if (ret != -EPROBE_DEFER)
+@@ -709,7 +709,7 @@ void drm_bridge_detach(struct drm_bridge *bridge)
+ 	if (bridge->funcs->detach)
+ 		bridge->funcs->detach(bridge);
+ 
+-	list_del(&bridge->chain_node);
++	list_del_init(&bridge->chain_node);
+ 	bridge->dev = NULL;
+ 	drm_bridge_put(bridge);
+ }
 
 -- 
 2.56.1
