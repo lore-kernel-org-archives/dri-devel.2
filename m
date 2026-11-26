@@ -2,72 +2,79 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F5BE606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E645606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=033rYMr1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=pT35UGj2
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 741A01120E4;
-	Thu, 26 Nov 2026 08:09:05 +0000 (UTC)
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com
- [74.125.82.182])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 47CC310E166
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:47:25 +0000 (UTC)
-Received: by mail-dy1-f182.google.com with SMTP id
- 5a478bee46e88-385d8a00598so9632470eec.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 18:47:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 145E61120E6;
+	Thu, 26 Nov 2026 08:09:06 +0000 (UTC)
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0C01510E008
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:59:02 +0000 (UTC)
+Received: by mail-dl1-f51.google.com with SMTP id
+ a92af1059eb24-1b589050416so999154c88.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 21:59:02 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795661244; x=1796266044; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795672741; x=1796277541; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=OXA4ky/fQgmzHbW7Nm+Sd23wuf3OJ0ZTD63YpErJ16E=;
- b=033rYMr1lqOaVos62f12jBEL84g4jVlc2x4dwsoqSa5zfr9/zXnzRjTj143sBIUgkR
- STZySyYO1Gw0tFv55esTBOIKtkwKaBVrSlwsPsquen6+lmA65A8Xi75qjH+/BItCb8nc
- BSm8eNpSZW/ONg2P8yBFavaAoP3BFEBjlf8m5FoBcwuEuG5QajK43TGeP+9tPpmjbRn+
- 5Qyreuw0Cl0taqxXtn18aSsL/H68UQ3We2za+jVjIoOBotThHdUHTuIaKO3xzXQSJ40V
- iYJsbsxwutL2thR+EfdMXQdNKtOGEhSPfTWwBWxBtSQ/7VZ06QEq46JICryF1EEf/hDD
- RpuA==
+ bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
+ b=pT35UGj2QgEKj7GO+2riuhx3s9gd1Y19emSe7SBYMsFWytgCljbYjlfwEv0tl/iRzi
+ GNBstIHi8vS0wd7cFgUn5I4sMDRJQIGNa19f3EqoONAgceHiPphkWD8fN2BgH3CO3jrB
+ AyeMTnGegbIRY5VYjf/dP7P3G0kSq9loawAhjodFOuLh8xdVQgCSzgOH6LCo2RqBO/1M
+ PFKRhxBB/c6geGrDdyoCB0/wICsNtsLRSxrPsqDtGR/1TmUyfinjSkqIBi7Kuw3fnw5Z
+ 1DD7QjUL17e3Nw06VbhmqlThDOaFJlDST1NdpUp0RtD0FnwckBaUbDSf17JyldWl7MzZ
+ wIkg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795661244; x=1796266044;
+ d=1e100.net; s=20260707; t=1795672741; x=1796277541;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=OXA4ky/fQgmzHbW7Nm+Sd23wuf3OJ0ZTD63YpErJ16E=;
- b=0Oxrou1ZwwOx9W/qbJMXo9YnuIECpBhaCS3o84hOW4iLNwTzzDchVpkXb2StgyPKDX
- 9jnEfb20sZSR6vuxgI+LhUomqIuQJ07rzwXxWbq0UNHZthQu3xOJU2jKSvuUEGoMc49N
- Mgol6KBBWKOOUhE1gvoKs0b2Yj3kftdUZKJn2cEGZAMrNOfq79UUzjCod0SOY4znnMnb
- 3n1LWHHWGV8Ur+GWEQ+c4rEXAKlI9cxrA1RrscToQq8oR2p6on+9BXAwnMKC7APBObjH
- Ua04mfC/BkoK6Tn+F/q7uLadko/4hod5D0tgyvGcjtjMOvwdGqFIzPCLkPwtRwKpAqo2
- +nrw==
-X-Gm-Message-State: APuU4Z/JR8odSjM53FWwxAmYSbUaCV6p19thogLyiu/H5J8MPfsk7ESi
- BBmYVevh5URuZwi2hVS2dkJRhHich9V9Gto9tpsEnlkemXS3/HW9VlExkm4xY0Qx
-X-Gm-Gg: AZFdTZep6/Yd3vG8nQ9ZuFpzjALR2cuFMGAZAgO+FcT7d2pbQ3/CQsVcBrg014c/AIl
- VW/UB8yAz3eZ3Ksq3dP2Tq9Mn8xmTyULddrXHHACK8Ns8PsLhCatrMQPH02nryE/iph4E0GuWuI
- cWPhrsGNwU6wtEcxFOSwIwUfR06yrkL612vfjFHF2+MPyoM0s9wYOM8LZEs2aU/7GknKKD26V5F
- 61KMbz2oWKIFm7rwBrXPWphvZwCq8+ma5QVb1LeG8aZHshk0Tud6cvm+rMg4388szaz0arcRt5o
- H+scgJlbU1kZjXIRA6aCkzCHjoh08UEGoEO40sB/q0aOcqz+bvXRtU0YiCJT/SGYnCJFutMU08d
- VqpbHSP81MAWvsdJ2wjoaK87C5xIXHgB+kjoNfGYWa9BV6Uel01hWKD5LIMLdov1u8irPkrf4rQ
- 9U3dqL2nU2hPwUr/x50YhvWRISmekMvovYCsffYgen1fWFSRR5NGTFnECauFMSKGxKIp1F8R0kh
- KPZr3UnTlFOaR9qQL10epfC1jUYFau/kW+YhYeLD1d1h5/FbVNtGmbI8zOV3m+PI1clW0ATKkE2
- S9qF3DrqaXpHeVy1YyD0asHeUdn/iBJRgnYvmHnMSg==
-X-Received: by 2002:a05:693c:62d3:b0:386:de65:9969 with SMTP id
- 5a478bee46e88-386de65997cmr724401eec.35.1795661244195; 
- Wed, 25 Nov 2026 18:47:24 -0800 (PST)
-Received: from a-VirtualBox ([168.188.125.88])
+ bh=8ENOEvWpXS/hO0xFIEmj5YuEGPhTN4rxHq1cUYnvsQg=;
+ b=ENT7RhsyMpEQY/xLgZIWCB6yDVn6mmEyJnsEdh9WKrBiiUfYNLozNWck8Mi6CaTN89
+ d+5MWjxhqHZAOnwwnPW/o6/4qu1gU4k6e/VzByjpfhh/Fe0C8KEg/WKi39zDZj3JA9pf
+ qQ7flWTrwNmL/hgva5QhPyRnHgjsyZSbl43/PV8pRI4xkdN6gHMqzwt7yGqa0FH8dd3z
+ jgp/17d+TFoJop9gwIYPawwrOq9z5lpNmocvDquj6BvMi2MuW1VI3hx/rsXkin35D1pl
+ Wvm+5h1oNtLAoK6qu48mHVkP5vIsprBnVSCeTdEzQXNqTViz/a16I8YSQT8K+vS3aAUm
+ 5iZg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFy41Ro9PJEl7Uccti8S0LP3DhqhIr/1f38rMb/Lt0UurZWObltKLS65Q5s7DH0Ouwv9b4eLpHubJQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9cig8xViWCuLRsvt8mw5Z9Ce+WKRAGFvVuGHuhGLE8nRYec2TX
+ 1EzlthcX/9TEa+jccotqTEl3ewJ2unB1JcOzH1Gw9P0ao8smPR72YvI=
+X-Gm-Gg: AZFdTZfqPPEXfoO3BuFgiCu931y4OPJ8496Z2MP9PhSIzlrUsKVXGryeMyfWOIURvlb
+ FY1Rvo8KxNhuE8JVKsDNVySLf/Llor6vEwl2pqhGKkdNdlEYsJ3wvlDohGjHQYPnhPX14JPh/k3
+ GHienEoOOgOjR31K9enX99VAg7jPn+GH6W9kA1fwjKk+bhWKqQ9mgYnGI0qPFPI/rzbkbiB1CoW
+ pCX5fXwMzPZWa5C/wILgMEel4y0JYIQOZAgjZrHKQIHgUvUgoo0An5+e2nZQeU8ASQRqxClqWpe
+ wAVB4MUKrxeXDh3dInmGpQ9PjEcbN4utt2JCfU4EDbUcbJ4cenP7DHU2zJCv2VfAbENMIy7xObi
+ jwmv79LPzpJdogCVRED5aFMlt2XLNxvWrLFKaZm8oMtYyMop1aNtB4/m/md8uGW9AN4aU0Y3KDJ
+ EQZ5r/+qQNbqq+43J7/l7khJ+qHkdS63yEI7KbNDrZBJwacHYhayvrmAV71HFa04X1evvmcwBXC
+ KWXx8BSoBRk2ItnYY5JGP+4VZhXTv7zF+Eg6qOxvPKXkeH4nprAryflpSYTs42yOsjRLYCLQS5y
+ rsA8DRWwxn5+9AHEtJ8cLZLEEA6BOmFLXAA4B5ccPkDT6tQuvhJvo4QLD+VrmoT96hk=
+X-Received: by 2002:a05:701b:2816:b0:1b5:3b83:5374 with SMTP id
+ a92af1059eb24-1b5568cfbd9mr18022188c88.19.1795672741112; 
+ Wed, 25 Nov 2026 21:59:01 -0800 (PST)
+Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
  by smtp.gmail.com with ESMTPSA id
- 5a478bee46e88-385666e99fdsm70815493eec.5.2026.11.25.18.47.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 18:47:23 -0800 (PST)
-From: Minseo Park <hiyoukou@gmail.com>
-To: dri-devel@lists.freedesktop.org
-Cc: tzimmermann@suse.de, alain.volmat@foss.st.com, rgallaispou@gmail.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, airlied@gmail.com,
- simona@ffwll.ch, benjamin.gaignard@collabora.com,
- Minseo Park <hiyoukou@gmail.com>
-Subject: [PATCH v2 0/4] drm/sti: move commit work out of .atomic_check()
-Date: Thu, 26 Nov 2026 11:47:06 +0900
-Message-ID: <20261126024710.33401-1-hiyoukou@gmail.com>
-X-Mailer: git-send-email 2.53.0
+ a92af1059eb24-1b5566c1142sm45249439c88.2.2026.11.25.21.58.57
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Wed, 25 Nov 2026 21:59:00 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Inki Dae <inki.dae@samsung.com>, Seung-Woo Kim <sw0312.kim@samsung.com>,
+ Kyungmin Park <kyungmin.park@samsung.com>
+Cc: Yige Jiang <yigejiang86@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org,
+ linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] drm/exynos: hdmi: put bridge reference on probe failure
+Date: Thu, 26 Nov 2026 13:58:53 +0800
+Message-ID: <rc-b1-20261110-vc-19-b220c856ecbb@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -83,103 +90,68 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no
-	version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The three plane .atomic_check() implementations in drivers/gpu/drm/sti
-do work that belongs in the commit phase.  The cursor frees and
-reallocates its pixmap, the GDP reparents and reclocks the pixel clock,
-and the HQVDP boots its coprocessor and registers a VTG notifier.
+hdmi_resources_init() ends with hdmi_bridge_init(), which takes a
+reference on the next bridge with of_drm_find_and_get_bridge(). That
+reference is only dropped in hdmi_remove(). When hdmi_probe() fails
+after hdmi_resources_init(), including the -EPROBE_DEFER returns for
+the DDC adapter, the PHY and the syscon lookups, the reference is
+leaked, once per failed probe attempt.
 
-DRM_MODE_ATOMIC_TEST_ONLY runs drm_atomic_check_only(), which calls the
-plane .atomic_check() hooks and returns without ever calling
-.atomic_update(), and a commit that fails a check on any other object is
-dropped the same way.  Either path leaves the hardware changed by a
-configuration that was never applied.
+The sashiko AI review bot pointed this out on dri-devel on 2026-07-16,
+in its review of an unrelated exynos_hdmi patch.
 
-The cursor is the worst of the three.  The buffer it frees is the one
-CUR_PML points at, so the display engine keeps reading it after it has
-gone back to the DMA pool.
+Drop the reference at the end of the probe error path and route the two
+early returns after hdmi_resources_init() through it. drm_bridge_put()
+ignores NULL, which covers boards without a bridge on port 1.
 
-I do not have STiH4xx hardware, so this comes from reading the code
-rather than from an observed failure.  The series builds warning free
-with W=1 and COMPILE_TEST on x86_64.  Testing on a real board would be
-appreciated.
+Fixes: 2db0d298f22d ("drm/exynos: hdmi: convert to of_drm_find_and_get_bridge()")
+Cc: stable@vger.kernel.org
+Link: https://lore.kernel.org/r/20260716132919.A3EA81F000E9@smtp.kernel.org
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+---
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_DRM_EXYNOS=m, CONFIG_DRM_EXYNOS_HDMI=y, CONFIG_DRM_EXYNOS_MIXER=y, CONFIG_COMPILE_TEST=y; baseline and patched exynos_hdmi.o, no new warnings.
+No hardware or runtime test was performed.
+The path needs a bridge on HDMI port 1 and a later probe failure or deferral, e.g. a DDC adapter or PHY that is not ready yet.
 
-Tool disclosure, per Documentation/process/generated-content.rst:
+ drivers/gpu/drm/exynos/exynos_hdmi.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-This series was produced with the help of Claude (Anthropic), used
-interactively over a long session rather than from one prompt.  The
-assistant did the code reading that located these three hooks, wrote the
-patches and wrote the changelogs.  I reviewed every hunk and checked
-every claim in the changelogs against the source before sending, and
-mine is the only Signed-off-by.
+diff --git a/drivers/gpu/drm/exynos/exynos_hdmi.c b/drivers/gpu/drm/exynos/exynos_hdmi.c
+index d67a493c8fe4..cf570be8fdc3 100644
+--- a/drivers/gpu/drm/exynos/exynos_hdmi.c
++++ b/drivers/gpu/drm/exynos/exynos_hdmi.c
+@@ -1997,12 +1997,12 @@ static int hdmi_probe(struct platform_device *pdev)
+ 	hdata->regs = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(hdata->regs)) {
+ 		ret = PTR_ERR(hdata->regs);
+-		return ret;
++		goto err_bridge;
+ 	}
+ 
+ 	ret = hdmi_get_ddc_adapter(hdata);
+ 	if (ret)
+-		return ret;
++		goto err_bridge;
+ 
+ 	ret = hdmi_get_phy_io(hdata);
+ 	if (ret)
+@@ -2079,6 +2079,8 @@ static int hdmi_probe(struct platform_device *pdev)
+ 		iounmap(hdata->regs_hdmiphy);
+ err_ddc:
+ 	i2c_put_adapter(hdata->ddc_adpt);
++err_bridge:
++	drm_bridge_put(hdata->bridge);
+ 
+ 	return ret;
+ }
 
-The starting point was a request to look for work done in
-.atomic_check() that a DRM_MODE_ATOMIC_TEST_ONLY commit would leave
-behind, after the same question had been put to V4L2, ALSA, DVB and
-fbdev.  Candidates came from a script that flagged .atomic_check()
-implementations containing register writes, clock calls or allocations;
-it was calibrated against these three hooks and its output was then read
-by hand.  Of 17 implementations it flagged in the tree, 8 were a pattern
-match inside the identifier writeback_job, 6 were the normal per-commit
-allocation idiom, and these three were the only real ones.
-
-Testing is as described above: git am onto the base commit below, W=1
-with COMPILE_TEST on x86_64, and checkpatch.pl --strict.  No runtime
-testing and no reproducer.
-
-Changes in v2, all from Thomas Zimmermann's review of v1:
- - cursor: the new error message uses drm_err() rather than DRM_ERROR().
- - gdp: .atomic_check() now validates the GDP pixel clock with
-   clk_round_rate(), and the clk_set_rate() failure in .atomic_update()
-   is logged with drm_err_once().
- - hqvdp: split in two.  The XP70 boot moves to device init, as
-   suggested.  The clock enable and the VTG registration move to
-   .atomic_update() instead, for the reason below.
-
-On the clk question in v1 2/3: clk_round_rate() is the interface for
-testing a rate without applying it -- its kerneldoc says it does not
-"modify the clock hardware in any way" -- and this driver already uses
-it that way in sti_dvo_connector_mode_valid(),
-sti_hdmi_connector_mode_valid() and sti_hda_connector_mode_valid(), each
-against a 50 Hz tolerance window.  Those validate the encoder clocks and
-not the per-GDP clk_pix, so 2/4 does the same check on the GDP clock.
-The limit is that clk_round_rate() rounds against the parent selected at
-the time of the call, so the check is skipped when the commit would
-reparent the clock; only .atomic_update() can catch that case.
-
-On v1 3/3: the XP70 boot indeed belongs in device init and 3/4 moves it
-there.  The other two steps cannot follow it.  sti_vtg_register_client()
-stores the CRTC the plane is attached to, which only a commit knows, and
-the clock enable is undone by the clk_disable_unprepare() in
-sti_hqvdp_disable(), so it tracks the streaming lifetime.  4/4 moves
-both to .atomic_update(), where sti_gdp already registers its own VTG
-client the same way.
-
-3/4 turns the firmware request into a one-shot at device init.  If the
-deferral matters for a built-in driver whose firmware lives in the root
-filesystem, request_firmware_nowait() would keep it without putting the
-load in a commit hook -- happy to respin that way.
-
-Minseo Park (4):
-  drm/sti: cursor: do not resize the pixmap from .atomic_check()
-  drm/sti: gdp: set the pixel clock from .atomic_update()
-  drm/sti: hqvdp: start the XP70 from device init
-  drm/sti: hqvdp: register the VTG client from .atomic_update()
-
- drivers/gpu/drm/sti/sti_cursor.c | 65 ++++++++++++----------------
- drivers/gpu/drm/sti/sti_gdp.c    | 73 ++++++++++++++++++++++----------
- drivers/gpu/drm/sti/sti_hqvdp.c  | 44 +++++++++----------
- 3 files changed, 101 insertions(+), 81 deletions(-)
-
-
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
--- 
-2.43.0
-
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
