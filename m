@@ -2,43 +2,136 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1F8606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 07:07:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A5F606A32A
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 07:10:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SXt5jTJh
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jhcn/KRJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4E8D310FE50;
-	Thu, 26 Nov 2026 07:07:21 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 11D1210FE50
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 07:07:14 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1579860619;
- Thu, 26 Nov 2026 07:07:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653F21F000C0;
- Thu, 26 Nov 2026 07:07:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795676832;
- bh=Kd+/NRnMI526H4UnaUPSQs6YIBxSdnHZyazysk+Tnzo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=SXt5jTJhAWoOacaSLQ+c66j+vb5sueYMVlUfLJK2XfGLNrOLrYhon43sMlayrHI56
- i5Z1KYExiARRwF/xofvCxlFQXO903ziP45DcVdA2x8Cl31F8+eaMA2i1a5QnANDN0H
- vfNX+QxTs7scQmHV3VPqBsQsBaKs/OZccmSUC5clYKGMafxtiNOF+mdK5//s4+M2Sk
- O3qPvEkjHCBtw/Jt+Z1ebraIcXyn+DVpY65L+qb+8InrLP6jPZksRQ7pv0Gv6cANDY
- JG2so9kqsLYxR5ZIkWKoyn5Cw4P7JUzBkXr7Vp9phBU2fY4w4rZjS+HXYfQNw+Tz9z
- Xj3HelHKQbb9w==
-Message-ID: <sashiko-outbox-234931@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 18/21] drm/msm/dcp: Add DCP VirtIO driver
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-18-f1e9d7505039@oss.qualcomm.com>
-References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-18-f1e9d7505039@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4940610FF08;
+	Thu, 26 Nov 2026 07:09:58 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012032.outbound.protection.outlook.com [52.101.43.32])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 876A810FF08;
+ Thu, 26 Nov 2026 07:09:52 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=tauSOUVQ/uA0Ua8e+flW3Rdf08veLXhYoU2Sz94vRD0aVxnze4893emUUCh13afo2/2KyJQWWYkbE2mMyaLJPGCGY3p4Jd3/wPdqwhsh7tGEXi4YIteAMswUvJ2YNaQd4GMicnyCbfvR6n8G7u2sENn0V8W6aw+LkaeKZcM9eB45tmHdVG7pUdsCZebhQ4JCC8oASYq02iUXgNej7lU1ztWq4IHsGEdwT2cbqHz6vAfB7f3UKre/FdAe7bPGxFn5nBestLQ/4L/g7P8PxnZ76cJI0Yln60drRZgC3DE5dAgD1HTAsKzFAh1YWSr0gEW3aprgfR3UI2UMuxbexJtcLw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=axM1dj/gNiR7L8LDkog9ZdPdhkAJ2jCwUv5mkjYXUU4=;
+ b=aR3Z7vfNZIpHvEfXdk8wvd6rW9ZBtvmnErUnEsqyD29/JDw+GazJZjNsfkK3yU4/vbKGYxkx77s1JYfx7Bm9abHs4LFVR7t3Qaz3HoCT0m1ezkhd6gH2xdhDVHMnJy3ZtD2D/0NVMkQ8jXRIyG3e1QH0N3ZWHB/Kio4zwtiRhgsIhCLfhhDdLIrt6sNHbCwkzdurrY+lhNtlsIg05KJ69YKw5WNskj7T3ZXLsih7Gd+E19kY7FLLjvJtRsmCBi7UDjGvs/JTE4QpbWZut5MlZUl2IOBXHMPiWF9f6l60MxbaMkI5verKX5Tr5o57VTBLzgXGa1x5AeMQs3642Dp8Ew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=axM1dj/gNiR7L8LDkog9ZdPdhkAJ2jCwUv5mkjYXUU4=;
+ b=jhcn/KRJR5jAK8aQus4MAIqmlK+hl8hu6QEFeX8zYvwYgsxN9S0h7xEkMZqR6vGQ0gAFCvaqqM8XpOTwNwONvCA1G/cJ7v7QBsMEUTpOg8o4rWMTrU7WOg0jk+LaDPz1E7iLuocmqsjX7irLzwD/BF4zA8wNHGZMk9NriDh+whSDuq7fs31sU9GlN87caZwPIwFkuAI68DgK4XFlo2nAQmKxetFXF+1Hu7mW8o0fWrpGq/sh0dVH5+X5tCOWsaVEL8ULfvqZFxED9FnzghPeyefxaK4DK8dniTgRUuvORl4E34yGDhM3U3WfR1ix8ZGS+7QrPwtRQcyMSO1aOucO4g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by CY8PR12MB7193.namprd12.prod.outlook.com (2603:10b6:930:5b::16)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.12; Thu, 26 Nov
+ 2026 07:09:46 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0639.012; Thu, 26 Nov 2026
+ 07:09:46 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>, Sasha Levin <sashal@kernel.org>
+Cc: Sasha Levin <sashal@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, Aaron Kling <webgeek1234@gmail.com>, 
+ Diogo Ivo <diogo.ivo@bootlin.com>, Svyatoslav Ryhel <clamor95@gmail.com>,
+ Dmitry Osipenko <dmitry.osipenko@collabora.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 6/6] drm/nouveau/tegra: Keep the fuse clock enabled
+ while the GPU is powered
+Date: Thu, 26 Nov 2026 16:09:42 +0900
+Message-ID: <vaif4BJtRCizzGlGyucUTw@nvidia.com>
+In-Reply-To: <20261016160700.3831336-7-sashal@kernel.org>
+References: <20261016160700.3831336-1-sashal@kernel.org>
+ <20261016160700.3831336-7-sashal@kernel.org>
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 07:07:11 +0000
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OSTPR01CA0005.jpnprd01.prod.outlook.com
+ (2603:1096:604:220::19) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|CY8PR12MB7193:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0478ce89-23db-4a55-3987-08df4b8c40a9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|1800799024|7416014|376014|10070799003|366016|18002099003|22082099003|4143699003|56012099006|11063799006|260925022911599003|260925021911599003|260925021311599003|261009223027099003|261026121527099003|261022075727099003|261026140227099003|261028144727099003|261021121427099003|261022105027099003|261021123027099003|261102123227099003|10067099003;
+X-Microsoft-Antispam-Message-Info: LuP8uviXSTKJMR/3LVsiGtmC9l9WymnetmCF1oeL5Z72w7v/6z4/8KUn+LChOVPkIFnCYL7mPERlepUvE47DF1AcWEL3dEykBrupA/cw5jryRUqytM4QzMhGSOQiGUabP1Ed4PHY2AZOxAUT6SvvuTlyaHyAXo1o4T/7f99r75a7LzX8l9oAAb4gdeLTnxajEH/tvasqUL/N8e+wHJaNnA7vwlI4nYFN+ZwOw7A1AJ38ubqFpajsqXd4+PViYFl/CHe6gP9dK3KWT0D4+lvve447jm6EzCE8YUlUNMu/tyb2v1WeYYJsU9j5dPIn5v6X/RwN2YAme/lGCF8lUJHv5ZPrrS+zT13KjxT9nDw0kRus90AIPVy81xW9YvdGikPmnxAvFD4G8f8wLXS0Y6TorxF5NiNidkR7FI4r6XIKcbX7CUdk80vZgIKH1Hqnff2HiS+9MyDm3hPlqFGkSP6r8RD19ip39OmEonbn8qZ/Qe/EwhHz1PFMSwWhak3XuUk3z25swzvLGT7UMd1IYScxCLW6vgYYG44nfrr3z17G8GvsPWGtWdrIw2t2sxDgi4b9m/eCD1GS8fty2Ecj3nZb/0mTJ4Vdf+oZY4lH1a2P1jETaxt2bf9TICBoV2rzOm2/qLVfYfNf8fXtAVM1GGNtEctdWf6mbq8x6+buzNQbjoI=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(10070799003)(366016)(18002099003)(22082099003)(4143699003)(56012099006)(11063799006)(260925022911599003)(260925021911599003)(260925021311599003)(261009223027099003)(261026121527099003)(261022075727099003)(261026140227099003)(261028144727099003)(261021121427099003)(261022105027099003)(261021123027099003)(261102123227099003)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NUJRQnRjaDJQYzI4NlA4SDczU1dENzg5YW51VjBOUko1eHo5Rk55Tld4Zmdr?=
+ =?utf-8?B?OFRNbDZiekVoRmV3MU9ZQkFBMEQ2WTduVElFQk1leGpZV1czTVN1aWExSlBa?=
+ =?utf-8?B?RTlWd2sxVS9BU1JtaTlRWStkeEllQUx0aFZ0OWN4MEtJUHpoM28yQzI2aERN?=
+ =?utf-8?B?Tjdva2NmKytXTWZDREFvR1dHd2NrQjBvbjhtdVF3M3J6ZlBJSzd0TTA2N3lT?=
+ =?utf-8?B?cHJtR0N5UHNOWC84OWV5Uk4rMnJzUHhweGJKY3FIOE1WcWlyZTVrYVNyQUlx?=
+ =?utf-8?B?UTFPSHNOb2RLVm5uRFRUby9ZdmhWOXVsRzlNNkNycENrVHJrclFHc3hOckJL?=
+ =?utf-8?B?dmpxWVd6cHl6ZXFxRFU0Tk1SZ29UcHhvNGx1aE1EWFhLM083R3JyYUZpSStj?=
+ =?utf-8?B?bHRJUkRLQmsrcGY2UWU5RlFtWTY0Sjk4SXB6SEVpN0RGVFA3aUd5K2xwdDZp?=
+ =?utf-8?B?MkNIUHZhbHNUS3kyL05Gei9jc3JlQ3QxN1JJTExadXFoRnJ3enp5K3IrV3B4?=
+ =?utf-8?B?Z3BOSmdJempQWnN5b25QQmZpN2d6WElUdXBWeXRVOHNyMkxNNEx6endFektk?=
+ =?utf-8?B?emd0aWJDQVU2OVQrdE5ST3lmdUtyWHdROXhac2s0YnNEdGdKTXovMXhQS1VV?=
+ =?utf-8?B?MmZWQ2w5amJtVzJIRE93bE40VHZGNkZES0p6THVXM1krOTJ0OHRXNysxQzhP?=
+ =?utf-8?B?Q044Y0tBNE1kMVVadVl5ckVUa0xoQ1lTY0tZRUQ2dVNQcnNDZk9CZDN6OS9l?=
+ =?utf-8?B?aFJrU2tWeHBRQnlzaUZqblFxZ0FKK3hvU3pDVGwxWDRHeGlabmFyUHF0cmUr?=
+ =?utf-8?B?M2h6a2pZc2Q4WkU2TXE5elYrVlJ6MXdYeVdPVEFoc0xJZUxPSG5leHF4UzVK?=
+ =?utf-8?B?QTRnMXBJU1hKZkcyNDNWSUhSMjVVblZaZ1c4QXc4VUNOaXJyOWYxVE1sYm9y?=
+ =?utf-8?B?SGxDUDdZRmJPaXR5R1ltY1U0eDJSSm9ibUMxN3cyS09IRjBkTUo1bXl4RW1G?=
+ =?utf-8?B?TlU3QzdBUU9wcXFpOUR5ODVsRzgraGYzM0VJdHJNUGdWcXV6US95NiszcDYr?=
+ =?utf-8?B?YWRiNGRhUDZjUlp6M0MwMXlmek94elVqcjdWOTgybzlSZHhpTW1ZL0VjOXRN?=
+ =?utf-8?B?QjBLc256Z3FXci9IS1pJQ1NDdW1mVmN4bnROTXVIOWRuTitCd0M3WXMraGhw?=
+ =?utf-8?B?enBoVEw5MnV0aEtGOVVzZHhub1ZwUWJwS29HMm9kNjZBb0poK0JMVExIaFE5?=
+ =?utf-8?B?Z1B1RytNUHF3czVUSWhJWUVBQTZ2MndieDF3aUJjQ1JuQW9zZW9yK21jSUd3?=
+ =?utf-8?B?aUVHU1J2WkNNS3BYUTAvMTNoNlZPOXdHRkZJV3cwVkRIRW84WGRsWnJwR0J6?=
+ =?utf-8?B?VjA3bTMyRng0eWpQNjd6Z3pyWGcxVldkaXVvTk9UZ1BlVDZ6ak5LUkVnRUJQ?=
+ =?utf-8?B?WDJVR0F3OE9yUUVzaHJIdlpoVmZhTjRwUW9wb3B6Mnk4RmFIK0MvRlRNQlQ3?=
+ =?utf-8?B?T2g2SFpCZm9hVGluL21xNWQyQ080SlFsVTFPRWg2N2xEOTFEZUF4TzFDcnF5?=
+ =?utf-8?B?WWxhTHZxdGs1d2NtNVZ4ZWI5Nks1U1lEL1JVUG1ZUXZoYnFSZDNaNTdGeW9E?=
+ =?utf-8?B?TWZTVlJQTXpVbENGUTVody9MQUlkdUFRdi9qbTlFL1RpZGRSYkp2b3lvU2JK?=
+ =?utf-8?B?TlNiaTE0SmFQQVYzT2hLNW5GMVltd0RWMDBpaE5tdWRDRUlGOFlQMHA1VzFi?=
+ =?utf-8?B?OTVzTlpTKzgxQ2pwSDZBcGxHWWE1NEpaSTVOQnVLWVJacFEzOUxXMSt6RExQ?=
+ =?utf-8?B?UHM2Vnd2VExja1JHT0pTK0lodTMzSWcrYlV3SmFyai85UC9jeng5THFhQUhO?=
+ =?utf-8?B?VGdCMzR2bHhYYXRDNkthOWtKanMyZjVJbU1OQmJJSVNsYTJTWjQxVkpYUU5K?=
+ =?utf-8?B?R1g4M01jSnBVYWZMa1Jac2xVd3orOVJlZjh2NjRqalExamtvMmxaNVA5NG1K?=
+ =?utf-8?B?OHcxOUp3Q3dzbXk0MHl0RVkwUm9QcEQvOEVPQVlaWHE4WHNwQlEwUDdWQ0t5?=
+ =?utf-8?B?a0pqUUR2U1B5ZjBBZ0htbDg0cldjUHJzS0MwdUUvMFF4Y0tBVUJNc0dtTEpr?=
+ =?utf-8?B?Q1gwRmdWRG9xNHE4T3kxRG9qRVVsK3B2QVVRbm4xZE16Q09SV2tHMGxYRmx2?=
+ =?utf-8?B?aHJyWGlPalNMZ290ZkJ0UG04ZWRWOGdYRW05WTN3T1J5K050ZkFCNzFtOVFk?=
+ =?utf-8?B?Ty9BekZDVkpIdVNYZEtnaUx1SHhwdHY4eVJianZydnRML0NseGdoVG8vR3Nw?=
+ =?utf-8?B?Rk5HS0FiZFp3VStTcVkzWXpvOGRMMVFwN2VuODBaWVd6Y0lSanVtWGZLYVJQ?=
+ =?utf-8?Q?naRa23O7kv+VO/0uQw5B5cTkraEZfC2kt4tSAmaQEL+Vc?=
+X-MS-Exchange-AntiSpam-MessageData-1: Gdyu+ulkrthP5Q==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0478ce89-23db-4a55-3987-08df4b8c40a9
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 07:09:46.5489 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: uyMNCO8YviqFRvKPDSmw6G2kpSWeB8HRVPwEGqd8Q+MAUZWI52c7w9sAUGsQxfh6KYgzTI16bFQO9/Aq19l6gA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7193
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,461 +142,145 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 11 potential
-issues to consider:
-- [High] drm/msm/dcp: component_mutex self-deadlock on bridge cleanup
-  during unbind
-- [High] drm/msm/dcp: missing GPU split and match checks in
-  dcp_component_register()
-- [High] drm/msm/dcp: workqueue/kthread leak and UAF from msm_kms_init()
-  in probe
-- [Medium] drm/msm/dcp: missing 64-bit DMA mask setup in
-  dcp_subsystem_dev_init()
-- [Medium] drm/msm/dcp: OF node reference leak in dcp_dsi_bridge_init()
-  error path
-- [Medium] drm/msm/dcp: missing HFI stop and device reset in
-  dcp_virtio_shutdown()
-- [Medium] drm/msm/dcp: race in dcp_virtio_hfi_cleanup() and freeze()
-  re-queues work
-- [Medium] drm/msm/dcp: unlocked virtqueue_kick() on resp_vq in probe
-  and restore
-- [Medium] drm/msm/dcp: unbalanced pm_runtime_disable() on
-  dcp_subsystem_dev
-- [Medium] drm/msm/dcp: UAF on dcp_crtc and drm_device in HFI event
-  callbacks on teardown
-- [Low] drm/msm/dcp: missing pm_sleep_ptr() on dcp_virtio_pm_ops and dup
-  macro
---
-
-commit 6d25009560449227335c0480569b4d7a329bf13b
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-
-drm/msm/dcp: Add DCP VirtIO driver
-
-This commit adds the DCP VirtIO function driver to set up DMA/IOMMU
-identity, initialize the VirtIO and HFI transport, and register the MSM
-DRM component.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.c b/drivers/gpu/drm/msm/dcp/=
-dcp_drv.c
-> new file mode 100644
-> index 0000000000000..62f38dff06ed1
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_drv.c
-[ ... ]
-> +int dcp_subsystem_dev_init(struct dcp_drv *drv)
-> +{
-[ ... ]
-> +	dev =3D &pdev->dev;
-> +
-> +	dev->dma_parms =3D &drv->dcp_subsystem_dma_parms;
-> +	dma_set_max_seg_size(dev, UINT_MAX);
-> +
-> +	ret =3D of_dma_configure_id(dev, dcp_subsystem_node, true, NULL);
-> +	if (ret) {
-> +		dev_err(dev, "of_dma_configure_id failed: %d\n", ret);
-> +		goto err_destroy;
-> +	}
-
-[Severity: Medium]
-Should dcp_subsystem_dev_init() call dma_set_mask_and_coherent(dev, ~0)
-after of_dma_configure_id(), the same way msm_drv_probe() configures the
-master device?
-
-of_platform_device_create() initializes pdev->dev with a 32-bit DMA mask,
-and of_dma_configure_id() does not widen it when no dma-ranges property is
-present.  Leaving dcp_subsystem_dev->dev with a 32-bit mask restricts
-default-domain IOVA allocations to 32 bits and causes dma_map_sgtable() in
-passthrough mode to bounce 4K pages above 4 GiB through SWIOTLB and fail
-with -EIO on 2 MiB THP GEM folios.
-
-[ ... ]
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, DCP_DPU_AUTOSUSPEND_DELAY_MS);
-> +	pm_runtime_use_autosuspend(dev);
-> +
-> +	drv->dcp_subsystem_dev =3D pdev;
-> +	drv->dcp_subsystem_node =3D dcp_subsystem_node;
-> +
-> +	return 0;
-> +
-> +err_destroy:
-> +	of_platform_device_destroy(dev, NULL);
-> +	of_node_put(dcp_subsystem_node);
-> +	return ret;
-> +}
-> +
-> +void dcp_subsystem_dev_deinit(struct dcp_drv *drv)
-> +{
-> +	if (!drv->dcp_subsystem_dev)
-> +		return;
-> +
-> +	pm_runtime_disable(&drv->dcp_subsystem_dev->dev);
-> +	of_platform_device_destroy(&drv->dcp_subsystem_dev->dev, NULL);
-> +	of_node_put(drv->dcp_subsystem_node);
-> +	drv->dcp_subsystem_dev =3D NULL;
-> +}
-
-[Severity: Medium]
-Does setting dcp_kms->rpm_enabled =3D true in dcp_virtio_probe() cause an
-unbalanced pm_runtime_disable() on drv->dcp_subsystem_dev->dev?
-
-dcp_subsystem_dev_init() calls pm_runtime_enable(dev) once, but both
-dcp_dpu_kms_destroy() (when dcp_kms->rpm_enabled is set) and
-dcp_subsystem_dev_deinit() call pm_runtime_disable() on the same device.
-If the DRM aggregate device unbinds or msm_drm_init() fails after
-component_bind_all() (for example on -EPROBE_DEFER), dcp_dpu_kms_destroy()
-disables the device's only runtime PM enable and clears
-dcp_kms->rpm_enabled, so later bind attempts fail in
-dcp_dpu_kms_hw_init() -> pm_runtime_resume_and_get() with -EACCES.
-
-[ ... ]
-> +int dcp_component_register(struct dcp_drv *drv)
-> +{
-> +	struct device *dev =3D &drv->dcp_subsystem_dev->dev;
-> +	struct component_match *match =3D NULL;
-> +	int ret;
-> +
-> +	ret =3D dcp_dpu_kms_init_dsi_bridges(drv->kms, &match);
-> +	if (ret) {
-> +		dev_err(dev, "DSI host initialization failed: %d\n", ret);
-> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
-> +		return ret;
-> +	}
-
-[Severity: Medium]
-Does dcp_dsi_bridge_init() (called from dcp_dpu_kms_init_dsi_bridges())
-leak the dcp_np OF node reference on its error path?
-
-drivers/gpu/drm/msm/dcp/dcp_dsi_bridge.c:dcp_dsi_bridge_init() {
-	...
-	dsi_bridge->dcp_np        =3D of_node_get(dcp_np);
-	...
-err_unwind_dma:
-	...
-	mutex_destroy(&dsi_bridge->session_lock);
-	mutex_destroy(&dsi_bridge->dcs_lock);
-	return ERR_PTR(ret);
-}
-
-When dma_alloc_coherent(), device_add() or mipi_dsi_host_register() fails,
-dcp_dsi_bridge_init() returns before the bridge is stored in
-dcp_kms->dsi_bridge[], so dcp_dpu_kms_cleanup_bridges() cannot release
-dsi_bridge->dcp_np either.
-
-> +
-> +	/* A GPU is optional for the DCP display-only DRM device. */
-> +	ret =3D msm_add_gpu_components(dev, &match);
+On Saturday, October 17, 2026 1:06=E2=80=AFAM Sasha Levin wrote:
+> Since the GPU on the Jetson TX1 was enabled in commit d1b725476104
+> ("arm64: tegra: p2180: Explicitly enable GPU"), nouveau often fails to
+> bring up the GM20B. Either BOOT_0 reads back garbage ("unknown chipset
+> (5ffefa47)"), or PRI reads of the GPC PLL time out ("MMIO read of
+> 00000000 FAULT at 137000 [ TIMEOUT ]"), or the first register reads in
+> nvkm_device_ctor() stall until an asynchronous SError. How often depends
+> on the board; one board fails on every boot.
+>=20
+> nouveau powers the GPU up with the fuse clock gated: since commit
+> 24a15252ff04 ("soc/tegra: fuse: Add runtime PM support"), the Tegra fuse
+> driver only enables that clock around its own fuse reads. NVIDIA's
+> downstream nvgpu driver enables the fuse clock along with the other GPU
+> clocks whenever the GPU is powered. Do the same: take an optional "fuse"
+> clock and keep it enabled from before the GPU rail is turned on until
+> after it is turned off. The clock is optional so that device trees that
+> lack it keep working as before.
+>=20
+> Tested on eight Jetson TX1 devkits, on mainline and on v6.18. Without
+> this patch, the GPU failed to come up in 27 of 109 boots; with it, in 11
+> of 291, none of them with a garbage BOOT_0. On the board that failed on
+> every boot, 38 of 40 boots now succeed. The remaining failures are
+> mostly a register read that stalls until an SError; wherever the console
+> shows when, nouveau had already finished probing. Such stalls also occur
+> without this patch and are a separate problem. The Jetson Nano, which
+> shares the Tegra210 GPU node, still works (24 of 24 boots).
+>=20
+> Fixes: d1b725476104 ("arm64: tegra: p2180: Explicitly enable GPU")
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  .../gpu/drm/nouveau/include/nvkm/core/tegra.h |  1 +
+>  .../drm/nouveau/nvkm/engine/device/tegra.c    | 22 ++++++++++++++-----
+>  2 files changed, 17 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h b/drivers/=
+gpu/drm/nouveau/include/nvkm/core/tegra.h
+> index 6aaa30ef167f6..0189043382d02 100644
+> --- a/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+> +++ b/drivers/gpu/drm/nouveau/include/nvkm/core/tegra.h
+> @@ -15,6 +15,7 @@ struct nvkm_device_tegra {
+>  	struct clk *clk;
+>  	struct clk *clk_ref;
+>  	struct clk *clk_pwr;
+> +	struct clk *clk_fuse;
+> =20
+>  	struct regulator *vdd;
+> =20
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c b/drivers=
+/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> index 3c8d0878891ad..74b292659ee9a 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/device/tegra.c
+> @@ -32,6 +32,10 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *t=
+dev)
+>  {
+>  	int ret;
+> =20
+> +	ret =3D clk_prepare_enable(tdev->clk_fuse);
 > +	if (ret)
-> +		dev_err(dev, "failed to add GPU components: %d\n", ret);
-> +
-> +	ret =3D component_master_add_with_match(dev, &msm_drm_ops, match);
-> +	if (ret) {
-> +		dev_err(dev, "component_master_add_with_match failed: %d\n",
-> +			ret);
-> +		dcp_dpu_kms_cleanup_bridges(drv->kms);
 > +		return ret;
+> +
+>  	if (tdev->vdd) {
+>  		ret =3D regulator_enable(tdev->vdd);
+>  		if (ret)
+> @@ -76,26 +80,26 @@ nvkm_device_tegra_power_up(struct nvkm_device_tegra *=
+tdev)
+>  	if (tdev->vdd)
+>  		regulator_disable(tdev->vdd);
+>  err_power:
+> +	clk_disable_unprepare(tdev->clk_fuse);
+>  	return ret;
+>  }
+> =20
+>  static int
+>  nvkm_device_tegra_power_down(struct nvkm_device_tegra *tdev)
+>  {
+> -	int ret;
+> +	int ret =3D 0;
+> =20
+>  	clk_disable_unprepare(tdev->clk_pwr);
+>  	clk_disable_unprepare(tdev->clk_ref);
+>  	clk_disable_unprepare(tdev->clk);
+>  	udelay(10);
+> =20
+> -	if (tdev->vdd) {
+> +	if (tdev->vdd)
+>  		ret =3D regulator_disable(tdev->vdd);
+> -		if (ret)
+> -			return ret;
+> -	}
+> =20
+> -	return 0;
+> +	clk_disable_unprepare(tdev->clk_fuse);
+> +
+> +	return ret;
+>  }
+> =20
+>  static void
+> @@ -308,6 +312,12 @@ nvkm_device_tegra_new(const struct nvkm_device_tegra=
+_func *func,
+>  		goto free;
+>  	}
+> =20
+> +	tdev->clk_fuse =3D devm_clk_get_optional(&pdev->dev, "fuse");
+> +	if (IS_ERR(tdev->clk_fuse)) {
+> +		ret =3D PTR_ERR(tdev->clk_fuse);
+> +		goto free;
 > +	}
 > +
-> +	return 0;
-> +}
+>  	tdev->pmc =3D devm_tegra_pmc_get(&pdev->dev);
+>  	if (IS_ERR(tdev->pmc)) {
+>  		ret =3D PTR_ERR(tdev->pmc);
+> --=20
+> 2.53.0
+>=20
+>=20
 
-[Severity: High]
-Should msm_add_gpu_components() be guarded by
-!msm_separate_gpu_kms_components(), and should match be checked for NULL or
-IS_ERR(match) before calling component_master_add_with_match()?
+This enables the fuse clock first thing during power up, even before the=20
+regulator. Have you observed this to be necessary? I'm inclined to think=20
+that it doesn't need to be on before the regulator, and the code would=20
+look cleaner that way.
 
-When msm_separate_gpu_kms_components() is true (such as with
-separate_gpu_kms=3D1), adreno_probe() probes the GPU as a standalone DRM
-device rather than registering a component, so adding the GPU node to match
-causes the DCP component master to wait forever for a GPU component that
-never appears.  In addition, if no components are added (leaving match
-NULL) or drm_of_component_match_add() sets match to ERR_PTR(-ENOMEM),
-component_master_add_with_match() immediately dereferences match->num in
-component_match_realloc().
+During power down, we certainly should be able to disable it before=20
+regulator disable with the other clocks. I've found some data saying the=20
+fuse clock only needs to be enabled briefly during power up.
 
-> +
-> +void dcp_component_unregister(struct dcp_drv *drv)
-> +{
-> +	struct device *dev =3D &drv->dcp_subsystem_dev->dev;
-> +
-> +	component_master_del(dev, &msm_drm_ops);
-> +	dcp_dpu_kms_cleanup_bridges(drv->kms);
-> +}
+FWIW, I've tested this on Tegra194 and it helps even there.
 
-[Severity: High]
-Does component_master_del() self-deadlock on component_mutex when an
-attached MIPI DSI panel is cleaned up?
+Thanks
+Mikko
 
-dcp_component_unregister()
-  component_master_del()
-    mutex_lock(&component_mutex)
-    take_down_aggregate_device()
-      msm_drm_unbind()
-        msm_drm_uninit()
-          msm_drm_kms_uninit()
-            dcp_dpu_kms_destroy()
-              dcp_dpu_kms_cleanup_bridges()
-                dcp_dsi_bridge_cleanup()
-                  mipi_dsi_host_unregister()
-                    ...
-                      dcp_dsi_host_detach()
-                        component_del()
-                          mutex_lock(&component_mutex)  <-- self-deadlock
 
-The same call chain also runs under component_mutex during aggregate
-bringup if msm_drm_init() fails after component_bind_all() and unwinds via
-msm_drm_uninit(), and msm_drm_kms_uninit() destroys
-dsi_bridge->dsi_host_dev before component_unbind_all() unbinds the
-component.
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_virtio.c b/drivers/gpu/drm/msm/d=
-cp/dcp_virtio.c
-> new file mode 100644
-> index 0000000000000..595e0650103cf
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_virtio.c
-[ ... ]
-> +static int dcp_virtio_probe(struct virtio_device *vdev)
-> +{
-[ ... ]
-> +	/*
-> +	 * Keep the device unready until HFI state and virtqueues are initializ=
-ed.
-> +	 * KMS registration below depends on synchronous firmware initializatio=
-n.
-> +	 */
-> +	virtio_device_ready(vdev);
-> +	virtqueue_kick(drv->hfi->resp_vq);
-
-[Severity: Medium]
-Should virtqueue_kick() on resp_vq in dcp_virtio_probe() and
-dcp_virtio_restore() be serialized under hfi->resp_drain_lock?
-
-Once virtio_device_ready() enables virtqueue callbacks, an interrupt can
-enter dcp_hfi_resp_callback(resp_vq) while process context runs
-virtqueue_kick(resp_vq):
-
-dcp_virtio_probe()
-  virtio_device_ready(vdev)
-  virtqueue_kick(drv->hfi->resp_vq)
-    virtqueue_kick_prepare(vq)
-      <hardirq>
-        dcp_hfi_resp_callback(vq)
-          spin_lock_irqsave(&hfi->resp_drain_lock, ...)
-          virtqueue_get_buf(vq, ...)
-          virtqueue_add_inbuf_premapped(vq, ...)
-          virtqueue_kick_prepare(vq)  <-- concurrent vq access
-
-Virtqueues require external serialization; concurrent access races on
-vq->num_added and triggers BAD_RING in START_USE(vq) when virtio_ring
-debugging is enabled.
-
-[ ... ]
-> +	dcp_kms =3D devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*dcp_kms)=
-, GFP_KERNEL);
-> +	if (!dcp_kms) {
-> +		ret =3D -ENOMEM;
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	dcp_kms->drv       =3D drv;
-> +	dcp_kms->pm_dev    =3D &drv->dcp_subsystem_dev->dev;
-> +	dcp_kms->hfi       =3D drv->hfi;
-> +	dcp_kms->caps      =3D &drv->caps;
-> +	dcp_kms->dpus_np   =3D drv->dcp_subsystem_node;
-> +	dcp_kms->iommu_dev =3D &drv->dcp_subsystem_dev->dev;
-> +	drv->kms        =3D dcp_kms;
-> +
-> +	ret =3D msm_kms_init(&dcp_kms->base, &dcp_dpu_kms_funcs);
-> +	if (ret) {
-> +		dev_err(&vdev->dev, "msm_kms_init failed: %d\n", ret);
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	priv =3D devm_kzalloc(&drv->dcp_subsystem_dev->dev, sizeof(*priv), GFP_=
-KERNEL);
-> +	if (!priv) {
-> +		ret =3D -ENOMEM;
-> +		goto err_hfi_deinit;
-> +	}
-> +
-> +	priv->kms      =3D &dcp_kms->base;
-> +	priv->kms_init =3D dcp_kms_init;
-> +	dev_set_drvdata(&drv->dcp_subsystem_dev->dev, priv);
-> +	dcp_kms->rpm_enabled =3D true;
-> +
-> +	/* Component binding now sees initialized HFI, capabilities, and IOMMU =
-state. */
-> +	ret =3D dcp_component_register(drv);
-> +	if (ret) {
-> +		dev_err_probe(&vdev->dev, ret, "component register failed\n");
-> +		goto err_hfi_deinit;
-> +	}
-
-[Severity: High]
-Does calling msm_kms_init() here in dcp_virtio_probe() leak kms->wq and
-the pending_timers kthreads, and leave them referencing freed dcp_kms
-memory when the component master never binds?
-
-msm_kms_init() allocates kms->wq and spawns MAX_CRTCS atomic-worker
-kthreads that hold pointers into dcp_kms->base, but msm_kms_destroy() is
-only called from dcp_dpu_kms_destroy() when a bound DRM aggregate device is
-torn down.  If dcp_virtio_probe() fails after msm_kms_init(), or if
-dcp_virtio_remove() runs while component binding is still pending or
-deferred, dcp_subsystem_dev_deinit() destroys drv->dcp_subsystem_dev and
-frees the devm-allocated dcp_kms without msm_kms_destroy() ever stopping
-the workqueue and kthreads.  Conversely, if a bound component later unbinds
-or msm_drm_init() fails after component_bind_all(), dcp_dpu_kms_destroy()
-destroys kms->wq and pending_timers, and a subsequent bind retry calls
-dcp_kms_init() without re-running msm_kms_init().  Additionally, neither
-dcp_dpu_kms_destroy() nor dcp_subsystem_dev_deinit() pairs
-pm_runtime_use_autosuspend() with pm_runtime_dont_use_autosuspend().
-
-[ ... ]
-> +static void dcp_virtio_hfi_cleanup(struct dcp_drv *drv)
-> +{
-> +	struct virtio_device *vdev =3D drv->vdev;
-> +
-> +	if (!drv->hfi)
-> +		return;
-> +
-> +	dcp_hfi_stop(drv->hfi);
-> +	virtio_reset_device(vdev);
-> +	virtio_synchronize_cbs(vdev);
-> +	if (drv->vqs_allocated) {
-> +		dcp_hfi_quiesce_queues(drv->hfi);
-> +		vdev->config->del_vqs(vdev);
-> +		drv->vqs_allocated =3D false;
-> +	}
-> +	drv->hfi->cmd_vq =3D NULL;
-> +	drv->hfi->resp_vq =3D NULL;
-> +	dcp_hfi_deinit(drv->hfi);
-> +}
-
-[Severity: Medium]
-Can an in-flight dcp_hfi_resp_callback() re-queue resource_vote_work or
-resp_repost_work after dcp_hfi_stop() cancels them in
-dcp_virtio_hfi_cleanup() and dcp_virtio_freeze()?
-
-CPU0                                  CPU1
-                                      dcp_hfi_resp_callback()
-                                        /* passes shutdown_in_progress */
-                                        spin_unlock(&hfi->resp_drain_lock)
-dcp_virtio_hfi_cleanup()
-  dcp_hfi_stop(drv->hfi)
-    atomic_set(&shutdown_in_progress, 1)
-    cancel_work_sync(&resource_vote_work)
-    cancel_delayed_work_sync(&resp_repost_work)
-                                        schedule_work(&resource_vote_work)
-                                        schedule_delayed_work(&resp_repost_=
-work)
-  virtio_reset_device(vdev)
-  virtio_synchronize_cbs(vdev)
-  ...
-  /* devm frees drv->hfi */
-                                      dcp_hfi_resource_vote_work()
-                                        /* dereferences freed hfi */  <-- u=
-se-after-free
-
-Because callbacks are not drained until virtio_synchronize_cbs() returns,
-work scheduled by an already-running callback before
-virtio_synchronize_cbs() is never cancelled afterward.
-
-[ ... ]
-> +static void dcp_virtio_remove(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv =3D vdev->priv;
-> +
-> +	dev_dbg(&vdev->dev, "DCP VirtIO remove\n");
-> +
-> +	dcp_component_unregister(drv);
-> +	dcp_panic_notifier_unregister(drv);
-> +
-> +	dcp_virtio_hfi_cleanup(drv);
-> +
-> +	dcp_subsystem_dev_deinit(drv);
-> +}
-
-[Severity: Medium]
-Can an HFI display event callback access freed dcp_crtc and drm_device
-objects after dcp_component_unregister() returns?
-
-CPU0                                  CPU1
-dcp_virtio_remove()
-  dcp_component_unregister(drv)
-    component_master_del()
-      msm_drm_unbind()
-        msm_drm_uninit()
-          drm_dev_put(ddev)
-            /* frees ddev and drmm dcp_crtc */
-                                      dcp_hfi_resp_callback()
-                                        dcp_crtc_hfi_vblank_cb()
-                                          dcp_crtc_find_by_session_id(drv->=
-kms, ...)
-                                            dcp_crtc_get_session(crtc)
-                                              spin_lock(&dcp_crtc->spin_loc=
-k)  <-- use-after-free
-  dcp_virtio_hfi_cleanup(drv)
-
-dcp_component_unregister() frees ddev and the drmm-allocated dcp_crtc
-instances before dcp_virtio_hfi_cleanup() stops HFI, while drv->kms,
-dcp_kms->crtcs[], dcp_kms->num_crtcs and dcp_kms->dev remain non-NULL
-(which also happens if a sub-component unbinds while VirtIO stays bound).
-
-> +
-> +/* KMS shutdown must complete while the firmware transport is available.=
- */
-> +static void dcp_virtio_shutdown(struct virtio_device *vdev)
-> +{
-> +	struct dcp_drv *drv =3D vdev->priv;
-> +
-> +	pm_runtime_get_sync(&drv->dcp_subsystem_dev->dev);
-> +	msm_kms_shutdown(drv->dcp_subsystem_dev);
-> +	pm_runtime_put_noidle(&drv->dcp_subsystem_dev->dev);
-> +}
-
-[Severity: Medium]
-Should dcp_virtio_shutdown() call dcp_hfi_stop(drv->hfi) and
-virtio_device_shutdown(vdev) after msm_kms_shutdown()?
-
-When a virtio_driver provides a custom .shutdown callback,
-virtio_dev_shutdown() calls drv->shutdown(dev) and skips the default
-virtio_device_shutdown(dev) path.  Returning after msm_kms_shutdown()
-leaves HFI work items, virtqueue callbacks and DMA rings active across
-system shutdown or kexec while IOMMU translation is torn down.
-
-[ ... ]
-> +static const struct dev_pm_ops dcp_virtio_pm_ops =3D {
-> +	.prepare =3D dcp_pm_prepare,
-> +	.complete =3D dcp_pm_complete,
-> +};
-> +
-> +static struct virtio_driver dcp_virtio_driver =3D {
-> +	.driver =3D {
-> +		.name  =3D "qcom-dcp-hfi",
-> +		.owner =3D THIS_MODULE,
-> +		.pm    =3D &dcp_virtio_pm_ops,
-> +	},
-
-[Severity: Low]
-This isn't a bug, but dcp_virtio_pm_ops and .driver.pm can use
-pm_sleep_ptr() and pm_ptr() so the PM callbacks are dropped when PM is
-disabled.  Also, DCP_DPU_AUTOSUSPEND_DELAY_MS in dcp_drv.c duplicates the
-definition in dcp_dpu_kms.h, and struct component_match in dcp_drv.h is
-unused.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D18
