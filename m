@@ -2,62 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 667C8606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 17:21:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93975606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 17:24:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bWgRZV5s
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PViqqUHy
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C134D112637;
-	Thu, 26 Nov 2026 17:21:40 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C210010E41C;
+	Thu, 26 Nov 2026 17:24:21 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 436F9112634;
- Thu, 26 Nov 2026 17:21:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7D76D10E41C
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 17:24:15 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 2B9BA454AE;
- Thu, 26 Nov 2026 17:21:28 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 580271F000D3;
- Thu, 26 Nov 2026 17:21:22 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3924243CC0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 17:24:15 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 831081F000C4;
+ Thu, 26 Nov 2026 17:24:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795713688;
- bh=STF5w+Sia/U7FbjQIeDG5ejbW9/U+HhTK5QG5ApBzGQ=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=bWgRZV5sCKigzA2O3op/bPaPQ/GPKQSPM2w9wQ8TZsWdoVqgip7Theap/RvWPS654
- 042cH2hY3JrO5+sUvPu6+RQk1hSb7myK0SL85XLXTd7t1+E4izNEQeOXUQ9eWMAVk7
- xsUgjD/ybDUT2C8bN6wv+7N3BAwhd3k3HEFiCyI5jgLD+AksQ8YoqRfcEnRT9sVaS4
- hjA3NEkwSA4AnLoob/osFV0PyFNqaomDsPQdOy8vgQONz2g1ALMnFhReQ1ijcxiYWl
- ElwA7l7PYEdDsjzvORWrG9OXXbZ8mFRAK45Uyg64QyQiiRBHPIPgEl16yfD79R8+Uc
- ZBUMR1b0kCWTA==
-From: Philipp Stanner <phasta@kernel.org>
-To: Sumit Semwal <sumit.semwal@linaro.org>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
- Philipp Stanner <phasta@kernel.org>,
- Alex Deucher <alexander.deucher@amd.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Matthew Brost <matthew.brost@intel.com>,
- Danilo Krummrich <dakr@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- "Mario Limonciello (AMD)" <superm1@kernel.org>,
- Aurabindo Pillai <aurabindo.pillai@amd.com>,
- Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
- Gustavo Padovan <gustavo.padovan@collabora.com>,
- Chris Wilson <chris@chris-wilson.co.uk>,
- Luben Tuikov <ltuikov89@gmail.com>,
- Shashank Sharma <shashank.sharma@amd.com>,
- "Paul E . McKenney" <paulmck@kernel.org>, Gary Guo <gary@garyguo.net>
-Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- stable@vger.kernel.org
-Subject: [PATCH 3/3] drm/amdgpu: Hot-fix timestamp misordering
-Date: Thu, 26 Nov 2026 18:20:47 +0100
-Message-ID: <20261126172046.2473303-5-phasta@kernel.org>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
-References: <20261126172046.2473303-2-phasta@kernel.org>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+ s=k20260515; t=1795713854;
+ bh=MoBIqvG8dNjYRVZtJGGgK4JFoprL2V+QtAwvKKT1PAg=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=PViqqUHysMoY2drMc6MNLf/yi6YlKHZO1/9HoecvBeMHF0JvtXkC7B/gHNaefbGeT
+ +oy4cy+fxk8t+lmNv/2tiqNXhLnjw2Ve+xvcTyLLc0k3lNhIRDGIYWZlgezhu2RIwd
+ YcC2In8r8lrECs7OK1ZK6qfRAoQReN9RReBWimQYuLiubQdFuzMIiO5sJAfdURivP8
+ 6i11zc1/k1g7jjsNeDym7Xo5fl0vrLDyKnWPC2qMQ8O2Q/NGvpWxkWlmtg773+ukx9
+ OYbDBADyV9/310QN6J+E9Ynqu4+CGyl3QqmxCKA3Q86lH1cFaclu+wTHW4wIepsvGj
+ m+Eb8JCdbqzPw==
+Message-ID: <sashiko-outbox-235974@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] drm/msm: fbdev: Unpin the framebuffer buffer object
+ on destroy
+To: "Vladimir Zapolskiy" <vz@kernel.org>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261126170535.361985-2-vz@kernel.org>
+References: <20261126170535.361985-1-vz@kernel.org>
+ <20261126170535.361985-2-vz@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 17:24:14 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,47 +49,84 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-dma_fence timestamps could so far be written and read without any memory
-ordering, a bug that presumably got overlooked because x86 is strongly
-ordered.
+Thank you for your contribution! Sashiko AI review found no new issues
+in this patch, but noticed 1 related pre-existing issue it does not
+introduce:
+- [High] drm/msm: missing msm_gem_vma_get() in
+  msm_fbdev_driver_fbdev_probe() [1]
+--
 
-Hot-fix amdgpu's manual timestamp evaluation until we found a more
-suitable solution for mainline linux.
+commit f61acbf5c2e9c608df43ac6974e8470121d1679c
+Author: Vladimir Zapolskiy <vz@kernel.org>
 
-Cc: stable@vger.kernel.org
-Fixes: af0b54167009 ("drm/amdgpu: Convert to common fdinfo format v5")
-Signed-off-by: Philipp Stanner <phasta@kernel.org>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+drm/msm: fbdev: Unpin the framebuffer buffer object on destroy
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-index 2f0349233695..415f23aa08a0 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
-@@ -177,11 +177,11 @@ static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
- 
- 	/* When the fence is not even scheduled it can't have spend time */
- 	s_fence = to_drm_sched_fence(fence);
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
-+	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
- 		return ns_to_ktime(0);
- 
- 	/* When it is still running account how much already spend */
--	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
-+	if (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
- 		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
- 
- 	return ktime_sub(s_fence->finished.timestamp,
--- 
-2.56.0
+This commit unpins the framebuffer GEM buffer object from the KMS address
+space in msm_fbdev_fb_destroy() before deleting the client buffer.
 
+> diff --git a/drivers/gpu/drm/msm/msm_fbdev.c b/drivers/gpu/drm/msm/msm_fb=
+dev.c
+> index f37cc3f97a21f..25e55b5c5ecc0 100644
+> --- a/drivers/gpu/drm/msm/msm_fbdev.c
+> +++ b/drivers/gpu/drm/msm/msm_fbdev.c
+> @@ -41,6 +41,7 @@ static int msm_fbdev_mmap(struct fb_info *info, struct =
+vm_area_struct *vma)
+>  static void msm_fbdev_fb_destroy(struct fb_info *info)
+>  {
+>  	struct drm_fb_helper *helper =3D (struct drm_fb_helper *)info->par;
+> +	struct msm_drm_private *priv =3D helper->dev->dev_private;
+>  	struct drm_gem_object *bo =3D msm_framebuffer_bo(helper->fb, 0);
+> =20
+>  	DBG();
+> @@ -48,6 +49,7 @@ static void msm_fbdev_fb_destroy(struct fb_info *info)
+>  	drm_fb_helper_fini(helper);
+> =20
+>  	msm_gem_put_vaddr(bo);
+> +	msm_gem_unpin_iova(bo, priv->kms->vm);
+
+[Severity: High]
+This problem wasn't introduced by this patch, but does
+msm_fbdev_driver_fbdev_probe() need to call msm_gem_vma_get(bo) [1]
+when pinning the framebuffer in priv->kms->vm (paired with
+msm_gem_vma_put(bo) in msm_fbdev_fb_destroy())?
+
+drivers/gpu/drm/msm/msm_fbdev.c:msm_fbdev_driver_fbdev_probe() {
+	...
+	ret =3D msm_gem_get_and_pin_iova(bo, priv->kms->vm, &paddr);
+	...
+	drm_gem_handle_delete(file, handle);
+	return 0;
+
+err_msm_gem_unpin:
+	msm_gem_unpin_iova(bo, priv->kms->vm);
+	msm_gem_vma_put(bo);
+err_drm_client_buffer_delete:
+	drm_client_buffer_delete(buffer);
+err_drm_gem_handle_delete:
+	drm_gem_handle_delete(file, handle);
+	return ret;
+}
+
+The only VMA reference on bo comes from drm_gem_handle_create() ->
+msm_gem_open().  Deleting the temporary handle at the end of probe calls
+msm_gem_close() -> msm_gem_vma_put(), which drops vma_ref to zero and
+tears down the KMS VMA while fbi->fix.smem_start still holds the freed
+IOVA.  If msm_gem_get_vaddr() fails instead, err_msm_gem_unpin calls
+msm_gem_vma_put() before falling through to drm_gem_handle_delete(),
+underflowing vma_ref to -1.
+
+[1] https://sashiko.dev/#/bug/linux-f430fb49-9db8-4da0-8b31-b9f1caff2095
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126170535.3619=
+85-1-vz@kernel.org?part=3D1
