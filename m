@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92A9A606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:46:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FD1B606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:46:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kFsvWiHO
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Al6Bzy8h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B96CD10E9C5;
-	Thu, 26 Nov 2026 13:46:06 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 68DD610E332;
+	Thu, 26 Nov 2026 13:46:14 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56D4F10E992
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:45:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85F0A10E332
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:46:08 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B907763443;
- Thu, 26 Nov 2026 13:45:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2603A1F000C6;
- Thu, 26 Nov 2026 13:45:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0A64B6344C;
+ Thu, 26 Nov 2026 13:46:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC4611F000E0;
+ Thu, 26 Nov 2026 13:46:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795700757;
- bh=bsSwYdx+AuYuIkeKuhSejgl7Ua506v/UQfY/79+CdWA=;
+ s=k20260515; t=1795700767;
+ bh=LpCQaTekFEeyqZMNoHTvHNWTZGVrsIL1ToHn2ap47Sg=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=kFsvWiHOmnkFaQ/1GS7udvV34DPX0momG05TVGoxABWJ0FH5aF+43PkeaAVkS7wGK
- Mu8K1xS8e22G05W1+kw8D+Vrc8p7FuD3gB1M/EsnpcGF+/QreQ4gMeRbaKnptiBgxF
- jq7EfPX5+JIWjveKujPTN6bAcWwnO4CPK/I2ugMFmpZthmzObJ8dU9Zxmzk/52dQzw
- z7p3dDejVEijhbHUXDWmjNvpum6sp8z3llFyKpsCMIl4Ojmset9uNmbUEpjFROXbeF
- xT/NNrjdNfJ6xtc6WVZ+VXIWr8SFuUd/02wH1fwGulEgLq9quX8Lnyu21TU7T2+57d
- GX15x6PrRRH0w==
+ b=Al6Bzy8h+tbTvECl3QO04WDeA7Q1+g+vC028/Zf2jWKzhAl7ZxGRX3AYITkIKJ5Ex
+ i7WB9B/CkgwpJdUXd8S6k2MSsez136gPIZFjatw/zAqckBgsjtiqeo+QVqw2JR2flo
+ F7PLWh8kYfv1+iA+vzCcoEwuEkQJGaanD3J+nhwh+CtwXe9SUELXVe/xbMt5YoZ4o/
+ +eIe6qZ2FoNcBe148w01zL5LKhsI33TPMlDsaWXTXMEQD4idUiCNXdTqLbV6eC22k3
+ G5AbW73hzqPUpuCHfq8fhTMG0bmejV7OlqAfimasscg7SXCO/nfOdstNz3opfQe/W9
+ v1ePHfcdbGvFQ==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -40,10 +40,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
  Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 04/10] drm/panel: novatek-nt36672e: Make the AVDD and AVEE
- supplies optional
-Date: Thu, 26 Nov 2026 15:45:02 +0200
-Message-ID: <20261126134508.320700-5-vz@kernel.org>
+Subject: [PATCH v2 06/10] drm/panel: novatek-nt36672e: Verify the number of
+ D-PHY data lanes
+Date: Thu, 26 Nov 2026 15:45:04 +0200
+Message-ID: <20261126134508.320700-7-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261126134508.320700-1-vz@kernel.org>
 References: <20261126134508.320700-1-vz@kernel.org>
@@ -68,141 +68,87 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The positive and negative bias supplies of NT36672E panel may generate
-the bias on the module itself, and be not exposed by the panel modules.
+The NT36672E panel in the MIPI D-PHY mode is connected over 4 data lanes,
+a mismatching device tree description results in a panel, which won't work.
 
-Split the supplies into the required VDDI supply and the pair of AVDD
-and AVEE bias supplies, which are either both described or both absent,
-and get the bias supplies only if they are described.
+Get the PHY type of the DSI link from the PHY of the DSI host, and get
+the number of data lanes from the DSI host endpoint to check the match.
 
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../gpu/drm/panel/panel-novatek-nt36672e.c    | 69 +++++++++++++------
- 1 file changed, 49 insertions(+), 20 deletions(-)
+ .../gpu/drm/panel/panel-novatek-nt36672e.c    | 37 +++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
 diff --git a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-index 364e0855280f..de070637c208 100644
+index 4836751b7d5d..cc3f4d251f55 100644
 --- a/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
 +++ b/drivers/gpu/drm/panel/panel-novatek-nt36672e.c
-@@ -13,16 +13,13 @@
+@@ -5,14 +5,18 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/of_graph.h>
+ #include <linux/regulator/consumer.h>
+ 
+ #include <drm/drm_mipi_dsi.h>
+ #include <drm/drm_modes.h>
++#include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
  
  #include <video/mipi_display.h>
  
--static const char * const regulator_names[] = {
--	"vddi",
--	"avdd",
--	"avee",
-+static const struct regulator_bulk_data nt36672e_supplies[] = {
-+	{ .supply = "vddi", .init_load_uA = 62000 },
- };
- 
--static const unsigned long regulator_enable_loads[] = {
--	62000,
--	100000,
--	100000,
-+static const struct regulator_bulk_data nt36672e_bias_supplies[] = {
-+	{ .supply = "avdd", .init_load_uA = 100000 },
-+	{ .supply = "avee", .init_load_uA = 100000 },
- };
- 
- struct panel_desc {
-@@ -40,7 +37,8 @@ struct nt36672e_panel {
- 	struct drm_panel panel;
- 	struct mipi_dsi_device *dsi;
- 	struct gpio_desc *reset_gpio;
--	struct regulator_bulk_data supplies[3];
-+	struct regulator_bulk_data *supplies;
-+	struct regulator_bulk_data *bias_supplies;
- 	const struct panel_desc *desc;
- };
- 
-@@ -362,12 +360,23 @@ static int nt36672e_power_on(struct nt36672e_panel *ctx)
- 	struct mipi_dsi_device *dsi = ctx->dsi;
- 	int ret;
- 
--	ret = regulator_bulk_enable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
- 	if (ret < 0) {
- 		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
- 		return ret;
- 	}
- 
-+	if (ctx->bias_supplies) {
-+		ret = regulator_bulk_enable(ARRAY_SIZE(nt36672e_bias_supplies),
-+					    ctx->bias_supplies);
-+		if (ret < 0) {
-+			dev_err(&dsi->dev, "bias regulator enable failed: %d\n", ret);
-+			regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies),
-+					       ctx->supplies);
-+			return ret;
-+		}
-+	}
++#include <dt-bindings/phy/phy.h>
 +
- 	/*
- 	 * Reset sequence of nt36672e panel requires the panel to be out of reset
- 	 * for 10ms, followed by being held in reset for 10ms and then out again.
-@@ -389,7 +398,14 @@ static int nt36672e_power_off(struct nt36672e_panel *ctx)
+ static const struct regulator_bulk_data nt36672e_supplies[] = {
+ 	{ .supply = "vddi", .init_load_uA = 62000 },
+ };
+@@ -536,6 +540,30 @@ static const struct drm_panel_funcs nt36672e_drm_funcs = {
+ 	.get_modes = nt36672e_panel_get_modes,
+ };
  
- 	gpiod_set_value(ctx->reset_gpio, 1);
- 
--	ret = regulator_bulk_disable(ARRAY_SIZE(ctx->supplies), ctx->supplies);
-+	if (ctx->bias_supplies) {
-+		ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_bias_supplies),
-+					     ctx->bias_supplies);
-+		if (ret)
-+			dev_err(&dsi->dev, "bias regulator disable failed: %d\n", ret);
-+	}
++/*
++ * Get the PHY type of the DSI link from the PHY of the DSI host, MIPI D-PHY
++ * is the default, if the PHY type is not specified.
++ */
++static u32 nt36672e_get_dsi_phy_type(struct device *dev)
++{
++	struct device_node *host, *phy;
++	u32 phy_type = PHY_TYPE_DPHY;
 +
-+	ret = regulator_bulk_disable(ARRAY_SIZE(nt36672e_supplies), ctx->supplies);
- 	if (ret)
- 		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
- 
-@@ -520,7 +536,8 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
++	host = of_graph_get_remote_node(dev->of_node, 0, 0);
++	if (!host)
++		return phy_type;
++
++	phy = of_parse_phandle(host, "phys", 0);
++	of_node_put(host);
++	if (!phy)
++		return phy_type;
++
++	of_property_read_u32(phy, "phy-type", &phy_type);
++	of_node_put(phy);
++
++	return phy_type;
++}
++
+ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
  {
  	struct device *dev = &dsi->dev;
- 	struct nt36672e_panel *ctx;
--	int i, ret = 0;
-+	bool avdd, avee;
-+	int ret = 0;
+@@ -598,6 +626,15 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
+ 	dsi->format = ctx->desc->format;
+ 	dsi->mode_flags = ctx->desc->mode_flags;
  
- 	ctx = devm_drm_panel_alloc(dev, struct nt36672e_panel, panel,
- 				   &nt36672e_drm_funcs,
-@@ -534,15 +551,27 @@ static int nt36672e_panel_probe(struct mipi_dsi_device *dsi)
- 		return -ENODEV;
- 	}
- 
--	for (i = 0; i < ARRAY_SIZE(ctx->supplies); i++) {
--		ctx->supplies[i].supply = regulator_names[i];
--		ctx->supplies[i].init_load_uA = regulator_enable_loads[i];
--	}
--
--	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ctx->supplies),
--			ctx->supplies);
-+	ret = devm_regulator_bulk_get_const(dev, ARRAY_SIZE(nt36672e_supplies),
-+					    nt36672e_supplies, &ctx->supplies);
- 	if (ret < 0)
--		return ret;
-+		return dev_err_probe(dev, ret, "Failed to get regulators\n");
-+
-+	/* The bias supplies are either both described or generated on the module */
-+	avdd = of_property_present(dev->of_node, "avdd-supply");
-+	avee = of_property_present(dev->of_node, "avee-supply");
-+	if (avdd != avee)
-+		return dev_err_probe(dev, -EINVAL,
-+				     "avdd and avee supplies must be described together\n");
-+
-+	if (avdd) {
-+		ret = devm_regulator_bulk_get_const(dev,
-+						    ARRAY_SIZE(nt36672e_bias_supplies),
-+						    nt36672e_bias_supplies,
-+						    &ctx->bias_supplies);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to get bias regulators\n");
++	/* A MIPI D-PHY link to the panel shall have exactly 4 data lanes */
++	if (nt36672e_get_dsi_phy_type(dev) == PHY_TYPE_DPHY) {
++		ret = drm_of_get_data_lanes_count_remote(dev->of_node, 0, -1, 1, 4);
++		if (ret > 0 && ret != 4)
++			return dev_err_probe(dev, -EINVAL,
++					     "%d D-PHY data lanes described, 4 required\n",
++					     ret);
 +	}
- 
- 	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
- 	if (IS_ERR(ctx->reset_gpio))
++
+ 	ret = drm_panel_of_backlight(&ctx->panel);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "Failed to get backlight\n");
 -- 
 2.51.0
 
