@@ -2,142 +2,49 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6D6606A336
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 14:30:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6CC606A33A
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 14:33:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fLQJCho7;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=Ps8PBDqV
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=DuyE3i+4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C4D010E9CD;
-	Thu, 26 Nov 2026 14:30:15 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 56B8710E9CD
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:30:04 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQBVMrY3893625
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:30:03 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=; b=fLQJCho7UC8UCfin
- bajE0cFg1J/8Pw3XuXRvnKPdu7FNMrJG5Crue6GGgTXll1dlK3SyvSOE4Esg+BZi
- /1pIR82MvIbclgjYxvznLpFJj6GpU+/1Z4PXPwQT7mC6w5tWNIn7dao2jZ7VNXyR
- JW45x/4cFUDDYvCOoJKvuzdZrTmCCfwMN6Xv3P175H9n7UShF0BVTCCpmJaQn4uD
- Zac3qSfe+cS4JAmkMGlCIyGK9i0PUpG1wM4j9VfNniLHkKc9bP8/B9tnI1h1qyfc
- 33i6SxLCYKSMIZvPgQ5FuM30lm3EGm48p8333M248Iih7dxFtyFENs7077KFkAGx
- yCPMLA==
-Received: from mail-ot1-f71.google.com (mail-ot1-f71.google.com
- [209.85.210.71])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6hm816tc-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:30:02 +0000 (GMT)
-Received: by mail-ot1-f71.google.com with SMTP id
- 46e09a7af769-7ffe90b2cfdso2559388a34.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:02 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795703402; x=1796308202;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=;
- b=Ps8PBDqVUJYqML3l/KlP9HYg1s8Pt/pwD8BnHy/DhNLFCPrPqIusIMB3hOCFDWmEgd
- muqO1gYSf7I3NhLgZio0KQsH9aZwMhEyXSEdxB56xIl3hNiE0/LgwTziK4CMIHQ/aWpB
- 8b7IUZb0ASvsLoRoE6CXu7GW9R8hkoE42k9ou1PMoJ52Esslr7nA/6yddSBKy2Oi7l+d
- bCyDMgEiy2kOtaWk6dVoBLWdqWKRjqed10+o7RPr9qmSq7CJavAX59Z4A1DT6VieU8Qv
- r8KIgu72rtPwA8+qbCEzsQunvju345+8P9g5Iee3yVYv3sAEE+s45GaMr/P6HdONiEJ8
- Jnbg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795703402; x=1796308202;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ZYKSqpNm7JmeDVDfHCjbjXW2efJm2SoQYSo8R7KD5hY=;
- b=U0bsKux/dYhoaTdBPGBXCiuFjZCP6v8p59eTJcWrvIw14xYhLc0x8ayxCByvXfc4L2
- XU8RuGBa2eSbkzFjwEebEQ/f39FT0NqdlKFyE+i0dLzzQ1YDt3/y7LVBYnMfLz7sYLum
- QzjLvjUJB9Juej5pAhm6K0hqrPEM+4Bu7/84Gv42kjeaBaFFgHVgUHHXYHfefGM4CBDZ
- DljECp2LTUZUJF/BONySQHd0pSJB0H+l2iqapBxn1PIJKC3JRju+3E8kscZzeQY2Sx2p
- aOBcaehTL48ruxnYhrOS8l6+Eiw6I54B5SHlKPtxl90LbHXVaQdc6qg/qJV/G8UfzozN
- jIQQ==
-X-Forwarded-Encrypted: i=1;
- AL+hErGRKOdN+whj63s2XUjz5BKbw7Ex8wYse21KAXf27TXQE46b6XjAAiL9mv3SBscm1mQNQHjfTFCyfTQ=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ry5vg5cldcU1NIJjqylvItx7tf9sN4MU6HMdL53/80n8cFxMo
- VrcNdJ2xnLNBkz6Z9nwk05Z3sOcwbVk/KoYb/1qy0Jtciy/GgNRByuHzgmdbRqGJHTu2B/jd1bU
- TMyzf0FK92/m6WcPjVJBqYAJBvGCJH9Jnewzp83mt6ZsHvvwPcKLjRCQeuiC3QAfdb8+Vp7Q=
-X-Gm-Gg: AZFdTZfj3LwG0zWcE7T66mNU39d1Dmejo6vyamArGFLMxmgICBbxYHyQOYzhpd7ilIT
- iqeyiHNwz3Xp0UUFscaNyI4aG9x3gxjhpusfwC1nCvKPxP/+bzC9D5oatTPeKCK3WVIu3fDk1U7
- 11Q+Tb2+WAXImLBxLEctZfccXLFbRYxuYDqgA6MaAFz9YBMeaHZ7SKag/01mge8OVvWw5UEFNz0
- U2JCKFppvwjvXTjgYUvrWuZ+E4JKwnTbUzW+DK01TwuY35hEzzuaas/8ARuB8pDstvhkZ5ECfKx
- +82HCGsptI6saHA2XjKRq3dTxkm5hpLCpSrINP8E1hbZdeBFqq/WaMkN38EAY83JlVEwkp8YY5S
- FvczPErytExn+W6Hm7O+F0UVqG4x9S3lvgJDQghqInUnavVXmqBYs8Gl+e4GVtTKtbpTT2qQ=
-X-Received: by 2002:a05:6830:2a88:b0:845:3cfe:5f2 with SMTP id
- 46e09a7af769-86314ff95bemr34000823a34.0.1795703402245; 
- Thu, 26 Nov 2026 06:30:02 -0800 (PST)
-X-Received: by 2002:a05:6830:2a88:b0:845:3cfe:5f2 with SMTP id
- 46e09a7af769-86314ff95bemr34000765a34.0.1795703401810; 
- Thu, 26 Nov 2026 06:30:01 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513aea28f4sm782697166b.33.2026.11.26.06.29.58
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 06:30:01 -0800 (PST)
-Message-ID: <56ac1346-3164-4418-a00a-168323787535@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 15:29:57 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id A5E9C112498;
+	Thu, 26 Nov 2026 14:33:22 +0000 (UTC)
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5F89610E3DB
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:33:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
+ s=20170329;
+ h=Content-Transfer-Encoding:Content-Type:From:Cc:To:Subject:
+ MIME-Version:Date:Message-ID:From:Reply-To;
+ bh=dSYr0gDzxpZoS/g912D0pV+YbhNiymAN9/od+L4le2A=; t=1795703596; x=2111063596; 
+ b=DuyE3i+4hlNI0U4AozqLlXfUO9vxmX9QNX7DNhZnPGhrb4lQSooQ3uUGBfQSPnYwEV7Ni4QMlxp
+ igQFrXbgDrQoVyeEJVGQzMpjzkqNQGsTc/gB91l/t4mmz0UAogUffeEX94rpKyNeInn9FxC4UamfV
+ +RtTreVM/2UAza8N+qJdztsUOXAUK1fUQuIfiMIyPXm2C4pObsJZTyMCi3NXZO3JrHX8+3kmnW7rn
+ lBPNQvgdmBLC3vUAuGIFloRc9NixfYV1bbdLvC4Ur2mHNbwHIgS548LZeUIXN/iiF4inj3Uv1ysQ/
+ tY+nAJdJE2hAeI+GZfM+l4Xtdnbn6NByJS7g==;
+Received: from [81.79.79.1] (helo=[192.168.0.116])
+ by fanzine2.igalia.com with esmtpsa 
+ (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
+ id 1xWaXC-00000004Qrf-0xsx; Thu, 26 Nov 2026 15:33:14 +0100
+Message-ID: <ec23b635-9cb4-4808-8ceb-3ab9f354b38e@igalia.com>
+Date: Thu, 26 Nov 2026 14:33:13 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/5] drm/msm/adreno: Add speedbins for A660 GPU
-To: me@fromdisposition.org, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-References: <20261105-b4-sm8350-gpu-v1-0-a7175cdd6512@fromdisposition.org>
- <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261105-b4-sm8350-gpu-v1-4-a7175cdd6512@fromdisposition.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: ggaxDg1CuDuVS2XhitPdyPNPDjB8wQZf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1NiBTYWx0ZWRfXzxqb6tXAd4+S
- o79orJeIcWMRu43lGFNklieTQ/JQaZ+dHEND3Kwlax18PAzVw9PuexHGMBeoYTC8EbQh3RP5AzR
- PY3B/hifnwU/GzAiml5Jkz02mBqQEAo=
-X-Proofpoint-GUID: ggaxDg1CuDuVS2XhitPdyPNPDjB8wQZf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1NiBTYWx0ZWRfXyuFAkQ4EZ3q+
- eGvTytbPYEFrbcqQcpsqqUQbgXW930NznLo3JJM+LMbMVdtOS2X+JK43J4Qzrkfbqs1ck4jcuyI
- y0JKMSMA1N4erZknstztezR5l7tgio9WyUJk3HQEKK3R5UDWzK0JyiJklz1o5DL49WTp5FaFvN9
- z/QOYzTAQMhHMARhOanghEKy83e/HDgfpkkQn9bpb7iq0VI8TuSVVWSQBf6gSxRE2RLPtxZvqzR
- kD7eACX/keoLf6VPZTWldizrKf3LCYMuWVed5BlmfK++IHKUha8VCYgFc+l7oVSelTvuNb6cS51
- /g/ALnsp2ke0b/1lJP0aKPxRCWqEDL7Rxz2kct+MTLNhgwg3S0nw/uJXgSG4K87UnlJKsMFqBn/
- Frzrd2TriWa71kpbQEPTu0z888FWfu9h+feF8kyh8sIXmYnI9fuLMxM+pt7dNDtiL2OPTB0gseH
- k7pZdiWMwNNln7C6cFg==
-X-Authority-Analysis: v=2.4 cv=O/usLx9W c=1 sm=1 tr=0 ts=6b08426b cx=c_pps
- a=OI0sxtj7PyCX9F1bxD/puw==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=Tt5JBQAfAAAA:8 a=LR9blauW7GWGG1yPYK4A:9 a=QEXdDO2ut3YA:10
- a=Z1Yy7GAxqfX1iEi80vsk:22 a=kpHMOrJS8sLNr5ru0mYA:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260056
+Subject: Re: [PATCH 3/7] drm/syncobj: Use scoped cleanup for
+ drm_syncobj_array_wait_timeout syncobjs
+To: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Fei Yu <fei.yu@intel.com>,
+ =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
+References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
+ <20261126111117.67342-4-tvrtko.ursulin@igalia.com>
+ <6724627c-d211-44be-98d5-4ded6b663483@amd.com>
+Content-Language: en-GB
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In-Reply-To: <6724627c-d211-44be-98d5-4ded6b663483@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,23 +56,174 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/5/26 2:30 PM, Demeter Barna via B4 Relay wrote:
-> From: Demeter Barna <me@fromdisposition.org>
-> 
-> The SM8350 GPU comes in speed bins, read from QFPROM 0x17b bits 7:5.
-> Qualcomm's GPU tables for this SoC give:
-> 
->   fuse 1, 3:     up to 900 MHz
->   fuse 0, 5, 7:  up to 840 MHz
->   fuse 4:        up to 738 MHz
 
-I only see at most 2 bins, what's your source?
+On 26/11/2026 12:11, Christian König wrote:
+> On 11/26/26 12:11, Tvrtko Ursulin wrote:
+>> Use scoped cleanup for drm_syncobj_array_wait_timeout entries array
+>> allocation and syncobj cleanup.
+>>
+>> This converts the remaining parts of the function resulting in simpler
+>> error handling and easier extending with a fast path in the future.
+>>
+>> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+>> Cc: Christian König <christian.koenig@amd.com>
+>> Cc: Fei Yu <fei.yu@intel.com>
+>> Cc: Maíra Canal <mcanal@igalia.com>
+>> ---
+>>   drivers/gpu/drm/drm_syncobj.c | 61 +++++++++++++++++++++++------------
+>>   1 file changed, 40 insertions(+), 21 deletions(-)
+>>
+>> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+>> index bd3f9e74e678..7d5c4e4e29b2 100644
+>> --- a/drivers/gpu/drm/drm_syncobj.c
+>> +++ b/drivers/gpu/drm/drm_syncobj.c
+>> @@ -1044,6 +1044,31 @@ static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
+>>   	list_del_init(&wait->node);
+>>   }
+>>   
+>> +struct syncobj_wait_entries {
+>> +	struct drm_syncobj **syncobjs;
+>> +	struct syncobj_wait_entry *entries;
+>> +	unsigned int count;
+>> +};
+>> +
+>> +static void syncobj_wait_entries_free(struct syncobj_wait_entries *e)
+>> +{
+>> +	if (!e->entries)
+>> +		return;
+>> +
+>> +	for (unsigned int i = 0; i < e->count; i++) {
+>> +		drm_syncobj_remove_wait(e->syncobjs[i], &e->entries[i]);
+>> +		if (e->entries[i].fence_cb.func)
+>> +			dma_fence_remove_callback(e->entries[i].fence,
+>> +						  &e->entries[i].fence_cb);
+>> +		dma_fence_put(e->entries[i].fence);
+>> +	}
+>> +
+>> +	kvfree(e->entries);
+>> +}
+>> +
+>> +DEFINE_FREE(syncobj_wait_entries, struct syncobj_wait_entries,
+>> +	    syncobj_wait_entries_free(&_T))
+>> +
+>>   static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   						  void __user *user_points,
+>>   						  uint32_t count,
+>> @@ -1052,6 +1077,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   						  uint32_t *idx,
+>>   						  ktime_t *deadline)
+>>   {
+>> +	struct syncobj_wait_entries cleanup __free(syncobj_wait_entries) = {};
+> 
+> Oh that looks ugly, I would seriously not do it this way.
+> 
+> Replacing the extra kvfree() is ok put I would keep the ref-counting cleanup in the same function.
 
-Konrad
+I assume you meant s/put/but/?
+
+My main counter argument here will be that having a mixture of scope 
+based cleanup and goto's would also not be great. Hence I opted to just 
+convert it all.
+
+Which part is for you the ugly one?
+
+Regards,
+
+Tvrtko
+
+>>   	struct syncobj_wait_entry *entries;
+>>   	u64 *points __free(kvfree) = NULL;
+>>   	struct dma_fence *fence;
+>> @@ -1076,6 +1102,11 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   	if (!entries)
+>>   		return -ENOMEM;
+>>   
+>> +	/* After this the entries cleanup is fully automatic. */
+>> +	cleanup.syncobjs = syncobjs;
+>> +	cleanup.entries = entries;
+>> +	cleanup.count = count;
+>> +
+>>   	/* Walk the list of sync objects and initialize entries.  We do
+>>   	 * this up-front so that we can properly return -EINVAL if there is
+>>   	 * a syncobj with a missing fence and then never have the chance of
+>> @@ -1091,12 +1122,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   		if (!fence || dma_fence_chain_find_seqno(&fence, points[i])) {
+>>   			dma_fence_put(fence);
+>>   			if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+>> -				     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
+>> +				     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE))
+>>   				continue;
+>> -			} else {
+>> -				timeout = -EINVAL;
+>> -				goto cleanup_entries;
+>> -			}
+>> +
+>> +			return -EINVAL;
+>>   		}
+>>   
+>>   		if (fence)
+>> @@ -1115,7 +1144,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   	if (signaled_count == count ||
+>>   	    (signaled_count > 0 &&
+>>   	     !(flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL)))
+>> -		goto cleanup_entries;
+>> +		return timeout;
+>>   
+>>   	/* There's a very annoying laxness in the dma_fence API here, in
+>>   	 * that backends are not required to automatically report when a
+>> @@ -1160,40 +1189,30 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+>>   				} else {
+>>   					if (idx)
+>>   						*idx = i;
+>> -					goto done_waiting;
+>> +					__set_current_state(TASK_RUNNING);
+>> +					return timeout;
+>>   				}
+>>   			}
+>>   		}
+>>   
+>>   		if (signaled_count == count)
+>> -			goto done_waiting;
+>> +			break;
+>>   
+>>   		if (timeout == 0) {
+>>   			timeout = -ETIME;
+>> -			goto done_waiting;
+>> +			break;
+>>   		}
+>>   
+>>   		if (signal_pending(current)) {
+>>   			timeout = -ERESTARTSYS;
+>> -			goto done_waiting;
+>> +			break;
+>>   		}
+>>   
+>>   		timeout = schedule_timeout(timeout);
+>>   	} while (1);
+>>   
+>> -done_waiting:
+>>   	__set_current_state(TASK_RUNNING);
+>>   
+>> -cleanup_entries:
+>> -	for (i = 0; i < count; ++i) {
+>> -		drm_syncobj_remove_wait(syncobjs[i], &entries[i]);
+>> -		if (entries[i].fence_cb.func)
+>> -			dma_fence_remove_callback(entries[i].fence,
+>> -						  &entries[i].fence_cb);
+>> -		dma_fence_put(entries[i].fence);
+>> -	}
+>> -	kvfree(entries);
+>> -
+>>   	return timeout;
+>>   }
+>>   
+> 
+
