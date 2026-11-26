@@ -2,41 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EF6F606A33B
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:31:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D596E606A332
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:31:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=OsIvW0IT
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=yTgZ5A+9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E5F3B112343;
-	Thu, 26 Nov 2026 11:31:34 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6883A11233B
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:31:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1C7D111234A;
+	Thu, 26 Nov 2026 11:31:48 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6EDED112345
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:31:37 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 34DEB1A1807;
- Thu, 26 Nov 2026 11:31:19 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 3893BC2B9C9;
+ Thu, 26 Nov 2026 11:31:44 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 0257060237;
- Thu, 26 Nov 2026 11:31:19 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E3ECE60237;
+ Thu, 26 Nov 2026 11:31:35 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4C2EC11E6B302; Thu, 26 Nov 2026 12:31:12 +0100 (CET)
+ with ESMTPSA id 35E8F11E6B302; Thu, 26 Nov 2026 12:31:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795692676; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795692689; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=bXZ2p/XgbHcBOJKuIE4qtM2nPpzX2bLBPSbSu8Rvx2M=;
- b=OsIvW0ITF++k1YHE9HvE5Ze9eTtvJnNmfRb7ZOPl+2wgbgdyJkMOPF/KXC3Q2dAEGeKXJ2
- uoD83DG+lsBcQVJKvloHDU1ZtKyNNbDn7k8OYsQEY+5ZGAM6MeHlZlyB8n9TpJmDzeTxW9
- q5Y+ytLyfI9WDu//VLSg1vv1paaO3MnJLWtcf2gI15Zt/vBBicETNbjnHNuEaA3dP4biyN
- PspKl7euaonRRGhEnB95CPLxG7QgJn6/M1Td5tmO5Ee/TNvtAxsZkLEMnquS4RK7uADk2F
- wMOwDF7LLI7hxCiuPyWgwsmkmLQ5vhEzH8a4huQK19eYCOqQWWY1g78nENre8Q==
+ bh=asX8stq/YveSMit8T5a15n/5rCFS5HWeKy1w4ifMTS0=;
+ b=yTgZ5A+9BZwxMBH1w0DEPxO5NN1+u7fQTGGTWxelM9j561Vk96gWQrxz3RvL2G1hAS6DUW
+ OJGdr6DEjxmj70gbFhrBNW2+5z4BxnRZ0i46bOVaaeok+HolqVAny2wOBxIbakqDrfA1mz
+ DF7jk8cksuWNC4W5wi78N2RqCKjlysSvKo30nHBLnD5PipbXsx5lEb3JcIB6hX81Ob/css
+ T5WmktKRpff9jPKyd3pnOZCoWH4kVetK1DI6eFLj5kxSSaE7FzOue2b0HfesyvA92t2c4b
+ oeZ4sxjSOJygeVB1rvIi80I9jsEs5Mohf08kTso7KOU8tjWVe7nFNvcqorq0/A==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Thu, 26 Nov 2026 12:29:03 +0100
-Subject: [PATCH v7 20/43] drm/vkms: Introduce configfs for plane rotation
+Date: Thu, 26 Nov 2026 12:29:05 +0100
+Subject: [PATCH v7 22/43] drm/vkms: Introduce configfs for plane color encoding
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261126-vkms-all-config-v7-20-21194cda2468@bootlin.com>
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-vkms-all-config-v7-22-21194cda2468@bootlin.com>
 References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
 In-Reply-To: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -81,94 +81,114 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-To allows the userspace to test many hardware configurations, introduce a
-new interface to configure the available rotation per planes. VKMS
-supports any rotation and reflection, so the userspace can choose any
+To allows the userspace to test many hardware configuration, introduce a
+new interface to configure the available color encoding per planes. VKMS
+supports multiple color encoding, so the userspace can choose any
 combination.
 
-The supported rotations are configured by writing a rotation bitmask to
-the file `supported_rotations` and the default rotation is chosen by
-writing a rotation bitmask to `default_rotation`.
+The supported color encoding are configured by writing a color encoding
+bitmask to the file `supported_color_encoding` and the default color
+encoding is chosen by writing a color encoding bitmask to
+`default_color_encoding`.
 
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- Documentation/ABI/testing/configfs-vkms | 19 ++++++++
- Documentation/gpu/vkms.rst              |  7 ++-
- drivers/gpu/drm/vkms/vkms_configfs.c    | 84 +++++++++++++++++++++++++++++++++
- 3 files changed, 109 insertions(+), 1 deletion(-)
+ Documentation/ABI/testing/configfs-vkms | 18 +++++++
+ Documentation/gpu/vkms.rst              |  8 ++-
+ drivers/gpu/drm/vkms/vkms_configfs.c    | 91 +++++++++++++++++++++++++++++++++
+ 3 files changed, 116 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/ABI/testing/configfs-vkms b/Documentation/ABI/testing/configfs-vkms
-index 55e4183046ec..07ebb797617d 100644
+index 07ebb797617d..592df5602065 100644
 --- a/Documentation/ABI/testing/configfs-vkms
 +++ b/Documentation/ABI/testing/configfs-vkms
-@@ -108,6 +108,25 @@ Description:
- 	Plane type. Possible values: 0 - overlay, 1 - primary,
- 	2 - cursor.
+@@ -127,6 +127,24 @@ Description:
+ 	exactly one rotation bit; reflection bits may be set in
+ 	addition.
  
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/supported_rotations
++What:		/sys/kernel/config/vkms/<device>/planes/<plane>/supported_color_encodings
 +Date:		Nov 2025
 +Contact:	dri-devel@lists.freedesktop.org
 +Description:
-+	Available rotations for the plane, as a bitmask:
-+	0x01 - no rotation, 0x02 - rotate 90°, 0x04 - rotate 180°,
-+	0x08 - rotate 270°, 0x10 - reflect x, 0x20 - reflect y.
++	Available color encodings for the plane, as a bitmask:
++	0x01 - YCBCR_BT601, 0x02 - YCBCR_BT709, 0x04 - YCBCR_BT2020.
 +	The value may be written in decimal or hexadecimal (with
 +	a 0x prefix) and is read back as a decimal number.
 +
-+What:		/sys/kernel/config/vkms/<device>/planes/<plane>/default_rotation
++What:		/sys/kernel/config/vkms/<device>/planes/<plane>/default_color_encoding
 +Date:		Nov 2025
 +Contact:	dri-devel@lists.freedesktop.org
 +Description:
-+	Default rotation presented to userspace, using the same
-+	bit values as supported_rotations. The value must contain
-+	exactly one rotation bit; reflection bits may be set in
-+	addition.
++	Default color encoding presented to userspace, using the
++	same bit values as supported_color_encodings. The value
++	must be a single bit: 1 - YCBCR_BT601, 2 - YCBCR_BT709,
++	4 - YCBCR_BT2020.
 +
  What:		/sys/kernel/config/vkms/<device>/planes/<plane>/possible_crtcs
  Date:		Nov 2025
  Contact:	dri-devel@lists.freedesktop.org
 diff --git a/Documentation/gpu/vkms.rst b/Documentation/gpu/vkms.rst
-index 1e79e62a6bc4..610305483716 100644
+index 610305483716..7206cd2b231a 100644
 --- a/Documentation/gpu/vkms.rst
 +++ b/Documentation/gpu/vkms.rst
-@@ -87,10 +87,15 @@ Start by creating one or more planes::
+@@ -87,7 +87,7 @@ Start by creating one or more planes::
  
    sudo mkdir /config/vkms/my-vkms/planes/plane0
  
--Planes have 1 configurable attribute:
-+Planes have 3 configurable attributes:
+-Planes have 3 configurable attributes:
++Planes have 5 configurable attributes:
  
  - type: Plane type: 0 overlay, 1 primary, 2 cursor (same values as those
    exposed by the "type" property of a plane)
-+- supported_rotations: Available rotation for a plane, as a bitmask: 0x01 no rotation,
-+  0x02 rotate 90°, 0x04 rotate 180°, 0x08 rotate 270°, 0x10 reflect x, 0x20 reflect y
-+  (same values as those exposed by the "rotation" property of a plane)
-+- default_rotation: Default rotation presented to the userspace, same values as
-+  supported_rotations.
+@@ -96,6 +96,12 @@ Planes have 3 configurable attributes:
+   (same values as those exposed by the "rotation" property of a plane)
+ - default_rotation: Default rotation presented to the userspace, same values as
+   supported_rotations.
++- supported_color_encodings: Available encodings for a plane, as a bitmask:
++  0x01 YCBCR_BT601, 0x02 YCBCR_BT709, 0x04 YCBCR_BT2020 (same values as those exposed
++  by the COLOR_ENCODING property of a plane). If set, supported_color_range
++  must be set too.
++- default_color_encoding: Default color encoding presented to the userspace, same
++  values as supported_color_encodings
  
  Continue by creating one or more CRTCs::
  
 diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
-index bbfc0c8a922c..5c62797627c1 100644
+index 5c62797627c1..c6efc6db64c4 100644
 --- a/drivers/gpu/drm/vkms/vkms_configfs.c
 +++ b/drivers/gpu/drm/vkms/vkms_configfs.c
-@@ -322,10 +322,94 @@ static ssize_t plane_type_store(struct config_item *item, const char *page,
- 	return (ssize_t)count;
+@@ -9,6 +9,14 @@
+ #include "vkms_configfs.h"
+ #include "vkms_connector.h"
+ 
++/**
++ * VKMS_SUPPORTED_COLOR_ENCODINGS - Bitmask of all supported color encodings in VKMS
++ */
++#define VKMS_SUPPORTED_COLOR_ENCODINGS (	\
++	BIT(DRM_COLOR_YCBCR_BT601) |		\
++	BIT(DRM_COLOR_YCBCR_BT709) |		\
++	BIT(DRM_COLOR_YCBCR_BT2020))
++
+ /* To avoid registering configfs more than once or unregistering on error */
+ static bool is_configfs_registered;
+ 
+@@ -402,14 +410,97 @@ static ssize_t plane_default_rotation_store(struct config_item *item,
+ 	return count;
  }
  
-+static ssize_t plane_supported_rotations_show(struct config_item *item, char *page)
++static ssize_t plane_supported_color_encodings_show(struct config_item *item, char *page)
 +{
 +	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	unsigned int plane_supported_rotations;
++	unsigned int supported_color_encodings;
 +
 +	scoped_guard(mutex, &plane->dev->config->lock)
-+		plane_supported_rotations = vkms_config_plane_get_supported_rotations(plane->config);
++		supported_color_encodings = vkms_config_plane_get_supported_color_encodings(plane->config);
 +
-+	return sprintf(page, "%u\n", plane_supported_rotations);
++	return sprintf(page, "%u\n", supported_color_encodings);
 +}
 +
-+static ssize_t plane_supported_rotations_store(struct config_item *item,
-+					       const char *page, size_t count)
++static ssize_t plane_supported_color_encodings_store(struct config_item *item,
++						     const char *page, size_t count)
 +{
 +	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
 +	int ret;
@@ -179,36 +199,32 @@ index bbfc0c8a922c..5c62797627c1 100644
 +		return ret;
 +
 +	/* Should be a supported value */
-+	if (val & ~(DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK))
-+		return -EINVAL;
-+	/* Should at least provide one rotation */
-+	if (!(val & DRM_MODE_ROTATE_MASK))
++	if (val & ~(VKMS_SUPPORTED_COLOR_ENCODINGS))
 +		return -EINVAL;
 +
 +	scoped_guard(mutex, &plane->dev->config->lock) {
 +		if (plane->dev->enabled)
 +			return -EBUSY;
 +
-+		vkms_config_plane_set_supported_rotations(plane->config, val);
++		vkms_config_plane_set_supported_color_encodings(plane->config, val);
 +	}
 +
 +	return count;
 +}
 +
-+static ssize_t plane_default_rotation_show(struct config_item *item, char *page)
++static ssize_t plane_default_color_encoding_show(struct config_item *item, char *page)
 +{
 +	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
-+	unsigned int plane_default_rotation;
++	unsigned int default_color_encoding;
 +
-+	scoped_guard(mutex, &plane->dev->config->lock) {
-+		plane_default_rotation = vkms_config_plane_get_default_rotation(plane->config);
-+	}
++	scoped_guard(mutex, &plane->dev->config->lock)
++		default_color_encoding = BIT(vkms_config_plane_get_default_color_encoding(plane->config));
 +
-+	return sprintf(page, "%u\n", plane_default_rotation);
++	return sprintf(page, "%u\n", default_color_encoding);
 +}
 +
-+static ssize_t plane_default_rotation_store(struct config_item *item,
-+					    const char *page, size_t count)
++static ssize_t plane_default_color_encoding_store(struct config_item *item,
++						  const char *page, size_t count)
 +{
 +	struct vkms_configfs_plane *plane = plane_item_to_vkms_configfs_plane(item);
 +	int ret;
@@ -219,31 +235,38 @@ index bbfc0c8a922c..5c62797627c1 100644
 +		return ret;
 +
 +	/* Should be a supported value */
-+	if (val & ~(DRM_MODE_ROTATE_MASK | DRM_MODE_REFLECT_MASK))
++	if (val & ~VKMS_SUPPORTED_COLOR_ENCODINGS)
 +		return -EINVAL;
 +
-+	/* Should contain exactly one rotation */
-+	if (!is_power_of_2(val & DRM_MODE_ROTATE_MASK))
++	/* Ensure val is a single bit set */
++	if (!is_power_of_2(val))
 +		return -EINVAL;
++
++	/* Convert bit position to the proper enum value */
++	val = __ffs(val) + DRM_COLOR_YCBCR_BT601;
 +
 +	scoped_guard(mutex, &plane->dev->config->lock) {
 +		if (plane->dev->enabled)
 +			return -EBUSY;
 +
-+		vkms_config_plane_set_default_rotation(plane->config, val);
++		vkms_config_plane_set_default_color_encoding(plane->config, val);
 +	}
 +
 +	return count;
 +}
 +
  CONFIGFS_ATTR(plane_, type);
-+CONFIGFS_ATTR(plane_, supported_rotations);
-+CONFIGFS_ATTR(plane_, default_rotation);
+ CONFIGFS_ATTR(plane_, supported_rotations);
+ CONFIGFS_ATTR(plane_, default_rotation);
++CONFIGFS_ATTR(plane_, supported_color_encodings);
++CONFIGFS_ATTR(plane_, default_color_encoding);
  
  static struct configfs_attribute *plane_item_attrs[] = {
  	&plane_attr_type,
-+	&plane_attr_supported_rotations,
-+	&plane_attr_default_rotation,
+ 	&plane_attr_supported_rotations,
+ 	&plane_attr_default_rotation,
++	&plane_attr_supported_color_encodings,
++	&plane_attr_default_color_encoding,
  	NULL,
  };
  
