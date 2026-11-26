@@ -2,97 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6650B606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:30:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4423C606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:30:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cpPyQlIx;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BbpPQh/t
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ON8KzKrm;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=WPSwzekZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C41E310F78A;
-	Thu, 26 Nov 2026 06:30:25 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C46310F6B7;
+	Thu, 26 Nov 2026 06:30:32 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85F8310F67D
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 522EC10F6CF
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:21 +0000 (UTC)
 Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQ36gFN2176288
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:03 GMT
+ 6AQ36W7R2175893
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:20 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 6oZSUaLiaSqFOb+1x976n9MXSh90eln4BSwfR3q3W2A=; b=cpPyQlIxUYY4WdIf
- nj73c/Q+D6cb3wTftC73/Trr3uHgwtcsjM1qzeLjm8iPMMqvkJsqb73dIZ/apDyt
- IHdSCm92v2CkFWPnby5I03nlCcRvZ1Y1ZDpsrXMkCBky4JFWAJYuTptqTQYGF+Y+
- uiVdepOSdy5PL90bBMBieQXczW66r/V8oPWcK+Mx6q0U4KMj2XcjI8WKQHiIXtUu
- D2m11dLMnWZVLLHhuh7/IGnHZXk/BcmB9cjTlGnOH8w3gpHvA5QA2y7urphorig9
- UwchKH5TrgQla5tl0HIwRb5zqP6CZW0a0zagDobW03js0A5NgfszY9rzxEMFynEK
- 8hsAow==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
- [209.85.214.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhva95-1
+ AM7xKUZOEMYpYdWupRI+Lalaf2e11Q7JSnkEBr0G9Uk=; b=ON8KzKrmtLVVI0pd
+ xAKQPrM+sogefyJyo7LjyhavbwEkJrllmhv0P3h93qLXL0/8a2YEGFC3PY3QFQFQ
+ DSoczyoV/FawzX3MEIrpaI8foVOt443YP7MzQl9z2ryIgjyew3Nq3OyipOkD7FyV
+ GLDaJEOOEr6CeyP7Gyym4hN10OWJ1sDUBciAfNPrBsBgDRxLNrPEe4dg48+u1lVM
+ a+lbL/nhcEFt2aMQxlYgSTTRgVsiH9p2MLZkr4mlZ9yrbd801qS7/CIEh29TQUnc
+ 8j5GveyJFwQki8AnDmz16gRpcyM2gKNek1HoEefzGIOHhaBWMDyh2YIh5AVJ3VO8
+ i2TReg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com
+ [209.85.214.198])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vuhvabh-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:03 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id
- d9443c01a7336-2efa9aea3c0so85563825ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:30:03 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:20 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id
+ d9443c01a7336-2f053f95aadso56437385ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:30:20 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795674602; x=1796279402;
+ d=oss.qualcomm.com; s=google; t=1795674619; x=1796279419;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=6oZSUaLiaSqFOb+1x976n9MXSh90eln4BSwfR3q3W2A=;
- b=BbpPQh/tZUcadvko4Yyi7PvAa2uJPHMFcOKPOiStXVMW0F4GSjFmOpB6S0QW/uWxaG
- /qCRma2QMgr6Rj+sWlX1t34nQW/uMCTuKsL/VARU0TUhcXh9KHvohOKOAwz9CrJ+T5mG
- 5Qnd9r80GTsj5ugILQ63wmi4WdDCrawi/zhMrW3I+3PTO1u79D5l4XfLXrCEF+6M5My8
- 9Seuz8DTVjB4AgprasGZ7fudAzXVMXqEzoHjAncpSy5E4UYqXCZx6866CJg+PUgDz5F7
- okOK4RYS9ry1xHsf0opJOHBY5Y9k5haWv1RZt446PhPJE+isQ2cWl6MxVMJQJtppPGQQ
- wNbA==
+ bh=AM7xKUZOEMYpYdWupRI+Lalaf2e11Q7JSnkEBr0G9Uk=;
+ b=WPSwzekZj02Z4Snn8oj7lIh0Pac5BAAaMB0EPVh06gUqPq11M/6Dx0LsitUZni3gfp
+ qK5shykvnxShga9XC+UOPMg8jMwIIsI5v8Na0JQoCvFqHNCpZaId/LXWRInBEvVfssmS
+ roWtppLtdRVuEqf6C2TcDOI1nE78VTwaY1/iFoS4PpzQIaPHJVOLXl1vOjnE6VZL/CXr
+ msaPUDA+hwzJEbBtgKz+3V8CckxwhLVOVue/mKmlMnLwlfIYGeLwyxQwf4KDKTEcckka
+ 3xPqb6B5iPSw7TA2YqHopI2qdWk5kZSl32uKYSaE5b91DwQ8vxPJSYwXz9rgpS+nK+8w
+ c+3w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795674602; x=1796279402;
+ d=1e100.net; s=20260707; t=1795674619; x=1796279419;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=6oZSUaLiaSqFOb+1x976n9MXSh90eln4BSwfR3q3W2A=;
- b=RQM+pAIXZipZ60BntpTlxRyHPFGGkIeVHXVJgshUFz29Ke/sUYEiKFCHnuC54qUd/N
- cWwcH4Hl+igAXw2GyaTefbPnCM570s+3RNvb4azg7Ba4UfOI2jsYeZ3LjCiEQrq36ZTo
- /OTQfJtRm2NMVM8Z640XE0DYHKbHXOiVA5qEzFT/ELyyNLRKYQIKgdWrhrw//GSIVdJA
- 8ExEelXr1wotCOlUZlc8OpurLpWE24ohOCd7zFfNCZW+Wr9zHMExRGDCMbuKxO8EB4T7
- 0RslSgwR/OWyobPxB0QiPTKQxeCrMV3F8xAZ5jQtbMVjac0Kh/HqulUW7ZhsMAXSm4Cc
- 0BLA==
+ bh=AM7xKUZOEMYpYdWupRI+Lalaf2e11Q7JSnkEBr0G9Uk=;
+ b=nSa4o9RZ0Wr1jeq8+gfRNIX2goVPlQ3+qx+hAQZ5zpOgCW8PAD9x3OT6fT7IbcJpuO
+ y7kYJ1ut5Ks0T5yllLgWV1N2baSU835wHDkPredu2Ty6neAEzS/VkzjzWogUj5UlAhSO
+ BIz9e6kCHYKikB/q8ay5Im+uJrOTMrMNFbiFQduOjUrSMC6cSCpQWRlkwWBo2gp1zN36
+ VPYlj4v/1B9W3+iKLIl7YWXvl52aFAvno/+ZLWkeCVcIhF1FtQt657n69meRMmxQqPdU
+ zDAxGRAtroBWDulQIuaEuuOMaVJ7nFMcZzDIc8t+v9X7MuWh9dKgHFcsfSNd3FHBXzZG
+ +s1Q==
 X-Forwarded-Encrypted: i=1;
- AL+hErGMXc61LhRZV7Lu1PNBgXwWh/Iv+ilURcQImiuXzJi5ffrqkx2+/jM55pU44gx7xyBuoHhXUbeoh+0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/pTSm8lzlHtIQQWAOQu7P0jDMPlJmUA24nF0MpF3ZwLPGkuQId
- ON9QJpbaNdNLGPz3qaY5fCgUgdLLQ+tcWEZw2ogAqz5SN4jxWyHj2qMpqnFNHqFiX32romy2Ygj
- m77FLH1b/azXCftNbcMijXfv7GZpuhdT7h3bFBDbB3mGjl7FnOwZJ8Tp2yFtegq84OaNEcZs=
-X-Gm-Gg: AZFdTZd3fACRHcbn+G6r1Mqeri2czr9XJ2XBiB+sKpie6WLuh5d7QNeq7DOgPbx0f4Z
- AIRPnZ0ah6v21VP/Kj/+JwRfFZOMBOMr/gpMPjTgzuqmMbddqRlu899ZCxjhY2PLiued2UujQ3b
- E48EpmU3seXRkoLiFZS357UEn9y7Ec+LEoYRqLlrTsKnOO5ZkxomK7Z9V4iHEslHfHhEPxJ990J
- C/MFrWwQOcNfEj1Pb/MhPida//nvjdB3wuazg5hab/rUNQp0I09gvuB8g6S4hGNwC4QWK0uQbhX
- BFgtBath9g7sR1w9GP4ynVYvGciheHWSnBiFaVWRX1AIstpR1aV2ePOJ3d47yKbTnlgKw1FGPvn
- QffOkVizrkfWl7Cai16zyeZB69q+Saefq6fE9ByLJSeKtnPS+bevz5HKrvGq+IroE7SbWs/Ev6C
- ivYY4PetOg
-X-Received: by 2002:a17:903:2308:b0:2ef:d032:66fa with SMTP id
- d9443c01a7336-2f03f0fbc77mr211711705ad.10.1795674601659; 
- Wed, 25 Nov 2026 22:30:01 -0800 (PST)
-X-Received: by 2002:a17:903:2308:b0:2ef:d032:66fa with SMTP id
- d9443c01a7336-2f03f0fbc77mr211711285ad.10.1795674600663; 
- Wed, 25 Nov 2026 22:30:00 -0800 (PST)
+ AL+hErETNMyjhOsIzZpvqAPUCmNE8GyClSv7zQY43r90gEzQcQIy0fTWwGDqka45zLVFbpjIZC8vhq8Za2M=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+ItJ9ay7WD1jPH+YIvZmwNea1c7mQPOk5tMoIs8Gd6cAYHQwkM
+ zVjWs5NLQKWxqX6yTAj/XzSl/FJBrmLoRM1IyjIA0zANuibDvulOlIsYMqNFpBeKeoDN8GtYhBW
+ fy9prBZJrD6VvboQws1VWnocCwqsP7OZRDSie7YuSI+IVI//ToXxDaG7tPRm/fzlZK4062F4=
+X-Gm-Gg: AZFdTZdWnODX4mILzAYSe0/ddsAPS0rmcpbEm6u3LZFuhSrbZFIk7oL1GmPWU8O4fC2
+ EIhk/YTL9+CItmOTMboFkLG5dlLKaiZrE0EA0ryFwMf9a70MMQ4G5jynyO/9oYshaa2sRgr7tyk
+ 1nF6hFuzSSnCkKc2iu6vuypqESmTrrs9PiyoQ3xsz3+zhKrAjLkMe69VLT71htSVUSrDfCX14aj
+ Aqf/ut9YB187XZj/U7uVQHImP0D5oMg7vdFchwxaLpM+9uIWKJfZlgyTzwPSOFZoiJdag3NmdIl
+ Ma6ezr4cjemm1iS2JlhP9H3wMIfMg/9stzJaaIZqQl27w/RWsiCo8bYoRqqENSWDKp6k8InJgxp
+ pT8qV21uJZ5ynTZocZE0OvY7O2javFdArDb9fW7qAmA/cPaMgzW6qDdSFCb8gnjfR6Yw+VicuNR
+ wVm23ry/r6
+X-Received: by 2002:a17:903:19c5:b0:2dd:ad73:5b6c with SMTP id
+ d9443c01a7336-2f0ea5af0acmr18750035ad.28.1795674618807; 
+ Wed, 25 Nov 2026 22:30:18 -0800 (PST)
+X-Received: by 2002:a17:903:19c5:b0:2dd:ad73:5b6c with SMTP id
+ d9443c01a7336-2f0ea5af0acmr18749535ad.28.1795674618084; 
+ Wed, 25 Nov 2026 22:30:18 -0800 (PST)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.29.52
+ d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.30.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 22:30:00 -0800 (PST)
+ Wed, 25 Nov 2026 22:30:17 -0800 (PST)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 11:59:12 +0530
-Subject: [PATCH v3 04/21] drm/msm/dcp: Add HFI display definitions
+Date: Thu, 26 Nov 2026 11:59:14 +0530
+Subject: [PATCH v3 06/21] drm/msm/dcp: Add HFI VirtIO transport
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-jshekhar-v3-dcp-v3-4-f1e9d7505039@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261126-jshekhar-v3-dcp-v3-6-f1e9d7505039@oss.qualcomm.com>
 References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 In-Reply-To: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -118,32 +118,32 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=47013;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=34147;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=anTSHEbTjelsWxQdvO0XHgYVaaakwKL2MBegacpem60=;
- b=nwdAAF+Tzcyuy6Nd6rGIHZS4JUMo//WkUxyMjd8+SIR6yKAdqEnCuhN+g3H/34VZF+gG3qlAL
- 6QEgyAbGXmeBSkSQA2dh3+gGqkLYAdr6zADbKgVfPJfitGl3xEsNoJa
+ bh=BqdLAD+cB8OeUEetpLM++M6VEUOAvED2HzLGC2Rb5nY=;
+ b=vA7FMtrVnl8nnOaYjgFrp4GblcT81GNKhPQUnuZLZHIgMVgQqOY3TU7DYYhs75KDv6MlOUflR
+ sXcS873vRZ8DrwyEMRs2ZwPV8gIpxaSS0nRI/kBGF3wWOO0s88OpAKq
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b07d1eb cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=FPmOVOos c=1 sm=1 tr=0 ts=6b07d1fc cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=OHF3rh-K3CxaddEARscA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: L8AyGwiFi_o0zsr875yzUg1f-UYjB91r
-X-Proofpoint-ORIG-GUID: L8AyGwiFi_o0zsr875yzUg1f-UYjB91r
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX3t9hYIqN1kzi
- QOwlI9oZizYJEAQhiXvjLWU3zRvXs45o6/kN5x4JbA4Q3ABhGj0vPHQTW8ogxXMa4ji6y51UAh+
- ET59JH+m6mez+CB35+u0ANrHWPXbg4c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX/0pHkuoUef3z
- NUv9pNEJxCW/esnU3SLTnJ3PSeF+ru5NBI5AzbFlHglX/Ou/TiOH5esYgyYrewmD4OKqPUJZQzb
- vAgdjRVwqROkF1vqm9qBLoc7ZKU0Gs2NZLnAsvlcrfA91hFhzHV4YJPeaWkhxd7khEqMsKlNynq
- 2sluv9kKMV1/AS9igvtEgPYGbYYBUCYmPJR3dvNzk7smWtaywPWTtSaHeRQH+XLAlndWlGHsucy
- YI9J3N93pXnLhGW3hJP2RXOZb50B9upmqVGU19jmJVjTlIakfW/imO+92fkUr0gMd7p4APyu9Nz
- UwAxNUNh+zNLFy87P/TJq6HTInOpuVLiD059utQMEliBKhIElptb+sSVx4183s00VgpJ+mYkU5b
- YHdz/ZDzfYEFCOtPoPsAmap8/YHUfX9xoDSZY5eNpeppKwMCdOIYEHEDxxNTOPusFGbu8CMxxQc
- K8UOZpnDsoGSJUjuKJg==
+ a=EUspDBNiAAAA:8 a=406GoIHoPCoxA1Cj2Z4A:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: Sbc_RcJnTlXcawJJLQpwG0X0YQKoLHMQ
+X-Proofpoint-ORIG-GUID: Sbc_RcJnTlXcawJJLQpwG0X0YQKoLHMQ
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX+FQcmgHfsRCx
+ tbZhXX/a7aQLxU9hSHd0WtlzbowbA8qUkMKX73pdn/QYRNtrjl9bOv/jwF0VFMRiGhUviB//xzU
+ fGwkyvIQFsx15a82/iuoSzAO+DIi0xU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX/hG37EUn+1k6
+ mIclExnMvbH+FF8HKDT4J+NxQg1OJkHleANhpdkewbIi7KCSiauCsdSZ6hicAwLtQGmPc7mMMwX
+ juaTjsG7ygDtJLeUHjx0Ayu/7VRrUB3t+JEEBVplTdTBu2JljIEqNJ1bZRlACuX8AN5KK3pBSp4
+ Cfa52mjZ00+SrZB/ozhK4Hisu6xC7khvRqu0wVg51VO8r/wY5CRNqZ5uHP/rDq9lJHhqMF7TuKO
+ 1mBTC5fUACElt1Z4M14P6IQBKCyMKnKNMqo8+lhx7M2rVdwDoGJehMLtitBFqQDtFNnsEjht2LT
+ bn/rlG9JJFzk05+qgdiPTDDZviA/KiA8cWvJ86xc8gFGLTkNAk5PS7dn0kupFleonsF59j/cpSZ
+ Q7RK2SEniCK3B0oizOD2EbQicvqAEcjPpr5siF2xlESx5DSUihAqzJrOQ6aid1F/3zcangACRzG
+ +RlZ5EBHHGg/Fu7izmQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
@@ -171,1440 +171,1178 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Define the HFI display protocol used to configure the firmware-owned
-display pipeline. DCP does not expose host-visible display registers,
-so DRM state must be represented by display commands and properties.
+Implement the HFI transport between Linux and DCP firmware over
+VirtIO. The display backend needs a transport that owns DMA buffers,
+submits HFI packets, receives responses, and completes commands
+without exposing firmware queues to higher layers.
 
-Describe display commands, events, data structures, color-management
-data, and property identifiers consumed by the DCP KMS and command
-layers.
+Allocate and manage command and response buffers, handle VirtIO queue
+callbacks, provide synchronous and asynchronous submission paths,
+and synchronize transport teardown with in-flight activity.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display.h | 105 +++++
- .../drm/msm/dcp/hfi/hfi_commands_display_events.h  |  90 ++++
- drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display.h     | 464 ++++++++++++++++++++
- .../gpu/drm/msm/dcp/hfi/hfi_defs_display_color.h   | 247 +++++++++++
- .../gpu/drm/msm/dcp/hfi/hfi_properties_display.h   | 480 +++++++++++++++++++++
- 5 files changed, 1386 insertions(+)
+ drivers/gpu/drm/msm/Makefile           |   1 +
+ drivers/gpu/drm/msm/dcp/dcp_drv.h      |  28 ++
+ drivers/gpu/drm/msm/dcp/dcp_hfi.h      | 171 +++++++
+ drivers/gpu/drm/msm/dcp/dcp_hfi_core.c | 871 +++++++++++++++++++++++++++++++++
+ drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h |  47 ++
+ 5 files changed, 1118 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display.h
+diff --git a/drivers/gpu/drm/msm/Makefile b/drivers/gpu/drm/msm/Makefile
+index ad7b9dbf736e..56c48fe2e2c5 100644
+--- a/drivers/gpu/drm/msm/Makefile
++++ b/drivers/gpu/drm/msm/Makefile
+@@ -72,6 +72,7 @@ msm-display-$(CONFIG_DRM_MSM_MDP5) += \
+ 	disp/mdp5/mdp5_smp.o \
+ 
+ msm-display-$(CONFIG_DRM_MSM_DCP) += \
++	dcp/dcp_hfi_core.o \
+ 	dcp/hfi/hfi_packer.o \
+ 	dcp/hfi/hfi_unpacker.o \
+ 	dcp/hfi/hfi_utils.o
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_drv.h b/drivers/gpu/drm/msm/dcp/dcp_drv.h
 new file mode 100644
-index 000000000000..5f24b45e67b1
+index 000000000000..44d9b2cd5171
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display.h
-@@ -0,0 +1,105 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_drv.h
+@@ -0,0 +1,28 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef __H_HFI_COMMANDS_DISPLAY_H__
-+#define __H_HFI_COMMANDS_DISPLAY_H__
++#ifndef __DCP_DRV_H__
++#define __DCP_DRV_H__
 +
-+/* Display-command range. */
-+#define HFI_COMMAND_DISPLAY_BEGIN                                     0x02000000
++#include <linux/init.h>
++#include <linux/notifier.h>
++#include <linux/platform_device.h>
 +
-+/* Set display properties. */
-+#define HFI_COMMAND_DISPLAY_SET_PROPERTY                              0x02000001
++#include "dcp_hfi.h"
 +
-+/* Read display or layer properties. */
-+#define HFI_COMMAND_DISPLAY_GET_PROPERTY                              0x02000002
++struct dcp_dpu_kms;
 +
-+/* Commit previously submitted display state. */
-+#define HFI_COMMAND_DISPLAY_FRAME_TRIGGER                             0x02000003
++struct dcp_drv {
++	struct virtio_device	*vdev;
++	struct platform_device	*dcp_subsystem_dev;
++	struct device_dma_parameters dcp_subsystem_dma_parms;
++	struct device_node	*dcp_subsystem_node;
++	struct dcp_hfi		*hfi;
++	struct dcp_dpu_kms	*kms;
++	struct dcp_caps		 caps;
++	struct notifier_block	 panic_notifier;
++};
 +
-+/* Register a display event. */
-+#define HFI_COMMAND_DISPLAY_EVENT_REGISTER                            0x02000004
-+
-+/* Unregister a display event. */
-+#define HFI_COMMAND_DISPLAY_EVENT_DEREGISTER                          0x02000005
-+
-+/* Enable the display session. */
-+#define HFI_COMMAND_DISPLAY_ENABLE                                    0x02000006
-+
-+/* Send post-enable panel commands. */
-+#define HFI_COMMAND_DISPLAY_POST_ENABLE                               0x02000007
-+
-+/* Disable the display stream. */
-+#define HFI_COMMAND_DISPLAY_DISABLE                                   0x02000008
-+
-+/* Release post-disable display resources. */
-+#define HFI_COMMAND_DISPLAY_POST_DISABLE                              0x02000009
-+
-+/* Set a previously validated display mode. */
-+#define HFI_COMMAND_DISPLAY_SET_MODE                                  0x0200000a
-+
-+/* Validate a display mode in firmware. */
-+#define HFI_COMMAND_DISPLAY_MODE_VALIDATE                             0x0200000b
-+
-+/* Request host-side display power control. */
-+#define HFI_COMMAND_DISPLAY_POWER_CONTROL                             0x0200000c
-+
-+/* Register display power-control handling. */
-+#define HFI_COMMAND_DISPLAY_POWER_REGISTER                            0x0200000d
-+
-+/* Transfer one DCS command. */
-+#define HFI_COMMAND_DISPLAY_TRANSFER_DCS_CMD                          0x0200000e
-+
-+/* Transfer a DCS command set. */
-+#define HFI_COMMAND_DISPLAY_TRANSFER_DCS_CMD_SET                      0x0200001d
-+
-+/* Configure the display idle timer. */
-+#define HFI_COMMAND_DISPLAY_IDLE_TIMER_CONTROL                        0x0200000f
-+
-+/* Configure DisplayPort transfer units. */
-+#define HFI_COMMAND_DISPLAY_SET_DP_TU                                 0x02000010
-+
-+/* Configure HDR display properties. */
-+#define HFI_COMMAND_DISPLAY_CONFIG_HDR                                0x02000011
-+
-+/* Configure display audio. */
-+#define HFI_COMMAND_DISPLAY_AUDIO_CONFIG                              0x02000012
-+
-+/* Control display audio. */
-+#define HFI_COMMAND_DISPLAY_AUDIO_CONTROL                             0x02000013
-+
-+/* Set the display color space. */
-+#define HFI_COMMAND_DISPLAY_SET_COLORSPACE                            0x02000014
-+
-+/* Provide the HDCP 1.x AKSV. */
-+#define HFI_COMMAND_DISPLAY_HDCP1X_AKSV                               0x02000015
-+
-+/* Provide an HDCP 2.x response. */
-+#define HFI_COMMAND_DISPLAY_HDCP2X_RESPONSE                           0x02000016
-+
-+/* Report sink HDCP capabilities. */
-+#define HFI_COMMAND_DISPLAY_HDCP_FEATURE_SUPPORTED                    0x02000017
-+
-+/* Configure DSI DCS command remapping. */
-+#define HFI_COMMAND_DISPLAY_DSI_CUSTOM_DCS_CMDS_SET_REMAP             0x02000018
-+
-+/* Configure DSI DCS command replacement. */
-+#define HFI_COMMAND_DISPLAY_DSI_CUSTOM_DCS_CMDS_SET_REPLACE           0x02000019
-+
-+/* Configure display batch mode. */
-+#define HFI_COMMAND_DISPLAY_BATCH_MODE                                0x0200001a
-+
-+/* Configure the display HFI subsystem. */
-+#define HFI_COMMAND_DISPLAY_HFI_SUBSYSTEM_CONFIG                      0x0200001b
-+
-+/* Execute a DCS low-power command type. */
-+#define HFI_COMMAND_DISPLAY_EXEC_DCS_CMD_TYPE                         0x0200001c
-+
-+/* End of display-command range. */
-+#define HFI_COMMAND_DISPLAY_END                                       0x02ffffff
-+
-+/* Alias for the display-command range end. */
-+#define HFI_COMMAND_DISPLAY_CLOSE                                     HFI_COMMAND_DISPLAY_END
-+
-+#endif /* __H_HFI_COMMANDS_DISPLAY_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display_events.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display_events.h
++#endif /* __DCP_DRV_H__ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi.h b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
 new file mode 100644
-index 000000000000..48d9c936b672
+index 000000000000..9c80e38aa96f
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_display_events.h
-@@ -0,0 +1,90 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+@@ -0,0 +1,171 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP HFI (Hardware Firmware Interface) protocol layer.
 + */
 +
-+#ifndef __H_HFI_COMMANDS_DISPLAY_EVENTS_H
-+#define __H_HFI_COMMANDS_DISPLAY_EVENTS_H
-+
-+/* Display-event command range. */
-+#define HFI_COMMAND_DISPLAY_EVENT_BEGIN                                         0x04000000
-+
-+/* Report vertical sync and its index. */
-+#define HFI_COMMAND_DISPLAY_EVENT_VSYNC                                         0x04000001
-+
-+/* Report frame-scan start and sequence ID. */
-+#define HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_START                              0x04000002
-+
-+/* Report frame-scan completion. */
-+#define HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE                           0x04000003
-+
-+/* Report display idle state. */
-+#define HFI_COMMAND_DISPLAY_EVENT_IDLE                                          0x04000004
-+
-+/* Report display power-state changes. */
-+#define HFI_COMMAND_DISPLAY_EVENT_POWER                                         0x04000005
-+
-+/* Report display hardware recovery. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY                                   0x04000006
-+
-+/* Report frame-capture completion. */
-+#define HFI_COMMAND_DISPLAY_EVENT_FRAME_CAPTURE_COMPLETE                        0x04000007
-+
-+/* Report an unrecoverable panel failure. */
-+#define HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD                                    0x04000008
-+
-+/* Report LTM statistics events. */
-+#define HFI_COMMAND_DISPLAY_EVENT_LTM                                           0x04000009
-+
-+/* Report RGB histogram events. */
-+#define HFI_COMMAND_DISPLAY_EVENT_RGB_HIST                                      0x0400000a
-+
-+/* Report PA histogram events. */
-+#define HFI_COMMAND_DISPLAY_EVENT_PA_HIST                                       0x0400000b
-+
-+/* Report hotplug status. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS                                    0x0400000c
-+
-+/* Report EDID and supported modes. */
-+#define HFI_COMMAND_DISPLAY_EVENT_EDID_INFO                                     0x0400000d
-+
-+/* Report SPR/OPR values at frame scan. */
-+#define HFI_COMMAND_DISPLAY_EVENT_SPR_OPR                                       0x0400000e
-+
-+/* Report interface MISR values at frame scan. */
-+#define HFI_COMMAND_DISPLAY_EVENT_INTERFACE_MISR                                0x0400000f
-+
-+/* Request HDCP 1.x authentication start. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP1X_START                                  0x04000010
-+
-+/* Request HDCP 1.x authentication stop. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP1X_STOP                                   0x04000011
-+
-+/* Update HDCP 1.x encryption state. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP1X_ENC                                    0x04000012
-+
-+/* Update HDCP 1.x repeater topology. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP1X_TOPOLOGY_UPDATE                        0x04000013
-+
-+/* Start the HDCP 2.x sequence. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP2X_START                                  0x04000014
-+
-+/* Process an HDCP 2.x message. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP2X_PROCESS_MSG                            0x04000015
-+
-+/* Report an HDCP 2.x message timeout. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP2X_TIMEOUT                                0x04000016
-+
-+/* Report sink HDCP capabilities. */
-+#define HFI_COMMAND_DISPLAY_EVENT_HDCP_FEATURE_SUPPORTED                        0x04000017
-+
-+/* Report COPR status data. */
-+#define HFI_COMMAND_DISPLAY_EVENT_AIQE_COPR_READ                                0x04000018
-+
-+/* Report programmable-line events. */
-+#define HFI_COMMAND_DISPLAY_EVENT_PROG_LINE                                     0x04000019
-+
-+/* End of display-event command range. */
-+#define HFI_COMMAND_DISPLAY_EVENT_END                                           0x04ffffff
-+
-+#endif /* __H_HFI_COMMANDS_DISPLAY_EVENTS_H */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display.h
-new file mode 100644
-index 000000000000..c01a001409ce
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display.h
-@@ -0,0 +1,464 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __H_HFI_DEFS_DISPLAY_H__
-+#define __H_HFI_DEFS_DISPLAY_H__
-+
-+#include "hfi_defs_common.h"
-+
-+/* Display blending and power controls. */
-+enum hfi_display_blend_ops {
-+	HFI_BLEND_OP_NOT_DEFINED        = 0x0,
-+	HFI_BLEND_OP_OPAQUE             = 0x1,
-+	HFI_BLEND_OP_PREMULTIPLIED      = 0x2,
-+	HFI_BLEND_OP_COVERAGE           = 0x3,
-+	HFI_BLEND_OP_SKIP               = 0x4,
-+	HFI_BLEND_OP_MAX                = 0x5,
-+};
-+
-+enum hfi_display_power_mode {
-+	HFI_MODE_DPMS_INVALID   = 0,
-+	HFI_MODE_DPMS_OFF       = 0x1,
-+	HFI_MODE_DPMS_ON        = 0x2,
-+	HFI_MODE_DPMS_LP1       = 0x3,
-+	HFI_MODE_DPMS_LP2       = 0x4,
-+	HFI_MODE_DPMS_NOLP      = 0x5,
-+};
-+
-+enum hfi_display_power_control {
-+	HFI_PANEL_POWER      = 0x1,
-+	HFI_CTRL_POWER       = 0x2,
-+	HFI_PHY_POWER        = 0x4,
-+};
-+
-+enum hfi_display_commit_flag {
-+	HFI_VALIDATE           = 0x1,
-+	HFI_COMMIT             = 0x2,
-+};
-+
-+enum hfi_display_res_type {
-+	HFI_RESOURCE_LM = 0x1,
-+};
-+
-+/* Firmware resource configuration. */
-+struct hfi_resource_cfg {
-+	u32 res_type;
-+	u32 resource_idx;
-+	u32 width;
-+	u32 height;
-+	u32 reserved;
-+};
-+
-+/* Display region of interest. */
-+struct hfi_display_roi {
-+	u32 x_pos;
-+	u32 y_pos;
-+	u32 width;
-+	u32 height;
-+};
-+
-+enum hfi_display_roi_type {
-+	PANEL_ROI = 0x0,
-+};
-+
-+/* VSync event payload. */
-+struct hfi_display_vsync_data {
-+	u32 timestamp_lo;
-+	u32 timestamp_hi;
-+	u32 vsync_index;
-+};
-+
-+/* Frame-scan event payload. */
-+struct hfi_display_frame_event_data {
-+	u32 timestamp_lo;
-+	u32 timestamp_hi;
-+	u32 bufferflip_index;
-+};
-+
-+struct hfi_display_color {
-+	u16 color_0;
-+	u16 color_1;
-+	u16 color_2;
-+	u16 color_3;
-+};
-+
-+enum hfi_display_dim_layer_flag {
-+	HFI_DIM_LAYER_INCLUSIVE = 0x1,
-+	HFI_DIM_LAYER_EXCLUSIVE = 0x2,
-+};
-+
-+/* Dim-layer configuration. */
-+struct hfi_display_dim_layer {
-+	enum hfi_display_dim_layer_flag flags;
-+	u32 stage;
-+	struct hfi_display_color color_fill;
-+	struct hfi_display_roi rect;
-+};
-+
-+enum hfi_layer_cache_state {
-+	HFI_CACHE_STATE_DISABLE = 0x0,
-+	HFI_CACHE_STATE_READ = 0x1,
-+	HFI_CACHE_STATE_WRITE = 0x2,
-+};
-+
-+enum hfi_layer_cache_op_type {
-+	HFI_CACHE_OP_TYPE_NONE = 0x0,
-+	HFI_CACHE_NORMAL_CACHEABLE_READ = 0x1,
-+	HFI_CACHE_READ_INVALIDATE = 0x2,
-+	HFI_CACHE_READ_EVICT = 0x3,
-+	HFI_CACHE_PREFETCH_READ = 0x4,
-+};
-+
-+/* Autorefresh configuration. */
-+struct hfi_display_autorefresh_cfg {
-+	u32 enable;
-+	u32 frame_count;
-+};
-+
-+struct hfi_display_idle_event_data {
-+	u32 timestamp_lo;
-+	u32 timestamp_hi;
-+	u32 idle_index;
-+};
-+
-+struct hfi_display_power_event_data {
-+	u32 timestamp_lo;
-+	u32 timestamp_hi;
-+	enum hfi_display_power_mode power_state;
-+};
-+
-+struct hfi_display_prog_line_event_data {
-+	u32 timestamp_lo;
-+	u32 timestamp_hi;
-+	u32 prog_line_index;
-+};
-+
-+enum hfi_display_idle_timer_control {
-+	HFI_DEFAULT          = 0x0,
-+	HFI_WAKEUP           = 0x1,
-+	HFI_BLOCK_TIMER      = 0x2,
-+	HFI_UNBLOCK_TIMER    = 0x3,
-+};
-+
-+/* Display event identifiers. */
-+enum hfi_display_event_id {
-+	HFI_EVENT_VSYNC               = 0x1,
-+	HFI_EVENT_FRAME_SCAN_START    = 0x2,
-+	HFI_EVENT_FRAME_SCAN_COMPLETE = 0x3,
-+	HFI_EVENT_FRAME_IDLE          = 0x4,
-+	HFI_EVENT_DISPLAY_POWER       = 0x5,
-+	HFI_EVENT_HW_RECOVERY         = 0x6,
-+	HFI_EVENT_FRAME_CAPTURE_COMPLETE = 0x7,
-+	HFI_EVENT_PANEL_DEAD          = 0x8,
-+	HFI_EVENT_LTM                 = 0x9,
-+	HFI_EVENT_RGB_HIST            = 0xa,
-+	HFI_EVENT_PA_HIST             = 0xb,
-+	HFI_EVENT_HPD_STATUS          = 0xc,
-+	HFI_EVENT_DISPLAY_EDID_INFO   = 0xd,
-+	HFI_EVENT_SPR_OPR             = 0xe,
-+	HFI_EVENT_INTF_MISR           = 0xf,
-+	HFI_EVENT_HDCP1X_START        = 0x10,
-+	HFI_EVENT_HDCP1X_STOP         = 0x11,
-+	HFI_EVENT_HDCP1X_ENC          = 0x12,
-+	HFI_EVENT_HDCP1X_TOPOLOGY_UPDATE = 0x13,
-+	HFI_EVENT_HDCP2X_START        = 0x14,
-+	HFI_EVENT_HDCP2X_PROCESS_MSG  = 0x15,
-+	HFI_EVENT_HDCP2X_TIMEOUT      = 0x16,
-+	HFI_EVENT_HDCP_FEATURE_SUPPORTED = 0x17,
-+	HFI_EVENT_AIQE_COPR           = 0x18,
-+	HFI_EVENT_PROG_LINE_INTR      = 0x19,
-+};
-+
-+enum hfi_display_dp_event {
-+	HFI_DP_EVENT_NONE         = 0x0,
-+	HFI_DP_EVENT_HPD_PLUGGED  = 0x1,
-+	HFI_DP_EVENT_IRQ_HPD      = 0x2,
-+	HFI_DP_EVENT_SET_MODE     = 0x3,
-+	HFI_DP_EVENT_HPD_UNPLUGGED = 0x4,
-+};
-+
-+enum hfi_display_dp_state {
-+	HFI_DP_STATE_DISCONNECTED = 0x0,
-+	HFI_DP_STATE_HPD_IN       = 0x1,
-+	HFI_DP_STATE_CONNECTED    = 0x2,
-+	HFI_DP_STATE_HPD_OUT      = 0x3,
-+};
-+
-+struct hfi_display_hpd_status {
-+	enum hfi_display_dp_event dp_evt;
-+	enum hfi_display_dp_state dp_state;
-+};
-+
-+/* Display mode sent to firmware. */
-+struct hfi_display_mode_info {
-+	u32 size;
-+	u32 h_active;
-+	u32 h_back_porch;
-+	u32 h_sync_width;
-+	u32 h_front_porch;
-+	u32 h_skew;
-+	u32 h_sync_polarity;
-+	u32 v_active;
-+	u32 v_back_porch;
-+	u32 v_sync_width;
-+	u32 v_front_porch;
-+	u32 v_sync_polarity;
-+	u32 refresh_rate;
-+	u32 clk_rate_hz_lo;
-+	u32 clk_rate_hz_hi;
-+	u32 flags_lo;
-+	u32 flags_hi;
-+	u32 reserved1;
-+	u32 reserved2;
-+};
-+
-+/* DSI command descriptor. */
-+struct hfi_dsi_cmd_desc {
-+	u32 size;
-+
-+	u8 channel;
-+	u8 type;
-+	u16 flags;
-+
-+		u32 tx_len;
-+	u32 tx_buff_addr_lsb;
-+	u32 tx_buff_addr_msb;
-+
-+		u32 rx_len;
-+	u32 rx_buff_addr_lsb;
-+	u32 rx_buff_addr_msb;
-+
-+		u32 ctrl_idx;
-+	u32 ctrl_flags;
-+	u32 last_command;
-+	u32 post_wait_ms;
-+
-+	u32 seq_no;
-+
-+		u32 reserved2;
-+};
-+
-+/* DSI command descriptor. */
-+struct hfi_dsi_cmd_desc_set {
-+	u32 size;
-+	u32 type;
-+	u32 count;
-+	u32 state;
-+	u32 seq_no;
-+	u32 reserved2;
-+	struct hfi_dsi_cmd_desc cmds[];
-+};
-+
-+enum hfi_display_blend_stage {
-+	HFI_BLEND_STAGE_BASE,
-+	HFI_BLEND_STAGE_0,
-+	HFI_BLEND_STAGE_1,
-+	HFI_BLEND_STAGE_2,
-+	HFI_BLEND_STAGE_3,
-+	HFI_BLEND_STAGE_4,
-+	HFI_BLEND_STAGE_5,
-+	HFI_BLEND_STAGE_6,
-+	HFI_BLEND_STAGE_7,
-+	HFI_BLEND_STAGE_8,
-+	HFI_BLEND_STAGE_9,
-+	HFI_BLEND_STAGE_10,
-+};
-+
-+enum hfi_layer_fetch_mode {
-+	HFI_PARALLEL_FETCH        = 0x0,
-+	HFI_TIME_MULTIPLEX_FETCH  = 0x1,
-+};
-+
-+enum hfi_layer_security_policy {
-+	HFI_LAYER_SECURITY_POLICY_NON_SECURE                  = 0x0,
-+	HFI_LAYER_SECURITY_POLICY_SECURE                      = 0x1,
-+	HFI_LAYER_SECURITY_POLICY_SECURE_DIR_TRANSLATION      = 0x2,
-+	HFI_LAYER_SECURITY_POLICY_MAX
-+};
-+
-+#define HFI_DISPLAY_ROTATION_0   BIT(0)
-+
-+#define HFI_DISPLAY_ROTATION_90   BIT(1)
-+
-+#define HFI_DISPLAY_ROTATION_180     BIT(2)
-+
-+#define HFI_DISPLAY_ROTATION_270   BIT(3)
-+
-+#define HFI_DISPLAY_REFLECT_X   BIT(4)
-+
-+#define HFI_DISPLAY_REFLECT_Y   BIT(5)
-+
-+enum hfi_cwb_tap_points {
-+	HFI_TAP_POINT_NONE,
-+	HFI_TAP_POINT_LM,
-+	HFI_TAP_POINT_DSPP,
-+	HFI_TAP_POINT_DEMURA,
-+	HFI_TAP_POINT_MAX,
-+};
-+
-+enum hfi_fence_type {
-+	HFI_FENCE_SCAN_START,
-+	HFI_FENCE_SCAN_COMPLETE,
-+};
-+
-+enum hfi_dp_sink_capability_flags {
-+	HFI_DP_SINK_CAP_MST,
-+	HFI_DP_SINK_CAP_DSC,
-+	HFI_DP_SINK_CAP_FEC,
-+};
-+
-+/* EDID and mode information. */
-+struct hfi_display_event_edid_info {
-+	u32 controller_id;
-+	u32 stream_id;
-+	u32 link_rate;
-+	u32 lane_count;
-+	u32 bits_per_pixel;
-+	u32 flags;
-+	struct hfi_buff edid_modes_buf;
-+};
-+
-+struct hfi_display_dp_tu {
-+	u32 dp_tu;
-+	u32 valid_boundary;
-+	u32 valid_boundary2;
-+};
-+
-+/* Display audio configuration. */
-+struct hfi_audio_config {
-+	u32 sample_rate;
-+	u32 num_of_channels;
-+	u32 channel_allocation;
-+	u32 level_shift;
-+	u32 down_mix;
-+	u32 sample_present;
-+	u32 stream_id;
-+};
-+
-+struct hfi_hdr_metadata {
-+		u32 hdr_state;
-+	u32 eotf;
-+	u32 hdr_supported;
-+	u32 display_primaries_x[HFI_MAX_COLOR_COMPONENTS];
-+	u32 display_primaries_y[HFI_MAX_COLOR_COMPONENTS];
-+	u32 white_point_x;
-+	u32 white_point_y;
-+	u32 max_luminance;
-+	u32 min_luminance;
-+	u32 max_content_light_level;
-+	u32 max_average_light_level;
-+};
-+
-+/* HDR display configuration. */
-+struct hfi_display_hdr_cfg {
-+	struct hfi_hdr_metadata hdr_meta;
-+	u32 dynamic_hdr_payload_size;
-+	u8 dynamic_hdr_payload[HFI_DHDR_PAYLOAD_MAX_SIZE];
-+};
-+
-+enum hfi_colorimetry {
-+	HFI_COLORIMETRY_DEFAULT            = 0,
-+	HFI_COLORIMETRY_SMPTE_170M_YCC     = 1,
-+	HFI_COLORIMETRY_BT709_YCC          = 2,
-+	HFI_COLORIMETRY_XVYCC_601          = 3,
-+	HFI_COLORIMETRY_XVYCC_709          = 4,
-+	HFI_COLORIMETRY_SYCC_601           = 5,
-+	HFI_COLORIMETRY_OPYCC_601          = 6,
-+	HFI_COLORIMETRY_OPRGB              = 7,
-+	HFI_COLORIMETRY_BT2020_CYCC        = 8,
-+	HFI_COLORIMETRY_BT2020_RGB         = 9,
-+	HFI_COLORIMETRY_BT2020_YCC         = 10,
-+	HFI_COLORIMETRY_DCI_P3_RGB_D65     = 11,
-+	HFI_COLORIMETRY_DCI_P3_RGB_THEATER = 12,
-+};
-+
-+enum hfi_misr_block {
-+	HFI_MISR_DSI   = 0x0,
-+	HFI_MISR_MIXER = 0x1,
-+	HFI_MISR_INTF  = 0x2,
-+};
-+
-+enum hfi_batch_mode {
-+	HFI_BATCH_MODE_NONE   = 0x0,
-+	HFI_BATCH_MODE_START  = 0x1,
-+	HFI_BATCH_MODE_END    = 0x2,
-+	HFI_BATCH_MODE_CANCEL = 0x3,
-+};
-+
-+enum hfi_batch_usecase_id {
-+	HFI_BATCH_USECASE_NONE = 0,
-+	HFI_BATCH_USECASE_GMU_REPROJ,
-+};
-+
-+struct hfi_misr_config {
-+	u32 enable;
-+	u32 frame_count;
-+	enum hfi_misr_block block;
-+};
-+
-+/* HDCP 1.x topology. */
-+struct hfi_hdcp1x_topology_data {
-+	u32 depth;
-+	u32 device_count;
-+	u32 max_devices_exceeded;
-+	u32 max_cascade_exceeded;
-+};
-+
-+/* HDCP 2.x message payload. */
-+struct hfi_hdcp2_message {
-+	u32 timeout_ms;
-+	u32 repeater_flag;
-+	struct hfi_buff request;
-+	struct hfi_buff response;
-+};
-+
-+struct hfi_display_mode_extended_info {
-+	u32 size;
-+	struct hfi_display_mode_info base;
-+	u32 mixer_count;
-+	u32 cmpr_count;
-+	u32 cmpr_enabled;
-+	u32 cmpr_bpp;
-+	u32 cmpr_slice_count;
-+	u8  test_pattern;
-+	u8  reserved[7];
-+};
-+
-+struct hfi_cmd_set_remap {
-+	u32 cmd_type;
-+	u32 custom_cmd_type;
-+	u32 flag;
-+	u32 reserved;
-+};
-+
-+struct hfi_dsi_dcs_cmd_set_replace_entry {
-+	u32 dpu_buff_type_offset;
-+	u32 cmd_type;
-+	u32 count_cmds;
-+	u32 hfi_buff_struct_offset;
-+	u32 reserved;
-+};
-+
-+struct hfi_custom_wd_te_params {
-+	u32 wd_te_enabled;
-+	u32 custom_fps;
-+};
-+
-+/* Display batch-mode configuration. */
-+struct hfi_batch_mode_info {
-+	enum hfi_batch_mode mode;
-+	enum hfi_batch_usecase_id usecase_id;
-+	u32 reserved[2];
-+};
-+
-+#define HFI_WB_DNSC_CFG_DISABLE	BIT(0)
-+
-+struct hfi_dnsc_cfg {
-+	u32 flags;
-+	u32 dst_width;
-+	u32 dst_height;
-+};
-+
-+#endif /* __H_HFI_DEFS_DISPLAY_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display_color.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display_color.h
-new file mode 100644
-index 000000000000..7a474e0c55b7
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_display_color.h
-@@ -0,0 +1,247 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __H_HFI_DEFS_DISPLAY_COLOR_H__
-+#define __H_HFI_DEFS_DISPLAY_COLOR_H__
-+
++#ifndef __DCP_HFI_H__
++#define __DCP_HFI_H__
++
++#include <linux/completion.h>
++#include <linux/dma-mapping.h>
++#include <linux/list.h>
++#include <linux/mutex.h>
++#include <linux/scatterlist.h>
++#include <linux/spinlock.h>
 +#include <linux/types.h>
++#include <linux/virtio.h>
++#include <linux/workqueue.h>
++#include <linux/xarray.h>
 +
-+#include "hfi_defs_common.h"
++#include "hfi/hfi_packet.h"
++#include "hfi/hfi_pack_unpack_common.h"
++#include "hfi/hfi_packer.h"
++#include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_defs_common.h"
 +
-+#define HFI_DISPLAY_COLOR_FLAGS_FEATURE_ENABLE         BIT(0)
++struct dcp_drv;
 +
-+#define HFI_DISPLAY_COLOR_FLAGS_FEATURE_BROADCAST      BIT(1)
++/* Queue 0 carries commands; queue 1 carries responses and events. */
++#define DCP_VQ_CMD	0	/* TX: all commands */
++#define DCP_VQ_RESP	1	/* RX: all responses and async events */
++#define DCP_NUM_VQS	2
 +
-+#define HFI_DISPLAY_COLOR_HW_BLK_INDEX_0_FLAG    BIT(2)
-+#define HFI_DISPLAY_COLOR_HW_BLK_INDEX_1_FLAG    BIT(3)
-+#define HFI_DISPLAY_COLOR_HW_BLK_INDEX_2_FLAG    BIT(4)
-+#define HFI_DISPLAY_COLOR_HW_BLK_INDEX_3_FLAG    BIT(5)
++#define DCP_MAX_DISPLAYS	4
++#define DCP_HFI_CAPS_BUF_SIZE	4096
 +
-+#define HFI_DITHER_MATRIX_SZ                16
-+#define HFI_DITHER_LUMA_MODE                BIT(0)
-+#define HFI_DITHER_OFFSET_ENABLE            BIT(1)
++struct dcp_hfi_caps_cache {
++	struct completion device_done;
++	struct completion display_done;
 +
-+#define HFI_DITHER_MATRIX_SZ_EXTENDED       256
-+#define HFI_DITHER_MATRIX_SELECT_4_4        0
-+#define HFI_DITHER_MATRIX_SELECT_6_6        1
-+#define HFI_DITHER_MATRIX_SELECT_8_8        2
-+#define HFI_DITHER_MATRIX_SELECT_16_16      3
-+
-+/* Dither configuration. */
-+struct hfi_display_dither {
-+	u32 flags;
-+	u32 feature_flags;
-+	u32 temporal_en;
-+	u32 c0_bitdepth;
-+	u32 c1_bitdepth;
-+	u32 c2_bitdepth;
-+	u32 c3_bitdepth;
-+	u32 dither_matrix_select;
-+	s32 matrix[HFI_DITHER_MATRIX_SZ_EXTENDED];
++	u8 device_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 device_len;
++	u8 display_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 display_len;
++	u8 vig_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 vig_len;
++	u8 dma_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 dma_len;
++	u8 vig_r1_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 vig_r1_len;
++	u8 dma_r1_buf[DCP_HFI_CAPS_BUF_SIZE];
++	u32 dma_r1_len;
++	u32 pipe_caps_received;
 +};
 +
-+/* PA dither configuration. */
-+struct hfi_display_pa_dither {
-+	u32 flags;
-+	u32 strength;
-+	u32 offset_en;
-+	u32 matrix[HFI_DITHER_MATRIX_SZ];
++#define DCP_MAX_SSPP_COUNT	16
++#define DCP_MAX_VIG_PIPES	DCP_MAX_SSPP_COUNT
++#define DCP_MAX_DMA_PIPES	DCP_MAX_SSPP_COUNT
++
++#define DCP_MAX_BLOCKS		8
++
++/* Pipe indices encode the rectangle ID in bits 31:24. */
++#define DCP_REC_ID(x)		(((x) & 0xff000000) >> 24)
++
++/* Capabilities parsed from DEVICE_INIT responses. */
++struct dcp_caps {
++	u32 dcp_hw_rev;
++	u32 hw_rev;
++	u32 fw_rev;
++
++	u32 num_vig_pipes;
++	u32 vig_pipe_ids[DCP_MAX_SSPP_COUNT];
++	u32 virt_vig_count;
++	u32 vig_r1_indices[DCP_MAX_SSPP_COUNT];
++
++	u32 num_dma_pipes;
++	u32 dma_pipe_ids[DCP_MAX_SSPP_COUNT];
++	u32 virt_dma_count;
++	u32 dma_r1_indices[DCP_MAX_SSPP_COUNT];
++
++	/* Number of displays reported by firmware. */
++	u32 num_displays;
++
++	u32 dsi_count;
++	u32 dsi_indices[DCP_MAX_BLOCKS];
++
++	/* Maximum dimensions reported for DSI display modes. */
++	u32 max_width;
++	u32 max_height;
++
++	u32 max_planes;
 +};
 +
-+#define HFI_QRTC_LUT_SIZE 81        /* Each LUT is 9x9 */
-+#define HFI_QRTC_NUM_LUTS 3         /* Number of LPF/HPF tables */
-+
-+/* QRTC subsampling modes. */
-+#define HFI_QRTC_SUBSAMPLE_1x1 0x0  /* Horizontal: 1, Vertical: 1 */
-+#define HFI_QRTC_SUBSAMPLE_2x1 0x1  /* Horizontal: 2, Vertical: 1 */
-+#define HFI_QRTC_SUBSAMPLE_2x2 0x2  /* Horizontal: 2, Vertical: 2 */
-+#define HFI_QRTC_SUBSAMPLE_3x3 0x3  /* Horizontal: 3, Vertical: 3 */
-+
-+/* QRTC DMA selections. */
-+#define HFI_QRTC_DMA_1 0x1
-+#define HFI_QRTC_DMA_3 0x3
-+
-+/* QRTC rectangle selections. */
-+#define HFI_QRTC_RECT0 0x0  /* Select Rectangle 0 */
-+#define HFI_QRTC_RECT1 0x1  /* Select Rectangle 1 */
-+#define HFI_WRITE_BACK_0 0x0
-+#define HFI_WRITE_BACK_1 0x1
-+#define HFI_WRITE_BACK_2 0x2
-+#define HFI_CWB_BLOCK_0 0x0
-+#define HFI_CWB_BLOCK_1 0x1
-+#define HFI_CWB_BLOCK_2 0x2
-+#define HFI_CWB_BLOCK_3 0x3
-+#define HFI_CWB_BLOCK_4 0x4
-+#define HFI_CWB_BLOCK_5 0x5
-+#define HFI_CWB_BLOCK_6 0x6
-+#define HFI_CWB_BLOCK_7 0x7
-+
-+/* Bit 16 marks a secure QRTC buffer. */
-+#define HFI_QRTC_SECURE_BUFF BIT(16)
-+
-+/* QRTC configuration and capture-buffer selection. */
-+struct hfi_qrtc_config {
-+	u32 flags;
-+	u32 lut_dma_flags;
-+	u32 iova_l;
-+	u32 iova_h;
-+	u32 len;
-+	u32 coring_en;
-+	u32 coring_pos;
-+	u32 coring_neg;
-+	u32 lpf_en;
-+	u32 subsample_mode;
-+	u32 dma_sel;
-+	u32 rect_sel;
-+	u32 wb_sel;
-+	u32 cwb_sel;
-+	u32 cwb_tap_point;
-+	u32 cwb_iova_l;
-+	u32 cwb_iova_h;
-+	u32 cwb_len;
-+	u32 cwb_height;
-+	u32 cwb_width;
-+	u32 format;
-+	u32 aligned_cwb_height;
-+	u32 aligned_cwb_width;
++struct dcp_hfi_buf {
++	void *data;
++	dma_addr_t dma_addr;
++	size_t size;
++	struct scatterlist sg;
++	struct dcp_hfi_completion *comp;
++	struct list_head node;
 +};
 +
-+#define HFI_LTM_DATA_SIZE_0        32
-+#define HFI_LTM_DATA_SIZE_1        128
-+#define HFI_LTM_DATA_SIZE_2        256
-+#define HFI_LTM_BLOCK_MAX          4
-+
-+#define HFI_LTM_STATS_SAT          BIT(1)
-+#define HFI_LTM_STATS_MERGE_SAT    BIT(2)
-+
-+#define HFI_LTM_HIST_DONE                   BIT(0)
-+#define HFI_LTM_WB_PB                       BIT(1)
-+#define HFI_LTM_HIST_OFF                    BIT(2)
-+
-+struct hfi_display_ltm_init_param {
-+	u32 flags;
-+	u32 init_param_01;
-+	u32 init_param_02;
-+	u32 init_param_03;
-+	u32 init_param_04;
++struct dcp_hfi_completion {
++	struct completion done;
++	int status;
++	void *resp_data;
++	size_t resp_len;
++	u32 packet_id;
 +};
 +
-+struct hfi_display_ltm_cfg_param {
-+	u32 flags;
-+	u32 cfg_param_01;
-+	u32 cfg_param_02;
-+	u32 cfg_param_03;
-+	u32 cfg_param_04;
-+	u32 cfg_param_05;
-+	u32 cfg_param_06;
++struct dcp_hfi {
++	struct device *dev;
++	struct dcp_drv *drv;
++
++	struct device *dma_dev;
++
++	struct virtqueue *cmd_vq;
++	struct virtqueue *resp_vq;
++
++	struct dcp_hfi_buf *cmd_pool;
++	struct list_head cmd_free_list;
++	/* Protects cmd_free_list and command buffer ownership. */
++	spinlock_t cmd_lock;
++
++	struct dcp_hfi_buf *resp_pool;
++	/* Protects response queue draining. */
++	spinlock_t resp_drain_lock;
++	struct list_head resp_repost_list;
++	struct delayed_work resp_repost_work;
++	struct xarray pending_xa;
++	/* Protects pending_xa and completion publication. */
++	spinlock_t pending_lock;
++	/* Allocates non-zero packet IDs for HFI transactions. */
++	atomic_t packet_id;
++	/* Blocks new work once transport teardown begins. */
++	atomic_t shutdown_in_progress;
 +};
 +
-+/* Shared LTM statistics buffer descriptor. */
-+struct hfi_display_ltm_buffer {
-+	u32 flags;
-+	u32 dpu_iova_l;
-+	u32 dpu_iova_h;
-+	u32 dcp_addr_l;
-+	u32 dcp_addr_h;
-+	u32 size;
-+};
++int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
++		 struct virtqueue *cmd_vq, struct virtqueue *resp_vq,
++		 struct device *dma_dev);
++void dcp_hfi_stop(struct dcp_hfi *hfi);
++void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi);
++int dcp_hfi_restore_queues(struct dcp_hfi *hfi, struct virtqueue *cmd_vq,
++			   struct virtqueue *resp_vq);
++void dcp_hfi_deinit(struct dcp_hfi *hfi);
 +
-+struct hfi_display_ltm_stats_data {
-+	u32 stats_01[HFI_LTM_DATA_SIZE_0][HFI_LTM_DATA_SIZE_1];
-+	u32 stats_02[HFI_LTM_DATA_SIZE_2];
-+	u32 stats_03[HFI_LTM_DATA_SIZE_0];
-+	u32 stats_04[HFI_LTM_DATA_SIZE_0];
-+	u32 stats_05[HFI_LTM_DATA_SIZE_0];
-+	u32 status_flag;
-+	u32 display_h;
-+	u32 display_v;
-+	u32 init_h[HFI_LTM_BLOCK_MAX];
-+	u32 init_v;
-+	u32 inc_h;
-+	u32 inc_v;
-+	u32 portrait_en;
-+	u32 merge_en;
-+	u32 cfg_param_01;
-+	u32 cfg_param_02;
-+	u32 cfg_param_03;
-+	u32 cfg_param_04;
-+	u32 feature_flag;
-+	u32 checksum;
-+};
++void dcp_hfi_resp_callback(struct virtqueue *vq);
++void dcp_hfi_cmd_callback(struct virtqueue *vq);
 +
-+struct hfi_display_ltm_event_resp {
-+	u32 event_type;
-+	u32 dcp_addr_h;
-+	u32 dcp_addr_l;
-+};
++int dcp_hfi_send_sync(struct dcp_hfi *hfi, u32 cmd,
++		      enum hfi_cmd_buff_type cmd_type, u32 object_id,
++		      enum hfi_packet_payload_type payload_type, void *payload,
++		      u32 payload_size, u32 tx_flags, void *resp_data,
++		      size_t resp_len, unsigned int timeout_ms);
 +
-+#define HFI_RGB_HISTOGRAM_BIN_COUNT 1024
-+#define HFI_RGB_COMPONENT_SIZE 3
++int dcp_hfi_send_no_wait(struct dcp_hfi *hfi, u32 cmd,
++			 enum hfi_cmd_buff_type cmd_type, u32 object_id,
++			 enum hfi_packet_payload_type payload_type, void *payload,
++			 u32 payload_size);
 +
-+#define HFI_RGB_HIST_ROI_ENABLE BIT(1)
-+
-+#define HFI_RGB_HIST_DONE BIT(0)
-+#define HFI_RGB_HIST_WB_ERR BIT(1)
-+#define HFI_RGB_HIST_OFF BIT(2)
-+
-+struct hfi_display_rgb_hist_ctrl {
-+	u32 flags;
-+	u32 roi_mode;
-+	u32 roi_x;
-+	u32 roi_y;
-+	u32 roi_width;
-+	u32 roi_height;
-+	u32 tap_point;
-+	u32 colorspace_mode;
-+};
-+
-+struct hfi_display_rgb_hist_stats_data {
-+	u32 hist[HFI_RGB_HISTOGRAM_BIN_COUNT];
-+	u32 hist_min;
-+	u32 hist_max;
-+	u32 hist_sum_lsb;
-+	u32 hist_sum_msb;
-+	u32 hcount;
-+	u32 crc;
-+	u32 status_flags;
-+	u32 roi_mode;
-+	u32 roi_x;
-+	u32 roi_y;
-+	u32 roi_width;
-+	u32 roi_height;
-+	u32 tap_point;
-+	u32 colorspace_mode;
-+};
-+
-+/* Shared RGB histogram buffer descriptor. */
-+struct hfi_display_rgb_hist_buffer {
-+	u32 flags;
-+	u32 dpu_iova_lo[HFI_RGB_COMPONENT_SIZE];
-+	u32 dpu_iova_hi[HFI_RGB_COMPONENT_SIZE];
-+	u32 dcp_addr_lo[HFI_RGB_COMPONENT_SIZE];
-+	u32 dcp_addr_hi[HFI_RGB_COMPONENT_SIZE];
-+	u32 size;
-+};
-+
-+struct hfi_display_rgb_hist_event_resp {
-+	u32 event_type;
-+	u32 dcp_addr_lo[HFI_RGB_COMPONENT_SIZE];
-+	u32 dcp_addr_hi[HFI_RGB_COMPONENT_SIZE];
-+};
-+
-+/* Shared PA histogram buffer descriptor. */
-+struct hfi_display_pa_hist_buffer {
-+	u32 flags;
-+	u32 dcp_addr_lo;
-+	u32 dcp_addr_hi;
-+	u32 size;
-+};
-+
-+struct hfi_display_pa_hist_event_resp {
-+	u32 dcp_addr_lo;
-+	u32 dcp_addr_hi;
-+};
-+
-+#endif /* __H_HFI_DEFS_DISPLAY_COLOR_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_display.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_display.h
++int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi, u32 cmd,
++			       enum hfi_cmd_buff_type cmd_type, u32 object_id,
++			       enum hfi_packet_payload_type payload_type,
++			       void *payload, u32 payload_size, u32 tx_flags);
++int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi, u32 cmd,
++				      enum hfi_cmd_buff_type cmd_type, u32 object_id,
++				      enum hfi_packet_payload_type payload_type,
++				      void *payload, u32 payload_size, u32 tx_flags);
++#endif /* __DCP_HFI_H__ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
 new file mode 100644
-index 000000000000..34a4220393f4
+index 000000000000..9c46a4560a0d
 --- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_display.h
-@@ -0,0 +1,480 @@
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+@@ -0,0 +1,871 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * DCP HFI core transport.
++ */
++
++#include <linux/completion.h>
++#include <linux/delay.h>
++#include <linux/device.h>
++#include <linux/kernel.h>
++#include <linux/slab.h>
++#include <linux/scatterlist.h>
++#include <linux/spinlock.h>
++#include <linux/virtio.h>
++#include <linux/workqueue.h>
++
++#include "dcp_hfi.h"
++#include "dcp_hfi_priv.h"
++#include "dcp_drv.h"
++#include "hfi/hfi_packet.h"
++#include "hfi/hfi_packer.h"
++#include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_commands_display.h"
++#include "hfi/hfi_defs_common.h"
++
++static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
++
++u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
++{
++	u32 old, next;
++
++	do {
++		old = (u32)atomic_read(&hfi->packet_id);
++		next = old + 1;
++		if (!next)
++			next = 1;
++	} while ((u32)atomic_cmpxchg(&hfi->packet_id, old, next) != old);
++
++	return next;
++}
++
++#define DCP_HFI_BUF_ALLOC_RETRIES	3	/* Bound command-path stalls. */
++#define DCP_HFI_BUF_ALLOC_SLEEP_US_MIN	30000
++#define DCP_HFI_BUF_ALLOC_SLEEP_US_MAX	40000
++
++static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
++					      struct list_head *free_list,
++					      spinlock_t *lock,
++					      const char *pool_name)
++{
++	struct dcp_hfi_buf *buf = NULL;
++	unsigned long flags;
++	int retry;
++
++	if (atomic_read(&hfi->shutdown_in_progress)) {
++		dev_dbg(hfi->dev,
++			"HFI shutdown in progress — refusing %s buffer allocation\n",
++			pool_name);
++		return NULL;
++	}
++
++	for (retry = 0; retry <= DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
++		if (atomic_read(&hfi->shutdown_in_progress))
++			return NULL;
++
++		spin_lock_irqsave(lock, flags);
++		if (!list_empty(free_list)) {
++			buf = list_first_entry(free_list,
++					       struct dcp_hfi_buf, node);
++			list_del(&buf->node);
++		}
++		spin_unlock_irqrestore(lock, flags);
++
++		if (buf)
++			return buf;
++
++		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
++			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
++				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
++	}
++
++	dev_warn_ratelimited(hfi->dev,
++			     "HFI %s TX pool exhausted after %d retries — command dropped\n",
++			     pool_name, DCP_HFI_BUF_ALLOC_RETRIES);
++	return NULL;
++}
++
++static void _dcp_hfi_buf_free_locked(struct dcp_hfi_buf *buf,
++				     struct list_head *free_list)
++{
++	buf->comp = NULL;
++	list_add_tail(&buf->node, free_list);
++}
++
++struct dcp_hfi_buf *dcp_hfi_buf_alloc(struct dcp_hfi *hfi)
++{
++	return _dcp_hfi_buf_alloc(hfi, &hfi->cmd_free_list,
++				   &hfi->cmd_lock, "cmd");
++}
++
++void dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	_dcp_hfi_buf_free_locked(buf, &hfi->cmd_free_list);
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++}
++
++struct dcp_hfi_buf *dcp_hfi_buf_alloc_atomic(struct dcp_hfi *hfi)
++{
++	struct dcp_hfi_buf *buf = NULL;
++	unsigned long flags;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return NULL;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	if (!list_empty(&hfi->cmd_free_list)) {
++		buf = list_first_entry(&hfi->cmd_free_list,
++				       struct dcp_hfi_buf, node);
++		list_del(&buf->node);
++	}
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++
++	return buf;
++}
++
++/* Multi-packet headers register each response completion before submission. */
++int dcp_hfi_pending_add(struct dcp_hfi *hfi,
++			struct dcp_hfi_completion *comp)
++{
++	unsigned long flags;
++	int ret;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	ret = xa_insert(&hfi->pending_xa, comp->packet_id, comp, GFP_ATOMIC);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++
++	if (ret < 0) {
++		dev_err_ratelimited(hfi->dev,
++				    "HFI pending XArray full or collision at pkt_id=%u: %d\n",
++			comp->packet_id, ret);
++		return -EBUSY;
++	}
++	return 0;
++}
++
++struct dcp_hfi_completion *dcp_hfi_pending_find(struct dcp_hfi *hfi,
++						u32 packet_id)
++{
++	unsigned long flags;
++	struct dcp_hfi_completion *comp;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	comp = xa_erase(&hfi->pending_xa, packet_id);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++	return comp;
++}
++
++static void dcp_hfi_complete_pending(struct dcp_hfi *hfi,
++				     const struct hfi_packet_info *pkt_info,
++				     int status)
++{
++	struct dcp_hfi_completion *comp;
++	size_t n;
++
++	comp = dcp_hfi_pending_find(hfi, pkt_info->packet_id);
++	if (!comp) {
++		if (!status)
++			dev_warn_ratelimited(hfi->dev,
++					     "HFI resp: SUCCESS cmd=0x%x pkt_id=%u no completion; payload dropped (size=%u)\n",
++					     pkt_info->cmd, pkt_info->packet_id,
++					     pkt_info->payload_size);
++		return;
++	}
++
++	if (!status && comp->resp_data && comp->resp_len &&
++	    pkt_info->payload_size) {
++		n = min_t(size_t, comp->resp_len, pkt_info->payload_size);
++		memcpy(comp->resp_data, pkt_info->payload_ptr, n);
++	}
++
++	comp->status = status;
++	complete(&comp->done);
++}
++
++static void dcp_hfi_cancel_pending(struct dcp_hfi *hfi, int status)
++{
++	unsigned long flags;
++	struct dcp_hfi_completion *comp;
++	unsigned long id;
++	void *entry;
++
++	spin_lock_irqsave(&hfi->pending_lock, flags);
++	xa_for_each(&hfi->pending_xa, id, entry) {
++		comp = entry;
++		comp->status = status;
++		complete(&comp->done);
++	}
++	xa_destroy(&hfi->pending_xa);
++	xa_init(&hfi->pending_xa);
++	spin_unlock_irqrestore(&hfi->pending_lock, flags);
++}
++
++void dcp_hfi_cmd_callback(struct virtqueue *vq)
++{
++	struct dcp_drv *drv = vq->vdev->priv;
++	struct dcp_hfi *hfi = drv ? drv->hfi : NULL;
++
++	struct dcp_hfi_buf *buf;
++	unsigned int len;
++	unsigned long flags;
++
++	if (!hfi)
++		return;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	virtqueue_disable_cb(vq);
++	do {
++		while ((buf = virtqueue_get_buf(vq, &len)) != NULL)
++			_dcp_hfi_buf_free_locked(buf, &hfi->cmd_free_list);
++	} while (!virtqueue_enable_cb(vq));
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++}
++
++void dcp_hfi_resp_callback(struct virtqueue *vq)
++{
++	struct dcp_drv *drv = vq->vdev->priv;
++	struct dcp_hfi *hfi = drv ? drv->hfi : NULL;
++	struct dcp_hfi_buf *buf;
++	unsigned int len;
++	unsigned long drain_flags;
++
++	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
++		return;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
++	virtqueue_disable_cb(vq);
++	for (;;) {
++		while ((buf = virtqueue_get_buf(vq, &len)) != NULL) {
++			struct hfi_cmd_buff_hdl hdl;
++			struct hfi_header_info hdr_info;
++			struct hfi_packet_info pkt_info;
++			u32 pkt_num;
++			int rc;
++
++			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
++
++			if (unlikely(len < sizeof(struct hfi_header) ||
++				     len > DCP_HFI_BUF_SIZE)) {
++				dev_warn_ratelimited(hfi->dev,
++						     "HFI resp: short buffer len=%u (min=%zu) — skipping\n",
++						     len, sizeof(struct hfi_header));
++				goto repost;
++			}
++
++			hdl.cmd_buffer = buf->data;
++			hdl.size = (u32)len;
++			rc = hfi_unpacker_get_header_info(&hdl, &hdr_info);
++			if (rc) {
++				dev_warn_ratelimited(hfi->dev,
++						     "HFI resp: invalid header (rc=%d) len=%u\n",
++					     rc, len);
++				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
++					       DUMP_PREFIX_OFFSET, 16, 4,
++					       buf->data, min_t(u32, len, 64), false);
++				goto repost;
++			}
++
++			for (pkt_num = 1; pkt_num <= hdr_info.num_packets; pkt_num++) {
++				memset(&pkt_info, 0, sizeof(pkt_info));
++				rc = hfi_unpacker_get_packet_info(&hdl, pkt_num,
++								  &pkt_info);
++				if (rc) {
++					dev_warn_ratelimited(hfi->dev,
++							     "HFI resp: bad pkt %u (rc=%d)\n",
++							     pkt_num, rc);
++					break;
++				}
++
++				dev_dbg(hfi->dev,
++					"HFI resp: cmd=0x%x flags=0x%x pkt_id=%u id=%u payload_size=%u\n",
++					pkt_info.cmd, pkt_info.flags, pkt_info.packet_id,
++					pkt_info.id, pkt_info.payload_size);
++
++				if (pkt_info.flags & HFI_RX_FLAGS_SYSTEM_ERROR) {
++					dev_err(hfi->dev,
++						"HFI system error: cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
++				} else if (pkt_info.flags & HFI_RX_FLAGS_DEVICE_ERROR) {
++					dev_err(hfi->dev,
++						"HFI error: cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
++				} else if (pkt_info.flags & HFI_RX_FLAGS_SUCCESS) {
++					if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION)
++						dev_dbg(hfi->dev,
++							"HFI info with success: cmd=0x%x pkt_id=%u\n",
++							pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, 0);
++				} else if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION) {
++					dev_dbg(hfi->dev,
++						"HFI info with cmd=0x%x pkt_id=%u\n",
++						pkt_info.cmd, pkt_info.packet_id);
++					dcp_hfi_complete_pending(hfi, &pkt_info, 0);
++				} else {
++					dev_dbg_ratelimited(hfi->dev,
++							    "HFI resp: unhandled cmd=0x%x flags=0x%x pkt_id=%u\n",
++							    pkt_info.cmd, pkt_info.flags,
++							    pkt_info.packet_id);
++				}
++			}
++
++repost:
++			spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
++			dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++			if (virtqueue_add_inbuf_premapped(vq, &buf->sg, 1, buf,
++							  NULL, GFP_ATOMIC)) {
++				list_add_tail(&buf->node, &hfi->resp_repost_list);
++				schedule_delayed_work(&hfi->resp_repost_work,
++						      msecs_to_jiffies(20));
++			}
++		}
++
++		if (virtqueue_kick_prepare(vq))
++			virtqueue_notify(vq);
++		if (virtqueue_enable_cb(vq))
++			break;
++	}
++
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
++}
++
++int dcp_hfi_send_cmd_async(struct dcp_hfi *hfi,
++			   struct dcp_hfi_buf *buf,
++			   size_t cmd_len,
++			   struct dcp_hfi_completion *comp)
++{
++	unsigned long flags;
++	int ret;
++
++	buf->comp = comp;
++	dcp_hfi_buf_init_sg(buf, cmd_len);
++
++	/* Serialize shutdown with both queue submission and notification. */
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	if (atomic_read(&hfi->shutdown_in_progress)) {
++		spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++		dcp_hfi_buf_free(hfi, buf);
++		return -ENODEV;
++	}
++
++	if (comp) {
++		ret = dcp_hfi_pending_add(hfi, comp);
++		if (ret) {
++			spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++			dcp_hfi_buf_free(hfi, buf);
++			return ret;
++		}
++	}
++
++	ret = virtqueue_add_outbuf_premapped(hfi->cmd_vq, &buf->sg, 1, buf,
++					     GFP_ATOMIC);
++	if (ret) {
++		if (comp)
++			dcp_hfi_pending_find(hfi, comp->packet_id);
++		spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++		dcp_hfi_buf_free(hfi, buf);
++		dev_err(hfi->dev, "virtqueue_add_outbuf failed: %d\n", ret);
++		return ret;
++	}
++
++	virtqueue_kick(hfi->cmd_vq);
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++	return 0;
++}
++
++static const char *dcp_hfi_cmd_buff_type_name(enum hfi_cmd_buff_type cmd_type)
++{
++	switch (cmd_type) {
++	case HFI_CMD_BUFF_SYSTEM:         return "SYSTEM";
++	case HFI_CMD_BUFF_DEVICE:         return "DEVICE";
++	case HFI_CMD_BUFF_DISPLAY:        return "DISPLAY";
++	case HFI_CMD_BUFF_DEBUG:          return "DEBUG";
++	case HFI_CMD_BUFF_VIRTUALIZATION: return "VIRT";
++	default:                          return "UNKNOWN";
++	}
++}
++
++static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
++				   struct virtqueue *vq __maybe_unused,
++				   u32 cmd,
++				   enum hfi_cmd_buff_type cmd_type,
++				   u32 object_id,
++				   enum hfi_packet_payload_type payload_type,
++				   void *payload,
++				   u32 payload_size,
++				   u32 tx_flags,
++				   void *resp_data,
++				   size_t resp_len,
++				   unsigned int timeout_ms)
++{
++	struct dcp_hfi_buf *buf;
++	struct dcp_hfi_completion comp;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	u32 packet_id;
++	unsigned long flags;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc(hfi);
++	if (!buf) {
++		dev_err(hfi->dev, "HFI TX buffer pool exhausted (cmd=0x%x)\n",
++			cmd);
++		return -ENOMEM;
++	}
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	packet_id = dcp_hfi_next_packet_id(hfi);
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = packet_id;
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	init_completion(&comp.done);
++	comp.resp_data = resp_data;
++	comp.resp_len  = resp_len;
++	comp.status    = 0;
++	comp.packet_id = packet_id;
++
++	dev_dbg(hfi->dev,
++		"HFI send cmd=0x%x type=%s obj=%u pkt=%u payload=%u timeout=%ums\n",
++		cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
++		packet_id, payload_size, timeout_ms);
++
++	ret = dcp_hfi_send_cmd_async(hfi, buf,
++				     hfi_get_header_size(&hdl), &comp);
++	if (ret)
++		return ret;
++
++	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_ms))) {
++		dev_err(hfi->dev,
++			"HFI cmd=0x%x buf_type=%s object_id=%u timed out after %ums (pkt_id=%u)\n",
++			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
++			timeout_ms, packet_id);
++		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++		dcp_hfi_pending_find(hfi, packet_id);
++		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++		return -ETIMEDOUT;
++	}
++
++	return comp.status;
++}
++
++int dcp_hfi_send_sync(struct dcp_hfi *hfi,
++		      u32 cmd,
++		      enum hfi_cmd_buff_type cmd_type,
++		      u32 object_id,
++		      enum hfi_packet_payload_type payload_type,
++		      void *payload,
++		      u32 payload_size,
++		      u32 tx_flags,
++		      void *resp_data,
++		      size_t resp_len,
++		      unsigned int timeout_ms)
++{
++	int ret;
++
++	ret = dcp_hfi_send_sync_on_vq(hfi, NULL,
++				      cmd, cmd_type, object_id,
++				      payload_type, payload, payload_size,
++				      tx_flags, resp_data, resp_len,
++				      timeout_ms);
++	if (ret && cmd == HFI_COMMAND_DISPLAY_MODE_VALIDATE)
++		dev_dbg(hfi->dev, "HFI mode validation rejected mode: %d\n", ret);
++	else if (ret)
++		dev_err(hfi->dev, "HFI command 0x%x failed: %d\n", cmd, ret);
++
++	return ret;
++}
++
++int dcp_hfi_send_no_wait_flags(struct dcp_hfi *hfi,
++			       u32 cmd,
++			       enum hfi_cmd_buff_type cmd_type,
++			       u32 object_id,
++			       enum hfi_packet_payload_type payload_type,
++			       void *payload,
++			       u32 payload_size,
++			       u32 tx_flags)
++{
++	struct dcp_hfi_buf *buf;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc(hfi);
++	if (!buf) {
++		dev_warn_ratelimited(hfi->dev,
++				     "HFI TX pool exhausted (no-wait cmd=0x%x)\n", cmd);
++		return -ENOMEM;
++	}
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = dcp_hfi_next_packet_id(hfi);
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++
++	if (ret) {
++		dcp_hfi_buf_free(hfi, buf);
++		return ret;
++	}
++
++	ret = dcp_hfi_send_cmd_async(hfi, buf,
++				     hfi_get_header_size(&hdl), NULL);
++	if (ret)
++		dev_warn(hfi->dev,
++			 "HFI send (no-wait) cmd=0x%x pkt_id=%u failed: %d\n",
++			 cmd, pkt_info.packet_id, ret);
++
++	return ret;
++}
++
++int dcp_hfi_send_no_wait_atomic_flags(struct dcp_hfi *hfi,
++				      u32 cmd,
++				      enum hfi_cmd_buff_type cmd_type,
++				      u32 object_id,
++				      enum hfi_packet_payload_type payload_type,
++				      void *payload,
++				      u32 payload_size,
++				      u32 tx_flags)
++{
++	struct dcp_hfi_buf *buf;
++	struct hfi_cmd_buff_hdl hdl;
++	struct hfi_header_info hdr_info;
++	struct hfi_packet_info pkt_info;
++	int ret;
++
++	buf = dcp_hfi_buf_alloc_atomic(hfi);
++	if (!buf)
++		return -ENOMEM;
++
++	hdl.cmd_buffer = buf->data;
++	hdl.size       = DCP_HFI_BUF_SIZE;
++	hdr_info.num_packets   = 0;
++	hdr_info.cmd_buff_type = cmd_type;
++	hdr_info.object_id     = object_id;
++	hdr_info.header_id     = dcp_hfi_next_packet_id(hfi);
++
++	ret = hfi_create_header(&hdl, &hdr_info);
++	if (ret)
++		goto free_buf;
++
++	pkt_info.cmd          = cmd;
++	pkt_info.id           = object_id & 0xFFFF;
++	pkt_info.flags        = tx_flags;
++	pkt_info.packet_id    = dcp_hfi_next_packet_id(hfi);
++	pkt_info.payload_type = payload_type;
++	pkt_info.payload_size = payload_size;
++	pkt_info.payload_ptr  = payload;
++
++	if (payload_type == HFI_PAYLOAD_NONE || !payload || !payload_size)
++		ret = hfi_create_packet_header(&hdl, &pkt_info);
++	else
++		ret = hfi_create_full_packet(&hdl, &pkt_info);
++	if (ret)
++		goto free_buf;
++
++	return dcp_hfi_send_cmd_async(hfi, buf,
++				      hfi_get_header_size(&hdl), NULL);
++
++free_buf:
++	dcp_hfi_buf_free(hfi, buf);
++	return ret;
++}
++
++int dcp_hfi_send_no_wait(struct dcp_hfi *hfi,
++			 u32 cmd,
++			 enum hfi_cmd_buff_type cmd_type,
++			 u32 object_id,
++			 enum hfi_packet_payload_type payload_type,
++			 void *payload,
++			 u32 payload_size)
++{
++	return dcp_hfi_send_no_wait_flags(hfi, cmd, cmd_type, object_id,
++			payload_type, payload, payload_size, HFI_TX_FLAGS_NONE);
++}
++
++static void dcp_hfi_free_pool(struct dcp_hfi *hfi, struct dcp_hfi_buf *pool,
++			      u32 count)
++{
++	u32 i;
++
++	if (!pool)
++		return;
++
++	for (i = 0; i < count; i++) {
++		if (!pool[i].data)
++			continue;
++
++		dma_free_coherent(hfi->dma_dev, DCP_HFI_BUF_SIZE,
++				  pool[i].data, pool[i].dma_addr);
++		pool[i].data = NULL;
++	}
++}
++
++static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi)
++{
++	int i, ret;
++
++	for (i = 0; i < DCP_HFI_RESP_POOL_SIZE; i++) {
++		struct dcp_hfi_buf *buf = &hfi->resp_pool[i];
++
++		dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++
++		ret = virtqueue_add_inbuf_premapped(hfi->resp_vq, &buf->sg, 1,
++						    buf, NULL, GFP_KERNEL);
++		if (ret) {
++			dev_warn(hfi->dev,
++				 "resp_vq full at buf %d/%d: %d\n",
++				 i, DCP_HFI_RESP_POOL_SIZE, ret);
++			break;
++		}
++	}
++	return ret;
++}
++
++static void dcp_hfi_resp_repost_work(struct work_struct *work)
++{
++	struct dcp_hfi *hfi = container_of(to_delayed_work(work), struct dcp_hfi,
++					      resp_repost_work);
++	struct dcp_hfi_buf *buf, *tmp;
++	unsigned long flags;
++	bool retry = false;
++
++	if (atomic_read(&hfi->shutdown_in_progress))
++		return;
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	list_for_each_entry_safe(buf, tmp, &hfi->resp_repost_list, node) {
++		dcp_hfi_buf_init_sg(buf, DCP_HFI_BUF_SIZE);
++		if (virtqueue_add_inbuf_premapped(hfi->resp_vq, &buf->sg, 1,
++						  buf, NULL, GFP_ATOMIC)) {
++			retry = true;
++			break;
++		}
++		list_del_init(&buf->node);
++	}
++	if (virtqueue_kick_prepare(hfi->resp_vq))
++		virtqueue_notify(hfi->resp_vq);
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++	if (retry && !atomic_read(&hfi->shutdown_in_progress))
++		schedule_delayed_work(&hfi->resp_repost_work, msecs_to_jiffies(20));
++}
++
++int dcp_hfi_init(struct dcp_drv *drv,
++		 struct virtio_device *vdev,
++		 struct virtqueue *cmd_vq,
++		 struct virtqueue *resp_vq,
++		 struct device *dma_dev)
++{
++	struct dcp_hfi *hfi;
++	int i, ret;
++
++	hfi = devm_kzalloc(&vdev->dev, sizeof(*hfi), GFP_KERNEL);
++	if (!hfi)
++		return -ENOMEM;
++
++	hfi->dev     = &vdev->dev;
++	hfi->drv     = drv;
++	hfi->cmd_vq  = cmd_vq;
++	hfi->resp_vq = resp_vq;
++	hfi->dma_dev = dma_dev;
++
++	spin_lock_init(&hfi->cmd_lock);
++	spin_lock_init(&hfi->pending_lock);
++	spin_lock_init(&hfi->resp_drain_lock);
++
++	atomic_set(&hfi->packet_id, 0);
++	atomic_set(&hfi->shutdown_in_progress, 0);
++
++	INIT_LIST_HEAD(&hfi->cmd_free_list);
++
++	xa_init(&hfi->pending_xa);
++
++	INIT_DELAYED_WORK(&hfi->resp_repost_work, dcp_hfi_resp_repost_work);
++	INIT_LIST_HEAD(&hfi->resp_repost_list);
++
++	hfi->cmd_pool = devm_kcalloc(hfi->dev, DCP_HFI_CMD_POOL_SIZE,
++				     sizeof(*hfi->cmd_pool), GFP_KERNEL);
++	if (!hfi->cmd_pool)
++		return -ENOMEM;
++
++	hfi->resp_pool = devm_kcalloc(hfi->dev, DCP_HFI_RESP_POOL_SIZE,
++				      sizeof(*hfi->resp_pool), GFP_KERNEL);
++	if (!hfi->resp_pool)
++		return -ENOMEM;
++	for (i = 0; i < DCP_HFI_CMD_POOL_SIZE; i++) {
++		hfi->cmd_pool[i].data = dma_alloc_coherent(hfi->dma_dev,
++							   DCP_HFI_BUF_SIZE,
++							   &hfi->cmd_pool[i].dma_addr,
++							   GFP_KERNEL);
++		if (!hfi->cmd_pool[i].data) {
++			ret = -ENOMEM;
++			goto err;
++		}
++		hfi->cmd_pool[i].size = DCP_HFI_BUF_SIZE;
++		list_add_tail(&hfi->cmd_pool[i].node, &hfi->cmd_free_list);
++	}
++
++	for (i = 0; i < DCP_HFI_RESP_POOL_SIZE; i++) {
++		hfi->resp_pool[i].data =
++			dma_alloc_coherent(hfi->dma_dev, DCP_HFI_BUF_SIZE,
++					   &hfi->resp_pool[i].dma_addr, GFP_KERNEL);
++		if (!hfi->resp_pool[i].data) {
++			ret = -ENOMEM;
++			goto err;
++		}
++		hfi->resp_pool[i].size = DCP_HFI_BUF_SIZE;
++		INIT_LIST_HEAD(&hfi->resp_pool[i].node);
++	}
++
++	ret = dcp_hfi_prepost_resp_bufs(hfi);
++	if (ret)
++		goto err;
++
++	drv->hfi = hfi;
++	dev_dbg(hfi->dev,
++		"HFI core initialized: cmd_vq=%p resp_vq=%p\n",
++		cmd_vq, resp_vq);
++	return 0;
++
++err:
++	atomic_set(&hfi->shutdown_in_progress, 1);
++	cancel_delayed_work_sync(&hfi->resp_repost_work);
++	while (virtqueue_detach_unused_buf(hfi->cmd_vq))
++		;
++	while (virtqueue_detach_unused_buf(hfi->resp_vq))
++		;
++	xa_destroy(&hfi->pending_xa);
++
++	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
++	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
++	return ret;
++}
++
++void dcp_hfi_stop(struct dcp_hfi *hfi)
++{
++	unsigned long flags;
++
++	spin_lock_irqsave(&hfi->cmd_lock, flags);
++	atomic_set(&hfi->shutdown_in_progress, 1);
++	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
++
++	cancel_delayed_work_sync(&hfi->resp_repost_work);
++	dcp_hfi_cancel_pending(hfi, -ENODEV);
++}
++
++void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
++{
++	struct dcp_hfi_buf *buf;
++	unsigned int len;
++	unsigned long flags;
++
++	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
++	if (hfi->cmd_vq)
++		virtqueue_disable_cb(hfi->cmd_vq);
++	if (hfi->resp_vq)
++		virtqueue_disable_cb(hfi->resp_vq);
++	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
++
++	if (hfi->cmd_vq) {
++		while ((buf = virtqueue_get_buf(hfi->cmd_vq, &len)) != NULL)
++			dcp_hfi_buf_free(hfi, buf);
++		while ((buf = virtqueue_detach_unused_buf(hfi->cmd_vq)) != NULL)
++			dcp_hfi_buf_free(hfi, buf);
++	}
++	if (hfi->resp_vq) {
++		while (virtqueue_get_buf(hfi->resp_vq, &len))
++			;
++		while (virtqueue_detach_unused_buf(hfi->resp_vq))
++			;
++	}
++}
++
++int dcp_hfi_restore_queues(struct dcp_hfi *hfi, struct virtqueue *cmd_vq,
++			   struct virtqueue *resp_vq)
++{
++	struct dcp_hfi_buf *buf;
++	int i, ret;
++
++	hfi->cmd_vq = cmd_vq;
++	hfi->resp_vq = resp_vq;
++
++	INIT_LIST_HEAD(&hfi->resp_repost_list);
++	for (i = 0; i < DCP_HFI_RESP_POOL_SIZE; i++) {
++		buf = &hfi->resp_pool[i];
++		INIT_LIST_HEAD(&buf->node);
++	}
++
++	ret = dcp_hfi_prepost_resp_bufs(hfi);
++	if (ret)
++		return ret;
++
++	atomic_set(&hfi->shutdown_in_progress, 0);
++
++	return 0;
++}
++
++void dcp_hfi_deinit(struct dcp_hfi *hfi)
++{
++	xa_destroy(&hfi->pending_xa);
++
++	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
++	dcp_hfi_free_pool(hfi, hfi->resp_pool, DCP_HFI_RESP_POOL_SIZE);
++}
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h b/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h
+new file mode 100644
+index 000000000000..f255db3a96b1
+--- /dev/null
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_priv.h
+@@ -0,0 +1,47 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * Private HFI helpers; external users should include dcp_hfi.h.
 + */
 +
-+#ifndef __H_HFI_PROPERTIES_DISPLAY_H__
-+#define __H_HFI_PROPERTIES_DISPLAY_H__
++#ifndef __DCP_HFI_PRIV_H__
++#define __DCP_HFI_PRIV_H__
 +
-+/* Display-property range. */
-+#define HFI_PROPERTY_DISPLAY_BEGIN                                   0x00020000
++#include "dcp_hfi.h"
 +
-+/* Whether DIM layer is supported. */
-+#define HFI_PROPERTY_DISPLAY_HAS_DIM_LAYER                           0x00020001
++#define DCP_HFI_CMD_POOL_SIZE					64
++#define DCP_HFI_RESP_POOL_SIZE					64
++#define DCP_HFI_BUF_SIZE						4096
 +
-+/* Whether Idle PC is supported. */
-+#define HFI_PROPERTY_DISPLAY_HAS_IDLE_PC                             0x00020002
++#define DCP_HFI_TIMEOUT_INIT_MS					2000
++#define DCP_HFI_TIMEOUT_CAPS_MS					1000
++#define DCP_HFI_TIMEOUT_DISPLAY_MS				1000
++#define DCP_HFI_TIMEOUT_MODE_MS					3000
++#define DCP_HFI_TIMEOUT_COMMIT_MS				2000
++#define DCP_HFI_TIMEOUT_DISPLAY_DCS_MS			10000
 +
-+/* Whether LM Noise is supported. */
-+#define HFI_PROPERTY_DISPLAY_LM_NOISE                                0x00020003
++struct dcp_hfi_buf *dcp_hfi_buf_alloc(struct dcp_hfi *hfi);
++struct dcp_hfi_buf *dcp_hfi_buf_alloc_atomic(struct dcp_hfi *hfi);
++void dcp_hfi_buf_free(struct dcp_hfi *hfi, struct dcp_hfi_buf *buf);
 +
-+/* Noise layer version. */
-+#define HFI_PROPERTY_DISPLAY_NOISE_VERSION                           0x00020004
++static inline void dcp_hfi_buf_init_sg(struct dcp_hfi_buf *buf, size_t len)
++{
++	sg_init_table(&buf->sg, 1);
++	sg_dma_address(&buf->sg) = buf->dma_addr;
++	sg_dma_len(&buf->sg) = len;
++}
 +
-+/* Whether dedicated CWB is supported. */
-+#define HFI_PROPERTY_DISPLAY_FEATURE_DEDICATED_CWB                   0x00020005
++u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi);
 +
-+/* Whether CWB feature is supported. */
-+#define HFI_PROPERTY_DISPLAY_FEATURE_CWB                             0x00020006
++int dcp_hfi_send_cmd_async(struct dcp_hfi *hfi,
++			   struct dcp_hfi_buf *buf,
++			   size_t cmd_len,
++			   struct dcp_hfi_completion *comp);
 +
-+/* Whether system cache is used for static display traffic. */
-+#define HFI_PROPERTY_DISPLAY_SYS_CACHE_DISP                          0x00020007
++int dcp_hfi_pending_add(struct dcp_hfi *hfi, struct dcp_hfi_completion *comp);
 +
-+/* Whether trusted-display mode is supported. */
-+#define HFI_PROPERTY_DISPLAY_FEATURE_TRUSTED_DISPLAY_MODE            0x00020008
++struct dcp_hfi_completion *dcp_hfi_pending_find(struct dcp_hfi *hfi,
++						u32 packet_id);
 +
-+/* Whether UBWC Statistics is supported. */
-+#define HFI_PROPERTY_DISPLAY_UBWC_STATS                              0x00020009
-+
-+/* Whether dynamic clock control is supported. */
-+#define HFI_PROPERTY_DISPLAY_DYN_CLK_SUPPORT                         0x0002000a
-+
-+/* Whether qsync mode is supported. */
-+#define HFI_PROPERTY_DISPLAY_QSYNC                                   0x0002000b
-+
-+/* Whether AVR Step is supported. */
-+#define HFI_PROPERTY_DISPLAY_AVR_STEP                                0x0002000c
-+
-+/* Whether CWB Dither is supported. */
-+#define HFI_PROPERTY_DISPLAY_WB_CWB_DITHER                           0x0002000d
-+
-+/* Whether system cache is used for writeback. */
-+#define HFI_PROPERTY_DISPLAY_WB_SYS_CACHE_DISP                       0x0002000e
-+
-+/* Whether writeback supports linear rotation. */
-+#define HFI_PROPERTY_DISPLAY_WB_LINEAR_ROTATION                      0x0002000f
-+
-+/* The extended power modes supported by the Display. */
-+#define HFI_PROPERTY_DISPLAY_POWER_MODE                              0x00020010
-+
-+/* The DPU DRAM IB vote for DRAM(LLCC(SDE)->DDR) in Kbps. */
-+#define HFI_PROPERTY_DISPLAY_DRAM_IB                                 0x00020011
-+
-+/* The DPU DRAM AB vote for DRAM(LLCC(SDE)->DDR) in Kbps. */
-+#define HFI_PROPERTY_DISPLAY_DRAM_AB                                 0x00020012
-+
-+/* The DPU LLCC IB vote for LLCC(SDE_master_on_MNOC->LLCC). */
-+#define HFI_PROPERTY_DISPLAY_LLCC_IB                                 0x00020013
-+
-+/* The DPU LLCC IB vote for LLCC(SDE_master_on_MNOC->LLCC). */
-+#define HFI_PROPERTY_DISPLAY_LLCC_AB                                 0x00020014
-+
-+/* The DPU IB vote for MNOC(virt_master-> virt_slave(NOC)). */
-+#define HFI_PROPERTY_DISPLAY_CORE_IB                                 0x00020015
-+
-+/* The DPU AB vote for MNOC(virt_master-> virt_slave(NOC)). */
-+#define HFI_PROPERTY_DISPLAY_CORE_AB                                 0x00020016
-+
-+/* The Mdp core clock in hertz. */
-+#define HFI_PROPERTY_DISPLAY_CORE_CLK                                0x00020017
-+
-+/* Associates a layer before its properties are programmed. */
-+#define HFI_PROPERTY_DISPLAY_ATTACH_LAYER                            0x00020018
-+
-+/* Removes a layer from the display. */
-+#define HFI_PROPERTY_DISPLAY_DETACH_LAYER                            0x00020019
-+
-+/* Commit sequence returned with frame-scan events. */
-+#define HFI_PROPERTY_DISPLAY_SCAN_SEQUENCE_ID                        0x0002001a
-+
-+/* Enables or disables interface auto-refresh. */
-+#define HFI_PROPERTY_DISPLAY_AUTOREFRESH_CFG                         0x0002001b
-+
-+/* Configure the HFI queue. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_HFI_CONFIG                       0x0002001c
-+
-+/* Reports scratch-memory size required by LSR writeback. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_NEEDS_SCRATCH_MEM            0x0002001d
-+
-+/* Configure the scratch memory. */
-+#define HFI_PROPERTY_DISPLAY_SET_SCRATCH_MEM                         0x0002001e
-+
-+/* Configure the sync display. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_REPROJ_SYNC_TO                   0x0002001f
-+
-+/* Configure the LSR. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_REPROJ_CONFIG_MATRIX                0x00020020
-+
-+/* Configure. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_REPROJ_CONFIG_EXT                0x00020021
-+
-+/* Configure. */
-+#define HFI_PROPERTY_DISPLAY_INPUT_FENCE                             0x00020022
-+
-+/* Provide a reusable fence. */
-+#define HFI_PROPERTY_DISPLAY_REUSABLE_FENCE                          0x00020023
-+
-+/* Configure the HFI queue. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_CVP_BUFF                       0x00020025
-+
-+/* Configure the output buffers. */
-+#define HFI_PROPERTY_DISPLAY_LSR_WB_OUT_BUFFERS                       0x00020026
-+
-+/* Configure the LSR. */
-+#define HFI_PROPERTY_DISPLAY_LSR_MAPPED_HFI_BASE_ADDR                  0x00020027
-+
-+/* Configure the shared memory. */
-+#define HFI_PROPERTY_DISPLAY_HRP_HFI_CONFIG                            0x00020028
-+
-+/* Attach output layer before. */
-+#define HFI_PROPERTY_DISPLAY_ATTACH_OUTPUT_LAYER                     0x00020029
-+
-+/* Removes an output layer from the display. */
-+#define HFI_PROPERTY_DISPLAY_DETACH_OUTPUT_LAYER                     0x0002002a
-+
-+/* Set destination ROI for display. */
-+#define HFI_PROPERTY_DISPLAY_DEST_ROI                                0x0002002b
-+
-+/* Configures output fence. */
-+#define HFI_PROPERTY_DISPLAY_OUTPUT_FENCE                            0x0002002c
-+
-+/* The dim layer parameters for display output. */
-+#define HFI_PROPERTY_DISPLAY_DIM_LAYER                               0x0002002d
-+
-+/* The dim layer parameters for display output. */
-+#define HFI_PROPERTY_DISPLAY_MISR_CONFIG                             0x0002002e
-+
-+/* QSYNC mode for video/command mode panels. */
-+#define HFI_PROPERTY_DISPLAY_QSYNC_MODE                              0x0002002f
-+
-+/* Configure resource output. */
-+#define HFI_PROPERTY_DISPLAY_SET_RESOURCE_DATA                       0x00020030
-+
-+/* Set VRR (Variable Refresh Rate). */
-+#define HFI_PROPERTY_DISPLAY_VRR_FRAME_PARAMS                        0x00020031
-+
-+/* The Expected Preset Time which is used. */
-+#define HFI_PROPERTY_DISPLAY_EPT                                     0x00020032
-+
-+/* This property sets line pointer offset time in nanoseconds. */
-+#define HFI_PROPERTY_DISPLAY_VSYNC_OFFSET                            0x00020033
-+
-+/* Update the panel brightness level. */
-+#define HFI_PROPERTY_DISPLAY_BRIGHTNESS                              0x00020034
-+
-+/* Set vsync source to watchdog. */
-+#define HFI_PROPERTY_DISPLAY_CUSTOM_WD_TE                                   0x00020035
-+
-+/* Display color-property range. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_BEGIN                             0x00020100
-+
-+/* Setup 3D LUT. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_3D_LUT                            0x00020101
-+
-+/* Setup IGC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_IGC                               0x00020102
-+
-+/* Setup GC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_GC                                0x00020103
-+
-+/* Setup PCC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_PCC                               0x00020104
-+
-+/* Setup PA HSIC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_HSIC                              0x00020105
-+
-+/* Setup PA MEMCOLOR SKIN. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_MEMCOLOR_SKIN                     0x00020106
-+
-+/* Setup PA MEMCOLOR SKY. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_MEMCOLOR_SKY                      0x00020107
-+
-+/* Setup PA MEMCOLOR FOLIAGE. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_MEMCOLOR_FOLIAGE                  0x00020108
-+
-+/* Setup PA MEMCOLOR PROTECTION. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_MEMCOLOR_PROT                     0x00020109
-+
-+/* Setup PA SIXZONE. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_SIXZONE                           0x0002010a
-+
-+/* Setup PA VLUT. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_VLUT                              0x0002010b
-+
-+/* Setup PPB DITHER. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_DITHER                            0x0002010c
-+
-+/* Setup RC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_RC                                0x0002010d
-+
-+/* Setup SPR_INIT config. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_SPR_INIT                          0x0002010e
-+
-+/* Setup SPR_UDC config. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_SPR_UDC                           0x0002010f
-+
-+/* Setup DSPP SPR DITHER. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_SPR_DITHER                        0x00020110
-+
-+/* Setup DSPP PA DITHER. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_PA_DITHER                         0x00020111
-+
-+/* Setup Demura. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_DEMURA_CFG                        0x00020112
-+
-+/* Setup Demura tables. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_DEMURA_TABLE                      0x00020113
-+
-+/* Setup Demura backlight. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_DEMURA_BACKLIGHT                  0x00020114
-+
-+/* Setup destination scaler. */
-+#define HFI_PROPERTY_DISPLAY_DEST_SCALER                             0x00020115
-+
-+/* Setup QRTC config. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_QRTC_CONFIG                       0x00020116
-+
-+/* Setup LTM initialization params. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_INIT                          0x00020117
-+
-+/* Setup LTM configuration params. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_CFG                           0x00020118
-+
-+/* Setup LTM noise threshold. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_NOISE_THRESH                  0x00020119
-+
-+/* Setup LTM histogram control. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_HIST_CTRL                     0x0002011a
-+
-+/* Setup LTM VLUT table. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_VLUT                          0x0002011b
-+
-+/* Setup LTM initial params. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_QUEUE_BUF                     0x0002011c
-+
-+/* Setup LTM initial params. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_LTM_CLEAR_BUFS                    0x0002011d
-+
-+/* Property to configure RGB hist control. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_RGB_HIST_CTRL                   0x0002011e
-+
-+/* Property to queue RGB histogram. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_RGB_HIST_QUEUE_BUFFER           0x0002011f
-+
-+/* Property to clear all queued RGB. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_RGB_HIST_CLEAR_BUFFERS          0x00020120
-+
-+/* Setup AI Scaler. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_AI_SCALER                    0x00020121
-+
-+/* Setup SSRC configuration. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_SSRC_CONFIG                  0x00020122
-+
-+/* Setup SSRC data. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_SSRC_DATA                    0x00020123
-+
-+/* Setup MDNIE. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_MDNIE                        0x00020124
-+
-+/* Setup IPC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_MDNIE_IPC                    0x00020125
-+
-+/* Setup ART. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_MDNIE_ART                    0x00020126
-+
-+/* Setup ABC. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_ABC                          0x00020127
-+
-+/* Setup RC for PU. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_RC_PU                             0x00020128
-+
-+/* Property to configure PA hist control. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_PA_HIST_CTRL                      0x00020129
-+
-+/* Property to queue PA histogram. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_PA_HIST_QUEUE_BUFFER              0x0002012a
-+
-+/* Property to clear all queued PA. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_PA_HIST_CLEAR_BUFFERS             0x0002012b
-+
-+/* Property to setup SPR partial update. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_SPR_PU                            0x0002012c
-+
-+/* Property to setup SPR partial update. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_AIQE_COPR                          0x0002012d
-+
-+/* End of display color properties. */
-+#define HFI_PROPERTY_DISPLAY_COLOR_END                               0x000201ff
-+
-+/* End of display-property range. */
-+#define HFI_PROPERTY_DISPLAY_END                                     0x0002ffff
-+
-+/* Layer-property range. */
-+#define HFI_PROPERTY_LAYER_BEGIN                                     0x00030000
-+
-+/* Whether layer decimation is supported. */
-+#define HFI_PROPERTY_LAYER_FEATURE_DECIMATION                        0x00030001
-+
-+/* Blend operations set by Host. */
-+#define HFI_PROPERTY_LAYER_BLEND_TYPE                                0x00030002
-+
-+/* Blending alpha of the plane. */
-+#define HFI_PROPERTY_LAYER_ALPHA                                     0x00030003
-+
-+/* Z-order of the plane. */
-+#define HFI_PROPERTY_LAYER_ZPOS                                      0x00030004
-+
-+/* Source ROI per layer. */
-+#define HFI_PROPERTY_LAYER_SRC_ROI                                   0x00030005
-+
-+/* Destination ROI per layer. */
-+#define HFI_PROPERTY_LAYER_DEST_ROI                                  0x00030006
-+
-+/* Configures blend roi. */
-+#define HFI_PROPERTY_LAYER_BLEND_ROI                                 0x00030007
-+
-+/* Total Image Height. */
-+#define HFI_PROPERTY_LAYER_SRC_IMG_SIZE_H                            0x00030008
-+
-+/* Total Image Width. */
-+#define HFI_PROPERTY_LAYER_SRC_IMG_SIZE_W                            0x00030009
-+
-+/* SMMU mapped source Image start address. */
-+#define HFI_PROPERTY_LAYER_SRC_ADDR                                  0x0003000a
-+
-+/* Source Format Configuration for each layer. */
-+#define HFI_PROPERTY_LAYER_SRC_FORMAT                                0x0003000b
-+
-+/* Stride for each layer. */
-+#define HFI_PROPERTY_LAYER_STRIDE                                    0x0003000c
-+
-+/* Multi rectangle fetch modes. */
-+#define HFI_PROPERTY_LAYER_MULTIRECT_MODE                            0x0003000d
-+
-+/* Blending background alpha of the plane. */
-+#define HFI_PROPERTY_LAYER_BG_ALPHA                                  0x0003000e
-+
-+/* Source Region of Interest (ROI). */
-+#define HFI_PROPERTY_OUTPUT_LAYER_SRC_ROI                            0x0003000f
-+
-+/* Destination Region of Interest(ROI). */
-+#define HFI_PROPERTY_OUTPUT_LAYER_DST_ROI                            0x00030010
-+
-+/* Total image height of output buffer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_SRC_IMG_SIZE_H                      0x00030011
-+
-+/* Total image width of output buffer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_SRC_IMG_SIZE_W                      0x00030012
-+
-+/* SMMU mapped start address. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_DST_ADDR                            0x00030013
-+
-+/* Destination Format Configuration of output buffer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_DST_FORMAT                         0x00030014
-+
-+/* Stride for each layer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_STRIDE                             0x00030015
-+
-+/* Rotation for each layer. */
-+#define HFI_PROPERTY_LAYER_ROTATION                                  0x00030016
-+
-+/* Security policy settings applied. */
-+#define HFI_PROPERTY_LAYER_SECURITY_POLICY                           0x00030017
-+
-+/* The LSR alpha buffer properties of the input layer. */
-+#define HFI_PROPERTY_LAYER_LSR_IN_A_BUFFER                           0x00030018
-+
-+/* The LSR Reprojection layer's plane equation. */
-+#define HFI_PROPERTY_LAYER_LSR_REPROJ_PLANE_EQ                       0x0003001a
-+
-+/* The layer's gamma type. */
-+#define HFI_PROPERTY_LAYER_GAMMA                                     0x0003001b
-+
-+/* The LSR layer's local/remote/other type. */
-+#define HFI_PROPERTY_LAYER_LSR_LAYER_TYPE                            0x0003001c
-+
-+/* The LSR layer's lock type. */
-+#define HFI_PROPERTY_LAYER_LSR_LOCK_TYPE                             0x0003001d
-+
-+/* Sets the LSR reprojection render pose. */
-+#define HFI_PROPERTY_LAYER_LSR_RENDER_POSE                           0x0003001e
-+
-+/* The LSR render frustum properties of the layer. */
-+#define HFI_PROPERTY_LAYER_LSR_RENDER_FRUSTUM                        0x0003001f
-+
-+/* Custom buffers for this layer. */
-+#define HFI_PROPERTY_LAYER_LSR_X_BUFFER                              0x00030020
-+
-+/* The LSR Reprojection pose properties of the layer. */
-+#define HFI_PROPERTY_LAYER_LSR_REPROJ_POSE                           0x00030021
-+
-+/* Source image size of each layer in bytes. */
-+#define HFI_PROPERTY_LAYER_SRC_IMAGE_SIZE                           0x00030022
-+
-+/* Rotation for output layer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_ROTATION                           0x00030023
-+
-+/* Sys cache related attributes for each layer. */
-+#define HFI_PROPERTY_LAYER_CACHE_ATTR                                0x00030024
-+
-+/* LLCC scid of the system cache to be used. */
-+#define HFI_PROPERTY_LAYER_LLCC_SCID                                 0x00030025
-+
-+/* Sets system-cache attributes for the output layer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_CACHE_ATTR                         0x00030026
-+
-+/* LLCC scid of the system cache to be used. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_LLCC_SCID                          0x00030027
-+
-+/* The CWB tap point for output layer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_CWB_TAP_POINT                      0x00030028
-+
-+/* Configure downscale blur. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_DNSC_BLUR_CFG                      0x00030029
-+
-+/* Source exclusion rectangle region. */
-+#define HFI_PROPERTY_LAYER_EXCLUSION_RECTANGLE_ROI                   0x0003002a
-+
-+/* Configure downscale. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_DNSC_CFG                           0x0003002b
-+
-+/* The security policy for output layer. */
-+#define HFI_PROPERTY_OUTPUT_LAYER_SECURITY_POLICY                    0x00030031
-+
-+/* Sets the disparity-layer injection interval. */
-+#define HFI_PROPERTY_LAYER_LSR_DISPARITY_PHASE                     0x00030032
-+
-+/* Layer color-property range. */
-+#define HFI_PROPERTY_LAYER_COLOR_BEGIN                               0x00030100
-+
-+/* Setup VIG GAMUT. */
-+#define HFI_PROPERTY_LAYER_COLOR_3D_LUT                              0x00030101
-+
-+/* Setup UCSC IGC. */
-+#define HFI_PROPERTY_LAYER_COLOR_UCSC_IGC                            0x00030102
-+
-+/* Setup UCSC UNMULT. */
-+#define HFI_PROPERTY_LAYER_COLOR_UCSC_UNMULT                         0x00030103
-+
-+/* Setup UCSC GC. */
-+#define HFI_PROPERTY_LAYER_COLOR_UCSC_GC                             0x00030104
-+
-+/* Setup UCSC ALPHA DITHER. */
-+#define HFI_PROPERTY_LAYER_COLOR_UCSC_ALPHA_DITHER                   0x00030105
-+
-+/* Setup UCSC CSC. */
-+#define HFI_PROPERTY_LAYER_COLOR_UCSC_CSC                            0x00030106
-+
-+/* Setup CSC. */
-+#define HFI_PROPERTY_LAYER_COLOR_CSC                                 0x00030107
-+
-+/* Setup VIG scaler. */
-+#define HFI_PROPERTY_LAYER_COLOR_SCALER                              0x00030108
-+
-+/* End of layer color properties. */
-+#define HFI_PROPERTY_LAYER_COLOR_END                                 0x000301ff
-+
-+/* End of layer-property range. */
-+#define HFI_PROPERTY_LAYER_END                                       0x0003ffff
-+
-+#endif /* __H_HFI_PROPERTIES_DISPLAY_H__ */
++#endif /* __DCP_HFI_PRIV_H__ */
 
 -- 
 2.43.0
