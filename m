@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E42E606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 07:02:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F337606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 07:03:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=c6Y01sRU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LIdNBSoq
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 20C2F10E175;
-	Thu, 26 Nov 2026 07:02:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9209D10E39F
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 07:02:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 53CC610FD3D;
+	Thu, 26 Nov 2026 07:03:30 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8003310FD3D
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 07:03:24 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D9FB960534;
- Thu, 26 Nov 2026 07:02:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B0BD1F000CA;
- Thu, 26 Nov 2026 07:02:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 4E72944879;
+ Thu, 26 Nov 2026 07:03:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD461F000C6;
+ Thu, 26 Nov 2026 07:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795676560;
- bh=97aOVqTzdxE1kbneZwzLi/QGKVPMl2LqhgNK0TFzMQc=;
+ s=k20260515; t=1795676604;
+ bh=leV8fysZ0yZjoMqKTw945SOl5gehj0RLmxn+dSyoS+M=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=c6Y01sRUZ+NCB3/ewm+vKsaer/LOlFFcx4SLjS5K/56PN0r2exLnPOYVWyNiuE/Xu
- 2Lv6zFdymKT1TIU3LBFEsANLoHmqEOw1lg7PWU6S2AoEUsBOsUcwO77wKXWEMM3z0j
- /lazakkKnaLUReXBGBmOQDiDW9753+iWGw6X5R/99KIgBuw2cm2ffR6/A84WbCNIuR
- XEcAHmL0nOiqKfcanPb1W/5jtI40gu5HUEFB9AyeXuWqs6YE62CN9McwjLiCH7SDtZ
- OHaHerPr75L0cHMzna3KwDrStzHDeETePcdQhVsE2kiOSd0M8gc4FC2UK8WvzngN+I
- 2Pl1LSlSCP0tQ==
-Message-ID: <sashiko-outbox-234923@kernel.org>
+ b=LIdNBSoqRCpidO8Qc/TF9E7ko9Ly9FKj7V+Ilr/XWmGSKeGBNYSpFCvm7pjf5RIwx
+ 5es/KDBlGZMFlf2L68PAWCgjy/qHTo1++KRGcjyFhRHLVwWaK8SsoivUqMMh2BTTzb
+ 70JiG6tLm8vpQL5NuTPmnJWCihDCFT2ZucLVJ4zs2XTEtRwhiRQ6haQidoGk38IyS9
+ Ayj310nBTGMZ8R5wrEQHZ3Oh4I/LuTRh3DCLodjBC4kcgdtcGPlD82b5am6Tq4HQcS
+ d2a4UtKzWUI2KPTa71jq1H7y9a21RaI3QvqAJy+YBpzekKTbt5kIzQQyDTz3uJzf6g
+ HtEAcSENqFUOw==
+Message-ID: <sashiko-outbox-234926@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 11/21] drm/msm/dcp: Add DCP planes
+Subject: Re: [PATCH v3 16/21] drm/msm/dcp: Register DCP display pipeline
 To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-11-f1e9d7505039@oss.qualcomm.com>
+In-Reply-To: <20261126-jshekhar-v3-dcp-v3-16-f1e9d7505039@oss.qualcomm.com>
 References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-11-f1e9d7505039@oss.qualcomm.com>
+ <20261126-jshekhar-v3-dcp-v3-16-f1e9d7505039@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 07:02:38 +0000
+Date: Thu, 26 Nov 2026 07:03:23 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,540 +59,437 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 13 potential
+Thank you for your contribution! Sashiko AI review found 9 potential
 issues to consider:
-- [High] drm/msm/dcp: broken HFI pipe detach lifecycle in
-  dcp_plane_atomic_update()
-- [High] drm/msm/dcp: stale plane visibility in dcp_plane_atomic_check()
-- [High] drm/msm/dcp: missing or misordered HFI detach on pipe
-  reassignment
-- [High] drm/msm/dcp: unlocked plane->state access in
-  dcp_plane_pipe_busy()
-- [High] drm/msm/dcp: 90/270-degree rotation ignored in scaling and perf
-  checks
-- [High] drm/msm/dcp: divide-by-zero in dcp_plane_calc_bw() on zero
-  vblank
-- [High] drm/msm/dcp: missing dcp_plane_state.h include in
-  dcp_crtc_aggregate_bw()
-- [Medium] drm/msm/dcp: NULL return in dcp_plane_atomic_create_state()
-  and missing format copy
-- [Medium] drm/msm/dcp: stale bandwidth vote when planes hide in
-  dcp_crtc_atomic_begin()
-- [Medium] drm/msm/dcp: chroma planes omitted in dcp_plane_calc_perf()
-  bpp
-- [Medium] drm/msm/dcp: missing minimum source size check for RGB in
-  dcp_plane_atomic_check()
-- [Medium] drm/msm/dcp: broken IS_ERR() and NULL checks in
-  dcp_plane_atomic_check()
-- [Medium] drm/msm/dcp: non-alpha formats not forced to opaque blend in
-  dcp_plane
+- [High] drm/msm/dcp: deadlock in dcp_dpu_kms_cleanup_bridges() under
+  component_mutex
+- [High] drm/msm/dcp: race and runtime PM leak in
+  dcp_dpu_kms_enable_commit()
+- [High] drm/msm/dcp: unbalanced KMS and runtime PM teardown in
+  dcp_dpu_kms_destroy()
+- [High] drm/msm/dcp: dangling CRTC and drm_device pointers in
+  dcp_dpu_kms_destroy()
+- [High] drm/msm/dcp: missing remote endpoint check in
+  dcp_dpu_kms_init_dsi_bridges()
+- [Medium] drm/msm/dcp: mismatched CRTC/encoder ordering and unclamped
+  possible_crtcs
+- [Medium] drm/msm/dcp: stale error in ret after continue in
+  dcp_dpu_kms_setup_bridges()
+- [Medium] drm/msm/dcp: unreserved DCS buffer IOVAs in kms->vm and late
+  hfi check
+- [Medium] drm/msm/dcp: missing remote endpoint check in
+  dcp_dpu_kms_init_dsi_bridges()
 --
 
-commit 43ca0df7f906b25d403e77023334a1fac27d3027
+commit 2186cfdbd849f345868626184491e6057a461eb9
 Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-drm/msm/dcp: Add DCP planes
+drm/msm/dcp: Register DCP display pipeline
 
-This commit adds DRM plane support for the DCP display pipeline, including
-format and scaling validation, HFI pipe assignment, bandwidth calculation,
-and HFI property packet updates.
+This commit registers the DCP KMS display pipeline by initializing power
+management and the display IOMMU domain, parsing firmware capabilities and
+the device-tree display graph, and creating the DRM bridges, encoders,
+connectors, planes, and CRTCs.
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_crtc.c b/drivers/gpu/drm/msm/dcp=
-/dcp_crtc.c
-> index 512da8c4ddbcb..f58667ca458e9 100644
-> --- a/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_crtc.c
-> @@ -84,6 +84,36 @@ dcp_crtc_atomic_create_state(struct drm_crtc *crtc)
->  	return &cstate->base;
->  }
-> =20
-> +static void dcp_crtc_aggregate_bw(struct drm_crtc_state *crtc_state,
-> +				  bool enable)
+> diff --git a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c b/drivers/gpu/drm/msm/=
+dcp/dcp_dpu_kms.c
+> index 61a4d85653594..a8c04022d6cd5 100644
+> --- a/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+> +++ b/drivers/gpu/drm/msm/dcp/dcp_dpu_kms.c
+[ ... ]
+> +void dcp_dpu_kms_cleanup_bridges(struct dcp_dpu_kms *dcp_kms)
 > +{
-> +	struct dcp_crtc_state *cstate =3D to_dcp_crtc_state(crtc_state);
-> +	struct drm_plane *plane;
-> +	const struct drm_plane_state *pstate;
+> +	u32 i;
 > +
-> +	cstate->dram_ib  =3D 0;
-> +	cstate->dram_ab  =3D 0;
-> +	cstate->llcc_ib  =3D 0;
-> +	cstate->llcc_ab  =3D 0;
-> +	cstate->core_clk =3D 0;
-> +
-> +	if (!enable)
-> +		return;
-> +
-> +	drm_atomic_crtc_state_for_each_plane_state(plane, pstate, crtc_state) {
-> +		if (!pstate->visible)
+> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
+> +		if (!dcp_kms->dsi_bridge[i])
 > +			continue;
 > +
-> +		const struct dcp_plane_state *dcp_pstate =3D to_dcp_plane_state(pstate=
-);
-> +
-> +		cstate->dram_ib  =3D max(cstate->dram_ib, dcp_pstate->fetch_bw);
-> +		cstate->dram_ab +=3D dcp_pstate->fetch_bw;
-> +		cstate->llcc_ib  =3D max(cstate->llcc_ib, dcp_pstate->fetch_bw);
-> +		cstate->llcc_ab +=3D dcp_pstate->fetch_bw;
-> +		cstate->core_clk =3D max(cstate->core_clk, dcp_pstate->clk);
+> +		dcp_dsi_bridge_cleanup(dcp_kms->dsi_bridge[i]);
+> +		dcp_kms->dsi_bridge[i] =3D NULL;
 > +	}
 > +}
 
 [Severity: High]
-Does dcp_crtc.c fail to build here without including dcp_plane_state.h?
-dcp_crtc_aggregate_bw() calls to_dcp_plane_state() and dereferences struct
-dcp_plane_state, which are defined in dcp_plane_state.h, but that header is
-only included in the later commit "drm/msm/dcp: Integrate the DSI bridge
-with KMS".
+Does calling dcp_dpu_kms_cleanup_bridges() from dcp_dpu_kms_setup_bridges(),
+dcp_dpu_setup_pipeline(), and dcp_dpu_kms_destroy() deadlock on
+component_mutex?
+
+Both component master bind (try_to_bring_up_aggregate_device() ->
+msm_drm_bind() -> ... -> dcp_dpu_kms_hw_init()) and unbind
+(take_down_aggregate_device() -> msm_drm_unbind() -> msm_drm_uninit() ->
+dcp_dpu_kms_destroy()) run while the global component_mutex is held.  When a
+DSI peripheral is attached, dcp_dsi_bridge_cleanup() unregisters the DSI ho=
+st
+and detaches the device, which re-enters component_del():
+
+try_to_bring_up_aggregate_device() / take_down_aggregate_device()
+  mutex_lock(&component_mutex)
+  ...
+    dcp_dpu_kms_cleanup_bridges()
+      dcp_dsi_bridge_cleanup()
+        mipi_dsi_host_unregister()
+          ...
+            dcp_dsi_host_detach()
+              component_del()
+                mutex_lock(&component_mutex)  <-- self-deadlock
+
+In addition, msm_drm_uninit() calls dcp_dpu_kms_destroy() before
+component_unbind_all() and drm_dev_put(), so dcp_dsi_bridge_cleanup() delet=
+es
+dsi_host_dev while it is still bound as a component and attached to the
+encoder bridge chain.  Destroying and clearing dcp_kms->dsi_bridge[] in
+dcp_dpu_kms_setup_bridges() when drm_bridge_attach() returns -EPROBE_DEFER
+also permanently removes the bridges created prior to
+component_master_add_with_match(), causing subsequent deferred probe retries
+to fail with -ENODEV.
 
 [ ... ]
 
-> @@ -538,6 +571,8 @@ static int dcp_crtc_atomic_check(struct drm_crtc *crt=
-c,
->  		return -E2BIG;
->  	}
-> =20
-> +	dcp_crtc_aggregate_bw(crtc_state, true);
-> +
->  	return 0;
->  }
-
-[Severity: Medium]
-Does disabling or clipping all planes on an active CRTC leave stale
-bandwidth and clock votes pinned in firmware?
-
-When no visible planes remain, dcp_crtc_aggregate_bw() zeroes dram_ib,
-dram_ab, llcc_ib, llcc_ab, and core_clk, but dcp_crtc_atomic_begin() skips
-updating the firmware vote when those fields reach zero:
-
-drivers/gpu/drm/msm/dcp/dcp_crtc.c:dcp_crtc_atomic_begin() {
-    ...
-	if (cstate->core_clk > 0 || cstate->dram_ib > 0) {
-		ret =3D dcp_hfi_crtc_set_bw(dcp_kms->hfi, session_id,
-					  cstate->dram_ib,  cstate->dram_ab,
-					  cstate->llcc_ib,  cstate->llcc_ab,
-					  cstate->core_clk);
-    ...
-}
-
-Conversely, when at least one plane is visible, dcp_crtc_atomic_begin()
-resends dcp_hfi_crtc_set_bw() on every frame even when the aggregated votes
-have not changed.
-
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_plane.c b/drivers/gpu/drm/msm/dc=
-p/dcp_plane.c
-> new file mode 100644
-> index 0000000000000..ff6ce28d61c8b
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_plane.c
-
-[ ... ]
-
-> +static bool dcp_plane_pipe_busy(struct drm_atomic_commit *state,
-> +				struct drm_plane *self, u32 pipe_id)
+> +static int dcp_dpu_kms_hw_init(struct msm_kms *kms)
 > +{
-> +	struct drm_plane *plane;
-> +	struct drm_plane_state *plane_state;
-> +	struct drm_plane *iter_plane;
-> +	struct drm_plane_state *new_plane_state;
-> +	int i;
+[ ... ]
+> +	vm =3D msm_kms_init_vm(dev, NULL);
+> +	if (IS_ERR(vm)) {
+> +		drm_err(dev, "SMMU/IOMMU init failed: %pe\n", vm);
+> +		ret =3D PTR_ERR(vm);
+> +		goto err_cleanup;
+> +	}
+> +	kms->vm =3D vm;
 > +
-> +	drm_for_each_plane(plane, state->dev) {
-> +		if (plane =3D=3D self)
+> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
+> +		if (!dcp_kms->dsi_bridge[i])
 > +			continue;
 > +
-> +		plane_state =3D plane->state;
-> +		for_each_new_plane_in_state(state, iter_plane, new_plane_state, i) {
-> +			if (iter_plane =3D=3D plane) {
-> +				plane_state =3D new_plane_state;
-> +				break;
-> +			}
+> +		ret =3D dcp_dsi_bridge_map_buffers(dcp_kms->dsi_bridge[i]);
+> +		if (ret) {
+> +			drm_err(dev, "failed to map DSI%u DCS buffers: %d\n", i, ret);
+> +			goto err_cleanup;
 > +		}
-> +
-> +		if (plane_state && plane_state->crtc && plane_state->visible &&
-> +		    to_dcp_plane_state(plane_state)->hfi_pipe_id =3D=3D pipe_id)
-> +			return true;
 > +	}
 > +
-> +	return false;
-> +}
-
-[Severity: High]
-Can dcp_plane_pipe_busy() trigger a use-after-free on plane->state or assign
-the same HFI pipe to two planes during concurrent commits across CRTCs?
-
-An atomic commit on CRTC 0 does not hold plane->mutex for planes bound to
-CRTC 1 that are not part of state:
-
-CPU0 (commit on CRTC 0)           CPU1 (commit on CRTC 1)
-dcp_plane_atomic_check()
-  dcp_plane_assign_pipe()
-    dcp_plane_pipe_busy()
-      plane_state =3D plane->state
-                                  drm_atomic_helper_swap_state()
-                                  ...
-                                  dcp_plane_atomic_destroy_state()
-                                    kfree(old_pstate)
-      plane_state->visible
-        <-- use-after-free
-
-Even without a free, nothing serializes pipe allocation across CRTCs, so two
-concurrent atomic checks can both see the same pipe_id as free in
-dcp_plane_pipe_busy() and assign it to two active planes.
-
-[ ... ]
-
-> +static u64 dcp_plane_calc_bw(u32 bpp,
-> +			     const struct drm_display_mode *mode,
-> +			     const struct drm_rect *src,
-> +			     const struct drm_rect *dst)
-> +{
-> +	int src_w =3D drm_rect_width(src) >> 16;
-> +	int src_h =3D drm_rect_height(src) >> 16;
-> +	int dst_h =3D drm_rect_height(dst);
-> +	int fps   =3D drm_mode_vrefresh(mode);
-> +	int vbp   =3D mode->vtotal - mode->vsync_end;
-> +	int vpw   =3D mode->vsync_end - mode->vsync_start;
-> +	int vfp   =3D mode->vsync_start - mode->vdisplay;
-> +	u32 hw_latency =3D 25;
-> +	u64 scale_factor =3D (src_h > dst_h) ? mult_frac(src_h, 1, dst_h) : 1;
-> +	u64 plane_bw, prefill_bw;
-> +
-> +	plane_bw =3D (u64)src_w * mode->vtotal * fps * bpp * scale_factor;
-> +	prefill_bw =3D plane_bw * hw_latency;
-> +
-> +	if ((vbp + vpw) > hw_latency)
-> +		do_div(prefill_bw, (vbp + vpw));
-> +	else if ((vbp + vpw + vfp) < hw_latency)
-> +		do_div(prefill_bw, (vbp + vpw + vfp));
-> +	else
-> +		do_div(prefill_bw, hw_latency);
-> +
-> +	/* HFI DRAM/LLCC votes are expressed in Kbps. */
-> +	return div_u64(max(plane_bw, prefill_bw), 1000);
-> +}
-
-[Severity: High]
-Can do_div(prefill_bw, (vbp + vpw + vfp)) divide by zero when a mode has
-zero vertical blanking?
-
-Both drm_mode_validate_basic() and dcp_crtc_mode_valid() allow a mode where
-vdisplay =3D=3D vsync_start =3D=3D vsync_end =3D=3D vtotal, which makes vbp=
- + vpw + vfp
-equal to 0 and hits the else-if branch.  Also, computing scale_factor as
-mult_frac(src_h, 1, dst_h) before multiplying plane_bw truncates fractional
-vertical downscaling to an integer.
-
-[ ... ]
-
-> +void dcp_plane_calc_perf(const struct drm_plane_state *state,
-> +			 const struct drm_display_mode *mode,
-> +			 struct dcp_plane_perf *perf)
-> +{
-> +	struct drm_rect src, dst;
-> +	u32 bpp;
-> +
-> +	memset(perf, 0, sizeof(*perf));
-> +
-> +	if (!state || !state->visible || !state->fb || !mode || !mode->clock ||
-> +	    !drm_mode_vrefresh(mode))
-> +		return;
-> +
-> +	src =3D drm_plane_state_src(state);
-> +	dst =3D drm_plane_state_dest(state);
-> +	bpp =3D drm_format_info_bpp(state->fb->format, 0);
-> +
-> +	perf->fetch_bw =3D dcp_plane_calc_bw(bpp, mode, &src, &dst);
-> +	perf->clk =3D dcp_plane_calc_clk(mode, &src, &dst);
-> +}
-
-[Severity: Medium]
-Does calling drm_format_info_bpp(state->fb->format, 0) omit the chroma
-planes for multi-planar YUV formats?  For NV12, NV21, P010, YUV420, and
-YVU420, plane 0 only accounts for the luma plane, under-calculating
-fetch_bw by a third (and drm_format_info_bpp() returns bits per pixel
-rather than bytes per pixel).
-
-[ ... ]
-
-> +static int dcp_plane_build_one_hfi_props_packet(struct dcp_plane_state *=
-pstate,
-> +						const struct drm_plane_state *state,
-> +						u32 session_id, u32 packet_id,
-> +						u8 *packet)
-> +{
-> +	struct drm_framebuffer *fb =3D state->fb;
-
-[ ... ]
-
-> +	hfi_rotation =3D dcp_drm_to_hfi_rotation(state->rotation);
-> +	hfi_blend_op =3D dcp_drm_to_hfi_blend_op(state->pixel_blend_mode);
-> +
-> +	src_x =3D state->src_x >> 16;
-> +	src_y =3D state->src_y >> 16;
-> +	src_w =3D state->src_w >> 16;
-> +	src_h =3D state->src_h >> 16;
-> +	dst_x =3D state->crtc_x;
-> +	dst_y =3D state->crtc_y;
-> +	dst_w =3D state->crtc_w;
-> +	dst_h =3D state->crtc_h;
-> +
-> +	hfi_alpha =3D dcp_hfi_scale_alpha(state, state->alpha);
-> +	hfi_bg_alpha =3D dcp_hfi_scale_alpha(state,
-> +					   dcp_compute_bg_alpha(state->pixel_blend_mode,
-> +								state->alpha));
-
-[Severity: Medium]
-Should planes whose framebuffer format lacks an alpha channel
-(!fb->format->has_alpha) fall back to DRM_MODE_BLEND_PIXEL_NONE?  Without
-that check, formats such as XRGB8888, RGB565, NV12, and P010 use the default
-DRM_MODE_BLEND_PREMULTI mode and program HFI_BLEND_OP_PREMULTIPLIED with
-bg_alpha =3D 0 (when alpha is opaque) instead of HFI_BLEND_OP_OPAQUE.
-
-[ ... ]
-
-> +static int dcp_plane_atomic_check(struct drm_plane *plane,
-> +				  struct drm_atomic_commit *state)
-> +{
-
-[ ... ]
-
-> +	if (!new_state->crtc)
-> +		return 0;
-> +
-> +	crtc_state =3D drm_atomic_get_new_crtc_state(state, new_state->crtc);
-> +	if (IS_ERR(crtc_state)) {
-> +		ret =3D PTR_ERR(crtc_state);
-> +		drm_err(plane->dev, "plane%u: failed to get CRTC state: %d\n",
-> +			plane->base.id, ret);
-> +		return ret;
+> +	if (!dcp_kms->hfi) {
+> +		drm_err(dev, "HFI unavailable, cannot initialize DCP KMS\n");
+> +		ret =3D -ENODEV;
+> +		goto err_cleanup;
 > +	}
 
 [Severity: Medium]
-drm_atomic_get_new_crtc_state() returns NULL, not an ERR_PTR, when the CRTC
-is not in state, so IS_ERR(crtc_state) will not catch a NULL crtc_state
-before drm_atomic_helper_check_plane_state() dereferences it.  Similarly,
-in dcp_plane_assign_pipe(), dcp_plane_hfi_pipe_valid() checks
-!dcp_kms->caps, but dcp_plane_assign_pipe() then dereferences caps
-unconditionally.
+Can GEM scanout buffer allocations in kms->vm collide with the dual-mapped
+DSI DCS buffer IOVAs?
 
-> +
-> +	if (!new_state->fb)
-> +		return 0;
+msm_kms_init_vm() initializes kms->vm's drm_mm allocator across the full
+[0x1000, 0x100000000) range, and dcp_dsi_bridge_map_buffers() then maps
+dcs_tx_iova and dcs_rx_iova directly into the underlying display IOMMU doma=
+in
+without reserving those ranges in to_msm_vm(kms->vm)->mm.  Subsequent scano=
+ut
+VMA allocations from kms->vm can pick overlapping IOVAs and fail
+iommu_map_sgtable() with -EEXIST.
 
-[Severity: High]
-Does returning early on !new_state->crtc or !new_state->fb leave
-new_state->visible set to true when a visible plane is disabled?
-
-dcp_plane_atomic_duplicate_state() copies visible =3D true from the old
-state, and returning before drm_atomic_helper_check_plane_state() leaves
-new_state->visible true.  drm_atomic_plane_disabling() then evaluates to
-false in drm_atomic_helper_commit_planes(), so neither
-dcp_plane_atomic_disable() nor dcp_plane_atomic_update() runs, leaving the
-HFI pipe attached in firmware scanning out old_state->fb after
-dcp_plane_cleanup_fb() unpins its IOVA.
-
-In addition, calling dcp_plane_assign_pipe() before
-drm_atomic_helper_check_plane_state() causes dcp_plane_pipe_busy() to read
-stale visible flags on higher-indexed planes in the same commit that have
-not been checked yet, and assigns an HFI pipe even when the current plane
-is about to be clipped to invisible.
-
-> +
-> +	scaling =3D new_state->src_w !=3D ((u32)new_state->crtc_w << 16) ||
-> +			  new_state->src_h !=3D ((u32)new_state->crtc_h << 16);
-> +
-> +	pstate->hfi_pipe_id =3D dcp_plane_assign_pipe(dcp_kms, state, plane,
-> +						    pstate, new_state->fb->format->is_yuv,
-> +						    scaling);
-> +	if (pstate->hfi_pipe_id =3D=3D U32_MAX) {
-> +		drm_err(plane->dev, "plane%u: no compatible HFI pipe available\n",
-> +			plane->base.id);
-> +		return -ENOSPC;
-> +	}
-> +
-> +	if (dcp_plane_pipe_is_vig(dcp_kms->caps, pstate->hfi_pipe_id)) {
-> +		min_scale =3D FRAC_16_16(1, DCP_MAX_UPSCALE_RATIO);
-> +		max_scale =3D DCP_MAX_DOWNSCALE_RATIO << 16;
-> +	}
-> +
-> +	ret =3D drm_atomic_helper_check_plane_state(new_state, crtc_state,
-> +						  min_scale, max_scale,
-> +						  true, true);
-
-[Severity: High]
-Does checking scaling before rotating the source rectangle break 90- and
-270-degree rotated planes?
-
-When DRM_MODE_ROTATE_90 or DRM_MODE_ROTATE_270 is set on a non-square
-plane, drm_atomic_helper_check_plane_state() swaps the source width and
-height via drm_rect_rotate() before checking hscale and vscale.  Because
-scaling is computed here from the unrotated src_w and src_h, an unscaled
-90/270-degree plane is treated as scaled and forced onto a VIG pipe, while
-a scaled 90/270-degree plane with src_w =3D=3D crtc_w << 16 and
-src_h =3D=3D crtc_h << 16 can be assigned a DMA pipe where
-DRM_PLANE_NO_SCALING causes drm_atomic_helper_check_plane_state() to fail
-with -ERANGE.  dcp_plane_calc_perf() likewise passes the unrotated source
-rectangle to dcp_plane_calc_bw() and dcp_plane_calc_clk().
+Also, dcp_dsi_bridge_map_buffers() dereferences dcp_kms->hfi->dma_dev before
+ the !dcp_kms->hfi check right below it.
 
 [ ... ]
 
-> +	if (new_state->fb->format->is_yuv) {
-> +		u32 src_x =3D src.x1 >> 16;
-> +		u32 src_y =3D src.y1 >> 16;
-> +		u32 src_w =3D drm_rect_width(&src) >> 16;
-> +		u32 src_h =3D drm_rect_height(&src) >> 16;
-> +
-> +		if (src_w < 2 || src_h < 2) {
-> +			drm_err(plane->dev,
-> +				"plane%u: YUV source too small: %ux%u\n",
-> +				plane->base.id, src_w, src_h);
-> +			return -EINVAL;
-> +		}
-
-[Severity: Medium]
-Should non-YUV planes also reject source dimensions smaller than 1 pixel
-((drm_rect_width(&src) >> 16) < 1 || (drm_rect_height(&src) >> 16) < 1)?
-On a VIG pipe with min_scale =3D FRAC_16_16(1, 20), sub-pixel 16.16 source
-dimensions pass drm_atomic_helper_check_plane_state() and then truncate to
-0 when shifted right by 16 in dcp_plane_calc_bw() and
-dcp_plane_build_one_hfi_props_packet().
-
-[ ... ]
-
-> +static void dcp_plane_atomic_update(struct drm_plane *plane,
-> +				    struct drm_atomic_commit *state)
+> +static void dcp_dpu_kms_enable_commit(struct msm_kms *kms)
 > +{
-> +	struct drm_plane_state *new_state =3D
-> +		drm_atomic_get_new_plane_state(state, plane);
-> +	struct dcp_plane_state *pstate =3D to_dcp_plane_state(new_state);
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
 > +	int ret;
 > +
-> +	drm_dbg_driver(plane->dev,
-> +		       "plane%u: atomic_update visible=3D%d fb=3D%u pipe_id=3D%u\n",
-> +		       plane->base.id, new_state->visible,
-> +		       new_state->fb ? new_state->fb->base.id : 0,
-> +		       pstate->hfi_pipe_id);
-> +
-> +	pstate->prop_pkt_size =3D 0;
-> +
-> +	if (!new_state->visible || !new_state->fb)
+> +	ret =3D pm_runtime_resume_and_get(dcp_kms->pm_dev);
+> +	if (ret < 0) {
+> +		dcp_kms->commit_pm_active =3D false;
+> +		drm_err_ratelimited(dcp_kms->dev,
+> +				    "pm_runtime_resume_and_get failed: %d\n",
+> +				    ret);
 > +		return;
+> +	}
 > +
-> +	ret =3D dcp_plane_submit_update(plane, new_state);
-> +	if (ret) {
-> +		drm_err(plane->dev,
-> +			"plane%u: HFI update failed: %d\n", plane->base.id, ret);
-> +		dcp_plane_set_hfi_error(new_state, ret);
-> +		return;
+> +	dcp_kms->commit_pm_active =3D true;
+> +}
+> +
+> +static void dcp_dpu_kms_disable_commit(struct msm_kms *kms)
+> +{
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	if (dcp_kms->commit_pm_active) {
+> +		pm_runtime_put_autosuspend(dcp_kms->pm_dev);
+> +		dcp_kms->commit_pm_active =3D false;
 > +	}
 > +}
 
 [Severity: High]
-When a visible plane is moved off-screen while remaining bound to its CRTC
-and framebuffer, does returning early on !new_state->visible leave the HFI
-pipe attached in firmware?
+Can overlapping commits race on dcp_kms->commit_pm_active, causing false
+-EIO commit aborts and leaking runtime PM references on dcp_kms->pm_dev?
 
-In drm_atomic_helper_commit_planes(), drm_atomic_plane_disabling() only
-checks old_plane_state->crtc && !new_plane_state->crtc, so a plane that
-becomes invisible with new_state->crtc !=3D NULL calls
-dcp_plane_atomic_update() rather than dcp_plane_atomic_disable().  Because
-dcp_plane_atomic_update() returns without detaching old_state's pipe, the
-firmware continues scanning out old_state->fb after dcp_plane_cleanup_fb()
-unpins its IOVA; and because dcp_plane_pipe_busy() treats invisible planes'
-pipes as free, another plane can claim that pipe while the invisible plane
-later detaches it in dcp_plane_atomic_disable().
+msm_atomic_commit_tail() calls kms->funcs->enable_commit() before acquiring
+per-CRTC locks and calls disable_commit() after releasing them, and commits
+on different CRTCs or async commit workers run concurrently:
 
-> +
-> +static void dcp_plane_atomic_disable(struct drm_plane *plane,
-> +				     struct drm_atomic_commit *state)
+CPU0 (commit A)                   CPU1 (commit B)
+dcp_dpu_kms_enable_commit()
+  pm_runtime_resume_and_get()
+  dcp_kms->commit_pm_active =3D true
+                                  dcp_dpu_kms_enable_commit()
+                                    pm_runtime_resume_and_get()
+                                    dcp_kms->commit_pm_active =3D true
+dcp_dpu_kms_disable_commit()
+  pm_runtime_put_autosuspend()
+  dcp_kms->commit_pm_active =3D false
+                                  dcp_crtc_atomic_begin()
+                                    if (!dcp_kms->commit_pm_active)
+                                      cstate->hfi_error =3D -EIO;  <-- abor=
+ts
+                                  dcp_dpu_kms_disable_commit()
+                                    if (dcp_kms->commit_pm_active)
+                                      /* false: skips put, leaks RPM ref */
+
+Because commit_pm_active is a single unsynchronized boolean rather than a
+per-commit status or reference count, the first commit to finish clears
+commit_pm_active while the second commit is still in flight.
+
+[ ... ]
+
+> +static void dcp_dpu_kms_destroy(struct msm_kms *kms)
 > +{
-> +	struct drm_plane_state *old_state =3D
-> +		drm_atomic_get_old_plane_state(state, plane);
-> +	struct dcp_plane_state *pstate =3D to_dcp_plane_state(old_state);
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(kms);
+> +
+> +	dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +
+> +	if (kms->vm) {
+> +		struct msm_gem_vm *msm_vm =3D to_msm_vm(kms->vm);
+> +
+> +		if (msm_vm->mmu && msm_vm->mmu->funcs->detach) {
+> +			drm_dbg_driver(dcp_kms->dev,
+> +				       "detaching IOMMU domain from dcp-dpus\n");
+> +			msm_vm->mmu->funcs->detach(msm_vm->mmu);
+> +		}
+> +
+> +		drm_gpuvm_put(kms->vm);
+> +		kms->vm =3D NULL;
+> +	}
+> +
+> +	if (dcp_kms->rpm_enabled) {
+> +		pm_runtime_disable(dcp_kms->pm_dev);
+> +		dcp_kms->rpm_enabled =3D false;
+> +	}
+> +
+> +	msm_kms_destroy(&dcp_kms->base);
+> +}
+
+[Severity: High]
+Does tearing down runtime PM and msm_kms in dcp_dpu_kms_destroy() leave
+kms->wq and kms->pending_timers[] freed and runtime PM disabled if component
+bind is retried?
+
+pm_runtime_enable() and msm_kms_init() are called once during
+dcp_virtio_probe(), not in dcp_kms_init().  When component bind fails or
+defers in msm_drm_init(), msm_drm_uninit() invokes dcp_dpu_kms_destroy(),
+which disables runtime PM on dcp_kms->pm_dev and destroys kms->wq and
+kms->pending_timers[].  A subsequent bind retry in dcp_kms_init() does not
+re-enable runtime PM or reinitialize msm_kms, leading to use-after-free and
+double destruction of kms->wq and kms->pending_timers[]; on driver removal,
+dcp_subsystem_dev_deinit() also calls pm_runtime_disable() a second time on
+dcp_subsystem_dev->dev.
+
+[ ... ]
+
+> +int dcp_dpu_kms_init_dsi_bridges(struct dcp_dpu_kms *dcp_kms,
+> +				 struct component_match **matchptr)
+> +{
+> +	struct device_node *dpu_np =3D dcp_kms->dpus_np;
+> +	struct device_node *ep_np, *dsi_np, *child_np, *proto_np;
+> +	struct of_endpoint ep;
 > +	int ret;
 > +
-> +	drm_dbg_driver(plane->dev,
-> +		       "plane%u: atomic_disable pipe_id=3D%u\n",
-> +		       plane->base.id, pstate->hfi_pipe_id);
+> +	for_each_of_graph_port(dpu_np, port_np) {
+> +		u32 intf_idx, dsi_idx, fw_display_id;
+> +		struct drm_bridge *bridge;
 > +
-> +	ret =3D dcp_plane_submit_disable(plane, old_state);
-> +	if (ret) {
-> +		drm_err(plane->dev,
-> +			"plane%u: HFI detach failed: %d\n", plane->base.id, ret);
-> +		dcp_plane_set_hfi_error(old_state, ret);
+> +		ep_np =3D of_get_next_child(port_np, NULL);
+> +		if (!ep_np)
+> +			continue;
+> +
+> +		ret =3D of_graph_parse_endpoint(ep_np, &ep);
+> +		of_node_put(ep_np);
+> +		if (ret)
+> +			continue;
+
+[Severity: High]
+Should dcp_dpu_kms_init_dsi_bridges() skip ports whose remote endpoint is
+absent or disabled, the same way dcp_dpu_kms_setup_bridges() does?
+
+Without checking of_graph_get_remote_port_parent(ep_np) and
+of_device_is_available(remote_np), any unpopulated or disabled port in the
+device tree still initializes dcp_kms->dsi_bridge[dsi_idx] and adds dsi_np =
+to
+matchptr.  Because no panel attaches to that DSI host to call component_add=
+(),
+the component master never binds; and if a lower-indexed dsi_bridge[] slot =
+is
+populated for an inactive port, dcp_dpu_setup_pipeline() later creates CRTCs
+from dsi_bridge[] in index order for the wrong fw_display_id.
+
+[ ... ]
+
+> +		dcp_kms->dsi_bridge[dsi_idx] =3D to_dcp_dsi_bridge(bridge);
+> +		drm_of_component_match_add(dcp_kms->pm_dev, matchptr,
+> +					   component_compare_of, dsi_np);
+> +		of_node_put(dsi_np);
+> +	}
+
+[Severity: Medium]
+Does adding dsi_np to matchptr here without verifying that the port has an
+available remote endpoint prevent the aggregate DRM device from binding on
+boards with unused or disabled DSI ports?
+
+dcp_dpu_kms_setup_bridges() checks of_graph_get_remote_port_parent() and
+of_device_is_available() before using a port, so dcp_dpu_kms_init_dsi_bridg=
+es()
+needs the same check before registering dsi_bridge[dsi_idx] and its compone=
+nt
+match entry.
+
+[ ... ]
+
+> +static int dcp_dpu_kms_setup_bridges(struct dcp_dpu_kms *dcp_kms,
+> +				     struct device_node *dpu_np)
+> +{
+[ ... ]
+> +	for_each_of_graph_port(dpu_np, port_np) {
+> +		ep_np =3D of_get_next_child(port_np, NULL);
+> +		if (!ep_np)
+> +			continue;
+> +
+> +		ret =3D of_graph_parse_endpoint(ep_np, &ep);
+> +		if (ret) {
+> +			of_node_put(ep_np);
+> +			continue;
+> +		}
+[ ... ]
 > +	}
 > +
-> +	pstate->prop_pkt_size =3D 0;
-> +	pstate->prop_pkt_id =3D 0;
+> +out:
+> +	if (ret)
+> +		dcp_dpu_kms_cleanup_bridges(dcp_kms);
+> +	return ret;
+> +}
+
+[Severity: Medium]
+If of_graph_parse_endpoint() fails on a port and the loop skips it with
+continue, can a stale negative ret cause dcp_dpu_kms_setup_bridges() to fail
+at out:?
+
+When no later port reaches drm_bridge_attach() to overwrite ret (for exampl=
+e,
+if the failing port is the last port or subsequent ports also hit continue),
+dcp_dpu_kms_setup_bridges() treats the leftover ret as fatal and cleans up =
+all
+bridges.
+
+> +
+> +static int dcp_dpu_setup_pipeline(struct dcp_dpu_kms *dcp_kms,
+> +				  struct device_node *dpu_np)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < total_planes; i++) {
+> +		enum drm_plane_type type;
+> +		unsigned long possible_crtcs;
+> +
+> +		possible_crtcs =3D ((1UL << max_crtc_count) - 1)
+> +				 << dev->mode_config.num_crtc;
+[ ... ]
+> +		if (type =3D=3D DRM_PLANE_TYPE_PRIMARY)
+> +			primary_planes[primary_idx++] =3D plane;
+> +	}
+> +
+> +	max_crtc_count =3D min(max_crtc_count, primary_idx);
+> +
+> +	dcp_kms->num_crtcs =3D 0;
+> +	for (i =3D 0; i < ARRAY_SIZE(dcp_kms->dsi_bridge); i++) {
+> +		u32 display_id;
+> +
+> +		if (dcp_kms->num_crtcs >=3D max_crtc_count)
+> +			break;
+> +		if (!dcp_kms->dsi_bridge[i])
+> +			continue;
+[ ... ]
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs].crtc =3D crtc;
+> +		dcp_kms->crtcs[dcp_kms->num_crtcs++].display_id =3D display_id;
+> +	}
+[ ... ]
+> +}
+> +
+> +int dcp_dpu_drm_obj_init(struct dcp_dpu_kms *dcp_kms)
+> +{
+[ ... ]
+> +	/* v1 - Encoders map one-to-one to CRTCs; cloning is unsupported. */
+> +	drm_for_each_encoder(encoder, dev) {
+> +		encoder->possible_crtcs =3D BIT(enc_idx);
+> +		encoder->possible_clones =3D 0;
+> +		enc_idx++;
+> +	}
+
+[Severity: Medium]
+Can encoder->possible_crtcs and plane->possible_crtcs reference the wrong
+CRTC or a non-existent CRTC index?
+
+dcp_dpu_kms_setup_bridges() creates encoders in DT port (intf_idx) order for
+active remote endpoints, whereas dcp_dpu_setup_pipeline() creates CRTCs by
+iterating dcp_kms->dsi_bridge[] in dsi_idx order without checking whether an
+encoder was attached to dsi_bridge[i].  If DT port order differs from dsi_i=
+dx
+order or dsi_bridge[0] has no encoder attached, encoder->possible_crtcs =3D
+BIT(enc_idx) pairs the encoder with a CRTC whose display_id does not match
+its bridge's fw_display_id.
+
+In addition, if max_crtc_count is clamped below the encoder count by
+caps->num_displays or primary_idx, encoder->possible_crtcs =3D BIT(enc_idx)=
+ and
+the plane possible_crtcs mask (computed before max_crtc_count is clamped to
+primary_idx) set bits for CRTCs that were never created, triggering a WARN =
+in
+drm_mode_config_validate().
+
+[ ... ]
+
+> +int dcp_kms_init(struct drm_device *ddev)
+> +{
+> +	struct msm_drm_private *priv =3D ddev->dev_private;
+> +	struct dcp_dpu_kms *dcp_kms =3D to_dcp_dpu_kms(priv->kms);
+> +	struct dcp_drv *drv =3D dcp_kms->drv;
+> +
+> +	dcp_kms->dev =3D ddev;
+> +	if (drv) {
+> +		drv->kms =3D dcp_kms;
+> +		dcp_kms->pm_dev =3D &drv->dcp_subsystem_dev->dev;
+> +	}
+> +
+> +	if (!dcp_kms->hfi)
+> +		return -ENODEV;
+> +	if (!dcp_kms->caps)
+> +		return -ENODEV;
+> +
+> +	return 0;
 > +}
 
 [Severity: High]
-What happens to the old or reassigned HFI pipe when dcp_plane_assign_pipe()
-changes a plane's hfi_pipe_id or reassigns a pipe between planes in the
-same commit?
+Does leaving drv->kms, dcp_kms->dev, dcp_kms->crtcs[], and dcp_kms->num_crt=
+cs
+populated across dcp_dpu_setup_pipeline() failure or dcp_dpu_kms_destroy()
+expose freed drmm CRTCs and drm_device to use-after-free in HFI callbacks?
 
-If an active visible plane switches from a DMA pipe to a VIG pipe (for
-example, changing from unscaled RGB to YUV or scaled),
-dcp_plane_atomic_update() attaches the new pipe_id but never detaches
-old_state's hfi_pipe_id.  Conversely, if a higher-indexed plane is disabled
-in the same commit in which a lower-indexed plane claims its pipe_id,
-drm_atomic_helper_commit_planes() runs the lower-indexed plane's
-dcp_plane_atomic_update() first and the higher-indexed plane's
-dcp_plane_atomic_disable() second, detaching the pipe that was just
-attached.
-
-> +
-> +static struct drm_plane_state *
-> +dcp_plane_atomic_duplicate_state(struct drm_plane *plane)
-> +{
-> +	struct dcp_plane_state *pstate, *old_pstate;
-> +
-> +	if (WARN_ON(!plane->state))
-> +		return NULL;
-> +
-> +	old_pstate =3D to_dcp_plane_state(plane->state);
-> +	pstate =3D kzalloc_obj(*pstate, GFP_KERNEL);
-> +	if (!pstate)
-> +		return NULL;
-> +
-> +	__drm_atomic_helper_plane_duplicate_state(plane, &pstate->base);
-> +	pstate->hfi_pipe_id     =3D old_pstate->hfi_pipe_id;
-> +	pstate->src_img_w       =3D old_pstate->src_img_w;
-> +	pstate->src_img_h       =3D old_pstate->src_img_h;
-> +	pstate->fetch_bw       =3D old_pstate->fetch_bw;
-> +	pstate->clk            =3D old_pstate->clk;
-> +	pstate->needs_dirtyfb  =3D old_pstate->needs_dirtyfb;
-> +	pstate->prop_pkt_size   =3D 0;
-> +	pstate->prop_pkt_id     =3D old_pstate->prop_pkt_id;
-> +
-> +	return &pstate->base;
-> +}
-> +
-> +static void dcp_plane_atomic_destroy_state(struct drm_plane *plane,
-> +					   struct drm_plane_state *state)
-> +{
-> +	__drm_atomic_helper_plane_destroy_state(state);
-> +	kfree(to_dcp_plane_state(state));
-> +}
-> +
-> +static struct drm_plane_state *
-> +dcp_plane_atomic_create_state(struct drm_plane *plane)
-> +{
-> +	struct dcp_plane_state *pstate;
-> +	u32 hfi_pipe_id =3D to_dcp_plane(plane)->hfi_pipe_id;
-> +
-> +	pstate =3D kzalloc_obj(*pstate, GFP_KERNEL);
-> +	if (!pstate)
-> +		return NULL;
-
-[Severity: Medium]
-Should dcp_plane_atomic_create_state() return ERR_PTR(-ENOMEM) instead of
-NULL on allocation failure?  Its caller drm_mode_config_plane_create_state()
-checks IS_ERR(plane_state), so a NULL return is treated as success and
-leaves plane->state NULL.  Also, dcp_plane_atomic_duplicate_state() above
-copies the other dcp_plane_state fields from old_pstate but omits
-old_pstate->hfi_format.
+dcp_crtc_init() allocates CRTCs with drmm_kzalloc(ddev, ...), so
+msm_drm_uninit() frees them and ddev in drm_dev_put(ddev) right after calli=
+ng
+dcp_dpu_kms_destroy(), while dcp_kms and drv remain alive and the VirtIO HFI
+queues are not stopped until dcp_virtio_hfi_cleanup().  Because
+dcp_crtc_hfi_vblank_cb() and dcp_crtc_hfi_frame_done_cb() only check
+if (!drv || !drv->kms) before scanning drv->kms->crtcs[] and logging with
+drv->kms->dev, an incoming HFI event after teardown or bind failure will
+dereference freed CRTC and drm_device memory.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D11
+3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D16
