@@ -2,43 +2,105 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E18D606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:20:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D1B606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:21:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhRqzIcX
+	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.a=rsa-sha256 header.s=dkim header.b=VzluMsJ7
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 999E61122EE;
-	Thu, 26 Nov 2026 11:19:57 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E824C1122EE
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:19:50 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 9E5EB40E23;
- Thu, 26 Nov 2026 11:19:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B911F000D1;
- Thu, 26 Nov 2026 11:19:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795691990;
- bh=VAR8gkfhvzjtmiIUWRuljNagcujq0JUW5zFyHuJjL30=;
- h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=hhRqzIcXsJUNsPkvlhFHBSqGX7W1w8H+CP5HIofgQamjHu0ePrsF50LON/0HsS8MM
- ONHbX5r9RReCwiXod3J6XiXql6qd8keR5NQAzkZCVKWCLR68/Z/nLAX1JpJIQIg1vW
- B60nDrf0Ns/65C2W6ywSin9whPQP6ILPulSQHeDLRJQN7dKyzFUzEu4XxU+AI9xSq/
- OuOjzyxK25MOc8lche/IjN7Z+JLYvVk35GDKbPrIPpinyQqGc/4GCnU9ZZFsXG4iej
- tiUg8z+Rd4FwGVR2qP1WpW3EoChpBY3U7jCk/n+elUFs+pcR9mAZe/nwJOLYlKReLH
- pIhhele3WF8GQ==
-Message-ID: <sashiko-outbox-235364@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 6/7] drm/syncobj: Use scoped cleanup in
- drm_syncobj_array_find and callers
-To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
- dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126111117.67342-7-tvrtko.ursulin@igalia.com>
-References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
- <20261126111117.67342-7-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:19:48 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id B3CF210E050;
+	Thu, 26 Nov 2026 11:20:55 +0000 (UTC)
+Received: from ixit.cz (ixit.cz [84.42.129.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D473C10E050
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:20:48 +0000 (UTC)
+Received: from [IPV6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e] (unknown
+ [IPv6:2a02:830a:f787:8f00:d622:eaa3:3dd6:8f5e])
+ (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+ key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+ (No client certificate requested)
+ by ixit.cz (Postfix) with ESMTPSA id E35B653401ED;
+ Thu, 26 Nov 2026 12:20:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
+ t=1795692046;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
+ bh=Y66QBO6DbAP5uXeJh0gRndKoLqNI4TvaNfyMDZHOY+I=;
+ b=VzluMsJ7QXuJIey/L4mBnFkAIQ7Xs9LyGKdFZhmq7wa4HzvV6iHqcXpmOimgciyTY02+Up
+ vAYjiVaZ4KUQ64e2nFQor9FeR4aaoSd1GSwJTbQuyqgDuME5ElypNOVbIf+wSh3fapAMzd
+ nETHfzweZ/kxei6AKHDuaF7XGEfZoEw=
+Message-ID: <e7bd7f8d-e59b-41c2-a560-bbb06f93acd9@ixit.cz>
+Date: Thu, 26 Nov 2026 12:20:45 +0100
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 5/9] drm/panel: s6e3ha8: Correct the polarity logic
+ within
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dzmitry Sankouski <dsankouski@gmail.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Marco Mattiolo <marco.mattiolo@hotmail.it>,
+ Petr Vorel <petr.vorel@gmail.com>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, phone-devel@vger.kernel.org
+References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
+ <20261125-crosshatch-panel-v4-5-120adc58e737@ixit.cz>
+ <c1ec2f35-955f-4131-85f4-bae78d016c98@oss.qualcomm.com>
+Content-Language: en-US, cs-CZ
+From: David Heidelberg <david@ixit.cz>
+Autocrypt: addr=david@ixit.cz; keydata=
+ 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
+In-Reply-To: <c1ec2f35-955f-4131-85f4-bae78d016c98@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,127 +111,38 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/syncobj: __free() variables not initialized at declaration
-  site
---
+On 26/11/2026 09:31, Konrad Dybcio wrote:
+> On 11/25/26 7:12 PM, David Heidelberg via B4 Relay wrote:
+>> From: David Heidelberg <david@ixit.cz>
+>>
+>> The reset was introduced with wrong polarity. Correct for the future
+>> compatibles and keep current with reverted logic.
+>>
+>> Old DTs keep GPIO_ACTIVE_HIGH and are fixed up via
+>> gpiod_toggle_active_low() on the deprecated compatible.
+> 
+> 738455858a2d ("ASoC: codecs: wsa881x: Use proper shutdown GPIO polarity")
+> 
+> made it work with one compatible
 
-commit d2db4e35813dabf4fb7e2f45ff5acb392b0b03ac
-Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+In my opinion, that looks relatively complex and here we have a bit different 
+situation than with speaker amplifier likely used in huge number of 
+device-trees, where here we have panel, currently used within one device (market 
+limited, personally I'm not aware of more than one user).
 
-drm/syncobj: Use scoped cleanup in drm_syncobj_array_find and callers
+This will also allow us easily, in few years,  drop the legacy compatible in 
+contrary to introducing variable into reset sequence.
 
-This commit converts drm_syncobj_array_find() and its ioctl callers to
-use scoped cleanup (__free) and moves the syncobj array allocation and
-maximum handle count checks into the callers.
+David
 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index da90ae11382e3..6b4df322b12a8 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -1252,59 +1252,38 @@ static int drm_syncobj_array_wait(struct drm_devi=
-ce *dev,
->  	return 0;
->  }
-> =20
-> -static int drm_syncobj_array_find(struct drm_file *file_private,
-> -				  void __user *user_handles,
-> -				  uint32_t count_handles,
-> -				  struct drm_syncobj ***syncobjs_out)
-> -{
-> -	uint32_t i, *handles;
-> +struct syncobj_array {
->  	struct drm_syncobj **syncobjs;
-> -	int ret;
-> +	unsigned int count;
-> +};
-> =20
-> -	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-> -		return -EINVAL;
-> +static void syncobj_array_free(struct syncobj_array *a)
-> +{
-> +	for (unsigned int i =3D 0; i < a->count; i++)
-> +		drm_syncobj_put(a->syncobjs[i]);
-> +}
-> =20
-> -	handles =3D vmemdup_array_user(user_handles, count_handles,
-> -				     sizeof(*handles));
-> -	if (IS_ERR(handles))
-> -		return PTR_ERR(handles);
-> +DEFINE_FREE(syncobj_array, struct syncobj_array, syncobj_array_free(&_T))
-> =20
-> -	syncobjs =3D kvmalloc_objs(*syncobjs, count_handles);
-> -	if (syncobjs =3D=3D NULL) {
-> -		ret =3D -ENOMEM;
-> -		goto err_free_handles;
-> -	}
-> +static int drm_syncobj_array_find(struct drm_file *file_private,
-> +				  void __user *user_handles, unsigned int count,
-> +				  struct syncobj_array *array)
-> +{
-> +	u32 *handles __free(kvfree) =3D NULL;
-> +	unsigned int i;
-> =20
-> -	for (i =3D 0; i < count_handles; i++) {
-> -		syncobjs[i] =3D drm_syncobj_find(file_private, handles[i]);
-> -		if (!syncobjs[i]) {
-> -			ret =3D -ENOENT;
-> -			goto err_put_syncobjs;
-> -		}
-> +	handles =3D vmemdup_array_user(user_handles, count, sizeof(*handles));
+> 
+> Konrad
 
-[ ... ]
-
-> @@ -1312,10 +1291,11 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, vo=
-id *data,
->  		       struct drm_file *file_private)
->  {
->  	struct drm_syncobj_wait *args =3D data;
-> -	struct drm_syncobj **syncobjs;
-> +	struct drm_syncobj **syncobjs __free(kvfree) =3D NULL;
-> +	struct syncobj_array array __free(syncobj_array) =3D {};
->  	unsigned int possible_flags;
->  	ktime_t t, *tp =3D NULL;
-> -	int ret =3D 0;
-> +	int ret;
-> =20
->  	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
->  		return -EOPNOTSUPP;
-> @@ -1329,11 +1309,17 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, vo=
-id *data,
-> =20
->  	if (args->count_handles =3D=3D 0)
->  		return 0;
-> +	else if (args->count_handles > DRM_SYNCOBJ_MAX_HANDLES)
-> +		return -EINVAL;
-> +
-> +	syncobjs =3D kvmalloc_objs(*syncobjs, args->count_handles);
-> +	if (!syncobjs)
-> +		return -ENOMEM;
-> =20
-> +	array.syncobjs =3D syncobjs;
-
-[Severity: Low]
-This isn't a bug, but cleanup.h recommends defining and initializing
-__free() variables in a single statement at their allocation site rather
-than declaring them with =3D NULL at the top of the function and assigning
-them later.  Doing that for handles in drm_syncobj_array_find() and for
-syncobjs (and array) in drm_syncobj_wait_ioctl() and the other five
-ioctl callers in this patch also ensures reverse-acquisition cleanup
-order naturally without relying on manual declaration ordering at the
-top of each function.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126111117.6734=
-2-1-tvrtko.ursulin@igalia.com?part=3D6
