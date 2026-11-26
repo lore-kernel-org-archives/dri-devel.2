@@ -2,43 +2,129 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5F7606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:46:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66274606A69C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:48:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=kq/BIKQY
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X+uIVAvD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64C1011208B;
-	Thu, 26 Nov 2026 06:46:08 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3CB5411208B
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:46:02 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 38965605D4;
- Thu, 26 Nov 2026 06:46:01 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D84BA1F000C4;
- Thu, 26 Nov 2026 06:45:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795675560;
- bh=j49d9FkOO/p0dmnZ0Ik6yMSCNkA/jfkYgsf8kQ77ow0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=kq/BIKQYJ4MD2XyvFkqQDQxkWoN4BF24o3poJNQ5OPIvyH7D/51aWuEavkTAHcVGI
- VFoDhXzR4Cr+I9u+s1pTyDTJk0bgZ+/sOViVSx3xAUeS38rKvIzoJF9lp3kbqxHtZt
- sC8kF5Atx1yVPZBkBedpSxIysfpTLvT+7m4DkaGeUqSeugiTpZzbe2rEMenFPDgHzn
- l1b6v/1+/4g6PtDtGhbRyRIHJBoTo/MORhQGGrdGsf7us7nR2+jNHS0j3LBzHfXSKx
- BDgm9LUjUqlP37nftyiA2FVD7PlTA7be9o7rbKB9kKoBAlsX7OWrO2et1jP4X5W7Bs
- jg35zLvdWgtIw==
-Message-ID: <sashiko-outbox-234899@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/21] drm/msm/dcp: Add generic HFI display commands
-To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-8-f1e9d7505039@oss.qualcomm.com>
-References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-8-f1e9d7505039@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	by gabe.freedesktop.org (Postfix) with ESMTP id 816DA1120B1;
+	Thu, 26 Nov 2026 06:48:02 +0000 (UTC)
+Received: from SA9PR02CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11013034.outbound.protection.outlook.com
+ [40.93.196.34])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id AC1A010E009
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:47:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cLg4ZwjFe+s+tJWETGIiVGQSotzYlXhJhWRmce/bZ8AG3V6yyIYhxH9gyCeatvNdkAip/sc9s1Ei54ZBUwJ+FlA1bGiuGq06Do9uFMYUXI4mpOHXlJKJXJKjfxNz/9v/0noSWjsayA+2YQ/k4zPrIb/63R6rCAjfX7BzIPM6MkBUy4V8FHyHYzKXhkfc79p6Rw8XAWu2kpe++oiFdOtbrf++Yf47RFHPeRn/JUu2BQ8AFN7vzSQihr18A1L96Jc0/H9PcDEUS/jNsBzfvnjn4Q4l36s+fnJBvq4sB9Edhywk02BU7dhqmyT/Gl+Ojlq28rbocuxWhtv2e4V7enf43w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
+ b=B+CKertZobAtRGv/eLaGwAOXz96bfZFJo7+H57Gh0m0RaWEQE3Oeyp3His2hKEadm95yL5b4YTMA7JhuFJhoQLdDRxwhhDEKHEfIAF5fQLMIPickNRKu02ITtaEVtZdxJw4Jwabbs+FHfLP7ItJoe6gFZ7QppHT8QrDGB134BHvFVGG9+ngNdyZjJYRh9e2hJIdPjEemyKfDeQKDn2Iu25lOJBUVlNUhD6Je3bmFiRDeVXoS4rrJCfU/yOtT1mWsiH9lxy7vrZePmQqSgRzQRgDm2+VojqZmFowFPaqzA+BIs4QQxCrNxfq7MljReDAlERi6eQT6PM9LlUskAYsF/g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
+ b=X+uIVAvDeiryCKicQkzEfVeQi/CiIQtb2CGWEcuNRSn+WTA3ofDdXJynyij69VIGdxP8zJW0Xs+oj1ll/GHjjCbi20ERzjh+o6In6dFKAr375rkg6xOYYi/115hjvUaS1VGxzXGsCfKajy98ttVPwEAomNh+vy4/MrQJO0r3KBZiob9kSGVJs2QplkOBHPLhnW7gPJWcbQ2XacSq1Cn+XIgsGNrbUqhfLdSs+YSzErOXlz8v0mF3W+pJ9VwLrhC6TbIM3mvLwPlUxDfe+JjNrxmE2NBSNY7l3HaR8n3PjTezPJI2GD4WrWTtWlpz6lhAdJ+B92Ca1Mf5Kqw1s3AObQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
+ 2026 06:47:51 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0639.012; Thu, 26 Nov 2026
+ 06:47:50 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
+Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
+ admin@tsv-stahl-riesa.de
+Subject: Re: [PATCH v2] gpu: host1x: Cancel the fence when a syncpoint wait is
+ interrupted
+Date: Thu, 26 Nov 2026 15:47:35 +0900
+Message-ID: <bE28ymIUSh2y3qW_UGpq2g@nvidia.com>
+In-Reply-To: <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
+References: <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:45:59 +0000
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: OS3P286CA0027.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:604:1f4::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SN7PR12MB7348:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|10070799003|1800799024|23010399003|366016|376014|10067099003|56012099006|261028144727099003|261102123227099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261026140227099003|261026121527099003|261009223027099003|18002099003|22082099003|11063799006|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: Tax/EDdEkaKpPRS4h3L8pzlfN1A6dMRrpQOn0m7ZDgG5k9k0J52LdHjHtgG6xhQplceDWqE27HxJhR0fd/GBYTVsGuTFxvCNQlHBCWDk55M0xQlIqStz3nAuTmGPrNWzN60Jv/0T6eYFDU5NAELb8Fmm+MpFqtYjd4nPW8F9QpGaM3rDON33DsKaZI7d0ukWIiIT077cBXCUcZPCTVgBQ7xCWHAno3yAuoeSogJ6sAysHK81d3vyRPke1LBBsRDgVWKDljx4rHEqfXR7JP7BkR8Op87Vf6d7XcXCyLpu/IHws5jQ8Q12g2Xpo/sRCtquSr2IoklgiWdWtlD4IBbVCNzvQ3zfrgNlePu7OP5qtNav9vGfyLi7UDQJVuIGwD15osYBeq6jMJm90lGVVW78YV5dix6oCX9Z/ih3aOyOsTMxWQ9Av8HCZA+NQdpIOZtbZU61d2b/lwi2n92n8yJC183glrJvn6J6atTv27D82Fm/GtymJa31WxHlQukRhHjPgHJYff/sP5FjdLGFxP6tPLuyTJuQKOgKHO0efF9lH4gI7OF4m8pOl4L/tfTTK57ZFq3vBi6uY6GKKKLR7jCv4bYTc601lQ3Pf4mD0ZKAAhgcLK0dMWL0xhk3Hqkr1cTEhrYepv1ry+rf1oS7fPat0vjGQny3s8WVbWQYYydlnyQ=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(261009223027099003)(18002099003)(22082099003)(11063799006)(6133799003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1d1NlhRb0RYaTl3VXpYTVZMWUR2YXo2SCtyWTROSldRdDVYZ040ZG11VnYr?=
+ =?utf-8?B?N3hRRXJvVGJ3L051K2ZmWXhnL2FrZGtKTE9NN3pmZkJmei9oMERzdFVyVTVa?=
+ =?utf-8?B?SGFVZDhCaFd6YTI2ckdISVRWNzJxQkMrZ0ppajJtYW9sT0s4dHJSU2g3ejh1?=
+ =?utf-8?B?VHFWRXAvMENrL1FSTlE0elc3MEFnU2hWRE5tdWpVWE5OYzUrV0FuWTE5Q1dr?=
+ =?utf-8?B?dkN6eGE4WXFKbldUWXMreU5NVkllQzY1RkxLZFpKT1ZXbkZZRkpYZm9xOEVN?=
+ =?utf-8?B?bUNwRmFmd2RlMzFBZ2VoTWljRUpaamVWcVI2bk82UjhsSTV4cUxMNmErMkgx?=
+ =?utf-8?B?eFhqTWhxZTNObmtvL0tlUy83aS9PaTFQSTBjc21RYXVxclc4N1lGT1loc1dK?=
+ =?utf-8?B?WTRsVFVVVmFGUUZKUzVNcWt6eENBcTBSNXlZcFhzUE9uMkxkZGg2RkZJcE1T?=
+ =?utf-8?B?VFVSMks4cEl3eENaWkd5YjFpR0VKaDBrNldaSDlRMWpUSTJEdWI5dVcxM0Ew?=
+ =?utf-8?B?ampRbzJrbDRRQmllMnRWZ0IrTlcyMFZQMXNKVEgzQWN2M3kwc1ZNbGFRSHVZ?=
+ =?utf-8?B?VC92NitBUjNCazFObGwrckxZQU52OVZBMCthVWNMSUJNZUh3VTNVQ1lldDk3?=
+ =?utf-8?B?NUk0T09NNjkzU2NYdzU1UXdVNDlaZiszZXFrUUltK0lmMFRqRm1vWGY5YmRU?=
+ =?utf-8?B?UnBPQ0NndG9kYmJUWjdocm5PRVgxR1pSWEF0QUkvOUY3UHp4dVh2MDZnekJW?=
+ =?utf-8?B?QjA3QS96S2FFbHY5bjVIbzVHbzZyQUU2Y1k3akVac2YwY053VFNjeEY2Qi9l?=
+ =?utf-8?B?SmhRYmMwZ1QvVkhqYXBZdW1EOWxZazVtTm1nSHFpVHhFczFlcS9LTVZ2emJP?=
+ =?utf-8?B?MzhUTGJSWVlKYjNzclFjWTRueWRDanVxd0puaDlmZDMrKzQyN2RYMndhaUsx?=
+ =?utf-8?B?OGE3MHgzdEI4eCtkTmo1T29ockNWY3NQMm5ITVpvaW10K0x4cURBUW1TZ080?=
+ =?utf-8?B?TGFMOTY0UkN4OXZ3dGRHNWh5cnpHVkVyQnAwQksvVVFrYXdGSW5ZK1l2V094?=
+ =?utf-8?B?dU10MEJIMzlsNlpVa3hnU2xMTWFldWFUWkdMMllFNDRFaGpRZVV3a3dKbDFo?=
+ =?utf-8?B?eVJJUzJVTi9OS1QyVDAxaGo1bWpQU3RtYjhkc1NBM2lhdWFsMjRpSk1GdmRz?=
+ =?utf-8?B?T21IU1EzUDRNVTFpdnI1VG9DaTdKUCtBZ2IzYTNVQ1JHTzFKeHJMTENhTGdO?=
+ =?utf-8?B?RmxJNHZiWm95SkJVWk9rQmRxTHNGTE82elY0dkpab3ZSeFloVStoWk82OVNK?=
+ =?utf-8?B?Um96NHhPSFMzSG5wWTdXekQ2dHpHMHllTXl0ai9KYVF1SGMrNnNOeHp1dDlB?=
+ =?utf-8?B?T08xSExCTjh6V0p3YStNbU9WVUpXVFZVOGdHTmEzNWxDVW5CcXBhcE05SUxm?=
+ =?utf-8?B?Y01UeC9zZ2p2Qkoxa29jbWQvN3FKREdwT0VSM0xOa1dLUXFGUkxDTGk1UG9Z?=
+ =?utf-8?B?TzFxdW13NWRvSWo0b0g5Ni9nMmVKbWM2dDFKMkVBN3RPSWJ0bmMrMGFuRVZr?=
+ =?utf-8?B?d2tIQUo4aGxiTktXZnVyakhJeVhDdDdTNHBBL0FNVTkrS0x4MkFFREl0SWND?=
+ =?utf-8?B?SW9BSjJVL0VsTXo0dnc4RXY3SkNUNTZvMjZPSTNmd2pianlxNk03NUpjbWpC?=
+ =?utf-8?B?VVR5Nkw2Qm5RNnVEY0k0dEVSRHVVUm80N1NzMUV4WHZHcTB0MlprY0wwVzJh?=
+ =?utf-8?B?eEJsU25EcGJKb0JxYTk1ODlLbmxVRFBMSEV0cnYyckpIT3RTVmt4dTdrWlBX?=
+ =?utf-8?B?SkkySEpBNEdGdUxkUWFReURGdnZ3akxhSlcwKzZBbHljZkNjM0RRRWZhT2Zl?=
+ =?utf-8?B?ZEhFOTR0Vk5vVHVOQTd0Mnd4bzh6elEzbjFvN1hQdE5mT09XcE9ob3FaNytU?=
+ =?utf-8?B?RHZVRnYzZm5GdXRWQ1lUNCs0YkIwdzc0MEpYZTBoRXBnSkY1L0xIbVl4ZDE0?=
+ =?utf-8?B?M05UYnNRRkJyS2podTNSeXdkNFRNUDJTMnpoTHdOYk52WGUwdGRkVHVzWFN4?=
+ =?utf-8?B?azM4dTFuNkltMVZYNXo3N2ltSDVtY2lNa09Ld056NktoRGRuOWgxbXlNdVU1?=
+ =?utf-8?B?Vzh3eFB5dUZjTG9ROHZXQ3BMbVpLM0lEM0M1U3N5M3lXZXM2QjI5WGtSdHdN?=
+ =?utf-8?B?WFJGYzZyVzNCdVFDbVpiKzIrMFIrTExZcDVmMFROTm9yaFBBaTNQNU1aM0Z1?=
+ =?utf-8?B?SG12TCs2cWw0b2tUVTFBUVNFQkdnRFZWcWhabE9MczBqV2FTRVVjT3VRK2Jx?=
+ =?utf-8?B?TzVkTmVtdjJEVmhzanA5RmF0ejhnLzJtanZKVDRvNmZ6Q1kwK1dRWkwvdzlR?=
+ =?utf-8?Q?j+e4jsVmHF2DLmZ9P9jTUIzquI231WOWAGYGT2RX9KXpL?=
+X-MS-Exchange-AntiSpam-MessageData-1: mrsRAu/JI5mZWw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:47:50.7412 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: JPdBWjxtPq4qGWgO00f/AGP2BCnxTbb+C+RH6dza1p5uhTG4nRLYmRfIeb0mfbf5cCvl1irwBqrY4K7LEPgeAA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,191 +135,157 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential
-issues to consider:
-- [High] drm/msm/dcp: completion zeroing and unlocked caps_cache in
-  dcp_hfi_kms.c
-- [High] drm/msm/dcp: pipe count clobbering in
-  dcp_hfi_parse_init_caps_kv()
-- [Low] drm/msm/dcp: uninitialized stack buffer in
-  dcp_hfi_log_pipe_ids()
---
+On Sunday, November 22, 2026 6:12=E2=80=AFPM Patrick Fischer via B4 Relay w=
+rote:
+> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+> host1x_syncpt_wait() creates its fence without the internal 30 second
+> timeout and cancels it only when dma_fence_wait_timeout() returns 0.
+> If the wait is interrupted, dma_fence_wait_timeout() returns
+> -ERESTARTSYS and the fence is left on the syncpoint's fence list,
+> holding the reference that host1x_syncpt_fence_enable_signaling() took
+> for the interrupt path. It is freed only once the syncpoint reaches the
+> threshold, which may never happen.
+>=20
+> Callers that retry on -ERESTARTSYS allocate a new fence each time.
+> tegra20_channel_capture_frame() retries in a loop without delay, and
+> while the syncpoint does not move, for example with a camera that
+> delivers no frames, every round leaks one fence until the system runs
+> out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
+> in the VI capture thread; the allocations in his report come from
+> host1x_fence_create(), called by host1x_syncpt_wait() from
+> tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
+> up in host1x_syncpt_wait() as well, so a process that is signalled while
+> waiting leaks a fence the same way.
+>=20
+> Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
+> is safe if the interrupt path has signalled the fence in the meantime,
+> as do_fence_timeout() then returns early.
+>=20
+> host1x_fence_cancel() can also run before signalling was enabled on the
+> fence.
 
-commit 493628efb4ff9c95ef6c5374bcbb496f98a1b513
-Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
+Well, not before this patch is applied, which is good to clarify, but=20
+not a big deal.
 
-drm/msm/dcp: Add generic HFI display commands
+> fence->list is only initialized in host1x_intr_add_fence_locked(),
+> so host1x_intr_remove_fence() would then see a zeroed list head, call
+> list_del_init() on it and report the fence as removed, after which
+> do_fence_timeout() drops an interrupt path reference that was never
+> taken. Initialize the list head in host1x_fence_create() instead.
+> host1x_syncpt_wait() does not hit this today, as
+> dma_fence_wait_timeout() enables signalling before it checks for a
+> pending signal, but the cancel path should not depend on that.
+>=20
+> The leak was found with the help of an LLM assistant reading the host1x
+> and dma-fence code against the call chain in the report.
+>=20
+> Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fenc=
+es")
+> Cc: stable@vger.kernel.org
+> Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> ---
+> Svyatoslav reported the out-of-memory crash, and he confirmed off-list
+> that v1 stops the leak on his LG P895 (Tegra30). v2 changes the code,
+> so that confirmation does not carry over to it.
+>=20
+> I have not run v2 on hardware. The Tegra Note 7 I work on only
+> captures with Svyatoslav's out-of-tree VI/CSI patches, and I have not
+> tried to trigger an interrupted wait there. Build-tested for arm and
+> arm64. The DRM IOCTL case in the changelog comes from reading the code;
+> I have not tried it. The same goes for cancelling a fence before
+> signalling was enabled, which no caller does today.
+>=20
+> The retry loop in tegra20_channel_capture_frame() still spins without
+> delay as long as the wait keeps returning -ERESTARTSYS. With this patch
+> that costs CPU time instead of memory; how the VI driver should handle
+> an interrupted wait is a separate question.
+>=20
+> Tool use (see Documentation/process/generated-content.rst): an LLM
+> assistant (Claude, in a chat) found the leak by reading
+> host1x_syncpt_wait() and the fence code against the call chain in the
+> OOM report. Claude Code then checked the finding against the code and
+> wrote the change, the changelog and this note from my notes and
+> instructions. For v2, the chat checked Mikko's point against the code,
+> and Claude Code applied the change and extended the changelog. I
+> reviewed the change.
+> ---
+> Changes in v2:
+> - Initialize fence->list in host1x_fence_create() instead of
+>   host1x_intr_add_fence_locked(), so that cancelling a fence before
+>   signalling was enabled is safe (Mikko Perttunen)
+> - Link to v1: https://patch.msgid.link/20261113-upstream-host1x-fence-can=
+cel-v1-1-89f453504222@tsv-stahl-riesa.de
+> ---
+>  drivers/gpu/host1x/fence.c  | 1 +
+>  drivers/gpu/host1x/intr.c   | 2 --
+>  drivers/gpu/host1x/syncpt.c | 2 +-
+>  3 files changed, 2 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/gpu/host1x/fence.c b/drivers/gpu/host1x/fence.c
+> index 1acf579c562b..f77a391b9195 100644
+> --- a/drivers/gpu/host1x/fence.c
+> +++ b/drivers/gpu/host1x/fence.c
+> @@ -134,6 +134,7 @@ struct dma_fence *host1x_fence_create(struct host1x_s=
+yncpt *sp, u32 threshold,
+>  	fence->sp =3D sp;
+>  	fence->threshold =3D threshold;
+>  	fence->timeout =3D timeout;
+> +	INIT_LIST_HEAD(&fence->list);
+> =20
+>  	dma_fence_init(&fence->base, &host1x_syncpt_fence_ops, &sp->fences.lock=
+,
+>  		       dma_fence_context_alloc(1), 0);
+> diff --git a/drivers/gpu/host1x/intr.c b/drivers/gpu/host1x/intr.c
+> index 30f3dff4487b..380f679b4d7f 100644
+> --- a/drivers/gpu/host1x/intr.c
+> +++ b/drivers/gpu/host1x/intr.c
+> @@ -47,8 +47,6 @@ void host1x_intr_add_fence_locked(struct host1x *host, =
+struct host1x_syncpt_fenc
+>  {
+>  	struct host1x_fence_list *fence_list =3D &fence->sp->fences;
+> =20
+> -	INIT_LIST_HEAD(&fence->list);
+> -
+>  	host1x_intr_add_fence_to_list(fence_list, fence);
+>  	host1x_intr_update_hw_state(host, fence->sp);
+>  }
+> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
+> index fe74ff6fc6f2..f9c871f218f3 100644
+> --- a/drivers/gpu/host1x/syncpt.c
+> +++ b/drivers/gpu/host1x/syncpt.c
+> @@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 =
+thresh, long timeout,
+>  		return PTR_ERR(fence);
+> =20
+>  	wait_err =3D dma_fence_wait_timeout(fence, true, timeout);
+> -	if (wait_err =3D=3D 0)
+> +	if (wait_err <=3D 0)
+>  		host1x_fence_cancel(fence);
+>  	dma_fence_put(fence);
+> =20
+>=20
+> ---
+> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
+> change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
+>=20
+> Best regards,
+> -- =20
+> Patrick Fischer <admin@tsv-stahl-riesa.de>
+>=20
+>=20
+>=20
 
-This commit adds HFI display command helpers for CRTCs, planes, encoders,
-device initialization, and capability parsing in the DCP driver.
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c b/drivers/gpu/drm/msm/=
-dcp/dcp_hfi_kms.c
-> new file mode 100644
-> index 0000000000000..82a7fb420e650
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_kms.c
-> @@ -0,0 +1,325 @@
 
-[ ... ]
 
-> +static void dcp_hfi_caps_cache_init(struct dcp_hfi_caps_cache *cache)
-> +{
-> +	init_completion(&cache->device_done);
-> +	init_completion(&cache->display_done);
-> +}
-> +
-> +static void dcp_hfi_caps_cache_start(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +	dcp_hfi_caps_cache_init(&hfi->caps_cache);
-> +}
-> +
-> +static void dcp_hfi_caps_cache_stop(struct dcp_hfi *hfi)
-> +{
-> +	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
-> +}
-
-[Severity: High]
-Can dcp_hfi_caps_cache_stop() corrupt cache->device_done and
-cache->display_done while capability events are still arriving on resp_vq?
-
-memset() zeroes the whole struct dcp_hfi_caps_cache, including both struct
-completion objects, setting their wait.task_list pointers to NULL and
-zeroing wait.lock without holding hfi->caps_lock.  In
-dcp_hfi_get_capabilities(), a timeout on cache->display_done only logs a
-warning before jumping to out_free_cache and calling
-dcp_hfi_caps_cache_stop() (and timeouts in dcp_hfi_send_device_init() or on
-cache->device_done do the same):
-
-CPU0                              CPU1 (resp_vq callback)
-dcp_hfi_get_capabilities()
-  wait_for_completion_timeout(
-    &cache->display_done, ...)
-    -> times out
-  ...
-  dcp_hfi_caps_cache_stop(hfi)
-    memset(&hfi->caps_cache, 0, ...)
-                                  dcp_hfi_dispatch_event()
-                                    spin_lock_irqsave(&hfi->caps_lock)
-                                    dcp_hfi_store_caps_payload(...,
-                                      &hfi->caps_cache.display_done, ...)
-                                      complete(&cache->display_done)
-                                        swake_up_locked()
-                                          <-- NULL pointer dereference
-
-In swake_up_locked(), list_empty(&q->task_list) evaluates NULL =3D=3D
-&q->task_list as false and dereferences NULL when waking the first entry.
-
-In addition, dcp_hfi_dispatch_event() updates hfi->caps_cache under
-hfi->caps_lock, whereas dcp_hfi_caps_cache_start(),
-dcp_hfi_caps_cache_stop(), and dcp_hfi_get_capabilities() only hold
-hfi->caps_cache_lock.  Because VIG_CAPS, DMA_CAPS, VIG_R1_CAPS, and
-DMA_R1_CAPS do not signal a completion, dcp_hfi_get_capabilities() can read
-and zero those buffers concurrently with dcp_hfi_store_caps_payload().
-
-[ ... ]
-
-> +static void dcp_hfi_parse_init_caps_kv(struct dcp_caps *caps,
-> +				       u32 prop_key,
-> +				       const u32 *payload,
-> +				       u32 max_words)
-> +{
-> +	u32 prop_id =3D HFI_PROP_ID(prop_key);
-> +	u32 count, i;
-> +
-> +	if (!payload || !max_words)
-> +		return;
-> +
-> +	switch (prop_id) {
-
-[ ... ]
-
-> +	case HFI_PROPERTY_DEVICE_INIT_VIG_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_vig_pipes =3D 0;
-> +		caps->virt_vig_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_vig_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_pipe_ids[caps->num_vig_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_vig_count < DCP_MAX_SSPP_COUNT)
-> +					caps->vig_r1_indices[caps->virt_vig_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-> +	case HFI_PROPERTY_DEVICE_INIT_DMA_INDICES:
-> +		if (max_words < 1)
-> +			break;
-> +		count =3D payload[0];
-> +		if (count > max_words - 1)
-> +			count =3D max_words - 1;
-> +		caps->num_dma_pipes =3D 0;
-> +		caps->virt_dma_count =3D 0;
-> +		for (i =3D 0; i < count; i++) {
-> +			u32 idx =3D payload[1 + i];
-> +
-> +			if (DCP_REC_ID(idx) =3D=3D 0) {
-> +				if (caps->num_dma_pipes < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_pipe_ids[caps->num_dma_pipes++] =3D idx;
-> +			} else {
-> +				if (caps->virt_dma_count < DCP_MAX_SSPP_COUNT)
-> +					caps->dma_r1_indices[caps->virt_dma_count++] =3D idx;
-> +			}
-> +		}
-> +		break;
-
-[Severity: High]
-Does parsing cache->vig_r1_buf and cache->dma_r1_buf in
-dcp_hfi_get_capabilities() wipe out caps->num_vig_pipes and
-caps->num_dma_pipes?
-
-Both primary (DCP_REC_ID(idx) =3D=3D 0) and rect-1 (DCP_REC_ID(idx) !=3D 0)=
- pipe
-lists use HFI_PROPERTY_DEVICE_INIT_VIG_INDICES and
-HFI_PROPERTY_DEVICE_INIT_DMA_INDICES.  Because dcp_hfi_parse_init_caps_kv()
-unconditionally zeroes both primary and virtual counts before looping,
-parsing vig_r1_buf and dma_r1_buf after vig_buf and dma_buf resets
-caps->num_vig_pipes and caps->num_dma_pipes to 0, causing caps->max_planes
-to become 0 and dcp_hfi_get_capabilities() to fail with -EINVAL.
-
-[ ... ]
-
-> +static void dcp_hfi_log_pipe_ids(struct device *dev, const char *label,
-> +				 const u32 *ids, u32 count)
-> +{
-> +	char buf[128];
-> +	int pos =3D 0;
-> +	u32 i;
-> +
-> +	for (i =3D 0; i < count && pos < (int)sizeof(buf) - 8; i++)
-> +		pos +=3D scnprintf(buf + pos, sizeof(buf) - pos,
-> +				  "%s0x%x", i ? "," : "", ids[i]);
-> +
-> +	dev_dbg(dev, "%s: count=3D%u ids=3D[%s]\n", label, count, buf);
-> +}
-
-[Severity: Low]
-If count is 0, the loop does not run and dev_dbg() prints buf uninitialized
-from the stack.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D8
