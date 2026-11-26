@@ -2,41 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D70606A329
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9114C606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:29:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=gqqy1TAo
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=1k6agcWN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DF497112320;
-	Thu, 26 Nov 2026 11:29:39 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 422DF10E60E
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:29:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id EE7DE11232A;
+	Thu, 26 Nov 2026 11:29:46 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55A4D10E60E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:29:39 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 073AF4E41798;
- Thu, 26 Nov 2026 11:29:32 +0000 (UTC)
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 299D11A1807;
+ Thu, 26 Nov 2026 11:29:38 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id CE5EA60237;
- Thu, 26 Nov 2026 11:29:31 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id E9E1D60237;
+ Thu, 26 Nov 2026 11:29:37 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 2474811E6B36B; Thu, 26 Nov 2026 12:29:18 +0100 (CET)
+ with ESMTPSA id 09FA711E6B306; Thu, 26 Nov 2026 12:29:29 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795692565; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795692575; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=P6rNn4aFEjEcZ1z3GBKAStHU3x0wgmSWhq3PX6FCzYU=;
- b=gqqy1TAog2sQ6XPRLl6yS0+Ecpdnbqhh/hNjGnG1E2l0hQLMIdcpCI46OH2KlP+bE/kn3m
- 1oGkKoEzEpm0yWgK/LuQNUmnXXdwl1Sy3IZU17z7HhWrGzUWpcUZ115GTNJj6qLSxuO04J
- P1UtLPqxBNPAGGuLOazA9JMw6sGpwrJbM7/GHRRXfiQKzljwf7kmwVguWP1SaOcKJLJ8BK
- jBSe0ZVwCYDUwXq+Ptq+kLidwGtgFjPcxbRizC4oaoByHCd+n3AMR6dsLF38ixgIdVzsBm
- orwKpJ2Xva4CXiXOdlIQUOv0sBQPw+kMd6JBhpG7KlMFCXdgPHr3H9dwDpl3PA==
+ bh=rZSkzkpoAYEQzNR03LeGNBwix6txHfxvHkvo1VKqHVY=;
+ b=1k6agcWN+R6+AI+CsVIXZ/Pnwu/EcpZFAJtx3TNFHonTD6eOlOWsbUujl5WhpKTuZnft94
+ 2CBTXKlk/q5O1ZVFcCJGHTdCabQog6Xz5XfvZ7huzvg64Y2Boj3bsVzQuiVUrqwA7EGOz1
+ mI6jIZ3ukQ8QScsbyTFhhIhSahhPnOlHuYa2EMr9khgu7ViEOX8iD8NdlwICsKiifpsuq+
+ s6nhjDNTXHRfEkcYftbKsNOczYxCz2uED7eAvvpCEumc0Aqt2cXk+Fm0cUhBK/PeSkdroa
+ +Jx+p1JINNVNnMyRoFVwAVs9TnSZ73u9lEwUU4+tncLEO7o5VJFOdzbbA/XS/w==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Date: Thu, 26 Nov 2026 12:28:47 +0100
-Subject: [PATCH v7 04/43] drm/tests: Add test cases for DRM rotation name
+Date: Thu, 26 Nov 2026 12:28:48 +0100
+Subject: [PATCH v7 05/43] drm/drm_color_mgmt: Expose
+ drm_get_color_encoding_name
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-vkms-all-config-v7-4-21194cda2468@bootlin.com>
+Message-Id: <20261126-vkms-all-config-v7-5-21194cda2468@bootlin.com>
 References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
 In-Reply-To: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
@@ -81,110 +82,64 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Verify the DRM_ROTATION_FMT()/DRM_ROTATION_FMT_ARGS() helpers.
+drm_get_color_encoding_name can be useful to display debug information
+outside drm core. Export it so it could be used for VKMS
 
-Tested-by: Oarora Etimis <oaroraetimis@gmail.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
- drivers/gpu/drm/tests/Makefile            |  1 +
- drivers/gpu/drm/tests/drm_rotation_test.c | 76 +++++++++++++++++++++++++++++++
- 2 files changed, 77 insertions(+)
+ drivers/gpu/drm/drm_color_mgmt.c    | 2 +-
+ drivers/gpu/drm/drm_crtc_internal.h | 2 --
+ include/drm/drm_color_mgmt.h        | 2 ++
+ 3 files changed, 3 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/tests/Makefile b/drivers/gpu/drm/tests/Makefile
-index 42207df1d1c8..c10bd6a97f5b 100644
---- a/drivers/gpu/drm/tests/Makefile
-+++ b/drivers/gpu/drm/tests/Makefile
-@@ -24,6 +24,7 @@ obj-$(CONFIG_DRM_KUNIT_TEST) += \
- 	drm_plane_helper_test.o \
- 	drm_probe_helper_test.o \
- 	drm_rect_test.o \
-+	drm_rotation_test.o \
- 	drm_sysfb_modeset_test.o \
- 	drm_fixp_test.o \
- 	drm_kunit_edid.o
-diff --git a/drivers/gpu/drm/tests/drm_rotation_test.c b/drivers/gpu/drm/tests/drm_rotation_test.c
-new file mode 100644
-index 000000000000..c537e7ca35b9
---- /dev/null
-+++ b/drivers/gpu/drm/tests/drm_rotation_test.c
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Test cases for DRM rotation functions and macros
-+ *
-+ * Tests DRM_ROTATION_FMT_ARGS()
-+ */
+diff --git a/drivers/gpu/drm/drm_color_mgmt.c b/drivers/gpu/drm/drm_color_mgmt.c
+index e4e31bc0153e..de219c23322f 100644
+--- a/drivers/gpu/drm/drm_color_mgmt.c
++++ b/drivers/gpu/drm/drm_color_mgmt.c
+@@ -496,7 +496,7 @@ const char *drm_get_color_encoding_name(enum drm_color_encoding encoding)
+ 
+ 	return color_encoding_name[encoding];
+ }
+-EXPORT_SYMBOL_IF_KUNIT(drm_get_color_encoding_name);
++EXPORT_SYMBOL(drm_get_color_encoding_name);
+ 
+ /**
+  * drm_get_color_range_name - return a string for color range
+diff --git a/drivers/gpu/drm/drm_crtc_internal.h b/drivers/gpu/drm/drm_crtc_internal.h
+index f60216adcd31..c7aeb69b54c9 100644
+--- a/drivers/gpu/drm/drm_crtc_internal.h
++++ b/drivers/gpu/drm/drm_crtc_internal.h
+@@ -38,7 +38,6 @@
+ #include <linux/err.h>
+ #include <linux/types.h>
+ 
+-enum drm_color_encoding;
+ enum drm_color_range;
+ enum drm_connector_force;
+ enum drm_mode_status;
+@@ -121,7 +120,6 @@ int drm_mode_destroy_dumb_ioctl(struct drm_device *dev,
+ 				void *data, struct drm_file *file_priv);
+ 
+ /* drm_color_mgmt.c */
+-const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
+ const char *drm_get_color_range_name(enum drm_color_range range);
+ 
+ /* IOCTLs */
+diff --git a/include/drm/drm_color_mgmt.h b/include/drm/drm_color_mgmt.h
+index 5140691f476a..133ca77d91c7 100644
+--- a/include/drm/drm_color_mgmt.h
++++ b/include/drm/drm_color_mgmt.h
+@@ -113,6 +113,8 @@ enum drm_color_range {
+ 	DRM_COLOR_RANGE_MAX,
+ };
+ 
++const char *drm_get_color_encoding_name(enum drm_color_encoding encoding);
 +
-+#include <kunit/test.h>
-+#include <drm/drm_blend.h>
-+
-+static void drm_test_rotation_fmt_args(struct kunit *test)
-+{
-+	char buf[128];
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(0));
-+	KUNIT_EXPECT_STREQ(test, buf, "(0x00000000)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_0));
-+	KUNIT_EXPECT_STREQ(test, buf, "rotate-0 (0x00000001)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_90));
-+	KUNIT_EXPECT_STREQ(test, buf, "rotate-90 (0x00000002)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_180));
-+	KUNIT_EXPECT_STREQ(test, buf, "rotate-180 (0x00000004)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_270));
-+	KUNIT_EXPECT_STREQ(test, buf, "rotate-270 (0x00000008)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_X));
-+	KUNIT_EXPECT_STREQ(test, buf, "reflect-x (0x00000010)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_Y));
-+	KUNIT_EXPECT_STREQ(test, buf, "reflect-y (0x00000020)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT,
-+		 DRM_ROTATION_FMT_ARGS(DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 |
-+				       DRM_MODE_REFLECT_X));
-+	KUNIT_EXPECT_STREQ(test, buf, "rotate-0 rotate-90 reflect-x (0x00000013)");
-+
-+	unsigned int all = DRM_MODE_ROTATE_0 | DRM_MODE_ROTATE_90 | DRM_MODE_ROTATE_180 |
-+			   DRM_MODE_ROTATE_270 | DRM_MODE_REFLECT_X | DRM_MODE_REFLECT_Y;
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT, DRM_ROTATION_FMT_ARGS(all));
-+	KUNIT_EXPECT_STREQ(test, buf,
-+			   "rotate-0 rotate-90 rotate-180 rotate-270 reflect-x reflect-y (0x0000003f)");
-+
-+	memset(buf, 0, sizeof(buf));
-+	snprintf(buf, sizeof(buf), DRM_ROTATION_FMT,
-+		 DRM_ROTATION_FMT_ARGS(DRM_MODE_REFLECT_X | DRM_MODE_REFLECT_Y));
-+	KUNIT_EXPECT_STREQ(test, buf, "reflect-x reflect-y (0x00000030)");
-+}
-+
-+static struct kunit_case drm_rotation_tests[] = {
-+	KUNIT_CASE(drm_test_rotation_fmt_args),
-+	{}
-+};
-+
-+static struct kunit_suite drm_rotation_test_suite = {
-+	.name = "drm_rotation",
-+	.test_cases = drm_rotation_tests,
-+};
-+
-+kunit_test_suite(drm_rotation_test_suite);
-+
-+MODULE_DESCRIPTION("Test cases for DRM rotation functions and macros");
-+MODULE_LICENSE("GPL");
+ int drm_plane_create_color_properties(struct drm_plane *plane,
+ 				      u32 supported_encodings,
+ 				      u32 supported_ranges,
 
 -- 
 2.56.0
