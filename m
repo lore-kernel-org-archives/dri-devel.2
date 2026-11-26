@@ -2,46 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3957D606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:29:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 695A0606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:29:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=jq1Rfj6j
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=x0IFmX3/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 977D8112330;
-	Thu, 26 Nov 2026 11:29:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B292111231B;
+	Thu, 26 Nov 2026 11:29:17 +0000 (UTC)
 Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6111410E370
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:29:04 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BEF2C10E370
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:29:09 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 31E554E41693;
- Thu, 26 Nov 2026 11:29:02 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 814184E41798;
+ Thu, 26 Nov 2026 11:29:08 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id D2E1F60237;
- Thu, 26 Nov 2026 11:29:01 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 5545C60237;
+ Thu, 26 Nov 2026 11:29:08 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id AA5B211E6B363; Thu, 26 Nov 2026 12:28:48 +0100 (CET)
+ with ESMTPSA id E7BE711E6B324; Thu, 26 Nov 2026 12:28:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795692539; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=0SJIs+rpjiUaAsGTjABstVmfPkduoG+bc7NOjJbid+o=;
- b=jq1Rfj6jYMU9yxaVg9UV4H8Zen8EkiT4Kg4x9rGWtovkX/SR29OIvOAEPzQMxYwu2UWSOn
- +5Uyp5jk5Ejc5PKpTL7/tAcJB4BS3w0zotb1M30bClovFKOunqc2O/M1v0sx6C8K4TqokU
- KHD7AK/LeBwJan1aZrE1S9nFZc3z+k7YeO2HCMWaMWsTqYewWK50lwEAimQIAeeE1R1GSy
- /X0VqPnkfDE4nSEYQFOq19i72sLYzSegWD6JWn03eoE8JK4SqQLefK4x5GRDuV/CV1CXkE
- GRwc7RixwSzrzZgIlQS3iAVf8b6gTkLnHRRR7/JCGAfXQ29ZWip3zIerGuCrAg==
+ t=1795692545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=0pJvFzuu9ojDNs7HFde9fGkz6OigPV2HgpzXDv0JSfs=;
+ b=x0IFmX3/Jrlb6OKQa+FRxQEAOztLnfcjybuKQ84nDRspB7EwBcGRwpOZ3tzfm8HfCOsgdQ
+ Zk52GnWin6+JCmslFQO2ilQUdRof8IZQ/IMKGfkrGFN3M9W/8WydPqosV8PVqBDWZhxj78
+ Q0j/mL53HX1DSIZ1NkrtfCvxhlzdTp+Oiwh1qPdeaRc0pHiXJIzUDIjqHKZwhhbIoysfDL
+ SVsy4F5dSr403KmAExmkRyt3FAWNqUnnj9uKTXikNM8iV6ytYuUS0McscGZD28WRjYnviL
+ iNal3anJCVXXBSAdBZTC+rEMf3ejnIJI/UlQ4P1FUIZC/71zIU7VfKa2/7rKIg==
 From: Louis Chauvet <louis.chauvet@bootlin.com>
-Subject: [PATCH v7 00/43] VKMS: Introduce multiple configFS attributes
-Date: Thu, 26 Nov 2026 12:28:43 +0100
-Message-Id: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+Date: Thu, 26 Nov 2026 12:28:44 +0100
+Subject: [PATCH v7 01/43] drm/vkms: Lock the config dump against concurrent
+ configfs changes
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOwXCGsC/23R0U7DIBgF4FdpuBaFv0DLrnwP4wWUn424tgqVz
- Cx9d1nnMg3ecUjOx0k4k4QxYCK75kwi5pDCPJXQPTRkOJhpjzS4kgkwkJzxjua3MVFzPNJhnnz
- YU+vYAIbxXihPSus9og+nTXx5veaIH58FXq6XxJqEpT2OYdk1Lo50DGl4uh3ohKeFXJqHkJY5f
- m3TMt+qPyv6akXmlFHTdYp1UjoN7tnO83IM02N5aNMy/BJA1wIUwSIwq63nQmEttHcBAGqhvQh
- GgBtab7X3tSBugmLiP0EUwVkrAbUxhakFeRcU1L+RZRF6KYxhvWAa1F9hXddvDtJoBfIBAAA=
-X-Change-ID: 20251017-vkms-all-config-bd0c2a01846f
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261126-vkms-all-config-v7-1-21194cda2468@bootlin.com>
+References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+In-Reply-To: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
 To: Haneen Mohammed <hamohammed.sa@gmail.com>, 
  Simona Vetter <simona@ffwll.ch>, Melissa Wen <melissa.srw@gmail.com>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -62,8 +60,7 @@ Cc: Luca Ceresoli <luca.ceresoli@bootlin.com>,
  Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com, 
  victoria@system76.com, thomas.petazzoni@bootlin.com, 
  dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
- linux-doc@vger.kernel.org, llvm@lists.linux.dev, 
- =?utf-8?q?Jos=C3=A9_Exp=C3=B3sito?= <jose.exposito@redhat.com>
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev
 X-Mailer: b4 0.17-dev
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -85,224 +82,610 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-VKMS have a wide range of options. The aim of this series is to introduce
-many configfs attribute so VKMS can be used to test a wide range of
-configurations.
+The vkms_config debugfs dump iterates the configuration lists while
+configfs can concurrently mutate or free them, which leads to a
+use-after-free. Move the configuration lock into struct vkms_config and
+run the dump under it.
 
-PATCH 1-3 fix display and locking of the configfs attributes
-PATCH 4-9 expose human readable strings from drm core
-PATCH 10 is a fix for the default rotation value
-PATCH 11 is ABI documentation
-PATCH 12 introduce reference counting for vkms_config
-PATCH 13 add a KUnit test for the device lifecycle
-PATCH 14 added some error checks in plane configuration
-PATCH 15 cleanup in plane_release
-PATCH 16-17 change the display in configfs to be more readable
-PATCH 18,19 plane name
-PATCH 20,21 plane rotation
-PATCH 22,23 plane color encoding
-PATCH 24,25 plane color range
-PATCH 26,27 plane format
-PATCH 28 properly use zpos
-PATCH 29,30 plane zpos
-PATCH 31 back pointer to connector
-PATCH 32,33 connector type
-PATCH 34 preparation in connector initialization
-PATCH 35,36 connector supported colorspace
-PATCH 37,38 connector EDID
-PATCH 39-41 dynamic connectors
-PATCH 42,43 PATH property
-
-PS: Each pair of config/configfs patch are independant. I could
-technically create ≈10 different series, but there will be a lot of
-(trivial) conflicts between them. I will be happy to reordoer, split and
-partially apply this series to help the review process.
-
-PS2: I am currently cleaning the IGT test series to validate all that,
-it will be submitted separately.
-
+Fixes: 64229b846a7e ("drm/vkms: Allow to attach connectors and encoders via configfs")
 Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
 ---
-Changes in v7:
-- add refcount on vkms_config/vkms_config_connector 
-- fix issues reported by Oarora
-- rebased on drm-misc-next
+ drivers/gpu/drm/vkms/vkms_config.c    | 74 +++++++++++++++++-------------
+ drivers/gpu/drm/vkms/vkms_config.h    | 29 ++++++++++--
+ drivers/gpu/drm/vkms/vkms_configfs.c  | 85 +++++++++++++++++++----------------
+ drivers/gpu/drm/vkms/vkms_connector.c |  6 ++-
+ 4 files changed, 119 insertions(+), 75 deletions(-)
 
-Changes in v6:
-- disable cfi check for show_bitfield
-- Rebased on drm-misc-next
-- The ABI documentation is now distributed: each patch introducing an
-  attribute adds its own documentation section
-- vkms_config and vkms_config_connector are now reference counted,
-  fixing use-after-free and races when destroying connectors
-- Lock the config dump against concurrent configfs changes
-- Add a KUnit test for the device lifecycle
-- Link to v5: https://lore.kernel.org/r/20260627-vkms-all-config-v5-0-854aa0840926@bootlin.com
+diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+index f9e30a4e5a3f..6699ddae7126 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.c
++++ b/drivers/gpu/drm/vkms/vkms_config.c
+@@ -27,6 +27,7 @@ struct vkms_config *vkms_config_create(const char *dev_name)
+ 	INIT_LIST_HEAD(&config->crtcs);
+ 	INIT_LIST_HEAD(&config->encoders);
+ 	INIT_LIST_HEAD(&config->connectors);
++	mutex_init(&config->lock);
+ 
+ 	return config;
+ }
+@@ -130,6 +131,7 @@ void vkms_config_destroy(struct vkms_config *config)
+ 	list_for_each_entry_safe(connector_cfg, connector_tmp, &config->connectors, link)
+ 		vkms_config_destroy_connector(connector_cfg);
+ 
++	mutex_destroy(&config->lock);
+ 	kfree_const(config->dev_name);
+ 	kfree(config);
+ }
+@@ -348,28 +350,38 @@ static int vkms_config_show(struct seq_file *m, void *data)
+ 	struct vkms_config_encoder *encoder_cfg;
+ 	struct vkms_config_connector *connector_cfg;
+ 
+-	dev_name = vkms_config_get_device_name((struct vkms_config *)vkmsdev->config);
+-	seq_printf(m, "dev_name=%s\n", dev_name);
+-
+-	vkms_config_for_each_plane(vkmsdev->config, plane_cfg) {
+-		seq_puts(m, "plane:\n");
+-		seq_printf(m, "\ttype=%d\n",
+-			   vkms_config_plane_get_type(plane_cfg));
+-	}
++	/*
++	 * The configuration lists are mutated by the configfs under the
++	 * configuration lock. Walk them under RCU instead: mutations use
++	 * list_{add,del}_rcu and free the objects after a grace period,
++	 * so this reader holds no lock and cannot block the configfs
++	 * paths (the disable path removes this file while holding the
++	 * lock, and the debugfs removal waits for this reader to drain).
++	 */
++	scoped_guard(rcu) {
++		dev_name = vkms_config_get_device_name((struct vkms_config *)vkmsdev->config);
++		seq_printf(m, "dev_name=%s\n", dev_name);
++
++		vkms_config_for_each_plane(vkmsdev->config, plane_cfg) {
++			seq_puts(m, "plane:\n");
++			seq_printf(m, "\ttype=%d\n",
++				   vkms_config_plane_get_type(plane_cfg));
++		}
+ 
+-	vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
+-		seq_puts(m, "crtc:\n");
+-		seq_printf(m, "\twriteback=%d\n",
+-			   vkms_config_crtc_get_writeback(crtc_cfg));
+-	}
++		vkms_config_for_each_crtc(vkmsdev->config, crtc_cfg) {
++			seq_puts(m, "crtc:\n");
++			seq_printf(m, "\twriteback=%d\n",
++				   vkms_config_crtc_get_writeback(crtc_cfg));
++		}
+ 
+-	vkms_config_for_each_encoder(vkmsdev->config, encoder_cfg)
+-		seq_puts(m, "encoder\n");
++		vkms_config_for_each_encoder(vkmsdev->config, encoder_cfg)
++			seq_puts(m, "encoder\n");
+ 
+-	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
+-		seq_puts(m, "connector:\n");
+-		seq_printf(m, "\tstatus=%s\n",
+-			   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
++		vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
++			seq_puts(m, "connector:\n");
++			seq_printf(m, "\tstatus=%s\n",
++				   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
++		}
+ 	}
+ 
+ 	return 0;
+@@ -398,7 +410,7 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
+ 	vkms_config_plane_set_type(plane_cfg, DRM_PLANE_TYPE_OVERLAY);
+ 	xa_init_flags(&plane_cfg->possible_crtcs, XA_FLAGS_ALLOC);
+ 
+-	list_add_tail(&plane_cfg->link, &config->planes);
++	list_add_tail_rcu(&plane_cfg->link, &config->planes);
+ 
+ 	return plane_cfg;
+ }
+@@ -407,8 +419,8 @@ EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
+ void vkms_config_destroy_plane(struct vkms_config_plane *plane_cfg)
+ {
+ 	xa_destroy(&plane_cfg->possible_crtcs);
+-	list_del(&plane_cfg->link);
+-	kfree(plane_cfg);
++	list_del_rcu(&plane_cfg->link);
++	kfree_rcu(plane_cfg, rcu);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_plane);
+ 
+@@ -456,7 +468,7 @@ struct vkms_config_crtc *vkms_config_create_crtc(struct vkms_config *config)
+ 	crtc_cfg->config = config;
+ 	vkms_config_crtc_set_writeback(crtc_cfg, false);
+ 
+-	list_add_tail(&crtc_cfg->link, &config->crtcs);
++	list_add_tail_rcu(&crtc_cfg->link, &config->crtcs);
+ 
+ 	return crtc_cfg;
+ }
+@@ -474,8 +486,8 @@ void vkms_config_destroy_crtc(struct vkms_config *config,
+ 	vkms_config_for_each_encoder(config, encoder_cfg)
+ 		vkms_config_encoder_detach_crtc(encoder_cfg, crtc_cfg);
+ 
+-	list_del(&crtc_cfg->link);
+-	kfree(crtc_cfg);
++	list_del_rcu(&crtc_cfg->link);
++	kfree_rcu(crtc_cfg, rcu);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_crtc);
+ 
+@@ -535,7 +547,7 @@ struct vkms_config_encoder *vkms_config_create_encoder(struct vkms_config *confi
+ 	encoder_cfg->config = config;
+ 	xa_init_flags(&encoder_cfg->possible_crtcs, XA_FLAGS_ALLOC);
+ 
+-	list_add_tail(&encoder_cfg->link, &config->encoders);
++	list_add_tail_rcu(&encoder_cfg->link, &config->encoders);
+ 
+ 	return encoder_cfg;
+ }
+@@ -550,8 +562,8 @@ void vkms_config_destroy_encoder(struct vkms_config *config,
+ 		vkms_config_connector_detach_encoder(connector_cfg, encoder_cfg);
+ 
+ 	xa_destroy(&encoder_cfg->possible_crtcs);
+-	list_del(&encoder_cfg->link);
+-	kfree(encoder_cfg);
++	list_del_rcu(&encoder_cfg->link);
++	kfree_rcu(encoder_cfg, rcu);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_encoder);
+ 
+@@ -600,7 +612,7 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
+ 	connector_cfg->status = connector_status_connected;
+ 	xa_init_flags(&connector_cfg->possible_encoders, XA_FLAGS_ALLOC);
+ 
+-	list_add_tail(&connector_cfg->link, &config->connectors);
++	list_add_tail_rcu(&connector_cfg->link, &config->connectors);
+ 
+ 	return connector_cfg;
+ }
+@@ -609,8 +621,8 @@ EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_connector);
+ void vkms_config_destroy_connector(struct vkms_config_connector *connector_cfg)
+ {
+ 	xa_destroy(&connector_cfg->possible_encoders);
+-	list_del(&connector_cfg->link);
+-	kfree(connector_cfg);
++	list_del_rcu(&connector_cfg->link);
++	kfree_rcu(connector_cfg, rcu);
+ }
+ EXPORT_SYMBOL_IF_KUNIT(vkms_config_destroy_connector);
+ 
+diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+index 56805b0c9b14..125273f67e7d 100644
+--- a/drivers/gpu/drm/vkms/vkms_config.h
++++ b/drivers/gpu/drm/vkms/vkms_config.h
+@@ -4,6 +4,8 @@
+ #define _VKMS_CONFIG_H_
+ 
+ #include <linux/list.h>
++#include <linux/rculist.h>
++#include <linux/mutex.h>
+ #include <linux/types.h>
+ #include <linux/xarray.h>
+ 
+@@ -19,6 +21,8 @@
+  * @crtcs: List of CRTCs configured for the device
+  * @encoders: List of encoders configured for the device
+  * @connectors: List of connectors configured for the device
++ * @lock: Protects the whole configuration (lists and item fields) against
++ *        concurrent access from the configfs, debugfs and DRM paths
+  * @dev: Used to store the current VKMS device. Only set when the device is instantiated.
+  */
+ struct vkms_config {
+@@ -27,6 +31,7 @@ struct vkms_config {
+ 	struct list_head crtcs;
+ 	struct list_head encoders;
+ 	struct list_head connectors;
++	struct mutex lock;
+ 	struct vkms_device *dev;
+ };
+ 
+@@ -34,6 +39,7 @@ struct vkms_config {
+  * struct vkms_config_plane
+  *
+  * @link: Link to the others planes in vkms_config
++ * @rcu: RCU head for deferred freeing of this object
+  * @config: The vkms_config this plane belongs to
+  * @type: Type of the plane. The creator of configuration needs to ensures that
+  *        at least one primary plane is present.
+@@ -45,6 +51,7 @@ struct vkms_config {
+  */
+ struct vkms_config_plane {
+ 	struct list_head link;
++	struct rcu_head rcu;
+ 	struct vkms_config *config;
+ 
+ 	enum drm_plane_type type;
+@@ -59,6 +66,7 @@ struct vkms_config_plane {
+  * struct vkms_config_crtc
+  *
+  * @link: Link to the others CRTCs in vkms_config
++ * @rcu: RCU head for deferred freeing of this object
+  * @config: The vkms_config this CRTC belongs to
+  * @writeback: If true, a writeback buffer can be attached to the CRTC
+  * @crtc: Internal usage. This pointer should never be considered as valid.
+@@ -68,6 +76,7 @@ struct vkms_config_plane {
+  */
+ struct vkms_config_crtc {
+ 	struct list_head link;
++	struct rcu_head rcu;
+ 	struct vkms_config *config;
+ 
+ 	bool writeback;
+@@ -80,6 +89,7 @@ struct vkms_config_crtc {
+  * struct vkms_config_encoder
+  *
+  * @link: Link to the others encoders in vkms_config
++ * @rcu: RCU head for deferred freeing of this object
+  * @config: The vkms_config this CRTC belongs to
+  * @possible_crtcs: Array of CRTCs that can be used with this encoder
+  * @encoder: Internal usage. This pointer should never be considered as valid.
+@@ -89,6 +99,7 @@ struct vkms_config_crtc {
+  */
+ struct vkms_config_encoder {
+ 	struct list_head link;
++	struct rcu_head rcu;
+ 	struct vkms_config *config;
+ 
+ 	struct xarray possible_crtcs;
+@@ -101,6 +112,7 @@ struct vkms_config_encoder {
+  * struct vkms_config_connector
+  *
+  * @link: Link to the others connector in vkms_config
++ * @rcu: RCU head for deferred freeing of this object
+  * @config: The vkms_config this connector belongs to
+  * @status: Status (connected, disconnected...) of the connector
+  * @possible_encoders: Array of encoders that can be used with this connector
+@@ -111,6 +123,7 @@ struct vkms_config_encoder {
+  */
+ struct vkms_config_connector {
+ 	struct list_head link;
++	struct rcu_head rcu;
+ 	struct vkms_config *config;
+ 
+ 	enum drm_connector_status status;
+@@ -126,7 +139,9 @@ struct vkms_config_connector {
+  * @plane_cfg: &struct vkms_config_plane pointer used as cursor
+  */
+ #define vkms_config_for_each_plane(config, plane_cfg) \
+-	list_for_each_entry((plane_cfg), &(config)->planes, link)
++	list_for_each_entry_rcu((plane_cfg), &(config)->planes, link, \
++				      lockdep_is_held(&(config)->lock) || \
++				      !(config)->dev)
+ 
+ /**
+  * vkms_config_for_each_crtc - Iterate over the vkms_config CRTCs
+@@ -134,7 +149,9 @@ struct vkms_config_connector {
+  * @crtc_cfg: &struct vkms_config_crtc pointer used as cursor
+  */
+ #define vkms_config_for_each_crtc(config, crtc_cfg) \
+-	list_for_each_entry((crtc_cfg), &(config)->crtcs, link)
++	list_for_each_entry_rcu((crtc_cfg), &(config)->crtcs, link, \
++				      lockdep_is_held(&(config)->lock) || \
++				      !(config)->dev)
+ 
+ /**
+  * vkms_config_for_each_encoder - Iterate over the vkms_config encoders
+@@ -142,7 +159,9 @@ struct vkms_config_connector {
+  * @encoder_cfg: &struct vkms_config_encoder pointer used as cursor
+  */
+ #define vkms_config_for_each_encoder(config, encoder_cfg) \
+-	list_for_each_entry((encoder_cfg), &(config)->encoders, link)
++	list_for_each_entry_rcu((encoder_cfg), &(config)->encoders, link, \
++				      lockdep_is_held(&(config)->lock) || \
++				      !(config)->dev)
+ 
+ /**
+  * vkms_config_for_each_connector - Iterate over the vkms_config connectors
+@@ -150,7 +169,9 @@ struct vkms_config_connector {
+  * @connector_cfg: &struct vkms_config_connector pointer used as cursor
+  */
+ #define vkms_config_for_each_connector(config, connector_cfg) \
+-	list_for_each_entry((connector_cfg), &(config)->connectors, link)
++	list_for_each_entry_rcu((connector_cfg), &(config)->connectors, link, \
++				      lockdep_is_held(&(config)->lock) || \
++				      !(config)->dev)
+ 
+ /**
+  * vkms_config_plane_for_each_possible_crtc - Iterate over the vkms_config_plane
+diff --git a/drivers/gpu/drm/vkms/vkms_configfs.c b/drivers/gpu/drm/vkms/vkms_configfs.c
+index af097967ca6f..6bb24f5835db 100644
+--- a/drivers/gpu/drm/vkms/vkms_configfs.c
++++ b/drivers/gpu/drm/vkms/vkms_configfs.c
+@@ -21,10 +21,9 @@ static bool is_configfs_registered;
+  * @crtcs_group: Default subgroup of @group at "/config/vkms/crtcs"
+  * @encoders_group: Default subgroup of @group at "/config/vkms/encoders"
+  * @connectors_group: Default subgroup of @group at "/config/vkms/connectors"
+- * @lock: Lock used to project concurrent access to the configuration attributes
+- * @config: Protected by @lock. Configuration of the VKMS device
+- * @enabled: Protected by @lock. The device is created or destroyed when this
+- * option changes
++ * @config: Configuration of the VKMS device. Its @lock field protects it
++ * against concurrent access
++ * @enabled: The device is created or destroyed when this option changes
+  */
+ struct vkms_configfs_device {
+ 	struct config_group group;
+@@ -33,7 +32,6 @@ struct vkms_configfs_device {
+ 	struct config_group encoders_group;
+ 	struct config_group connectors_group;
+ 
+-	struct mutex lock;
+ 	struct vkms_config *config;
+ 	bool enabled;
+ };
+@@ -141,7 +139,7 @@ static ssize_t crtc_writeback_show(struct config_item *item, char *page)
+ 
+ 	crtc = crtc_item_to_vkms_configfs_crtc(item);
+ 
+-	scoped_guard(mutex, &crtc->dev->lock)
++	scoped_guard(mutex, &crtc->dev->config->lock)
+ 		writeback = vkms_config_crtc_get_writeback(crtc->config);
+ 
+ 	return sprintf(page, "%d\n", writeback);
+@@ -158,7 +156,7 @@ static ssize_t crtc_writeback_store(struct config_item *item, const char *page,
+ 	if (kstrtobool(page, &writeback))
+ 		return -EINVAL;
+ 
+-	scoped_guard(mutex, &crtc->dev->lock) {
++	scoped_guard(mutex, &crtc->dev->config->lock) {
+ 		if (crtc->dev->enabled)
+ 			return -EBUSY;
+ 
+@@ -181,7 +179,7 @@ static void crtc_release(struct config_item *item)
+ 	struct mutex *lock;
+ 
+ 	crtc = crtc_item_to_vkms_configfs_crtc(item);
+-	lock = &crtc->dev->lock;
++	lock = &crtc->dev->config->lock;
+ 
+ 	scoped_guard(mutex, lock) {
+ 		vkms_config_destroy_crtc(crtc->dev->config, crtc->config);
+@@ -208,7 +206,7 @@ static struct config_group *make_crtc_group(struct config_group *group,
+ 
+ 	dev = child_group_to_vkms_configfs_device(group);
+ 
+-	scoped_guard(mutex, &dev->lock) {
++	scoped_guard(mutex, &dev->config->lock) {
+ 		if (dev->enabled)
+ 			return ERR_PTR(-EBUSY);
+ 
+@@ -253,7 +251,7 @@ static int plane_possible_crtcs_allow_link(struct config_item *src,
+ 	plane = plane_possible_crtcs_item_to_vkms_configfs_plane(src);
+ 	crtc = crtc_item_to_vkms_configfs_crtc(target);
+ 
+-	scoped_guard(mutex, &plane->dev->lock) {
++	scoped_guard(mutex, &plane->dev->config->lock) {
+ 		if (plane->dev->enabled)
+ 			return -EBUSY;
+ 
+@@ -272,7 +270,7 @@ static void plane_possible_crtcs_drop_link(struct config_item *src,
+ 	plane = plane_possible_crtcs_item_to_vkms_configfs_plane(src);
+ 	crtc = crtc_item_to_vkms_configfs_crtc(target);
+ 
+-	scoped_guard(mutex, &plane->dev->lock)
++	scoped_guard(mutex, &plane->dev->config->lock)
+ 		vkms_config_plane_detach_crtc(plane->config, crtc->config);
+ }
+ 
+@@ -293,7 +291,7 @@ static ssize_t plane_type_show(struct config_item *item, char *page)
+ 
+ 	plane = plane_item_to_vkms_configfs_plane(item);
+ 
+-	scoped_guard(mutex, &plane->dev->lock)
++	scoped_guard(mutex, &plane->dev->config->lock)
+ 		type = vkms_config_plane_get_type(plane->config);
+ 
+ 	return sprintf(page, "%u\n", type);
+@@ -314,7 +312,7 @@ static ssize_t plane_type_store(struct config_item *item, const char *page,
+ 	    type != DRM_PLANE_TYPE_CURSOR)
+ 		return -EINVAL;
+ 
+-	scoped_guard(mutex, &plane->dev->lock) {
++	scoped_guard(mutex, &plane->dev->config->lock) {
+ 		if (plane->dev->enabled)
+ 			return -EBUSY;
+ 
+@@ -337,7 +335,7 @@ static void plane_release(struct config_item *item)
+ 	struct mutex *lock;
+ 
+ 	plane = plane_item_to_vkms_configfs_plane(item);
+-	lock = &plane->dev->lock;
++	lock = &plane->dev->config->lock;
+ 
+ 	scoped_guard(mutex, lock) {
+ 		vkms_config_destroy_plane(plane->config);
+@@ -364,7 +362,7 @@ static struct config_group *make_plane_group(struct config_group *group,
+ 
+ 	dev = child_group_to_vkms_configfs_device(group);
+ 
+-	scoped_guard(mutex, &dev->lock) {
++	scoped_guard(mutex, &dev->config->lock) {
+ 		if (dev->enabled)
+ 			return ERR_PTR(-EBUSY);
+ 
+@@ -415,7 +413,7 @@ static int encoder_possible_crtcs_allow_link(struct config_item *src,
+ 	encoder = encoder_possible_crtcs_item_to_vkms_configfs_encoder(src);
+ 	crtc = crtc_item_to_vkms_configfs_crtc(target);
+ 
+-	scoped_guard(mutex, &encoder->dev->lock) {
++	scoped_guard(mutex, &encoder->dev->config->lock) {
+ 		if (encoder->dev->enabled)
+ 			return -EBUSY;
+ 
+@@ -434,7 +432,7 @@ static void encoder_possible_crtcs_drop_link(struct config_item *src,
+ 	encoder = encoder_possible_crtcs_item_to_vkms_configfs_encoder(src);
+ 	crtc = crtc_item_to_vkms_configfs_crtc(target);
+ 
+-	scoped_guard(mutex, &encoder->dev->lock)
++	scoped_guard(mutex, &encoder->dev->config->lock)
+ 		vkms_config_encoder_detach_crtc(encoder->config, crtc->config);
+ }
+ 
+@@ -454,7 +452,7 @@ static void encoder_release(struct config_item *item)
+ 	struct mutex *lock;
+ 
+ 	encoder = encoder_item_to_vkms_configfs_encoder(item);
+-	lock = &encoder->dev->lock;
++	lock = &encoder->dev->config->lock;
+ 
+ 	scoped_guard(mutex, lock) {
+ 		vkms_config_destroy_encoder(encoder->dev->config, encoder->config);
+@@ -480,7 +478,7 @@ static struct config_group *make_encoder_group(struct config_group *group,
+ 
+ 	dev = child_group_to_vkms_configfs_device(group);
+ 
+-	scoped_guard(mutex, &dev->lock) {
++	scoped_guard(mutex, &dev->config->lock) {
+ 		if (dev->enabled)
+ 			return ERR_PTR(-EBUSY);
+ 
+@@ -526,7 +524,7 @@ static ssize_t connector_status_show(struct config_item *item, char *page)
+ 
+ 	connector = connector_item_to_vkms_configfs_connector(item);
+ 
+-	scoped_guard(mutex, &connector->dev->lock)
++	scoped_guard(mutex, &connector->dev->config->lock)
+ 		status = vkms_config_connector_get_status(connector->config);
+ 
+ 	return sprintf(page, "%u\n", status);
+@@ -548,7 +546,7 @@ static ssize_t connector_status_store(struct config_item *item,
+ 	    status != connector_status_unknown)
+ 		return -EINVAL;
+ 
+-	scoped_guard(mutex, &connector->dev->lock) {
++	scoped_guard(mutex, &connector->dev->config->lock) {
+ 		vkms_config_connector_set_status(connector->config, status);
+ 
+ 		if (connector->dev->enabled)
+@@ -571,7 +569,7 @@ static void connector_release(struct config_item *item)
+ 	struct mutex *lock;
+ 
+ 	connector = connector_item_to_vkms_configfs_connector(item);
+-	lock = &connector->dev->lock;
++	lock = &connector->dev->config->lock;
+ 
+ 	scoped_guard(mutex, lock) {
+ 		vkms_config_destroy_connector(connector->config);
+@@ -602,7 +600,7 @@ static int connector_possible_encoders_allow_link(struct config_item *src,
+ 	connector = connector_possible_encoders_item_to_vkms_configfs_connector(src);
+ 	encoder = encoder_item_to_vkms_configfs_encoder(target);
+ 
+-	scoped_guard(mutex, &connector->dev->lock) {
++	scoped_guard(mutex, &connector->dev->config->lock) {
+ 		if (connector->dev->enabled)
+ 			return -EBUSY;
+ 
+@@ -622,7 +620,7 @@ static void connector_possible_encoders_drop_link(struct config_item *src,
+ 	connector = connector_possible_encoders_item_to_vkms_configfs_connector(src);
+ 	encoder = encoder_item_to_vkms_configfs_encoder(target);
+ 
+-	scoped_guard(mutex, &connector->dev->lock) {
++	scoped_guard(mutex, &connector->dev->config->lock) {
+ 		vkms_config_connector_detach_encoder(connector->config,
+ 						     encoder->config);
+ 	}
+@@ -647,7 +645,7 @@ static struct config_group *make_connector_group(struct config_group *group,
+ 
+ 	dev = child_group_to_vkms_configfs_device(group);
+ 
+-	scoped_guard(mutex, &dev->lock) {
++	scoped_guard(mutex, &dev->config->lock) {
+ 		if (dev->enabled)
+ 			return ERR_PTR(-EBUSY);
+ 
+@@ -693,7 +691,7 @@ static ssize_t device_enabled_show(struct config_item *item, char *page)
+ 
+ 	dev = device_item_to_vkms_configfs_device(item);
+ 
+-	scoped_guard(mutex, &dev->lock)
++	scoped_guard(mutex, &dev->config->lock)
+ 		enabled = dev->enabled;
+ 
+ 	return sprintf(page, "%d\n", enabled);
+@@ -711,21 +709,34 @@ static ssize_t device_enabled_store(struct config_item *item, const char *page,
+ 	if (kstrtobool(page, &enabled))
+ 		return -EINVAL;
+ 
+-	scoped_guard(mutex, &dev->lock) {
+-		if (!dev->enabled && enabled) {
+-			if (!vkms_config_is_valid(dev->config))
+-				return -EINVAL;
++	scoped_guard(mutex, &dev->config->lock) {
++		if (dev->enabled == enabled)
++			return (ssize_t)count;
+ 
+-			ret = vkms_create(dev->config);
+-			if (ret)
+-				return ret;
+-		} else if (dev->enabled && !enabled) {
+-			vkms_destroy(dev->config);
+-		}
++		if (!dev->enabled && !vkms_config_is_valid(dev->config))
++			return -EINVAL;
+ 
+ 		dev->enabled = enabled;
+ 	}
+ 
++	/*
++	 * Do not hold config->lock while creating/destroying the device:
++	 * vkms_destroy() unregisters the DRM device, which removes the
++	 * vkms_config debugfs file and waits for its readers to drain, and
++	 * vkms_connector_detect() takes config->lock to read the connector
++	 * status.
++	 */
++	if (enabled) {
++		ret = vkms_create(dev->config);
++		if (ret) {
++			scoped_guard(mutex, &dev->config->lock)
++				dev->enabled = false;
++			return ret;
++		}
++	} else {
++		vkms_destroy(dev->config);
++	}
++
+ 	return (ssize_t)count;
+ }
+ 
+@@ -745,7 +756,6 @@ static void device_release(struct config_item *item)
+ 	if (dev->enabled)
+ 		vkms_destroy(dev->config);
+ 
+-	mutex_destroy(&dev->lock);
+ 	vkms_config_destroy(dev->config);
+ 	kfree(dev);
+ }
+@@ -781,7 +791,6 @@ static struct config_group *make_device_group(struct config_group *group,
+ 	}
+ 
+ 	config_group_init_type_name(&dev->group, name, &device_item_type);
+-	mutex_init(&dev->lock);
+ 
+ 	config_group_init_type_name(&dev->planes_group, "planes",
+ 				    &plane_group_type);
+diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
+index 57138027966f..080a0240d5e9 100644
+--- a/drivers/gpu/drm/vkms/vkms_connector.c
++++ b/drivers/gpu/drm/vkms/vkms_connector.c
+@@ -27,8 +27,10 @@ static enum drm_connector_status vkms_connector_detect(struct drm_connector *con
+ 	status = connector->status;
+ 
+ 	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
+-		if (connector_cfg->connector == vkms_connector)
+-			status = vkms_config_connector_get_status(connector_cfg);
++		if (connector_cfg->connector == vkms_connector) {
++			scoped_guard(mutex, &vkmsdev->config->lock)
++				status = vkms_config_connector_get_status(connector_cfg);
++		}
+ 	}
+ 
+ 	return status;
 
-Changes in v5:
-- Fixed missing property creation for PATH
-- Use the folder name instead of a new attribute for plane
-- Rebased on drm-misc-next
-- Link to v4: https://patch.msgid.link/20260422-vkms-all-config-v4-0-dbb52e9aadc3@bootlin.com
-
-Changes in v4:
-- Introduced a way to change the PATH property
-- Reordered drm-only patches to the front of the series.
-- Fixed a bug when dynamic connector are allocated/freed (drmm instead of
-  kzalloc)
-- Properly handle errors in vkms_connector_init
-- Only parse formats one by one (no more complex algorithm, you will have
-  to write multiple times for multiple formats)
-- Use sysfs_emit instead of sprintf
-- Fix rotate property default value
-- Link to v3: https://lore.kernel.org/r/20251222-vkms-all-config-v3-0-ba42dc3fb9ff@bootlin.com
-
-Changes in v3:
-- Added Documentation/ABI (Thomas Petazzoni)
-- PATCH 2: Clarify return value
-- PATCH 6,7: Avoid passing null to printf
-- PATCH 7: Restrict plane name to A-Za-z0-9
-- PATCH 12: Fix missing s
-- PATCH 13: Add macro to avoid repetition, fix missing s, make code
-  consistent, remove wrong comment, properly check bit values
-- PATCH 15: Fix missing s
-- PATCH 16: Fix missing s, make code consistent, remove wrong comments,
-  properly check value and fix default_color_range value
-- PATCH 17: Create function to reduce code complexity, fix missing s
-- PATCH 18: Fix parsing, rename data, reject strings > 4 chars
-- PATCH 20: Remove duplicated lines, fix test comments simplify conditions,
-  remove useless documentation,
-- PATCH 21: {Min,Max}imal -> {Min,Max}imum, simplify commit log
-- PATCH 25: Fix wrong comment
-- PATCH 26: Rename type to colorspaces
-- PATCH 27: Improve comment, avoid useless iterations
-- PATCH 28: Fix typo in commit log
-- PATCH 29: Fix typo in commit log
-- PATCH 30: Remove useless include and move it to proper commit
-- PATCH 32: Clarify documentation
-- PATCH 33: Simplify code and use better variable names
-- PATCH *: Fix EINVAL/EBUSY
-- Link to v2: https://lore.kernel.org/r/20251029-vkms-all-config-v2-0-be20b9bf146e@bootlin.com
-
-Changes in v2:
-- PATCH 1: reorder includes (José)
-- PATCH 2: use name property instead of folder name (José)
-- PATCH 3: Fix default rotations (José)
-- PATCH 3,5,7,12: Add tests and extract validation for planes (José)
-- PATCH 3,5: Do not create color range/encoding properties if not set
-- PATCH 5,6,7,8: Set plural form for vkms_config_plane fields (José)
-- PATCH 4,6,8,13: Remove checking for default in supported (José)
-- PATCH 9: Add break in vkms_config_plane_add_format (José)
-- PATCH 12: fix zpos_enabled typo (José)
-- PATCH 13: fix documentation (José)
-- Add debug display (José)
-- PATCH 20: use drmm_kzalloc instead of kzalloc (José)
-- PATCH 22: simplify the code (José)
-- Link to v1: https://lore.kernel.org/r/20251018-vkms-all-config-v1-0-a7760755d92d@bootlin.com
-
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-To: Maxime Ripard <mripard@kernel.org>
-To: Thomas Zimmermann <tzimmermann@suse.de>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Louis Chauvet <louis.chauvet@bootlin.com>
-To: Haneen Mohammed <hamohammed.sa@gmail.com>
-To: Melissa Wen <melissa.srw@gmail.com>
-To: Jonathan Corbet <corbet@lwn.net>
-To: Shuah Khan <skhan@linuxfoundation.org>
-To: Miguel Ojeda <ojeda@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>
-To: Nick Desaulniers <nick.desaulniers+lkml@gmail.com>
-To: Bill Wendling <morbo@google.com>
-To: Justin Stitt <justinstitt@google.com>
-Cc: thomas.petazzoni@bootlin.com
-Cc: dri-devel@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-doc@vger.kernel.org
-Cc: llvm@lists.linux.dev
-
----
-Louis Chauvet (43):
-      drm/vkms: Lock the config dump against concurrent configfs changes
-      drm/drm_mode_config: Add helper to get plane type name
-      drm/blend: Get a rotation name from its bitfield
-      drm/tests: Add test cases for DRM rotation name
-      drm/drm_color_mgmt: Expose drm_get_color_encoding_name
-      drm/drm_color_mgmt: Expose drm_get_color_range_name
-      drm/connector: Export drm_get_colorspace_name
-      drm/drm_atomic_state_helper: Properly load default value for rotation
-      Documentation: ABI: vkms: Add current VKMS ABI documentation
-      drm/vkms: Reset config->dev when the device creation fails
-      drm/vkms: Reference-count vkms_config and vkms_config_connector
-      drm/vkms: Add KUnit test for device lifecycle
-      drm/vkms: Add error handling in plane config creation
-      drm/vkms: Simplify plane_release code
-      drm/vkms: Explicitly display plane type
-      drm/vkms: Use enabled/disabled instead of 1/0 for debug
-      drm/vkms: Introduce config for plane name
-      drm/vkms: Use plane folder name as plane name
-      drm/vkms: Introduce config for plane rotation
-      drm/vkms: Introduce configfs for plane rotation
-      drm/vkms: Introduce config for plane color encoding
-      drm/vkms: Introduce configfs for plane color encoding
-      drm/vkms: Introduce config for plane color range
-      drm/vkms: Introduce configfs for plane color range
-      drm/vkms: Introduce config for plane format
-      drm/vkms: Introduce configfs for plane format
-      drm/vkms: Properly render plane using their zpos
-      drm/vkms: Introduce config for plane zpos property
-      drm/vkms: Introduce configfs for plane zpos property
-      drm/vkms: Introduce back pointer to connector
-      drm/vkms: Introduce connector type
-      drm/vkms: Introduce configfs for connector type
-      drm/vkms: Rename vkms_connector_init to vkms_connector_init_static
-      drm/vkms: Introduce config for connector supported colorspace
-      drm/vkms: Introduce configfs for connector supported colorspace
-      drm/vkms: Introduce config for connector EDID
-      drm/vkms: Introduce configfs for connector EDID
-      drm/vkms: Store the enabled/disabled status for connector
-      drm/connector: Add a way to detach encoders
-      drm/vkms: Allow to hot-add connectors
-      drm/vkms: Introduce configfs for dynamic connector creation
-      drm/vkms: Add connector parent configuration in vkms_config
-      drm/vkms: Add ConfigFS interface for connector parent and port_id
-
- .clang-format                                    |    2 +
- Documentation/ABI/testing/configfs-vkms          |  326 +++++++
- Documentation/gpu/vkms.rst                       |   44 +-
- drivers/gpu/drm/drm_atomic_state_helper.c        |    6 +
- drivers/gpu/drm/drm_blend.c                      |   19 +-
- drivers/gpu/drm/drm_color_mgmt.c                 |    4 +-
- drivers/gpu/drm/drm_connector.c                  |   18 +
- drivers/gpu/drm/drm_crtc_internal.h              |    6 -
- drivers/gpu/drm/drm_mode_config.c                |   16 +
- drivers/gpu/drm/tests/Makefile                   |    1 +
- drivers/gpu/drm/tests/drm_rotation_test.c        |   76 ++
- drivers/gpu/drm/vkms/tests/.kunitconfig          |   10 +
- drivers/gpu/drm/vkms/tests/Makefile              |    3 +-
- drivers/gpu/drm/vkms/tests/vkms_config_test.c    |  520 ++++++++++-
- drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c |  280 ++++++
- drivers/gpu/drm/vkms/vkms_composer.c             |   15 +-
- drivers/gpu/drm/vkms/vkms_config.c               |  724 ++++++++++++++-
- drivers/gpu/drm/vkms/vkms_config.h               |  724 ++++++++++++++-
- drivers/gpu/drm/vkms/vkms_configfs.c             | 1081 +++++++++++++++++++++-
- drivers/gpu/drm/vkms/vkms_connector.c            |  347 ++++++-
- drivers/gpu/drm/vkms/vkms_connector.h            |   60 +-
- drivers/gpu/drm/vkms/vkms_crtc.c                 |   16 +-
- drivers/gpu/drm/vkms/vkms_drv.c                  |   12 +-
- drivers/gpu/drm/vkms/vkms_output.c               |   21 +-
- drivers/gpu/drm/vkms/vkms_plane.c                |   85 +-
- include/drm/drm_blend.h                          |   34 +
- include/drm/drm_color_mgmt.h                     |    3 +
- include/drm/drm_connector.h                      |    2 +
- include/drm/drm_mode_config.h                    |    3 +
- 29 files changed, 4263 insertions(+), 195 deletions(-)
----
-base-commit: 3c7c3c12dfc7704ca614abbfa266ca00a2b5a994
-base-tree: https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-change-id: 20251017-vkms-all-config-bd0c2a01846f
-
-Best regards,
---  
-Louis Chauvet <louis.chauvet@bootlin.com>
+-- 
+2.56.0
 
