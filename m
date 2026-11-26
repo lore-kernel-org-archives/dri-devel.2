@@ -2,50 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E1B606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D588606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=C87gxbT1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Sjz6QMio
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9C24A11281F;
-	Fri, 27 Nov 2026 08:29:10 +0000 (UTC)
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9FCA610E145
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:24:29 +0000 (UTC)
-Received: from [169.254.254.254] (localhost [127.0.0.1])
- by smtp.ideco.ru (Postfix) with ESMTP id 2D3312032496;
- Thu, 26 Nov 2026 13:24:28 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp.ideco.ru (Postfix) with ESMTPSA id 5D043203679C;
- Thu, 26 Nov 2026 13:16:27 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru 5D043203679C
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
- t=1795680989; bh=0kvkohFIVoj8f2Me/6uzQ3sWm8aGGRnxnWLHr2+eero=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=C87gxbT1P8Tf0TAGi7G71ijMpY+k1lmzdFcGQBS4vFdVsN8AQQC+Tv4nnmbUCazUY
- WhTRJiUfWyv/O1CFZ5DSEOoSXomaanM7Nl0jgjRM8WFp/ZP2knbPDomDw/oMuPfOui
- DJc3GqXqklpe1C6RsnbEXOLAO2Wa6kodS/hQ68t9q86kQ/+QW8YknfU2BAyL6Llvf5
- gb6IoF/1gei3gxFlmy/cljPnWMf1ZSKN+3RN082Go0ioqneATWhtz3WgoSvdWw+t8c
- bmgErIgMsmt50LgHii0lOkkhmDTHl/TG38RBseGDCsfyaQCYM/ZeMbCCbP6A7sOtq6
- PsMhfxg7YiknQ==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Emil Velikov <emil.velikov@collabora.com>,
- Oleg Vasilev <oleg.vasilev@intel.com>, Jeevan B <jeevan.b@intel.com>,
- dri-devel@lists.freedesktop.org, lvc-project@linuxtesting.org,
- stable@vger.kernel.org
-Subject: [PATCH 1/5] drm/connector: Check DP subconnector property before
- attaching it
-Date: Thu, 26 Nov 2026 12:15:56 +0400
-Message-ID: <20261126081602.2901498-2-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 515D8112822;
+	Fri, 27 Nov 2026 08:29:11 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4728E10E3C4
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 23:17:16 +0000 (UTC)
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-2f03eeda984so41470955ad.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:17:16 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795735036; x=1796339836; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=Bc6pDRpdQwqOkvZRQt3j3RUC7mrJsd/9trXkMnSGJNY=;
+ b=Sjz6QMioA6X+gQc8GdOfECoV/sYenl9GyZwGqf/RLWPgcpEZxnSU1/ri+Vabg+h26S
+ pGD4gITJFnwM2k8IFi3SK8SdJJTQgyxcEIc1QQIT4abPIk7TfonNHwuSXU1RtW+G3faO
+ o3Eg93SCoCznFnwJy9eg9LI3Svh3Y8Obhhl6veIMiZ/+KpWWrDDYPvldcpTdW1RObGjl
+ fCkl4g0lfSY6m2Oe+Nlp/aEa4hudejV3OL35/uj6mF7y9F3a4B9AND/w0t4C9sNWZb23
+ jLfKF1Hor0S4UznPiB25qb5E6RLaFIvf+UT2efFMZDN4N8k9BOyovDjE0tWm/BBg+mqv
+ 6UIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795735036; x=1796339836;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=Bc6pDRpdQwqOkvZRQt3j3RUC7mrJsd/9trXkMnSGJNY=;
+ b=NjLw2a176bibUx4vNc7CHj6qIxV9sNLvh2UZgZNKkYMiJca5x8VtbnyF9Bq9pJ4hpf
+ Mg+FPneTsj1p+LLdxcGDm9HRjo5Gwcj1TqFwBekGVlGzmUKqDYxtdcSTmV8B96nNH62R
+ Fa+HSVnhV6s3yX6xq62GFmo80bng/KMrRVn5U8VirzGkPPUH5JysY2avAyW9zo2vY0Yu
+ LricGWqH4eFk5NY6VuND39B5WDn0Z4JoUcnD97Tb2UwAwoPY+OFLTgDlpzNuiuyYbN8H
+ 9FH2YChg0aIzfiYx1Xtec+myIsXrVmXKvPRZyGxIQRS0Hi9AGFQ6fxefyWJlHCbAjU89
+ bPdg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHYrenKE/XrJNeAg8w3Xdhdtb1Mwbzs9jRZ4yHKKjOfp86OfxTrAeFsRIuhLskUND1C/12QrAenfB8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/xJhDif9tdWtivZwViEnKv+jlxRjuFfFKoNwko871FEqdYHGqL
+ P8CMDJgX6i9U7V/WNpkg6Y2nPK+c+MvJKuecrM34CSYDNSoTyZ5pzSZov0Or+A==
+X-Gm-Gg: AZFdTZdTjiXE4z3aAYSxlmwWJESmsIV50Ji8hi7gJEn9o/GA6JpLthexdwAuFJjTmsd
+ W5ap31ntSIp8Eji5Vh5NtKEr8QQ6nmZueiSYwGAcJQgHjDG1MSCF0B6PVLqlrbOfi29oPv7rDQY
+ MMOswHW6GOzIn86zwcp/VMNkeUe7GYcZTi8dcWcohkL1FUGsa4OXRopurtMjIsy9L15wPxHqkv3
+ 0jKRktmzyEFV+SWsHCxVMX7R9uG3iN2iAst7hmD8uitabkP4oZxGEkEdxEsP7zqo16q1/bF9z4b
+ 5BVDcNt318CyfiAc4FC2V3nep3c++vxggNLEBIn/4FVzhT7vju3kzZ8KFu4dj5jiJvNp9EG5hk0
+ v+anf9+vBAeaLLdEQR+G1TU0IhloccxZxMiKKrU76q/YXSqzp/uJDZfQr0jkuCgEBJavFe8TlS/
+ yy7Lxs7ag9AaKv6KbgCU250gZwqbV7mXcIfRm1ygMWmSqzL0uvlUcwuD9/wCDrD12xCWbBq2TW3
+ d5Nr+3KOraRbM5aYEW6+sdJ6j45y3iBgoSOqIJTinGFlmLlsrxPJu40x06MAH0oOIoxqHvRfyLX
+ ZYOQNJIlgAojNgUS1ZxLeU9xxWqYw/qQ/euVguaxlB8QyEtvxQ==
+X-Received: by 2002:a17:902:ea04:b0:2ef:e946:cdc with SMTP id
+ d9443c01a7336-2f03f1f0ae8mr246999455ad.56.1795735035597; 
+ Thu, 26 Nov 2026 15:17:15 -0800 (PST)
+Received: from fedora.tailc1fb0a.ts.net ([172.219.65.15])
+ by smtp.gmail.com with ESMTPSA id
+ d9443c01a7336-2f0742996aesm81242895ad.11.2026.11.26.15.17.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Nov 2026 15:17:14 -0800 (PST)
+From: Artem Novak <artem122novak@gmail.com>
+To: Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Artem Novak <artem122novak@gmail.com>
+Subject: [PATCH] drm/radeon: add missing newline to sync error
+Date: Thu, 26 Nov 2026 17:17:11 -0600
+Message-ID: <20261126231711.65592-1-artem122novak@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -61,49 +85,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_property_create_enum() can return NULL on allocation failure.
-Passing this pointer to drm_object_attach_property() causes a NULL
-pointer dereference during DP connector initialization.
+Terminate the disabled-ring synchronization error message with
+a newline so that it is properly formatted in the kernel log.
 
-Attach the DP subconnector property only if it was created successfully.
+No functional changes.
 
-Found by Linux Verification Center (linuxtesting.org) with SVACE static
-analysis tool.
-
-Fixes: e5b92773287c ("drm: report dp downstream port type as a subconnector property")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Signed-off-by: Artem Novak <artem122novak@gmail.com>
 ---
- drivers/gpu/drm/drm_connector.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/radeon/radeon_sync.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 893716a9e489..41cbd76e0b1c 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2106,9 +2106,10 @@ void drm_connector_attach_dp_subconnector_property(struct drm_connector *connect
- 				drm_dp_subconnector_enum_list,
- 				ARRAY_SIZE(drm_dp_subconnector_enum_list));
+diff --git a/drivers/gpu/drm/radeon/radeon_sync.c b/drivers/gpu/drm/radeon/radeon_sync.c
+index 6416f129e090..aa7d99a46a83 100644
+--- a/drivers/gpu/drm/radeon/radeon_sync.c
++++ b/drivers/gpu/drm/radeon/radeon_sync.c
+@@ -135,7 +135,7 @@ int radeon_sync_rings(struct radeon_device *rdev,
  
--	drm_object_attach_property(&connector->base,
--				   mode_config->dp_subconnector_property,
--				   DRM_MODE_SUBCONNECTOR_Unknown);
-+	if (mode_config->dp_subconnector_property)
-+		drm_object_attach_property(&connector->base,
-+					   mode_config->dp_subconnector_property,
-+					   DRM_MODE_SUBCONNECTOR_Unknown);
- }
- EXPORT_SYMBOL(drm_connector_attach_dp_subconnector_property);
+ 		/* prevent GPU deadlocks */
+ 		if (!rdev->ring[i].ready) {
+-			dev_err(rdev->dev, "Syncing to a disabled ring!");
++			dev_err(rdev->dev, "Syncing to a disabled ring!\n");
+ 			return -EINVAL;
+ 		}
  
 -- 
-2.56.0
-
+2.56.1
 
