@@ -2,74 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFF1606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C694606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ahvs2Qkd
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=kbvw94+K;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=d5P2uTrX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA9AD112826;
-	Fri, 27 Nov 2026 08:29:14 +0000 (UTC)
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E61EE10E9A8
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:36:01 +0000 (UTC)
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-cc758830601so5237172a12.2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:36:01 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795700161; x=1796304961; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/L59GtHvh66Qoj8GKGfFbB0DmYWNSBlgqJLSXZ9x1vs=;
- b=Ahvs2QkdO/Uj23iMdseqae6q3RkvkvXTuudYX2CU2fFC97MUJsi3uPxQ+oHopmv6zn
- B85vgVeERq80lH2gdGJJWFJ/82mNmK1EcVhCuLSIQt43AJ0EsXS2cU7qEi7mC19i96NR
- lgkzgHS9Ske55s+rrQIWkb5D7z/kQXj748G26NIWQSKiermstafP3v1PVC4k6H7W9RKP
- k6wUxZiVzalU4BFaSaxKT7KNtC760jpI6NRbcdkpf/kW4A+mAfseWSKk0RrMCmNPkLfa
- 0Ha6OghBJTKAHmoeXSxQdig0ATzHnyYmoK9P1NJPyIpxsYLjMsgopSMdVwJR6yKIl+dX
- ixpQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795700161; x=1796304961;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/L59GtHvh66Qoj8GKGfFbB0DmYWNSBlgqJLSXZ9x1vs=;
- b=tpNPb97LL6v/6XOYCAUzYhyJYgZrPiKD4Jl5slOA7lwUvN0ACRZF7fjqHf8zAlXwnQ
- 5kGN/pinAkzj0sqbb5F7uPapfyDBkkSve1wFOS35wi6Agsmh2fqUHmYDKhe6sGvjwhdB
- SFKwfkBwhngQ4433kH5JdvSJSpawWd3nB2fa+AK8xyW30CoEfhB6rjtEeZ9Q3rIp9VCz
- IuOzr5Wx4QZSrbbK8BW/C4le0ggaScku3luIZOClyS25rkskW6DXX9+Rli72BpvqONij
- awEFhPMKf5uEAxnxVusn6LRU+9Ry4EvjIZj9TGhqUHlyeuKv2sVbhqgX7OM1BXSyNd6s
- BAaA==
-X-Forwarded-Encrypted: i=1;
- AL+hErHe1bIGq7sXP3Ul0qUvmOAOG3zVmOEO/nbXP29JX4EAFwtRBkX+ZCkD9hpHzEDvgCwA3JYWflzCjRM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+gZw+tYGjD0HiJGsu0KpoApp1A5S1FCd3qchqksPPITSpQpE0I
- KdRkAzCOCqxqy71aXrQUYr9QPpcSgrVAgvzxpa/6nIVROlWRVBmrKSw=
-X-Gm-Gg: AZFdTZdoj3NJZwSftHcvyePvxFTYGetA2k1kpzYf/8716ezicjkSqOgOxGWqdBitDq/
- ke5k+ha+WJAGriaCduKevj1gVRbai9XiMIbBmfBwhYTrMsTpvaoWLKt1dT3u6Vj1Pd0ZEyzDUeE
- locbd7fgjEr/SLiF95DSJDqDdE14QTlKxwTjn6SzsKCyNz5iF2eRKcJmY+5rkvvr9SiB1t6RsFg
- aLz4kb3PfjPtjpvJ1eQghp4FIMA7DkhjGibXtFB2SQsEzLRxUjI/68FcLohMkNoxgPF81qlItWY
- Prt+rw6XrPAFAIJPMSg8k4BpxqWHzKyyml5g2FcZZaEOEp4C7BwnozUHS32cFdRJwE4AwAIutnP
- WLqV5KNQLUpGbsJTBQreEaok5K+X9kLQWQNFULHmVZxo3WzwdqXNn47rq/Jj8AbIE2V9XVSYrou
- x+BIH+Bo0gioRg4HBbsIHJkzU/dzzgYNbIy+bonBwCHP1XYBnph/7j09P3KuO7lOv0CENwgcf7L
- mRm8BRRpHSOQq4BkB+EqjvgAQ3iz5w11pydmOUVpaXp/5gwpn7MEfCNd611A5JzMN9ELlCzwnNN
- U+ZAj6RdeAYvbqTtOv2PdHfq3sOOcgXsXdX8YQAdDu5KYzdwsX4j0KD4qAayLVbqZ0PNQPJ4fgd
- 09A+aPu59aTdI
-X-Received: by 2002:a17:90b:3e81:b0:3b3:ff66:4097 with SMTP id
- 98e67ed59e1d1-3b41c92a1cdmr18216781a91.26.1795700161363; 
- Thu, 26 Nov 2026 05:36:01 -0800 (PST)
-Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b44b6fe711sm14480336a91.1.2026.11.26.05.35.59
- (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
- Thu, 26 Nov 2026 05:36:01 -0800 (PST)
-From: Yige Jiang <yigejiang86@gmail.com>
-To: Helge Deller <deller@gmx.de>
-Cc: Yige Jiang <yigejiang86@gmail.com>, linux-fbdev@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Subject: [PATCH] fbdev: ssd1307fb: release PWM if panel initialization fails
-Date: Thu, 26 Nov 2026 21:35:56 +0800
-Message-ID: <rc-b1-20261110-vc-112-b07bbe936b75@gmail.com>
-X-Mailer: git-send-email 2.50.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id 50F381127FC;
+	Fri, 27 Nov 2026 08:29:10 +0000 (UTC)
+X-Greylist: delayed 581 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 14:26:15 UTC
+Received: from fout-b7-smtp.messagingengine.com
+ (fout-b7-smtp.messagingengine.com [202.12.124.150])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7061D112498
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:26:15 +0000 (UTC)
+Received: from phl-compute-09.internal (phl-compute-09.internal [10.202.2.49])
+ by mailfout.stl.internal (Postfix) with ESMTP id 8B3821D00496
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:16:33 -0500 (EST)
+Received: from phl-frontend-03 ([10.202.2.162])
+ by phl-compute-09.internal (MEProxy); Thu, 26 Nov 2026 09:16:33 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm3; t=1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3
+ VBdYXYm14UxYMphMpPpqg0=; b=kbvw94+KqF0gfli8MChPdVX2dzxaiiDdkGNrX
+ XA8rrai4Js67jKetb6X2w8WrlRWJFxagkosdzgWKzW+Evg9GBlw0AjbmL8JGhPXX
+ R0pjmEh6Ldtm4Q/chyzW3mBupeazVC8mDRXdTmt79eVlzw1II2QppIlDjQpD8+a1
+ uNquvc9K3JUF0LId5jra+HQvGLsmkjB4Bjxyk8YqVmvh+YSpeJfPIDth5Fg1Eej5
+ VMl6gRhXpAk1Rhd66vi+CAKBRu/EmXKG6ER1fVEsmzZeMPQ3Rrcl1we3+dpzc4VN
+ il4mAJlQ3FEkeU873+rbrBwHZnLqW57+aA47/7nYzJuCYmt5g==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1795702592; x=1795788992; bh=0jJSJ14/au0I5tvGdZLv3VBdYXYm14UxYMp
+ hMpPpqg0=; b=d5P2uTrXB70WVfA7IXJR47EdHHzwbVm5+ZWfc9o3wnYKiXG3+LA
+ 7cWLPJ+6cLPTsuwwHrrpngwy/0TqwMIWEOrMlREfK9CHtaO2rr3tfBs4eQKPYR0K
+ hZ2UC9IYKnt77rTu28irZlT8621KDkUKHt2iV63ZWKGt6VeJDiT4v6/rGsUMafgG
+ 4HhcLWihKOW3zH3Q9bohqikrfMOUPJ8ocL+rR9k0bcbOA5gKsyMUYJNZIQsM4/f0
+ Gp292IKrMQe77xUBF2oluDD+U6z2feh5AV/lJN1A49TI0U9Gbjy7bGsJtbWWKBdx
+ n0MyUKl1wW6TBcX7Vf2n8Yr7HQLd7U4Bp0A==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795702592; d=fastmail.com;
+ mf=PGJhcmFudEBmYXN0bWFpbC5jb20+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm3:rsa-sha256:WBsZiOxAPGzNjVonvMb9tmtqmPVKG52MZDkLZIE5e7bgf9p
+ 3gkw7/gKxvKySWKlUBkJk4lXsJ/iZMynms4rzkYax09ONm+PquvQuxJHvvAAYuYS
+ CGHTE3PXZp3KdOnz4JwLpTkTZ2IRhx35TP3moUZbDO38k43SZMUM6N8Zh1DPbgo1
+ KSiVlnndZrr4+8rYl1brhg7YJbg4jGlpQvyEz64fKbbdO/CxYxtSdX13fpQqdE/G
+ PTdBbpnzGKIsYvd9HRgjpxPAlzM1IjqwN7YVAhVMzR+616mFRBM9vE03zZj7Q8L3
+ oQimhph9H7lwvw4xs9HRghrB1lq5dUwbc6YuX4Q==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=mi-m=1; hc=9;
+ hn=cc,content-transfer-encoding,date,feedback-id,from,
+ message-id,mime-version,subject,to;
+Message-Instance: m=1;
+ h=sha256:decYHEp1do/N1tLYzQVUe3iGZipOzmD6xPUvkPHPia0=:vQqCiOEAJ5fdy/X2Eu1ZZCDteP3JyJpjgB8/9HEG7Pw=;
+X-ME-Sender: <xms:Pz8Ia7aSol5PN-y4nT6Cq3QQ6_fj6bdKgIcIdhSKsiGuGHpccKCYNg>
+ <xme:Pz8Ia_WwXHxEMY3XWvS6VOpSZRo0QKKkRlWvuQ5VLexnZ2cbtMc0KP7sfXnOKZVm_
+ RrblkH_BdBO6d2VbgFzbxkeDtkaR_wA7N-K0-Xo-V9MR371yqvFE9Eg>
+X-ME-Received: <xmr:Pz8IayOmz1MGkevWRuhJFAfidiZC77tlSTDJO_hAMcMYiyCb3y-tZ2K5>
+X-ME-Proxy-Cause: dmFkZTEcC6pu7LwrB/ySbP3kl6e61I652LHUGBMkCQxxjnqHtpZRQ1RSAqJ7nLzncMfvcZ
+ GGRPVTlArz6DghdWIR6nJjRpetdZcbYJA9sobWt5l+OE8E76RfbwE4v30gzpdXpOX+X2rO
+ d2CO0GInVpNDtde4phNqKkOCWW/28/sysC+2sdQetpH55hDYXZ1Dt6FQ8NLurJ8Eyzstl4
+ 9WRVQyp8Ag+Vm3Lssktpbyy2P9/B8yOpCGGyM4LzeKOxr8wa7pXr/3TaTYC79qH10i5UqI
+ pGNF7xS7yiICDcXiw6h7UI+wnqPP71fPBLGm9qWecX7hx3Zub/dwMPgSydzq6yZ2/KVOGv
+ wel4e8lYHTHi8bjYtdBnXeEeL9sEXapXGlNOjK6a6ps1EqDDuqbVN3NecG3qzRzj6BX42K
+ HeWYUjQgr1VPT9dn3pAbTEraMt6wO4jeCwOcL8GS3OKeSB1oubn2yZtsr2W1yRUimut8Sb
+ 2Y5qYv9tq8mDsduYyGN4pIO7vlmoXX4tai0ExI4HbMG3/2IzBNkX5CyGZXHV8kulQ8NxEM
+ ZB1ydAWtsXXXxbnL1WSNaNeHFJgTgX0hMvZa/mk3OK321jwL2NbCm00i8VGUhgEE2rINDC
+ 7QR+IkZcQgBJsw/AMpLwycyixJAkJ2Rchwp9I7T6YdMvrb7InP2lqgb3lAcg
+X-ME-Proxy: <xmx:Pz8IaxblktLcODS1n2BeIfjgcLiFGqWgOFSXJE8arIc5b3yPgkxNYg>
+ <xmx:Pz8Ia59KrK9pD7ZI1lbSpO0O5xvLTNI_LUl19mPibbtqAsTyCbxcbw>
+ <xmx:Pz8Ia6SGxrucul4l4HU1FeEoLv2mfc2xHaFEyzWFSYNXWVQsD_ZZVw>
+ <xmx:Pz8Ia7fkVBsnZqUdpAI7VeXfCSBGyohov-r3FGpWXPtnKuGETSg2Zw>
+ <xmx:QD8Ia-4GAZ5HkUbB188TlSffRIpU7DE2iQPv-TJv5133ZKcPbEQtiiaA>
+Feedback-ID: i9dce4b48:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Nov 2026 09:16:29 -0500 (EST)
+From: Baran Tuna <barant@fastmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Use str_enable_disable() helper
+Date: Thu, 26 Nov 2026 17:16:17 +0300
+Message-ID: <321392d0d9dba36777ec771663c677509fb49c15.1795702369.git.barant@fastmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -88,72 +114,46 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
 	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On the SSD1307 variant, ssd1307fb_init() gets and enables the PWM
-before it sends the panel init commands over I2C. If one of those
-writes fails, ssd1307fb_probe() jumps to regulator_enable_error, below
-the pwm_disable()/pwm_put() at panel_init_error. The PWM is left
-enabled and requested, and its references on the PWM chip device and
-module are never dropped. As the PWM stays marked as requested, a later
-probe of the display can no longer get it (pwm_device_request() returns
--EBUSY).
+Replace the open-coded enable ? "enable" : "disable" ternary with
+the str_enable_disable() helper from <linux/string_choices.h>.
 
-The sashiko AI review bot pointed this out on 2026-09-26, while
-reviewing an unrelated ssd1307fb error-handling patch.
+Found by scripts/coccinelle/api/string_choices.cocci.
 
-Jump to panel_init_error instead and drop the now unused
-regulator_enable_error label. pwm_disable() and pwm_put() accept NULL,
-which covers variants without a PWM, so clear par->pwm when pwm_get()
-fails instead of leaving an ERR_PTR() for the error path.
-
-Fixes: bbc79089ae2b ("video: ssd1307fb: Add support for SSD1306 OLED controller")
-Cc: stable@vger.kernel.org
-Link: https://sashiko.dev/#/patchset/20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263%40kernel.org
-Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
+Signed-off-by: Baran Tuna <barant@fastmail.com>
 ---
-Based on linux-next next-20261109 (630059a5a632).
-Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_FB_SSD1307=m, CONFIG_PWM=y, CONFIG_COMPILE_TEST=y; baseline and patched ssd1307fb.o, no new warnings.
-No hardware or runtime test was performed.
-The path needs an I2C write error during panel init on a solomon,ssd1307fb-i2c device.
+Compile-tested only.
 
- drivers/video/fbdev/ssd1307fb.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
-index ef4bb920c6ff..dbe5dc67e044 100644
---- a/drivers/video/fbdev/ssd1307fb.c
-+++ b/drivers/video/fbdev/ssd1307fb.c
-@@ -403,7 +403,9 @@ static int ssd1307fb_init(struct ssd1307fb_par *par)
- 		par->pwm = pwm_get(&par->client->dev, NULL);
- 		if (IS_ERR(par->pwm)) {
- 			dev_err(&par->client->dev, "Could not get PWM from device tree!\n");
--			return PTR_ERR(par->pwm);
-+			ret = PTR_ERR(par->pwm);
-+			par->pwm = NULL;
-+			return ret;
- 		}
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5d1b010bec9b..870b4653314f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -85,6 +85,7 @@
+ #include <linux/firmware.h>
+ #include <linux/component.h>
+ #include <linux/sort.h>
++#include <linux/string_choices.h>
  
- 		pwm_init_state(par->pwm, &pwmstate);
-@@ -794,7 +796,7 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -1468,7 +1469,7 @@ STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 			rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
+ 			if (rc)
+ 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
+-					 enable ? "enable" : "disable");
++					 str_enable_disable(enable));
  
- 	ret = ssd1307fb_init(par);
- 	if (ret)
--		goto regulator_enable_error;
-+		goto panel_init_error;
- 
- 	bl = backlight_device_register("ssd1307fb-bl", dev, par, &ssd1307fb_bl_ops,
- 				       NULL);
-@@ -823,7 +825,6 @@ static int ssd1307fb_probe(struct i2c_client *client)
- panel_init_error:
- 	pwm_disable(par->pwm);
- 	pwm_put(par->pwm);
--regulator_enable_error:
- 	if (par->vbat_reg)
- 		regulator_disable(par->vbat_reg);
- reset_oled_error:
+ 			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
+ 				if (enable) {
 
-base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
+base-commit: 25faec9ce61c01fb45abf812a222c5b43c3cd5c5
+-- 
+2.53.0
+
