@@ -2,100 +2,153 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB5E606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 468D8606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:11:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=I957pA1C
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=NULVhEWK;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=jd2bH3mu
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A2D2D112130;
-	Thu, 26 Nov 2026 08:11:08 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8BBE310FC6E
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 13:52:02 +0000 (UTC)
-Received: by mail-ed1-f41.google.com with SMTP id
- 4fb4d7f45d1cf-6ba1e22ff4dso6848704a12.2
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 05:52:02 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795614721; cv=none;
- d=google.com; s=arc-20260327;
- b=ai4sHwNvhpKc2IRvJcXgoiRhHCx9PD1Ldic4eZ/0eO/hzTJT7TbfFq4gaF/KSvjLCu
- kTHhW/MozCf0/Qx+0lAkDD+u2obCLR2hLJeaCBRhbYx91bUlMQfRWnfbVPFO+eklTg0J
- dQ/NlGYIr6U/ndajVmiD7ugb9/N8tMKwRYMwbuXrYNmCEmA2atpqHU/q/3/rZp2a/aBJ
- QSo2QPMd6bY0C3sM3QaEnKCOL09GWKFxUlmQTJI9LBg79lSnswC/Xw5ke2akxF3xNWc6
- MaQbwlx9VErtlUhnVG9/hUb59gr+62AQjE+cbnL1M0nECteXKCjbEIasoIfMN0op5+dl
- WhUA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=Dk5J3h/sVjTiXHv23N868Pwgsnpoz2KWfjMivypjcyk=;
- fh=XbMbzjxFvtptJ6POOf0YdBEXTTtQstmGMYnxeut14tY=;
- b=F1fVbRX6hfbaYa1tEGlIgHA1AohXh+ILk/IhA1N4VankkJXYo20GaK8Vd2gsOQHrKF
- KhWUrCN06YLlM6TYvjJgQVa8cGd4xJsKaPMC2KKVNr1kSNUJOMgHTWVDfSzMBKyPyWCZ
- A3ohYAsjS6JU+4iDKJagwEiiahyTjp5ZjDMy56opKqFxqvJX9Jw7QkEsMtm1VvyeKvwO
- yvcFehc6+oDavV7dcVX9tKkMWx/3i+9SthqGWv11ejWlXRjg6aE3d68me+GBU0LbnGhd
- eAZqH04MYpmF8b8FKMEJLACjexVJB9DqA3E4MBFdkdcNeJg+Dc1kJMaCcgBYW6xHt0Tk
- BQRA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id C1BA7112126;
+	Thu, 26 Nov 2026 08:11:04 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E74B8112123
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:10:38 +0000 (UTC)
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6AQ7AvFu2594845
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:10:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 0oVx9fVa/Ez2JCk7hDN3JGdH21S3GTSikiE4w5uLcxw=; b=NULVhEWK+n351rO9
+ hK/XaDd1CtJHafsb2Dfzg6zjEsKxtiInis3B12nCQivv0UIs0mp5HRmEqokAhz76
+ qUKy/zNvgYcPvN3cdzUN08MnVJSA+QCoyzMC7MIjhQChhVIfOUHvDD+ZVR+rVrvW
+ uaOjcv10GTDZS1nLlzbt9GvOkVJkw8rppbFy37XskcRKJt0vDjK2f62uMhL6pNWW
+ JmwvCEc+vqjt/c94uyevhCLwqvRqMBYrZDKQE6TU+UpHwJnBYLsqMwEe9JpgtmSC
+ lG5S60Ir6h4sBciyHsSFR9VraknEkRhYeorTMcbOi9ByMTWQs1Lq0T7f6Ye7U4Yl
+ ewuwkw==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com
+ [209.85.210.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j662sa456-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:10:38 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id
+ d2e1a72fcca58-8a0522cdaf3so4702241b3a.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 00:10:38 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795614721; x=1796219521; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=Dk5J3h/sVjTiXHv23N868Pwgsnpoz2KWfjMivypjcyk=;
- b=I957pA1CCBnVty6meG/F8KTCgML3MYHFndsCpiD9j+PEqSGVwPEC3xXUGyU+r6EP9j
- JYqWsaBHQuDx0ljh7DigwwY2NgSAWU+ZnviLupexBSLsSXrDmhweCMMdTZ2FbN838BX4
- x8zuFpFeTjCRe3l/z8Mcaj/g7auXUE0AbXkw1Fvz6VKeRE/4bZerUBNr2MEN8xI7mMrb
- LTCW2v0DlzTvqGRvWikeo5BvAATJIojINcfUhmIzDT7JRljqN4bL6SS8LPhfN4kj+YVh
- VbgejAMrWFnAo/4RXYIRmbwooZ+irbozfSkk9ACs6o+QIAzfx6Dc26XSzUIuo2U5ncXc
- SVAw==
+ d=oss.qualcomm.com; s=google; t=1795680638; x=1796285438;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=0oVx9fVa/Ez2JCk7hDN3JGdH21S3GTSikiE4w5uLcxw=;
+ b=jd2bH3muBfX4PRT6Vf6MqPljXw66+iQ4N8GGKdWH2ewi7DcJPQyALOZ58gLcEzhDs3
+ UsGsirSdqj+cXh2b18a7GWnHlqEJPstb3ujBaTJHxxqaYJ64Wf4CEdme9JXFZT5+mlSy
+ w8GM/LP81vHAbVyEW3eyJHjO21l/CUry7A1S2q1xTHOn69bTrnM6LCDxmhZFYE5Twi2x
+ n6IuDh4PiO7oXlMLQjpy1pR4GbIG7GKuFxYrAFD6V+KuFtkJP2aycx12NuElElng77xn
+ V4/wSe4+GeXj66UOXYtQyQBE4ldgqRkfnAvCMyHpQvgrXUTqcpDSovtLVSWvr7EO4cEn
+ lY5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795614721; x=1796219521;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=Dk5J3h/sVjTiXHv23N868Pwgsnpoz2KWfjMivypjcyk=;
- b=fPulEB9fhbO68IF2RqCIABnA5R7xjbG1ukq2gi+5sKn37WqCeTUdF1I2Nccp3iYVGD
- kbeGzlQZ+kat3H0RF14kE6QvsnLFMOotksdvW4hxtIvpuBkH1NzYjT0kTplgCkGMHBOZ
- yWTyMhmx9Qf23hGvcXG95jcsChzB65xhVqPsEqtBFGiFvUh5svovlZPW81AfKwlTUhT7
- TdjG//Ne3i5H0NwsoVVUqu5iQt7oFfjdi8RQ5JejQcOsWIyBFUj/D0LjiikQ9Z6WOVHe
- s1TU4SGL3xMIPrwvApDdRc17baY3r/y28C8HmzZ4b2qx7Hlo50JQJG2dCLq5C4tzVwvm
- uCnA==
+ d=1e100.net; s=20260707; t=1795680638; x=1796285438;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=0oVx9fVa/Ez2JCk7hDN3JGdH21S3GTSikiE4w5uLcxw=;
+ b=DtQtth6AHcASyvKQetOB1qXKs+w4+zgme+AmZaZZeJOnhEsD6rqBnfNMRWtipG5Tr1
+ QyXbfPfooyjQueJg4rgsP7w1j450D6VEEMAHBA2dLAb4MyvORLIVDU2A2Zjs42+OXXDG
+ knNvbP7sNcPi7/VlL5Q2ch1/CLHK/fejkgp7injr1BKGXJ6SO68M1g2sp+whQk0mHI5u
+ I/UqPCX0zFBZbaEnNLj0AkutliS+8RvxZKQn3bXmKAGiZJPDc6nVbafosZtfNRZmyUqO
+ oFlkNHe9pMFTxa0PECpEqmhNpcpxGSSWe2+dkEj1EUYkP6T3++AV9DAO/dUWcGEGfE5N
+ 3G+g==
 X-Forwarded-Encrypted: i=1;
- AL+hErFPz+E9R1bXjkKoX88jD7UCh9WjWh2HRZGm5NwCJU69vKAbiYCMre+PcTotq5Axm72uPeOA0w18qUo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/oQ707AzNiCRcjhRekhjKnl9c1jPXKNYoyu+wfkFsMcHmQr9N6
- OTbt1pz4c1Z1GxXYj8A2xIzIL8A7Nft+v6Jhj2HxAkcfAqVJkhpG5hP0nU5wOL2JCf3xdEX6lke
- 4EATTRKrr9lp9KPJRF+oF1ICIPty87eg=
-X-Gm-Gg: AZFdTZdVRBnDxsyZJVSCmJz9Wg1WxuGYwYnQwc753215SAEATCUdcFq0bybJ7CQMzyB
- FmDaYWtgKEpy+L+POjp9v4Y+hkyx1UbrzNr8TVvURmGW3LWgr4poJ0LQ0tCE6u97yh20ZUFyh8x
- K3Ua1WLSlkjxlMQ7bgMA3fumI6F9WRNiHYQOJSn0mggGdBaA2z0jGfHTp8dhRQ8YDUwIDsHD5zR
- LeJB+K6YLOy+SAq0fmJPAGIW7Ou57DqspyX5DH8uHTPGiplIcQia1AoKDzF4wcy1r15voEZ/1+8
- QXAvIu0X9x/84M5RFYPPu2a8xKMsVqg5cEpRmzdmOvFGDt+BwM66nAD3+qAxwky4ahWW2ZUtC8j
- VOSvW45T5ykel43f5owsy4Upl/rGfEU9hVSc3PzVwiqS/fh55VhJXkOupfCi4GGOYvbib3Ti1IR
- S4PRh+Fh6mJtWnF3YFEFAGZGtl09J/H2kQo8QZyH68216w+QKG
-X-Received: by 2002:a05:6402:234f:b0:6bb:6df:1fbc with SMTP id
- 4fb4d7f45d1cf-6bb06df2246mr3254979a12.18.1795614720526; Wed, 25 Nov 2026
- 05:52:00 -0800 (PST)
+ AL+hErGh7KSwLmQUvIYmtrYz0oKY/srmzWhHql/7B/ybE69PQvHgOvEjCv9+E85Cyzpc9VGyvYNH4UHBkB4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/QW2hUa4hNbq/tMlSI8mPIMHqr6D7kwKo1OA0PT7beOLScIe8Y
+ tvKDKi0gbnUq/PbBFgi1gdx1j0AdJThnXcpjFLALyuVr6bSjQ0YTijjybIeKIGcgMrnt+CjYCTl
+ KcbfbDeSTzPviJsh8x3etb1BkP0IF+JIZOumsOxjtu20ScqDEOptczJ7IJSd6XwZ0+NLCZzI=
+X-Gm-Gg: AZFdTZccBgBrUsHkGZmVQicvVX+TS7TxUEcoMDk4PydUx47gh9ImkBpl/lY6QYWBU1X
+ uymYvTuHpAmvU28czBwazEso95N0seHqf1hIzFpBVVUYBd9E1ytN44OM6F+fL0fIYTNvCVOojNe
+ tZ9Ze+Ist37zef/YP0yR/upScETqZesZVq5MtGzMkhAYL0ZdxIwIYRCQAdMZL4nrcWWgV/CHby8
+ bE3qr6dxlYr1Gfv1kujMl6Ltf35rJmUgS5yf8sHyC/eKaLqPGB/FWjk94GXHHQJh/+9Hgo+l7xZ
+ ciJ/Pag412FpC4FZiO0rueHOMekOScEV6aIMXeb+Ths1fZunSonWN1Rj6sgO3M/78HROUIDxaek
+ xN+kaNasElCYDKt3LM6aVAyjp8OnFpRKzZm5Nm2GbdJkzK1eeTxQIKA2Inst32yfi4re7YQnMpo
+ /p
+X-Received: by 2002:a05:6a00:610f:b0:886:a737:e0fe with SMTP id
+ d2e1a72fcca58-8cd9fe59529mr7520563b3a.23.1795680637699; 
+ Thu, 26 Nov 2026 00:10:37 -0800 (PST)
+X-Received: by 2002:a05:6a00:610f:b0:886:a737:e0fe with SMTP id
+ d2e1a72fcca58-8cd9fe59529mr7520535b3a.23.1795680637227; 
+ Thu, 26 Nov 2026 00:10:37 -0800 (PST)
+Received: from [10.64.69.173] ([114.94.8.21]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8c87077fe3fsm10675771b3a.4.2026.11.26.00.10.27
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Nov 2026 00:10:36 -0800 (PST)
+Message-ID: <1c294545-91a1-4cd8-866e-49989343b01a@oss.qualcomm.com>
+Date: Thu, 26 Nov 2026 16:10:25 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <CAMnMt5aufzBXQvs2OeFpBqdh1_VgNUxstvkVX61dPPcfo94QOg@mail.gmail.com>
- <4df7445b-f4c8-4615-8f1d-3fcc59f8cba0@suse.de>
-In-Reply-To: <4df7445b-f4c8-4615-8f1d-3fcc59f8cba0@suse.de>
-From: Herman Semenoff <germanaizek0@gmail.com>
-Date: Wed, 25 Nov 2026 16:52:17 +0300
-X-Gm-Features: Aa3M54pK3hgtA55gmMohtw-eYgBCkVBj9zN9rKUbfTXwsOwAE6_ryIdlXxyJdas
-Message-ID: <CAMnMt5bOFRye_=Q-nXmpaO4ZsJmnh6tWxjaxsFXEgw5TpFA_zA@mail.gmail.com>
-Subject: Re: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
-To: Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Dave Airlie <airlied@redhat.com>, Jocelyn Falempe <jfalempe@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/3] drm/msm/dpu: Add INT2 GDSC power domain support
+ for Kaanapali
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Abel Vesa <abelvesa@kernel.org>, Yuanjie Yang
+ <yuanjie.yang@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Danila Tikhonov <danila@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
+Content-Language: en-US
+From: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+In-Reply-To: <20261113-msm_gdsc2-v6-0-17adbce47220@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=B54sQ+tM c=1 sm=1 tr=0 ts=6b07e97e cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=ipgrnOdMhYEg8ZrmRaMA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: yM4Cihauhqmc1kc3ju9jLlaSgWsDtZqn
+X-Proofpoint-ORIG-GUID: yM4Cihauhqmc1kc3ju9jLlaSgWsDtZqn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAzMSBTYWx0ZWRfX/ifMemadyTI0
+ pT042Nz+bOqwHhy/Yc4G4vwu6NBjiKCRO3ognHoknuhQ7gNFsD8kBBJTWOTO/FO8RQzDFOUjyJ9
+ lba2qjusETIND5BbOWXcGF8YLvs+mSDO4vY4/OGV04LwWlNXhy0rYn/qWwOAa15w45xdPpJOQPw
+ Rl0+S++D2CdpcEXyVZxBomm2FLkQc6DF6D1XXjJIFG/v4+qVs1v6MwSve1HDuET+6G73PmOntwO
+ ngLdPCwE3fraFTs+RuXiaKhlKh8BVvDpok5W/KryOFg25X77YcNmUQYHhOrj5Hy12g+JGf37X2p
+ pi/EgGS1o5064dNLDMBDRRcn3CTekcQ3RLUpD7hny2KoG1yuf4K/SvGUnzlra8hhVOKm8O3Nyhv
+ pCJOFZtsTAIFitcW37oXrMRkXwWMLHoyJFAvrzJ0kHl2z4hGbpHilRrkcTa+0uAKLEaaPlo6tVU
+ Z2YtFprz+d1zCoK9Tnw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAzMSBTYWx0ZWRfXztkE5l38qZgz
+ nNwYJTGMQUWBaaVwWp6651EEVG1eFi67DAmbfmg7kpDf/nAwziSekqXzdIuI3WXZ5hktjD2GaG6
+ 3F7PUO99NiokRBGDQtG675tS/lOoUkc=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-26_02,2026-11-25_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501 bulkscore=0
+ phishscore=0 clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260031
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,215 +160,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I=E2=80=99m sorry. First, I didn=E2=80=99t break it down into multiple patc=
-hes, and
-second, I didn=E2=80=99t test it properly, and I also didn=E2=80=99t note t=
-hat this
-patch Assisted-by: LLM.
 
-=D1=81=D1=80, 25 =D0=BD=D0=BE=D1=8F=D0=B1. 2026=E2=80=AF=D0=B3. =D0=B2 14:5=
-3, Thomas Zimmermann <tzimmermann@suse.de>:
->
->
->
-> Am 25.11.26 um 12:24 schrieb Herman Semenoff:
-> >  From f9574b5a246bf9021ea75f530a9a8ab7c9995274 Mon Sep 17 00:00:00 2001
-> > From: Herman Semenoff <GermanAizek@yandex.ru>
-> > Date: Tue, 24 Nov 2026 12:53:31 +0300
-> > Subject: [PATCH] drm/ast: Optimize cursor updates and reduce overhead
-> >
-> > On server platforms equipped with ASPEED BMC GPUs (such as AST2400 on
-> > Lenovo RD450X), VRAM is mapped over a slow PCIe link with limited
-> > bandwidth.
-> >
-> > Currently, on every cursor move (e.g. via drmModeMoveCursor or atomic
-> > commit updating plane coordinates without damage clips),
-> > ast_cursor_plane_helper_atomic_update() invokes
-> > drm_atomic_helper_damage_merged(). Because userspace does not provide
-> > damage clips for pure cursor movements,
-> > drm_atomic_helper_damage_iter_init() treats the absence of clips as a
-> > full plane update. Consequently, on every mouse move event:
-> >   1. ast_cursor_plane_get_argb4444() performs format conversion on CPU
-> >   2. ast_set_cursor_image() recalculates 32-bit checksum on CPU
-> >   3. memcpy_toio() pushes 8192 bytes over the slow PCIe link into VRAM
-> >   4. Cursor base registers are reprogrammed
-> >
-> > Fix this by only updating the cursor image and base when the image
-> > actually changes (fb !=3D old_fb, plane was previously invisible, or
-> > damage clips were provided). For pure position updates, only update
-> > the coordinates in the hardware cursor signature and registers,
-> > skipping VRAM transfer, format conversion, and checksum calculation.
-> >
-> > Additionally:
-> > - Add DRM_FORMAT_XRGB8888 support to ast_cursor_plane_formats and handl=
-e
-> >    it with opaque alpha in ast_cursor_plane_get_argb4444(), preventing
-> >    compositors from unnecessarily falling back to software cursors on t=
-he
-> >    primary plane
-> > - Implement .panic_flush in ast_primary_plane_helper_funcs to disable t=
-he
-> >    hardware cursor during kernel panics (CONFIG_DRM_PANIC)
->
-> I this is mostly wrong and the patch is terrible. I refuse to further
-> deal with any of this.
->
-> >
-> > Signed-off-by: Herman Semenoff <GermanAizek@yandex.ru>
-> > Signed-off-by: Herman Semenoff <GermanAizek@aizekgroup.ru>
-> > ---
-> >   drivers/gpu/drm/ast/ast_cursor.c | 39 +++++++++++++++++++++++++++++--=
--
-> >   drivers/gpu/drm/ast/ast_drv.h    |  1 +
-> >   drivers/gpu/drm/ast/ast_mode.c   |  8 +++++++
-> >   3 files changed, 45 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/drivers/gpu/drm/ast/ast_cursor.c b/drivers/gpu/drm/ast/ast=
-_cursor.c
-> > index 690d4cd1db5e..883d1e6f20bd 100644
-> > --- a/drivers/gpu/drm/ast/ast_cursor.c
-> > +++ b/drivers/gpu/drm/ast/ast_cursor.c
-> > @@ -142,7 +142,7 @@ static void ast_set_cursor_location(struct
-> > ast_device *ast, u16 x, u16 y,
-> >    ast_set_index_reg(ast, AST_IO_VGACRI, 0xc7, y1);
-> >   }
-> >
-> > -static void ast_set_cursor_enabled(struct ast_device *ast, bool enable=
-d)
-> > +void ast_set_cursor_enabled(struct ast_device *ast, bool enabled)
-> >   {
-> >    static const u8 mask =3D (u8)~(AST_IO_VGACRCB_HWC_16BPP |
-> >        AST_IO_VGACRCB_HWC_ENABLED);
-> > @@ -162,6 +162,7 @@ static void ast_set_cursor_enabled(struct
-> > ast_device *ast, bool enabled)
-> >   static const uint32_t ast_cursor_plane_formats[] =3D {
-> >    DRM_FORMAT_ARGB4444,
-> >    DRM_FORMAT_ARGB8888,
-> > + DRM_FORMAT_XRGB8888,
-> >   };
-> >
-> >   static int ast_cursor_plane_helper_atomic_check(struct drm_plane *pla=
-ne,
-> > @@ -229,6 +230,30 @@ static const u8
-> > *ast_cursor_plane_get_argb4444(struct ast_cursor_plane *ast_curs
-> >    argb4444 =3D argb4444_dst[0].vaddr;
-> >    }
-> >    break;
-> > + case DRM_FORMAT_XRGB8888:
-> > + {
-> > + struct iosys_map argb4444_dst[DRM_FORMAT_MAX_PLANES] =3D {
-> > + IOSYS_MAP_INIT_VADDR(ast_cursor_plane->argb4444),
-> > + };
-> > + unsigned int argb4444_dst_pitch[DRM_FORMAT_MAX_PLANES] =3D {
-> > + AST_HWC_PITCH,
-> > + };
-> > + unsigned int x, y;
-> > + u16 *dst16;
-> > +
-> > + drm_fb_argb8888_to_argb4444(argb4444_dst, argb4444_dst_pitch,
-> > +    shadow_plane_state->data, fb, clip,
-> > +    &shadow_plane_state->fmtcnv_state);
-> > +
-> > + for (y =3D clip->y1; y < clip->y2; y++) {
-> > + dst16 =3D (u16 *)(ast_cursor_plane->argb4444 +
-> > + y * AST_HWC_PITCH);
-> > + for (x =3D clip->x1; x < clip->x2; x++)
-> > + dst16[x] |=3D 0xf000;
-> > + }
-> > + argb4444 =3D argb4444_dst[0].vaddr;
-> > + }
-> > + break;
-> >    }
-> >
-> >    drm_gem_fb_end_cpu_access(fb, DMA_FROM_DEVICE);
-> > @@ -261,13 +286,21 @@ static void
-> > ast_cursor_plane_helper_atomic_update(struct drm_plane *plane,
-> >    unsigned int offset_x, offset_y;
-> >    u16 x, y;
-> >    u8 x_offset, y_offset;
-> > + bool update_image;
-> >
-> >    /*
-> >    * Do data transfer to hardware buffer and point the scanout
-> > - * engine to the offset.
-> > + * engine to the offset only if the cursor image actually changed
-> > + * or the plane became visible. For pure cursor moves, avoid
-> > + * expensive PCIe bus transfers, format conversion, and checksum
-> > + * calculation.
-> >    */
-> > + update_image =3D (fb !=3D old_plane_state->fb) ||
-> > +       !old_plane_state->visible ||
-> > +       drm_plane_get_damage_clips_count(plane_state);
-> >
-> > - if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &da=
-mage)) {
-> > + if (update_image &&
-> > +    drm_atomic_helper_damage_merged(old_plane_state, plane_state, &dam=
-age)) {
-> >    const u8 *argb4444 =3D ast_cursor_plane_get_argb4444(ast_cursor_plan=
-e,
-> >      shadow_plane_state,
-> >      &damage);
-> > diff --git a/drivers/gpu/drm/ast/ast_drv.h b/drivers/gpu/drm/ast/ast_dr=
-v.h
-> > index 4f221b848d68..d846d5cf4f5e 100644
-> > --- a/drivers/gpu/drm/ast/ast_drv.h
-> > +++ b/drivers/gpu/drm/ast/ast_drv.h
-> > @@ -542,6 +542,7 @@ int ast_sil164_output_init(struct ast_device *ast);
-> >   /* ast_cursor.c */
-> >   long ast_cursor_vram_offset(struct ast_device *ast);
-> >   int ast_cursor_plane_init(struct ast_device *ast);
-> > +void ast_set_cursor_enabled(struct ast_device *ast, bool enabled);
-> >
-> >   /* ast dp501 */
-> >   bool ast_backup_fw(struct ast_device *ast, u8 *addr, u32 size);
-> > diff --git a/drivers/gpu/drm/ast/ast_mode.c b/drivers/gpu/drm/ast/ast_m=
-ode.c
-> > index 08db132acae8..f94f849d157b 100644
-> > --- a/drivers/gpu/drm/ast/ast_mode.c
-> > +++ b/drivers/gpu/drm/ast/ast_mode.c
-> > @@ -639,6 +639,13 @@ static int
-> > ast_primary_plane_helper_get_scanout_buffer(struct drm_plane *plane,
-> >    return -ENODEV;
-> >   }
-> >
-> > +static void ast_primary_plane_helper_panic_flush(struct drm_plane *pla=
-ne)
-> > +{
-> > + struct ast_device *ast =3D to_ast_device(plane->dev);
-> > +
-> > + ast_set_cursor_enabled(ast, false);
-> > +}
-> > +
-> >   static const struct drm_plane_helper_funcs ast_primary_plane_helper_f=
-uncs =3D {
-> >    DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-> >    .atomic_check =3D ast_primary_plane_helper_atomic_check,
-> > @@ -646,6 +653,7 @@ static const struct drm_plane_helper_funcs
-> > ast_primary_plane_helper_funcs =3D {
-> >    .atomic_enable =3D ast_primary_plane_helper_atomic_enable,
-> >    .atomic_disable =3D ast_primary_plane_helper_atomic_disable,
-> >    .get_scanout_buffer =3D ast_primary_plane_helper_get_scanout_buffer,
-> > + .panic_flush =3D ast_primary_plane_helper_panic_flush,
-> >   };
-> >
-> >   static const struct drm_plane_funcs ast_primary_plane_funcs =3D {
->
-> --
-> --
-> Thomas Zimmermann
-> Graphics Driver Developer
-> SUSE Software Solutions Germany GmbH
-> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
-> GF: Stefan Gaiser, Jochen Jaser, Abhinav Puri, (HRB 36809, AG N=C3=BCrnbe=
-rg)
->
->
+
+On 11/13/2026 4:28 PM, Yongxing Mou wrote:
+> Kaanapali (SM8850) has an additional INT2 GDSC that powers a
+> subset of DPU source pipes (VIG2/VIG3/DMA5). Without enabling
+> it, those pipes remain inaccessible.
+> 
+> This series describes CORE and INT2 as the DPU power domains,
+> updates the DT bindings accordingly, and explicitly attaches both
+> domains in the DPU driver. DPU performance-state votes on CORE
+> are propagated through the genpd hierarchy to MMCX.
+> 
+> Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
+> ---
+> Changes in v6:
+> - Drop Tested-by tags (Krzysztof)
+> - Move power-domain-names to dpu-common.yaml and drop the redundant
+>    'required: compatible' (Krzysztof)
+> - Link to v5: https://lore.kernel.org/r/20261109-msm_gdsc2-v5-0-4a3159b5e4b8@oss.qualcomm.com
+> 
+> Changes in v5:
+> - Use 'contains:' for compatible matching in the if-condition (Krzysztof)
+> - Move power-domain-names items to top-level properties; only constrain
+>    minItems in then-block (Krzysztof)
+> - Link to v4: https://lore.kernel.org/r/20261023-msm_gdsc2-v4-0-40b6a71d4e3f@oss.qualcomm.com
+> 
+> Changes in v4:
+> - Keep the widest power-domain constraint in the common schema (Krzysztof)
+> - Link to v3: https://lore.kernel.org/r/20261014-msm_gdsc2-v3-0-f1ed69014416@oss.qualcomm.com
+> 
+> Changes in v3:
+> - Replaced MMCX with CORE as the DPU power domain, keeping INT2 as the second domain
+>    (Dmitry)
+> - Used generic "core" and "int2" power-domain names (Dmitry)
+> - Propagated DPU OPP votes from CORE to its parent MMCX domain
+> - Updated the Kaanapali MDSS example and fixed issues reported by dt_binding_check
+> - Link to v2: https://lore.kernel.org/r/20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com
+> 
+> Changes in v2:
+> - Moved INT2 GDSC from MDSS to DPU, as it only powers DPU-local source pipes (Dmitry)
+> - Dropped Glymur — only Kaanapali actually needs INT2 GDSC
+> - Used if/then in DT binding to restrict second power domain to Kaanapali compatible only (Dmitry, Krzysztof)
+> - Dropped PD_FLAG_NO_DEV_LINK, let device link auto-attach handle INT2 as runtime-PM supplier (Dmitry)
+> - Link to v1: https://lore.kernel.org/r/20260720-msm_gdsc2-v1-0-4687866d6cb0@oss.qualcomm.com
+> 
+> ---
+> Yongxing Mou (3):
+>        dt-bindings: display: msm: Add INT2 GDSC to Kaanapali DPU
+>        drm/msm/dpu: Attach CORE and INT2 power domains on Kaanapali
+>        arm64: dts: qcom: Add INT2 GDSC to Kaanapali DPU
+> 
+>   .../bindings/display/msm/dpu-common.yaml           |  9 +++++-
+>   .../bindings/display/msm/qcom,kaanapali-mdss.yaml  |  4 ++-
+>   .../bindings/display/msm/qcom,msm8998-dpu.yaml     |  3 ++
+>   .../bindings/display/msm/qcom,qcm2290-dpu.yaml     |  3 ++
+>   .../bindings/display/msm/qcom,sc7180-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sc7280-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sc8180x-dpu.yaml     |  3 ++
+>   .../bindings/display/msm/qcom,sdm845-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sm6115-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sm6150-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sm7150-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sm8150-dpu.yaml      |  3 ++
+>   .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++
+>   arch/arm64/boot/dts/qcom/kaanapali.dtsi            |  4 ++-
+>   drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            | 32 ++++++++++++++++++++++
+>   15 files changed, 99 insertions(+), 3 deletions(-)
+> ---
+> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
+> change-id: 20260720-msm_gdsc2-cb9230027a2d
+> 
+> Best regards,
+Gentle ping. Is there anything else needed for this series, or could it 
+be picked up for the next cycle?
