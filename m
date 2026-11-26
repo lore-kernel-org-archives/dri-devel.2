@@ -2,47 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E91606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 20:11:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34612606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 20:11:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TNbKfNHG
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=j8Yf1LiZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3A23510E3E9;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4292A10E42C;
 	Thu, 26 Nov 2026 20:11:07 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4A45C10E3E9
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4F9E910E42C
  for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 20:11:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795723856; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1795723854; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=AxzcyqSujngf7qqVJPtIniK3GvwUWvd0ml1PdqlB1MQQJaM/MFTakIZAsak6xSssDVZgfA2VItBYX+HxBw7MST2Vc+0FmKWOy1nJXVrk6xvh7bZ7hwBqCG7eqtP0KTrtMwdHFPMdV8eOmSqX2QKoL2CAORxuOUAI25SLTBLbJz8=
+ b=neMfuKQL3DjukqrxNCXz1oEjTjE2Fkj5y/US10Vm+MiNQ9/A1YVkSw62AtxrGFPOHIvCcoH13tXxB25pjGgpfDZC3/3XYeD89uajnP0XmiMQ+lYvVA8QVGgAWAz/i/WKu/+04B9H9TCbE90T5W4IiOf2eUy8HCnoKBmQr6dDnRw=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795723856;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=M34/GtpbqrU7stmPg/LOgYPbbWH4imamaV+LT3Pbdt0=; 
- b=iuz6IbASQFGlqGdojyuHg0V2Bl9zlOL+nB43FNhiT8oeStlRfYKfc3Y7XMX7zIFSATkh+5AoBY9nRiYIGC0PUJq4aZQQN5GisEbQqQ1GWHKRcUXtOgi/eoXW6If3a4jAX0wmX/QN1Ttr6YA3TYGYS4XugKOLFfbo0PFgon9DOvY=
+ s=zohoarc; t=1795723854;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=jjH2UYzmhPzgLkuBv62Qf/P7bzdvFKQUVBGEtPzWtUM=; 
+ b=gamMzD5auQUdlK7sn32/BjzATeiMNfj9PvEAprZjGG5Kj9/i1DZdVEh+Jat0F80hMrWfgQv2STojHc26NHi3a66ZIgsJFCaqZFKzLg7ghLyOITB2IikfT3BuPG3GrEG8IFtj62h4wpHbGcbKHZt+yAkHfz9asSo94fqz770QCY8=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=TNbKfNHG7BNUkZQFcfAjHBDSwqdGnl87ZKCfN8/tyXP4FvU016u/wPov6nwuab3YtjPTAS0dE1C5MUh8IRNG9oqbsNW/Kcgl38fkasmBthydezNZOhSiYRXvOM4kWlcq4kszoixViFTjQFzaEmwWnPsSo5YoXOfDfF2fFdML5Bs=;
+ b=j8Yf1LiZGpKo1qDXhUa1kWVzGs9KbjfcGRLm1wszxkDzSYh0l8f6azRO4vD2EUXvOqOFMnx6jSifO2G0TzSAJcow3A9+ehaO/aNo+BgD1hjnkK0ytKxOziyoTix3wDxcBov2jkllBZ9+3o3VS1iuAI7DcpEZKstVIkcvlUaPeMs=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=M34/GtpbqrU7stmPg/LOgYPbbWH4imamaV+LT3Pbdt0=;
+ bh=jjH2UYzmhPzgLkuBv62Qf/P7bzdvFKQUVBGEtPzWtUM=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795723854444629.9098421832166;
- Thu, 26 Nov 2026 12:10:54 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795723851199853.6085617662809;
+ Thu, 26 Nov 2026 12:10:51 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Thu, 26 Nov 2026 17:10:43 -0300
-Subject: [PATCH 1/4] drm/tyr: use the conversion derives for the
- GPU_CONTROL enums
+Subject: [PATCH 0/4] drm/tyr: use the conversion derives for the enums
+Date: Thu, 26 Nov 2026 17:10:42 -0300
+Message-Id: <20261126-tyr-enum-derives-v1-0-a487b0e1bee3@collabora.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-tyr-enum-derives-v1-1-a487b0e1bee3@collabora.com>
-References: <20261126-tyr-enum-derives-v1-0-a487b0e1bee3@collabora.com>
-In-Reply-To: <20261126-tyr-enum-derives-v1-0-a487b0e1bee3@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/12RS25bMQxFt2K8cV8hkRQlBUXRfRQZUPy0LuK49
+ XOCFkH2XtnJxBlekOdefl6WzU9735a73cty8uf9tj8+TpE/7Rb9KY8/fN3b1Ask4JyB1/O/0+q
+ PT4fVJvjs26ojKnRL2YsuE/t98tj/vVp+v3/T29P45Xq++Lx3nPzP08w6v7UtB982uWbd7b68R
+ 5V10DVNZoZs5219zmtaYUAUzEzW+JseHx5kHE/yWY+Hr1dvOevPq4+Sj6ZSagqPWspgtpHtQlf
+ QURhmObt+oHqvDM3Jc5GeJdtoVC9AB2m1WQoGUr+lrICjWdgA81qwYHMtWpPM63SPElAZU76lK
+ KVkHUApQ20+R8sWSahV7AQG2VGpa7qluKTErtHEUVCEDAh7sKURgN2IKwSkdksVLtx5IGLpThy
+ hQ5BxoM/dsjeLUhoNuaWQw5K31J2zk1IkQ0pQLVSGEU2BqTW8pbzNpTu3otiSsCogQOGROXHvs
+ 5bnVVqGD3upSjKPrD0Xn+shKeSe0d0ZeT4ygkX4Qg3ZfJ0vP+zPd7s6JzIDTEHUay80iEumIvO
+ yEVXKvGhj6Mv96+t/y2a7t/ACAAA=
+X-Change-ID: 20261126-tyr-enum-derives-cbf729d01e5c
 To: Daniel Almeida <daniel.almeida@collabora.com>, 
  Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
@@ -62,331 +69,66 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-An `as` cast silently drops the bits that do not fit the target type,
-and nothing at the cast shows whether that can happen. As part of a
-larger effort to reduce the number of `as` casts in Tyr, derive the
-conversions between the GPU_CONTROL enums and `Bounded` instead of
-writing them by hand. This removes the 8 casts that convert one of
-these enums to its integer value.
+The `as` cast series [1] leaves 19 casts that convert an enum to its
+integer value, each inside a hand-written conversion between the enum
+and `Bounded`. This series derives these conversions with the `TryFrom`,
+`From` and `Into` derives of Kaiqi's series "rust: add conversion
+derives and exhaustive From support" [2], which removes the 19 casts.
+Patch 4 also converts `EntryType`, the last enum with a hand-written
+conversion, which had no cast.
 
-No functional change intended.
+This is based on drm-rust-next and depends on [1] and on patches 1 to 9
+of [2]. I will follow up with a review of [2] soon.
 
-Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
+[1] https://lore.kernel.org/all/20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com/
+[2] https://lore.kernel.org/all/20260930002436.21395-1-chaoji_xinren@163.com/
+
 ---
- drivers/gpu/drm/tyr/regs.rs | 199 +++++---------------------------------------
- 1 file changed, 21 insertions(+), 178 deletions(-)
+Daniel Almeida (4):
+      drm/tyr: use the conversion derives for the GPU_CONTROL enums
+      drm/tyr: use the conversion derives for the MMU_AS_CONTROL enums
+      drm/tyr: use the conversion derives for `CacheMode`
+      drm/tyr: use the `TryFrom` derive for `EntryType`
 
-diff --git a/drivers/gpu/drm/tyr/regs.rs b/drivers/gpu/drm/tyr/regs.rs
-index 76892a911227..35656a81aae9 100644
---- a/drivers/gpu/drm/tyr/regs.rs
-+++ b/drivers/gpu/drm/tyr/regs.rs
-@@ -63,7 +63,11 @@ pub(crate) fn read_u64_no_tearing(lo_read: impl Fn() -> u32, hi_read: impl Fn()
- /// They are involved in GPU configuration and control.
- pub(crate) mod gpu_control {
-     use kernel::{
--        num::Bounded,
-+        macros::{
-+            From,
-+            Into,
-+            TryFrom, //
-+        },
-         prelude::*,
-         register,
-         uapi, //
-@@ -235,7 +239,8 @@ pub(crate) mod gpu_control {
-     }
- 
-     /// Helpers for GPU_COMMAND Register
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 8>)]
-     #[repr(u8)]
-     pub(crate) enum GpuCommand {
-         /// No operation. This is the default value.
-@@ -248,30 +253,9 @@ pub(crate) enum GpuCommand {
-         ClearFault = 7,
-     }
- 
--    impl TryFrom<Bounded<u32, 8>> for GpuCommand {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 8>) -> Result<Self, Self::Error> {
--            match val.get() {
--                0 => Ok(GpuCommand::Nop),
--                1 => Ok(GpuCommand::Reset),
--                4 => Ok(GpuCommand::FlushCaches),
--                7 => Ok(GpuCommand::ClearFault),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<GpuCommand> for Bounded<u32, 8> {
--        #[expect(clippy::as_conversions)]
--        fn from(cmd: GpuCommand) -> Self {
--            // CAST: `GpuCommand` is `#[repr(u8)]`, so the cast is lossless.
--            (cmd as u8).into()
--        }
--    }
--
-     /// Reset mode for [`GPU_COMMAND::reset()`].
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 4>)]
-     #[repr(u8)]
-     pub(crate) enum ResetMode {
-         /// Stop all external bus interfaces, then reset the entire GPU.
-@@ -280,28 +264,9 @@ pub(crate) enum ResetMode {
-         HardReset = 2,
-     }
- 
--    impl TryFrom<Bounded<u32, 4>> for ResetMode {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 4>) -> Result<Self, Self::Error> {
--            match val.get() {
--                1 => Ok(ResetMode::SoftReset),
--                2 => Ok(ResetMode::HardReset),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<ResetMode> for Bounded<u32, 4> {
--        #[expect(clippy::as_conversions)]
--        fn from(mode: ResetMode) -> Self {
--            // CAST: `ResetMode` is `#[repr(u8)]`, so the cast is lossless.
--            Bounded::try_new(mode as u32).unwrap()
--        }
--    }
--
-     /// Cache flush mode for [`GPU_COMMAND::flush_caches()`].
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 4>)]
-     #[repr(u8)]
-     pub(crate) enum FlushMode {
-         /// No flush.
-@@ -314,28 +279,6 @@ pub(crate) enum FlushMode {
-         CleanInvalidate = 3,
-     }
- 
--    impl TryFrom<Bounded<u32, 4>> for FlushMode {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 4>) -> Result<Self, Self::Error> {
--            match val.get() {
--                0 => Ok(FlushMode::None),
--                1 => Ok(FlushMode::Clean),
--                2 => Ok(FlushMode::Invalidate),
--                3 => Ok(FlushMode::CleanInvalidate),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<FlushMode> for Bounded<u32, 4> {
--        #[expect(clippy::as_conversions)]
--        fn from(mode: FlushMode) -> Self {
--            // CAST: `FlushMode` is `#[repr(u8)]`, so the cast is lossless.
--            Bounded::try_new(mode as u32).unwrap()
--        }
--    }
--
-     register! {
-         base: TyrRegisters;
- 
-@@ -421,7 +364,8 @@ pub(crate) fn clear_fault() -> Self {
-         }
-     }
- 
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 8>)]
-     #[repr(u8)]
-     pub(crate) enum ExceptionType {
-         /// Exception type: No error.
-@@ -436,30 +380,8 @@ pub(crate) enum ExceptionType {
-         GpuCacheabilityFault = 0x8A,
-     }
- 
--    impl TryFrom<Bounded<u32, 8>> for ExceptionType {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 8>) -> Result<Self, Self::Error> {
--            match val.get() {
--                0x00 => Ok(ExceptionType::Ok),
--                0x80 => Ok(ExceptionType::GpuBusFault),
--                0x88 => Ok(ExceptionType::GpuShareabilityFault),
--                0x89 => Ok(ExceptionType::SystemShareabilityFault),
--                0x8A => Ok(ExceptionType::GpuCacheabilityFault),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<ExceptionType> for Bounded<u32, 8> {
--        #[expect(clippy::as_conversions)]
--        fn from(exc: ExceptionType) -> Self {
--            // CAST: `ExceptionType` is `#[repr(u8)]`, so the cast is lossless.
--            (exc as u8).into()
--        }
--    }
--
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, From, Into)]
-+    #[convert(Bounded<u32, 2>)]
-     #[repr(u8)]
-     pub(crate) enum AccessType {
-         /// Access type: An atomic (read/write) transaction.
-@@ -472,26 +394,6 @@ pub(crate) enum AccessType {
-         Write = 3,
-     }
- 
--    impl From<Bounded<u32, 2>> for AccessType {
--        fn from(val: Bounded<u32, 2>) -> Self {
--            match val.get() {
--                0 => AccessType::Atomic,
--                1 => AccessType::Execute,
--                2 => AccessType::Read,
--                3 => AccessType::Write,
--                _ => unreachable!(),
--            }
--        }
--    }
--
--    impl From<AccessType> for Bounded<u32, 2> {
--        #[expect(clippy::as_conversions)]
--        fn from(access: AccessType) -> Self {
--            // CAST: `AccessType` is `#[repr(u8)]`, so the cast is lossless.
--            Bounded::try_new(access as u32).unwrap()
--        }
--    }
--
-     register! {
-         base: TyrRegisters;
- 
-@@ -769,7 +671,8 @@ fn from(access: AccessType) -> Self {
-         }
-     }
- 
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 32>)]
-     #[repr(u8)]
-     pub(crate) enum CoherencyMode {
-         /// ACE-Lite coherency protocol.
-@@ -780,27 +683,6 @@ pub(crate) enum CoherencyMode {
-         None = cv!(uapi::drm_panthor_gpu_coherency_DRM_PANTHOR_GPU_COHERENCY_NONE => u8),
-     }
- 
--    impl TryFrom<Bounded<u32, 32>> for CoherencyMode {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 32>) -> Result<Self, Self::Error> {
--            match val.get() {
--                0 => Ok(CoherencyMode::AceLite),
--                1 => Ok(CoherencyMode::Ace),
--                31 => Ok(CoherencyMode::None),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<CoherencyMode> for Bounded<u32, 32> {
--        #[expect(clippy::as_conversions)]
--        fn from(mode: CoherencyMode) -> Self {
--            // CAST: `CoherencyMode` is `#[repr(u8)]`, so the cast is lossless.
--            (mode as u8).into()
--        }
--    }
--
-     register! {
-         base: TyrRegisters;
- 
-@@ -813,7 +695,8 @@ fn from(mode: CoherencyMode) -> Self {
-     }
- 
-     /// Helpers for MCU_CONTROL register
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, TryFrom, Into)]
-+    #[convert(Bounded<u32, 2>)]
-     #[repr(u8)]
-     pub(crate) enum McuControlMode {
-         /// Disable the MCU.
-@@ -824,27 +707,6 @@ pub(crate) enum McuControlMode {
-         Auto = 2,
-     }
- 
--    impl TryFrom<Bounded<u32, 2>> for McuControlMode {
--        type Error = Error;
--
--        fn try_from(val: Bounded<u32, 2>) -> Result<Self, Self::Error> {
--            match val.get() {
--                0 => Ok(McuControlMode::Disable),
--                1 => Ok(McuControlMode::Enable),
--                2 => Ok(McuControlMode::Auto),
--                _ => Err(EINVAL),
--            }
--        }
--    }
--
--    impl From<McuControlMode> for Bounded<u32, 2> {
--        #[expect(clippy::as_conversions)]
--        fn from(mode: McuControlMode) -> Self {
--            // CAST: `McuControlMode` is `#[repr(u8)]`, so the cast is lossless.
--            Bounded::try_new(mode as u32).unwrap()
--        }
--    }
--
-     register! {
-         base: TyrRegisters;
- 
-@@ -856,7 +718,8 @@ fn from(mode: McuControlMode) -> Self {
-     }
- 
-     /// Helpers for MCU_STATUS register
--    #[derive(Copy, Clone, Debug, PartialEq)]
-+    #[derive(Copy, Clone, Debug, PartialEq, From, Into)]
-+    #[convert(Bounded<u32, 2>)]
-     #[repr(u8)]
-     pub(crate) enum McuStatus {
-         /// MCU is disabled.
-@@ -870,26 +733,6 @@ pub(crate) enum McuStatus {
-         Fatal = 3,
-     }
- 
--    impl From<Bounded<u32, 2>> for McuStatus {
--        fn from(val: Bounded<u32, 2>) -> Self {
--            match val.get() {
--                0 => McuStatus::Disabled,
--                1 => McuStatus::Enabled,
--                2 => McuStatus::Halt,
--                3 => McuStatus::Fatal,
--                _ => unreachable!(),
--            }
--        }
--    }
--
--    impl From<McuStatus> for Bounded<u32, 2> {
--        #[expect(clippy::as_conversions)]
--        fn from(status: McuStatus) -> Self {
--            // CAST: `McuStatus` is `#[repr(u8)]`, so the cast is lossless.
--            Bounded::try_new(status as u32).unwrap()
--        }
--    }
--
-     register! {
-         base: TyrRegisters;
- 
+ drivers/gpu/drm/tyr/fw.rs        |  30 +--
+ drivers/gpu/drm/tyr/fw/parser.rs |  25 +-
+ drivers/gpu/drm/tyr/regs.rs      | 486 ++++-----------------------------------
+ 3 files changed, 56 insertions(+), 485 deletions(-)
+---
+base-commit: 7402dd230f4497954b465145a22cff7a5a488629
+change-id: 20261126-tyr-enum-derives-cbf729d01e5c
+prerequisite-message-id: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
+prerequisite-patch-id: 1d54819d2dac9c113331baef19e763cedb0ca517
+prerequisite-patch-id: 016e94c56c10e511f6ac4c045f620207211b9f02
+prerequisite-patch-id: 1899e0445dbd58f2a72b6f9bdcffba70b7e65ac4
+prerequisite-patch-id: 4da30d4ec1abd60c6cbc5f5f108437abb4d5e3f3
+prerequisite-patch-id: 04ac471e820674330ff6ed854c7691be3f4c7cef
+prerequisite-patch-id: b62e387da808817a10df1a2977da60ecc630aeef
+prerequisite-patch-id: 17733676a0b8814fabdec83ab20b749729149c4f
+prerequisite-patch-id: 7a6862e6c23c43bdf11dff1f84032cd4209afc33
+prerequisite-patch-id: f10354893c358db15456a84dc6113d24f03af0c0
+prerequisite-patch-id: faee0bac4883bd31a407fb7fc66a40d5c2400c49
+prerequisite-patch-id: 8c67c4dd9fc45169d882a349d0b27cf056197c6f
+prerequisite-patch-id: b6ddee237c4a24b5c0242097aace0102820ac1db
+prerequisite-patch-id: d1a6ccba37c85b7f62a7a06d73ce09813a5c6530
+prerequisite-patch-id: c4eb8ca570fef755b66db1d2f5372cb562b8c1ec
+prerequisite-patch-id: c997628e4e15a91a1db84772cb92a878d0f624ce
+prerequisite-patch-id: d52e3ddfdb2de753538ec5c70acbf9ef5f276301
+prerequisite-patch-id: 4000d922c41278ed2f1df0a4873942d21e3c49c0
+prerequisite-patch-id: 65006ecf8ae3a3aa4d2439f6d0bf239d4672f208
+prerequisite-patch-id: 565696b33359e46ffcba363b3e72c1e8df5584ba
+prerequisite-patch-id: 36fd0e809e61e4c4f0d34027dfcabd4434030883
+prerequisite-patch-id: e8bf99685c380a6cc232256b160699bf91cbf812
+prerequisite-patch-id: 6cca0def1c915ef8a34c21913eee636a57ff6aa6
 
--- 
-2.56.0
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
 
