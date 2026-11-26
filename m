@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 880E5606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF208606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:55:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gjfMgT9J
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=EURWSsxN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D7B0310E98C;
-	Thu, 26 Nov 2026 11:55:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 30BE610E978;
+	Thu, 26 Nov 2026 11:55:46 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 580E910E98C
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:55:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 884C310E978
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:55:39 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 65C1A62372;
- Thu, 26 Nov 2026 11:55:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A9A01F000C0;
- Thu, 26 Nov 2026 11:55:07 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0C7FD62372;
+ Thu, 26 Nov 2026 11:55:39 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47DA1F000C0;
+ Thu, 26 Nov 2026 11:55:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795694108;
- bh=zRUQqDI7ks1uag0JAh4pXS+NxKy2mQlWu4M0QQ5Bdj8=;
+ s=k20260515; t=1795694138;
+ bh=1zGW3pllRvA3FOZs+LKbltrqJfqwCGhY2Thw21POvOg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=gjfMgT9JlfxpfHYaX49Uob/AtAgBWPuVyXaLrUi66yJlah66/ipOF0w1kfihlqdnx
- GpvKisghVJdyLgoxACwm5Lm0lCY9rY0RCzelQ5eJWycYUJNZdODik2KBGWs5kGUD5S
- oJMyyzZYbwaL5lZHF0SApUD3wd47FhmqWPr9V4GlwX5FKHL9dCOS+r1djTVsq400WN
- fLx/HF4F0E6WOfZdqZydDgLCpy3H2hYdrxR6Cm7UTUGluAAZIeKZo5uLKOVT+yQG1n
- +xs2zq4EBCGit5dfn+kOj+xP9tXU1nK6rjvfFY9ffffvIfd3qsy8L8bZlLlnjeHJ4K
- mvaJgAsBPAyUQ==
-Message-ID: <sashiko-outbox-235436@kernel.org>
+ b=EURWSsxNtYDAWii5/Ty1+1rdVUDiPjgMXQNl1vGmEeyIgglrzkHeO0WVFJI1M/6tR
+ RduLAidiLHZEANkdr8x1csv1YYqyO0pEOPRQ5REYMBf7qmktMv/EgRyikeZ4rhddBv
+ GkG2QdelZjRlci+r/ugjn3zspGrMC14eMTS8tl6bvEhcO7Icrl8g/6Xpbjs+uSRnic
+ YtekxSyb9ANdlBhg/vz5IlUotaK2iAL8QU7bEeywGvKh6JFvWETpynMmu7DdvKzYOH
+ VdYBDYq9p3LtBSj+GwuGVQmuk/7q6Iv0gSAJnkJwWQJlzpg/OoCt9Vuta1SVjx+MKa
+ 7m2YrevExoL/w==
+Message-ID: <sashiko-outbox-235438@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 30/43] drm/vkms: Introduce back pointer to connector
+Subject: Re: [PATCH v7 12/43] drm/vkms: Add KUnit test for device lifecycle
 To: "Louis Chauvet" <louis.chauvet@bootlin.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126-vkms-all-config-v7-30-21194cda2468@bootlin.com>
+In-Reply-To: <20261126-vkms-all-config-v7-12-21194cda2468@bootlin.com>
 References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
- <20261126-vkms-all-config-v7-30-21194cda2468@bootlin.com>
+ <20261126-vkms-all-config-v7-12-21194cda2468@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:55:07 +0000
+Date: Thu, 26 Nov 2026 11:55:38 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,150 +58,156 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [High] drm/vkms: use-after-free of vkms_config via drmm ref in
-  vkms_connector_init()
-- [High] drm/vkms: deadlock on config->lock in vkms_connector_detect()
-  on hotplug
+- [Medium] drm/vkms: missing vkms_destroy() call in uncreated-device
+  KUnit test
+- [Medium] drm/vkms: missing second vkms_destroy() in
+  vkms_lifecycle_test_double_destroy()
+- [Low] drm/vkms: missing connector detach before vkms_destroy() in
+  KUnit test
+- [Low] drm/vkms: non-portable KASAN and KUNIT_ALL_TESTS in .kunitconfig
+- [Low] drm/vkms: EXPORT_SYMBOL_IF_KUNIT(vkms_create) placed after
+  vkms_init()
 --
 
-commit 7fc6833db3a67c967212a1eb72d07220a1c7dbd2
+commit 638d5ac8d39529e98a29a3faec3aa7ef9239a4d3
 Author: Louis Chauvet <louis.chauvet@bootlin.com>
 
-drm/vkms: Introduce back pointer to connector
+drm/vkms: Add KUnit test for device lifecycle
 
-This commit stores a reference-counted pointer to vkms_config_connector in
-vkms_connector, released via a drmm action on device cleanup, and uses it
-in vkms_connector_detect() instead of iterating the configuration list.
+This commit adds a KUnit test suite exercising VKMS device creation,
+destruction, and reference-counted configuration object lifetimes, and
+exports vkms_create() and vkms_destroy() for KUnit testing.
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms=
-/vkms_connector.c
-> index 080a0240d5e92..bb023b5af4e43 100644
-> --- a/drivers/gpu/drm/vkms/vkms_connector.c
-> +++ b/drivers/gpu/drm/vkms/vkms_connector.c
-> @@ -11,11 +11,9 @@
->  static enum drm_connector_status vkms_connector_detect(struct drm_connec=
-tor *connector,
->  						       bool force)
->  {
-> -	struct drm_device *dev =3D connector->dev;
-> -	struct vkms_device *vkmsdev =3D drm_device_to_vkms_device(dev);
->  	struct vkms_connector *vkms_connector;
-> +	struct vkms_config_connector *cfg;
->  	enum drm_connector_status status;
-> -	struct vkms_config_connector *connector_cfg;
-> =20
->  	vkms_connector =3D drm_connector_to_vkms_connector(connector);
-> =20
-> @@ -26,11 +24,12 @@ static enum drm_connector_status vkms_connector_detec=
-t(struct drm_connector *con
->  	 */
->  	status =3D connector->status;
-> =20
-> -	vkms_config_for_each_connector(vkmsdev->config, connector_cfg) {
-> -		if (connector_cfg->connector =3D=3D vkms_connector) {
-> -			scoped_guard(mutex, &vkmsdev->config->lock)
-> -				status =3D vkms_config_connector_get_status(connector_cfg);
-> -		}
-> +	cfg =3D vkms_connector->cfg;
-> +	if (cfg) {
-> +		cfg =3D vkms_config_connector_get(cfg);
-> +		scoped_guard(mutex, &cfg->config->lock)
-> +			status =3D vkms_config_connector_get_status(cfg);
-> +		vkms_config_connector_put(cfg);
->  	}
+> diff --git a/drivers/gpu/drm/vkms/tests/.kunitconfig b/drivers/gpu/drm/vk=
+ms/tests/.kunitconfig
+> index 6a2d87068edc5..c9752bde84874 100644
+> --- a/drivers/gpu/drm/vkms/tests/.kunitconfig
+> +++ b/drivers/gpu/drm/vkms/tests/.kunitconfig
+> @@ -2,3 +2,13 @@ CONFIG_KUNIT=3Dy
+>  CONFIG_DRM=3Dy
+>  CONFIG_DRM_VKMS=3Dy
+>  CONFIG_DRM_VKMS_KUNIT_TEST=3Dy
+> +CONFIG_KASAN=3Dy
+> +CONFIG_KASAN_INLINE=3Dy
+> +CONFIG_KASAN_VMALLOC=3Dy
+> +CONFIG_KUNIT_ALL_TESTS=3Dn
 
-[Severity: High]
-Does locking cfg->config->lock here deadlock when a connector's configfs
-status attribute is updated while the device is enabled?
+[Severity: Low]
+Will hardcoding these KASAN options and CONFIG_KUNIT_ALL_TESTS=3Dn break
+kunit.py runs?
 
-connector_status_store() holds config->lock while calling
-vkms_trigger_connector_hotplug(), which synchronously notifies the in-kernel
-fbdev client and probes the connector on the same thread:
+kunit.py rejects .kunitconfig options that are missing from the final
+.config, so CONFIG_KASAN_INLINE=3Dy and CONFIG_KASAN_VMALLOC=3Dy fail on
+architectures or build modes that do not support them (such as 32-bit
+targets or UML with CONFIG_STATIC_LINK=3Dy).  CONFIG_KUNIT_ALL_TESTS=3Dn al=
+so
+conflicts with tools/testing/kunit/configs/all_tests.config when running
+kunit.py with --alltests, causing kunit_kernel.py to abort with a multiple
+values ConfigError.
 
-connector_status_store()
-  mutex_lock(&connector->dev->config->lock)
-  vkms_trigger_connector_hotplug()
-    ...
-      drm_client_modeset_probe()
-        mutex_lock(&dev->mode_config.mutex)
-        ...
-          vkms_connector_detect()
-            mutex_lock(&cfg->config->lock)  <-- self-deadlock
+[ ... ]
 
-This also inverts the lock order against normal DRM connector probing (such
-as DRM_IOCTL_MODE_GETCONNECTOR), which acquires dev->mode_config.mutex
-before vkms_connector_detect() takes cfg->config->lock.
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c b/drivers/g=
+pu/drm/vkms/tests/vkms_lifecycle_test.c
+> new file mode 100644
+> index 0000000000000..7f7b313687101
+> --- /dev/null
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_lifecycle_test.c
 
-> @@ -70,7 +69,16 @@ static const struct drm_connector_helper_funcs vkms_co=
-nn_helper_funcs =3D {
->  	.best_encoder =3D vkms_conn_best_encoder,
->  };
-> =20
-> -struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev)
-> +static void vkms_connector_static_cfg_release(struct drm_device *dev, vo=
-id *res)
+[ ... ]
+
+> +static void vkms_lifecycle_test_destroy_uncreated_device(struct kunit *t=
+est)
 > +{
-> +	struct vkms_connector *connector =3D res;
+> +	struct vkms_config *config;
 > +
-> +	vkms_config_connector_put(connector->cfg);
+> +	config =3D vkms_config_default_create(true, true, false, false);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
+> +
+> +	KUNIT_ASSERT_NULL(test, config->dev);
+> +
+> +	vkms_config_destroy(config);
 > +}
+
+[Severity: Medium]
+Should vkms_lifecycle_test_destroy_uncreated_device() call
+vkms_destroy(config) before vkms_config_destroy(config)?  Without it, the
+!config->dev early return in vkms_destroy() is never exercised.
+
 > +
+> +static void vkms_lifecycle_test_double_destroy(struct kunit *test)
+> +{
+> +	struct vkms_config *config;
+> +	int ret;
 > +
-> +struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev,
-> +					   struct vkms_config_connector *connector_cfg)
->  {
->  	struct drm_device *dev =3D &vkmsdev->drm;
->  	struct vkms_connector *connector;
-> @@ -87,6 +95,13 @@ struct vkms_connector *vkms_connector_init(struct vkms=
-_device *vkmsdev)
+> +	config =3D vkms_config_default_create(true, true, false, false);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
+> +	vkms_lifecycle_test_set_unique_name(test, config, test->name);
+> +
+> +	ret =3D vkms_create(config);
+> +	KUNIT_ASSERT_EQ(test, ret, 0);
+> +
+> +	vkms_destroy(config);
+> +	KUNIT_ASSERT_NULL(test, config->dev);
+> +
+> +	vkms_config_destroy(config);
+> +}
+
+[Severity: Medium]
+Is a second vkms_destroy(config) call missing here?  Calling
+vkms_destroy(config) only once leaves double destruction untested.
+
+[ ... ]
+
+> +static void vkms_lifecycle_test_connector_static_drmm_release(struct kun=
+it *test)
+> +{
+> +	struct vkms_config *config;
+> +
+> +	config =3D vkms_config_default_create(true, true, false, false);
+> +	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, config);
+> +	vkms_lifecycle_test_set_unique_name(test, config, test->name);
+> +
+> +	KUNIT_ASSERT_EQ(test, vkms_create(config), 0);
+> +
+> +	/* vkms_destroy() runs the drmm action, which frees and detaches the co=
+nnector. */
+> +	vkms_destroy(config);
+> +	vkms_config_destroy(config);
+> +}
+
+[Severity: Low]
+Does vkms_lifecycle_test_connector_static_drmm_release() actually test
+releasing the last connector reference from the drmm action?
+
+Even after commit "drm/vkms: Introduce back pointer to connector" adds
+vkms_connector_static_cfg_release(), config->connectors still holds its
+reference when vkms_destroy(config) runs unless the connector or config is
+destroyed first, so this test only repeats a single iteration of
+vkms_lifecycle_test_create_destroy_default().
+
+[ ... ]
+
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_=
+drv.c
+> index 24572bc779b41..f73f136e5588e 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+
+[ ... ]
+
+> @@ -252,6 +253,7 @@ static int __init vkms_init(void)
 > =20
->  	drm_connector_helper_add(&connector->base, &vkms_conn_helper_funcs);
-> =20
-> +	connector->cfg =3D connector_cfg;
-> +	vkms_config_connector_get(connector_cfg);
-> +	ret =3D drmm_add_action_or_reset(dev, vkms_connector_static_cfg_release,
-> +				       connector);
-> +	if (ret)
-> +		return ERR_PTR(ret);
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_IF_KUNIT(vkms_create);
 
-[Severity: High]
-Can tying connector->cfg to a drmm action cause a use-after-free of
-connector_cfg->config if an open DRM file descriptor keeps struct
-drm_device alive past vkms_config_destroy()?
-
-vkms_config_connector_get() only increments connector_cfg->refcnt;
-connector_cfg does not pin connector_cfg->config unless it was individually
-detached via vkms_config_destroy_connector() (which sets
-connector_cfg->unlinked =3D true and calls vkms_config_get()).  In addition,
-vkms_create() declares cfg with __free(vkms_config_put), so its reference on
-config is dropped as soon as vkms_create() returns.
-
-If the device and config are torn down while userspace still holds an open
-DRM fd, vkms_config_release() drops the list reference on connector_cfg
-(from 2 to 1) without unlinking it and frees config:
-
-drivers/gpu/drm/vkms/vkms_config.c:vkms_config_release() {
-    ...
-	list_for_each_entry_safe(connector_cfg, connector_tmp, &config->connectors=
-, link) {
-		/* The config is dying: drop the list's reference on each connector */
-		vkms_config_connector_put(connector_cfg);
-	}
-
-	mutex_destroy(&config->lock);
-	kfree_const(config->dev_name);
-	kfree_rcu(config, rcu);
-}
-
-After that point, vkms_connector_detect() dereferences freed memory at
-&cfg->config->lock.  When the final drm_dev_put() later runs
-vkms_connector_static_cfg_release(), vkms_config_connector_release() sees
-connector_cfg->unlinked =3D=3D false and executes
-list_del_init(&connector_cfg->link), writing to the freed
-config->connectors list head.
+[Severity: Low]
+This isn't a bug, but EXPORT_SYMBOL_IF_KUNIT(vkms_create) is placed after
+vkms_init() instead of right after vkms_create().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-vkms-all-c=
-onfig-v7-0-21194cda2468@bootlin.com?part=3D30
+onfig-v7-0-21194cda2468@bootlin.com?part=3D12
