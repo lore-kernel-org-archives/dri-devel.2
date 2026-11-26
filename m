@@ -2,56 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19521606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:03:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15D3606A691
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:03:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=2YUCeZto
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VY1CKT1W
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7595410E42D;
-	Thu, 26 Nov 2026 18:02:58 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B558311267E
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:02:52 +0000 (UTC)
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 7BC711A1824;
- Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 4461E60558;
- Thu, 26 Nov 2026 18:02:50 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 9464B11E69199; Thu, 26 Nov 2026 19:02:39 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795716168; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding:in-reply-to:references;
- bh=OBmftwX5xkmh2yEUhqByt4ga8q9hssUc5Tn86F/AT9s=;
- b=2YUCeZto/xB7S8Ytj+9Kwaw2TcEYtRWgowALzmEFPgsU/ZYf30P0y364TFWHsW+aeHnpK2
- 5POwVJ11e1JKblQsa7TAsF9so7aczS71cgkXTYx+AO+gRpw+XCK3795VrAYsCp15guWqXx
- 0QHvk93ETtX7KUR+U4SI21olURehwtZdcSCOt2YqaDMMfT9YVX3AogK/EI7/XUMK6QoPgd
- jEKDfPsptO0+0Oh8gY59z/BBt/XqGs5XxejLraCkmYrgpmpxIliI1ptKntc9fCJf8ltWb/
- 6NZ9MGc4bvEBa+4blKQusF+tPX0qdSjPHBhq5u+ycRch10LGov/ZJR8vinegjw==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE2010E9F9;
+	Thu, 26 Nov 2026 18:03:27 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB2110E9F9
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:03:20 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795716175; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=JACRZCK68+eFCGq9l+1uRAB2x5YjkgF4erINWlAWg1gkyEdC73RqW0MZ8Xes3sKrkr7dSeBhTYHr36LIFRPoj9wv34aNWe7uPb/gxzrxUaB8PulOVsdH9lx/7LG3Vcp+sN7wfWlImGkwNM8gVHT7ltGyawi1CQDpJ4K42Jd6rK4=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795716175;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=eHauIlLMMTu6/oJCbQFESMOeiuDhBPtEwgIIs3toMOQ=; 
+ b=PA4gn1LRcI+ueU76S6A0n/cDwW5BWo4tfcuqEHHv8A9KIoPZvC36GQqihxXK0hzDs0RNUGvdSUmA0elrInoJO2BVQMiNZRIEr4MbclckxwZQ8GF/VX0KscbxbtCsehYeRHuILajeEhnTPrqYdmtfbxpccja9gZNJui+vmd86dxg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=VY1CKT1WKAoPLkVpLr9A3qum063NUkG85dFcANQVkS5rpEDk42EG2DiThTHK6AUYcCMabRvQbaT/aKOlvzOyduS5z60+LwHKcCZc+q3n6UwzTVt0ATbeJSC9X/xqrxbOjJ/HtXlYROErQ6Hs5PUWE1EDYuAOrCzkSJb7QlvNSzA=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=eHauIlLMMTu6/oJCbQFESMOeiuDhBPtEwgIIs3toMOQ=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795716172664139.47020216244937; 
+ Thu, 26 Nov 2026 10:02:52 -0800 (PST)
+Content-Type: text/plain;
+	charset=utf-8
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
+Subject: Re: [PATCH 0/7] rust: reset: add reset control abstractions
+From: Daniel Almeida <daniel.almeida@collabora.com>
+In-Reply-To: <6300821339d6891983af704e2044fd1ed25285f6.camel@collabora.com>
+Date: Thu, 26 Nov 2026 15:02:34 -0300
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
+ Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
+ Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ Detlev Casanova <detlev.casanova@collabora.com>
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 19:02:38 +0100
-Message-Id: <DN5C92OQ40J6.21PMG8R70TEDK@bootlin.com>
-Subject: Re: [PATCH v7] drm/bridge: dw-hdmi-qp: serialize HDMI audio
- callbacks with PHY enable/disable
-Cc: <dri-devel@lists.freedesktop.org>, <linux-rockchip@lists.infradead.org>,
- <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
-To: "Frank Zhang" <rmxpzlb@gmail.com>, <hjc@rock-chips.com>,
- <heiko@sntech.de>, <andyshrk@163.com>, <andrzej.hajda@intel.com>,
- <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <luca.ceresoli@bootlin.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <royalnet026@gmail.com>, <me@timsurber.de>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-X-Mailer: aerc 0.22.0
-References: <20261112101155.47777-1-rmxpzlb@gmail.com>
-In-Reply-To: <20261112101155.47777-1-rmxpzlb@gmail.com>
-X-Last-TLS-Session-Version: TLSv1.3
+Message-Id: <299B626E-DC60-4175-9D66-2DE58BA5070A@collabora.com>
+References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
+ <6300821339d6891983af704e2044fd1ed25285f6.camel@collabora.com>
+To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+X-Mailer: Apple Mail (2.3901.200.71.1.16)
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -63,72 +69,67 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 12, 2026 at 11:11 AM CET, Frank Zhang wrote:
-> The following panic was observed during system reboot, it can also be
-> triggered by the following sequences:
->
-> - Disable the HDMI drm display, open and close the HDMI PCM device.
-> - Enable the HDMI drm display and start audio stream on the HDMI PCM
->   device, then switch the HDMI drm display to disable, stop and close
->   audio stream.
->
-> Kernel panic - not syncing: Asynchronous SError Interrupt
-> CPU: 6 UID: 1000 PID: 2348 Comm: pipewire ... 7.0.5+ #4 PREEMPT(full)
-> Call trace:
->  ...
->  regmap_update_bits_base+0x70/0xa8
->  dw_hdmi_qp_bridge_clear_audio_infoframe+0x3c/0x58 [dw_hdmi_qp]
->  drm_bridge_connector_clear_audio_infoframe+0x2c/0x48 [drm_display_helper=
-]
->  ...
->  dw_hdmi_qp_audio_disable+0x28/0xa8 [dw_hdmi_qp]
->  drm_bridge_connector_audio_shutdown+0x38/0x68 [drm_display_helper]
->  drm_connector_hdmi_audio_shutdown+0x28/0x40 [drm_display_helper]
->  hdmi_codec_shutdown+0x60/0x90 [snd_soc_hdmi_codec]
->  ...
->  snd_pcm_release_substream+0xcc/0x120 [snd_pcm]
->  snd_pcm_release+0x4c/0xc0 [snd_pcm]
->  ...
->
-> The crash occurs when HDMI audio callbacks access registers after DRM
-> atomic framework disabled the PHY.
->
-> The root cause is a race condition exists between ALSA and DRM atomic
-> framework. During a modeset disable sequence, the DRM path disables the
-> PHY, while ALSA may still execute HDMI audio callbacks such as
-> audio_shutdown(), leading to accessing registers while the PHY is down
-> and eventually a kernel panic.
->
-> Fix this by introducing a mutex lock and PHY enabled state to serialize
-> PHY state transitions and HDMI audio callbacks. This ensures that HDMI
-> audio callbacks can only access registers while the PHY is enabled.
->
-> Fixes: fd0141d1a8a2 ("drm/bridge: synopsys: Add audio support for dw-hdmi=
--qp")
-> Cc: stable@vger.kernel.org
->
-> Tested-by: Igor Paunovic <royalnet026@gmail.com> # Orange Pi 5 Plus (RK35=
-88)
-> Tested-by: Tim Surber <me@timsurber.de> # FriendlyElec CM3588 NAS (RK3588=
-)
-> Signed-off-by: Frank Zhang <rmxpzlb@gmail.com>
+Hi Nicolas,
 
-I'm not really an ALSA expert, but the patch looks sane to me:
+> On 26 Nov 2026, at 13:33, Nicolas Dufresne =
+<nicolas.dufresne@collabora.com> wrote:
+>=20
+> Hi Daniel,
+>=20
+> Le jeudi 26 novembre 2026 =C3=A0 13:04 -0300, Daniel Almeida a =C3=A9cri=
+t :
+>> This series adds a Rust abstraction for the consumer side of the =
+reset
+>> controller API. A driver can get the reset lines of its device, as an
+>> exclusive or a shared reset control, and assert and deassert them.
+>>=20
+>> This will be used by the upcoming rkvenc driver that my colleagues
+>> Detlev Casanova, Nicolas Dufresne and I are working on, to recover a
+>> hung core of the encoder without stopping the other one. More details =
+on
+>> this driver can be found by watching Nicolas Dufresne's talk at LPC =
+2026
+>> [0]. Samsung's Rust UFS RFC [1] also uses reset lines, through an
+>> abstraction that it has not posted.
+>=20
+> I don't mind being cited, but please give a heads-up, we haven't =
+discussed any
+> of this, so I can't really comment if its a good or bad idea. On the C =
+side,
+> shared reset don't really work today, so I'm left wondering.
+>=20
+> Nicolas
+>=20
 
-Acked-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Fair, sorry for not giving you a heads-up. I have a branch a bit
+further ahead where I have tested both encoder cores at once, including
+this change. Due to the hierarchy of the power domains, to power down
+core 0, you also need to power down core 1. In other words, if core 0
+becomes stuck, there is no way to bring it back by means of a power
+cycle without also stopping the jobs running on core 1.
 
-I'd apply it to drm-misc-fixes in ~1 week if there are no objections.
+This series mainly makes it possible to access the reset lines in an
+established pattern (e.g. Regulator<T> already uses it, and so does the
+Clk<T> series). For rkvenc, it allows pulsing only the lines of the
+affected core.
 
-Luca
+Reset lines haven't come up so far because with only a single core
+powered up, a power cycle is fine, since there is no other core to
+affect anyway.
 
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Also note that rkvenc does not use SharedResetControl, but I ended up
+deciding to make it available as well. The same can be said of Clk<T>,
+where we have devm_ and other conveniences like guards that are not
+necessarily used at the moment, but that make sense when you look at
+what a lot of C drivers tend to need and carry that over to Rust.
+
+What does not work with shared resets on the C side?
+
+=E2=80=94 Daniel
+
