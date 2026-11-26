@@ -2,51 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10A57606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:40:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A6FD606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:40:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=d+e6kZMd
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=YbRtxYTP
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C5D2A112171;
-	Thu, 26 Nov 2026 08:40:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id AB244112178;
+	Thu, 26 Nov 2026 08:40:44 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0B82D10E329;
- Thu, 26 Nov 2026 08:40:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2830A112173;
+ Thu, 26 Nov 2026 08:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795682428; x=1827218428;
+ t=1795682436; x=1827218436;
  h=from:date:subject:mime-version:content-transfer-encoding:
  message-id:references:in-reply-to:to:cc;
- bh=psOGtnya0nJt7NYa4Dqv6bnwwxLNFZ3Na0OgWY/Jc08=;
- b=d+e6kZMdOYuCTRYHv5m9LpVpl60lQhaWWev4Jg11C/Xu/XukUPYAUaDy
- TyUazdY+bMmmNMY4MnLuD7fpLbwBpHV5+pP61kdBe/oWOhZYBHub84xR5
- 42vhKaxtGMaqNoe+tWLblRX/1vmAyVhbu8D7w+1qmZw4SXucohdrlLg0N
- JDKwjDLJ5EyoI27A0Hu9Q8WzVAQb+YkjOleo1HLRENbeEkBSeVcOBDl0K
- exE9CvCdKKjndCZRNpadoEOoqSKxJ+cbZQNbwgjybyeJHaKl120Zee4xe
- 1yio1BgLgqThrPPeE/mV+W4as0O/aHciZDCCrZjOPVRzrbLy2JfTEXqb6 g==;
-X-CSE-ConnectionGUID: Zg+enGHSSpCklqLZoyW+/w==
-X-CSE-MsgGUID: xTLsX/aKTRqkcnZ3zjKiSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4488544"
+ bh=8fA/fjF/LeLKmA7P7hGAFYn+bxbWImK14tZyVzDcURA=;
+ b=YbRtxYTPC3UcNCpMWwc+QoCiE9DVTOKz2fOPvs8uRu06o6/1wVVsbqq4
+ 8rOnLvMnT1uaFy+kbHLkzXkguAFH8mwvQD1qSIjWOzL0YbAPIu7J21A4T
+ EvRkgnAxag5OY8tNbWWCN2zbMV/kt9qDcs1iBNM1gPudBZJeH6Phrh5vm
+ 3R7Gfi91S5cyvHxEys2W9QJw06d+HYiV1EzetTsGn0Qp4qZrUuUXOdWun
+ JmJNXh4BBFtzsYVXUd4g6g6AevlgK3XNtxVPe4P0iyUTczi+Uy4nUYb76
+ MphP+ymeY82MiK8KsysCNI3evyuX1idFyLuO3bE5k3wo7a+3Bk6Me8xKx g==;
+X-CSE-ConnectionGUID: V4iP8zX/SkmO+e3m7q7ZeQ==
+X-CSE-MsgGUID: elYukOFPTAeTlmjmvZcyfQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4488570"
 X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4488544"
+   d="scan'208";a="4488570"
 Received: from orviesa007.jf.intel.com ([10.64.159.147])
  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 00:40:28 -0800
-X-CSE-ConnectionGUID: wMLSjK+TS2ODx5kwbY9ltw==
-X-CSE-MsgGUID: uPAfGqWqQjSUXcJoy3aBlw==
+ 26 Nov 2026 00:40:35 -0800
+X-CSE-ConnectionGUID: Y9MCPEygTwu2qzar515evg==
+X-CSE-MsgGUID: F0ff9LotS4SzFhCU5G2Jfg==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12125699"
+X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="12125723"
 Received: from srr4-3-linux-106-armuthy.iind.intel.com ([10.190.238.56])
- by orviesa007.jf.intel.com with ESMTP; 26 Nov 2026 00:40:25 -0800
+ by orviesa007.jf.intel.com with ESMTP; 26 Nov 2026 00:40:33 -0800
 From: Arun R Murthy <arun.r.murthy@intel.com>
-Date: Thu, 26 Nov 2026 14:05:01 +0530
-Subject: [PATCH v6 06/13] drm/i915/dp: Compute the DP symbol based timing
- generator parameters
+Date: Thu, 26 Nov 2026 14:05:04 +0530
+Subject: [PATCH v6 09/13] drm/i915/dp: Select the symbol TG Data M/N
+ matching the active PLL
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-vlk-64036-dp-symbol-tg-v6-6-835a4f5c0a12@intel.com>
+Message-Id: <20261126-vlk-64036-dp-symbol-tg-v6-9-835a4f5c0a12@intel.com>
 References: <20261126-vlk-64036-dp-symbol-tg-v6-0-835a4f5c0a12@intel.com>
 In-Reply-To: <20261126-vlk-64036-dp-symbol-tg-v6-0-835a4f5c0a12@intel.com>
 To: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org, 
@@ -74,371 +74,155 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Xe3p has a DP link layer (LL) symbol based timing generator, which
-makes the per-line symbol insertion for 8b/10b MST and 128b/132b
-SST/MST compliant with the DP 2.1 hblank symbol cycle count, reducing
-the line-to-line hblank jitter that some sinks can't handle.
+The Data M/N of the DP symbol based timing generator accounts for the
+spread of the PLL, so it must match if the PLL actually used has SSC
+enabled. That isn't the case for the TBT PLL, which is used without SSC
+when a Type-C port is in the TBT alt mode, and it is known only once the
+active PLL is selected, which for a Type-C port happens when enabling it.
+With a mismatch the symbol timing generator drifts relative to the pixel
+clock.
 
-The Data M/N registers are 128 bits wide, so the Data M/N is computed as
-128 bit values, without reducing them apart from the GCDs of the pixel
-clock/link rate and of the SSC efficiency, to keep the full precision.
+Add a DPLL manager hook to query if a DPLL state has SSC enabled, and use
+it, whenever the active port DPLL is selected, to select the Data M/N
+computed for the SSC disabled or enabled case.
 
-Modes whose LL symbol timings don't fit the hardware are pruned in mode
-validation, there is no fallback to the pixel based timing generator. The
-Min Hblank mechanism must not be used together with the symbol timing
-generator, so compute the timing generator parameters first and skip the
-Min Hblank computation when it is used.
-
-v3: Move crtc parameters, checker and dump to new patch (Suraj)
-v4: dpcd caps bases ssc capability => intel_panel_use_ssc (Suraj)
-    Use gcd() from linux/gcd.h
-v5: Replace the MSO/eDP splitter check with a drm_WARN_ON(), MSO is
-    only used with 8b/10b SST.
-    Use crtc_hdisplay/crtc_htotal to match crtc_clock
-    Take the Rx minimum Hblank (DPCD 0221Ah/0221Bh) into account
-    Compute the Data M/N for both the SSC disabled and enabled case, as
-    the PLL used (TBT PLL: no SSC) is only known later
-    Skip computing min_hblank if the symbol TG is used, instead of
-    clearing it (Chaitanya)
-
-Bspec: 68922
 Signed-off-by: Arun R Murthy <arun.r.murthy@intel.com>
 ---
- drivers/gpu/drm/i915/display/intel_display_types.h |   2 +
- drivers/gpu/drm/i915/display/intel_dp.c            | 226 +++++++++++++++++++++
- drivers/gpu/drm/i915/display/intel_dp.h            |   3 +
- drivers/gpu/drm/i915/display/intel_dp_mst.c        |   5 +
- 4 files changed, 236 insertions(+)
+ drivers/gpu/drm/i915/display/intel_dp.c       | 16 ++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dp.h       |  1 +
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.c | 31 +++++++++++++++++++++++++++
+ drivers/gpu/drm/i915/display/intel_dpll_mgr.h |  2 ++
+ 4 files changed, 50 insertions(+)
 
-diff --git a/drivers/gpu/drm/i915/display/intel_display_types.h b/drivers/gpu/drm/i915/display/intel_display_types.h
-index ee4152afb86dbe1ad041d4d99c058bdb97932350..62143b9f87ff5fca2c69173354b83e93589cff9a 100644
---- a/drivers/gpu/drm/i915/display/intel_display_types.h
-+++ b/drivers/gpu/drm/i915/display/intel_display_types.h
-@@ -1889,6 +1889,8 @@ struct intel_dp {
- 	u8 lttpr_common_caps[DP_LTTPR_COMMON_CAP_SIZE];
- 	u8 lttpr_phy_caps[DP_MAX_LTTPR_COUNT][DP_LTTPR_PHY_CAP_SIZE];
- 	u8 pcon_dsc_dpcd[DP_PCON_DSC_ENCODER_CAP_SIZE];
-+	/* Rx minimum Hblank, DP_RX_MIN_HBLANK_{8B10B,128B132B} */
-+	u8 rx_min_hblank[2];
- 	/* source rates */
- 	int num_source_rates;
- 	const int *source_rates;
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.c b/drivers/gpu/drm/i915/display/intel_dp.c
-index db7c8fcc8683aae1a2bc7050ef7c87ed5155c8dc..196388800326803fd5b8544af498b0546a1661db 100644
+index 6be2e77c984c1fa13d6896325864f4241c1c1f74..e59737c8e22ed11a6af86ac58eac02f5e11d884f 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.c
 +++ b/drivers/gpu/drm/i915/display/intel_dp.c
-@@ -26,6 +26,7 @@
-  */
- 
- #include <linux/export.h>
-+#include <linux/gcd.h>
- #include <linux/i2c.h>
- #include <linux/iopoll.h>
- #include <linux/log2.h>
-@@ -1269,6 +1270,16 @@ bool intel_dp_has_dsc(const struct intel_connector *connector)
- 	return true;
+@@ -3792,6 +3792,22 @@ static void intel_dp_symbol_tg_set_mn(struct intel_dp_symbol_tg *tg, bool ssc_en
+ 	tg->data_n[1] = mn->data_n[1];
  }
  
 +/*
-+ * The symbol based timing generator is to be used for 8b/10b MST and 128b/132b
-+ * SST/MST, but only once all the pieces needed for that are in place, which is
-+ * done by a later patch.
++ * Select the Data M/N matching the SSC state of the active PLL, from the
++ * variants computed by intel_dp_compute_symbol_tg().
 + */
-+static bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr)
-+{
-+	return false;
-+}
-+
- static int
- intel_dp_get_max_m_n_ratio(struct intel_display *display)
- {
-@@ -3681,6 +3692,10 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
- 	if (DISPLAY_VER(display) < 30)
- 		return 0;
- 
-+	/* The Min Hblank mechanism must not be used with the symbol based timing generator */
-+	if (crtc_state->dp_symbol_tg.enable)
-+		return 0;
-+
- 	/* MIN_HBLANK should be set only for 8b/10b MST or for 128b/132b SST/MST */
- 	if (!is_mst && !intel_dp_is_uhbr(crtc_state))
- 		return 0;
-@@ -3734,6 +3749,197 @@ int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
- 	return 0;
- }
- 
-+/* Number of symbols the transcoder link layer processes in a symbol cycle */
-+#define LL_SYMBOLS_PER_CYCLE	4
-+
-+/* 64 x 64 -> 128 bit multiplication, result as {lo, hi} */
-+static void intel_dp_mul_u64_u64(u64 a, u64 b, u64 res[2])
-+{
-+	res[0] = a * b;
-+	res[1] = mul_u64_u64_shr(a, b, 64);
-+}
-+
-+/* Compare two {lo, hi} 128 bit values */
-+static int intel_dp_cmp_u128(const u64 a[2], const u64 b[2])
-+{
-+	if (a[1] != b[1])
-+		return a[1] > b[1] ? 1 : -1;
-+
-+	if (a[0] != b[0])
-+		return a[0] > b[0] ? 1 : -1;
-+
-+	return 0;
-+}
-+
-+/* Set the active Data M/N from the SSC disabled (0) / enabled (1) variant */
-+static void intel_dp_symbol_tg_set_mn(struct intel_dp_symbol_tg *tg, bool ssc_enabled)
-+{
-+	const struct intel_dp_symbol_tg_mn *mn = &tg->mn[ssc_enabled];
-+
-+	tg->data_m[0] = mn->data_m[0];
-+	tg->data_m[1] = mn->data_m[1];
-+	tg->data_n[0] = mn->data_n[0];
-+	tg->data_n[1] = mn->data_n[1];
-+}
-+
-+/* Compute the DP link layer (LL) symbol based timing generator parameters */
-+int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
-+			       struct intel_crtc_state *crtc_state,
-+			       const struct drm_connector_state *conn_state)
++void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state)
 +{
 +	struct intel_display *display = to_intel_display(crtc_state);
-+	const struct drm_display_mode *adjusted_mode =
-+					&crtc_state->hw.adjusted_mode;
-+	struct intel_connector *connector = to_intel_connector(conn_state->connector);
 +	struct intel_dp_symbol_tg *tg = &crtc_state->dp_symbol_tg;
-+	bool is_uhbr = intel_dp_is_uhbr(crtc_state);
-+	int symbol_size = is_uhbr ? 32 : 8;
-+	int hactive_cycles, hblank_cycles, chunk_cycles = 0;
-+	int hblank_pixels;
-+	u8 rx_min_hblank;
-+	int dsc_slices, link_bpp_x16;
-+	u32 ch_num, ch_den, ssc_num, ssc_den, spread_x1000, link_rate_mbps;
-+	u32 rate_gcd, ssc_gcd;
-+	u64 data_m[2][2], data_n[2][2];
-+	bool ssc_allowed;
-+	int ssc, ret;
 +
-+	memset(tg, 0, sizeof(*tg));
++	if (!tg->enable)
++		return;
 +
-+	/* The symbol based timing generator is used for 8b/10b MST and 128b/132b SST/MST */
-+	if (!intel_dp_use_symbol_tg(display,
-+				    intel_crtc_has_type(crtc_state, INTEL_OUTPUT_DP_MST),
-+				    is_uhbr))
-+		return 0;
-+
-+	/* MSO is only used with 8b/10b SST, where the symbol TG isn't used */
-+	if (drm_WARN_ON(display->drm, crtc_state->splitter.enable))
-+		return 0;
-+
-+	ret = intel_dp_compute_dsc_slices_and_link_bpp(crtc_state, connector,
-+						       &dsc_slices, &link_bpp_x16);
-+	if (ret)
-+		return ret;
-+
-+	if (crtc_state->dsc.compression_enable) {
-+		int slice_width = DIV_ROUND_UP(adjusted_mode->crtc_hdisplay, dsc_slices);
-+		int chunk_bytes = DIV_ROUND_UP(slice_width * link_bpp_x16, 16 * 8);
-+
-+		chunk_cycles = DIV_ROUND_UP(chunk_bytes * 8,
-+					    LL_SYMBOLS_PER_CYCLE * symbol_size);
-+		hactive_cycles = dsc_slices * (chunk_cycles + 1);
-+	} else {
-+		int hact_width = adjusted_mode->crtc_hdisplay;
-+		int pix_bpp_x16 = link_bpp_x16;
-+
-+		/* YUV 4:2:0 without DSC: half the Hactive at twice the bpp */
-+		if (crtc_state->output_format == INTEL_OUTPUT_FORMAT_YCBCR420) {
-+			hact_width /= 2;
-+			pix_bpp_x16 *= 2;
-+		}
-+
-+		hactive_cycles = DIV_ROUND_UP(DIV_ROUND_UP(hact_width, LL_SYMBOLS_PER_CYCLE) *
-+					      pix_bpp_x16, 16 * symbol_size);
-+	}
-+
-+	hblank_pixels = adjusted_mode->crtc_htotal - adjusted_mode->crtc_hdisplay;
-+	hblank_cycles = DIV_ROUND_UP(DIV_ROUND_UP(hblank_pixels, LL_SYMBOLS_PER_CYCLE) *
-+				     link_bpp_x16, 16 * symbol_size);
-+
-+	/* DP 2.1: the minimum Hblank is 5 LL symbol cycles for 8b/10b, 3 for 128b/132b */
-+	hblank_cycles = max(hblank_cycles, is_uhbr ? 3 : 5);
-+
-+	/* The Rx minimum Hblank, if the sink enumerates it */
-+	rx_min_hblank = intel_dp->rx_min_hblank[is_uhbr];
-+	if (rx_min_hblank & DP_RX_MIN_HBLANK_ENABLE)
-+		hblank_cycles = max(hblank_cycles,
-+				    (rx_min_hblank & DP_RX_MIN_HBLANK_MASK) +
-+				    (is_uhbr ? 3 : 5));
-+
-+	if (hactive_cycles + hblank_cycles > TRANS_LLSYM_HTOTAL_MASK + 1 ||
-+	    chunk_cycles > TRANS_LLSYM_CHUNK_SIZE_MASK) {
-+		drm_dbg_kms(display->drm,
-+			    "LL symbol timings out of range (hactive %d, hblank %d, chunk %d), using pixel TG\n",
-+			    hactive_cycles, hblank_cycles, chunk_cycles);
-+		return 0;
-+	}
-+
-+	if (is_uhbr) {
-+		ch_num = 1568768;
-+		ch_den = 1622115;
-+	} else if (crtc_state->fec_enable) {
-+		ch_num = 51200;
-+		ch_den = 65537;
-+	} else {
-+		ch_num = 8;
-+		ch_den = 10;
-+	}
-+
-+	/*
-+	 * spread_x1000 is the spread in % multiplied by 1000, so 500 means 0.5%.
-+	 * ssc_den * spread_x1000 / (200 * 1000) is ssc_den * (Spread_Amount / 200).
-+	 *
-+	 * With 0.5% spread: 100000 * 500 / 200000 = 250, so ssc_num = 99750.
-+	 * The efficiency is 99750 / 100000 = 0.9975, which equals 1 - 0.5 / 200.
-+	 * With no SSC the spread is 0, so ssc_num = ssc_den and the efficiency
-+	 * is 1.
-+	 *
-+	 * SSC is used only if both the panel/VBT policy and the sink allow it,
-+	 * same as for the PHY PLL programming. The PLL that will be used, and
-+	 * with that if SSC is enabled, is only known when the PLLs are computed,
-+	 * and for Type-C ports at the time of enabling the port, as the TBT PLL
-+	 * is used without SSC. So compute the Data M/N for both the SSC enabled
-+	 * and the SSC disabled case, intel_dp_symbol_tg_select_mn() selects the
-+	 * one matching the PLL.
-+	 */
-+	ssc_den = 100000;
-+	ssc_allowed = intel_panel_use_ssc(display) &&
-+		      intel_dp->dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5;
-+
-+	/* The link rate in Mbps, port_clock is in 10 kbps units */
-+	link_rate_mbps = crtc_state->port_clock / 100;
-+
-+	rate_gcd = gcd(adjusted_mode->crtc_clock, link_rate_mbps);
-+
-+	for (ssc = 0; ssc < 2; ssc++) {
-+		spread_x1000 = ssc && ssc_allowed ? 500 : 0;
-+		ssc_num = ssc_den - DIV_ROUND_CLOSEST(ssc_den * spread_x1000, 200 * 1000);
-+		ssc_gcd = gcd(ssc_num, ssc_den);
-+
-+		intel_dp_mul_u64_u64((u64)(adjusted_mode->crtc_clock / rate_gcd) *
-+				     LL_SYMBOLS_PER_CYCLE * symbol_size * ch_den,
-+				     (u64)(hactive_cycles + hblank_cycles) * (ssc_den / ssc_gcd),
-+				     data_m[ssc]);
-+		intel_dp_mul_u64_u64((u64)(link_rate_mbps / rate_gcd) * crtc_state->lane_count *
-+				     adjusted_mode->crtc_htotal * 1000,
-+				     (u64)ch_num * (ssc_num / ssc_gcd),
-+				     data_n[ssc]);
-+
-+		if (intel_dp_cmp_u128(data_m[ssc], data_n[ssc]) > 0) {
-+			drm_dbg_kms(display->drm,
-+				    "LL symbol data M/N ratio exceeds 1.0 (SSC %s), using pixel TG\n",
-+				    str_enabled_disabled(ssc));
-+			return 0;
-+		}
-+	}
-+
-+	tg->enable = true;
-+	tg->hactive = hactive_cycles;
-+	tg->htotal = hactive_cycles + hblank_cycles;
-+	tg->chunk_size = chunk_cycles;
-+	for (ssc = 0; ssc < 2; ssc++) {
-+		tg->mn[ssc].data_m[0] = data_m[ssc][0];
-+		tg->mn[ssc].data_m[1] = data_m[ssc][1];
-+		tg->mn[ssc].data_n[0] = data_n[ssc][0];
-+		tg->mn[ssc].data_n[1] = data_n[ssc][1];
-+	}
-+
-+	/* The PLL is not known yet, select the same as without the PLL awareness */
-+	intel_dp_symbol_tg_set_mn(tg, ssc_allowed);
-+
-+	return 0;
++	intel_dp_symbol_tg_set_mn(tg, intel_dpll_hw_state_ssc_enabled(display,
++								      &crtc_state->dpll_hw_state));
 +}
 +
- int
- intel_dp_compute_config(struct intel_atomic_state *state,
- 			struct intel_encoder *encoder,
-@@ -3830,6 +4036,10 @@ intel_dp_compute_config(struct intel_atomic_state *state,
- 		intel_dp_check_m_n_ratio(pipe_config, &pipe_config->dp_m_n);
- 	}
- 
-+	ret = intel_dp_compute_symbol_tg(intel_dp, pipe_config, conn_state);
-+	if (ret)
-+		return ret;
-+
- 	ret = intel_dp_compute_min_hblank(pipe_config, conn_state);
- 	if (ret)
- 		return ret;
-@@ -4676,6 +4886,18 @@ static u8 intel_dp_read_dprx_feature_enum(struct intel_dp *intel_dp)
- 	return dprx;
- }
- 
-+static void intel_dp_read_rx_min_hblank(struct intel_dp *intel_dp)
-+{
-+	/* 8b/10b, 128b/132b */
-+	intel_dp->rx_min_hblank[0] = 0;
-+	intel_dp->rx_min_hblank[1] = 0;
-+
-+	drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RX_MIN_HBLANK_8B10B,
-+			      &intel_dp->rx_min_hblank[0]);
-+	drm_dp_dpcd_read_byte(&intel_dp->aux, DP_RX_MIN_HBLANK_128B132B,
-+			      &intel_dp->rx_min_hblank[1]);
-+}
-+
- static bool intel_dp_get_colorimetry_status(u8 dprx)
- {
- 	return dprx & DP_VSC_SDP_EXT_FOR_COLORIMETRY_SUPPORTED;
-@@ -5049,6 +5271,8 @@ intel_edp_init_dpcd(struct intel_dp *intel_dp, struct intel_connector *connector
- 	intel_dp->sst_split_sdp_support =
- 		intel_dp_get_sst_split_sdp_status(dprx);
- 
-+	intel_dp_read_rx_min_hblank(intel_dp);
-+
- 	/*
- 	 * Read the eDP display control registers.
- 	 *
-@@ -5153,6 +5377,8 @@ intel_dp_get_dpcd(struct intel_dp *intel_dp)
- 		intel_dp->sst_split_sdp_support =
- 			intel_dp_get_sst_split_sdp_status(dprx);
- 
-+		intel_dp_read_rx_min_hblank(intel_dp);
-+
- 		intel_dp_update_sink_caps(intel_dp);
- 	}
- 
+ /* Compute the DP link layer (LL) symbol based timing generator parameters */
+ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 			       struct intel_crtc_state *crtc_state,
 diff --git a/drivers/gpu/drm/i915/display/intel_dp.h b/drivers/gpu/drm/i915/display/intel_dp.h
-index 1f4a3aff9abebdb2bf8cd17a77231e5af66f47ac..352c656299e3b2d81e0612a71da6247d02b5aa17 100644
+index 929dd099a44aac40bcfa36dbc2e832023a5751f6..064ea36d100e09cd822e5be558eee7496f17943c 100644
 --- a/drivers/gpu/drm/i915/display/intel_dp.h
 +++ b/drivers/gpu/drm/i915/display/intel_dp.h
-@@ -215,6 +215,9 @@ int intel_dp_dsc_min_src_input_bpc(void);
- int intel_dp_dsc_min_src_compressed_bpp(void);
+@@ -216,6 +216,7 @@ int intel_dp_dsc_min_src_compressed_bpp(void);
  int intel_dp_compute_min_hblank(struct intel_crtc_state *crtc_state,
  				const struct drm_connector_state *conn_state);
-+int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
-+			       struct intel_crtc_state *crtc_state,
-+			       const struct drm_connector_state *conn_state);
+ bool intel_dp_use_symbol_tg(struct intel_display *display, bool is_mst, bool is_uhbr);
++void intel_dp_symbol_tg_select_mn(struct intel_crtc_state *crtc_state);
+ int intel_dp_compute_symbol_tg(struct intel_dp *intel_dp,
+ 			       struct intel_crtc_state *crtc_state,
+ 			       const struct drm_connector_state *conn_state);
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+index bfd6f0a1972534f05284dbf8d182e396364bcc20..4901f63314a822950e019b8778d0e5ab8b8e401e 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.c
+@@ -35,6 +35,7 @@
+ #include "intel_display_utils.h"
+ #include "intel_dkl_phy.h"
+ #include "intel_dkl_phy_regs.h"
++#include "intel_dp.h"
+ #include "intel_dpio_phy.h"
+ #include "intel_dpll.h"
+ #include "intel_dpll_mgr.h"
+@@ -120,6 +121,7 @@ struct intel_dpll_mgr {
+ 			      const struct intel_dpll_hw_state *dpll_hw_state);
+ 	bool (*compare_hw_state)(const struct intel_dpll_hw_state *a,
+ 				 const struct intel_dpll_hw_state *b);
++	bool (*is_ssc_enabled)(const struct intel_dpll_hw_state *dpll_hw_state);
+ };
  
- int intel_dp_dsc_bpp_step_x16(const struct intel_connector *connector);
- void intel_dp_dpcd_set_probe(struct intel_dp *intel_dp, bool force_on_external);
-diff --git a/drivers/gpu/drm/i915/display/intel_dp_mst.c b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-index 1e6190689e6b2616ed850d61c5bfbf60a62c5422..e8864477ee1fa3ad8313b90dc0f03332a2f77c2d 100644
---- a/drivers/gpu/drm/i915/display/intel_dp_mst.c
-+++ b/drivers/gpu/drm/i915/display/intel_dp_mst.c
-@@ -728,6 +728,11 @@ static int mst_stream_compute_link_for_joined_pipes(struct intel_encoder *encode
- 			return -EINVAL;
- 	}
+ static void
+@@ -3312,6 +3314,9 @@ void icl_set_active_port_dpll(struct intel_crtc_state *crtc_state,
  
-+	ret = intel_dp_compute_symbol_tg(connector->mst.dp,
-+					 pipe_config, conn_state);
-+	if (ret)
-+		return ret;
+ 	crtc_state->intel_dpll = port_dpll->pll;
+ 	crtc_state->dpll_hw_state = port_dpll->hw_state;
 +
- 	ret = intel_dp_compute_min_hblank(pipe_config, conn_state);
- 	if (ret)
- 		return ret;
++	/* The DP symbol TG Data M/N depends on if the active PLL uses SSC */
++	intel_dp_symbol_tg_select_mn(crtc_state);
+ }
+ 
+ static void icl_update_active_dpll(struct intel_atomic_state *state,
+@@ -4725,6 +4730,11 @@ static bool xe3plpd_compare_hw_state(const struct intel_dpll_hw_state *_a,
+ 	return intel_lt_phy_pll_compare_hw_state(a, b);
+ }
+ 
++static bool xe3plpd_is_ssc_enabled(const struct intel_dpll_hw_state *dpll_hw_state)
++{
++	return dpll_hw_state->ltpll.ssc_enabled;
++}
++
+ static const struct intel_dpll_mgr xe3plpd_pll_mgr = {
+ 	.dpll_info = xe3plpd_plls,
+ 	.compute_dplls = xe3plpd_compute_dplls,
+@@ -4734,6 +4744,7 @@ static const struct intel_dpll_mgr xe3plpd_pll_mgr = {
+ 	.update_ref_clks = icl_update_dpll_ref_clks,
+ 	.dump_hw_state = xe3plpd_dump_hw_state,
+ 	.compare_hw_state = xe3plpd_compare_hw_state,
++	.is_ssc_enabled = xe3plpd_is_ssc_enabled,
+ };
+ 
+ enum intel_dpll_id dg2_port_to_pll_id(enum port port)
+@@ -5106,6 +5117,26 @@ void intel_dpll_release(struct intel_atomic_state *state,
+ 	dpll_mgr->put_dplls(state, crtc);
+ }
+ 
++/**
++ * intel_dpll_hw_state_ssc_enabled - check if a DPLL state has SSC enabled
++ * @display: intel_display device
++ * @dpll_hw_state: the DPLL state to check
++ *
++ * Returns:
++ * True if the DPLL state is for a DPLL with spread spectrum clocking enabled,
++ * false otherwise, or if this isn't tracked for the platform's DPLLs.
++ */
++bool intel_dpll_hw_state_ssc_enabled(struct intel_display *display,
++				     const struct intel_dpll_hw_state *dpll_hw_state)
++{
++	const struct intel_dpll_mgr *dpll_mgr = display->dpll.mgr;
++
++	if (drm_WARN_ON_ONCE(display->drm, !dpll_mgr || !dpll_mgr->is_ssc_enabled))
++		return false;
++
++	return dpll_mgr->is_ssc_enabled(dpll_hw_state);
++}
++
+ /**
+  * intel_dpll_update_active - update the active DPLL for a CRTC/encoder
+  * @state: atomic state
+diff --git a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+index f4b84733a58c420491e29313cc1265a9ceaea2f8..6a1d7786f07ef41bdd9bd70f554632e6ceafb7ec 100644
+--- a/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
++++ b/drivers/gpu/drm/i915/display/intel_dpll_mgr.h
+@@ -463,6 +463,8 @@ void intel_dpll_update_ref_clks(struct intel_display *display);
+ void intel_dpll_readout_hw_state(struct intel_display *display);
+ void intel_dpll_sanitize_state(struct intel_display *display);
+ 
++bool intel_dpll_hw_state_ssc_enabled(struct intel_display *display,
++				     const struct intel_dpll_hw_state *dpll_hw_state);
+ void intel_dpll_dump_hw_state(struct intel_display *display,
+ 			      struct drm_printer *p,
+ 			      const struct intel_dpll_hw_state *dpll_hw_state);
 
 -- 
 2.25.1
