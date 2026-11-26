@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD84606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83F5606A31C
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 21:45:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=kqBeyZN1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VpSviocF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 21C8E11274F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A42F3112752;
 	Thu, 26 Nov 2026 21:45:35 +0000 (UTC)
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com
- [209.85.221.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 27A9A11273A
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:44:51 +0000 (UTC)
-Received: by mail-wr1-f42.google.com with SMTP id
- ffacd0b85a97d-48e3b22e971so3953265f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:44:51 -0800 (PST)
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
+ [209.85.221.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95616112737
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:44:53 +0000 (UTC)
+Received: by mail-wr1-f50.google.com with SMTP id
+ ffacd0b85a97d-490c3ae81d3so4677473f8f.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:44:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795729489; x=1796334289; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795729492; x=1796334292; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=WSd+CxRijsj4N8ajh85kl4a69YfAGH4BSJ6W5M2ec1s=;
- b=kqBeyZN136ZgCqYKADmQZQ47vhU4NWC3XyLb8ksMnVWbwdctvTU34BTJZfpvmgVDpt
- ifpNFChS1/1+qDPeEq1ng4+hfycSStKQlzAhIN/1MafzO66VMjyu8hMZ8hgSa68qCQ7t
- NZ7JtjI0v0sFldHnmr/qsVQJmzcEw0Yz3MMbNQuLAMmTWs7rO/u2nmcLt1iiqrciluhg
- 7gUrrCxMCrc8nA01fm2kHI9M0LWtDT9n+jyoYkogwS6m8aVCpmfiYbpUC7RksbcVbhY7
- ioNc2O6mrfUtVRJArdDVWpWfiJl8w3dhyoY1uZ1+eIha0qvlXKKgCt/VPjp3homO/Qjh
- OI4Q==
+ bh=mLBiJ3Y98YIzDtQw/fAmF2XOq735TmDEhRo28kTS8fQ=;
+ b=VpSviocFIXauwzwSBiUKqqFtrseMEvIQ6wN9F0wLZLr5rVAg3YqPG3H/FmtL3XL4kY
+ 5+PwACZJKWDK6ouNmZAt+WoKhKvVBg/5VKT4I630MNb8Y6L0RUov9JiMqxTQ1Rl7YpeM
+ /TUlqynBRcyX07FlO74NK+Wb53VJUUDBlMKdWcTEucrPbPh7wdIrOQjEWBdcrzpHiZJY
+ SDxYYK9AyDVHWPDgDqgled4xFzipbe2/3uYcN0SpdkiqT990qTOZ0pgxzcuhMSGH3CPY
+ 3V+gzfzCNCfKwX83RhWePNgrI58T3yNJlJiPZ02C3VwRiDysoyetTzrL7CyWJMtcDrq6
+ uFVw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795729489; x=1796334289;
+ d=1e100.net; s=20260707; t=1795729492; x=1796334292;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=WSd+CxRijsj4N8ajh85kl4a69YfAGH4BSJ6W5M2ec1s=;
- b=zSS0+AuYia7GwyvNtYomB981CHJTPxBSw4jEzIR3N1tU7INjjp2nKQMqktr+Rnnzoe
- E0OjPUISdoHUhsp/gD7V8kIflUbowvJnVFZGH8NEXe4ru3L45I+qQ/Vo6PlJ0SKL98Jd
- ux9TPnHSb66CYiutstSU66/DO/nEJCqsaem2BNi+YiBKMiTNXCRt4WyaWDFG7X/CAWau
- 4TzrVmV2mAk3GUV/jx3KMaLG8UdV6xuALvYnWCN/xn0G85/10VIRouevSHgew3MUv9qZ
- Tuf+Mncs6biX1kZxDvjMEL6uO7tenW5HXHprgCSQA7GPa8TKDE9JoEhjnL27g6qiTbE3
- 2saw==
+ bh=mLBiJ3Y98YIzDtQw/fAmF2XOq735TmDEhRo28kTS8fQ=;
+ b=JPUjKZ6yJPwD7FrvwfOoyYD/ZZf+qIZg1LpRD1ETIvrOtv9DskgvMAAdKVPnDROuW7
+ GwL5O6zi65I0JSkPwYmg3XEdkx/vc+iLEzj7FqVhub3ZuXTAV3+cLYe7A9RfM+ufV9vD
+ KMCrZAzesCElYbo9sy+JtWFpXktI6VGZXLl40SQmS3ejbfQXwsw0VArCCFPFOha5qIUR
+ hq7df0AnYg6OAYnIHLm/RIx5qOlWXIHy/5Eyn/8vgNz/8c1u+UUYfJGVt2gOhqzHmFAQ
+ a2j1gP0lqriKQ7Rpecn0xUgNIJh227bKNFkRz3dlMnSNyn5br2XO1Zqm6RtUwbRAMot+
+ Drhg==
 X-Forwarded-Encrypted: i=1;
- AL+hErHNMbiZK8SgyGgp70enTgC6wAgGPRA0yFVBhSRl8aXY+FuorVEINmYKTqSlsF2RYHbSpC1WahWnK88=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8qufv+JTNdwZ/L08Je/WNHOKcTNkU/PS5a47ZRAxQ6+IgpUyzO
- Kje1GnqbFSz2Rf7UtFeQhKOmYO9cPJW4BdKc1VSavPKBrSTMIU1zSpFr
-X-Gm-Gg: AZFdTZfyGT/2gTKXXtWRYG9/HhV7N9jgvCj+8JGaAcYi3vS9HcK4Tgc5/3U85CQvKkz
- LF/KCXeJWCqFtZ+YVWlZkpxCv/XC6GL94WxcZZ9SfXvdKnecywXvsUrO2qxMUs53GMlEKwanvI/
- IT90Co5uN19dGSwrlTBaynNFNHfgX3VenBPAB6eDKnWZ1Rqe3fSPhI0EyFFXNoMV9U0aX5tSrlI
- 1O0vfoStepgam7Z47RN4oRYLDnhTsUe04WBbbJ/so3a4xzXAIs/ZWKkmR29hqGyakT8y/s8/jlq
- DCMSmonxtyHy2+ajzXNJCtGpzyLg6sLyd2GkLBfILKRY8MdXCBgZVtwr56SXUzW89gEtb09LIX4
- ohs0/U2f//zWotb93H2RJWmCYnYTowV64j2zPqhLj55k47Gsn+xqRns2nVrxvJiUQXy1sWsqjVd
- t+eF7kXjCft2DCdTNJ/oJcnrZE18H4kJe/8bF1V0NkPtxviutL9OsUCh669wwbZalXJIO4zgy48
- TbnlVZRDzA5VjP4sPxlb+YoMFsndr385bHN+q0j8Uxc7kecV6Tn5Lxwf/zPLZ+RnmyxqXsivvXl
- kk9HRAoGr0NOylRtfGUHU12DApFPEBEutdJ6SXf2E8hJsgYrKcmUeH8WLnTKtIrXiFUDvbU8F9J
- S3BQ9444CkjVfN5teHWQ+txYR97nr9gkroHKtiBWC32xV0kEwTfYorF22OE/JT3UXIWf64Uv+7h
- a8KfWiXRw/SbFyRcNTCqY9puHvuzbEI8+EVeitmeFUa35Q8GyZUrMqpR6gtK7wte8LEAE/f39rw
- GIh2Q79gn8Wm1JixhgojxQ3KCdVpND4hDnbRdkqwDQ=
-X-Received: by 2002:a05:6000:2406:b0:4af:e519:ccd1 with SMTP id
- ffacd0b85a97d-4afe519ced4mr37199366f8f.49.1795729489344; 
- Thu, 26 Nov 2026 13:44:49 -0800 (PST)
+ AL+hErEH671uxwUJYG9akTgmrOo7mn3xZVmLImoUQ8Tf/AeM1dWjdI/O2bWpXr4IW56ssfI2Sz/iPX74bHU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/BlXG2n/Hh4joG5wDYAHoOY2968Z1ZbroBHI0g9Fa78NtU+OTT
+ f1YjyucoB6WifZ9eYnfAJo5nVyqsK7IheD98jlHW+pfmWXCnQKtSCLOdLo69tw==
+X-Gm-Gg: AZFdTZerTiqPaSvXmNbzLzsxBqm4TSRpPpZKdwtLeviqKB7CglEMHpPWtCd3GY4fYur
+ AMZGnu45jWzr6gIb02g9smHfjmTV2kBw11xy2khCmRFaUOveV82lwLDsXrfVXuGGCIgji4PY9PD
+ tCPqbczCYuEtJDUkWA+u7d99G84gJX4P6wvJJEC4Tqgnf5jztM6kx6BVxAXWFo2dEVrYHg0cMwp
+ dRoNx0dSxqMgWXdnO+d2njGs35nc+WG24Rcqd/1Y/a3IJsgBIzzQUL51g6gQBQCignSYbqvJVpe
+ v0joxCssKrEThWLQ48AHFp90ZHByvIS4AcgX6qzX65booJDJ8RnsQ49+M0Ww0LpC6uCT8+lZAEE
+ EkrpZT7ryGyPnSIQPA2Who4TBSU/7S0wjz95acTjN4KqbX9tYaZlOMG1T7Ke8Hx716LQRVXfbyp
+ Ngqlah5CJvJtVvsOJ/3mlI349PL3KTffX3dUxGOGus6a03YIYd7+/hax1P1MeXuLc8ngn68iXWq
+ HDvCVzLBvmzSAszWDQcm2DF29PdqK7AQOOXknzerWEHXA36gyZ2E0PvAQhr4ryKlF1eRHpZS3mp
+ QnAKKkCvuPj+8G+I5UrtYPnzV49Jg528lWaf6Ktb0d4nK9+TFWKRHhBBZsejGjTySD4aClB/CWS
+ rZdKcJQ1bcD5+mhHfPIaPBwrj3/8DowV00kVRn5s5rBuSMb0sVAWBWhkA5Lg3PU8cALBg1Qmpnb
+ 2yuCFlDHIQ+bgJFUImnSEo7xhBJYt+ZZNOsFwwXSOBFzoL4RSVYvYS7ZCKw0oBDzIAuMQyct6MZ
+ K4Ik9U+iCJ+6zF4664jVddp8elxixKcwJNV1TjAq5cDuOo4hCvgAUOINI9axx7p
+X-Received: by 2002:a05:6000:2c05:b0:4a7:ed95:7c9f with SMTP id
+ ffacd0b85a97d-4abb19c16a4mr44426780f8f.22.1795729491930; 
+ Thu, 26 Nov 2026 13:44:51 -0800 (PST)
 Received: from jernej-laptop (77-38-7-250.dynamic.telemach.net. [77.38.7.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.48
+ ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.50
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2026 13:44:49 -0800 (PST)
+ Thu, 26 Nov 2026 13:44:51 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -74,9 +74,9 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 07/11] drm/sun4i: Add H616 TCON TV support
-Date: Thu, 26 Nov 2026 22:44:29 +0100
-Message-ID: <20261126214433.3562326-8-jernej.skrabec@gmail.com>
+Subject: [PATCH 09/11] drm/sun4i: Add compatible for H616 display engine
+Date: Thu, 26 Nov 2026 22:44:31 +0100
+Message-ID: <20261126214433.3562326-10-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
 References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
@@ -102,72 +102,25 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-It needs additional quirk to enable HDMI pads.
+Enable H616 display engine pipeline by adding respective compatible.
 
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_tcon.c | 13 +++++++++++++
- drivers/gpu/drm/sun4i/sun4i_tcon.h |  2 ++
- 2 files changed, 15 insertions(+)
+ drivers/gpu/drm/sun4i/sun4i_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-index 0cbd6ae66c4e..3596537c500b 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-@@ -1297,6 +1297,11 @@ static int sun4i_tcon_bind(struct device *dev, struct device *master,
- 				   tcon->id);
- 	}
- 
-+	if (tcon->quirks->hdmi_pad)
-+		regmap_update_bits(tcon->regs, SUN4I_TCON_GCTL_REG,
-+				   SUN4I_TCON_GCTL_PAD_SEL,
-+				   SUN4I_TCON_GCTL_PAD_SEL);
-+
- 	list_add_tail(&tcon->list, &drv->tcon_list);
- 
- 	return 0;
-@@ -1585,6 +1590,13 @@ static const struct sun4i_tcon_quirks sun20i_d1_lcd_quirks = {
- 	.set_mux		= sun8i_r40_tcon_tv_set_mux,
- };
- 
-+static const struct sun4i_tcon_quirks sun50i_h616_tv_quirks = {
-+	.has_channel_1		= true,
-+	.polarity_in_ch0	= true,
-+	.hdmi_pad		= true,
-+	.set_mux		= sun8i_r40_tcon_tv_set_mux,
-+};
-+
- /* sun4i_drv uses this list to check if a device node is a TCON */
- const struct of_device_id sun4i_tcon_of_table[] = {
- 	{ .compatible = "allwinner,sun4i-a10-tcon", .data = &sun4i_a10_quirks },
-@@ -1605,6 +1617,7 @@ const struct of_device_id sun4i_tcon_of_table[] = {
- 	{ .compatible = "allwinner,sun9i-a80-tcon-tv", .data = &sun9i_a80_tcon_tv_quirks },
- 	{ .compatible = "allwinner,sun20i-d1-tcon-lcd", .data = &sun20i_d1_lcd_quirks },
- 	{ .compatible = "allwinner,sun20i-d1-tcon-tv", .data = &sun8i_r40_tv_quirks },
-+	{ .compatible = "allwinner,sun50i-h616-tcon-tv", .data = &sun50i_h616_tv_quirks },
+diff --git a/drivers/gpu/drm/sun4i/sun4i_drv.c b/drivers/gpu/drm/sun4i/sun4i_drv.c
+index 248be5ff4f36..18cd9a993348 100644
+--- a/drivers/gpu/drm/sun4i/sun4i_drv.c
++++ b/drivers/gpu/drm/sun4i/sun4i_drv.c
+@@ -442,6 +442,7 @@ static const struct of_device_id sun4i_drv_of_table[] = {
+ 	{ .compatible = "allwinner,sun20i-d1-display-engine" },
+ 	{ .compatible = "allwinner,sun50i-a64-display-engine" },
+ 	{ .compatible = "allwinner,sun50i-h6-display-engine" },
++	{ .compatible = "allwinner,sun50i-h616-display-engine" },
  	{ }
  };
- MODULE_DEVICE_TABLE(of, sun4i_tcon_of_table);
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.h b/drivers/gpu/drm/sun4i/sun4i_tcon.h
-index fa23aa23fe4a..98bee2bd96d2 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.h
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.h
-@@ -19,6 +19,7 @@
- 
- #define SUN4I_TCON_GCTL_REG			0x0
- #define SUN4I_TCON_GCTL_TCON_ENABLE			BIT(31)
-+#define SUN4I_TCON_GCTL_PAD_SEL				BIT(1)
- #define SUN4I_TCON_GCTL_IOMAP_MASK			BIT(0)
- #define SUN4I_TCON_GCTL_IOMAP_TCON1			(1 << 0)
- #define SUN4I_TCON_GCTL_IOMAP_TCON0			(0 << 0)
-@@ -243,6 +244,7 @@ struct sun4i_tcon_quirks {
- 	bool    needs_edp_reset; /* a80 edp reset needed for tcon0 access */
- 	bool	supports_lvds;   /* Does the TCON support an LVDS output? */
- 	bool	polarity_in_ch0; /* some tcon1 channels have polarity bits in tcon0 pol register */
-+	bool	hdmi_pad;	/* h616 has to enable pad for HDMI */
- 	u8	dclk_min_div;	/* minimum divider for TCON0 DCLK */
- 
- 	/* callback to handle tcon muxing options */
+ MODULE_DEVICE_TABLE(of, sun4i_drv_of_table);
 -- 
 2.43.0
 
