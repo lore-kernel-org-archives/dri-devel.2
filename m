@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD83C606A33C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:38:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 589B5606A337
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SYqBBdEW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=oQcAKvCJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CABE7112245;
-	Thu, 26 Nov 2026 09:38:26 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 29DC111224E;
+	Thu, 26 Nov 2026 09:38:27 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7182C112245
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:34 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7B20E11224E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 59FC7464F2;
- Thu, 26 Nov 2026 09:37:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 6450D42291;
+ Thu, 26 Nov 2026 09:37:47 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795685854;
- b=siSQ8eCplKL5yHqf09jlqA+K/GWDlsAUcVyBWtIYxq//kcVxN+QUcWgQ7Sj0AC5+o8Um
- 42OSdIH2qS3U8NNVPoavsKAEqPHtOux+tbV/C7AV1nfGOxHvxFxr7YX/3ibJCf4TG9lOK
- BJ9vtumPeGrHCfVCaLj2wgmW+HrTIOgnXex6NEfe9juuBak1igXhYybQXDUKX/UlSJKyw
- aG+2EsH19Rvly4T7OUFpsfT6Z/FrGB7lyaDR9VjflA2K/M3CiWXbolZVIFjjDFAvfF4wO
- qUwXSO2y+WWaBAREAS4njbWDCdjtndok7kjUeFLlD2io3gPcOJVuBQRgPLNoPSgMjSQ==
+ t=1795685867;
+ b=knNkWwO5+li+jqXqRz/dXM7HuQ6oM8LqzBJ50SzT++qc7ABb/oervhA0PrqUqTBSzlXn
+ gGyvMso9eDBJ66HtSBN+Ha2roAK78qGCeGoAE/ua1bSQDGxu+6TaoVm8d+G2RDhBhc9iq
+ EKzsbAEYNGzshTD/qD3p34QZ5/rB87ZBW8MmmHfnAUy02+7v8ASNwF8lHWI1M03VVlVUH
+ 6poiHqGMD+uESbwgc6h2t/VE6hpNwKIWJWJY02/PvehlH3JDOMW5PKIeSX18zbCjWlCO/
+ 2k5vCDQMw5VF738Fvn97nF9kuSIeIT2wwUb/qJvQw4Iy33P2M44ERxiqEKf/meYPOkw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795685854;
+ c=relaxed/relaxed; t=1795685867;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=sFyU/cN2Q5RenfrWgsXIweIzF4ZLorkSF1vWKpU3g/M=;
- b=emsOBW2pnl9BQW127Wg/PV1KW8MllUWFbfCEv6ouOlhZVyn0idhmjT21xXUxkVQgpMev
- EXZXI3HvJUl8P9LKRzxqHc7Ggt0hERDPJsmYWH/6J0tX1O+S+XbyE6r62cHwe8UnDozFT
- F+RH75SJ4PLI1Opt+bjeU8K0gfqAsLTg/CWMaM4UNxSSx4615TnmcoperIJ+Y07w91NXU
- T1KWeKWnoVjHhZOhEFf49MvBaIM2Kp09vwMzVWy3jVYeI8ajt9NoRc70nD8cPvjz4AmyC
- HAZo88Y2IERhSv18cEwfXaJ15Pizs0SQdiUh3ZZbUV+tqjR0IJNzozw8Qg1uB9MgHuA==
+ bh=Vi65jhZmEorWcTmRFY2Go1/Dp9ZgmGzi6iEBf5pJZM4=;
+ b=ZQDJ7esu2iansQbYyvLOGtJ/ikJsSGksPncCoydbmkgvjrEO9cXzWGDFATyLjPdGsjkO
+ L+CLRV6r/L13l2tzSnD42OzRZJz07W/EcoNijmn63EFKFvNGOTDPquZLc8zqSb2pto2V2
+ 5ED7e8xnW0nkH87dm3MM90e96z0xaNsvSVox8nWeLyuIET2wdpV4biv77XylQ2F6/6WoX
+ HhW9gMf3ho+IyGdOJYSPF9pNu5obxouf6ZNKb+Gc0TgM3xInxUBiZUrsSpHsyf95UIdOC
+ Z0iIpaNPG3j9nKYuUfhGRvEmdI7RzsXnaBaxbG0bvZPA4iU/ngZf/aAc5GgqQ0wxwcg==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 82E321F000EB;
- Thu, 26 Nov 2026 09:37:22 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id A4B6F1F008B2;
+ Thu, 26 Nov 2026 09:37:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795685854;
- bh=sFyU/cN2Q5RenfrWgsXIweIzF4ZLorkSF1vWKpU3g/M=;
+ s=k20260515; t=1795685867;
+ bh=Vi65jhZmEorWcTmRFY2Go1/Dp9ZgmGzi6iEBf5pJZM4=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=SYqBBdEWvK4xe1+bimNounlnXXMw8X1eIUaK/j94OviLxtYMfmp5tTk8uJMqXt3J6
- sxUew9u+NZKvXYtB5mZYUglTiL3Or3EaRxsf3xFfT0+5u6zUbYKg+okAgI4gS1k4lD
- iGV3ltOsPN/q6nRsAgCKPC7wQKqHBeDc47JiGQdSTD5T2ILaLSQnuoY/XD3hj03+hm
- CcbNEIrn/UXWNTNUVPvjYe7e6nc415TJNoXs378wz/T9ltV2nxKk4i6ZgyJDhcqjbC
- 6pdyhWl7fxyop18fXMFKkZLN3JV9eK+514XFf+Eo22uxutZ0lc1al9jXuGyeT26Yf9
- dug19OvO3Cf7Q==
+ b=oQcAKvCJrMwYoswPn09ZBBJbK/qp8x5WUN54xaK7+eoVVeT/hSemcTXVZRe1TaqTG
+ CrnFHvKVMxTbBejPe4MZCylRfzz4zdYGZFCZGFQajNEzPK+mWTdSyXMIp27Emh3hkk
+ 7Zczm0qREBUwWiczisTTsEeJnFQmdjN7d3DrcvG6HWVFfIprHKD3zCpRFveOIrtkgp
+ 5y8qx08LQofOJpEHq1nMMoO73yrvC+AWDZH1JPyt1QoyEbRQZZwfbzKtYHb+9A66jn
+ Zw9BkQM6c7pykoumg6y6fl5UCsH4pZV2R/UvQyLXBhhl+htyRtfmACB/BU75gag1o8
+ gu5mxei7Snxjg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 169244D388;
+ by lkml.kernel.org (Postfix) with ESMTP id B94524D39C;
  Thu, 26 Nov 2026 09:36:48 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 09:36:50 +0000
-Subject: [PATCH v4 07/17] drm/panfrost: Give back the pages of a heap chunk
- that failed to map
+Date: Thu, 26 Nov 2026 09:36:55 +0000
+Subject: [PATCH v4 12/17] drm/panfrost: Don't take a job that was never
+ started for done
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-panfrost-long-jobs-v4-7-23579629ceca@gmail.com>
+Message-Id: <20261126-panfrost-long-jobs-v4-12-23579629ceca@gmail.com>
 References: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 In-Reply-To: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=3977;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=3202;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=Fy4hIaYtMsYqP1o6pifRn+AqW6XSoeC4gWPuvrzKAb8=;
- b=l3a+kl2lRde1uNeVfvl4CkCvf4V9oB0C0SgeOOCGcsddIEJ2OrJKdG/zxWGeRZyjESLUPuFhQ
- SuMtsAIxIh4Dw2qjUhHcROCdi31J3OsBeWUi3WFZG1EjOuqegVLqVCB
+ bh=KmxdBC9lkjEmZW2MQMtPWghJrhcIC8sdhTBhHqMQcUM=;
+ b=ujTeMVHXVypiS3oxRaO4nmO/FfGxATVCgW4PBOGDmnObLTb+F/TbaMaVsfSX8vX4ihhG3c0hS
+ BpQYFyaMyCKCodOENp72McIKMrG/mKdGp4TOh25fTb1GYRKkDPDt/a/
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,123 +108,76 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-If growing a heap BO by a 2 MB chunk fails after the chunk's folios
-were read, they stay in bo->base.pages without an sg table. The next
-fault in the chunk finds them owned and hits the drm_WARN_ON() that
-commit b49c35ba0ce1 added.
+reset.pending is set before panfrost_reset() masks the job interrupt.
+A job queued but not started in that window, behind a running job that
+completes, is taken for done: its fence is signalled and it never runs.
 
-On those error paths, put the folios read and clear their entries:
-whole folios, as the fill loop wrote them, except those a neighbouring
-chunk owns.
+Mark a job started when JS_COMMAND_START is written, and leave the
+others to the reset. Found by Sashiko. Not reproduced.
 
-Tested with a test-only failure after the read: before, the next fault
-WARNed for each of the 512 pages; after, none. Folios larger than a
-chunk (16K/64K pages) are from reading the code.
-
-Fixes: b49c35ba0ce1 ("drm/panfrost: Fix a page leak in panfrost_mmu_map_fault_addr() when THP is on")
+Fixes: 030761e097b4 ("drm/panfrost: Queue jobs on the hardware")
 Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-210891@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-v4: test result added; no code change.
----
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 40 +++++++++++++++++++++++++++++----
- 1 file changed, 36 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 8 ++++++--
+ drivers/gpu/drm/panfrost/panfrost_job.h | 2 ++
+ 2 files changed, 8 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index e59a16b68..9edf66f6e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -592,6 +592,27 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index fcddc13bf..0946da3af 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -261,6 +261,7 @@ static int panfrost_job_hw_submit(struct panfrost_job *job, int js)
  
- #define NUM_FAULT_PAGES (SZ_2M / PAGE_SIZE)
- 
-+/* [start, end) is whole folios: it can reach past the 2 MB chunk. */
-+static void panfrost_heap_put_pages(struct page **pages, pgoff_t start,
-+				    pgoff_t end)
-+{
-+	while (start < end) {
-+		struct folio *folio;
-+
-+		if (!pages[start]) {
-+			start++;
-+			continue;
-+		}
-+
-+		folio = page_folio(pages[start]);
-+		do {
-+			pages[start++] = NULL;
-+		} while (start < end && pages[start] &&
-+			 page_folio(pages[start]) == folio);
-+		folio_put(folio);
-+	}
-+}
-+
- static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 				       u64 addr)
- {
-@@ -600,7 +621,7 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 	struct panfrost_gem_object *bo;
- 	struct address_space *mapping;
- 	struct drm_gem_object *obj;
--	pgoff_t page_offset, nr_pages;
-+	pgoff_t page_offset, nr_pages, got_start, got_end;
- 	struct sg_table *sgt;
- 	struct page **pages;
- 
-@@ -659,17 +680,22 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 	mapping = bo->base.base.filp->f_mapping;
- 	mapping_set_unevictable(mapping);
- 
-+	got_start = page_offset;
-+	got_end = page_offset;
-+
- 	for (pgoff_t pg = page_offset; pg < page_offset + NUM_FAULT_PAGES;) {
- 		bool already_owned = false;
- 		struct folio *folio;
-+		pgoff_t first;
- 
- 		folio = shmem_read_folio(mapping, pg);
- 		if (IS_ERR(folio)) {
- 			ret = PTR_ERR(folio);
--			goto err_unlock;
-+			goto err_put_chunk;
+ 	spin_lock(&pfdev->js->job_lock);
+ 	subslot = panfrost_enqueue_job(pfdev, js, job);
++	job->started = false;
+ 	/* Don't queue the job if a reset is in progress */
+ 	if (!atomic_read(&pfdev->reset.pending)) {
+ 		job->is_profiled = pfdev->profile_mode;
+@@ -276,6 +277,7 @@ static int panfrost_job_hw_submit(struct panfrost_job *job, int js)
+ 			job->start_cycles = panfrost_cycle_counter_read(pfdev);
  		}
  
- 		pg &= ~(folio_nr_pages(folio) - 1);
-+		first = pg;
- 		for (u32 i = 0; i < folio_nr_pages(folio) && pg < nr_pages; i++) {
- 			if (pages[pg])
- 				already_owned = true;
-@@ -681,14 +707,18 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 		 * there's no valid reason for a folio range to be partially
- 		 * populated.
- 		 */
--		if (drm_WARN_ON(&pfdev->base, already_owned))
-+		if (drm_WARN_ON(&pfdev->base, already_owned)) {
- 			folio_put(folio);
-+		} else {
-+			got_start = min(got_start, first);
-+			got_end = max(got_end, pg);
-+		}
- 	}
++		job->started = true;
+ 		job_write(pfdev, JS_COMMAND_NEXT(js), JS_COMMAND_START);
+ 		dev_dbg(pfdev->base.dev,
+ 			"JS: Submitting atom %p to js[%d][%d] with head=0x%llx AS %d",
+@@ -584,7 +586,8 @@ static void panfrost_jm_handle_irq(struct panfrost_device *pfdev, u32 status)
  
- 	ret = sg_alloc_table_from_pages(sgt, pages + page_offset,
- 					NUM_FAULT_PAGES, 0, SZ_2M, GFP_KERNEL);
- 	if (ret)
--		goto err_unlock;
-+		goto err_put_chunk;
- 
- 	ret = dma_map_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
- 	if (ret)
-@@ -715,6 +745,8 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 	dma_unmap_sgtable(pfdev->base.dev, sgt, DMA_BIDIRECTIONAL, 0);
- err_map:
- 	sg_free_table(sgt);
-+err_put_chunk:
-+	panfrost_heap_put_pages(pages, got_start, got_end);
- err_unlock:
- 	dma_resv_unlock(obj->resv);
- err_bo:
+ 		if (failed[j]) {
+ 			panfrost_job_handle_err(pfdev, failed[j], j);
+-		} else if (pfdev->jobs[j][0] && !(js_state & MK_JS_MASK(j))) {
++		} else if (pfdev->jobs[j][0] && pfdev->jobs[j][0]->started &&
++			   !(js_state & MK_JS_MASK(j))) {
+ 			/* When the current job doesn't fail, the JM dequeues
+ 			 * the next job without waiting for an ACK, this means
+ 			 * we can have 2 jobs dequeued and only catch the
+@@ -592,7 +595,8 @@ static void panfrost_jm_handle_irq(struct panfrost_device *pfdev, u32 status)
+ 			 * are inactive, but one job remains in pfdev->jobs[j],
+ 			 * consider it done. Of course that doesn't apply if a
+ 			 * failure happened since we cancelled execution of the
+-			 * job in _NEXT (see above).
++			 * job in _NEXT (see above), or if the job was queued
++			 * while a reset was pending and never started.
+ 			 */
+ 			if (WARN_ON(!done[j][0]))
+ 				done[j][0] = panfrost_dequeue_job(pfdev, j);
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.h b/drivers/gpu/drm/panfrost/panfrost_job.h
+index 7f71e4c38..0ed45e28b 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.h
++++ b/drivers/gpu/drm/panfrost/panfrost_job.h
+@@ -37,6 +37,8 @@ struct panfrost_job {
+ 	struct panfrost_engine_usage *engine_usage;
+ 	bool is_profiled;
+ 	bool cycle_counter_ref;
++	/* JS_COMMAND_START written */
++	bool started;
+ 	ktime_t start_time;
+ 	u64 start_cycles;
+ };
 
 -- 
 2.55.0
