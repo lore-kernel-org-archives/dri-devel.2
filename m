@@ -2,97 +2,97 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0FA606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4EB2606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:30:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Cdy1jilZ;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=kQAl7x//
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kujeYA5m;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=gJ3GSA6X
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 871D810F8BA;
-	Thu, 26 Nov 2026 06:30:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 594F610F830;
+	Thu, 26 Nov 2026 06:30:41 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C22B10F7C9
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:12 +0000 (UTC)
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D73A310F8AA
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:29 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQ36fgE170322
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:11 GMT
+ 6AQ37TY83731071
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-transfer-encoding:content-type:date:from:in-reply-to
  :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- AeP247M9ox3eKXqTZK5xlmawqY9yNRGdJtyiG2QIHDw=; b=Cdy1jilZLo5oR3LP
- p395mmDZxzYKEj2kn6CkRPBpDhNRQ57VgkSD5iMuNFpbhMK5vwh5rNxANMpj7aks
- nZfFDUGtZAHK5rBmOdqEhsc5cF7ErvqJ7GrE4OtoTbua6p8i4KSW5Zw/8B/kYB/q
- /t2Nh+0Nh49aXsbYNKmy3oJDqMMFxwOMQN8bw9HIcj3LIYYN/GENCtZZh67w3GMt
- JkJIPio/C788JIRiDlHjzyplazdrgezuTUYtyr7JF8GjP6uqSTMq+wsbJPwf0PFA
- z4asHWRMmuh1O5m41hBG/JaKsFcWPbtfSJiqrqsjM4myOfi5aydq0U+8Y0u8A6wl
- c46kMQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j5vukv96s-1
+ twPhT6DCIljB9iVBwXtvD+GDtRBv0Oe/wv0kE3Py8cs=; b=kujeYA5mM7NFaQlD
+ KH8i76l6iU0uQT+Jo5qIITi18WJMY5DCCmNWMW2iCf5rmUaUMElwmFilhAwk4ltl
+ FMvA9WGrpHzVBJlsvZG78t02IYPHqHp3Huytvw9snHhwN5WuFhhg+LTphFzo7hBk
+ 5rkqlJT2l4WKka1TRxcztnCV0qCctbEXzyP4+jfcm+kfvMl0PSPtnyfWA6IlBfTo
+ vDy+/JoaAt6dKIFJJKAHjorhzOiKlu1OyEqUGft+75c44Lne2CNe7dhW2+yi4FzI
+ z3VGZc4sChgd1nc28UK2r60lS8fYi73V4DJaGY3a0HODX34sFw+Fi/z9T10F0wZC
+ Z4Z4Ug==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com
+ [209.85.214.199])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ark0tt-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:11 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id
- d9443c01a7336-2f0a5868265so38137625ad.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:30:11 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:30:28 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id
+ d9443c01a7336-2edd25534afso55783755ad.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:30:28 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795674610; x=1796279410;
+ d=oss.qualcomm.com; s=google; t=1795674627; x=1796279427;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=AeP247M9ox3eKXqTZK5xlmawqY9yNRGdJtyiG2QIHDw=;
- b=kQAl7x//THmw2DBM6goRmzQk+rFoUVL06msLyOkJ/JZMObO1Yl7qyBHupwrZj8Ii2c
- lwAZqkYD89rsRFJRTfOMp0M54SiBO7M6RIiX3MJZjmNqzmR+0k/a08wi+btV4YD8Lk43
- GGIpmaisEbdBWpadAhh1kg96YE4SWl0AUEMgV9FobdslCi9ESY+tBIHbsU+VyRN+dV+T
- tSfOc1DWs2VVpBGdKuiCuSUTPAg5iytCkObClkEJQ32NUMykP4p8PEAwxntdLrNfRFJQ
- EQXM72CoUbopeyNNB99UFwtnr7dOBqsbm6lADi4fJ3QeeOsWJOxMTIVyS1WdzuBbYYVt
- yjkA==
+ bh=twPhT6DCIljB9iVBwXtvD+GDtRBv0Oe/wv0kE3Py8cs=;
+ b=gJ3GSA6XV+QkIsde+kNuDozXUkHaNRLsKesCpLOiySWivlkcKuGXvq7JMxaP7Xuk37
+ xm4og1KYFMu4eKmZNVVhqVExvg+fDBObPKacOrld3Zyt/5SDpoHXEzZ7OFcimqnTh0aS
+ LhwOq2JNcjdj1f+VtNwwk+WaqLhL5Pd3jXeP4uaXd4fNiuYdbbrrIBaowcxLX/RkUuWB
+ E+O3GLCTuazzEaSDT6tXwr1CFm7UjIfY6YXSgDC4O468Q/Li+b45yCySUwnYUkkoxnZ3
+ Wmazz96RqgWIlceZ32p70UW4HxAY9qUiDo5humQMjNRMfBAzV2sRxD1kuZxJkk2ti+f7
+ Xf3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795674610; x=1796279410;
+ d=1e100.net; s=20260707; t=1795674627; x=1796279427;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=AeP247M9ox3eKXqTZK5xlmawqY9yNRGdJtyiG2QIHDw=;
- b=DGh43OwhtEOUrOdLw9v2tQ6nxcJtQ89aAiazLrL6/2Vk+fxzSXvi4aAr9AkzOCLJDL
- R8qAc4QXqzrjdlVI+NXYhypL8n+Fz6u7AQJxDiJKrMKXkrzRnEFYH4CDq8uduT83xQJT
- dxTpYklEb978wPWFaFfl/Jv5BKt2S2NEvwnzQb+BrIrhxv/+LOSVNGnhMJvreN5l9jVt
- Y6olXliDV1jeRvq+tBNgpeGqP2Jlfh/E7aCHiK0l6QMVrVbTqK0yc+B8QmU84UsVFznw
- +hWXt887B0TMmSA7hBOdxx4POMj4ogwxcn46ukBEVUNWxvCbns2Y0ucoyw7MiVDYrzJ8
- jsmg==
+ bh=twPhT6DCIljB9iVBwXtvD+GDtRBv0Oe/wv0kE3Py8cs=;
+ b=o9kQRR85vYYlJTPQLKKJJtRnWZ6qmBwYMZwxNjYZHt/Fklx8Ok7Cb+1fEa3yIJpbFp
+ kYXJ+yje1VoNrdfkpNx6h8swy1WQFoerRH3hxhJRZ0vbVoqaISTKQMmDeGvykhe6hPty
+ D6S1l9vVTvBsr1fppD2kdEp4UznGPimUHXBQMClLF3Ccw08VtRrWJOCzOBXv7YldLNXJ
+ CcjgogbnA54lpvzN6mguCxx6GSBz67gQDm/sglNGwr4UVLGryAA2j0GZhtnGPiiIOyse
+ SbGRp4u7lPhd/6reIwiUox0ca7zwbKNFin8oO8b4excs/jX06/g2YTQxrg7KtAF2o1Kn
+ OcbA==
 X-Forwarded-Encrypted: i=1;
- AL+hErFCADRYExpKyai818KG/UykbgDo1VkueHsTKwarC9iE3/Fvr5jP5v3IN/Mmf4ETuF/mgp7LjnnIKzU=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8ljYFQc6zWxPk1o2sbEbF/DNFRIICp5HWEjXdUbYns95jW/GOp
- VmIxRlGIZLd6p7Cw/kIFZYskvYaYmRoIYzSvH9LBTtAwTXPVptc36TMpdYXSE9kLfEXNCnBEpiW
- VY+WYgq8XWsNoenoVkxcNLepn7h/foO5gEyzkK13ZoTXCEgw6Z4IRE9LJIyyNQIv7OV5GtYU=
-X-Gm-Gg: AZFdTZfz3tiHRbLLHNW29vR3Vm7lukcRUCe+G4WCvhAzMkV/HhPg+Q/3sbNdriK1va3
- 6avFMdWGIx3IxNOiG25pFIHhap7G9jOpMMr+pQ1X8csiWOcG+p52Q8nlitAHbrJ3TZL0AK7bXB4
- WBG2UehuzQ/+mpwM9h2gV9ggk95i4ORGiA4RGew8mQEpiUn4xICIsxro+H0jGjrNlwkBZWO84Da
- /qs24R2woTomP+P+BSzcltj5ZYI2/UiI361gYrykYc4tnO9YoPqeqVjPkpPfrrpApM5NFZ0+8y7
- m0hBbWixUAW6udEq9wI22IYFZcSzuoR9m70VGj1RumGeEHz5CLwLE+ssReD3DQWbA/0gRiMGkSu
- t/idKgTL+TN6h5q/FsiPqwMBG+CXICFsIISrGEPYUGebX7P2yWsO1dMjJv1itiVGTpD5chfSbAW
- pJ0rjOWdVT
-X-Received: by 2002:a17:902:c40b:b0:2f0:7db6:50ad with SMTP id
- d9443c01a7336-2f07db65335mr133271345ad.18.1795674610005; 
- Wed, 25 Nov 2026 22:30:10 -0800 (PST)
-X-Received: by 2002:a17:902:c40b:b0:2f0:7db6:50ad with SMTP id
- d9443c01a7336-2f07db65335mr133271025ad.18.1795674609433; 
- Wed, 25 Nov 2026 22:30:09 -0800 (PST)
+ AL+hErHnAGl+yGffBLyH//INxZayL0NvChYRsCXqGJKnwrRlmPa9SkATwqLroBlE5hTKHOSnNADkPlv3EuE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8NUypwmBHVqnUDFWn/xPAdPz/NAS8RjqgyE6PKBNXElRHMSsbs
+ s0NslsmbyUFBMTLX85h8/WmbKAmy3DQfGc44E+0Mixc25V6YRQ1T7NovCdzU/i/s0WmYh2nS1gr
+ oSNFOtFJomHtMzTEi943HYlWj0lrz7yZ3s8WSDj54KahSxQpwKI4AlBo2N+nBzQizsISBrLA=
+X-Gm-Gg: AZFdTZfg4apGNhMZxTwrC68M3a97mB/VWVfPJ7SUxT81mqokmw7jCGo0gzJmQ+trfiF
+ p/evZKisci0Or1caaRtzqGj4Fr+TJEtUABj8ipYwzvDTdz7vBhaHVQCqTATelYgXCkkkR+JWOSL
+ k2ePr8vpElfg032q2e5ptEyA/a5RcXKR426KmcZbeg0QWa5k5zTsZAGcbtj+P58cWXaPoMlhS2l
+ /LCxRRA0YMOkkX8zqA2J8CSmZZJx+/H2beR4DkUjQXVISUBbgwOSnVkyH/BsShQia8BiKfrv5Ci
+ IvdxM0yn2lHQaHk67A7jgMwzXTP32jLyF695aAwTnvUrq1iat54MiHctXzx00Kkwz5xCClvHsLk
+ no3gsjSXCQLIPtmbiODDk4AnXSmvhJsh+d8IW85dSDBaS3FHULI2jb+SOu558CFJkbeONgyM0NY
+ lV+LWfyX5x
+X-Received: by 2002:a17:903:b0e:b0:2df:35f1:8771 with SMTP id
+ d9443c01a7336-2f03f1e0d4amr200897975ad.54.1795674627268; 
+ Wed, 25 Nov 2026 22:30:27 -0800 (PST)
+X-Received: by 2002:a17:903:b0e:b0:2df:35f1:8771 with SMTP id
+ d9443c01a7336-2f03f1e0d4amr200897475ad.54.1795674626705; 
+ Wed, 25 Nov 2026 22:30:26 -0800 (PST)
 Received: from hu-jshekhar-hyd.qualcomm.com ([202.46.22.19])
  by smtp.gmail.com with ESMTPSA id
- d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.30.01
+ d9443c01a7336-2f03f147a9esm97159715ad.72.2026.11.25.22.30.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 22:30:09 -0800 (PST)
+ Wed, 25 Nov 2026 22:30:26 -0800 (PST)
 From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 11:59:13 +0530
-Subject: [PATCH v3 05/21] drm/msm/dcp: Add HFI panel definitions
+Date: Thu, 26 Nov 2026 11:59:15 +0530
+Subject: [PATCH v3 07/21] drm/msm/dcp: Handle asynchronous HFI responses
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-jshekhar-v3-dcp-v3-5-f1e9d7505039@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261126-jshekhar-v3-dcp-v3-7-f1e9d7505039@oss.qualcomm.com>
 References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 In-Reply-To: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
@@ -118,38 +118,38 @@ Cc: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
  linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
  linaro-mm-sig@lists.linaro.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=19933;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795674555; l=13639;
  i=jayant.shekhar@oss.qualcomm.com; s=20260925; h=from:subject:message-id;
- bh=iSIt4lLu6YzZAw44mF6l058OZd4GV41635W2zrAWp1w=;
- b=RsXdo9uNj6V7jLw6Y3sEyzFYWcRqwTOkv3kSaTYyy/X7LnthExzd8+JQOsBMs7fmaPEri8A6N
- WTMggITtDRQCCQMWyLGiMse3SfTmL9W8NbwZClAeZXjtcLTUDmqREDX
+ bh=LBsHeuV6bgv/pBpJy3SD2kKtIvR3zofMrxf2Y7qPd/o=;
+ b=UONHsd8o0l7P1cL6iaNhwt6mNDJufolOWKuQNXurN+uwvrMryR0Vz/qYPSoWdiMhFIX/qBIan
+ 3sZLAA+i305D7OjCgRu+ZB57mq1b/8aSHFxVldQAskZKswiAjZR45Wq
 X-Developer-Key: i=jayant.shekhar@oss.qualcomm.com; a=ed25519;
  pk=saYTwtCCpug4b0Hz0jHFoATgDtdhFVicwMzDJo2z5ZE=
-X-Authority-Analysis: v=2.4 cv=KfVHIgYD c=1 sm=1 tr=0 ts=6b07d1f3 cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Proofpoint-GUID: Eci4uViKkg5U8eXGOGckuAVbCLCzvS_U
+X-Authority-Analysis: v=2.4 cv=OIOyTiaB c=1 sm=1 tr=0 ts=6b07d204 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=uSNoWdYxy1FJq9SozSAA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-ORIG-GUID: Wh-Fx1cCikbmFpYppRYwA29vVYfsxov5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX3OlhB+WbTcvE
- w7HfzSFskHayLLdF8v3QRaZ0HqLwHtHnY35Dpr1Q+G1RLn9vPj/fpwoQoLUD/1I4qylhNCprx/r
- GEpIO56lyt53yazo72wtrfQbGmtj080=
-X-Proofpoint-GUID: Wh-Fx1cCikbmFpYppRYwA29vVYfsxov5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfXz1zK7y/B3AB7
- +talKDjziFWNBxcwiONFB5FYL3S1snTwPql3rHWqJKgTaWoo42aW1TcEPvvSh+DpOOTVaqHAjCP
- 9F7EL72bJ7iTECyvmFILR4dXwtV72szdevfhS9wVMNYo70fzykjrYEYUKQE9DsIcK9+Jh1mi5xW
- ov7faYYlQM9xNdMChauS6Sudh6+u6W7SXls93pfzXmX5h16cC69BKr4PkLDsKktg5AnFiTXEX48
- G0Y+iv79KUrF8FY8F8dLx5ConlKOHuTHE9qumepGJONkilXKz0LRKT1YE+/0yFdy71Gi3Ilg1gG
- zrVRFmwhXTasXSQpRLXdd5iwfTsgwF1l/DkH6VgHYXvJOb4ROl0X4+eoEd9cNAwgXIJw3NP9e+D
- lQSdgLq6594rrucZst+LaWAz/ahz1rdhpQxrD4kkDXKt+V8WXtI2ugV2kOfrh0kX9JggzIBGcNX
- hHaREWg1XmpgZ7O9wpw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=V-hixniTzbwhkIHIihYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: Eci4uViKkg5U8eXGOGckuAVbCLCzvS_U
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX4fuAvEpnF7I0
+ 3KzON+M2N9VD4cUo6TXi6C1roaY7R+CM8uPlfeqL+sJV+ttWd0+dRQNKQaV5EmLKFsXOKbp9RNU
+ YmXe089nwg+7bjMykIUCf5yXXEqu94g=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDAyNCBTYWx0ZWRfX9CJyddoG5suE
+ SzZLaNs1MzfR1yHGuVnZ2EZ05ibGDeCOmH47b67NOQ2auLmzG+Yevx5V1SUg0vXZ9iJvB7Dzds4
+ 9/UzCBMMkJQT5dLS5UGJ4Oz5T2fxqw9VEFk7GgNHkdPFFNs1MAiZa9NNtnW/x7G/tlMR9bKvjpC
+ Wk0jmeOuKSs5ain/tct4IljIEWfbXh5GLDOEHvGg7O7xNrV0W7yz0kaRuBR/Fymweuu1joaLh2t
+ 3EayyeCE0FknF33Gv74vwNREIdjjDqXVsNWIQ1HmxJFT8o3OB23L3/RWZ+tg/5NAtTrCvNBl/cd
+ nL+QpFBRdsw4dy6sQDBgShTdLaJyoENkIVXsN4slFaOs5pp6l4nqqPx1EAXUnsb0OXivUhJkhdR
+ p9L8zrG6SY7VvzCZZgF8ySp6365lB4zChuwjp1YkoPSbkg5dfp5J0G1+Bwc6+/n2fYSFE6eFZ7u
+ KaCD6OJI+hy4YNNtHhQ==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_01,2026-11-25_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 priorityscore=1501 clxscore=1015 bulkscore=0
- impostorscore=0 lowpriorityscore=0 malwarescore=0 phishscore=0 spamscore=0
+ impostorscore=0 malwarescore=0 bulkscore=0 clxscore=1015 phishscore=0
+ adultscore=0 suspectscore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260024
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -171,551 +171,418 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Define the HFI panel protocol required to initialize DSI panels and
-issue DCS transfers through DCP firmware. Without these definitions,
-the DSI path cannot describe panel modes or panel commands to firmware.
+Handle HFI messages that are not synchronous command
+completions. Capability discovery, resource voting, and display power
+control produce asynchronous responses that must not be mistaken for
+ordinary command replies.
 
-Describe panel commands, timing and panel data structures, and property
-identifiers used by panel initialization and DCS transfer helpers.
+Dispatch display events, cache capability payloads, deliver
+power-control notifications, and defer resource-vote processing while
+preserving the existing completion path for synchronous commands.
 
 Assisted-by: LLM
 Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 ---
- drivers/gpu/drm/msm/dcp/hfi/hfi_commands_panel.h   |  27 ++
- drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h       | 287 +++++++++++++++++++++
- drivers/gpu/drm/msm/dcp/hfi/hfi_properties_panel.h | 198 ++++++++++++++
- 3 files changed, 512 insertions(+)
+ drivers/gpu/drm/msm/dcp/dcp_hfi.h      |  41 ++++++
+ drivers/gpu/drm/msm/dcp/dcp_hfi_core.c | 245 +++++++++++++++++++++++++++++++++
+ 2 files changed, 286 insertions(+)
 
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_panel.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_panel.h
-new file mode 100644
-index 000000000000..ceccc8da8a29
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_commands_panel.h
-@@ -0,0 +1,27 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi.h b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+index 9c80e38aa96f..6ea2969e5d89 100644
+--- a/drivers/gpu/drm/msm/dcp/dcp_hfi.h
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi.h
+@@ -19,11 +19,24 @@
+ #include <linux/workqueue.h>
+ #include <linux/xarray.h>
+ 
++#include <drm/drm_mipi_dsi.h>
++#include <drm/drm_modes.h>
 +
-+#ifndef __H_HFI_COMMANDS_PANEL_H__
-+#define __H_HFI_COMMANDS_PANEL_H__
+ #include "hfi/hfi_packet.h"
+ #include "hfi/hfi_pack_unpack_common.h"
+ #include "hfi/hfi_packer.h"
+ #include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_commands_device.h"
++#include "hfi/hfi_commands_display.h"
++#include "hfi/hfi_commands_panel.h"
++#include "hfi/hfi_commands_display_events.h"
+ #include "hfi/hfi_defs_common.h"
++#include "hfi/hfi_defs_display.h"
++#include "hfi/hfi_defs_device.h"
++#include "hfi/hfi_defs_panel.h"
++#include "hfi/hfi_properties_device.h"
++#include "hfi/hfi_properties_display.h"
++#include "hfi/hfi_properties_panel.h"
+ 
+ struct dcp_drv;
+ 
+@@ -35,6 +48,19 @@ struct dcp_drv;
+ #define DCP_MAX_DISPLAYS	4
+ #define DCP_HFI_CAPS_BUF_SIZE	4096
+ 
++#define DCP_HFI_RESOURCE_VOTE_BUF_SIZE	256
 +
-+/* Panel-command range. */
-+#define HFI_COMMAND_PANEL_BEGIN                                         0x03000000
-+
-+/* Start panel initialization; send with timing and generic packets in one HFI header. */
-+#define HFI_COMMAND_PANEL_INIT_PANEL_CAPS                            0x03000001
-+
-+/* Provide one panel timing-mode description. */
-+#define HFI_COMMAND_PANEL_INIT_TIMING_MODE_CAPS                      0x03000002
-+
-+/* Provide non-timing panel properties. */
-+#define HFI_COMMAND_PANEL_INIT_GENERIC_CAPS                          0x03000003
-+
-+/* Deinitialize panel attributes. */
-+#define HFI_COMMAND_PANEL_DEINIT                                     0x03000004
-+
-+/* End of panel-command range. */
-+#define HFI_COMMAND_PANEL_END                                        0x03ffffff
-+
-+#endif /* __H_HFI_COMMANDS_PANEL_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h
-new file mode 100644
-index 000000000000..a38d778898b2
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_defs_panel.h
-@@ -0,0 +1,287 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __H_HFI_DEFS_PANEL_H__
-+#define __H_HFI_DEFS_PANEL_H__
-+
-+#include "hfi_defs_common.h"
-+
-+/* Panel format, link, and power properties. */
-+enum hfi_panel_phy_type {
-+	HFI_PANEL_PHY_OLED      = 0x1,
-+	HFI_PANEL_PHY_LCD       = 0x2,
++/* Wire-format resource vote entry. */
++struct dcp_resource_vote_pair {
++	u32 key;
++	u64 value;
 +};
 +
-+/* Lower values have higher display priority. */
-+enum hfi_panel_display_type {
-+	HFI_PANEL_DISPLAY_TYPE_NONE           = 0x0,
-+	HFI_PANEL_DISPLAY_TYPE_BUILT_IN_0     = 0x1,
-+	HFI_PANEL_DISPLAY_TYPE_BUILT_IN_1     = 0x2,
-+	HFI_PANEL_DISPLAY_TYPE_BUILT_IN_2     = 0x3,
-+	HFI_PANEL_DISPLAY_TYPE_BUILT_IN_3     = 0x4,
-+	HFI_PANEL_DISPLAY_TYPE_BUILT_IN_4     = 0x5,
-+};
-+
-+enum hfi_panel_bpp {
-+	HFI_PANEL_BPP_3      = 1,
-+	HFI_PANEL_BPP_8      = 2,
-+	HFI_PANEL_BPP_12     = 3,
-+	HFI_PANEL_BPP_16     = 4,
-+	HFI_PANEL_BPP_18     = 5,
-+	HFI_PANEL_BPP_24     = 6,
-+	HFI_PANEL_BPP_30     = 7,
-+};
-+
-+enum hfi_panel_deinit_prop {
-+	HFI_PANEL_DEINIT_CONT_SPLASH = 0x00000001,
-+};
-+
-+enum hfi_panel_lane_enable {
-+	HFI_PANEL_LANE_0      = 0x00000001,
-+	HFI_PANEL_LANE_1      = 0x00000002,
-+	HFI_PANEL_LANE_2      = 0x00000004,
-+	HFI_PANEL_LANE_3      = 0x00000008,
-+};
-+
-+enum hfi_panel_lane_map {
-+	HFI_PANEL_LANE_MAP_0123 = 1,
-+};
-+
-+enum hfi_panel_color_order_type {
-+	HFI_PANEL_COLOR_ORDER_RGB_SWAP_RGB   = 0x1,
-+	HFI_PANEL_COLOR_ORDER_RGB_SWAP_RBG   = 0x2,
-+	HFI_PANEL_COLOR_ORDER_RGB_SWAP_BRG   = 0x3,
-+	HFI_PANEL_COLOR_ORDER_RGB_SWAP_GRB   = 0x4,
-+	HFI_PANEL_COLOR_ORDER_RGB_SWAP_GBR   = 0x5,
-+};
-+
-+enum hfi_panel_vsync_source {
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_0  = 0x0,
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_1  = 0x1,
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_2  = 0x2,
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_3  = 0x3,
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_4  = 0x4,
-+	HFI_PANEL_VSYNC_SOURCE_GPIO_5  = 0x5,
-+	HFI_PANEL_VSYNC_SOURCE_WD      = 0xf,
-+};
-+
-+enum hfi_panel_trigger_type {
-+	HFI_PANEL_TRIGGER_NONE      = 1,
-+	HFI_PANEL_TRIGGER_TE        = 2,
-+	HFI_PANEL_TRIGGER_SW        = 3,
-+	HFI_PANEL_TRIGGER_SW_TE     = 4,
-+	HFI_PANEL_TRIGGER_SW_SEOF   = 5,
-+	HFI_PANEL_TRIGGER_SEOF      = 6,
-+};
-+
-+enum hfi_panel_fps_traffic_mode {
-+	HFI_PANEL_TRAFFIC_NON_BURST_SYNC_PULSE_MODE     = 1,
-+	HFI_PANEL_TRAFFIC_NON_BURST_SYNC_EVENT_MODE     = 2,
-+	HFI_PANEL_TRAFFIC_BURST_MODE                    = 3,
-+};
-+
-+enum hfi_panel_modes {
-+	HFI_PANEL_VIDEO_MODE_8_BIT      = 0x1,
-+	HFI_PANEL_VIDEO_MODE_10_BIT     = 0x2,
-+	HFI_PANEL_CMD_MODE_8_BIT        = 0x4,
-+	HFI_PANEL_CMD_MODE_10_BIT       = 0x8,
-+	HFI_PANEL_VIDEO_MODE_PSR_8_BIT	= 0x10,
-+	HFI_PANEL_VIDEO_MODE_PSR_10_BIT	= 0x20,
-+	HFI_PANEL_VIDEO_LTPO_8_BIT	= 0x40,
-+	HFI_PANEL_VIDEO_LTPO_10_BIT	= 0x80
-+};
-+
-+enum hfi_panel_backlight_ctrl {
-+	HFI_PANEL_BACKLIGHT_CTRL_UNKNOWN    = 0x0,
-+	HFI_PANEL_BACKLIGHT_CTRL_PWM        = 0x1,
-+	HFI_PANEL_BACKLIGHT_CTRL_WLED       = 0x2,
-+	HFI_PANEL_BACKLIGHT_CTRL_DCS        = 0x3,
-+	HFI_PANEL_BACKLIGHT_CTRL_EXTERNAL   = 0x4,
-+};
-+
-+enum hfi_panel_compression_mode {
-+	HFI_PANEL_COMPRESSION_NONE  = 0,
-+	HFI_PANEL_COMPRESSION_DSC   = 1,
-+};
-+
-+enum hfi_panel_chroma_format_type {
-+	HFI_PANEL_CHROMA_FORMAT_444     = 1,
-+	HFI_PANEL_CHROMA_FORMAT_422     = 2,
-+	HFI_PANEL_CHROMA_FORMAT_420     = 3,
-+};
-+
-+enum hfi_panel_color_space_type {
-+	HFI_PANEL_COLOR_SPACE_RGB     = 1,
-+	HFI_PANEL_COLOR_SPACE_YUV     = 2,
-+};
-+
-+enum hfi_panel_dfps_type {
-+	HFI_PANEL_DFPS_NONE = 0,
-+	HFI_PANEL_DFPS_SUSPEND_RESUME,
-+	HFI_PANEL_DFPS_IMMEDIATE_CLK,
-+	HFI_PANEL_DFPS_IMMEDIATE_HFP,
-+	HFI_PANEL_DFPS_IMMEDIATE_VFP,
-+	HFI_PANEL_DFPS_MAX
-+};
-+
-+/* Panel topology. */
-+struct hfi_panel_topology {
-+	u32 mixer_count;
-+	u32 enc_count;
-+	u32 display_count;
-+};
-+
-+/* DSI command sequencing. */
-+enum hfi_panel_dcs_cmd_state {
-+	HFI_PANEL_DSI_HS_MODE   = 0x1,
-+	HFI_PANEL_DSI_LP_MODE   = 0x2,
-+};
-+
-+enum hfi_panel_dcs_command_type {
-+	HFI_DCS_CMD_PRE_ON                      = 0x00000000,
-+	HFI_DCS_CMD_ON                          = 0x00000001,
-+	HFI_DCS_CMD_VIDEO_ON                    = 0x00000002,
-+	HFI_DCS_CMD_COMMAND_ON                  = 0x00000003,
-+	HFI_DCS_CMD_POST_PANEL_ON               = 0x00000004,
-+	HFI_DCS_CMD_PRE_OFF                     = 0x00000005,
-+	HFI_DCS_CMD_OFF                         = 0x00000006,
-+	HFI_DCS_CMD_POST_OFF                    = 0x00000007,
-+	HFI_DCS_CMD_PRE_RES_SWITCH              = 0x00000008,
-+	HFI_DCS_CMD_RES_SWITCH                  = 0x0000009,
-+	HFI_DCS_CMD_POST_RES_SWITCH             = 0x00000010,
-+	HFI_DCS_CMD_VIDEO_MODE_SWITCH_INS       = 0x00000011,
-+	HFI_DCS_CMD_VIDEO_MODE_SWITCH_OUTS      = 0x00000012,
-+	HFI_DCS_CMD_COMMAND_MODE_SWITCH_INS     = 0x00000013,
-+	HFI_DCS_CMD_COMMAND_MODE_SWITCH_OUTS    = 0x00000014,
-+	HFI_DCS_CMD_PANEL_STATUS                = 0x00000015,
-+	HFI_DCS_CMD_LP1                         = 0x00000016,
-+	HFI_DCS_CMD_LP2                         = 0x00000017,
-+	HFI_DCS_CMD_NOLP                        = 0x00000018,
-+	HFI_DCS_CMD_PPS                         = 0x00000019,
-+	HFI_DCS_CMD_ROI                         = 0x00000020,
-+	HFI_DCS_CMD_TIMING_SWITCH               = 0x00000021,
-+	HFI_DCS_CMD_POST_MODE_SWITCH_ON         = 0x00000022,
-+	HFI_DCS_CMD_QSYNC_ONS                   = 0x00000023,
-+	HFI_DCS_CMD_QSYNC_OFFS                  = 0x00000024,
-+	HFI_DCS_CMD_MAX                         = 0x00000025
-+};
-+
-+/* Panel ESD status modes. */
-+enum hfi_panel_esd_status_mode {
-+	HFI_PANEL_ESD_STATUS_MODE_REG_READ       = 0x1,
-+	HFI_PANEL_ESD_STATUS_MODE_SW_BTA         = 0x2,
-+	HFI_PANEL_ESD_STATUS_MODE_PANEL_TE       = 0x3,
-+	HFI_PANEL_ESD_STATUS_MODE_PANEL_RW       = 0x4,
-+	HFI_PANEL_ESD_STATUS_MODE_SW_SIM_SUCCESS = 0x5,
-+	HFI_PANEL_ESD_STATUS_MODE_SW_SIM_FAILURE = 0x6
-+};
-+
-+/* Panel timing parameters. */
-+struct hfi_panel_res_data {
-+	u32 active_width;
-+	u32 active_height;
-+	u32 h_front_porch;
-+	u32 h_back_porch;
-+	u32 h_left_border;
-+	u32 h_right_border;
-+	u32 h_pulse_width;
-+	u32 h_sync_skew;
-+	u32 h_sync_pulse;
-+	u32 v_front_porch;
-+	u32 v_back_porch;
-+	u32 v_top_border;
-+	u32 v_bottom_border;
-+	u32 v_pulse_width;
-+};
-+
-+/* Panel compression parameters. */
-+struct hfi_panel_compression_params {
-+	enum hfi_panel_compression_mode	mode;
-+	u32 version;
-+	u32 scr_version;
-+	u32 slice_height;
-+	u32 slice_width;
-+	u32 slices_per_pkt;
-+	u32 bits_per_component;
-+	u32 pps_delay_ms;
-+	u32 bits_per_pixel;
-+	enum hfi_panel_chroma_format_type chroma_format;
-+	enum hfi_panel_color_space_type color_space;
-+	u32 block_prediction_enable;
-+};
-+
-+/* DCS command buffers. */
-+struct hfi_panel_dcs_cmd_buffer_info {
-+	u32 offset_l;
-+	u32 offset_h;
-+	u32 size;
-+	u32 delay;
-+	u32 ctrl_flags;
-+	enum hfi_panel_dcs_cmd_state mode;
-+	u32 reserve1;
-+	u32 reserve2;
-+};
-+
-+struct hfi_panel_compression_rc_override {
-+	u8 min_qp[15];
-+	u8 padding1;
-+	u8 max_qp[15];
-+	u8 padding2;
-+	u8 offsets[15];
-+	u8 padding3;
-+};
-+
-+/* Panel ESD configuration. */
-+/* Register-read fields are valid only in REG_READ mode. */
-+struct hfi_panel_esd_config {
-+	u32 size;
-+	enum hfi_panel_esd_status_mode status_mode;
-+
-+		u32 count;
-+	u32 groups;
-+
-+	u32 hfi_dsi_cmd_desc_lsb;
-+	u32 hfi_dsi_cmd_desc_msb;
-+
-+	u32 valid_params_lsb;
-+	u32 valid_params_msb;
-+
-+	u32 status_values_lsb;
-+	u32 status_values_msb;
-+};
-+
-+struct hfi_qsync_params {
-+	u32 avr_step_fps;
-+	u32 qsync_min_fps;
-+};
-+
-+struct hfi_panel_esync_caps {
-+	u32 esync_support;
-+	u32 esync_milli_skew;
-+	u32 hsync_milli_pulse_width;
-+	u32 emsync_milli_pulse_width;
-+	u32 emsync_fps;
-+};
-+
-+struct hfi_panel_dfps_caps {
-+	u32 dfps_support;
-+	u32 min_refresh_rate;
-+	u32 max_refresh_rate;
-+	enum hfi_panel_dfps_type type;
-+};
-+
-+struct hfi_display_vrr_frame_params {
-+	u32 frame_interval_ns_lo;
-+	u32 frame_interval_ns_hi;
-+	u32 usecase_idx;
-+};
-+
-+/* Panel operating-mode capabilities. */
-+struct hfi_panel_operating_mode_caps {
-+	u32 panel_mode_switch_enabled;
-+	u32 vsync_aligned_switch;
-+};
-+
-+#endif /* __H_HFI_DEFS_PANEL_H__ */
-diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_panel.h b/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_panel.h
-new file mode 100644
-index 000000000000..53c7789239a6
---- /dev/null
-+++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_properties_panel.h
-@@ -0,0 +1,198 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+#ifndef __H_HFI_PROPERTIES_PANEL_H__
-+#define __H_HFI_PROPERTIES_PANEL_H__
-+
-+/* Panel-property range. */
-+#define HFI_PROPERTY_PANEL_BEGIN                                     0x00040000
-+
-+/* Sets the total number of timing modes available for the panel. */
-+#define HFI_PROPERTY_PANEL_TIMING_MODE_COUNT                         0x00040001
-+
-+/* Sets the index of the timing mode. */
-+
-+#define HFI_PROPERTY_PANEL_INDEX                                     0x00040002
-+/* Sets the panel clock speed in Hz. */
-+#define HFI_PROPERTY_PANEL_CLOCKRATE                                 0x00040003
-+
-+/* Sets the frame rate for the panel. */
-+#define HFI_PROPERTY_PANEL_FRAMERATE                                 0x00040004
-+
-+/* Sets active dimensions, porches, pulse width, and sync skew. */
-+#define HFI_PROPERTY_PANEL_RESOLUTION_DATA                           0x00040005
-+
-+/* Sets jitter as a numerator/denominator pair for early wakeup. */
-+#define HFI_PROPERTY_PANEL_JITTER                                    0x00040006
-+
-+/* Sets all the compression data for VDC / DSC. */
-+#define HFI_PROPERTY_PANEL_COMPRESSION_DATA                          0x00040007
-+
-+/* Lists available display topologies. */
-+#define HFI_PROPERTY_PANEL_DISPLAY_TOPOLOGY                          0x00040008
-+
-+/* Sets the default topology index. */
-+#define HFI_PROPERTY_PANEL_DEFAULT_TOPOLOGY_INDEX                    0x00040009
-+
-+/* Panel name available for current timing mode. */
-+#define HFI_PROPERTY_PANEL_NAME                                      0x0004000a
-+
-+/* Specifies the type of the panel, OLED / LCD. */
-+#define HFI_PROPERTY_PANEL_PHYSICAL_TYPE                             0x0004000b
-+
-+/* Sets the panel bits per pixel. */
-+#define HFI_PROPERTY_PANEL_BPP                                       0x0004000c
-+
-+/* Enables or disables each DSI data lane. */
-+#define HFI_PROPERTY_PANEL_LANES_STATE                               0x0004000d
-+
-+/* Specifies the panel lane map. */
-+#define HFI_PROPERTY_PANEL_LANE_MAP                                  0x0004000e
-+
-+/* Specifies the R, G and B channel ordering. */
-+#define HFI_PROPERTY_PANEL_COLOR_ORDER                               0x0004000f
-+
-+/* Specifies the trigger mechanism to be used for DMA path. */
-+#define HFI_PROPERTY_PANEL_DMA_TRIGGER                               0x00040010
-+
-+/* Property used to enable appending end of transmission packets. */
-+#define HFI_PROPERTY_PANEL_TX_EOT_APPEND                             0x00040011
-+
-+/* Selects the DSI lane state at BLLP end-of-frame. */
-+#define HFI_PROPERTY_PANEL_BLLP_EOF_POWER_MODE                       0x00040012
-+
-+/* Selects the DSI lane state during BLLP. */
-+#define HFI_PROPERTY_PANEL_BLLP_POWER_MODE                           0x00040013
-+
-+/* Specifies the panel traffic mode. */
-+#define HFI_PROPERTY_PANEL_TRAFFIC_MODE                              0x00040014
-+
-+/* Specifies the virtual channel identifier. */
-+#define HFI_PROPERTY_PANEL_VIRTUAL_CHANNEL_ID                        0x00040015
-+
-+/* DCS command for write_memory_start. */
-+#define HFI_PROPERTY_PANEL_WR_MEM_START                              0x00040016
-+
-+/* DCS command for write_memory_continue. */
-+#define HFI_PROPERTY_PANEL_WR_MEM_CONTINUE                           0x00040017
-+
-+/* Inserts the DCS command. */
-+#define HFI_PROPERTY_PANEL_TE_DCS_COMMAND                            0x00040018
-+
-+/* Specifies the panel operating mode. */
-+#define HFI_PROPERTY_PANEL_OPERATING_MODE                            0x00040019
-+
-+/* Specifies the min backlight level supported by the panel. */
-+#define HFI_PROPERTY_PANEL_BL_MIN_LEVEL                              0x0004001a
-+
-+/* Specifies the max backlight level supported by the panel. */
-+#define HFI_PROPERTY_PANEL_BL_MAX_LEVEL                              0x0004001b
-+
-+/* Specifies the max brightness level supported. */
-+#define HFI_PROPERTY_PANEL_BRIGHTNESS_MAX_LEVEL                      0x0004001c
-+
-+/* Specifies the DSI controllers to use for primary panel. */
-+#define HFI_PROPERTY_PANEL_CTRL_NUM                                  0x0004001d
-+
-+/* Specifies the DSI PHYs to use for primary panel. */
-+#define HFI_PROPERTY_PANEL_PHY_NUM                                   0x0004001e
-+
-+/* An array that lists the sequence of reset GPIO values and sleeps. */
-+#define HFI_PROPERTY_PANEL_RESET_SEQUENCE                            0x0004001f
-+
-+/* Specifies the implementation of backlight control for this panel. */
-+#define HFI_PROPERTY_PANEL_BL_PMIC_CONTROL_TYPE                      0x00040020
-+
-+/* Specifies the implementation of backlight control for secondary panel. */
-+#define HFI_PROPERTY_PANEL_SEC_BL_PMIC_CONTROL_TYPE                  0x00040021
-+
-+/* Specifies whether to invert the display brightness value. */
-+#define HFI_PROPERTY_PANEL_BL_INVERTED_DBV                           0x00040022
-+
-+/* Sets DCS command buffer data for different types of DCS commands. */
-+#define HFI_PROPERTY_PANEL_DCS_CMD_INFO                              0x00040024
-+
-+/* Provides iova of DPU Mapped buffer of HW understandable panel commands. */
-+#define HFI_PROPERTY_PANEL_DPU_ADDRESS                              0x00040025
-+
-+/* Provides dva of DCP Mapped buffer of structures of cmd descriptions. */
-+#define HFI_PROPERTY_PANEL_DCP_ADDRESS                              0x00040026
-+
-+/* Provides D-PHY timing parameters. */
-+#define HFI_PROPERTY_PANEL_DPHY_TIMINGS                              0x00040027
-+
-+/* Entry to select vsync source from GPIO's/Watchdog timer. */
-+#define HFI_PROPERTY_PANEL_VSYNC_SOURCE                              0x00040028
-+
-+/* Selects the pixel-stream trigger for command mode. */
-+#define HFI_PROPERTY_PANEL_STREAM_TRIGGER                            0x00040029
-+
-+/* Specifies the TE Path for command mode panels. */
-+#define HFI_PROPERTY_PANEL_TE_MODE                                   0x0004002a
-+
-+/* Reports whether the panel uses C-PHY. */
-+#define HFI_PROPERTY_PANEL_CPHY_MODE                                 0x0004002b
-+
-+/* Provides the shared DCP address for DCS command DMA. */
-+#define HFI_PROPERTY_PANEL_DCS_CMD_TX_BUF_DVA                        0x0004002c
-+
-+/* Provides the shared DPU address for DCS command DMA. */
-+#define HFI_PROPERTY_PANEL_DCS_CMD_TX_BUF_IOVA                       0x0004002d
-+
-+/* Sets the compression rate control override value for the panel. */
-+#define HFI_PROPERTY_PANEL_COMPRESSION_RC_OVERRIDE                   0x0004002e
-+
-+/* Selects the line that triggers DSI command DMA. */
-+#define HFI_PROPERTY_PANEL_DMA_SCHEDULE_LINE                         0x0004002f
-+
-+/* Provides the panel ESD config data required for ESD status check to the DCP. */
-+#define HFI_PROPERTY_PANEL_ESD_CONFIG                                0x00040030
-+
-+/* Specifies the QSYNC parameters of the panel. */
-+#define HFI_PROPERTY_PANEL_QSYNC_PARAMS                              0x00040031
-+
-+/* Provides esync properties for VHM panel. */
-+#define HFI_PROPERTY_PANEL_ESYNC_CAPS				     0x00040032
-+
-+/* Specifies the DFPS capabilities supported by the panel. */
-+#define HFI_PROPERTY_PANEL_DFPS_CAPS                                 0x00040033
-+
-+/* Specifies the frequency stepping pattern of the panel. */
-+#define HFI_PROPERTY_PANEL_FREQ_PATTERN				     0x00040034
-+
-+/* Specifies whether panel requires LP11_INIT mode. */
-+#define HFI_PROPERTY_PANEL_LP11_INIT                                 0x00040035
-+
-+/* Specifies the width of the DMA scheduling window, expressed in number of display lines. */
-+#define HFI_PROPERTY_PANEL_DMA_SCHEDULE_WINDOW                       0x00040036
-+
-+/* Provides DSI bit clock frequencies for dynamic refresh. */
-+#define HFI_PROPERTY_PANEL_DYN_REF_CLK_FREQS                         0x00040038
-+
-+/* Reports supported operating-mode switches. */
-+#define HFI_PROPERTY_PANEL_OPERATING_SWITCH_CAPABILITY               0x00040039
-+
-+/* Selects the display type and priority. */
-+#define HFI_PROPERTY_PANEL_DISPLAY_TYPE                              0x0004003a
-+
-+/* Specifies whether ULPS (Ultra Low Power State) is supported by the panel. */
-+#define HFI_PROPERTY_PANEL_ULPS_SUPPORTED                            0x0004003b
-+
-+/* Specifies the DSI custom command set start index and count. */
-+#define HFI_PROPERTY_PANEL_DSI_CUSTOM_DCS_CMDS_SET_INFO              0x00040040
-+
-+/* Provides per-mode esync timing capabilities for VHM panel. */
-+#define HFI_PROPERTY_PANEL_ESYNC_TIMING_CAPS                         0x00040041
-+
-+/* Provides per-mode qsync timing parameters for panels supporting QSYNC/AVR. */
-+#define HFI_PROPERTY_PANEL_QSYNC_TIMING_PARAMS                       0x00040042
-+
-+/* Specifies the current display format being used by the panel. */
-+#define HFI_PROPERTY_PANEL_COLOR_FORMAT                              0x00040043
-+
-+/* End of panel-property range. */
-+#define HFI_PROPERTY_PANEL_END                                       0x0004ffff
-+
-+#endif /* __H_HFI_PROPERTIES_PANEL_H__ */
++struct dcp_resource_vote_wire {
++	__le32 key;
++	__le64 value;
++} __packed;
++
+ struct dcp_hfi_caps_cache {
+ 	struct completion device_done;
+ 	struct completion display_done;
+@@ -135,6 +161,21 @@ struct dcp_hfi {
+ 	atomic_t packet_id;
+ 	/* Blocks new work once transport teardown begins. */
+ 	atomic_t shutdown_in_progress;
++	struct work_struct resource_vote_work;
++	/* Protects resource_vote_buf, resource_vote_len, and callback state. */
++	spinlock_t resource_vote_lock;
++	u8 resource_vote_buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
++	u32 resource_vote_len;
++	u32 resource_vote_generation;
++	void (*resource_vote_cb)(struct dcp_drv *drv,
++				 const struct dcp_resource_vote_pair *pairs,
++				 u32 count);
++	/* Protects capability payload buffers during event delivery. */
++	spinlock_t caps_lock;
++	/* Serializes capability transactions. */
++	struct mutex caps_cache_lock;
++	struct dcp_hfi_caps_cache caps_cache;
++
+ };
+ 
+ int dcp_hfi_init(struct dcp_drv *drv, struct virtio_device *vdev,
+diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+index 9c46a4560a0d..1a1addd33877 100644
+--- a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
++++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
+@@ -9,6 +9,7 @@
+ #include <linux/delay.h>
+ #include <linux/device.h>
+ #include <linux/kernel.h>
++#include <linux/unaligned.h>
+ #include <linux/slab.h>
+ #include <linux/scatterlist.h>
+ #include <linux/spinlock.h>
+@@ -21,9 +22,13 @@
+ #include "hfi/hfi_packet.h"
+ #include "hfi/hfi_packer.h"
+ #include "hfi/hfi_unpacker.h"
++#include "hfi/hfi_commands_device.h"
+ #include "hfi/hfi_commands_display.h"
++#include "hfi/hfi_commands_display_events.h"
+ #include "hfi/hfi_defs_common.h"
++#include "hfi/hfi_defs_display.h"
+ 
++static void dcp_hfi_resource_vote_work(struct work_struct *work);
+ static int dcp_hfi_prepost_resp_bufs(struct dcp_hfi *hfi);
+ 
+ u32 dcp_hfi_next_packet_id(struct dcp_hfi *hfi)
+@@ -228,6 +233,191 @@ void dcp_hfi_cmd_callback(struct virtqueue *vq)
+ 	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+ }
+ 
++static void dcp_hfi_store_caps_payload(struct dcp_hfi *hfi,
++				       struct completion *done,
++				       u8 *dst, u32 *dst_len,
++				       const struct hfi_packet_info *pkt_info,
++				       const char *name)
++{
++	u32 n;
++
++	if (!pkt_info->payload_ptr || !pkt_info->payload_size) {
++		dev_dbg(hfi->dev, "%s: empty payload\n", name);
++		return;
++	}
++
++	if (pkt_info->payload_size > DCP_HFI_CAPS_BUF_SIZE) {
++		dev_warn(hfi->dev, "%s: payload too large: %u\n",
++			 name, pkt_info->payload_size);
++		return;
++	}
++
++	n = pkt_info->payload_size;
++	memcpy(dst, pkt_info->payload_ptr, n);
++	*dst_len = n;
++	if (done)
++		complete(done);
++	dev_dbg(hfi->dev, "%s: stored %u bytes\n", name, n);
++}
++
++/* Route asynchronous events and capability packets before flag handling. */
++static bool dcp_hfi_dispatch_event(struct dcp_hfi *hfi,
++				   const struct hfi_packet_info *pkt_info)
++{
++	switch (pkt_info->cmd) {
++	case HFI_COMMAND_DISPLAY_EVENT_VSYNC: {
++		return true;
++	}
++
++	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_START:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_FRAME_SCAN_COMPLETE:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_HPD_STATUS:
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_PANEL_DEAD:
++		dev_err(hfi->dev,
++			"DCP: panel dead display %u\n",
++			pkt_info->id & 0xFFFF);
++		return true;
++
++	case HFI_COMMAND_DISPLAY_EVENT_HW_RECOVERY:
++		dev_err(hfi->dev,
++			"DCP: HW recovery display %u\n",
++			pkt_info->id & 0xFFFF);
++		return true;
++
++	case HFI_COMMAND_DEVICE_INIT_DEVICE_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.device_done,
++					   hfi->caps_cache.device_buf,
++					   &hfi->caps_cache.device_len,
++					   pkt_info, "DEVICE_INIT_DEVICE_CAPS");
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DISPLAY_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, &hfi->caps_cache.display_done,
++					   hfi->caps_cache.display_buf,
++					   &hfi->caps_cache.display_len,
++					   pkt_info, "DEVICE_INIT_DISPLAY_CAPS");
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_VIG_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.vig_buf,
++					   &hfi->caps_cache.vig_len,
++					   pkt_info, "VIG_CAPS");
++		hfi->caps_cache.pipe_caps_received |= BIT(0);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DMA_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.dma_buf,
++					   &hfi->caps_cache.dma_len,
++					   pkt_info, "DMA_CAPS");
++		hfi->caps_cache.pipe_caps_received |= BIT(1);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_VIG_R1_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.vig_r1_buf,
++					   &hfi->caps_cache.vig_r1_len,
++					   pkt_info, "VIG_R1_CAPS");
++		hfi->caps_cache.pipe_caps_received |= BIT(2);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DMA_R1_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		dcp_hfi_store_caps_payload(hfi, NULL, hfi->caps_cache.dma_r1_buf,
++					   &hfi->caps_cache.dma_r1_len,
++					   pkt_info, "DMA_R1_CAPS");
++		hfi->caps_cache.pipe_caps_received |= BIT(3);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_COMMON_LAYER_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		hfi->caps_cache.pipe_caps_received |= BIT(4);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		dev_dbg(hfi->dev,
++			"COMMON_LAYER_CAPS: received (size=%u)\n",
++			pkt_info->payload_size);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_INIT_DISPLAY_WB_CAPS: {
++		unsigned long flags;
++
++		spin_lock_irqsave(&hfi->caps_lock, flags);
++		hfi->caps_cache.pipe_caps_received |= BIT(5);
++		spin_unlock_irqrestore(&hfi->caps_lock, flags);
++		dev_dbg(hfi->dev,
++			"DISPLAY_WB_CAPS: received (size=%u) — all pipe caps received\n",
++			pkt_info->payload_size);
++		return true;
++	}
++
++	case HFI_COMMAND_DEVICE_CALLBACK_RESOURCE_VOTE: {
++		unsigned long vote_flags;
++		u32 payload_size = pkt_info->payload_size;
++		bool valid = pkt_info->payload_ptr && payload_size &&
++			payload_size <= DCP_HFI_RESOURCE_VOTE_BUF_SIZE &&
++			payload_size % sizeof(struct dcp_resource_vote_wire) == 0;
++
++		if (!valid) {
++			dev_warn_ratelimited(hfi->dev,
++					     "dropping malformed RESOURCE_VOTE payload size=%u max=%u\n",
++					     payload_size, DCP_HFI_RESOURCE_VOTE_BUF_SIZE);
++			payload_size = 0;
++		}
++
++		spin_lock_irqsave(&hfi->resource_vote_lock, vote_flags);
++		if (payload_size)
++			memcpy(hfi->resource_vote_buf, pkt_info->payload_ptr,
++			       payload_size);
++		hfi->resource_vote_len = payload_size;
++		hfi->resource_vote_generation++;
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, vote_flags);
++
++		if (payload_size)
++			schedule_work(&hfi->resource_vote_work);
++		return true;
++	}
++
++	default:
++		return false;
++	}
++}
++
+ void dcp_hfi_resp_callback(struct virtqueue *vq)
+ {
+ 	struct dcp_drv *drv = vq->vdev->priv;
+@@ -298,6 +488,8 @@ void dcp_hfi_resp_callback(struct virtqueue *vq)
+ 						"HFI error: cmd=0x%x pkt_id=%u\n",
+ 						pkt_info.cmd, pkt_info.packet_id);
+ 					dcp_hfi_complete_pending(hfi, &pkt_info, -EIO);
++				} else if (dcp_hfi_dispatch_event(hfi, &pkt_info)) {
++					/* Event dispatch runs before flag handling. */
+ 				} else if (pkt_info.flags & HFI_RX_FLAGS_SUCCESS) {
+ 					if (pkt_info.flags & HFI_RX_FLAGS_INFORMATION)
+ 						dev_dbg(hfi->dev,
+@@ -642,6 +834,47 @@ int dcp_hfi_send_no_wait(struct dcp_hfi *hfi,
+ 			payload_type, payload, payload_size, HFI_TX_FLAGS_NONE);
+ }
+ 
++static void dcp_hfi_resource_vote_work(struct work_struct *work)
++{
++	struct dcp_hfi *hfi = container_of(work, struct dcp_hfi,
++					     resource_vote_work);
++	u8 buf[DCP_HFI_RESOURCE_VOTE_BUF_SIZE];
++	struct dcp_resource_vote_pair pairs[DCP_HFI_RESOURCE_VOTE_BUF_SIZE /
++							 sizeof(struct dcp_resource_vote_wire)];
++	const struct dcp_resource_vote_wire *wire;
++	u32 len, generation, count, i;
++	bool dirty;
++	unsigned long flags;
++
++	do {
++		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
++		len = hfi->resource_vote_len;
++		generation = hfi->resource_vote_generation;
++		if (len)
++			memcpy(buf, hfi->resource_vote_buf, len);
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
++
++		if (!len || !hfi->resource_vote_cb)
++			return;
++		if (len % sizeof(struct dcp_resource_vote_wire)) {
++			dev_warn_ratelimited(hfi->dev,
++					     "dropping malformed RESOURCE_VOTE size=%u\n", len);
++			return;
++		}
++		count = len / sizeof(struct dcp_resource_vote_wire);
++		wire = (const struct dcp_resource_vote_wire *)buf;
++		for (i = 0; i < count; i++) {
++			pairs[i].key = le32_to_cpu(wire[i].key);
++			pairs[i].value = get_unaligned_le64(&wire[i].value);
++		}
++
++		hfi->resource_vote_cb(hfi->drv, pairs, count);
++		spin_lock_irqsave(&hfi->resource_vote_lock, flags);
++		dirty = generation != hfi->resource_vote_generation;
++		spin_unlock_irqrestore(&hfi->resource_vote_lock, flags);
++	} while (dirty);
++}
++
+ static void dcp_hfi_free_pool(struct dcp_hfi *hfi, struct dcp_hfi_buf *pool,
+ 			      u32 count)
+ {
+@@ -729,7 +962,10 @@ int dcp_hfi_init(struct dcp_drv *drv,
+ 
+ 	spin_lock_init(&hfi->cmd_lock);
+ 	spin_lock_init(&hfi->pending_lock);
++	spin_lock_init(&hfi->resource_vote_lock);
+ 	spin_lock_init(&hfi->resp_drain_lock);
++	spin_lock_init(&hfi->caps_lock);
++	mutex_init(&hfi->caps_cache_lock);
+ 
+ 	atomic_set(&hfi->packet_id, 0);
+ 	atomic_set(&hfi->shutdown_in_progress, 0);
+@@ -738,8 +974,11 @@ int dcp_hfi_init(struct dcp_drv *drv,
+ 
+ 	xa_init(&hfi->pending_xa);
+ 
++	INIT_WORK(&hfi->resource_vote_work, dcp_hfi_resource_vote_work);
+ 	INIT_DELAYED_WORK(&hfi->resp_repost_work, dcp_hfi_resp_repost_work);
+ 	INIT_LIST_HEAD(&hfi->resp_repost_list);
++	hfi->resource_vote_len = 0;
++	hfi->resource_vote_generation = 0;
+ 
+ 	hfi->cmd_pool = devm_kcalloc(hfi->dev, DCP_HFI_CMD_POOL_SIZE,
+ 				     sizeof(*hfi->cmd_pool), GFP_KERNEL);
+@@ -787,6 +1026,7 @@ int dcp_hfi_init(struct dcp_drv *drv,
+ 
+ err:
+ 	atomic_set(&hfi->shutdown_in_progress, 1);
++	cancel_work_sync(&hfi->resource_vote_work);
+ 	cancel_delayed_work_sync(&hfi->resp_repost_work);
+ 	while (virtqueue_detach_unused_buf(hfi->cmd_vq))
+ 		;
+@@ -807,6 +1047,7 @@ void dcp_hfi_stop(struct dcp_hfi *hfi)
+ 	atomic_set(&hfi->shutdown_in_progress, 1);
+ 	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+ 
++	cancel_work_sync(&hfi->resource_vote_work);
+ 	cancel_delayed_work_sync(&hfi->resp_repost_work);
+ 	dcp_hfi_cancel_pending(hfi, -ENODEV);
+ }
+@@ -864,6 +1105,10 @@ int dcp_hfi_restore_queues(struct dcp_hfi *hfi, struct virtqueue *cmd_vq,
+ 
+ void dcp_hfi_deinit(struct dcp_hfi *hfi)
+ {
++	mutex_lock(&hfi->caps_cache_lock);
++	memset(&hfi->caps_cache, 0, sizeof(hfi->caps_cache));
++	mutex_unlock(&hfi->caps_cache_lock);
++
+ 	xa_destroy(&hfi->pending_xa);
+ 
+ 	dcp_hfi_free_pool(hfi, hfi->cmd_pool, DCP_HFI_CMD_POOL_SIZE);
 
 -- 
 2.43.0
