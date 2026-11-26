@@ -2,111 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9E4F606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B4C606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WX8KSIwu
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mHu9LVa4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8242411282B;
-	Fri, 27 Nov 2026 08:29:12 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 02DE010E9C0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:40:21 +0000 (UTC)
-Received: by mail-pl1-f176.google.com with SMTP id
- d9443c01a7336-2f02f04a426so57161885ad.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:40:21 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795700421; cv=none;
- d=google.com; s=arc-20260327;
- b=VS/39wo8KxiEMbKptHkX5tcEvaZE6P/CbLf+bJUQPKostT4l6qHmtVAQCxvoa1aOFJ
- A87ph3t1BSy4gnKP0dQIRjz2oW4bnJpFIdVzs5q1Qyi06XybicmidNJvuRPARZqIWTin
- 0s/cJUwKNYZl6BfYcROc2rgdPnPUzIGbE+uaNnovXymqzJJaLHhDqjYA7H0bbjoCuSgi
- JkPPvTp0PDEmq8tt5KodIJ7gvDo0ZbinQhccqwculBfNiaiRoN4IZoucMrxjYSetzJEw
- Z8171Hg8gOVADwbATPaU0gxE7lLKOApXaA07eNxIJJ3LeTU/1EfmUmRQgSJyJY14kBRt
- R+dQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:references:in-reply-to
- :mime-version:dkim-signature;
- bh=TK7sU6Dup3oSGjjseEYHeRQNyCJVQb7RMxx6Hj+oz+k=;
- fh=Eip0aQqfY/dxbX4jr9I1ZnWXqXCI2xN5gbxLjM9zUB8=;
- b=ULOMRpTI/fMRXSDj3iMkoDOlKmvpci/LmqMS3A3jrdxsYwFHcjaWECYsFpyQ1arGlm
- WIdbf0r7C7fukVUC1BhLS7Ep5RHCdjUuyh0+MflEooDlrawAySRUjEAU7KFuPyEDAP2J
- eK9qBS0XJCvoh85ptpYi6XI5p6xTLRP4Po/F2enZmhGZrLLKbhd7ZZKHrMhdsuZI8288
- QIuNJoD+93rjkAzN28x5UUenjnTfS8wWg6+/zrW4I9ucgTwleF52pdDGSFrhNcmO+6TL
- sycAPluzlercRXliyQ4+otO2a+CJMK3Yvq87PguYX6f7oyO1h/bqaXGCPsa5JVBaBAIs
- bqHA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id CAFA610E00C;
+	Fri, 27 Nov 2026 08:29:14 +0000 (UTC)
+Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
+ [209.85.216.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED0810E848
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:37:15 +0000 (UTC)
+Received: by mail-pj1-f45.google.com with SMTP id
+ 98e67ed59e1d1-3b43d30822fso3675426a91.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:37:15 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795700421; x=1796305221; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=TK7sU6Dup3oSGjjseEYHeRQNyCJVQb7RMxx6Hj+oz+k=;
- b=WX8KSIwuVlhXyLhk9OJfDOhFJwvtPfivYBkm6wwTUydWG5JeYqkeBsjKFjO3baF8w+
- KaYnV0JaA5EDvGOD6NPGfrLoa08QXirVEqCEp6BPMsOaJRPBO9q9vFsgTqX82xCJI+Mn
- lgyMiLL4yIIeH7fZKr1x6iqy2cZ21hLNWpwqWEGUFS/pIwe9hQDVkcROIXFPRS3Vb+xY
- 5jBwpr8npabruUVb6ryog1e85mZSecAmPm+WvgSSBWFSnPYUMagGOUuMpuPZAmJgb9iD
- /ZywnOdF4Y5otMkJf0/iTy8OpG7knpRAoA5AB2gCEF2e5Q9ye/k4XSfgKkbvNwdF5W4f
- V7jw==
+ d=gmail.com; s=20260707; t=1795689434; x=1796294234; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=M/yk3Rw+nb4AIlTzNbRnpuuYhSg7gPe5Ia3PULum9P8=;
+ b=mHu9LVa40PH8qd1854MGcfNY7mL4nhlAe9qK7iWqZha8AjiiDusTZkXChecg+CNoIV
+ Hu2ZaMIYRfUScagqYIPFvjvyN2qMuyLotOqsG0SytZ+pQ4I4ruySv4bnQJAxTZur44Jd
+ kEyA0zGWI2jzy5lTSeLwb5Hwuf8slN294I4CZvHh4lOWQA9pfcvBsU19ANxznZEuK8NP
+ 4VYE5lL8eYM0PBuZ/ZkqweACv9nT+T8p4xHOO6yGJPhfB+MaUfsQSaGDCOczS/sd6hxQ
+ Im4CUr0EBO2xoAE/P4X3cuZ86mQZixL88Q3XawkJawMt/UH13XqJvlcNC0LRpa119070
+ qPkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795700421; x=1796305221;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=TK7sU6Dup3oSGjjseEYHeRQNyCJVQb7RMxx6Hj+oz+k=;
- b=z6VFzCPkX01Ah3VXnIGtbBvrBJ2poT+QKCiOQ+bHuHQnIDLm+itKIqHb137plAQPy4
- VRGBbov4m/yjyAJbldFBq9+zIqme1rOr8UuGwa5b9lwg9CRykZjn3v6zt3pjRddiRw87
- hJ1l/w871+1oQ3wC8RvSxJed2J6ina4oqHaOnRyGX806xsCHNTgN54Jq5PflVDOeecqg
- zo3+YbJvNLo8QfZYR8tIezdul3jnW/GOmRO/3HPxFsWGF9/wCsXqamGwEbxCRdAG88I7
- QbNx+5yyGneyYb+w4/jrIWxrcPAxN4vfaAqOr+qUNgCoDIuua7HhjDTOJcCKZqiZ1WT8
- G+PQ==
+ d=1e100.net; s=20260707; t=1795689434; x=1796294234;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=M/yk3Rw+nb4AIlTzNbRnpuuYhSg7gPe5Ia3PULum9P8=;
+ b=MHBwueYiD8kSPQouhK9hq9EwWiF+m0LKmnxFJ9dD2Hwcqs9CnW9BEnifAqTU9Ijik8
+ 2leZoPDPNmkxbRmfjmWHFAPCq70fUq8XiPS8H/K20HMhFC0TJGdha74NLfIj3g9+Emyh
+ ag+Mo9x4HBkWe9w9nXCukwmi1M8HaqiNoStV4PiojYn7Ns0Kau0LSNgJcsF9MGBI93LJ
+ TccAWSx3yMceIJYiGx11bLn1lLF7U5qnFR29p+D5KDKiyiOYmyf9TIHjq9GpaPRHZ9UI
+ 7mYn9Jyhyi/m4k3+6kKoKF/i5aRcse+0OnmgoTQalQaklve8CHiQ0oWWzmI2cXzMwFWf
+ g5WQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErFZXoXriMODpMU5TehaRLEfzv5FDoYhPY37UCTIn36ZCGQZgYkRhEZw9J7gf7U+1dxmcrrE7hGGRjo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8XIVcD9vUd4/Nx/dEhL4EcmOeWQ4da/yyQIrFcxUQJRYF3/fpb
- aq1jJ7lnmnsFTjHT9CbSqJEUmcz28Nc+g3dkkij4SjTS8E0DRV+j0uFvtq6PEIcZq5CBdj9Cn3O
- gSsby6c/cytrGSJT7ZDZD+dZqv+By5jw=
-X-Gm-Gg: AZFdTZfFcFil7QuNfo2iNE1s9PrxcFsvJcf/ndmER9CKyfFBtK8nLQeEx+Zr0bzBZ2o
- UiHx+5+WT1rWx8V0+FVoxRAuxg1lMLqJaBYOnpiIWj96RR8csDd8NIvR0id4SFl/iPOqhOMS5fN
- yr59lAX+NBP7mPDSZklZD1bbvo9FCAoXRO/IABVb/tGdU9lW8mK9KMvv6SCBdu0YXciqoVpagx0
- bOYqSuGWamph1fpeq85HeXLFBvMXA+5Vnr2xtiBHIpr68kxd3/K2a+BWOd4/FI+dvI0/bhn+mtB
- 9ysAjHflHjn3ZxFl86ABTNEqJOL7m/gyJpImGs6VgNS7Qg0dJgXnfjhmAJWJAmT9Mo8h4fvJu96
- /f88UP+3bX9nBBPyE04GUlTNtREf5deSiFtWcWYW2OfhG/vVTS02Tz0vBYWHRqV+Xm/47O6/7jH
- ZIlcUD/4L8rOwt9ACnFatslPAOM/s=
-X-Received: by 2002:a17:902:e802:b0:2e9:a16b:c251 with SMTP id
- d9443c01a7336-2f03efb1099mr243902615ad.3.1795700421265; Thu, 26 Nov 2026
- 05:40:21 -0800 (PST)
+ AL+hErHexAkDWLEOuP08wnIhKpfVPFVu2DNuEC928tFT8SeKuKnytvUYFMp9t5CwBC8wTa0vAoPyKqpWKgw=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+JMxWsnt82+MDjOP/PRd25DMA/RzInfdJ+qR4HaMgAudJmcqYq
+ cKzarO+T/IIdOONVNZoC/gYaUwk0U4vOGj+htMdc+ficui02CAQQZnxl
+X-Gm-Gg: AZFdTZcFqffABYrKD27G508hDDTvMqqiV1AcgLTLMDibdfNH+U7LWJd/81i9yT9gzSX
+ 5rL2u6FblmA41H6dJEK9hPMQDD6m9jpHgqYQvQbhyNgSdjPJ/CMdM+fg4knViMPoyL/kWKAvfQD
+ 2ZR1rCLjJTomJd3QrJ8XAxg4ft4cYGcWo3Zn0YpSUh4QUddUXR97p8ATsQmneErzH4PhHFubr//
+ GT8dMkFIPP+WE5op3pC9m44z6x5BsyuVPUiaXUIyqhyqMjRt0Pzo//mDPHlN+DzpROGBdIGyW2j
+ gH5T68iHKBm21XqoOLYG6Cj4EruBJfNceITeaNleHDq+brr+zQNzHgdYZbCAu8Y5MRm4pLUaPtk
+ Hf0ZMVDgQEsgN804RbVWUx5/TSaY3lLY6oXmQnesfQLVEkSfVdLRPxvo5HvFuVvrHpZiqzhK2E1
+ hjNboD344ayPFP9IXnpml1tIr4d5a3mcM8oUu/kj+UvnqhOJifpdjSr/KxTDl6RcDT4alMAHbPG
+ L4mWlFwgcSPK531gtEc6C+KxBX/+19N2xfhEQmfIk5z0jNhuHaWy+669qsZSovj2TV72X0nBBhf
+ YnSu2bwj22Feidf9DsXlxHOjSQOyK7vnUCR75RJoNqnYZXngbTuh6YQOercDPsJaKV5CsrChMpP
+ YMKeHKWFarJTaWMWvlmFmWZC4DwtX7dg=
+X-Received: by 2002:a17:90b:4983:b0:3b4:1357:d529 with SMTP id
+ 98e67ed59e1d1-3b41c97c444mr20610837a91.51.1795689434219; 
+ Thu, 26 Nov 2026 02:37:14 -0800 (PST)
+Received: from DESKTOP-TPPBPA1 (36-226-201-204.dynamic-ip.hinet.net.
+ [36.226.201.204]) by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b405d135e9sm34846229a91.4.2026.11.26.02.37.11
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Nov 2026 02:37:13 -0800 (PST)
+From: Roy <rongh7426@gmail.com>
+To: Maxime Ripard <mripard@kernel.org>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>
+Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, Roy <rongh7426@gmail.com>
+Subject: [PATCH] drm/vc4: plane: Don't log LBM and UPM allocation failures as
+ errors
+Date: Thu, 26 Nov 2026 18:37:09 +0800
+Message-ID: <20261126103709.655707-1-rongh7426@gmail.com>
+X-Mailer: git-send-email 2.51.1.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Received: by 2002:a05:6674:1483:b0:76e:c882:7689 with HTTP; Thu, 26 Nov 2026
- 05:40:19 -0800 (PST)
-In-Reply-To: <20261125-crosshatch-panel-v4-1-120adc58e737@ixit.cz>
-References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
- <20261125-crosshatch-panel-v4-1-120adc58e737@ixit.cz>
-From: Petr Vorel <petr.vorel@gmail.com>
-Date: Thu, 26 Nov 2026 14:40:19 +0100
-X-Gm-Features: Aa3M54og_H4IzpH7EvpAxUM4OanCCPa2Is0gIzMGQ606cP-gzpaxXkWDzG21f2o
-Message-ID: <CAB1t1CyB8VLG2wgviTJ+VVzajnZZ2B3ck+E3dps=fWxWcYqzew@mail.gmail.com>
-Subject: Re: [PATCH v4 1/9] dt-bindings: display: panel: s6e3ha8: Adjust to
- reflect the DDIC and panel used
-To: "david@ixit.cz" <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, 
- "phone-devel@vger.kernel.org" <phone-devel@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="000000000000bb8e0606612e1544"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Nov 2026 08:29:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,28 +90,71 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
---000000000000bb8e0606612e1544
-Content-Type: text/plain; charset="UTF-8"
+vc4_plane_allocate_lbm() and vc6_plane_allocate_upm() run from the
+plane's atomic_check. When the line buffer memory or the BCM2712's
+unified pixel memory can't fit a new state, they return -ENOSPC, which
+is the expected way to reject a configuration that needs more of a
+limited resource than is free. They also print it with drm_err().
 
-Hi David, all,
+That lets the DRM master fill the kernel log with error messages just
+by testing configurations with DRM_MODE_ATOMIC_TEST_ONLY, as a
+compositor or an igt test probing plane limits does. On a Raspberry
+Pi 5, 1000 TEST_ONLY commits of 18 full-screen planes add 1000
+"*ERROR* Failed to allocate UPM entry: -28" records, and the same with
+the planes upscaled 2x adds 1000 "Failed to allocate LBM entry: -28"
+records.
 
-Not a deeper device tree expert but LGTM.
+Use drm_dbg_kms() for both, as is already done for running out of UPM
+handles in the same function. The messages are still there with
+drm.debug=0x04.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+Tested on a Raspberry Pi 5 (Raspberry Pi OS kernel 6.18.39, with this
+change applied to its vc4 driver), counting /dev/kmsg records around
+1000 TEST_ONLY commits that fail with -ENOSPC:
+- UPM: 1000 records before, 0 after
+- LBM: 1000 records before, 0 after
+- with drm.debug=0x04, both messages are printed from
+  vc4_plane_atomic_check
 
-Petr
+This change and its description were written with the help of an AI
+coding assistant (Claude); the testing above was done on real
+hardware.
 
---000000000000bb8e0606612e1544
-Content-Type: text/html; charset="UTF-8"
+Signed-off-by: Roy <rongh7426@gmail.com>
+---
+ drivers/gpu/drm/vc4/vc4_plane.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-<div>Hi David, all,</div><div><br></div><div>Not a deeper device tree expert but LGTM.</div><div><br></div><div>Reviewed-by: Petr Vorel &lt;<a href="mailto:petr.vorel@gmail.com">petr.vorel@gmail.com</a>&gt;<br><br></div><div>Petr</div>
+diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
+index 20c9fc9..81df567 100644
+--- a/drivers/gpu/drm/vc4/vc4_plane.c
++++ b/drivers/gpu/drm/vc4/vc4_plane.c
+@@ -958,7 +958,7 @@ static int vc4_plane_allocate_lbm(struct drm_plane_state *state)
+ 		spin_unlock_irqrestore(&vc4->hvs->mm_lock, irqflags);
+ 
+ 		if (ret) {
+-			drm_err(drm, "Failed to allocate LBM entry: %d\n", ret);
++			drm_dbg_kms(drm, "Failed to allocate LBM entry: %d\n", ret);
+ 			return ret;
+ 		}
+ 	} else {
+@@ -1028,7 +1028,7 @@ static int vc6_plane_allocate_upm(struct drm_plane_state *state)
+ 							 0, 0);
+ 			spin_unlock_irqrestore(&hvs->mm_lock, irqflags);
+ 			if (ret) {
+-				drm_err(drm, "Failed to allocate UPM entry: %d\n", ret);
++				drm_dbg_kms(drm, "Failed to allocate UPM entry: %d\n", ret);
+ 				refcount_set(&refcount->refcount, 0);
+ 				ida_free(&hvs->upm_handles, upm_handle);
+ 				vc4_state->upm_handle[i] = 0;
+-- 
+2.51.1.windows.1
 
---000000000000bb8e0606612e1544--
