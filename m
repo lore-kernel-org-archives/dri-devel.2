@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32C07606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:51:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61A32606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:52:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=av79QFhS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=QUIHPcE/
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 535CD10E05F;
-	Thu, 26 Nov 2026 06:51:52 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7F17889A5C
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:51:46 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 99E3210E16A;
+	Thu, 26 Nov 2026 06:52:48 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2CBAF10E16A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:52:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 373BE410A8;
- Thu, 26 Nov 2026 06:51:46 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A577B1F000F2;
- Thu, 26 Nov 2026 06:51:45 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 117DD605E2;
+ Thu, 26 Nov 2026 06:52:41 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670391F000D1;
+ Thu, 26 Nov 2026 06:52:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795675905;
- bh=SHVnbB74xJyXXA7f9X6sfXdRoPDgXwPu5VdxfRqvkY8=;
+ s=k20260515; t=1795675960;
+ bh=K160DLQIeQ8EwIyklKHnsSmJz40xuRmQQDAQQgw7lW4=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=av79QFhSsGvZIYSyrnjTuWGlqk3SecJ/Vz+6TqbL9U5d+aIXsYJJuhNYhV28ZkDU6
- y0acMeKq+27PQR7fLan9CsdTxLcMJKpo9VYg/sGVWOg0MF4y5xhXhfA3yiDKGlh8cq
- rpnCSbBE8/b2QN/WA4Fbid3ogcV2jCK69tKGnwe7uilde8j7x3RpTWJmtgVFR3KeMt
- jwsXaRkL8FlSQ1G3V3u22gtGQ0v/ImWwYFo72EAnxakss++MuZrlNyKO9wAUqCC3SP
- dNsomMLbjOvagtUOQN9Kf1ADvEB00oG7RUtjNFsyZTKzCwi5Q91PcEbDdwkmoyQJb/
- 7GTG+vh/Nb/6g==
-Message-ID: <sashiko-outbox-234910@kernel.org>
+ b=QUIHPcE/v4tM9R1NeZwMH1ZvT5zZ7O0GFDTzoo04MY8V8CYdcmcAXEqAVkuG12gZD
+ Kvt9dvFzOiIxvnucGZdpPMxmtiEVvpHjwFAiaOwrnqHMPy4hF/rFGx4psCGGv+iPrP
+ LgGsmSu/giI/y/z58NUbgJZtGAG7fl3fkUFJi660qJ3Z4YtxB8MIItNaxQYRmCjcBQ
+ fn7kxIBmqwgcnaOHrr8vaevLDaDlk0QGj3qloxQwZr7dC/z89NpwZKobZvOj4ViCR8
+ a6uD+3Wjf8AtMHlvKXI9HicC1t/9qZmYuvu2QPlV6qSW6szqPiRSw4yeMxexIQ/rQ2
+ YRaxT/qCJUJYQ==
+Message-ID: <sashiko-outbox-234911@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/21] drm/msm/dcp: Add HFI VirtIO transport
+Subject: Re: [PATCH v3 02/21] drm/msm/dcp: Add HFI packet helpers
 To: "Jayant Shekhar" <jayant.shekhar@oss.qualcomm.com>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261126-jshekhar-v3-dcp-v3-6-f1e9d7505039@oss.qualcomm.com>
+In-Reply-To: <20261126-jshekhar-v3-dcp-v3-2-f1e9d7505039@oss.qualcomm.com>
 References: <20261126-jshekhar-v3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com>
- <20261126-jshekhar-v3-dcp-v3-6-f1e9d7505039@oss.qualcomm.com>
+ <20261126-jshekhar-v3-dcp-v3-2-f1e9d7505039@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 06:51:45 +0000
+Date: Thu, 26 Nov 2026 06:52:39 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -59,305 +59,194 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential
+Thank you for your contribution! Sashiko AI review found 5 potential
 issues to consider:
-- [Critical] drm/msm/dcp: stack use-after-free on timeout in
-  dcp_hfi_send_sync_on_vq()
-- [High] drm/msm/dcp: unsynchronized callbacks and work re-arming in
-  dcp_hfi_stop()
-- [Medium] drm/msm/dcp: double-fetch from shared DMA buffer in
-  dcp_hfi_resp_callback()
-- [Low] drm/msm/dcp: open-coded 30-40ms sleep polling in
-  _dcp_hfi_buf_alloc()
+- [Low] drm/msm/dcp: Kconfig help text contradicts qcom,dcp.yaml DT
+  binding
+- [Low] drm/msm/dcp: DRM_MSM_DCP Kconfig forces built-in VIRTIO_MMIO and
+  QCOM_IPCC
+- [Low] drm/msm/dcp: 20-bit HFI_PACKET_SIZE_MAX mismatches 21-bit packet
+  size mask
+- [Low] drm/msm/dcp: duplicate HFI packing macros and KV property
+  parsers
+- [Low] drm/msm/dcp: malformed kernel-doc comments and __cplusplus
+  guards in HFI
 --
 
-commit 340f49f4f52ebdf1a0f2de7503d38dbf0160ca10
+commit 1a12340ec280848da59198aa830dba2527674b79
 Author: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
 
-drm/msm/dcp: Add HFI VirtIO transport
+drm/msm/dcp: Add HFI packet helpers
 
-This commit implements the VirtIO transport layer for communicating HFI
-commands and responses between the Linux display driver and DCP firmware.
+This commit adds the DRM_MSM_DCP Kconfig option and defines the HFI packet
+formats, packing and unpacking helpers, and key/value property parsing
+utilities for communicating with the DCP firmware.
 
-> diff --git a/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c b/drivers/gpu/drm/msm=
-/dcp/dcp_hfi_core.c
-> new file mode 100644
-> index 0000000000000..9c46a4560a0de
-> --- /dev/null
-> +++ b/drivers/gpu/drm/msm/dcp/dcp_hfi_core.c
-
-[ ... ]
-
-> +static struct dcp_hfi_buf *_dcp_hfi_buf_alloc(struct dcp_hfi *hfi,
-> +					      struct list_head *free_list,
-> +					      spinlock_t *lock,
-> +					      const char *pool_name)
-> +{
-> +	struct dcp_hfi_buf *buf =3D NULL;
-> +	unsigned long flags;
-> +	int retry;
-> +
-> +	if (atomic_read(&hfi->shutdown_in_progress)) {
-> +		dev_dbg(hfi->dev,
-> +			"HFI shutdown in progress =E2=80=94 refusing %s buffer allocation\n",
-> +			pool_name);
-> +		return NULL;
-> +	}
-> +
-> +	for (retry =3D 0; retry <=3D DCP_HFI_BUF_ALLOC_RETRIES; retry++) {
-> +		if (atomic_read(&hfi->shutdown_in_progress))
-> +			return NULL;
-> +
-> +		spin_lock_irqsave(lock, flags);
-> +		if (!list_empty(free_list)) {
-> +			buf =3D list_first_entry(free_list,
-> +					       struct dcp_hfi_buf, node);
-> +			list_del(&buf->node);
-> +		}
-> +		spin_unlock_irqrestore(lock, flags);
-> +
-> +		if (buf)
-> +			return buf;
-> +
-> +		if (retry < DCP_HFI_BUF_ALLOC_RETRIES)
-> +			usleep_range(DCP_HFI_BUF_ALLOC_SLEEP_US_MIN,
-> +				     DCP_HFI_BUF_ALLOC_SLEEP_US_MAX);
-> +	}
+> diff --git a/drivers/gpu/drm/msm/Kconfig b/drivers/gpu/drm/msm/Kconfig
+> index ed1c4775d1e92..df25373d7847f 100644
+> --- a/drivers/gpu/drm/msm/Kconfig
+> +++ b/drivers/gpu/drm/msm/Kconfig
+> @@ -114,6 +114,32 @@ config DRM_MSM_DPU
+>  	  the MSM DRM driver. It is the display controller found in devices
+>  	  using e.g. SDM845 and newer platforms.
+> =20
+> +config DRM_MSM_DCP
+> +	bool "Enable DCP firmware-delegated display support in MSM DRM driver"
+> +	depends on DRM_MSM
+> +	depends on VIRTIO_MMIO=3Dy && QCOM_IPCC=3Dy
+> +	select DRM_MSM_KMS
+> +	select VIRTIO_QCOM_DCP
+> +	select DRM_BRIDGE_CONNECTOR
 
 [Severity: Low]
-Can _dcp_hfi_buf_alloc() wait on a waitqueue signaled when buffers are
-returned to cmd_free_list instead of polling with usleep_range()?  When all
-64 command buffers are in flight, sleeping 30-40ms per retry stalls display
-commits for multiple frames even if dcp_hfi_cmd_callback() reclaims a
-buffer right away.
+Does DRM_MSM_DCP need to depend on VIRTIO_MMIO=3Dy && QCOM_IPCC=3Dy?
+
+Because DRM_MSM_DCP is a bool symbol that selects the tristate
+VIRTIO_QCOM_DCP, it forces VIRTIO_QCOM_DCP=3Dy and prevents enabling DCP in
+modular kernel configurations where DRM_MSM, VIRTIO_MMIO, or QCOM_IPCC are
+built as loadable modules.  Also, selecting DRM_BRIDGE_CONNECTOR here is
+redundant because DRM_MSM_KMS already selects it.
+
+> +	select DRM_MIPI_DSI
+> +	select DRM_DISPLAY_DSC_HELPER
+> +	default y
+> +	help
+> +	  Compile in support for the DCP (Display Coprocessor) firmware-delegat=
+ed
+> +	  display architecture in the MSM DRM driver.
+> +
+> +	  DCP is used on Hawi (qcom,hawi) SoC where all display hardware is
+> +	  owned by a separate Display Coprocessor firmware. The host AP
+> +	  communicates with DCP via two interfaces:
+> +	    - IPCC SMP2P mailbox: power notifications and response wakeups
+> +	    - HFI over VirtIO MMIO: display command/response exchange
+> +
+> +	  DPU and bridge nodes in the Device Tree are topology-only (no
+> +	  compatible string, no reg). The driver detects them by node name
+> +	  prefix using of_node_name_prefix().
+
+[Severity: Low]
+Does this help text match Documentation/devicetree/bindings/display/msm/qco=
+m,dcp.yaml?
+
+In the binding, the DCP node requires compatible =3D "virtio,device34", its
+port@N, interface@N, and dsi@N child nodes all require reg properties, and
+internal DPU resources are discovered at runtime from firmware rather than
+represented as compatible-less DT nodes matched by arbitrary node name
+prefixes.  In addition, the commit message only mentions HFI packet helpers
+and does not mention adding the DRM_MSM_DCP Kconfig symbol.
+
+> diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_pack_unpack_common.h b/drive=
+rs/gpu/drm/msm/dcp/hfi/hfi_pack_unpack_common.h
+> new file mode 100644
+> index 0000000000000..b767e6ee8e405
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_pack_unpack_common.h
+> @@ -0,0 +1,79 @@
 
 [ ... ]
 
-> +void dcp_hfi_resp_callback(struct virtqueue *vq)
-> +{
-> +	struct dcp_drv *drv =3D vq->vdev->priv;
-> +	struct dcp_hfi *hfi =3D drv ? drv->hfi : NULL;
-> +	struct dcp_hfi_buf *buf;
-> +	unsigned int len;
-> +	unsigned long drain_flags;
+> +/* Header size field width. */
+> +#define HFI_HEADER_SIZE_MAX                                   0x00ffffff
+> +/* Packet size field width. */
+> +#define HFI_PACKET_SIZE_MAX                                   0x000fffff
 > +
-> +	if (!hfi || atomic_read(&hfi->shutdown_in_progress))
-> +		return;
+> +#define HFI_HEADER_CMD_BUFF_TYPE_START_BIT                              =
+     24
+> +#define HFI_PACKET_PAYLOAD_TYPE_START_BIT                               =
+ 21
 > +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, drain_flags);
-> +	virtqueue_disable_cb(vq);
-> +	for (;;) {
-> +		while ((buf =3D virtqueue_get_buf(vq, &len)) !=3D NULL) {
-> +			struct hfi_cmd_buff_hdl hdl;
-> +			struct hfi_header_info hdr_info;
-> +			struct hfi_packet_info pkt_info;
-> +			u32 pkt_num;
-> +			int rc;
-> +
-> +			spin_unlock_irqrestore(&hfi->resp_drain_lock, drain_flags);
-> +
-> +			if (unlikely(len < sizeof(struct hfi_header) ||
-> +				     len > DCP_HFI_BUF_SIZE)) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: short buffer len=3D%u (min=3D%zu) =E2=80=94 skippi=
-ng\n",
-> +						     len, sizeof(struct hfi_header));
-> +				goto repost;
-> +			}
-> +
-> +			hdl.cmd_buffer =3D buf->data;
-> +			hdl.size =3D (u32)len;
-> +			rc =3D hfi_unpacker_get_header_info(&hdl, &hdr_info);
-> +			if (rc) {
-> +				dev_warn_ratelimited(hfi->dev,
-> +						     "HFI resp: invalid header (rc=3D%d) len=3D%u\n",
-> +					     rc, len);
-> +				print_hex_dump(KERN_WARNING, "HFI resp raw: ",
-> +					       DUMP_PREFIX_OFFSET, 16, 4,
-> +					       buf->data, min_t(u32, len, 64), false);
-> +				goto repost;
-> +			}
-> +
-> +			for (pkt_num =3D 1; pkt_num <=3D hdr_info.num_packets; pkt_num++) {
-> +				memset(&pkt_info, 0, sizeof(pkt_info));
-> +				rc =3D hfi_unpacker_get_packet_info(&hdl, pkt_num,
-> +								  &pkt_info);
+> +#define GET_HEADER_SIZE(data)           \
+> +	((data) & ((1 << HFI_HEADER_CMD_BUFF_TYPE_START_BIT) - 1))
+> +#define GET_HEADER_CMD_BUFF_TYPE(data)         \
+> +	((data) >> HFI_HEADER_CMD_BUFF_TYPE_START_BIT)
+> +#define GET_PACKET_SIZE(data)           \
+> +	((data) & ((1 << HFI_PACKET_PAYLOAD_TYPE_START_BIT) - 1))
 
-[Severity: Medium]
-Can unpacking directly from the coherent DMA buffer buf->data cause a
-double-fetch out-of-bounds read?
+[Severity: Low]
+Should HFI_PACKET_SIZE_MAX be 0x001fffff instead of 0x000fffff?
 
-buf->data remains mapped and writable by the DCP firmware.
-hfi_unpacker_get_packet_info() validates header and packet sizes in
-hfi_sanitize_cmd_buff(hdr), then re-reads packet->payload_info from
-buf->data:
+struct hfi_packet in hfi_packet.h documents the packet size field as bits
+[20:0] (21 bits) with payload type in bits [31:21], and GET_PACKET_SIZE()
+masks 21 bits via HFI_PACKET_PAYLOAD_TYPE_START_BIT (21), whereas
+hfi_create_packet() validates payload_size against the 20-bit
+HFI_PACKET_SIZE_MAX (0x000fffff).
 
-drivers/gpu/drm/msm/dcp/hfi/hfi_unpacker.c:hfi_unpacker_get_packet_info() {
-    ...
-	if (GET_HEADER_SIZE(hdr->cmd_buff_info) > cmd_buf_hdl->size ||
-	    packet_num > hdr->num_packets || hfi_sanitize_cmd_buff(hdr))
-		return -EINVAL;
-
-	packet =3D hfi_packet_at(hdr, packet_num);
-	packet_size =3D GET_PACKET_SIZE(packet->payload_info);
-    ...
-	packet_info->payload_size =3D packet_size - sizeof(*packet);
-}
-
-If the firmware mutates hdr->cmd_buff_info or packet->payload_info in shared
-memory after hfi_sanitize_cmd_buff(), hfi_packet_at() can walk past the
-buffer or packet_size can underflow packet_info->payload_size, leading to
-an out-of-bounds read when dcp_hfi_complete_pending() copies from
-pkt_info->payload_ptr.  Copying the received len bytes into a private
-buffer before unpacking avoids the double fetch.
+> diff --git a/drivers/gpu/drm/msm/dcp/hfi/hfi_packer.h b/drivers/gpu/drm/m=
+sm/dcp/hfi/hfi_packer.h
+> new file mode 100644
+> index 0000000000000..460c11c724162
+> --- /dev/null
+> +++ b/drivers/gpu/drm/msm/dcp/hfi/hfi_packer.h
+> @@ -0,0 +1,65 @@
 
 [ ... ]
 
-> +static int dcp_hfi_send_sync_on_vq(struct dcp_hfi *hfi,
-> +				   struct virtqueue *vq __maybe_unused,
-> +				   u32 cmd,
-> +				   enum hfi_cmd_buff_type cmd_type,
-> +				   u32 object_id,
-> +				   enum hfi_packet_payload_type payload_type,
-> +				   void *payload,
-> +				   u32 payload_size,
-> +				   u32 tx_flags,
-> +				   void *resp_data,
-> +				   size_t resp_len,
-> +				   unsigned int timeout_ms)
-> +{
-> +	struct dcp_hfi_buf *buf;
-> +	struct dcp_hfi_completion comp;
-
-[ ... ]
-
-> +	ret =3D dcp_hfi_send_cmd_async(hfi, buf,
-> +				     hfi_get_header_size(&hdl), &comp);
-> +	if (ret)
-> +		return ret;
+> +/* Pack a version-zero property and return its serialized word count. */
+> +#define HFI_PACK(payload, property_id, ...) \
+> +({ \
+> +	const u32 __hfi_values[] =3D { __VA_ARGS__ }; \
+> +	u32 *__hfi_payload =3D (payload); \
+> +	u32 __hfi_count =3D ARRAY_SIZE(__hfi_values); \
+> +\
+> +	*__hfi_payload++ =3D HFI_PACK_KEY(property_id, 0, __hfi_count); \
+> +	memcpy(__hfi_payload, __hfi_values, sizeof(__hfi_values)); \
+> +	__hfi_count + 1; \
+> +})
 > +
-> +	if (!wait_for_completion_timeout(&comp.done, msecs_to_jiffies(timeout_m=
-s))) {
-> +		dev_err(hfi->dev,
-> +			"HFI cmd=3D0x%x buf_type=3D%s object_id=3D%u timed out after %ums (pk=
-t_id=3D%u)\n",
-> +			cmd, dcp_hfi_cmd_buff_type_name(cmd_type), object_id,
-> +			timeout_ms, packet_id);
-> +		spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +		dcp_hfi_pending_find(hfi, packet_id);
-> +		spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +		return -ETIMEDOUT;
-> +	}
+> +/* Pack a property with an explicitly selected protocol version. */
+> +#define HFI_PACK_VERSION(payload, property_id, version, ...) \
+> +({ \
+> +	const u32 __hfi_values[] =3D { __VA_ARGS__ }; \
+> +	u32 *__hfi_payload =3D (payload); \
+> +	u32 __hfi_count =3D ARRAY_SIZE(__hfi_values); \
+> +\
+> +	*__hfi_payload++ =3D HFI_PACK_KEY(property_id, version, __hfi_count); \
+> +	memcpy(__hfi_payload, __hfi_values, sizeof(__hfi_values)); \
+> +	__hfi_count + 1; \
+> +})
 
-[Severity: Critical]
-Can a timeout in dcp_hfi_send_sync_on_vq() race with
-dcp_hfi_complete_pending() and corrupt the stack?
+[Severity: Low]
+This isn't a bug, but HFI_PACK() duplicates the body of HFI_PACK_VERSION()
+instead of expanding to HFI_PACK_VERSION(payload, property_id, 0,
+__VA_ARGS__).
 
-comp lives on the stack of dcp_hfi_send_sync_on_vq().  In
-dcp_hfi_resp_callback(), hfi->resp_drain_lock is dropped before calling
-dcp_hfi_complete_pending(), and dcp_hfi_pending_find() drops
-hfi->pending_lock after erasing comp from hfi->pending_xa:
+Also, this patch introduces two separate key/value property unpackers and
+key-extraction macro sets: hfi_unpacker_get_kv_pairs_count() and
+hfi_unpacker_get_kv_pairs() (both taking an unused cmd_buf_hdl argument)
+with HFI_UNPACK_KEY() in hfi_unpacker.{c,h}, which are never used anywhere
+in the series, alongside hfi_util_kv_parser_init() and
+hfi_util_kv_parser_get_next() with HFI_PROP_ID() and HFI_PROP_SZ() in
+hfi_utils.{c,h}.  In hfi_utils.h, HFI_VAL_L32() and HFI_VAL_H32() are also
+unused and duplicate lower_32_bits() and upper_32_bits() from
+linux/wordpart.h.
 
-CPU0                                  CPU1
-dcp_hfi_send_sync_on_vq()
-  wait_for_completion_timeout(&comp.done)
-                                      dcp_hfi_resp_callback()
-                                        unlock(&hfi->resp_drain_lock)
-                                        dcp_hfi_complete_pending()
-                                          comp =3D dcp_hfi_pending_find(...)
-                                            /* erased from pending_xa */
-  /* times out */
-  lock(&hfi->resp_drain_lock)
-  dcp_hfi_pending_find(...) -> NULL
-  unlock(&hfi->resp_drain_lock)
-  return -ETIMEDOUT;
-  /* stack frame unwound */
-                                          memcpy(comp->resp_data, ...)
-                                          comp->status =3D status;
-                                          complete(&comp->done);
-                                            <-- stack use-after-free
-
-If dcp_hfi_pending_find() on the timeout path returns NULL (because
-dcp_hfi_complete_pending() or dcp_hfi_cancel_pending() already claimed
-comp), waiting for comp.done with wait_for_completion(&comp.done) before
-returning or completing under pending_lock prevents unwinding the stack
-while the completion callback is still using comp.
-
-[ ... ]
-
-> +void dcp_hfi_stop(struct dcp_hfi *hfi)
-> +{
-> +	unsigned long flags;
 > +
-> +	spin_lock_irqsave(&hfi->cmd_lock, flags);
-> +	atomic_set(&hfi->shutdown_in_progress, 1);
-> +	spin_unlock_irqrestore(&hfi->cmd_lock, flags);
+> +/** hfi_get_header_size() - Return the bytes used by an HFI header. */
+> +u32 hfi_get_header_size(struct hfi_cmd_buff_hdl *cmd_buf_hdl);
 > +
-> +	cancel_delayed_work_sync(&hfi->resp_repost_work);
-> +	dcp_hfi_cancel_pending(hfi, -ENODEV);
+> +/** hfi_create_header() - Initialize an HFI command header. */
+> +int hfi_create_header(struct hfi_cmd_buff_hdl *cmd_buf_hdl,
+> +		      struct hfi_header_info *header_info);
+> +
+> +/** hfi_create_full_packet() - Append a packet and its payload. */
+> +int hfi_create_full_packet(struct hfi_cmd_buff_hdl *cmd_buf_hdl,
+> +			   struct hfi_packet_info *packet_info);
+> +
+> +/** hfi_create_packet_header() - Append a packet without a payload. */
+> +int hfi_create_packet_header(struct hfi_cmd_buff_hdl *cmd_buf_hdl,
+> +			     struct hfi_packet_info *packet_info);
+> +
+> +#ifdef __cplusplus
 > +}
-> +
-> +void dcp_hfi_quiesce_queues(struct dcp_hfi *hfi)
-> +{
-> +	struct dcp_hfi_buf *buf;
-> +	unsigned int len;
-> +	unsigned long flags;
-> +
-> +	spin_lock_irqsave(&hfi->resp_drain_lock, flags);
-> +	if (hfi->cmd_vq)
-> +		virtqueue_disable_cb(hfi->cmd_vq);
-> +	if (hfi->resp_vq)
-> +		virtqueue_disable_cb(hfi->resp_vq);
-> +	spin_unlock_irqrestore(&hfi->resp_drain_lock, flags);
-> +
-> +	if (hfi->cmd_vq) {
-> +		while ((buf =3D virtqueue_get_buf(hfi->cmd_vq, &len)) !=3D NULL)
-> +			dcp_hfi_buf_free(hfi, buf);
-> +		while ((buf =3D virtqueue_detach_unused_buf(hfi->cmd_vq)) !=3D NULL)
-> +			dcp_hfi_buf_free(hfi, buf);
-> +	}
-> +	if (hfi->resp_vq) {
-> +		while (virtqueue_get_buf(hfi->resp_vq, &len))
-> +			;
-> +		while (virtqueue_detach_unused_buf(hfi->resp_vq))
-> +			;
-> +	}
-> +}
+> +#endif /* __cplusplus */
 
-[Severity: High]
-Can an in-flight dcp_hfi_resp_callback() re-arm resp_repost_work and
-repost buffers after dcp_hfi_stop() and during dcp_hfi_quiesce_queues()?
-
-dcp_hfi_resp_callback() only checks shutdown_in_progress at entry, then
-drops resp_drain_lock while unpacking packets, and does not re-check
-shutdown_in_progress at the repost label:
-
-CPU0                                  CPU1
-                                      dcp_hfi_resp_callback()
-                                        /* shutdown_in_progress =3D=3D 0 */
-                                        lock(&hfi->resp_drain_lock)
-                                        buf =3D virtqueue_get_buf(...)
-                                        unlock(&hfi->resp_drain_lock)
-dcp_hfi_stop()
-  atomic_set(&shutdown_in_progress, 1)
-  cancel_delayed_work_sync(&resp_repost_work)
-                                        goto repost;
-                                        lock(&hfi->resp_drain_lock)
-                                        virtqueue_add_inbuf_premapped(...)
-                                        schedule_delayed_work(&resp_repost_=
-work)
-                                          <-- re-armed after cancel
-                                        virtqueue_enable_cb(vq)
-                                        unlock(&hfi->resp_drain_lock)
-
-In addition, dcp_hfi_cmd_callback() checks shutdown_in_progress outside
-cmd_lock without re-checking under cmd_lock, and dcp_hfi_quiesce_queues()
-disables cmd_vq callbacks under resp_drain_lock and then calls
-virtqueue_get_buf() and virtqueue_detach_unused_buf() on both queues
-without holding cmd_lock or resp_drain_lock.  Concurrent callback execution
-can corrupt the virtqueue state, double-free command buffers onto
-cmd_free_list, or run resp_repost_work after teardown.
+[Severity: Low]
+This isn't a bug, but single-line "/** ... */" comments without parameter
+and return descriptions are malformed kernel-doc and trigger
+scripts/kernel-doc warnings.  Also, the #ifdef __cplusplus guards in
+hfi_packer.h and hfi_unpacker.h are not needed in internal kernel headers.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-jshekhar-v=
-3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D6
+3-dcp-v3-0-f1e9d7505039@oss.qualcomm.com?part=3D2
