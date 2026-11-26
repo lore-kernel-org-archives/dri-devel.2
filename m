@@ -2,53 +2,50 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2302B606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 229B5606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ideco.ru header.i=@ideco.ru header.a=rsa-sha256 header.s=ics header.b=V7JnUiaT
+	dkim=pass (1024-bit key, unprotected) header.d=mail.sdu.edu.cn header.i=@mail.sdu.edu.cn header.a=rsa-sha256 header.s=default header.b=VGVreo6J
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 15F8611282F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0C97211282D;
 	Fri, 27 Nov 2026 08:29:16 +0000 (UTC)
-Received: from smtp.ideco.ru (smtp.ideco.ru [51.250.56.165])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3A7C810E145
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:24:41 +0000 (UTC)
-Received: from [169.254.254.254] (localhost [127.0.0.1])
- by smtp.ideco.ru (Postfix) with ESMTP id B5E7F2032496;
- Thu, 26 Nov 2026 13:24:39 +0500 (+05)
-Received: from fedora (5cfcd9fa.dynamic.mv.ru [92.252.217.250])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested)
- by smtp.ideco.ru (Postfix) with ESMTPSA id A1D962037210;
- Thu, 26 Nov 2026 13:16:30 +0500 (+05)
-DKIM-Filter: OpenDKIM Filter v2.11.0 smtp.ideco.ru A1D962037210
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ideco.ru; s=ics;
- t=1795680992; bh=QG7x41CbbyirdC2OMK80hsT9es9iEMG3U7KuCt7Ho90=;
- h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=V7JnUiaTcCnW0T0aalfoWlJmCqKJwfmbGX3RAYzGYQdAsTsGfwAZT0IlUJxFBGFrJ
- +oA2TYrTjstAk3dEKLVLB+GXyQxfDpLUOd9suIiYebxtrYky6PeXOTfdUHde6VtLvh
- xCbngRqgFlwlcKairHTDlIBiPfg2Myya7EDVD09sqWznPjUMxV2ydOsv0REoEyI2C5
- BnigBTjCsQYS1CuWC5noLjgLNZy41XrS+9tEK8cG9arkxgeCULfgrNZj/4P6NPLE4I
- EmmXom0Z4n9/dIkjAD4qCsGfJpGaktom30a7eZz42OpEo9lnw+VOJ1NEQW2vlxEIJ0
- KY/ex3NmAYbaA==
-From: Alex Kazinsky <a.kazinsky@ideco.ru>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-Cc: Alex Kazinsky <a.kazinsky@ideco.ru>, Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>, Eric Anholt <eric@anholt.net>,
- Jesse Barnes <jbarnes@virtuousgeek.org>, Dave Airlie <airlied@redhat.com>,
- dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-Subject: [PATCH 2/5] drm/connector: Handle DVI-I property allocation failures
-Date: Thu, 26 Nov 2026 12:15:57 +0400
-Message-ID: <20261126081602.2901498-3-a.kazinsky@ideco.ru>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
+X-Greylist: delayed 303 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 13:11:32 UTC
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com
+ [45.254.49.197])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 95207112192
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:11:32 +0000 (UTC)
+Received: from user.localdomain (unknown [223.80.110.101])
+ by smtp.qiye.163.com (Hmail) with ESMTP id 561f6fac9;
+ Thu, 26 Nov 2026 21:06:23 +0800 (GMT+08:00)
+From: Tian Xuechen <202300460064@mail.sdu.edu.cn>
+To: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, chunfeng.yun@mediatek.com,
+ vkoul@kernel.org, matthias.bgg@gmail.com,
+ angelogioacchino.delregno@collabora.com, jie.qiu@mediatek.com,
+ junzhi.zhao@mediatek.com
+Cc: neil.armstrong@linaro.org, mani@kernel.org,
+ dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
+ linux-kernel@vger.kernel.org, liguangshuo@mail.sdu.edu.cn
+Subject: [PATCH v2] phy: mediatek: hdmi: Fix potential stale PLL provider on
+ unbind
+Date: Thu, 26 Nov 2026 21:06:22 +0800
+Message-Id: <20261126130622.4073620-1-202300460064@mail.sdu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa217f6da9903a2kunmd1d1900f35cb30
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+ tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTh9CVhhCH0MfQh0ZSk0ZHlYeHw
+ 5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUhVQ0tVSkpLVUpLSllXWRYaDxIVHRRZQVlLVUtVS1VLWQ
+ Y+
+DKIM-Signature: a=rsa-sha256;
+ b=VGVreo6JblqymZugb0+4qCtBedflwSKtMKFPEPUwtLOPRBf1bqaoOTw/IUQ1UtMTRhInHiPaD0h3NIHRYV0OacgYxdq4PaqbdqHKy1tM9bjdqoaMMzdAhehUUh30H1jXGEnP480VMFA2EK68jAkNk9VeOxAYhgiOxK/Bqk0BdvQ=;
+ s=default; c=relaxed/relaxed; d=mail.sdu.edu.cn; v=1; 
+ bh=mKr1keYM02EumLxC+PGjz0vKlqa4GJrbdZwQ+sNCyN8=;
+ h=date:mime-version:subject:message-id:from;
 X-Mailman-Approved-At: Fri, 27 Nov 2026 08:29:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -61,89 +58,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-18.7 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FROM_LOCAL_DIGITS,FROM_LOCAL_HEX,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_create_dvi_i_properties() returns success even if either
-drm_property_create_enum() call fails. Nouveau then continues display
-initialization and may pass a NULL property to
-drm_object_attach_property(), causing a NULL pointer dereference.
+The HDMI PHY registers its PLL with devres but leaves the OF clock
+provider registered on unbind. Publish the PLL hardware through a
+managed provider so it is withdrawn before the PLL is unregistered.
 
-Return -ENOMEM on allocation failure and destroy the selector property
-if creating the subconnector property fails. Publish the property pointers
-only after both allocations succeed.
+This issue was found by our static analysis tool under development.
 
-Handle the error in Nouveau by cleaning up the mode configuration and
-freeing the display structure before returning.
-
-Fixes: f453ba046074 ("DRM: add mode setting support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Alex Kazinsky <a.kazinsky@ideco.ru>
+Fixes: 8f83f26891e1 ("drm/mediatek: Add HDMI support")
+Signed-off-by: Tian Xuechen <202300460064@mail.sdu.edu.cn>
 ---
- drivers/gpu/drm/drm_connector.c           | 12 ++++++++++--
- drivers/gpu/drm/nouveau/nouveau_display.c |  8 +++++++-
- 2 files changed, 17 insertions(+), 3 deletions(-)
+v2:
+  - Update the patch author attribution to Tian Xuechen.
+  - No code changes.
 
-diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connector.c
-index 41cbd76e0b1c..51e616f5aa5e 100644
---- a/drivers/gpu/drm/drm_connector.c
-+++ b/drivers/gpu/drm/drm_connector.c
-@@ -2061,7 +2061,8 @@ int drm_connector_create_standard_properties(struct drm_device *dev)
-  *
-  * Called by a driver the first time a DVI-I connector is made.
-  *
-- * Returns: %0
-+ * Returns:
-+ * Zero on success, negative errno on failure.
-  */
- int drm_mode_create_dvi_i_properties(struct drm_device *dev)
- {
-@@ -2076,12 +2077,19 @@ int drm_mode_create_dvi_i_properties(struct drm_device *dev)
- 				    "select subconnector",
- 				    drm_dvi_i_select_enum_list,
- 				    ARRAY_SIZE(drm_dvi_i_select_enum_list));
--	dev->mode_config.dvi_i_select_subconnector_property = dvi_i_selector;
-+	if (!dvi_i_selector)
-+		return -ENOMEM;
+ drivers/phy/mediatek/phy-mtk-hdmi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/phy/mediatek/phy-mtk-hdmi.c b/drivers/phy/mediatek/phy-mtk-hdmi.c
+index d063fc787c28..06784393b0ef 100644
+--- a/drivers/phy/mediatek/phy-mtk-hdmi.c
++++ b/drivers/phy/mediatek/phy-mtk-hdmi.c
+@@ -178,8 +178,8 @@ static int mtk_hdmi_phy_probe(struct platform_device *pdev)
+ 			return ret;
+ 	}
  
- 	dvi_i_subconnector = drm_property_create_enum(dev, DRM_MODE_PROP_IMMUTABLE,
- 				    "subconnector",
- 				    drm_dvi_i_subconnector_enum_list,
- 				    ARRAY_SIZE(drm_dvi_i_subconnector_enum_list));
-+	if (!dvi_i_subconnector) {
-+		drm_property_destroy(dev, dvi_i_selector);
-+		return -ENOMEM;
-+	}
-+
-+	dev->mode_config.dvi_i_select_subconnector_property = dvi_i_selector;
- 	dev->mode_config.dvi_i_subconnector_property = dvi_i_subconnector;
+-	return of_clk_add_provider(dev->of_node, of_clk_src_simple_get,
+-				   hdmi_phy->pll);
++	return devm_of_clk_add_hw_provider(dev, of_clk_hw_simple_get,
++					   &hdmi_phy->pll_hw);
+ }
  
- 	return 0;
-diff --git a/drivers/gpu/drm/nouveau/nouveau_display.c b/drivers/gpu/drm/nouveau/nouveau_display.c
-index 07882624a7f6..04e9a512eaec 100644
---- a/drivers/gpu/drm/nouveau/nouveau_display.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_display.c
-@@ -657,7 +657,13 @@ nouveau_display_create(struct drm_device *dev)
- 
- 	drm_mode_config_init(dev);
- 	drm_mode_create_scaling_mode_property(dev);
--	drm_mode_create_dvi_i_properties(dev);
-+	ret = drm_mode_create_dvi_i_properties(dev);
-+	if (ret) {
-+		drm_mode_config_cleanup(dev);
-+		drm->display = NULL;
-+		kfree(disp);
-+		return ret;
-+	}
- 
- 	/* this only gets set if the driver has the ATOMIC flag */
- 	if (drm_drv_uses_atomic_modeset(dev))
+ static const struct of_device_id mtk_hdmi_phy_match[] = {
+
+base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
 -- 
-2.56.0
-
+2.43.0
 
