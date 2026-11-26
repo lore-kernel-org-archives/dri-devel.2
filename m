@@ -2,143 +2,82 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE90B606A336
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 14:13:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373DF606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 14:13:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=WLBp88Yd;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=OafZZsct
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=NVlOz7ZM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5763D112444;
-	Thu, 26 Nov 2026 14:13:42 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4429B112444
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:13:31 +0000 (UTC)
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQBVYY82758331
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:13:30 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- FDJ82FHg+x9YvhW2dNbSMIILPOdbryVsdHA8c0swgyo=; b=WLBp88Yd9Isb5HNV
- zaYDUPM66mu8uNKM6YbWhBtBapSGaI2FXbduLvTu04xJ9QoS1N/lLDryZG2C1RrP
- KQBB/olxf/kIxdYTSUbfsUTJuG3r97vjf12ToVD9m3aBbkC2zM4+qpbVd6Wb4zRU
- JIpWu/MaWjQemL9VsDnywAxFs5HJ7H5FghFPC0QqxMxw4gjeLxAq6uaEEjBZcb2r
- bijegpEiX0WWMdaY2rwmiO9jYHL77wLRF8iJzbUn2j0lwsOamXzedr4Gg6Jaio8g
- qS4pm+6gYH1enz3KNJM+sTPwhQW0If3/fX+r+KUKZDAcFMC/Y8nhC+lNrXgJzGtw
- 2A5s3A==
-Received: from mail-vk1-f200.google.com (mail-vk1-f200.google.com
- [209.85.221.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j61ahvqk8-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:13:30 +0000 (GMT)
-Received: by mail-vk1-f200.google.com with SMTP id
- 71dfb90a1353d-5ecf0967947so270984e0c.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:13:30 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 96578112445;
+	Thu, 26 Nov 2026 14:13:49 +0000 (UTC)
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
+ [209.85.128.44])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 60EEC112445
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:13:42 +0000 (UTC)
+Received: by mail-wm1-f44.google.com with SMTP id
+ 5b1f17b1804b1-4a56e05568aso15966335e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:13:42 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795702409; x=1796307209;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=FDJ82FHg+x9YvhW2dNbSMIILPOdbryVsdHA8c0swgyo=;
- b=OafZZsctDvB1j8Frqvk9G5Ek2uYUt+GhJMO0s8XSQoVAQmHCaQ6/DwECqRUkAbJE/c
- 50RCBs3cdKbGjFp42ixZpkcoMqSKKJ9StLwIexm+mVD6BIFtfiYBVoBPb7Pivjf8tAX4
- kTGFII/pPxPNJv1LSpddItbpNhFhoEp/wsUgotUaNSRiXc/IAQjHL3OaQk0541cR6EdQ
- PSbe2DqMJf18K6e1cGo/PJ5Yf3TguA6pg3GJNH/Fdk4ZvAfX+xld4551fEFOCqRLgX69
- x4G1XDpiNFgzoSzRgds82DRY/9XkirQtQo8p8ztJcfSbT5UcXYuoRzOL/v99AAV/HJTH
- TFYQ==
+ d=gmail.com; s=20260707; t=1795702420; x=1796307220; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=UqL3Wpz/mpEA5/gi5iaPzqW5ysijFqXD7W3q78hLBpM=;
+ b=NVlOz7ZMq/K69hCGyxP8hvV5IOTlmPw2mIBhgHu2wtkoBwykcQqbOpdwRQUBAJxokQ
+ 8TlTFDBFJb4SfYv7oMQRQ3aPAX5+f9oBPie4ejIHKaURgHLNuaTWxxX+HUY6yyWKHj6w
+ shD7HIB8laUSzABqvG0jWpq+M56mfkGVlRJrte5Owxy00dZwmD5BLWbLWZFMxcvXW3Qf
+ zPaPrl7jUPIa+qThxOx35RHh/rB9FS/zozswRkhIWbsWfjDk7JhgbyEGPyIgifuzq/67
+ fkJOSJuN3PswSw/itSLpWp2abHOk6NtHO0yM7tw37KT4Lk4/IO+GuzH1LthCTuFRcMGH
+ snbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795702409; x=1796307209;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ d=1e100.net; s=20260707; t=1795702420; x=1796307220;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=FDJ82FHg+x9YvhW2dNbSMIILPOdbryVsdHA8c0swgyo=;
- b=W78udPk0UZAC9sTa/tojFNUDCmXqChgKofXARbkttQBbdgiK+hL+eKZpLZrEIVolbY
- PNz0UyyhhuBACh3kQzIUFKXdJcGybl3UXQq1nJw+zrqu75YsVDMcRi35F3UiFjvv+Ng0
- +IpDejXNtmZ2bKKrb//x61AKsx3pFYc+WAvTCmlHLUdkR3b+vLW3x9EnBwFlVGFSRs70
- ev0uf9M3blT8FSXCs0y6Fdd0O88l8cpt9UwT2SHdfE+L/kwFiUBigGRPx641YlRH5Pbu
- F7WMzvmv41ZqVFFMztlTlZOZYlLrsXF9C8Ul2OeB1dsmuKKqUYoXosUSxWKfTUdau2df
- ygnw==
+ bh=UqL3Wpz/mpEA5/gi5iaPzqW5ysijFqXD7W3q78hLBpM=;
+ b=L6pMyrQkEWfoTSnJ9BCJbcvcb1G3RaczAXqK2TEgp8ieODt/Gt5+nCfn8o0uTxjhOa
+ I3FXefJARYH/K+JEQHKHDn35gNCGU4TQb/kaZShUE3bnz7ZYAdqMxhzfvtwk24nTq/mu
+ YGLTvH7Ezu+kJ+zmhO3RSIrd8uxQFcAJfYSI0rgoD0cymTDxVMkWxZGdcIYvbCtLY8Kg
+ SgFg4xX2BpO0X+Gv0KgXxSDH7Gpp90LbwCWpuSTXPxiaGHx3Fvt21WRk7M1ebgR0WSIe
+ E9RyUqvGWsbZLBd6p7904C0AwgjdyiI+4AHvAWtKfAdpcDvTDnK+niPA+mgc0au/1GvV
+ o5Ww==
 X-Forwarded-Encrypted: i=1;
- AL+hErFp6iDUwEM4X0e6nkn1TH6vFpO1oyilkH0hjXs7FOCKKua3Gw+QeRH132Tl1Pbic1VOQ/SjxAN7rNE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9KZmlYynBQKhb2b3LSw5SLv4b2iNVXX+nb14t7milcRshsr8Ol
- orEGSyC4NL7ivLR2nN79DC+2I9M0yF9u30zR4CU3f2VzxgULeQlDBRPKpAo5lYTx8j+dGaix4Pc
- 6CltB8P3bM3D7Ca8SIVTaqPxyELsl12uf+c7UowhHRuyyN5Ie4O+6NXHM1ehzuebMrll78tA=
-X-Gm-Gg: AZFdTZcbC2Giykd8I69xgvt4ZJTnJ/UrdvAtALMIssJhCCMSbR03MDSke7Uclw/VFt3
- gXOVYqN6MPskc0QJ5dwD8DA38BBi5uNh9N4xKmS0jqjFfajeAw1zzAY30DiyZHH90m4U5j7S3as
- NtIJE1mmsuaqZEny+F5xtbxpK8BV5rp3sUygxFGxzbQFqoKedPX8qR8Qmfmxyriq+EgVFe+wnrs
- zDYGVjx/99xn1oWU4H5EQanSfYYJQOLX6FkAMxhCIpHfETv7aGVeBPHAmfSiYoyZ7fxwrxMpexT
- NokuvDIcW36CUFPQHvz2SQmlf9rRWR2biWKMw32MR6FJJTxJoHbnmvq3NFDRszrQzAyPTl89z/p
- RdszVeIy0BbXwPIDt0z99vPVjOSKQQiKRf+1iO8qNUCHsGjO5iG2fQz7d547SPftJUEyeZN4=
-X-Received: by 2002:a05:6122:25d0:b0:5ec:2394:ef94 with SMTP id
- 71dfb90a1353d-5ee8ad0fde5mr14137657e0c.0.1795702409538; 
- Thu, 26 Nov 2026 06:13:29 -0800 (PST)
-X-Received: by 2002:a05:6122:25d0:b0:5ec:2394:ef94 with SMTP id
- 71dfb90a1353d-5ee8ad0fde5mr14137637e0c.0.1795702409150; 
- Thu, 26 Nov 2026 06:13:29 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba370cc257sm9124759a12.13.2026.11.26.06.13.26
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 06:13:28 -0800 (PST)
-Message-ID: <cc092fdb-67f7-4261-b450-d3bcbc16bfe7@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 15:13:25 +0100
+ AL+hErGj+xlH1KnWnyYFv5fE4SorgBCylAyubNz7rzeTXZk/JYznIxFlwyKyJd5atxHri7fUJudzta8BS+Q=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8vL8G6EAZcvn4DoXRvFm9c4aSFHi2WMRrR/bP5xjN7dfl4/rUs
+ cJ6B1XHBOJSduK6frF1vMC2j8aFVZJ7U9JaB5QERtDcEckwkssbrtrgZ
+X-Gm-Gg: AZFdTZdt3KvPXrcaXgkODFnEK3nlb6P+3jpV1SsN3UnN/iUS9ZsY3WWbFt9IDdJLDkm
+ /btEQAB/4BAskk5uauSuyVHyOnyh/T6+mD3uKZRSH4C9ZRl0I+IpJGqKlGICJg0lw5oWVFzh5me
+ UJ3y1cOdc9Lt+4YbS+v2RPY9h8sqlR87/4PFN84eR6WQ/2RXmkS+4CQTkdVZ12TAfyGcmWTmtqw
+ PZIzJ3rLVQ0SO3YSWPyJpsxYssoOr3FDjJc3PKkPxoAZRYxSdY2OScrEEwWSZowOJvvRNY3sx4q
+ pxnAU+dh6+V6GMXsVfTqvuw0XYRfmi1ve8d3OSXHsRcl0k2qibJSffn22esEhKWwGapz4r4rIWe
+ nIIid/FqgZQ11BfLT4bvyQsp2DqvWV7h7raIFok2sMn0ajB/qgop73XGkwtNEpPSxAHPd7aYlwe
+ 02mPm1sj5oisci/GVdmXKoJ82POxKP4OGR23PXqao6O+bKsMun2M6z1HGNo9zKrZZD/xfax+KUw
+ vqp/9JAGY6Xzqn18aLOhtXtHcXjo1xP6qpUmV/cpV45a5JNULFfgto7R50hxmksuKj2CPlUvubZ
+ DLPV55N82Ea7PrIgnfCK28KdFizPTOuGkKwslH0yP5o4EJrdroDUNxv/O4CA8ZlmkWu6Dtrm2Zi
+ NHwrvL+E9NuIf1QBckDMQRiZ9HBCFsvr5Tl74UtpW
+X-Received: by 2002:a5d:5e01:0:b0:4a8:eed3:770 with SMTP id
+ ffacd0b85a97d-4abb47b25eemr44322800f8f.4.1795702420197; 
+ Thu, 26 Nov 2026 06:13:40 -0800 (PST)
+Received: from thomas-precision3591.paris.inria.fr
+ (wifi-pro-83-006.paris.inria.fr. [128.93.83.6])
+ by smtp.googlemail.com with ESMTPSA id
+ ffacd0b85a97d-4ab6a67f281sm38519262f8f.22.2026.11.26.06.13.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Nov 2026 06:13:39 -0800 (PST)
+From: Thomas Fourier <fourier.thomas@gmail.com>
+To: 
+Cc: Thomas Fourier <fourier.thomas@gmail.com>,
+ Koby Elbaz <koby.elbaz@intel.com>,
+ Konstantin Sinyuk <konstantin.sinyuk@intel.com>,
+ Oded Gabbay <ogabbay@kernel.org>,
+ dri-devel@lists.freedesktop.org (open list:HABANALABS PCI DRIVER),
+ linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH] accel/habanalabs/gaudi2: free the event queue IRQ with the
+ right dev_id
+Date: Thu, 26 Nov 2026 15:10:53 +0100
+Message-ID: <20261126141100.44391-2-fourier.thomas@gmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/10] arm64: dts: qcom: qcm6490-idp: Fix the panel
- reset GPIO polarity
-To: Vladimir Zapolskiy <vz@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Abel Vesa <abelvesa@kernel.org>,
- linux-arm-msm@vger.kernel.org
-References: <20261126134508.320700-1-vz@kernel.org>
- <20261126134508.320700-10-vz@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261126134508.320700-10-vz@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: PZ-Zt_pkVgc-eW8lHZnPFYUe86ycAZ1g
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1NSBTYWx0ZWRfX88OnPoI11b0i
- uDB4QlAfP6+LEuzrlBAtU/WvwjbA2aBAJ+UCSFdwvwRGf6Z7kMRyLYeNnd8z29UXqoieOZpbX6v
- siyFvd3UJCB3L+afDWjkBZZ/lZpsphA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1NSBTYWx0ZWRfXz9Wbi28kqHsR
- ZZWp6TCSVIVT2i3RF6azSq3hSkxaDkSJ5VFtDp4ItinZOc2GJTwoMrtmssUUHigNFn7Q3ObPj4o
- dX4tbKMk1rjeNfuIgtZZeOVfGJcDr3Rxlx1X4B4t2Pn0Ju5Qe4YZS4NpJeFqbdWXfGSFvhATCWj
- C5TuZAtLOh7Nxpf75Qd5azIk+wUvsRtUXr+38KgvCQbsG7AOp/wZWseS6rwIujJsGQSP1ybitag
- JT3gGusTno90SVDYg00TDHkaDkPB1/oS5M3nxDoYgL5/PHEnpmyEEZ5vcitsPP9oJVIp9CY3JHT
- orZg3r3aqHcW1CO2lNFJqVd/hkkVPngi0YnieT1MnP0ECWyFsWaVBJbG1A1y6AHRTonXnnZihT0
- q5QQus8L6mbQvcP85aElmEzkunIxiRdqvPDkGWZgsxOAdd17i9+zWudjnJn6Z8xIHfzX2uGD/+A
- Ro4BCw6TxXK4Y3+5zvQ==
-X-Proofpoint-ORIG-GUID: PZ-Zt_pkVgc-eW8lHZnPFYUe86ycAZ1g
-X-Authority-Analysis: v=2.4 cv=BbxNQbt2 c=1 sm=1 tr=0 ts=6b083e8a cx=c_pps
- a=wuOIiItHwq1biOnFUQQHKA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=guKfAgVxrzOWnIkQY5wA:9 a=QEXdDO2ut3YA:10
- a=XD7yVLdPMpWraOa8Un9W:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 malwarescore=0 spamscore=0 phishscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260055
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,25 +89,41 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/26/26 2:45 PM, Vladimir Zapolskiy wrote:
-> The RESET_N pin of the NT36672E panel is an active low signal, however
-> the panel reset GPIO is described as active high to match the inverted
-> reset signal polarity, which was assumed by the panel driver.
-> 
-> Now the polarity of the panel reset GPIO is enforced by the gpiolib-of
-> quirk, so describe the panel reset GPIO as active low to match hardware.
-> 
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
+gaudi2_enable_msix() requests the event queue vector with
+&hdev->event_queue as dev_id, but its error path frees it with the
+completion queue pointer. free_irq() does not find the action, so the
+event queue IRQ stays registered while pci_free_irq_vectors() tears the
+vectors down.
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Use the same dev_id as the request.
 
-Konrad
+Signed-off-by: Thomas Fourier <fourier.thomas@gmail.com>
+Fixes: c833ac1a5f34 ("habanalabs/gaudi2: free event irq if init fails")
+---
+ drivers/accel/habanalabs/gaudi2/gaudi2.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/accel/habanalabs/gaudi2/gaudi2.c b/drivers/accel/habanalabs/gaudi2/gaudi2.c
+index 5d9c6f0698b7..b082d7eb6c45 100644
+--- a/drivers/accel/habanalabs/gaudi2/gaudi2.c
++++ b/drivers/accel/habanalabs/gaudi2/gaudi2.c
+@@ -4761,7 +4761,7 @@ static int gaudi2_enable_msix(struct hl_device *hdev)
+ 	gaudi2_dec_disable_msix(hdev, GAUDI2_IRQ_NUM_DEC_LAST + 1);
+ free_event_irq:
+ 	irq = pci_irq_vector(hdev->pdev, GAUDI2_IRQ_NUM_EVENT_QUEUE);
+-	free_irq(irq, cq);
++	free_irq(irq, &hdev->event_queue);
+ 
+ free_completion_irq:
+ 	irq = pci_irq_vector(hdev->pdev, GAUDI2_IRQ_NUM_COMPLETION);
+-- 
+2.53.0
+
