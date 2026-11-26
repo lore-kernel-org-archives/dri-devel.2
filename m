@@ -2,43 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75A08606A33E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:11:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FBED606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:12:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=XFvLarxN
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Sgyqsby1
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CF16110E219;
-	Thu, 26 Nov 2026 16:11:18 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id A49F710E9E9;
+	Thu, 26 Nov 2026 16:12:50 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 36C2810E219
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:11:13 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 15D2510E3CA
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:12:44 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E756F44952;
- Thu, 26 Nov 2026 16:11:12 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 127D11F000CA;
- Thu, 26 Nov 2026 16:11:12 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id E19FA43596;
+ Thu, 26 Nov 2026 16:12:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F2A61F000C6;
+ Thu, 26 Nov 2026 16:12:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795709472;
- bh=+wrDAp2fs+Rca0JYNnqr2HYWgO6V6+rMycaR3qrgVPg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=XFvLarxN0v0gY7nzTgWOufSzAgaPji9uIPafibimiirjGdiGKATVYOKxa6JCzOes6
- EHQkWtqcxbGZ61LfEV3+WahKvMPnbVhH3wN9kmqs3XtbGgt6/Jdm8BrS/adMqneU26
- glWZ+BDIv1jqoadUT+NeXa8XrOm7zaCOiZItuYxDOvl3vDKUuPrHdqnu+6dZelXgqo
- km0nNXcvthUF2NAM2cvRJYPoeyKQCS8mhW2OEAQmIMmHTgbPEn8j1qGyltiAreoogz
- FIJm1z+rKzpFLgiPh67vniHa0hgdZECnFKX2Z0CJOF9/le3Tp049rwumvLgyfRBqV0
- /lT3POmXNq8Yw==
-Message-ID: <sashiko-outbox-235891@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/7] rust: reset: add ExclusiveResetControl::get_array()
- and get_array_optional()
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-Cc: dri-devel@lists.freedesktop.org, ojeda@kernel.org, gary@garyguo.net
-In-Reply-To: <20261126-b4-rust-reset-v1-3-9c4c3d029080@collabora.com>
-References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
- <20261126-b4-rust-reset-v1-3-9c4c3d029080@collabora.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 16:11:11 +0000
+ s=k20260515; t=1795709563;
+ bh=DaEirMw/1djdkLL110qkB/wjVzmaSRnYjY3X7hDvR40=;
+ h=From:To:Cc:Subject:Date;
+ b=Sgyqsby1rJTlvbxx1/BcyqfrxcTOaFYybGvJ1oEbx/1j+YRqHQaXhASvfxtF4Dihq
+ jj8/xkDY3rzyqnICs3QcWrY1McDRzcz1YNlHx+WLAF8eVgPhz/HBSOFyISdyPITtKc
+ R2L8W2N9tNwzrgeslg7pDV60iKy1nAL+eEpe9ANpYu+wL1BFDBVHpu/Iu/st7v5iJ7
+ bRWUgn6XuYOd9Fmi6Z7WZVIhZkgYxHCGYeR9etTX/ijTMdn3Ium9msrJT5n8Mm14zS
+ g3nAIvaMtVRJiphVcuj4opC0uHP3En4SMfbSLkFvaoezapvhgSV5TyAAvylcOV9VsG
+ Zl/p7XT9W435w==
+From: Philipp Stanner <phasta@kernel.org>
+To: Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
+ Gary Guo <gary@garyguo.net>,
+ =?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>,
+ Alexandre Courbot <acourbot@nvidia.com>,
+ =?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Philipp Stanner <phasta@kernel.org>
+Subject: [PATCH v3] rust: DmaFence: Remove warning about unsignaled drop
+Date: Thu, 26 Nov 2026 17:11:47 +0100
+Message-ID: <20261126161144.2337064-4-phasta@kernel.org>
+X-Mailer: git-send-email 2.56.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,83 +58,59 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] rust: reset: missing #[inline] on
-  ExclusiveResetControl::get_array_internal()
---
+DriverFence::drop() contains a pr_err!() for when the fence drops
+unsignaled. This warning gets in the way of canonical teardown in Rust:
+when you drop a lock, it unlocks itself, when you drop a KBox, it frees
+itself etc. Congruently, users should be able to tear down fences they
+don't care about anymore with ECANCELED, which is already the default
+error code.
 
-commit 5faf22f79dec9848d60fc84ac341d26a05013a7f
-Author: Daniel Almeida <daniel.almeida@collabora.com>
+Remove the warning.
 
-rust: reset: add ExclusiveResetControl::get_array() and get_array_optional()
+Suggested-by: Danilo Krummrich <dakr@kernel.org>
+Signed-off-by: Philipp Stanner <phasta@kernel.org>
+---
+Changes in v3:
+  - Fix Typo. (Daniel)
 
-This commit adds ExclusiveResetControl::get_array() and get_array_optional()
-to acquire all reset lines listed in a device's resets property as a single
-reset control.
+Changes in v2:
+  - Also update docu accordingly.
+---
+ rust/kernel/dma_buf/dma_fence.rs | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
-> diff --git a/rust/kernel/reset.rs b/rust/kernel/reset.rs
-> index 396f1e19ee2e3..7ca83f2d6abf1 100644
-> --- a/rust/kernel/reset.rs
-> +++ b/rust/kernel/reset.rs
-[ ... ]
-> @@ -213,6 +219,92 @@ pub fn get_optional(dev: &'a Device<Bound>, name: Op=
-tion<&CStr>) -> Result<Self>
->              _phantom: PhantomData,
->          })
->      }
-> +
-> +    /// Gets the reset lines of `dev` as one [`ExclusiveResetControl`], =
-as [`Self::get_array`] does
-> +    /// or, if `optional` is set, as [`Self::get_array_optional`] does.
-> +    fn get_array_internal(dev: &'a Device<Bound>, optional: bool) -> Res=
-ult<Self> {
-> +        let flags =3D if optional {
-> +            bindings::reset_control_flags_RESET_CONTROL_OPTIONAL_EXCLUSI=
-VE
-> +        } else {
-> +            bindings::reset_control_flags_RESET_CONTROL_EXCLUSIVE
-> +        };
-> +
-> +        let fwnode =3D dev
-> +            .fwnode()
-> +            .map_or(ptr::null_mut(), |fwnode| fwnode.as_raw());
-> +
-> +        // SAFETY: `fwnode` is the firmware node of `dev` or `NULL`, whi=
-ch
-> +        // `fwnode_reset_control_array_get()` checks for.
-> +        let inner =3D unsafe { bindings::fwnode_reset_control_array_get(=
-fwnode, flags) };
-> +        let inner =3D from_err_ptr(inner)?;
-> +
-> +        // INVARIANT: `inner` comes from a successful call to `fwnode_re=
-set_control_array_get()`
-> +        // with one of the two flags above, and the returned value owns =
-the reference from that
-> +        // call.
-> +        Ok(Self {
-> +            inner,
-> +            _phantom: PhantomData,
-> +        })
-> +    }
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index a1d851656562..01a7ae807273 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -631,8 +631,9 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ /// It is crucial that a [`DriverFence`] always correctly represents the state
+ /// of the associated job on the hardware. Especially, it is strictly necessary
+ /// that the owner ensures that all [`DriverFence`]s eventually get signaled.
+-/// As a last resort, a [`DriverFence`] will signal itself if it drops
+-/// unsignaled and print a warning.
++///
++/// A [`DriverFence`] that drops unsignaled will signal itself with the error
++/// code ECANCELED.
+ ///
+ /// This design intends to implement the [`bindings::dma_fence_ops`] in such a
+ /// way that the driver-data necessary to implement the callback's functionality
+@@ -942,7 +943,6 @@ fn drop(&mut self) {
+         // SAFETY: `guard` is valid until the `call_rcu()` below.
+         let signaled: bool = unsafe { bindings::dma_fence_test_signaled_flag(guard.as_raw()) };
+         if !signaled {
+-            pr_err!("DriverFence drops unsignaled. Danger of memory corruption!\n");
+             // SAFETY: `guard` is valid until the `call_rcu()` below. The fence
+             // must not have been signaled yet, which we check directly above.
+             unsafe { bindings::dma_fence_set_error(guard.as_raw(), ECANCELED.to_errno()) };
+-- 
+2.56.0
 
-[Severity: Low]
-Should get_array_internal() be marked #[inline]?  Like the other small C
-binding wrappers in this module, it forwards directly to
-bindings::fwnode_reset_control_array_get(), and without #[inline]
-cross-crate calls to the #[inline] get_array() and get_array_optional()
-methods cannot inline it or constant-fold the optional flag.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-b4-rust-re=
-set-v1-0-9c4c3d029080@collabora.com?part=3D3
