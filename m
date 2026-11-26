@@ -2,64 +2,87 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2B43606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 10:36:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A708B606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 10:41:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=SPYVax4O
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.a=rsa-sha256 header.s=mimecast20190719 header.b=Xv6NgdYJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D36B61122CA;
-	Thu, 26 Nov 2026 10:35:59 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 406F41122CA
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:35:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795689353; x=1827225353;
- h=message-id:subject:from:to:cc:date:in-reply-to:
- references:content-transfer-encoding:mime-version;
- bh=FgNe3nugFZeV71SeyfshH50GVN++IY2a+btOVUjfL4Y=;
- b=SPYVax4Ok7MuKnuI/sk9KB3CwdNRLrqD7AhVYHFtkFCsj6b2zuOVMR3c
- DZGjxpOg1V70f/tZcwjrEXq8niULhhHsG+vHqrq8sIqm2+OjFCIh0r8uG
- jluHoEoX2VAKfCmfRWN3UTP4ooKHuXrZ9pPJqwVAv/8clvu/l1rDvZ958
- RkkyLsRpDs/a7Sjm3UECc78a3RgFc6Sk3kiXA2VGazyqwfPKFHUUezKki
- ZpTMLFTZxiYBSTm4Kh+AxQP4v4oTYtafEGPZZuPJO9xyK58gAuuNVALda
- +4rTvJgwDW3ejLgUUKYyKeiBHhBxJn25vO0NiHS3499BN8zHIBT9xWBF7 w==;
-X-CSE-ConnectionGUID: EIdyKxI1Qk+O++L2k+ZzEg==
-X-CSE-MsgGUID: Er3yBWPgTei4dvszKis4Ng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4488604"
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4488604"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
- by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 02:35:52 -0800
-X-CSE-ConnectionGUID: 3yrZouwzSoWDotNLteVopw==
-X-CSE-MsgGUID: CB8U29JYTsq294QmACscEA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="13818277"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO [10.245.244.129])
- ([10.245.244.129])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 02:35:51 -0800
-Message-ID: <f74f2d71cc1881e5bc6f6a6e7d51cab4ce26d3f6.camel@linux.intel.com>
-Subject: Re: [RFC PATCH 0/2] drm/ttm: fix excessive idle memory retention
-From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
-To: "Eduardo P. Gomez" <eduardoprocopiogomez@gmail.com>
-Cc: Natalie Vock <nat@pixelcluster.dev>, Arun Pravin	
- <arunpravin.paneerselvam@amd.com>, dri-devel@lists.freedesktop.org, Matthew
- Auld <matthew.auld@intel.com>, Matthew Brost <matthew.brost@intel.com>
-Date: Thu, 26 Nov 2026 11:35:48 +0100
-In-Reply-To: <CAKL2PNqdc=mLi5r87uywkQDQz2eO7hnn3=g71cgKjrv0tq4OQg@mail.gmail.com>
-References: <20261124222812.511867-1-eduardoprocopiogomez@gmail.com>
- <114377fd4c275215e40c3991bb935b8c41aa3d36.camel@linux.intel.com>
- <CAKL2PNo7Vp7O4FRWGPV-ZuSqk60B4xh4pXUzcgYEEdqm_sUemg@mail.gmail.com>
- <ff8167523ddaa4b6e2d59be81cb06ff663251c0e.camel@linux.intel.com>
- <CAKL2PNqdc=mLi5r87uywkQDQz2eO7hnn3=g71cgKjrv0tq4OQg@mail.gmail.com>
-Organization: Intel Sweden AB, Registration Number: 556189-6027
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0E6A41122D2;
+	Thu, 26 Nov 2026 10:41:43 +0000 (UTC)
+Received: from us-smtp-delivery-124.mimecast.com
+ (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 600BE1122D7
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:41:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+ s=mimecast20190719; t=1795689695;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
+ b=Xv6NgdYJNl4EH1DzKAF+Z8SVTsfFT74WwhR6Pcsq+y0YXBVzLprPdmVX+sVruwI3sNJZEO
+ uxjUJw1SbjFSlpEsoLHcSspVdxNutMcmdBZL8TZ458bRLR6xMHqoyNktJeci2HyoKHJbqZ
+ uV9FF1uCMVSxcHtJIcN3TbHpsaxMA+E=
+Received: from mail-ej1-f72.google.com (mail-ej1-f72.google.com
+ [209.85.218.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-345-D9IB2y0SPhq6ZusYHzVnFw-1; Thu, 26 Nov 2026 10:41:33 +0000
+X-MC-Unique: D9IB2y0SPhq6ZusYHzVnFw-1
+X-Mimecast-MFC-AGG-ID: D9IB2y0SPhq6ZusYHzVnFw_1795689692
+Received: by mail-ej1-f72.google.com with SMTP id
+ a640c23a62f3a-c504b52eed3so667284466b.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:41:33 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795689692; x=1796294492;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=hTXpIfLZ2+j1ow8NmZB6JM/DU4spl29LunD6FR84AzA=;
+ b=IzWfoRG10TSMwmIMR7gtW++4Eqi3bxgMcpN4sV8mIKFHMeEm5sfEE74tfK7EislgkB
+ NXN2Yh8LU1MGAyljtrQ3lUACEFNhKlW5pfsAFZgIlM8wBcxu6RSau3vn/kwVUcJr35k1
+ mQQ/NIV5z0aXZ6eZGDcoDKZVnsKVUTnypLDUxNCtNrYdtZ4gCoBDUeETxJRjbWq8L1nE
+ YYaoqQMjgwRl6BdqWqshFJ8huDthRFfb5etwbemfc1OiegbY/2LwLxALHSdRlojXWoyn
+ tnPEX/UfSuNWBWh9VWOIGQm7+dF3S590C46gh7DRIMi2dmz6LdJ5EYKKH0GEVNiMjQud
+ a5Kg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHmCQByLLpCsSgXwJVBp8zQusjhpC7bqcWI23X+6P2T3Z132YuKniiPv0T6NxxjXa+M5LllANyl1iQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9yHZQ/tD0WmawerunmFPvgnQOv1ANvuGtDPhgoTVwOPm4pT6Qr
+ wYv/JhZDWSI81TGtgx5vl8cObrMD3lE5dw3G5a+8bRJpFCs5BVbCt1jvsP9WmXuGUVa2awAfrhW
+ MvSpVlPe5OPeLvra4MFFS68PGQZmE+HSyVi3Q0qdWmhs+q8/rNlA5c0AfpV40SpC2OZ9n87kWA4
+ 4925yFXWICkKRMDz1wK07/RlpAxvWkDXt6QU6C3ZnTSTD+
+X-Gm-Gg: AZFdTZcEtWWlsU9Q0h26x6QQV5R+k9QGTRHlnZDYc1az2wTdghHXhGjroy4td33du0r
+ sFLs9VhlIviwxg6a3ClNZff4uF/JA4Xw/X0tzECWCzGYWutg9BtfqzpYJsCDS5HaHDs5UPsb/g7
+ tPvM/Sp+8lg1qEQeEBiZPhu7+7NIX+2jm/aZpEfNZltLRP0XBF/uA8Dw==
+X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
+ a640c23a62f3a-c513a3a6598mr1792623266b.1.1795689692522; 
+ Thu, 26 Nov 2026 02:41:32 -0800 (PST)
+X-Received: by 2002:a17:907:6ea9:b0:c2e:856:2a08 with SMTP id
+ a640c23a62f3a-c513a3a6598mr1792622666b.1.1795689692194; Thu, 26 Nov 2026
+ 02:41:32 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+References: <20261119054917.184758-2-ltao@redhat.com>
+ <85438483-9843-4b14-b3eb-57a074275911@amd.com>
+In-Reply-To: <85438483-9843-4b14-b3eb-57a074275911@amd.com>
+From: Tao Liu <ltao@redhat.com>
+Date: Thu, 26 Nov 2026 23:40:54 +1300
+X-Gm-Features: Aa3M54qXSxe4Tv3kJZhv4-GTyuCU96H140dAQ2Bw9YC_NOs4WSOucEjet7OYzYQ
+Message-ID: <CAO7dBbV5Baw5SRCNCys21u0NwJ2CCJWu2Av9wzGUHUmMxaE0bQ@mail.gmail.com>
+Subject: Re: [PATCH] drm/amd/display: Fix pdev lifetime in
+ dm_test_conn_init_ctx_alloc()
+To: "Chen, Chen-Yu" <Chen-Yu.Chen@amd.com>
+Cc: harry.wentland@amd.com, sunpeng.li@amd.com, siqueira@igalia.com, 
+ alexander.deucher@amd.com, christian.koenig@amd.com, airlied@gmail.com, 
+ simona@ffwll.ch, alex.hung@amd.com, bhawanpreet.lakha@amd.com, 
+ ivan.lipski@amd.com, george.zhang@amd.com, adrian.betschart@cinemaone.ch, 
+ rodrigo.vivi@intel.com, amd-gfx@lists.freedesktop.org, 
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: mBb8ry_cJXYL44Bb5F-53omXPL3PNDn83FJrIiwr9XI_1795689692
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,44 +94,55 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, 2026-11-25 at 16:36 -0300, Eduardo P. Gomez wrote:
-> Hi Thomas,
->=20
-> > Did you actually see any instance of remaining GPUReclaim memory
-> > when OOM
-> was hit?
->=20
-> Yes. Twice actually. During a userspace memory-pressure test on my 32
-> GiB
-> desktop running kernel 7.3.5 without my TTM patch, the kernel
-> reported two
-> global OOMs and killed kde-ram (the test I mentioned before) both
-> times:
->=20
-> =C2=A0=C2=A0=C2=A0 2026-11-23 21:43:51 -0300. gpu_reclaim:10045728kB=C2=
-=A0 global_oom
-> =C2=A0=C2=A0=C2=A0 2026-11-23 21:44:08 -0300=C2=A0 gpu_reclaim:10045736kB=
-=C2=A0 global_oom
->=20
-> About 9.58 GiB was still reported as reclaimable GPU memory at the
-> time of
-> each OOM.
->=20
-> The full kernel log for the first event is here:
-> https://paste.rs/ajafn
+Hi Chen-Yu,
 
-Judging from the log there is also a high number of inactive_file pages
-available that are not reclaimed.
+On Wed, Nov 25, 2026 at 11:31=E2=80=AFPM Chen, Chen-Yu <Chen-Yu.Chen@amd.co=
+m> wrote:
+>
+>
+> > Fix this by allocating pdev with kzalloc() and freeing it through
+> > the device release callback. This ensures pdev's lifetime is managed
+> > solely by the kobject.
+>
+> Hi Tao,
+>
+> Thanks for the report.
+>
+> The lifetime problem in dm_test_conn_init_ctx_alloc() is real, but it has
+> already been addressed in amd-staging-drm-next by commit 370bab028b38
+> ("drm/amd/display: Add more connector KUnit tests"). That commit allocate=
+s
+> pdev with devm_kzalloc() on the device and registers the unregister actio=
+n
+> with devm_add_action_or_reset(), so devres releases the i2c adapter befor=
+e
+> pdev is freed.
 
-This IMO points to something odd happening with reclaim itself rather
-than something specific to the ttm pool shrinker?
+Thanks for the info, I didn't notice the issue has already been fixed.
+
+>
+> Your patch no longer applies to the current tree for that reason. Could y=
+ou
+> please rebase it onto the latest amd-staging-drm-next and confirm whether=
+ the
+> issue still reproduces?
+
+I tested the latest amd-staging-drm-next, the use-after-free issue
+doesn't reproduce, so my patch is no longer needed. Thanks again for
+your review and comments!
 
 Thanks,
-Thomas
+Tao Liu
+
+>
+> Thanks,
+> Chenyu
+>
+
