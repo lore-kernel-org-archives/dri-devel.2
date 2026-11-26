@@ -2,80 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 725CA606A326
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 01:16:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E9ED606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 01:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FnsDG8pu
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=L6bYfjcN
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D13E810E0D8;
-	Thu, 26 Nov 2026 01:16:42 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E12C610E0D8
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:16:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795655796; x=1827191796;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=XVFTqBo+CJwzxoZI7Biy1XZPco1nvpzQl5ITb3ynK6I=;
- b=FnsDG8pu20D0AimuDbb1qnB4Uxo5+5m2sbfaYiw9O0oZgBQMg0mj5s7Y
- zFoiNFN6wmJddOJtcbMPz6dcIOhqV0jRkLJgPXy0mrGWka3pZwli9GuRK
- g/nZ35kizVLgHwaDJEckbFF7z7D3x096Ps10cWS3fUMgs0FF06Kbfb5fo
- 6pqtzabsz5WosPcA3NncfRFO5tU73RlqqsUZd9Z6cRKC5qKpYBOx+gGfs
- neP4j/nLzk1oWm1e7QU9JwRbZ9kb2+Fox6OTLsDHRAh9osHWef/wBUjFm
- l8X36rniRY1nNIfCtcepQJ3YWIf7n+2k1tMtsZviwBfoXQqOWU3wNIqwL w==;
-X-CSE-ConnectionGUID: 1auh8z+hQ2aHhvhgMFux2w==
-X-CSE-MsgGUID: OE51iarVSJuUCsQvGFAYfw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4397883"
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; 
-   d="scan'208";a="4397883"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
- by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 17:16:35 -0800
-X-CSE-ConnectionGUID: LqTCoUBlQUOS/SHgfyex9g==
-X-CSE-MsgGUID: gZ8/MW6fTzuWPfQ5eMAQFQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,233,1787036400"; d="scan'208";a="12159304"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa005.fm.intel.com with ESMTP; 25 Nov 2026 17:16:27 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xWO63-00000001T2U-3AGp;
- Thu, 26 Nov 2026 01:16:23 +0000
-Date: Thu, 26 Nov 2026 09:15:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 09/32] drm/display: bridge-connector: use a dynamic
- connector
-Message-ID: <20261126090631.mLSCvuCb-lkp@intel.com>
-References: <20261125-drm-bridge-hotplug-v4-9-822722850492@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id B343610E2EF;
+	Thu, 26 Nov 2026 01:26:19 +0000 (UTC)
+Received: from mta1.migadu.com (out-51.mta1.migadu.com [95.215.58.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4D2D10E2EF
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:26:13 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=D1UHaW0a6adTmdkfzXoJGoIQXD78CQO3jmkmbRoDsZs=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795656371; v=1; x=1796261171;
+ b=L6bYfjcNYybhhuAVVhb7iBrxhLzwKq7EhTzcqEdESqr11X8cdCB5XjO3qbSpeZWBTjZ4xss/
+ liRSHvH+4jDFcp65egpcgJst3HGCejvq1kqdvJViI4JVAeyIt/BHdA3vvTW5pZhYgH0LBVB4Cjc
+ BmQYa4wSViD9pFO+KwXTAlZo=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id f65ccc0d161a6465;
+ Thu, 26 Nov 2026 01:26:10 +0000
+X-Mizu-Trace-ID: f65ccc0d161a6465
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+Date: Thu, 26 Nov 2026 09:25:51 +0800
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-9-822722850492@bootlin.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+To: Anuj Gupta <anuj20.g@samsung.com>, Christoph Hellwig <hch@lst.de>,
+ Pavel Begunkov <asml.silence@gmail.com>,
+ Christian Brauner <brauner@kernel.org>
+Cc: Anuj Gupta <anuj1072538@gmail.com>, Nitesh Shetty
+ <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ Christian Koenig <christian.koenig@amd.com>,
+ Philipp Stanner <phasta@kernel.org>, Dan Williams <djbw@kernel.org>,
+ Matthew Wilcox <willy@infradead.org>, Jan Kara <jack@suse.cz>,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Theodore Ts'o <tytso@mit.edu>,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Baokun Li <libaokun@linux.alibaba.com>, Ojaswin Mujoo
+ <ojaswin@linux.ibm.com>, Ritesh Harjani <ritesh.list@gmail.com>,
+ Zhang Yi <yi.zhang@huawei.com>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>,
+ Mengmeng Zhao <zhaomengmeng@kylinos.cn>
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261120154153.GC28611@lst.de>
+ <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+ <CGME20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d@epcas5p3.samsung.com>
+ <20261124084025.2101804-1-anuj20.g@samsung.com>
+From: Mengmeng Zhao <mengmeng.zhao@linux.dev>
+In-Reply-To: <20261124084025.2101804-1-anuj20.g@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,37 +73,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luca,
+On 11/24/26 16:40, Anuj Gupta wrote:
+> On Mon, Nov 23, 2026 at 09:51:41AM +0800, Mengmeng Zhao wrote:
+>> Hi Anuj, I'd be happy to help pull our patches together into a single
+>> unified series and send it out for review, if you're okay with that—and
+>> would appreciate your review once it's posted as well. Please let me know how
+>> you'd like to coordinate, or if you have any updates in progress on your
+>> side before I put the series together.
+> 
+> Hi Mengmeng,
+> 
+> We already have updates in progress on the XFS side.
+> 
+> We will consolidate the combined series along with your ext4 work and
+> related patches, keeping your authorship.
+> 
+> One more thing that we are looking at combining is the ability to share
+> the registration across files. Pavel had mentioned this earlier in our
+> xfs series [1] and posted a series too [2] which needs some more work.
+> 
+> FWIW, we also had ext4 changes, but intentionally started with one
+> filesystem (XFS) so that the common interface could settle first.
+> 
+> [1] https://lore.kernel.org/linux-block/4649a20f-aba9-418e-987f-66f21ab24410@gmail.com/
+> [2] https://lore.kernel.org/linux-block/cover.1793751001.git.asml.silence@gmail.com/
 
-kernel test robot noticed the following build warnings:
+Hi Anuj,
 
-[auto build test WARNING on 479e381e77dcde0dfcc9d51e89ff3273da199804]
+Sounds good, that makes sense given the ongoing XFS and shared registration
+updates. Thanks for including our ext4 patches and keeping the authorship.
+Feel free to loop me in once you post the combined series—I'd be happy to
+help review and test it.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Luca-Ceresoli/drm-display-hdmi-cec-helper-use-drmm_-prefix-for-drmm-action/20261125-185014
-base:   479e381e77dcde0dfcc9d51e89ff3273da199804
-patch link:    https://lore.kernel.org/r/20261125-drm-bridge-hotplug-v4-9-822722850492%40bootlin.com
-patch subject: [PATCH v4 09/32] drm/display: bridge-connector: use a dynamic connector
-config: sh-randconfig-1001-20261126 (https://download.01.org/0day-ci/archive/20261126/20261126090631.mLSCvuCb-lkp@intel.com/config)
-compiler: sh4-linux-gcc (GCC) 10.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261126/20261126090631.mLSCvuCb-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261126090631.mLSCvuCb-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
->> Warning: drivers/gpu/drm/display/drm_bridge_connector.c:138 struct member 'has_cec_notifier' not described in 'drm_bridge_connector'
->> Warning: drivers/gpu/drm/display/drm_bridge_connector.c:138 struct member 'has_cec_notifier' not described in 'drm_bridge_connector'
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+I looked at Pavel's patchset as well, and noticed it adds a new f_dma_io_tag
+field to struct file, whereas Christoph and Christian want to avoid bloating
+struct file. Did I miss something, or do you have a different approach in mind
+to avoid adding fields to struct file?
