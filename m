@@ -2,128 +2,125 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66274606A69C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:48:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FA50606A336
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:49:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=X+uIVAvD
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=OEMBlPW3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 816DA1120B1;
-	Thu, 26 Nov 2026 06:48:02 +0000 (UTC)
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013034.outbound.protection.outlook.com
- [40.93.196.34])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AC1A010E009
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:47:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D257A10E009;
+	Thu, 26 Nov 2026 06:49:00 +0000 (UTC)
+Received: from SN4PR2101CU001.outbound.protection.outlook.com
+ (mail-southcentralusazon11012009.outbound.protection.outlook.com
+ [40.93.195.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F65E10E009
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:48:54 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cLg4ZwjFe+s+tJWETGIiVGQSotzYlXhJhWRmce/bZ8AG3V6yyIYhxH9gyCeatvNdkAip/sc9s1Ei54ZBUwJ+FlA1bGiuGq06Do9uFMYUXI4mpOHXlJKJXJKjfxNz/9v/0noSWjsayA+2YQ/k4zPrIb/63R6rCAjfX7BzIPM6MkBUy4V8FHyHYzKXhkfc79p6Rw8XAWu2kpe++oiFdOtbrf++Yf47RFHPeRn/JUu2BQ8AFN7vzSQihr18A1L96Jc0/H9PcDEUS/jNsBzfvnjn4Q4l36s+fnJBvq4sB9Edhywk02BU7dhqmyT/Gl+Ojlq28rbocuxWhtv2e4V7enf43w==
+ b=IYgDtr9b9TUMWWj/2akWv0QHDkT3RnVGqAN3EF+V8gAwFmAr2KQMEFWOS7KHv9k6x595Ja4Z02LSTuz7HR+KVE1kTW6DYbPiFvT2xkmMOhcwKOt3w/xgwfmnYKDy7N7Oo5V1nWcfbmBqxwOB5NbS54aEYGWpS9tjXqtDCltSreg08bJb/A00nXhFJGv2ykg10sohFX9ynViTuTuaXsiQtfnuqc3V2bBHrWb0Zbw4XP6bqrBBTEDsCFfmtv6VIlTOvgzg/ZIWHwEg3+I/ApqTuk3KXDcWPAsg9JSSRwB0e8w3mDj9xMSplkkE3zwyd2G7qFNPaY8+2laFO9bhJEXtjA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
- b=B+CKertZobAtRGv/eLaGwAOXz96bfZFJo7+H57Gh0m0RaWEQE3Oeyp3His2hKEadm95yL5b4YTMA7JhuFJhoQLdDRxwhhDEKHEfIAF5fQLMIPickNRKu02ITtaEVtZdxJw4Jwabbs+FHfLP7ItJoe6gFZ7QppHT8QrDGB134BHvFVGG9+ngNdyZjJYRh9e2hJIdPjEemyKfDeQKDn2Iu25lOJBUVlNUhD6Je3bmFiRDeVXoS4rrJCfU/yOtT1mWsiH9lxy7vrZePmQqSgRzQRgDm2+VojqZmFowFPaqzA+BIs4QQxCrNxfq7MljReDAlERi6eQT6PM9LlUskAYsF/g==
+ bh=wZOzziPXDm5aUyjQ+GO6gzR3bBMUqeq3eFuKV6mmfvs=;
+ b=i/A+yRHVprw0QDBbNodw3xV44dtPG+gP7+bZBbAhVzpwxqckR6a3VD9TpluB7opVVxxbgSZcqoFmeJoODEhLWUIXi5z9WJO1r3QCxIjY2KCIu0dkQsFWGT76kBGsHIY0bOzoiUxlx3V0iyEiFRnc72a3btsfeXPVwirAAg2MIk9ukpEO/YRpcB2mWQL58I4YJHB15D10Y0z3fNfmMD5EPtVc+FLiFUgIMovlqZFqBVivWyLLcGjzRqiJSlxupAsSnbNCc1I6agz6VC5hQkRwH/wy/rmT1utJxfFTP9Kkkt9bc5kryMnCsXEPwU0kTczkaGiUPw4dvv2tvmMVNvjW8Q==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=c+BMZ/Bhsn2DpY2EQn+VzntybXZ2UACBm5iLxRxaZ5I=;
- b=X+uIVAvDeiryCKicQkzEfVeQi/CiIQtb2CGWEcuNRSn+WTA3ofDdXJynyij69VIGdxP8zJW0Xs+oj1ll/GHjjCbi20ERzjh+o6In6dFKAr375rkg6xOYYi/115hjvUaS1VGxzXGsCfKajy98ttVPwEAomNh+vy4/MrQJO0r3KBZiob9kSGVJs2QplkOBHPLhnW7gPJWcbQ2XacSq1Cn+XIgsGNrbUqhfLdSs+YSzErOXlz8v0mF3W+pJ9VwLrhC6TbIM3mvLwPlUxDfe+JjNrxmE2NBSNY7l3HaR8n3PjTezPJI2GD4WrWTtWlpz6lhAdJ+B92Ca1Mf5Kqw1s3AObQ==
+ bh=wZOzziPXDm5aUyjQ+GO6gzR3bBMUqeq3eFuKV6mmfvs=;
+ b=OEMBlPW3RoAiOr6ruVPFwYal0ZrqEehuOm2ST1qYjgkqJzTIxNuHS2biIOfDzIiQfA4URFMo9XSWm33/qxh6KWbDfxubuwLW4l4Keqnarkt5n+RMaNUzy2WPxzRNUVXlkn9LJLu8HPeBF82WcXcINc9gl+YE27ns1yyY/EnF1PNZ1Erm6ntuTKa2iqxRCTR96yovQl0U7hgKDVm7IWZ35IHBhn3eC0AjYDgWlUtMoIaBqdiGjj2+Dg/zT1uEwEV+wTyZdnLMkJPXzQ4aWITD9/RIOwJQizxWfkY3/xpY1aiTza7GbDPcR+Wc5V6VBQ5+PdEsBR+fmOIYb2OIYQ6UiQ==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
  by SN7PR12MB7348.namprd12.prod.outlook.com (2603:10b6:806:29b::11)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 06:47:51 +0000
+ 2026 06:48:50 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0639.012; Thu, 26 Nov 2026
- 06:47:50 +0000
+ 06:48:50 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
-To: Thierry Reding <thierry.reding@kernel.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Jonathan Hunter <jonathanh@nvidia.com>, stable@vger.kernel.org
-Cc: Svyatoslav Ryhel <clamor95@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, Patrick Fischer <admin@tsv-stahl-riesa.de>,
- admin@tsv-stahl-riesa.de
-Subject: Re: [PATCH v2] gpu: host1x: Cancel the fence when a syncpoint wait is
- interrupted
-Date: Thu, 26 Nov 2026 15:47:35 +0900
-Message-ID: <bE28ymIUSh2y3qW_UGpq2g@nvidia.com>
-In-Reply-To: <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
-References: <20261122-upstream-host1x-fence-cancel-v2-1-204760056348@tsv-stahl-riesa.de>
+To: Thierry Reding <thierry.reding@kernel.org>, linux-tegra@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, TAKANO Mitsuhiro <takano32@gmail.com>,
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: Re: [PATCH] gpu: host1x: Document the get, put,
+ mmap and munmap operations
+Date: Thu, 26 Nov 2026 15:48:46 +0900
+Message-ID: <UAzdHWBlSIO_jTuii3HiZg@nvidia.com>
+In-Reply-To: <20261125172022.2344949-1-takano32@gmail.com>
+References: <20261125172022.2344949-1-takano32@gmail.com>
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: OS3P286CA0027.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:604:1f4::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: OS7PR01CA0132.jpnprd01.prod.outlook.com
+ (2603:1096:604:24e::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|SN7PR12MB7348:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
+X-MS-Office365-Filtering-Correlation-Id: 76234d0b-f90a-4ef7-d241-08df4b8953f8
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|10070799003|1800799024|23010399003|366016|376014|10067099003|56012099006|261028144727099003|261102123227099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261026140227099003|261026121527099003|261009223027099003|18002099003|22082099003|11063799006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: Tax/EDdEkaKpPRS4h3L8pzlfN1A6dMRrpQOn0m7ZDgG5k9k0J52LdHjHtgG6xhQplceDWqE27HxJhR0fd/GBYTVsGuTFxvCNQlHBCWDk55M0xQlIqStz3nAuTmGPrNWzN60Jv/0T6eYFDU5NAELb8Fmm+MpFqtYjd4nPW8F9QpGaM3rDON33DsKaZI7d0ukWIiIT077cBXCUcZPCTVgBQ7xCWHAno3yAuoeSogJ6sAysHK81d3vyRPke1LBBsRDgVWKDljx4rHEqfXR7JP7BkR8Op87Vf6d7XcXCyLpu/IHws5jQ8Q12g2Xpo/sRCtquSr2IoklgiWdWtlD4IBbVCNzvQ3zfrgNlePu7OP5qtNav9vGfyLi7UDQJVuIGwD15osYBeq6jMJm90lGVVW78YV5dix6oCX9Z/ih3aOyOsTMxWQ9Av8HCZA+NQdpIOZtbZU61d2b/lwi2n92n8yJC183glrJvn6J6atTv27D82Fm/GtymJa31WxHlQukRhHjPgHJYff/sP5FjdLGFxP6tPLuyTJuQKOgKHO0efF9lH4gI7OF4m8pOl4L/tfTTK57ZFq3vBi6uY6GKKKLR7jCv4bYTc601lQ3Pf4mD0ZKAAhgcLK0dMWL0xhk3Hqkr1cTEhrYepv1ry+rf1oS7fPat0vjGQny3s8WVbWQYYydlnyQ=
+ ARA:13230040|10070799003|1800799024|23010399003|366016|376014|10067099003|56012099006|261028144727099003|261102123227099003|261021121427099003|261022105027099003|261026140227099003|261026121527099003|261009223027099003|18002099003|22082099003|11063799006;
+X-Microsoft-Antispam-Message-Info: sFfMkiGBNcR9pZBGBxUC1at/jepUsZHu7wh1NXUCyF8lXo2ONK8XSp66p2OP/PsqCITk5nlAoIBhWdLu3LpQ2nEKWaNhAuaXhY7aTvgoUAjWdeped+lh8NCeGcabo/3keneMTefUoQ/mrbwYOHRU/hiV+NvyZEaZDLECynOdD+YpsD/ufFcL1ew/6q3Ntf10ndd3z37ag/iowS2LDvO5GXlyavkmJLIQbvTTvxd4UeW+/l05mx1SapxtUJRKPDrdzw1puCAGBRBZBtkG/c7YSaRMciTAq3fTSeVihT4J7MpoP3mXruWkyptwqHKU9GN9Cg0pf1p5brR+paj59THjcbbMKt/NBMnP+Pu17w1lXZ3VS5YqFmKnPzMz6x0eT/F2jrK9r5ylni9WCYAISYbej+U5zn+1vlvlbpgUqxIhNx39LlhoJIr0R4RJGKja26BZe4Fjwaw9xBW8RQkON+geIpFlvSUDZ8bft/b9cs3ZTPmFoeLU7NeNZ6AHCufhXd5vxC6DjjlEdWUGqljF7mX8Y/21hPDyIwWBRjd1LX5iWKpQkQOfCj6S7LQijDz8J13O9GxaKWmjANkIh9JQt0x1lWIo2h8mmou7I75OEMXsPRRokQnUV0UP89SGehPtevCYtWKm3pl4jYJ3utfhvFtDiOJq7geXTt7LkaITz7W22go=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(10070799003)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261026140227099003)(261026121527099003)(261009223027099003)(18002099003)(22082099003)(11063799006)(6133799003)(3023799007);
+ SFS:(13230040)(10070799003)(1800799024)(23010399003)(366016)(376014)(10067099003)(56012099006)(261028144727099003)(261102123227099003)(261021121427099003)(261022105027099003)(261026140227099003)(261026121527099003)(261009223027099003)(18002099003)(22082099003)(11063799006);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d1d1NlhRb0RYaTl3VXpYTVZMWUR2YXo2SCtyWTROSldRdDVYZ040ZG11VnYr?=
- =?utf-8?B?N3hRRXJvVGJ3L051K2ZmWXhnL2FrZGtKTE9NN3pmZkJmei9oMERzdFVyVTVa?=
- =?utf-8?B?SGFVZDhCaFd6YTI2ckdISVRWNzJxQkMrZ0ppajJtYW9sT0s4dHJSU2g3ejh1?=
- =?utf-8?B?VHFWRXAvMENrL1FSTlE0elc3MEFnU2hWRE5tdWpVWE5OYzUrV0FuWTE5Q1dr?=
- =?utf-8?B?dkN6eGE4WXFKbldUWXMreU5NVkllQzY1RkxLZFpKT1ZXbkZZRkpYZm9xOEVN?=
- =?utf-8?B?bUNwRmFmd2RlMzFBZ2VoTWljRUpaamVWcVI2bk82UjhsSTV4cUxMNmErMkgx?=
- =?utf-8?B?eFhqTWhxZTNObmtvL0tlUy83aS9PaTFQSTBjc21RYXVxclc4N1lGT1loc1dK?=
- =?utf-8?B?WTRsVFVVVmFGUUZKUzVNcWt6eENBcTBSNXlZcFhzUE9uMkxkZGg2RkZJcE1T?=
- =?utf-8?B?VFVSMks4cEl3eENaWkd5YjFpR0VKaDBrNldaSDlRMWpUSTJEdWI5dVcxM0Ew?=
- =?utf-8?B?ampRbzJrbDRRQmllMnRWZ0IrTlcyMFZQMXNKVEgzQWN2M3kwc1ZNbGFRSHVZ?=
- =?utf-8?B?VC92NitBUjNCazFObGwrckxZQU52OVZBMCthVWNMSUJNZUh3VTNVQ1lldDk3?=
- =?utf-8?B?NUk0T09NNjkzU2NYdzU1UXdVNDlaZiszZXFrUUltK0lmMFRqRm1vWGY5YmRU?=
- =?utf-8?B?UnBPQ0NndG9kYmJUWjdocm5PRVgxR1pSWEF0QUkvOUY3UHp4dVh2MDZnekJW?=
- =?utf-8?B?QjA3QS96S2FFbHY5bjVIbzVHbzZyQUU2Y1k3akVac2YwY053VFNjeEY2Qi9l?=
- =?utf-8?B?SmhRYmMwZ1QvVkhqYXBZdW1EOWxZazVtTm1nSHFpVHhFczFlcS9LTVZ2emJP?=
- =?utf-8?B?MzhUTGJSWVlKYjNzclFjWTRueWRDanVxd0puaDlmZDMrKzQyN2RYMndhaUsx?=
- =?utf-8?B?OGE3MHgzdEI4eCtkTmo1T29ockNWY3NQMm5ITVpvaW10K0x4cURBUW1TZ080?=
- =?utf-8?B?TGFMOTY0UkN4OXZ3dGRHNWh5cnpHVkVyQnAwQksvVVFrYXdGSW5ZK1l2V094?=
- =?utf-8?B?dU10MEJIMzlsNlpVa3hnU2xMTWFldWFUWkdMMllFNDRFaGpRZVV3a3dKbDFo?=
- =?utf-8?B?eVJJUzJVTi9OS1QyVDAxaGo1bWpQU3RtYjhkc1NBM2lhdWFsMjRpSk1GdmRz?=
- =?utf-8?B?T21IU1EzUDRNVTFpdnI1VG9DaTdKUCtBZ2IzYTNVQ1JHTzFKeHJMTENhTGdO?=
- =?utf-8?B?RmxJNHZiWm95SkJVWk9rQmRxTHNGTE82elY0dkpab3ZSeFloVStoWk82OVNK?=
- =?utf-8?B?Um96NHhPSFMzSG5wWTdXekQ2dHpHMHllTXl0ai9KYVF1SGMrNnNOeHp1dDlB?=
- =?utf-8?B?T08xSExCTjh6V0p3YStNbU9WVUpXVFZVOGdHTmEzNWxDVW5CcXBhcE05SUxm?=
- =?utf-8?B?Y01UeC9zZ2p2Qkoxa29jbWQvN3FKREdwT0VSM0xOa1dLUXFGUkxDTGk1UG9Z?=
- =?utf-8?B?TzFxdW13NWRvSWo0b0g5Ni9nMmVKbWM2dDFKMkVBN3RPSWJ0bmMrMGFuRVZr?=
- =?utf-8?B?d2tIQUo4aGxiTktXZnVyakhJeVhDdDdTNHBBL0FNVTkrS0x4MkFFREl0SWND?=
- =?utf-8?B?SW9BSjJVL0VsTXo0dnc4RXY3SkNUNTZvMjZPSTNmd2pianlxNk03NUpjbWpC?=
- =?utf-8?B?VVR5Nkw2Qm5RNnVEY0k0dEVSRHVVUm80N1NzMUV4WHZHcTB0MlprY0wwVzJh?=
- =?utf-8?B?eEJsU25EcGJKb0JxYTk1ODlLbmxVRFBMSEV0cnYyckpIT3RTVmt4dTdrWlBX?=
- =?utf-8?B?SkkySEpBNEdGdUxkUWFReURGdnZ3akxhSlcwKzZBbHljZkNjM0RRRWZhT2Zl?=
- =?utf-8?B?ZEhFOTR0Vk5vVHVOQTd0Mnd4bzh6elEzbjFvN1hQdE5mT09XcE9ob3FaNytU?=
- =?utf-8?B?RHZVRnYzZm5GdXRWQ1lUNCs0YkIwdzc0MEpYZTBoRXBnSkY1L0xIbVl4ZDE0?=
- =?utf-8?B?M05UYnNRRkJyS2podTNSeXdkNFRNUDJTMnpoTHdOYk52WGUwdGRkVHVzWFN4?=
- =?utf-8?B?azM4dTFuNkltMVZYNXo3N2ltSDVtY2lNa09Ld056NktoRGRuOWgxbXlNdVU1?=
- =?utf-8?B?Vzh3eFB5dUZjTG9ROHZXQ3BMbVpLM0lEM0M1U3N5M3lXZXM2QjI5WGtSdHdN?=
- =?utf-8?B?WFJGYzZyVzNCdVFDbVpiKzIrMFIrTExZcDVmMFROTm9yaFBBaTNQNU1aM0Z1?=
- =?utf-8?B?SG12TCs2cWw0b2tUVTFBUVNFQkdnRFZWcWhabE9MczBqV2FTRVVjT3VRK2Jx?=
- =?utf-8?B?TzVkTmVtdjJEVmhzanA5RmF0ejhnLzJtanZKVDRvNmZ6Q1kwK1dRWkwvdzlR?=
- =?utf-8?Q?j+e4jsVmHF2DLmZ9P9jTUIzquI231WOWAGYGT2RX9KXpL?=
-X-MS-Exchange-AntiSpam-MessageData-1: mrsRAu/JI5mZWw==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?aktDS2lkUzdnMHBMd0Q2SUp5dTg3RmdsV21tZElIc2dwcW9HU1p6aHU5Z0hF?=
+ =?utf-8?B?RTAxZ2s0dmVRbmc3emdxTlcyUVRBQVlxeHdlaHZvak9XU0RGcnNzZjVHMXlY?=
+ =?utf-8?B?aUlvc3hvaEFUeXpZUHpabGNNS3QzUUg4U216TkRQSDVhM1V3MWRaZWs0ZWFI?=
+ =?utf-8?B?MU15SjJZWEU4SVgxTUFNYlNrN2NNbFdsejcyOFJveVJYWWJOTkUyaXNYRTha?=
+ =?utf-8?B?S2tSL3dMYmJTZGFDM2cxa1VaN1prRTgvdE9JUDRVTGx3Rm1TLzVleVZ0bUlp?=
+ =?utf-8?B?a3dTbmtpNjU5alhXZnIveTF5YnN2STVVb1F6aDRuMzFUVU5wYk92b0llWEs1?=
+ =?utf-8?B?MFYzV0lrYW5ReXhqeWZETjloYVNCRGhHN2dnbU9pTkppZExiSGpEUHZqM0Zk?=
+ =?utf-8?B?NE1lRnpNbjBsMUxFT043elZqSFd6U1hCSzhuSkFyRGltVndqb1dBcnJvS2VP?=
+ =?utf-8?B?RW5ySlU1cko3ZkU1dVRpN0x0S1BhVGFvOXR1YmtMVS9oNVN4ajZhZHphTUNw?=
+ =?utf-8?B?OHVjenpuL2h1VGJnSHNiZS92OSt2NmtHT1pKWHlSOFlXdExCVm14d09jMW1z?=
+ =?utf-8?B?MmpiT00xUkFIaUU1ckVXSk5xb0UxQnlVL2djUVRnNHN1M09jaGJyZng0QVFD?=
+ =?utf-8?B?aGlSLzhXdmdtcnAzVktOS3VuS2tkN3I5WkNzUDFNOFExcG9JTVhXcnptNjMx?=
+ =?utf-8?B?ZVIrVVRibFpIcmQza1YvN2kyY0FDZmorOVl6U0tVbGU4T21XT3FxMlBVWW9V?=
+ =?utf-8?B?RXhnRG5HZXF4U2ZSQkFuTm9WRFYzUXY1Wkxuc0xLMGdtU0RRdC9YYkVML0FE?=
+ =?utf-8?B?bnRlR2IyM1h6ekw3M042bXRod0RKTVliZjFYU2FwZFVaUENHMzc2NGppNGw5?=
+ =?utf-8?B?cTM3TmxXa3VSL3c3NWROVjlNSHlxSFJLbFNlZDRBT202MEp1cDNVNUl1TDB1?=
+ =?utf-8?B?THdTbXBES3BwSm53OERodSs2cVRVa08zdG80R3NtcE5heFdGWFZnQWhtZVZt?=
+ =?utf-8?B?YjZiQk1zeUNJTEZBOWh5SEx0Wkl4Z0xJK1BmQkwzOXlGRkZqNUtIMHQ1dXVD?=
+ =?utf-8?B?TDZBQTBMTUJWN1E3eWJJejhBSXcybDBkelhXWGI1dEhXb1h5TmNMeFBHdUVL?=
+ =?utf-8?B?bWZHVWlWQ1Z4RmpmWVpvLzZBYkMraHhLTkxsNjJ4cmNUUi9WbkM2VlNuekov?=
+ =?utf-8?B?em5Fb3ZIbUdLR01Bc0NuR0kwU2JkenVnZWlsNW94WXFTZUdzbUhTdlEySmMz?=
+ =?utf-8?B?eVhXRVBpbW9WdVlWWFlJRWtNbHhXMnJMSnZnME8xbkoySXdKWVRUZVYzQ214?=
+ =?utf-8?B?d3loZVk3TjhkUGdvbUo5a1BydlU2M1M3VElFalFaRkJVMmFKcjNhYVhMZUxI?=
+ =?utf-8?B?L24vdGx1TElKTHp1bThBTFN6MmVMdnRTRm5DY2pad0ZJQlhpSm82U3djS20w?=
+ =?utf-8?B?blBhSFBNNXhvYVgraFg0K3VzWktBZ3AwM0hCSU01VWswNjhiTXR3Z2ZZZjFy?=
+ =?utf-8?B?L0cwaTY0VlplcHRTUXV5TDIyUkljcXczQzJITWQvdXY5VTVHYTQ1cVZnTlcz?=
+ =?utf-8?B?clN4Rmk3Q0F6VndSdytwVjd2MU5qbXlBMGIyUnBtdFFKNk44MnFVdjlBdFFC?=
+ =?utf-8?B?TFhIQlU5SWREbXdUOXJVbURwb0VHTktFOWNHQWNFd0xkZUU0aUo3YS9SSkll?=
+ =?utf-8?B?Q2dNVm5MZ0JKUEZBamdxT1N0VmV3OHlnRmxXRkQxMm45RXk0ZEZQeXdaOEJ3?=
+ =?utf-8?B?ZVRLOG8zZmdGSjZob2pkcnhzZEFhZjdTUEVtZ3lTeXVLMllkdTlCYTlCUlVS?=
+ =?utf-8?B?K2QwblJSd3VPdHZ5Q1Z6ZWJncUZaTTBqdGxML0NvbkpVN2pyY3d0ZC96aklS?=
+ =?utf-8?B?OHFKWnBTNm1PZ2NQTXhoQkdoNVhFOXpSQzFxWXk0czh3eDk5aGwrdXRtWTdP?=
+ =?utf-8?B?RzFwQlhhTW42SnBPODhTb3FDT04yWExsTjVUSGw4bXRjMzJsZDVJYUNoL1E4?=
+ =?utf-8?B?eS9OelVDSVdybUQzNStTVjZqR05LLzhlbzcwZzZSb2hvQlQ1cHRYQW9md2NN?=
+ =?utf-8?B?WjZEaVB6K3FkelJNdGRFbS9ZY1Y3ajVZck8xMXhUYWZDejN5UzNLdWQ2Q3Fo?=
+ =?utf-8?B?YVgybTVyT2d2N3VMd0Rqb1JnUXIvTlNaRGdzRFhES3M5K3U3Q0VCcGUwZWFq?=
+ =?utf-8?B?K05QcHdYQ0Jza0JBdk9vMlZucEU0YTNTUmRaTVFFQW9RK1UrdWlxSzM1Yzlj?=
+ =?utf-8?B?M202aklERnQxYnZERHhVQi9jREwzNUtTaTIxV3ZuVS9YSmxRc0x0TDdLbnFY?=
+ =?utf-8?B?WnZuc3JKTDRZOEVLbnVqZ1d4WlhUWlAxeG13V3FGcTI4NTlqaVdoRm41cTVr?=
+ =?utf-8?Q?H8N4hBpm98iAc7b0j4qGtpaqxCVwk8uam1Pa8AIWxexN7?=
+X-MS-Exchange-AntiSpam-MessageData-1: 9GSCfFmZfTWe/g==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a1e1add-2f66-424c-5bcb-08df4b893057
+X-MS-Exchange-CrossTenant-Network-Message-Id: 76234d0b-f90a-4ef7-d241-08df4b8953f8
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:47:50.7412 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:48:50.3349 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: JPdBWjxtPq4qGWgO00f/AGP2BCnxTbb+C+RH6dza1p5uhTG4nRLYmRfIeb0mfbf5cCvl1irwBqrY4K7LEPgeAA==
+X-MS-Exchange-CrossTenant-UserPrincipalName: mr6HJYAp7e1iAzCEEL+d3KGYlKoNVVOZFujHBsX5yxhI/plm3bmSOav1K7ZsjMVLgGWu5VzmWoASKBjkYnT64w==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7348
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -143,149 +140,69 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Sunday, November 22, 2026 6:12=E2=80=AFPM Patrick Fischer via B4 Relay w=
-rote:
-> From: Patrick Fischer <admin@tsv-stahl-riesa.de>
+On Thursday, November 26, 2026 2:20=E2=80=AFAM TAKANO Mitsuhiro wrote:
+> struct host1x_bo_ops documents its pin and unpin operations but not the
+> four that take a reference on a bo and map it into the kernel address
+> space, so kernel-doc reports each of them as undescribed:
 >=20
-> host1x_syncpt_wait() creates its fence without the internal 30 second
-> timeout and cancels it only when dma_fence_wait_timeout() returns 0.
-> If the wait is interrupted, dma_fence_wait_timeout() returns
-> -ERESTARTSYS and the fence is left on the syncpoint's fence list,
-> holding the reference that host1x_syncpt_fence_enable_signaling() took
-> for the interrupt path. It is freed only once the syncpoint reaches the
-> threshold, which may never happen.
+>   include/linux/host1x.h:159 struct member 'get' not described in 'host1x=
+_bo_ops'
+>   include/linux/host1x.h:159 struct member 'put' not described in 'host1x=
+_bo_ops'
+>   include/linux/host1x.h:159 struct member 'mmap' not described in 'host1=
+x_bo_ops'
+>   include/linux/host1x.h:159 struct member 'munmap' not described in 'hos=
+t1x_bo_ops'
 >=20
-> Callers that retry on -ERESTARTSYS allocate a new fence each time.
-> tegra20_channel_capture_frame() retries in a loop without delay, and
-> while the syncpoint does not move, for example with a camera that
-> delivers no frames, every round leaks one fence until the system runs
-> out of memory. Svyatoslav Ryhel reported this as an out-of-memory crash
-> in the VI capture thread; the allocations in his report come from
-> host1x_fence_create(), called by host1x_syncpt_wait() from
-> tegra20_chan_capture_kthread_start(). The DRM syncpoint wait IOCTLs end
-> up in host1x_syncpt_wait() as well, so a process that is signalled while
-> waiting leaks a fence the same way.
+> Describe them from what the implementations do: get takes a reference and
+> returns the bo, put drops the reference, mmap maps the bo into the kernel
+> address space and returns the address, munmap unmaps the address that mma=
+p
+> returned.
 >=20
-> Cancel the fence whenever the wait did not succeed. host1x_fence_cancel()
-> is safe if the interrupt path has signalled the fence in the meantime,
-> as do_fence_timeout() then returns early.
+> kernel-doc on the file prints eight warnings before the change and none
+> after it.
 >=20
-> host1x_fence_cancel() can also run before signalling was enabled on the
-> fence.
-
-Well, not before this patch is applied, which is good to clarify, but=20
-not a big deal.
-
-> fence->list is only initialized in host1x_intr_add_fence_locked(),
-> so host1x_intr_remove_fence() would then see a zeroed list head, call
-> list_del_init() on it and report the fence as removed, after which
-> do_fence_timeout() drops an interrupt path reference that was never
-> taken. Initialize the list head in host1x_fence_create() instead.
-> host1x_syncpt_wait() does not hit this today, as
-> dma_fence_wait_timeout() enables signalling before it checks for a
-> pending signal, but the cancel path should not depend on that.
+> Written with Hermes Agent, an LLM assistant; the author reviewed it and r=
+an
+> kernel-doc on the file with and without the change.
 >=20
-> The leak was found with the help of an LLM assistant reading the host1x
-> and dma-fence code against the call chain in the report.
->=20
-> Fixes: d5179020f5ce ("gpu: host1x: External timeout/cancellation for fenc=
-es")
-> Cc: stable@vger.kernel.org
-> Reported-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Signed-off-by: Patrick Fischer <admin@tsv-stahl-riesa.de>
+> Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
 > ---
-> Svyatoslav reported the out-of-memory crash, and he confirmed off-list
-> that v1 stops the leak on his LG P895 (Tegra30). v2 changes the code,
-> so that confirmation does not carry over to it.
+>  include/linux/host1x.h | 4 ++++
+>  1 file changed, 4 insertions(+)
 >=20
-> I have not run v2 on hardware. The Tegra Note 7 I work on only
-> captures with Svyatoslav's out-of-tree VI/CSI patches, and I have not
-> tried to trigger an interrupted wait there. Build-tested for arm and
-> arm64. The DRM IOCTL case in the changelog comes from reading the code;
-> I have not tried it. The same goes for cancelling a fence before
-> signalling was enabled, which no caller does today.
+> diff --git a/include/linux/host1x.h b/include/linux/host1x.h
+> index e7ba601b2afb..411a1c84eb61 100644
+> --- a/include/linux/host1x.h
+> +++ b/include/linux/host1x.h
+> @@ -146,8 +146,12 @@ static inline struct host1x_bo_mapping *to_host1x_bo=
+_mapping(struct kref *ref)
+>  /**
+>   * struct host1x_bo_ops - operations implemented by a host1x_bo provider
+>   *
+> + * @get: take a reference on the bo and return it.
+> + * @put: drop a reference on the bo.
+>   * @pin: create a DMA mapping. Implementation must not touch the bo's re=
+fcount.
+>   * @unpin: destroy a DMA mapping. Implementation must not touch the bo's=
+ refcount.
+> + * @mmap: map the bo into the kernel address space and return the addres=
+s.
+> + * @munmap: unmap the address @mmap returned.
+>   */
+>  struct host1x_bo_ops {
+>  	struct host1x_bo *(*get)(struct host1x_bo *bo);
 >=20
-> The retry loop in tegra20_channel_capture_frame() still spins without
-> delay as long as the wait keeps returning -ERESTARTSYS. With this patch
-> that costs CPU time instead of memory; how the VI driver should handle
-> an interrupted wait is a separate question.
->=20
-> Tool use (see Documentation/process/generated-content.rst): an LLM
-> assistant (Claude, in a chat) found the leak by reading
-> host1x_syncpt_wait() and the fence code against the call chain in the
-> OOM report. Claude Code then checked the finding against the code and
-> wrote the change, the changelog and this note from my notes and
-> instructions. For v2, the chat checked Mikko's point against the code,
-> and Claude Code applied the change and extended the changelog. I
-> reviewed the change.
-> ---
-> Changes in v2:
-> - Initialize fence->list in host1x_fence_create() instead of
->   host1x_intr_add_fence_locked(), so that cancelling a fence before
->   signalling was enabled is safe (Mikko Perttunen)
-> - Link to v1: https://patch.msgid.link/20261113-upstream-host1x-fence-can=
-cel-v1-1-89f453504222@tsv-stahl-riesa.de
-> ---
->  drivers/gpu/host1x/fence.c  | 1 +
->  drivers/gpu/host1x/intr.c   | 2 --
->  drivers/gpu/host1x/syncpt.c | 2 +-
->  3 files changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/host1x/fence.c b/drivers/gpu/host1x/fence.c
-> index 1acf579c562b..f77a391b9195 100644
-> --- a/drivers/gpu/host1x/fence.c
-> +++ b/drivers/gpu/host1x/fence.c
-> @@ -134,6 +134,7 @@ struct dma_fence *host1x_fence_create(struct host1x_s=
-yncpt *sp, u32 threshold,
->  	fence->sp =3D sp;
->  	fence->threshold =3D threshold;
->  	fence->timeout =3D timeout;
-> +	INIT_LIST_HEAD(&fence->list);
-> =20
->  	dma_fence_init(&fence->base, &host1x_syncpt_fence_ops, &sp->fences.lock=
-,
->  		       dma_fence_context_alloc(1), 0);
-> diff --git a/drivers/gpu/host1x/intr.c b/drivers/gpu/host1x/intr.c
-> index 30f3dff4487b..380f679b4d7f 100644
-> --- a/drivers/gpu/host1x/intr.c
-> +++ b/drivers/gpu/host1x/intr.c
-> @@ -47,8 +47,6 @@ void host1x_intr_add_fence_locked(struct host1x *host, =
-struct host1x_syncpt_fenc
->  {
->  	struct host1x_fence_list *fence_list =3D &fence->sp->fences;
-> =20
-> -	INIT_LIST_HEAD(&fence->list);
-> -
->  	host1x_intr_add_fence_to_list(fence_list, fence);
->  	host1x_intr_update_hw_state(host, fence->sp);
->  }
-> diff --git a/drivers/gpu/host1x/syncpt.c b/drivers/gpu/host1x/syncpt.c
-> index fe74ff6fc6f2..f9c871f218f3 100644
-> --- a/drivers/gpu/host1x/syncpt.c
-> +++ b/drivers/gpu/host1x/syncpt.c
-> @@ -247,7 +247,7 @@ int host1x_syncpt_wait(struct host1x_syncpt *sp, u32 =
-thresh, long timeout,
->  		return PTR_ERR(fence);
-> =20
->  	wait_err =3D dma_fence_wait_timeout(fence, true, timeout);
-> -	if (wait_err =3D=3D 0)
-> +	if (wait_err <=3D 0)
->  		host1x_fence_cancel(fence);
->  	dma_fence_put(fence);
-> =20
->=20
-> ---
-> base-commit: 9d66f26fefacebfeed15de31c1123451a17ff119
-> change-id: 20261113-upstream-host1x-fence-cancel-0b32753150d6
->=20
-> Best regards,
-> -- =20
-> Patrick Fischer <admin@tsv-stahl-riesa.de>
->=20
+> base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
+> --=20
+> 2.53.0
 >=20
 >=20
 
-Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
+Equivalent patch was already sent to the list.
+
+Mikko
 
 
 
