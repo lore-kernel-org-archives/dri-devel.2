@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A5D4606A332
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:18:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E18D606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:20:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ht/IiM2W
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=hhRqzIcX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8EABC1122E8;
-	Thu, 26 Nov 2026 11:18:01 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8FF0611233C
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:17:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 999E61122EE;
+	Thu, 26 Nov 2026 11:19:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E824C1122EE
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:19:50 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 8C848623F6;
- Thu, 26 Nov 2026 11:17:54 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2ED661F000F2;
- Thu, 26 Nov 2026 11:17:54 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 9E5EB40E23;
+ Thu, 26 Nov 2026 11:19:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5B911F000D1;
+ Thu, 26 Nov 2026 11:19:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795691874;
- bh=GqYs8OZaH2c+zBQE/38ZCtNT+Emw+NouIYphZtdKmCw=;
+ s=k20260515; t=1795691990;
+ bh=VAR8gkfhvzjtmiIUWRuljNagcujq0JUW5zFyHuJjL30=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=ht/IiM2WPk95K35kdy4FcuDNp8wNM7P4EHNySsade7buMiGQ+00hIfCjQ6tycn1ET
- pBMf5NIMGDf5RqjVX7kX0kGbVxQeW6e/QEoD7kUhmMRpZksRs7V6UyROjVqsG/oSTp
- 8AHi0TWInQJY5kX2Zf89luGJVKRWhAAb3N0Nv+B3LzOzkn5wUPpJy5NhjjdlkK4v0Y
- 7yNOgBtBewU8apo3vBkNFzQC6/rkEuut0H9FsAg++OjSrrlkM4ZChyFKDfUy/GqgUJ
- 7DZP+LhEYa5M2EBT+tgqeEOyzFunoEl5p3t9kfw97xiNRE1bf4wvwjtBVp7rZvNlLa
- QkEYJ+4XoVDJA==
-Message-ID: <sashiko-outbox-235358@kernel.org>
+ b=hhRqzIcXsJUNsPkvlhFHBSqGX7W1w8H+CP5HIofgQamjHu0ePrsF50LON/0HsS8MM
+ ONHbX5r9RReCwiXod3J6XiXql6qd8keR5NQAzkZCVKWCLR68/Z/nLAX1JpJIQIg1vW
+ B60nDrf0Ns/65C2W6ywSin9whPQP6ILPulSQHeDLRJQN7dKyzFUzEu4XxU+AI9xSq/
+ OuOjzyxK25MOc8lche/IjN7Z+JLYvVk35GDKbPrIPpinyQqGc/4GCnU9ZZFsXG4iej
+ tiUg8z+Rd4FwGVR2qP1WpW3EoChpBY3U7jCk/n+elUFs+pcR9mAZe/nwJOLYlKReLH
+ pIhhele3WF8GQ==
+Message-ID: <sashiko-outbox-235364@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/7] drm/syncobj: Use scoped cleanup for
- drm_syncobj_array_wait_timeout syncobjs
+Subject: Re: [PATCH 6/7] drm/syncobj: Use scoped cleanup in
+ drm_syncobj_array_find and callers
 To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
  dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126111117.67342-4-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20261126111117.67342-7-tvrtko.ursulin@igalia.com>
 References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
- <20261126111117.67342-4-tvrtko.ursulin@igalia.com>
+ <20261126111117.67342-7-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:17:53 +0000
+Date: Thu, 26 Nov 2026 11:19:48 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,53 +61,115 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/syncobj: separate declaration and init of __free() in
-  wait_timeout
+- [Low] drm/syncobj: __free() variables not initialized at declaration
+  site
 --
 
-commit 7b5691e728edfdbf53ebabd68fe3be6523faee57
+commit d2db4e35813dabf4fb7e2f45ff5acb392b0b03ac
 Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-drm/syncobj: Use scoped cleanup for drm_syncobj_array_wait_timeout syncobjs
+drm/syncobj: Use scoped cleanup in drm_syncobj_array_find and callers
 
-This commit converts the entries allocation and syncobj wait cleanup in
-drm_syncobj_array_wait_timeout() to use a DEFINE_FREE() scope-managed clean=
-up
-helper instead of goto labels.
+This commit converts drm_syncobj_array_find() and its ioctl callers to
+use scoped cleanup (__free) and moves the syncobj array allocation and
+maximum handle count checks into the callers.
 
 > diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index bd3f9e74e678f..7d5c4e4e29b20 100644
+> index da90ae11382e3..6b4df322b12a8 100644
 > --- a/drivers/gpu/drm/drm_syncobj.c
 > +++ b/drivers/gpu/drm/drm_syncobj.c
-[ ... ]
-> @@ -1052,6 +1077,7 @@ static signed long drm_syncobj_array_wait_timeout(s=
-truct drm_syncobj **syncobjs,
->  						  uint32_t *idx,
->  						  ktime_t *deadline)
->  {
-> +	struct syncobj_wait_entries cleanup __free(syncobj_wait_entries) =3D {};
->  	struct syncobj_wait_entry *entries;
->  	u64 *points __free(kvfree) =3D NULL;
->  	struct dma_fence *fence;
-> @@ -1076,6 +1102,11 @@ static signed long drm_syncobj_array_wait_timeout(=
-struct drm_syncobj **syncobjs,
->  	if (!entries)
->  		return -ENOMEM;
+> @@ -1252,59 +1252,38 @@ static int drm_syncobj_array_wait(struct drm_devi=
+ce *dev,
+>  	return 0;
+>  }
 > =20
-> +	/* After this the entries cleanup is fully automatic. */
-> +	cleanup.syncobjs =3D syncobjs;
-> +	cleanup.entries =3D entries;
-> +	cleanup.count =3D count;
+> -static int drm_syncobj_array_find(struct drm_file *file_private,
+> -				  void __user *user_handles,
+> -				  uint32_t count_handles,
+> -				  struct drm_syncobj ***syncobjs_out)
+> -{
+> -	uint32_t i, *handles;
+> +struct syncobj_array {
+>  	struct drm_syncobj **syncobjs;
+> -	int ret;
+> +	unsigned int count;
+> +};
+> =20
+> -	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
+> -		return -EINVAL;
+> +static void syncobj_array_free(struct syncobj_array *a)
+> +{
+> +	for (unsigned int i =3D 0; i < a->count; i++)
+> +		drm_syncobj_put(a->syncobjs[i]);
+> +}
+> =20
+> -	handles =3D vmemdup_array_user(user_handles, count_handles,
+> -				     sizeof(*handles));
+> -	if (IS_ERR(handles))
+> -		return PTR_ERR(handles);
+> +DEFINE_FREE(syncobj_array, struct syncobj_array, syncobj_array_free(&_T))
+> =20
+> -	syncobjs =3D kvmalloc_objs(*syncobjs, count_handles);
+> -	if (syncobjs =3D=3D NULL) {
+> -		ret =3D -ENOMEM;
+> -		goto err_free_handles;
+> -	}
+> +static int drm_syncobj_array_find(struct drm_file *file_private,
+> +				  void __user *user_handles, unsigned int count,
+> +				  struct syncobj_array *array)
+> +{
+> +	u32 *handles __free(kvfree) =3D NULL;
+> +	unsigned int i;
+> =20
+> -	for (i =3D 0; i < count_handles; i++) {
+> -		syncobjs[i] =3D drm_syncobj_find(file_private, handles[i]);
+> -		if (!syncobjs[i]) {
+> -			ret =3D -ENOENT;
+> -			goto err_put_syncobjs;
+> -		}
+> +	handles =3D vmemdup_array_user(user_handles, count, sizeof(*handles));
+
+[ ... ]
+
+> @@ -1312,10 +1291,11 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, vo=
+id *data,
+>  		       struct drm_file *file_private)
+>  {
+>  	struct drm_syncobj_wait *args =3D data;
+> -	struct drm_syncobj **syncobjs;
+> +	struct drm_syncobj **syncobjs __free(kvfree) =3D NULL;
+> +	struct syncobj_array array __free(syncobj_array) =3D {};
+>  	unsigned int possible_flags;
+>  	ktime_t t, *tp =3D NULL;
+> -	int ret =3D 0;
+> +	int ret;
+> =20
+>  	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ))
+>  		return -EOPNOTSUPP;
+> @@ -1329,11 +1309,17 @@ drm_syncobj_wait_ioctl(struct drm_device *dev, vo=
+id *data,
+> =20
+>  	if (args->count_handles =3D=3D 0)
+>  		return 0;
+> +	else if (args->count_handles > DRM_SYNCOBJ_MAX_HANDLES)
+> +		return -EINVAL;
+> +
+> +	syncobjs =3D kvmalloc_objs(*syncobjs, args->count_handles);
+> +	if (!syncobjs)
+> +		return -ENOMEM;
+> =20
+> +	array.syncobjs =3D syncobjs;
 
 [Severity: Low]
-Could cleanup be defined and initialized in a single statement right after
-entries is allocated rather than declared empty at the top of the function?
-Per include/linux/cleanup.h conventions, defining __free() variables at the=
-ir
-point of initialization preserves LIFO destruction order relative to points
-and avoids running syncobj_wait_entries_free() on early returns before
-entries is allocated.
+This isn't a bug, but cleanup.h recommends defining and initializing
+__free() variables in a single statement at their allocation site rather
+than declaring them with =3D NULL at the top of the function and assigning
+them later.  Doing that for handles in drm_syncobj_array_find() and for
+syncobjs (and array) in drm_syncobj_wait_ioctl() and the other five
+ioctl callers in this patch also ensures reverse-acquisition cleanup
+order naturally without relying on manual declaration ordering at the
+top of each function.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126111117.6734=
-2-1-tvrtko.ursulin@igalia.com?part=3D3
+2-1-tvrtko.ursulin@igalia.com?part=3D6
