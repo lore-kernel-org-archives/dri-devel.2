@@ -2,97 +2,77 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2B7606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 10:01:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CE4606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 10:03:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=DiooAO4Q
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=VoiPkqPK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4CDE3112277;
-	Thu, 26 Nov 2026 10:01:19 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C074A112277
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:01:12 +0000 (UTC)
-Received: by mail-pj1-f50.google.com with SMTP id
- 98e67ed59e1d1-3b51a9606e8so271875a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:01:12 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7837911227A;
+	Thu, 26 Nov 2026 10:03:04 +0000 (UTC)
+Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
+ [209.85.128.69])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3561511227A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:02:58 +0000 (UTC)
+Received: by mail-wm1-f69.google.com with SMTP id
+ 5b1f17b1804b1-49febef74e3so52913315e9.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:02:58 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795687272; x=1796292072;
+ d=google.com; s=20260707; t=1795687376; x=1796292176;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=aPAOj8/sEiImf5Q5w0lmK7mWVF1uN6/NWzG/i3miSOs=;
- b=DiooAO4QhjLl3WEghApbnwTozMnrpCE/2RxF/QRv90z+o/tlLdLKBW/Aouhuoe5+K4
- 18Y0JjDkqttnZNcRa9f++zjtHHl8TPNPyaO5zPLngifxqPVIZ8ioWJs1KhPPPGJCKZvp
- I8UQYwTEifZswCNViYN2UcvI/2x/tfrkn3h/0=
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=yz3Fvi0Z1WbpqBTLJfHCJBGO30gXD4l/AgDztFQ3PBw=;
+ b=VoiPkqPKyo9OK3J/3XJCLDTsZKQeeqvAM+peSpIUkSc1CD2nwikYNr640A+NDq0u43
+ Zl3DyLffUJK2srqWhLzp8p9yh8tcywcgsj2Jw4q0TlmPFaMeQJkk266oa5zTBhh0SntF
+ F0w0JheTNT4SP6tcTVFOF5ruzMuLpLmfR30X2fGYGg+VsUQ1cC8u1SJQJid7Z3iLYvZ/
+ YkU6lg0yd0Xh1wy2fYwrgtnKYsVOlIk1vw5O1Dhjp2VB/TQvQBMKTXj8K/8dT5OiHfkq
+ uaiJbJ+GDPtUzvyvuCA8WflGPR8pYRA2bQpDFvd9wPNpdPcAChOlgw/o71Pt511rUsOi
+ 7rCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795687272; x=1796292072;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=aPAOj8/sEiImf5Q5w0lmK7mWVF1uN6/NWzG/i3miSOs=;
- b=dikbz9LmV0rgGx+OLPgeY68nwJQVBsAJ1+wxoK1XlNhXAbQfHheEYQIBwlr9nqicDd
- 3M1t54wys++RcD56+tgWjs5iJXymA9rgm/JSQugl2BevdM9I4VfmbpqUSJYcvnRYL1GW
- O4rFgxQFZfkkeWtyJE/LMSnrDa4Ieo8qWt9VGfFPFGRT4451xUSZfQhSQgg0deFu+B3v
- c0Bw9LlIxDv/FRl3hkDB9jiMQsQaY9BqwzzuHk6NEYNMxUF+lgJK0WDgM679uGhWCp87
- qybnZ8oUTgVEnQoH/PjHs98qlJQxGV234h0laHIjpML3A36F2DNuRnG/B9FTutMDEhge
- u9LA==
+ d=1e100.net; s=20260707; t=1795687376; x=1796292176;
+ h=content-type:cc:to:from:subject:message-id:references:mime-version
+ :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=yz3Fvi0Z1WbpqBTLJfHCJBGO30gXD4l/AgDztFQ3PBw=;
+ b=hFVPoFZmSsyM+DwExjXxVobaDjDLgY4Bc+mCdeIOTnQYMbufe/5WQSVEQaffiRD/5e
+ 1lsPjZCS7IoR3sdSIm7ATmqJgPl1JhPQ2yibLHOxLGh8quiS/ykrfpAa18VIy/S/v3OI
+ mFnTDbAlUZpevq47xUuWPGziyqfuC49Ty+bB6ZzSolUOkNCx1ubN6AyddM6UKmbcQCSZ
+ zVsG1AXqSIKVNdZZf6I6+nkRpwDwV3VV8ftNUEt5NlhGPqsQ7fIaO/NJqYYbEEbXpKvi
+ DY3FeNbKqes/lV/EmPvcriZqU6xkSmoS3p7NFj2IuAnAubzCE5NMcXwTOxbWTZ8C+dsz
+ yWPA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHB1ywJjGN1eHBfj68+Dh2gjPYU4CdUwnBRAAFXC9mZxIkDASKMldNWhgdyOJCRZkXiRFB2CTDHp4k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+VzMA1p2srnG6EmKguAjFI3b07OSKxVUo97CwLPCSvNg9p3Sgc
- bxrMwSDs2kCjPDeBlZaLisLgSgtammX1IRudv3e5N1RYdtC1iiaqsUBySmgvNpk6Tm06P0RhINb
- lk+v3Sg==
-X-Gm-Gg: AZFdTZfCXgEyNdKb8ITRTQEVk4LUQwnacaukRWYnnS/dbo04F6zp0itfOYqmksBKPVR
- Xyl6EXcMFu45w5tye3Bf9pz3xOjQh41oGQcEfmjgKzItj2ONl9d+xPFmqRElvAIz9d7b5NFYDzY
- ZTkGQkrXaAvmrKja85iu6Km3JmQoN67eATp+McfaFCms8b8qoXQnIxoSrXXExnAH5zFpMumbRzJ
- ELyZSyiyczaCWKe4Ky9tW0lGyScN8OtdTrX7VAU+qVAptZM+YdGpoSpP/7w/awJLLvieh4DPrkT
- uNdztm2PD5Ozdr3Lu+oZP22K5XRH0boMotrbKEOPIorgiBvAjVi08Ha5VXiX438X6tQBN5CrfrD
- ELR9huzb1aP8LXCVgbk5y8VPtiySZ7jWu7KKPPg6wATJ7LmFsAYjPtF0Fy1XTyxj+t08unsLGxx
- iP1jgBUrEEcpteKKDVbEAsgCvpeKZvRa9u1DuVY5V2SYWGwZdecDR3s+dWBHOgcUQZrJxi9W+Wr
- Sxujtkkiz+67HYX8DpbJXG8WwwsNpi7cc4HDGYaq2xL+hLNnY9Dtukv35m0PbGoyZ3oxVOr81/o
- FCgpiJUERCpQiF4ohqgWkwTUeYhzMVLswt0hc7bei9rM3kVQgArhY/hYEobNZwrnInx+g46ysss
- 48QowNLT0k5Bo
-X-Received: by 2002:a17:90b:384d:b0:3ad:50a2:9abf with SMTP id
- 98e67ed59e1d1-3b41c92f8eamr20665681a91.38.1795687272156; 
- Thu, 26 Nov 2026 02:01:12 -0800 (PST)
-Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com.
- [74.125.82.181]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b41abb2076sm32486356a91.2.2026.11.26.02.01.10
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 02:01:11 -0800 (PST)
-Received: by mail-dy1-f181.google.com with SMTP id
- 5a478bee46e88-386c4d2e2ccso4469648eec.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:01:10 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErGTX6uBD1eaTp/2ZIayxRqbxe87UPa8peOd6j+arxv3M9WtoxUsn+xP+Sy1Y/spps0noNeMFoNbXfw=@lists.freedesktop.org
-X-Received: by 2002:a05:7300:e9cf:10b0:386:e571:4bb4 with SMTP id
- 5a478bee46e88-386e5715040mr399450eec.13.1795687269562; Thu, 26 Nov 2026
- 02:01:09 -0800 (PST)
+ AL+hErHqkj1ZlrLr6bdNBqOHIpKAd46PN9TseL2i2p6+iLWlLoTbip/F5/RSXxj245hyFMUHwvXMBqj743g=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/kgWYdzfR0SrQZG5vChxWbT48qPZvQR4sYZpp76mPjT2IXLsdr
+ qUVIARdRlKWLDVO1zgq5rNeyuFr2NItykugf/VtmogGjIw5341Q5tLzQ4Lt6sCNQg0ke2hR4i99
+ h9CypNSBzJM+T8SawgA==
+X-Received: from wrmk10.prod.google.com ([2002:adf:e3ca:0:b0:4b7:f63a:77e8])
+ (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
+ 2002:a05:600d:600b:b0:4a2:18c4:61a5 with SMTP id
+ 5b1f17b1804b1-4bb887fb6e7mr422669095e9.6.1795687376087; 
+ Thu, 26 Nov 2026 02:02:56 -0800 (PST)
+Date: Thu, 26 Nov 2026 10:02:54 +0000
+In-Reply-To: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
 X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-36-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-36-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Thu, 26 Nov 2026 18:00:31 +0800
-X-Gmail-Original-Message-ID: <CAC=S1nj8rJ0WJp7DcO68zyejSvzFhhB5Q_q+_jKY2itMAJ64eA@mail.gmail.com>
-X-Gm-Features: Aa3M54r8mZgCPYkjyk_HhGWN4kbWoWQVSbV0f4Pj7KzdyzjM_U47c8LDiim4nPQ
-Message-ID: <CAC=S1nj8rJ0WJp7DcO68zyejSvzFhhB5Q_q+_jKY2itMAJ64eA@mail.gmail.com>
-Subject: Re: [PATCH v2 35/46] drm/mediatek: Add support for Display Output
- Processor component
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Mime-Version: 1.0
+References: <20261125-b4-tyr-as-casts-v1-0-2b2f53164d86@collabora.com>
+X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
+Message-ID: <20261126100254.3642219-1-aliceryhl@google.com>
+Subject: Re: [PATCH 00/13] drm/tyr: reduce the number of `as` casts
+From: Alice Ryhl <aliceryhl@google.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Alice Ryhl <aliceryhl@google.com>, Danilo Krummrich <dakr@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Benno Lossin <lossin@kernel.org>, 
+ Gary Guo <gary@garyguo.net>, Miguel Ojeda <ojeda@kernel.org>,
+ Boqun Feng <boqun@kernel.org>, 
+ "=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?=" <bjorn3_gh@protonmail.com>,
+ Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>,
+ "=?UTF-8?q?Onur=20=C3=96zkan?=" <work@onurozkan.dev>, 
+ dri-devel@lists.freedesktop.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,62 +84,21 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Jul 14, 2026 at 7:46=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Add support for the Display Output Processor hardware component,
-> found in the MediaTek Kompanio Ultra MT8196, Genio Pro 5100 MT8894,
-> Dimensity 9400 MT6991 and others.
->
-> This hardware handles the post-stage of pixel processing in the
-> layer overlaying process and is also capable of performing gamma
-> correction, ensuring that the per-pixel values are within the
-> expected gamma range.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
-> ---
->  drivers/gpu/drm/mediatek/Makefile           |   1 +
->  drivers/gpu/drm/mediatek/mtk_ddp_comp.c     |  14 ++
->  drivers/gpu/drm/mediatek/mtk_disp_drv.h     |  14 ++
->  drivers/gpu/drm/mediatek/mtk_disp_outproc.c | 247 ++++++++++++++++++++
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c      |   3 +
->  drivers/gpu/drm/mediatek/mtk_drm_drv.h      |   1 +
->  include/linux/soc/mediatek/mtk-mmsys.h      |   1 +
->  7 files changed, 281 insertions(+)
->  create mode 100644 drivers/gpu/drm/mediatek/mtk_disp_outproc.c
->
-[snip]
-> +       priv->irq =3D platform_get_irq_optional(pdev, 0);
-> +       if (priv->irq > 0) {
-> +               ret =3D devm_request_irq(dev, priv->irq, mtk_outproc_irq_=
-handler,
-> +                                      IRQF_NO_AUTOEN, dev_name(dev), pri=
-v);
-> +               if (ret)
-> +                       return dev_err_probe(dev, ret, "Failed to request=
- irq\n");
-> +       }
+On Wed, 25 Nov 2026 19:46:51 -0300, Daniel Almeida wrote:
+> An `as` cast silently drops the bits that do not fit the target type,
+> and nothing at the cast shows whether that can happen. Tyr has 86 of
+> them, as counted by `clippy::as_conversions`. This series removes 62.
 
-platform_get_irq_optional() can return error codes that need to be
-handled; otherwise, mtk_outproc_bind()/unbind() will pass the negative
-values to enable_irq()/disable_irq():
+Looks great overall. For the whole series:
 
-ret =3D platform_get_irq_optional(pdev, 0);
-if (ret < 0 && ret !=3D -ENXIO)
-    return dev_err_probe(dev, ret, "Failed to get irq\n");
-if (ret > 0) {
-    priv->irq =3D ret;
-    ret =3D devm_request_irq(dev, priv->irq, ...);
-    ...
-}
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
 
-Regards,
-Fei
+Alice
