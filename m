@@ -2,79 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D50606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 05:13:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03FD0606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 05:21:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=FpemP8Ku
+	dkim=pass (1024-bit key) header.d=mail.ustc.edu.cn header.i=@mail.ustc.edu.cn header.a=rsa-sha256 header.s=dkim header.b=YVFOUtdU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7430610E253;
-	Thu, 26 Nov 2026 05:13:10 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.19])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A996510E253
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:13:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
- d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795669980; x=1827205980;
- h=date:from:to:cc:subject:message-id:references:
- mime-version:in-reply-to;
- bh=tFnAXjoyu6xvvKvqfz4pnz+erMB8nXx1rsV4XpMr9mo=;
- b=FpemP8Ku978zb/cGO+9dUE0JpBy915/u1pB8Pm8hWosGBmU6nj41cL7D
- Cx6tx65TW7w2n9uBiVt4PTC6rm1X14NYvT9z5f+0VBVbEZ822TDSghK06
- Ecd0aH0SLPH2myynmeOerEdCfG1haPATOkQVH/TwlbBgnwVAfWU3QKz2S
- aJKy/N9TBRB3wGsgdp0jP7JqazywDhNBnI0oZqT9N7mjha1Df4IF7Z30n
- 7JPXiUdM+tLmSSv/Qiom4/ACq147xHpT6UNAwfm+Sn6JC+kmeu01HOtZC
- aUuEdNgf43omBjQxDtlhFIcR1Iv+yVzWKngKz44WMycS5X0Va2SCQkYIe w==;
-X-CSE-ConnectionGUID: UUvDoFu8Q/meKBKoG08snQ==
-X-CSE-MsgGUID: sK0nQtPFS6aWX1Ju+a70PA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11977"; a="4632451"
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; 
-   d="scan'208";a="4632451"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
- by orvoesa111.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 25 Nov 2026 21:13:00 -0800
-X-CSE-ConnectionGUID: LW6fTMmRQ+WAbpO6kbVJxA==
-X-CSE-MsgGUID: ifldHr/pQ3iUjmkaQoTfcg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,234,1787036400"; d="scan'208";a="14112093"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
- by fmviesa013.fm.intel.com with ESMTP; 25 Nov 2026 21:12:53 -0800
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
- (envelope-from <lkp@intel.com>) id 1xWRmr-00000001TJk-3Mok;
- Thu, 26 Nov 2026 05:12:49 +0000
-Date: Thu, 26 Nov 2026 13:12:20 +0800
-From: kernel test robot <lkp@intel.com>
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Inki Dae <inki.dae@samsung.com>, Jagan Teki <jagan@amarulasolutions.com>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Douglas Anderson <dianders@chromium.org>,
- Marek Vasut <marex@denx.de>, Stefan Agner <stefan@agner.ch>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: oe-kbuild-all@lists.linux.dev,
- Javier Martinez Canillas <javierm@redhat.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Hui Pu <Hui.Pu@gehealthcare.com>,
- Ian Ray <ian.ray@gehealthcare.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 32/32] drm/mxsfb/lcdif: enable bridge hotplug
-Message-ID: <20261126130346.sISldSGf-lkp@intel.com>
-References: <20261125-drm-bridge-hotplug-v4-32-822722850492@bootlin.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6F2DC10E4CE;
+	Thu, 26 Nov 2026 05:21:07 +0000 (UTC)
+Received: from ustc.edu.cn (smtp.ustc.edu.cn [202.38.64.46])
+ by gabe.freedesktop.org (Postfix) with ESMTP id C88CA10E0FC;
+ Thu, 26 Nov 2026 05:20:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=mail.ustc.edu.cn; s=dkim; h=Received:From:To:Cc:Subject:Date:
+ Message-ID:MIME-Version:Content-Transfer-Encoding; bh=eu+ywC0Loi
+ ybpoOGKD6TPtsSSzAfxkgin+Y/1iYsRoc=; b=YVFOUtdUuT4YXHUJ/FqoVYaiSt
+ V322a/6Mr/N7gPH9zX/KbfUtKcXTSNYBo2tlX5R+Ex2xmx/k7gPxCm2t3FYYR9j9
+ OnZrYR6w4CMjbuLQUVla9vqOPiZrvFDztmVIo90Xtb3If3y4J6Zth4vJT0vtlpOe
+ 2wbYAr49EVTEMi2EE=
+Received: from xuqianhui.ustc.edu.cn (unknown [114.214.224.120])
+ by mailimap2024 (Coremail) with SMTP id 3pYKCgCXI0ixwQdrYw77AA--.360S2;
+ Thu, 26 Nov 2026 13:20:50 +0800 (CST)
+From: Qianhui Xu <xiaqinghuan@mail.ustc.edu.cn>
+To: dri-devel@lists.freedesktop.org,
+	linux-arm-msm@vger.kernel.org
+Cc: freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
+ liujianfeng1994@gmail.com, Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Subject: [PATCH v3] drm/msm/dsi/phy: program PLL_SYSTEM_MUXES on the first PHY
+ enable
+Date: Thu, 26 Nov 2026 13:20:49 +0800
+Message-ID: <20261126052049.1544229-1-xiaqinghuan@mail.ustc.edu.cn>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261125-drm-bridge-hotplug-v4-32-822722850492@bootlin.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID: 3pYKCgCXI0ixwQdrYw77AA--.360S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF45Cr1DAr1rXrWxZr47urg_yoWrGw4Upr
+ W5Kw1a9rWDtrWxX397Z3W5u348Cw4Sgw4akFnrKa4ruan8X3W8ZFyxKa1YgFyUCr1fJw1F
+ vFs3CFyDuF1UArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9K14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+ 6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+ Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+ I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+ 4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+ n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCY02Avz4vE14v_GrWl42xK82IYc2Ij64vIr4
+ 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
+ 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
+ 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
+ wI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14
+ v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUYE_MDUUUU
+X-CM-SenderInfo: 50ld1x5qjk3t3q6ptxnoox23vfohv3gofq/1tbiARECB2sGHiAuFQA5sE
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -86,83 +66,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luca,
+From: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
 
-kernel test robot noticed the following build errors:
+dsi_7nm_phy_enable() pre-seeds pll_enable_cnt to 1 while de-asserting
+DIGTOP_PWRDN_B and PLL_SHUTDOWNB, and dsi_pll_enable_pll_bias() returns
+early whenever the counter is already non-zero.  On the first PHY
+bring-up the bias helper therefore never reaches its
+PLL_SYSTEM_MUXES = 0xc0 write, and nothing else programs that register
+before the panel is powered up: PLL_SYSTEM_MUXES keeps 0x0, the locked
+PLL outputs are not routed to the lanes, and a panel wired for bonded
+DSI comes up with the backlight on and no image.
 
-[auto build test ERROR on 479e381e77dcde0dfcc9d51e89ff3273da199804]
+The combination is old.  commit cb55f39bf7b1 ("drm/msm/dsi/phy: Fix
+reading zero as PLL rates when unprepared") introduced both the counter
+and the pre-seed.  commit 93c97bc8d85d ("drm/msm: dsi: fix PLL init in
+bonded mode") briefly dropped the pre-seed, which made the write
+reachable again.  Its revert,
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Luca-Ceresoli/drm-display-hdmi-cec-helper-use-drmm_-prefix-for-drmm-action/20261125-185014
-base:   479e381e77dcde0dfcc9d51e89ff3273da199804
-patch link:    https://lore.kernel.org/r/20261125-drm-bridge-hotplug-v4-32-822722850492%40bootlin.com
-patch subject: [PATCH v4 32/32] drm/mxsfb/lcdif: enable bridge hotplug
-config: arc-randconfig-1000-20261126 (https://download.01.org/0day-ci/archive/20261126/20261126130346.sISldSGf-lkp@intel.com/config)
-compiler: arc-linux-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261126/20261126130346.sISldSGf-lkp@intel.com/reproduce)
+commit 44784327815b ("Revert "drm/msm: dsi: fix PLL init in bonded mode"")
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/20261126130346.sISldSGf-lkp@intel.com/
+restored both sides, so on current master the muxes are once more never
+programmed during the first bring-up.
 
-All errors (new ones prefixed by >>):
+Program PLL_SYSTEM_MUXES in dsi_7nm_phy_enable() next to the CTRL_0
+write that powers the PHY up, while the same lock is held.  This only
+adds a register write to a path that already programs CTRL_0: no
+existing write moves, and the counter, the locking and the order of the
+rest of the PHY programming are untouched, so the byte-clock regression
+that led to the revert cannot come back through this path.  The bias
+helper keeps its own write for the paths that raise the counter from
+zero.
 
-   drivers/gpu/drm/display/drm_hotplug_helper.c: In function 'drm_hotplug_helper_handle_event':
->> drivers/gpu/drm/display/drm_hotplug_helper.c:234:2: error: label at end of compound statement
-     default:
-     ^~~~~~~
+Measured on a Lenovo Y700 Gen4 tablet (SM8750P, bonded dual-DSI CSOT
+PP8807HB1-1 panel, "novatek,nt36536"): without this change
+PLL_SYSTEM_MUXES reads 0x0 at panel bring-up and the panel stays dark;
+with it the register reads back 0xc0, the panel initialises and the DSI
+host starts receiving interrupts (41 in /proc/interrupts, 0 before).
 
+Fixes: cb55f39bf7b1 ("drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared")
+Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com>
+---
 
-vim +234 drivers/gpu/drm/display/drm_hotplug_helper.c
+Changes since v2: no code change; the diff --git section below is byte-for-byte
+identical to v2.  This version only adds Jianfeng Liu's Tested-by (Xiaomi Pad 5
+Pro) and is sent as a new thread because the 2026-11-17 v2 mail suffered thread
+breakage / a missing subject on some archives; version history and links are
+preserved below.
 
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  200  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  201  static int drm_hotplug_helper_handle_event(struct notifier_block *nb,
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  202  					   unsigned long event, void *data)
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  203  {
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  204  	struct drm_hotplug_helper *hotplug_helper =
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  205  		container_of(nb, struct drm_hotplug_helper, drm_event_nb);
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  206  	struct device *dev = hotplug_helper->encoder->dev->dev;
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  207  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  208  	guard(mutex)(&hotplug_helper->event_mutex);
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  209  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  210  	dev_dbg(dev, "received event %lu\n", event);
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  211  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  212  	switch (event) {
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  213  	case DRM_BRIDGE_ADDED:
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  214  	case DRM_MIPI_DSI_ATTACHED:
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  215  		/*
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  216  		 * A bridges hot-plugged, try adding the
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  217  		 * drm_bridge_connector
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  218  		 */
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  219  		drm_hotplug_helper_try_complete(hotplug_helper);
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  220  		break;
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  221  	case DRM_BRIDGE_DETACHED:
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  222  	{
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  223  		/*
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  224  		 * A bridge was unplugged, remove the drm_bridge_connector
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  225  		 * if it's part of the same pipeline
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  226  		 */
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  227  		struct drm_bridge *bridge = (struct drm_bridge *)data;
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  228  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  229  		if (hotplug_helper->connector &&
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  230  		    bridge->encoder == hotplug_helper->encoder)
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  231  			drm_hotplug_helper_connector_remove(hotplug_helper);
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  232  		break;
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  233  	}
-6ee877a9b7f826b Luca Ceresoli 2026-11-25 @234  	default:
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  235  	}
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  236  
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  237  	return NOTIFY_DONE;
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  238  }
-6ee877a9b7f826b Luca Ceresoli 2026-11-25  239  
+Changes in v2: move the explanation out of the source comment and into the
+commit message, as requested; the code delta is the same single writel().
+Fixes: is re-pointed at cb55f39bf7b1, which introduced both the counter and
+the pre-seed, instead of at the revert that restored them.
 
+Link: https://lore.kernel.org/all/20261019130041.305805-1-xiaqinghuan@mail.ustc.edu.cn/
+Link: https://lore.kernel.org/all/e4ul4zxjta4oyo5fpjjzwkykb4gicztcn7yrgjw7aer6bqowkw@6nx2arhvmyca/
+Link: https://lore.kernel.org/all/20261117052047.32129-1-xiaqinghuan@mail.ustc.edu.cn/
+ drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+index ce86dbf618..98df2d994a 100644
+--- a/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
++++ b/drivers/gpu/drm/msm/dsi/phy/dsi_phy_7nm.c
+@@ -1096,6 +1096,7 @@ static int dsi_7nm_phy_enable(struct msm_dsi_phy *phy,
+ 	data = DSI_7nm_PHY_CMN_CTRL_0_DIGTOP_PWRDN_B |
+ 	       DSI_7nm_PHY_CMN_CTRL_0_PLL_SHUTDOWNB;
+ 	writel(data, base + REG_DSI_7nm_PHY_CMN_CTRL_0);
++	writel(0xc0, pll->phy->pll_base + REG_DSI_7nm_PHY_PLL_SYSTEM_MUXES);
+ 	spin_unlock_irqrestore(&pll->pll_enable_lock, flags);
+ 
+ 	/* Assert PLL core reset */
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.53.0
+
