@@ -2,40 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3D30606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:11:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E212A606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:11:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=FOsxRjwd
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KxLaj4sJ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E37D810E97C;
-	Thu, 26 Nov 2026 11:11:36 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 61A6C10E989;
+	Thu, 26 Nov 2026 11:11:37 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 46EAF10E97C
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8385710E989
  for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:11:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=/Rx41dVsqwYN5JnwZZJigGwj/E5yq5fqStcWRNyWDEU=; t=1795691491; x=2111051491; 
- b=FOsxRjwdeRTvgk7m7GqTBfwpodf7Y2siJU7+s6sTEFue+VdTX28yqvP8aj89GHTXyHcq7dLU3e2
- 2xGa+wFj3L1zNI8i9ZgRuVMBpQwzrNkhgPlPGpHtBvbqmpxpOZ+usyQmo2SjybapSBi5nZ3sVG68U
- 5nlYotAQw3VuoRzulBziNjGroldBRbDJTS0GDhGBVIBT6vfDLBVPp0DPOsb4xUxMa1voILC8xC0Xa
- Ttx5NwSnZkqe79cwShKf/WQSUfnGgEt7m86eL4YVYPTw5UPCanxsepJoTfS7lB1iI84EQeop2stFx
- ii4QbTeIEsV7HhxrNe+owTLLiDyvCcaDzsJg==;
+ bh=jJ1tq71DpD3RX2IBJ7zvIFQs67UcDAT39C7AfDJhYaE=; t=1795691491; x=2111051491; 
+ b=KxLaj4sJZyREy4mkyuUTbwNuUBrxYRiesUyyfEFaCWEumD6iGuiQhf2iKmF+4vbhwikLL1GUGEO
+ en9gIHlb5+sJ6rYQIkagN9gYifgO74aFyutbBtZKUFMLv4+88ZvWX4mjt+B77gcNBU939PXXTekzs
+ alwHDg+YpScxYZbBIol5ZyR9+f3tkrAsOf5eB2r3mZqggKxdmAMluL7nDZi7RjlxuFQRzMi+M5hTp
+ 8k8UjNtunla9T8aqbccXuT77oq8ARNvfkeIizs5WOB1Q4tO2pQ+2uYXVD/WdNDjnb+z1ZFzVoUZaN
+ TpsYES814ymm0HrI+yjI7dHnOCObvCD815+w==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xWXNx-00000004MPj-1GgD; Thu, 26 Nov 2026 12:11:29 +0100
+ id 1xWXNx-00000004MPl-43S2; Thu, 26 Nov 2026 12:11:30 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Fei Yu <fei.yu@intel.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
-Subject: [PATCH 0/7] DRM syncobj scoped cleanup and fast path
-Date: Thu, 26 Nov 2026 11:11:10 +0000
-Message-ID: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
+Subject: [PATCH 1/7] drm/syncobj: Use vmemdup_array_user in
+ drm_syncobj_array_find
+Date: Thu, 26 Nov 2026 11:11:11 +0000
+Message-ID: <20261126111117.67342-2-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
+References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -51,46 +53,47 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,HK_RANDOM_FROM,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-A different flavour of:
-https://lore.kernel.org/dri-devel/20261117103916.9101-1-tvrtko.ursulin@igalia.com/
+Using a helper shrinks the code and separating the user and kernel slabs
+is more secure.
 
-Where Christian suggested to try with scope based cleanup macros. This is that
-attempt.
-
-We start with converting all the functions which use temporary arrays to scoped
-cleanup and then in the last patch fast path is added via two handy macros.
-
-Syncobj IGT pass, light gaming and light desktop as well, and there are no
-kmemleak reports. Nevertheless this version is a bit more invasive so if the
-approach is looking good a careful review will be required.
-
-Cc: Christian König <christian.koenig@amd.com>
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: Fei Yu <fei.yu@intel.com>
-Cc: Maíra Canal <mcanal@igalia.com>
+Cc: Christian König <christian.koenig@amd.com>
+---
+ drivers/gpu/drm/drm_syncobj.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-Tvrtko Ursulin (7):
-  drm/syncobj: Use vmemdup_array_user in drm_syncobj_array_find
-  drm/syncobj: Use scoped cleanup for drm_syncobj_array_wait_timeout
-    points
-  drm/syncobj: Use scoped cleanup for drm_syncobj_array_wait_timeout
-    syncobjs
-  drm/syncobj: Use scoped cleanup for drm_syncobj_timeline_signal_ioctl
-    points
-  drm/syncobj: Use scoped cleanup for drm_syncobj_timeline_signal_ioctl
-    chains
-  drm/syncobj: Use scoped cleanup in drm_syncobj_array_find and callers
-  drm/syncobj: Add temporary array allocation fast paths
-
- drivers/gpu/drm/drm_syncobj.c | 384 ++++++++++++++++++++--------------
- 1 file changed, 224 insertions(+), 160 deletions(-)
-
+diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
+index 6cc654641183..663d6cb8dbf8 100644
+--- a/drivers/gpu/drm/drm_syncobj.c
++++ b/drivers/gpu/drm/drm_syncobj.c
+@@ -1252,15 +1252,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
+ 	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
+ 		return -EINVAL;
+ 
+-	handles = kvmalloc_objs(*handles, count_handles);
+-	if (handles == NULL)
+-		return -ENOMEM;
+-
+-	if (copy_from_user(handles, user_handles,
+-			   sizeof(uint32_t) * count_handles)) {
+-		ret = -EFAULT;
+-		goto err_free_handles;
+-	}
++	handles = vmemdup_array_user(user_handles, count_handles,
++				     sizeof(*handles));
++	if (IS_ERR(handles))
++		return PTR_ERR(handles);
+ 
+ 	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
+ 	if (syncobjs == NULL) {
 -- 
 2.56.0
 
