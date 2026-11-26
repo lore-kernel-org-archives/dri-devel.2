@@ -2,137 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6509606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 07:58:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391AD606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:00:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=ATX7ZpZu
+	dkim=pass (2048-bit key, unprotected) header.d=leemhuis.info header.i=@leemhuis.info header.a=rsa-sha256 header.s=key2 header.b=XjiAXlsa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 261AA10E17D;
-	Thu, 26 Nov 2026 07:58:39 +0000 (UTC)
-Received: from GVXPR05CU001.outbound.protection.outlook.com
- (mail-swedencentralazon11013015.outbound.protection.outlook.com
- [52.101.83.15])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A343E10E17D
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 07:58:32 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Gt0TR/Urv6HQtMXboX0IstmRvCUsGe8fHvPXW9yXKdyKr9M9nLVogN9PHsSnQp9hAHtYKEJcURiNKi3Ln7MXoaX2BFKfR5hrndnHnwLeYPH+pPXevSrkw0KjLmjCyr/8I8uiywE05pg70S0eWWzxUrxpjG/mHxeD578VaeNyf19uBkyJ9xAM8FmyJXZ2+XcaNloIR/Q7VxiXypaqySzhLf5HKQVAlwbuJXpcDbPpHptzNIQdEfOeKKAy3keEgsWehPJKG/o8t66w/mCISpdQZGsAsm3LHPOh5JU7yzJuu8Lv99xnbxooSdv5f7WALK6D7NV2x3LqkXFrrOWP5RmDrQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Ibjn+Ecec92gz5TjlsMMteNFIWH6VbmlAqzJ1czKOwo=;
- b=F8YRs/jGiYq4hOCWEMBZAb6hUJxqS74vS2HD9Vk7Fq0AH34iKVXQS0n/poxB+JEMvZ5amZZVarvPVgIFfU4m/gDQ5DUfWm4k6UUHg4U9IGD7sac+ybLtjWxUdpfUe8AY+t/jVF8B6P8WaeJ5wP3J5qLbErDuzX16zhuhfKcHJo4snxqpUFD+xdQ2PD75zOIg9yoGHQtGGdBJzbOZxXkgIImm8ez4ocKyrUP2U+kNVDi9XNa+YlWUt6aBrdzsoA1MZndofPc4J6cOR9cezsJRTIBjNCggMMbzMDRa9uGdZvKKF0n3ceWLo7XW8p5biCzm1RIpCD54vMe2z3IRPWGrXw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Ibjn+Ecec92gz5TjlsMMteNFIWH6VbmlAqzJ1czKOwo=;
- b=ATX7ZpZu6HZCIpr4jxBZT5uEQ+8//cpuELaFHzpy4F7oTtlOFm2xO72gMHOIvsUm9NMptaEVcsNtoXERy0bNhCx/pu1f0QcieT6fzRpsiD+VJYsKzEtz+3/3fiIHF1J2sW4BXP04UqK+qYVFBA9qCf1AX/qiN2GnVf69HKfjMUB1GkiUuvj/6S/QKR6QB3NfQUlpAmnvwuX0aYHztgIYM1cKQUWLYP1mAd46SNK32EFrq+QWDmtutj5A7Dct4umhwIRQy9pSO2xvyvGrCR+3laZWdSm0y+bXlrqI6a6ao7iktl0kLNRLsWKmkk4uL2qCFTEJh6S3Q1Djv7++znKUYA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by MI9PR04MB135841.eurprd04.prod.outlook.com
- (2603:10a6:290:86::19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.5; Thu, 26 Nov
- 2026 07:58:28 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 07:58:23 +0000
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
- Denis Arefev <arefev@swemel.ru>
-Cc: Lucas Stach <l.stach@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, 
- =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
- dri-devel@lists.freedesktop.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- lvc-project@linuxtesting.org, stable@vger.kernel.org
-In-Reply-To: <20261119113031.36945-1-arefev@swemel.ru>
-References: <20261119113031.36945-1-arefev@swemel.ru>
-Subject: Re: [PATCH] drm: imx-dcss: Check return value of
- drm_mode_config_helper_suspend()
-Message-Id: <179567990223.1088660.11027335035345339261.b4-ty@b4>
-Date: Thu, 26 Nov 2026 09:58:22 +0200
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: AS4P191CA0040.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:20b:657::9) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B11851120AF;
+	Thu, 26 Nov 2026 08:00:05 +0000 (UTC)
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de
+ [188.68.63.102])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E570F10E344;
+ Thu, 26 Nov 2026 07:59:58 +0000 (UTC)
+Received: from mors-relay-2502.netcup.net (localhost [127.0.0.1])
+ by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jZppy209gz6TSp;
+ Thu, 26 Nov 2026 08:59:22 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+ s=key2; t=1795679962;
+ bh=ij3hnJcC4WfaTRrqHQlqNFWDVnAM9xmzZit58oeLRAY=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=XjiAXlsaMm8yVPMQlY5bRRl4kOrJxoy2KIgKiSkCty6+c8TeMvO3ItDQ60LMlkFo/
+ A5pEPVsEdszn57IArzsNSpWrBiKyoWTwjqalB/17XKb680TXWCZ3w+zlCqu0KyisKM
+ U1ceAxfBRjfP6GKBsX/PSaXl5lEbAblNr+E+pE9sAnxLz/66mX4y6Ie+3yeVhOPKCW
+ 2GaCU2lv+pOik7gOIlPZkqeUiwt+5hnuo1uRCFth5DcHL5zsGDUK1dZMxmDs7ZePA/
+ W6h2PidiKyG0hE8ssjZwEiahC4Gbo4ko8xLGqpR8CvgBzxDzGmH22Xkk/5P68fUjZN
+ WdB++PNjsWcMQ==
+Received: from policy02-mors.netcup.net (unknown [46.38.225.35])
+ by mors-relay-2502.netcup.net (Postfix) with ESMTPS id 4jZppy1CQfz4xp1;
+ Thu, 26 Nov 2026 08:59:22 +0100 (CET)
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest
+ SHA256) (No client certificate requested)
+ by policy02-mors.netcup.net (Postfix) with ESMTPS id 4jZppw1rNtz8svJ;
+ Thu, 26 Nov 2026 08:59:19 +0100 (CET)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown
+ [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+ by mxe9fb.netcup.net (Postfix) with ESMTPSA id 5AA525F949;
+ Thu, 26 Nov 2026 08:58:50 +0100 (CET)
+Authentication-Results: mxe9fb;
+ spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f)
+ smtp.mailfrom=regressions@leemhuis.info
+ smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <b27e10f8-840b-47ca-a5e6-50db3a73313d@leemhuis.info>
+Date: Thu, 26 Nov 2026 08:58:47 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|MI9PR04MB135841:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8aaeba84-9512-48a5-9b8f-08df4b930b79
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|23010399003|1800799024|366016|19092799006|10067099003|56012099006|11063799006|261022105027099003|261026140227099003|261028144727099003|261009223027099003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info: jan2FEOimSfiO2lZ8eVgp8/Za0YdWRbsDO9I2UtYyrd7bOm+kwcAJj3wtQVrYvm4ls2yhDCeYUJYn+bWwUhQk13+lcIJqY+/n+l6kkLw0NsD3XqCqqVLGQ6+y8X5uudppsMyKfUoo1ZL7pzIFYGQ+7N7lj2G2kDdcjWDOJNzxMOJKKCNWDwUjvtbf7hL358bE6YY+KJsTVcREjdLIEHhaIngCO/XovOAm/ysc2c/gYePjXzBVrb3gzGYgTmo50j9gRr572QDss0NR0ZS0GkG1RLhP6wN7ZTE/5gvTrSWJqiIFID+K6euYb2M17LjNedZMrArrbwZCqgChYHZCPr+b9nvm9yQbwxvemyMAFQzJG0fKCAA8O6NiH8gtSituSRSjBTrBIVKVl7DLXHDRgs8rAuybDsshCaMC/8YpwYzQZ6c/W9B0OAPwBDBlCKc2NW76n2AK4G3ZkgQswA/VfC0s7g2kYHkt8pSqBxwRwZGdQv2qM+CINqywH28sQCWXVY5AnbvjOtR/DmUMQq9VslJpUs0iIhTk7Oe0QbR7UH5wDC1B6t3Ib8IZ8tpvAqxqJd8HVRT5VDeWgW4PwLiPW9+OBUFn5Q2APKaP1OCwBgGeN2yA2V4qwZMoVSZeSZNdxE//7NHyMjFwEFBPFTutZfm+19X03fTO69w8OLrB6YR6oA=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(23010399003)(1800799024)(366016)(19092799006)(10067099003)(56012099006)(11063799006)(261022105027099003)(261026140227099003)(261028144727099003)(261009223027099003)(18002099003)(22082099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MWM3eDB5Z2NDK0tLQ1R1MjJUa3JrR0N2dDBhbzlPOGVIdy9hVGFHaDgxNVVz?=
- =?utf-8?B?U0txeEczWTRyUm9jcTRrVnF5RG84aitGdjRrWHB0SGcwQ2R3NFBtVmNiWDFC?=
- =?utf-8?B?N0dUTDh2MDBKNGJrMU1sRUxERGFFZWt4NXhVREUxekhpaVdQQi9lNThiNVZa?=
- =?utf-8?B?R2N6R1AxbGp6aW5wQU1GRTlQbHJzdlVaWkkzd3M0cVhBVXNBWmpsa0hzb2ZE?=
- =?utf-8?B?MUpjQmFwcHFtcnNreEJsNUNxVTBoNDBlc0M2Ryt4M2JBSnZuZWlVbUVUU0lY?=
- =?utf-8?B?WkZGenNMcjI4V2NXa2NxNFlRUHYvNzV1UWFpSXBPVS9BczhIUFlJOGdtb1Fl?=
- =?utf-8?B?bDg3WFdXVktmVFRyUlYyb1E5VlpyMWl1ZmM0bE0yOXJEb0ZObld1R3dGbVB3?=
- =?utf-8?B?enNNNGh4cE5nQWhMSFhXbFBJUmhGV2FXYVROWU1KZG9IT0E3dFNzemplQjA0?=
- =?utf-8?B?VGRwUTZFdnZIRXY1YXBBSnJsWVBCaUtFbHV2S0V2aDBKQVRQZlh5RXFtUUVp?=
- =?utf-8?B?TUhlQ3NheUNoNFZyZzY2UmpjYzIxaEhCSHJoa1JhVkFaL0UyazRhVnlYUFkv?=
- =?utf-8?B?V0VoK2pHZ2Q1UWhZWVVPcWh2dlRaNHg4MlVsd3RNMVN6VGd1bTl5ejJzQmU2?=
- =?utf-8?B?dHBKcEtNbkVDRHFvTEZmamlmYTZIU2Vzd3QxRmttQ3BFYlkwZjZJS1MzcGdG?=
- =?utf-8?B?WmRBcytUSzRjb3p1aCtUcHk1ZW5xS3ExN2ZqY1JHcHRCOGV3VG1EVG5yS1gw?=
- =?utf-8?B?YzRUdFVaaXdXcW90NWM5OWlaV21Bd1hWU3QwRldidGRyTWFsOHo1TTZualI5?=
- =?utf-8?B?K3JoQmo1dXNSL1lpdTAyTGxPL0ZVd2tNa05Cb2Zvd0JPSFlma1dla0R6MEtI?=
- =?utf-8?B?d2tsVjBDOVg2V0l1aTU5a1pqaEorVXkzRDQ2bVRiOE1RbC9NVUN3Tnd2L05m?=
- =?utf-8?B?bEdmSmNsU3lrMVB4Ump1ZmNNYXlOSFExbDZxWXA2TGxhYTRoQW5XMXJHRUNq?=
- =?utf-8?B?ZzdNbWZYRUtMTHlNWEU2dStQTUlTNEJiWGRRV2I4MmQreGo2aGxYNmd0eVQ5?=
- =?utf-8?B?dFdBUUxqZ09CeG1SZjhFQWpscUVrZ2ZqY21udnBNOFZWbmxzWldxQ09WVU4w?=
- =?utf-8?B?akxuQkxZcVA2TStESUZNV01veVNGdVN1U3dXdGdpdldjenJDQVpHTk55MDRD?=
- =?utf-8?B?MUJnTmI1TzNEeHA2Qy9uRVdUWDEzOVFoenJudWY5TS9ZOVdUTHMyenJ0SWFB?=
- =?utf-8?B?SDBFTDJJSFlhYXpoNG5PQ2g5d0p5dTdjbVpKcTJmS1NKVXNoYkhzUDMwL1FV?=
- =?utf-8?B?K2dJOFVISWJ5TEpqdEljYStVRXVUanJUK1pkSlI5a3BSZVlWYzBnR0RQWUNs?=
- =?utf-8?B?VmNmY2U4VUlTYjExMVZCOWpCNWRRSnlLU3dNZ1RhSmthNzRGWTNKekFvS1lH?=
- =?utf-8?B?dVA1N3h0eGNEU0owZmtzNXQ1S01GamVVYXhDbUdYaE5lcmhVb1RGMm1XMDdW?=
- =?utf-8?B?R251R2prcXJ3SGMvZ28zakNmRmlHZmQ5TElNM1RTaExCZmh0THpMd3RlTFJI?=
- =?utf-8?B?bStlaU9UaVE3NFN6aVhGdk5QMk9ISTVHWGZxTVovcjJ4RUhoMFdiTFh6WTdq?=
- =?utf-8?B?bk1nN253Ny90eXVlcmlkUWRoUkV4N3FCSU1QbFJCY05vRFQydnNES3E4cnpH?=
- =?utf-8?B?eEsya1YrM0RCYjRTOTZ3ODZxc3BBNnhVVzVtdmZrcElnYlQyUGxkaVg0TUw0?=
- =?utf-8?B?Q3UwOEJzNkIwSVFpRkhuVXhobDVaNkRZeTUvTklLMy9Ia1lxY1EzT3piOWUr?=
- =?utf-8?B?N3NmTVVtMVVVV245OHY1U1VGV2FKVzdySGc0U20zeXpzenZhbjdrd1dOZzFG?=
- =?utf-8?B?dll0aVp5YTJONTd2N0tkUTBzMm0wTG05RnhKeElZc1ZzemFXZlJKSHNEa3gr?=
- =?utf-8?B?b0dKeVJKQ0dNVUFZQ09WVmJVNzRiWmd0MGlQVjVRK21OOXlncktrUGpONmxC?=
- =?utf-8?B?MzlmZHNYN3RyV3hWanU5TE05NW8zTG5XOVNJMC9yL0YvbHBxMGdiWXFEZngz?=
- =?utf-8?B?akxwLzVtUVNaSEZ5RWlTMkR3VVpvM1dXY2hwbDVMamEvWGFGNks1YXZwR296?=
- =?utf-8?B?VUNyQ3l6WThYeFNidFM4VXgwUjUxV0l4NERPRDk1YWYremxZa0ZjSFRjVzlz?=
- =?utf-8?B?bnBMOWVFcGhtMENmRWVoQlJyVFpRUll0N3VzVmpzeDFDTFdOZWxzTTFQbVZr?=
- =?utf-8?B?ZGJTZWpmUEErUDBQaHFzKzVWNmdXTlNWRXZ1eVh6MmhFa2hHTEM0aUJ2MVMw?=
- =?utf-8?B?cS9qUFNTd0FNTDJMcGdFb3hkdk5paGMyNnRLdlB2MW5EOHFuZTFMaHo1a3hW?=
- =?utf-8?Q?Ayrsc8hvWvtzF8+o=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8aaeba84-9512-48a5-9b8f-08df4b930b79
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 07:58:23.7042 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 542YyzWhabvoSUwvDrawBYvah1TmgMsEJgbprdNB7Q5zrAl6UeU7sKLH0ZOXNBOz57AqzLy+UB5UtI/1dtSz5g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MI9PR04MB135841
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] Revert "nouveau: pci: quiesce GPU on shutdown"
+To: David Airlie <airlied@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, Danilo Krummrich <dakr@kernel.org>,
+ Marek Vasut <marex@nabladev.com>, Li Chen <me@linux.beauty>,
+ Lyude Paul <lyude@redhat.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Ole Carlsen <ole.carlsen@tutamail.com>,
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@debian.org>,
+ linux-kernel@vger.kernel.org, nouveau@lists.freedesktop.org,
+ Linux kernel regressions list <regressions@lists.linux.dev>
+References: <20261025213027.842978-1-marex@nabladev.com>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20261025213027.842978-1-marex@nabladev.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-PPP-Message-ID: <179567993099.1392972.9410511653682031592@mxe9fb.netcup.net>
+X-NC-CID: K/re8fuSYYOPP20M4/d2Cw5ZAXW/LSShXsWb7axahBVqe8RiaKI=
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,30 +79,118 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-6.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no
+X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-
-On Thu, 19 Nov 2026 14:30:29 +0300, Denis Arefev wrote:
-> dcss_dev_suspend() ignores the return value of
-> drm_mode_config_helper_suspend(). On failure that helper rolls back its
-> partial work (re-enables fbdev and polling) and leaves
-> mode_config.suspend_state unset, i.e. the DRM side is not suspended.
-> Continuing to suspend the context loader and disable the clocks then
-> leaves the device in an inconsistent state.
+On 10/25/26 22:30, Marek Vasut wrote:
+> This reverts commit 310326bb7df4bba094a3fc60364c641c547fd923.
 > 
-> [...]
+> This breaks shutdown on ThinkPad W510, without the offending commit
+> the system normally powers off, with the offending commit the system
+> ends up spinning indefinitely and the CPU fan goes full throttle on
+> shutdown.
+> 
+> The behavior was already reported in debian bugtracker multiple times
+> for various other computers too, and git bisect lands as this commit.
+> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1141969
+> https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1146033
 
-Applied, thanks!
+@airlied: given that you recently applied a few nouveau bugfixes, could
+you maybe pick this one up, too?
 
-[1/1] drm: imx-dcss: Check return value of drm_mode_config_helper_suspend()
-      commit: 8a6e49c8557d3ba0fe4c7f1cb7f428289b13bfed
+I'd even say it's eligible for -fixes, as I'd say this is still a
+somewhat recent regressions and the fix hence "should be expedited", as
+Linus said some time ago[1].
 
-Best regards,
--- 
-Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+And to make it obvious: this will reintroduce warnings during kexec the
+commit being reverted tried to fix. YMMV, but that seems like the
+smaller problem.
+
+Ciao, Thorsten
+
+[1]
+https://lore.kernel.org/all/CAHk-=wis_qQy4oDNynNKi5b7Qhosmxtoj1jxo5wmB6SRUwQUBQ@mail.gmail.com/
+
+> I tested the revert with Linux 7.2.12 from debian unstable, not next
+> or drm trees, mainly because it was easier with debian test-patches
+> script on that machine.
+> 
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
+> ---
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: David Airlie <airlied@gmail.com>
+> Cc: Li Chen <me@linux.beauty>
+> Cc: Lyude Paul <lyude@redhat.com>
+> Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+> Cc: Maxime Ripard <mripard@kernel.org>
+> Cc: Ole Carlsen <ole.carlsen@tutamail.com>
+> Cc: Simona Vetter <simona@ffwll.ch>
+> Cc: Thomas Zimmermann <tzimmermann@suse.de>
+> Cc: Uwe Kleine-König <ukleinek@debian.org>
+> Cc: dri-devel@lists.freedesktop.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: nouveau@lists.freedesktop.org
+> ---
+> NOTE: Maybe the revert is not the ideal solution, but it does fix my
+>       problem, and I think being able to shut computer down is a good
+>       functionality to have.
+> ---
+>  drivers/gpu/drm/nouveau/nouveau_drm.c | 32 ---------------------------
+>  1 file changed, 32 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index 5e1336615cf6d..36c74f9edaa83 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -1090,37 +1090,6 @@ nouveau_pmops_resume(struct device *dev)
+>  	return ret;
+>  }
+>  
+> -static void
+> -nouveau_drm_shutdown(struct pci_dev *pdev)
+> -{
+> -	struct nouveau_drm *drm = pci_get_drvdata(pdev);
+> -	int ret;
+> -
+> -	if (!drm)
+> -		return;
+> -
+> -	if (drm->dev->switch_power_state == DRM_SWITCH_POWER_OFF ||
+> -	    drm->dev->switch_power_state == DRM_SWITCH_POWER_DYNAMIC_OFF)
+> -		return;
+> -
+> -	ret = nouveau_do_suspend(drm, false);
+> -	if (ret)
+> -		NV_ERROR(drm, "shutdown suspend failed with: %d\n", ret);
+> -
+> -	pci_save_state(pdev);
+> -	pci_disable_device(pdev);
+> -	pci_set_power_state(pdev, PCI_D3hot);
+> -	/*
+> -	 *  This is just to give the pci power transition time to settle
+> -	 *  before an immediate kexec jump. it’s mirroring the existing
+> -	 *  nouveau_pmops_suspend() behavior, which already does
+> -	 *  udelay(200) right after pci_set_power_state(..., pci_d3hot). In
+> -	 *  ->shutdown() we’re allowed to sleep, so I used usleep_range()
+> -	 *  instead of a busy-wait udelay().
+> -	 */
+> -	usleep_range(200, 400);
+> -}
+> -
+>  static int
+>  nouveau_pmops_freeze(struct device *dev)
+>  {
+> @@ -1480,7 +1449,6 @@ nouveau_drm_pci_driver = {
+>  	.id_table = nouveau_drm_pci_table,
+>  	.probe = nouveau_drm_probe,
+>  	.remove = nouveau_drm_remove,
+> -	.shutdown = nouveau_drm_shutdown,
+>  	.driver.pm = &nouveau_pm_ops,
+>  };
+>  
 
