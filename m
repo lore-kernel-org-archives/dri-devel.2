@@ -2,102 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CBF606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:20:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 915C8606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:20:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0tw077D
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=DhlKTRkL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9678410E27B;
-	Thu, 26 Nov 2026 12:19:55 +0000 (UTC)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
- [74.125.82.180])
- by gabe.freedesktop.org (Postfix) with ESMTPS id ED5FD10E27B
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:19:49 +0000 (UTC)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-38190551625so13508143eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 04:19:49 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795695589; cv=none;
+	by gabe.freedesktop.org (Postfix) with ESMTP id F404B10E308;
+	Thu, 26 Nov 2026 12:20:26 +0000 (UTC)
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com
+ [74.125.82.170])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E740B10E308
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:20:20 +0000 (UTC)
+Received: by mail-dy1-f170.google.com with SMTP id
+ 5a478bee46e88-3863db981d4so9794450eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 04:20:20 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795695620; cv=none;
  d=google.com; s=arc-20260327;
- b=GnRxblBAOEsDzhTiAUYKjq77Xzt5HkBsmu5Qpj+or7Njq8zApkQ+F2OIu0gMC9kHTV
- hLcUgffSf9xnWOHktEwt//ocUqp/5+kzA7Q3TwWLuLbWEc5sCwKVr4ypOTx6OjEr9Bmo
- gaNy8R2THavFpcp+rQXCN7JvdiDl1DY4vjFOJb6XFgEsv043FnlljkDjGmJwQHuBCgs+
- JWD6PxcJutsawrCLU7x/bz7lMtHKQOiFqCN+78Mk5Gt6o4jR1dFKuoY3hxso5yYemuUC
- xbds2XlFMz1zR6QB57js8L2ZftDXJ26cW+1kq5peh9lJDffiF9g/wnX5DXdnh2wBIcpg
- zhKg==
+ b=XNGwFWq8iCHcWym5OVAGZEz0roaf6KnGTbI/GP8pw3cp2nRucZm+PoYUqzEVaCEZHv
+ fCmuRr24figuWyZSeJCvt3UVi0UY1NcN/ooTRnTdEFmIVVgNqcnjAzHgEWjDMGJaXIcy
+ xulLF69zL2u/xN83/nFNq/plOfjKYbnlt7651HZKoFxFkoPAuPUV/AoKxbTSn78ItRTu
+ zJRpDWu59WfE2NDysj54J2ozX0b44V6sYPvQITmqNFUPWz7mWGoYCJyYx1vCR2b0ucQM
+ 2OJjnGhAOM+/6qZD1KYi9MybeNaYRl/ioBgjvIIoZDC9+ygJYYIq4ER+4VBU0xMyC11m
+ OGbg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
  s=arc-20260327; 
  h=content-transfer-encoding:cc:to:subject:message-id:date:from
  :in-reply-to:references:mime-version:dkim-signature;
- bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
- fh=rUSAo+94mSo8LrSmvZAggwmahmgHSJtUPTIpbWq2nHY=;
- b=gURjcZte6woCs97Pp7UTq39tS/acxQjaHsigPZW8HNBY/r/Q7IL3gDWbdwKgwylwOC
- zKVSFatjQqzlV7PQGYBYO6mkz3q5hO13X6UdeS6qo5MewH4BItDIGOzNq8CXtR16d4LE
- djzAilez38ZdMzK+EEIk/X3/j9uR6WKdLKjJXfuCakF/MAQs4dwu+UtAY/m275mGYqWo
- gRfLI64EesBtfO6uV7EKkDT8ug4LG38DKK0xXF5Vtzf5avTNbqLj68WabarZuWqCHIJg
- 058DuI+iBXqoaDFPkKY13r6yQcFn8K1RXXgSRaIRlyytiaevbwJRI7DBY2Ci9oZvLH9Y
- PeAA==; darn=lists.freedesktop.org
+ bh=+lSvuZp8Y17eXoO25lsbfQdbZJVTJnq/pMdU2BkHd48=;
+ fh=GUSXumWaaeZl2CMlFv3OilDLlM/mriwVHKmyjMHK0x4=;
+ b=cJWIMKaRT5T+123Lb0XAuq/0tSSbK3QgP4hv7KcDxb2yt135lVOWvDq/CGJBpk3udJ
+ K1Qy4k++kOSkk0hSLLz/i5MdoGMB1/N0Sc5RO3AvTCc5vszArJsAhOVI07KWdIU7CEK9
+ cNUHXsAiBFHRZ1wsmFKbVatOdmqLWzxwtBLhmCtcf9hOHMdN7I06XuGEFxA/i7e2RrVU
+ hUs96xhp+KAVwZ+E2qJ62aq1ggKnjJ0HEFWN1NqMLQ/EQJXQedRRqGcAfbj2S8qxHiGa
+ jJ9nBXr0gh0fUt3ZoXM8+Ian5S6FSfU1JIKLPSzH2O/+TKegpykMsDp9amwXuU5gYV1K
+ qZAA==; darn=lists.freedesktop.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795695589; x=1796300389; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795695620; x=1796300420; darn=lists.freedesktop.org;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:from:to:cc:subject
  :date:message-id:reply-to:content-type;
- bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
- b=t0tw077D4N9CKRByvAw0TUg86djk+kNq6PiTt5Z4e9hkUs/a0kw/W/5sRD11fyCOzw
- nrNebgVo78DX7VaXo8Gzp117aQC02l842HyvtnIIs4Uum+Vsp5s+Jcc0o3S+LaJwb30M
- hVwkBxOWxIVy/JUut0EasFfBE1dTkopQtRuv2/lc9Ip+SGObSS7zpyD/XXpqBAzy842c
- rWrwynRgG7wihavoj8VyetHt9KtO3iimA0hoVzQu3hTQMZqwyLd45Rs1ihMpR7JMfrb6
- g/QuG1Nh7B3/PixvqUvh66x2PZ0CKv/WS1167wirn1BDBKdfmWiEseS0FtWwndJ6luRn
- jRcA==
+ bh=+lSvuZp8Y17eXoO25lsbfQdbZJVTJnq/pMdU2BkHd48=;
+ b=DhlKTRkLLoG8aYGiEZMSPsNQoEkTu4xoMS011yQfa1FnSXu/DyyW/oVTajL+LUEolL
+ EQhZQ2iofi5OkRnE4ks22PDCRIe51xO+36WNMAMBh5g8oPw6hv6cM3S/zspLPGo3UXH4
+ QYA50kOiYMRE2by4Kk5B6n32VfoczULJAy1EyiroZ3q0L82SNtYwGGHTQ6PiZlN6379D
+ OrxMgMr60lro/yNGxYKa8WcBFl02EHYC3K9qhPWtL/rtFxZujU2RSKdH6WEwoGP40HDP
+ r2MfEmqfHQ2PsbihCJQolpeaVUSw7le7wYmPbGoPf9YN4CFLWFDIxDGEqHlUyV/JkAwT
+ zJoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795695589; x=1796300389;
+ d=1e100.net; s=20260707; t=1795695620; x=1796300420;
  h=content-transfer-encoding:content-type:cc:to:subject:message-id
  :date:from:in-reply-to:references:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
- b=lG1iL09w+sbzL25QbRF3jmULfHvNZcVz+dvvZHLqz0AeLvUuMh51dS7/RiRryQiD7g
- 1KUIbJML0v3qWFqv5b4+sV3zPPV5iZ/g0KIidUHgLAbPkJk9oE9d+Cuz9zCxvv8VAg9x
- InWgSytSqXo9HbN8fQKyqthSLDbgpQ/q2nwuLgETTc0sFBnjTg+n2OCeMBv+IWgTHodf
- UsmJc4ZN3p7aWQqerjDgKpO8v4/RDQo3DkouGDP/yEl68DW1cvvWgESYkcuf8arWR8oZ
- eWDlujOcf5WQFC81lyVD6Hw1qt6HFOEOfmIF36VDC6KceRCHGLtkueZV5GNDfzYx6KN8
- zvpQ==
+ bh=+lSvuZp8Y17eXoO25lsbfQdbZJVTJnq/pMdU2BkHd48=;
+ b=LatrCN3xFSatOrw+DU3RFpJ03t9lwlfNP5bGIIjsWkndShfchulX6UMd56tfikpXtE
+ kYi8MFwuRSp0XjGL/rNX5GKL0/+dnf4NLxw4o7bEPXLLDBJLkcn/EchGczE2pUCKUJUS
+ oP2UjAKKdj7VcIJ1ITYOWVzM24JxZRXnQzW73kk64xvZGC3A/tS9ZUC3w+p3PWfaHSkA
+ a7eN9vV0AyfruZU6TDdDiDoG9aBirFMCkO01Pn8mC0A/GsZgEvXco8He4RggthnpdWqY
+ VoU2m61DQkIy3EmNZvk+NeWZlm8mtZO7xmQqLeh21LST2UJa7e8tjpUu07GHAQcg5BAc
+ 7APg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFShdXXZof2VDjW5JXyR6BUmFleCZKMn9SNov0Aj8F5+Kn2cueh4zN31WeBQNe7+AMJZ82l3Dzgpp0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z//SDQdfmciK/+2moPjS+XdMtNSsJYM099y9QftQBUn0y/AhawQ
- WD5r7q4E3CQymC2mjkBrsS7gQG93q+FK3aY1xXjy0eEFGXEktHgU5+ootIPUVO5d5TB4Nzxoh08
- pBg8SFmjrZIUSXWUWpOgBtx67GO1WUzw=
-X-Gm-Gg: AZFdTZdnX2gWtYBCmmGqFsgtsMeMOIelbPlPK+GL4Cl6gYzWuSScifSe6hsN1VNSw+Y
- meYZfjQAOOMATggsJiXMvaBzr1aZa14W5JZKgOcC8pMeoKocLryEYmd0WlkOvJFCDgQ1sXeK4i3
- ujUMuha1HAsOKUbwkXCX4qqhILf+uhgm9acydYWRBOfxP0VaMmu9cD19cFA2Ju0QLnO2jr0ypbe
- rq+xfoMVWemGt1lbYqiUOs6xblSsqaR23KDjd9rbtzo/PE7i1DXmWSvqew5reAM5jm4i/t353BW
- I3bQeXWQ3a/5TGKoMOsZhBpdpH8BNKWVX3ZoOyyq/nH7n0l9vJBvKgozYaWVegKkDqInCnYkyoX
- V2uw7O6lLOjMftKUxDlccAbnfRpcaUtGJliT9Ml3HVzqDjOo2a3PeHU5LA9Dlw5+h5H/YcC0iWD
- rWwlbtOAoWZtUFBqygC1d3MeNpW3K7Zw==
-X-Received: by 2002:a05:693c:895b:10b0:385:cf42:9b98 with SMTP id
- 5a478bee46e88-385cf429dcfmr20910606eec.34.1795695589053; Thu, 26 Nov 2026
- 04:19:49 -0800 (PST)
+ AL+hErFPPcq5eT5CBsIXkCCbxkxHc5I5x3JqSeHfFV5DIrMEeHamob5mpYz4Beg42H8NuXFUSZcTOfDtE3g=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9MjPEA9EIKIWIJHJw3pVpknmsd1y4W0lkfAo6497U8nhxQ/CwE
+ L34poHOuKr7VGuVfj14TX5dAremNfkptc78IHJMSv+bqUFC93WNWyZ++rCL06Uh9svvIRaMvbbl
+ eBQi+icBwk1ACBKP8MP7jSlSrC6TIVN4=
+X-Gm-Gg: AZFdTZe9asr6nEJNouyGJbNUzts96CyZgNsWYSjiKJhQEHqL9ZfEkyrmZR3Wbn7UPjW
+ u5IVYqN+ZIu3nxn0Gn684339LiU0S9KmVGZGemKb4F+2MRRu6kC7Cis1rmOOsYU73UnuQLphH7d
+ 65ViH9U24jeE8kSRyEnaQjDrGo/R51BMrC1J2ahx4ofv/DlW11OW3RAYI4NZtFIRtdLl3wMDMKL
+ 5vJ0CdGsg6sxbnWYXYcUwOsYuqWoPM+8RNc+iCJmHZXMgiUPy5ID7wuaJOrsX9IUIvGUEktD0bb
+ s7hw1IcT1UrkX4wDmLZt9jFCBOhFfNXiIB1xWDmZypnK5mok1jjq889KD57f3sEdlSh2y2LlHDN
+ Vr/DumfaHHaCs9YCvsVa2IOqvTT++oWAb3J03B9/b6KgHCr8RB6JjlGtozHCu8c+T56muaCiQL6
+ f7LZyULux/0Q2wVOrjDcIVtIszHEjdkm2VP7jssCdad78fxs1NrJc=
+X-Received: by 2002:a05:7301:929:b0:376:37a2:87f3 with SMTP id
+ 5a478bee46e88-38570f25262mr19450186eec.31.1795695620162; Thu, 26 Nov 2026
+ 04:20:20 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261115085826.89641-1-clamor95@gmail.com>
- <20261115085826.89641-5-clamor95@gmail.com>
- <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
-In-Reply-To: <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+References: <20261115085155.80043-1-clamor95@gmail.com>
+ <20261126114506.GF38590@joneslee-macbookpro.roam.internal>
+In-Reply-To: <20261126114506.GF38590@joneslee-macbookpro.roam.internal>
 From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 26 Nov 2026 14:19:37 +0200
-X-Gm-Features: Aa3M54o45-8oLpV7u0fds3mVX__iIW7iqATGNdrlwb2jFlsQvtadJWGIKMAZpQU
-Message-ID: <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
-Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO power
- supplies
+Date: Thu, 26 Nov 2026 14:20:08 +0200
+X-Gm-Features: Aa3M54qVnLT4LX9aypLg829C8Q--H88cVFtiIS6wh8smfquZHuMzs0sW-CXGNDk
+Message-ID: <CAPVz0n1QApS9Y67WH1xJ34wg9AWz+RQ0DXEd5jAPEnAw=cTd2g@mail.gmail.com>
+Subject: Re: [PATCH v3] video: leds: backlight: lm3533: Support getting LED
+ sources from DT
 To: Lee Jones <lee@kernel.org>
-Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
- Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
- dri-devel@lists.freedesktop.org
+Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>, 
+ Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -120,31 +114,149 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 =D1=87=D1=82, 26 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:4=
-7 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+5 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
 > On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
 >
-> > The AAT2870 supports a dedicated main power supply input alongside pare=
-nt
-> > power supply for its internal regulators.
-> >
-> > Add support for retrieving and managing these supply regulators
-> > (vin-supply and in-ldo-supply) using the regulator framework to ensure
-> > proper power supply dependencies and power-up sequencing.
+> > Add Control Bank to HVLED/LVLED muxing support based on the led-sources
+> > defined in the device tree.
 > >
 > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 > > ---
-> >  drivers/mfd/aat2870-core.c            | 5 +++++
-> >  drivers/regulator/aat2870-regulator.c | 1 +
+> > This was part of the original LM3533 controller DT/OF conversion patchs=
+et,
+> > but it appears to have been accidentally separated during the final ite=
+ration.
+> > Therefore, I am sending it as a follow-up.
+> >
+> > Changes in v2:
+> > - leds: switch to macros in regmap_update_bits() calls to apply 0xff ma=
+sk
+> >   since regmap writes may cause unwanted writing.
+> >
+> > Changes in v3:
+> > - leds part moved into a separate patchset
+> > - switched to dev_err_probe()
+> > - for loop moved out of if condition
+> > ---
+> >  drivers/video/backlight/lm3533_bl.c | 44 +++++++++++++++++++++++++++++
+> >  1 file changed, 44 insertions(+)
+> >
+> > diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backli=
+ght/lm3533_bl.c
+> > index fd6e7f4f1f61c..cb9df6ff73001 100644
+> > --- a/drivers/video/backlight/lm3533_bl.c
+> > +++ b/drivers/video/backlight/lm3533_bl.c
+> > @@ -7,6 +7,7 @@
+> >   * Author: Johan Hovold <jhovold@gmail.com>
+> >   */
+> >
+> > +#include <linux/bits.h>
+> >  #include <linux/module.h>
+> >  #include <linux/init.h>
+> >  #include <linux/platform_device.h>
+> > @@ -21,6 +22,7 @@
+> >  #define LM3533_HVCTRLBANK_COUNT              2
+> >  #define LM3533_BL_MAX_BRIGHTNESS     255
+> >
+> > +#define LM3533_REG_OUTPUT_CONF1              0x10
+> >  #define LM3533_REG_CTRLBANK_AB_BCONF 0x1a
+> >  #define   CTRLBANK_AB_BCONF_ALS(n)   BIT(2 * (n))
+> >  #define   CTRLBANK_AB_BCONF_MODE(n)  BIT(2 * (n) + 1)
+> > @@ -35,6 +37,9 @@ struct lm3533_bl {
+> >       u32 max_current;
+> >       u32 pwm;
+> >
+> > +     int num_leds;
+> > +     u32 led_strings[LM3533_HVCTRLBANK_COUNT];
+> > +
+> >       bool have_als;
+> >       bool linear;
+> >  };
+> > @@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attr=
+ibute_groups[] =3D {
+> >  static int lm3533_bl_setup(struct lm3533_bl *bl)
+> >  {
+> >       int ctrlbank =3D lm3533_bl_get_ctrlbank_id(bl);
+> > +     u32 output_cfg_val =3D 0;
+> > +     u32 output_cfg_mask =3D 0;
+> >       int ret;
+> >
+> >       ret =3D regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCO=
+NF,
+> > @@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
+> >       if (ret)
+> >               return ret;
+> >
+> > +     for (int i =3D 0; i < bl->num_leds; i++) {
+> > +             if (bl->led_strings[i] >=3D LM3533_HVCTRLBANK_COUNT)
+> > +                     continue;
+> > +
+> > +             output_cfg_val |=3D ctrlbank << bl->led_strings[i];
+> > +             output_cfg_mask |=3D BIT(bl->led_strings[i]);
+> > +     }
+> > +
+> > +     if (bl->num_leds) {
+> > +             ret =3D regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_=
+CONF1,
+> > +                                      output_cfg_mask, output_cfg_val)=
+;
+> > +             if (ret)
+> > +                     return ret;
+> > +     }
+> > +
+> >       ret =3D lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current)=
+;
+> >       if (ret)
+> >               return ret;
+> > @@ -320,6 +342,28 @@ static int lm3533_bl_probe(struct platform_device =
+*pdev)
+> >
+> >       device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->p=
+wm);
+> >
+> > +     /*
+> > +      * If led-sources property is not set then either this Control Ba=
+nk uses
+> > +      * its default HVLED or is not linked to any HVLED at all.
+> > +      */
+> > +     bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sourc=
+es");
+> > +     if (bl->num_leds > LM3533_HVCTRLBANK_COUNT)
+> > +             return dev_err_probe(&pdev->dev, -EINVAL,
+> > +                                  "num of LED sources %d exceeds max %=
+d\n",
 >
-> Is this a build dep?
+> Nit: As I mentioned before, this is user-documentation - should be number=
+?
 >
 
-More a logical link, I can break it but it still will be part of this patch=
- set.
+Daniel Thompson was fine with num
 
-> Would something that was working before, break?
+> > +                                  bl->num_leds, LM3533_HVCTRLBANK_COUN=
+T);
+> > +
+> > +     if (bl->num_leds < 0)
+> > +             bl->num_leds =3D 0;
+> > +
+> > +     if (bl->num_leds > 0) {
+> > +             ret =3D device_property_read_u32_array(&pdev->dev, "led-s=
+ources",
+> > +                                                  bl->led_strings,
+> > +                                                  bl->num_leds);
+> > +             if (ret)
+> > +                     return dev_err_probe(&pdev->dev, ret,
+> > +                                          "failed to get led-sources\n=
+");
+> > +     }
+> > +
+> >       ret =3D lm3533_bl_setup(bl);
+> >       if (ret)
+> >               return ret;
+> > --
+> > 2.53.0
+> >
 >
-
-Other way, it was broken (aat2870 may have a dedicated supply) and now
-it is fixed.
+> --
+> Lee Jones
