@@ -2,42 +2,41 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA538606A68C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:33:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FAF0606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WqUfqy9F
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DD6I3s1f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0672E10E95A;
-	Thu, 26 Nov 2026 08:33:02 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C78B110E95A
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:32:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7131610E77A;
+	Thu, 26 Nov 2026 08:34:54 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E75AF10E77A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 08:34:47 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A71A241E5D;
- Thu, 26 Nov 2026 08:32:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CFC21F000CA;
- Thu, 26 Nov 2026 08:32:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 488FF6298E;
+ Thu, 26 Nov 2026 08:34:47 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1F351F000C0;
+ Thu, 26 Nov 2026 08:34:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795681975;
- bh=9spVlpQpBeZDDKuvLbp+p3LPVgIfIlVOOz6oo/4W0qQ=;
+ s=k20260515; t=1795682087;
+ bh=mQQCu5t/uHwNW69/mnlXFnXyWKMKzFbuiCbf97VBC6o=;
  h=From:Subject:Reply-To:To:In-Reply-To:References:Date;
- b=WqUfqy9FPdEJJ7BJf7cdH3N9Qhg1uS9RUkoPleQWqilROXIvSpU+BmkVZuTt8sxw8
- gjeKyhfoSj/2OouujMIXhW8kXAxnGz+MvOV9MBTJO/hxcNRVlsKjY+w/RdcFO7d9Bk
- un+B4dKIKHz55bO4ScnMhlAccLC3OJ7Z0A1rOegkbjrx5IjX3vuOfiwS8FO9vyd7f3
- HuHXnVqznJce5uLqCYKdgoymQGPRVmOBQ2x9aAq0kESfb28xUboLmYuzTj5nLsjhuY
- p7thnX2lE5hDKOtTGVSPRK81XrLOz0rP7UGXUwhnxTxyjxRl/Ywlzr/kQyAtqnxINI
- 1jW7RE3KpsngA==
-Message-ID: <sashiko-outbox-235027@kernel.org>
+ b=DD6I3s1fHccCoFuai0lyNsBwmcIFeMUVDTyPp8f3GsgzsyDjDC2yXBxWjNj9kBS7l
+ ct4VFlYaPu79kR8HYzhbrtahaVBJCogZN7/ITXOLIQT++KGdokynYOO6U1a5TehOUF
+ KRFoh1TQthBJfWTpFDgu/mv7yj96gp80+tL4dGYaybSM4AXrL7ElSt4ZlQQHeVluUY
+ 8B+7DtqZPrgIvfITUFNn90Y8EmppZh/1xmXOfMoMw7Wqk6DQYx332Q8jmwdKD7FEDD
+ i7YiQ+yPtRM7sugk32xcS+31HL3K6uj1DnoB5hh3fA4EzijpI3UIhTmayfpQQXNuUJ
+ GhO7UFiBj9yIA==
+Message-ID: <sashiko-outbox-235033@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] drm/sti: cursor: do not resize the pixmap from
- .atomic_check()
+Subject: Re: [PATCH v2 3/4] drm/sti: hqvdp: start the XP70 from device init
 To: "Minseo Park" <hiyoukou@gmail.com>, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126024710.33401-2-hiyoukou@gmail.com>
+In-Reply-To: <20261126024710.33401-4-hiyoukou@gmail.com>
 References: <20261126024710.33401-1-hiyoukou@gmail.com>
- <20261126024710.33401-2-hiyoukou@gmail.com>
+ <20261126024710.33401-4-hiyoukou@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 08:32:55 +0000
+Date: Thu, 26 Nov 2026 08:34:46 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,70 +57,84 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/sti: leak of managed pixmap DMA buffer on error in
-  sti_cursor_create()
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/sti: hqvdp: sti_hqvdp_bind() exposes plane with clk off on
+  init failure
+- [Medium] drm/sti: hqvdp: sti_hqvdp_bind() leaks hqvdp->clk on error
+  and unbind
 --
 
-commit e56d841601d0e4ed868b107dc1847844ca728b69
+commit a8cf3e26ef27767a003bfe97a37331241f497584
 Author: Minseo Park <hiyoukou@gmail.com>
 
-drm/sti: cursor: do not resize the pixmap from .atomic_check()
+drm/sti: hqvdp: start the XP70 from device init
 
-This commit allocates the cursor pixmap DMA buffer once at plane creation
-time instead of reallocating it inside sti_cursor_atomic_check().
+This commit moves the sti_hqvdp_start_xp70() call out of
+sti_hqvdp_atomic_check() and into sti_hqvdp_bind() so that atomic check
+does not touch hardware or load firmware.
 
-> diff --git a/drivers/gpu/drm/sti/sti_cursor.c b/drivers/gpu/drm/sti/sti_c=
-ursor.c
-> index 66f56355309f9..7295b6edb8ef9 100644
-> --- a/drivers/gpu/drm/sti/sti_cursor.c
-> +++ b/drivers/gpu/drm/sti/sti_cursor.c
-[ ... ]
-> @@ -377,6 +353,22 @@ struct drm_plane *sti_cursor_create(struct drm_devic=
-e *drm_dev,
->  		return NULL;
+> diff --git a/drivers/gpu/drm/sti/sti_hqvdp.c b/drivers/gpu/drm/sti/sti_hq=
+vdp.c
+> index 360d213f2094f..c6b6ed54b8995 100644
+> --- a/drivers/gpu/drm/sti/sti_hqvdp.c
+> +++ b/drivers/gpu/drm/sti/sti_hqvdp.c
+> @@ -1081,10 +1081,6 @@ static int sti_hqvdp_atomic_check(struct drm_plane=
+ *drm_plane,
+>  		return -EINVAL;
 >  	}
 > =20
-> +	/*
-> +	 * Allocate the pixmap once, for the largest cursor the hardware
-> +	 * supports.  It used to be reallocated from .atomic_check(), which
-> +	 * freed a buffer the display engine could still be scanning out.
-> +	 * Use the managed helper so it is released with the device.
-> +	 */
-> +	cursor->pixmap.size =3D STI_CURS_MAX_SIZE * STI_CURS_MAX_SIZE;
-> +	cursor->pixmap.base =3D dmam_alloc_attrs(dev, cursor->pixmap.size,
-> +					       &cursor->pixmap.paddr,
-> +					       GFP_KERNEL,
-> +					       DMA_ATTR_WRITE_COMBINE);
-> +	if (!cursor->pixmap.base) {
-> +		drm_err(drm_dev, "Failed to allocate memory for pixmap\n");
-> +		goto err_clut;
-> +	}
+> -	if (!hqvdp->xp70_initialized)
+> -		/* Start HQVDP XP70 coprocessor */
+> -		sti_hqvdp_start_xp70(hqvdp);
+> -
+>  	if (!hqvdp->vtg_registered) {
+>  		/* Prevent VTG shutdown */
+>  		if (clk_prepare_enable(hqvdp->clk_pix_main)) {
+> @@ -1333,6 +1329,9 @@ static int sti_hqvdp_bind(struct device *dev, struc=
+t device *master, void *data)
+> =20
+>  	hqvdp->drm_dev =3D drm_dev;
+> =20
+> +	/* Start HQVDP XP70 coprocessor */
+> +	sti_hqvdp_start_xp70(hqvdp);
+
+[Severity: High]
+Can this expose the HQVDP plane with hqvdp->clk disabled when
+sti_hqvdp_start_xp70() fails?
+
+Commit e00fe64a5ccd ("drm/sti: load HQVDP firmware the first time HQVDP's
+plane is used") moved firmware loading out of sti_hqvdp_bind() because the
+root filesystem may not be mounted yet at bind time.  When
+request_firmware() or the XP70 boot poll fails in sti_hqvdp_start_xp70(),
+hqvdp->xp70_initialized stays false and hqvdp->clk is left disabled, yet
+sti_hqvdp_bind() still registers the DRM plane and neither
+sti_hqvdp_atomic_check() nor sti_hqvdp_atomic_update() checks
+hqvdp->xp70_initialized.
+
+A subsequent commit on the plane then performs unclocked MMIO reads and
+writes in sti_hqvdp_atomic_update() (via sti_hqvdp_get_free_cmd() and
+HQVDP_MBX_NEXT_CMD), which can trigger an external abort or bus hang, and
+disabling the plane runs sti_hqvdp_disable() from vtg_irq_thread(), doing
+unclocked MMIO and sleeping for 1000 ms in the VSync IRQ thread.
+
+Could sti_hqvdp_start_xp70() be called from sti_hqvdp_atomic_update()
+instead, with register accesses guarded by hqvdp->xp70_initialized?
+
 > +
->  	/* Allocate clut buffer */
->  	size =3D 0x100 * sizeof(unsigned short);
->  	cursor->clut =3D dma_alloc_wc(dev, size, &cursor->clut_paddr,
-> @@ -387,7 +379,6 @@ struct drm_plane *sti_cursor_create(struct drm_device=
- *drm_dev,
->  		goto err_clut;
->  	}
-> =20
-> -	cursor->dev =3D dev;
->  	cursor->regs =3D baseaddr;
->  	cursor->plane.desc =3D desc;
->  	cursor->plane.status =3D STI_PLANE_DISABLED;
+>  	/* Create HQVDP plane once xp70 is initialized */
+>  	plane =3D sti_hqvdp_create(drm_dev, hqvdp->dev, STI_HQVDP_0);
+>  	if (!plane)
 
 [Severity: Medium]
-Does sti_cursor_create() leak cursor->pixmap.base when allocating
-cursor->clut or calling drm_universal_plane_init() fails?
+Does this leak the prepare and enable references on hqvdp->clk?
 
-The err_plane and err_clut paths free cursor->clut and cursor, without
-releasing cursor->pixmap.base.  Because sti_compositor_bind() treats a
-NULL return from sti_cursor_create() as non-fatal and still returns 0,
-devres on compo->dev is not released on failure and the 16 KiB DMA buffer
-stays allocated while the compositor remains bound.
+sti_hqvdp_start_xp70() calls clk_prepare_enable(hqvdp->clk), which is now
+enabled unconditionally at bind time even if the plane is never used, and
+nothing calls clk_disable_unprepare(hqvdp->clk) if sti_hqvdp_create() or a
+later component bind fails, or when the component is unbound in
+sti_hqvdp_unbind().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126024710.3340=
-1-1-hiyoukou@gmail.com?part=3D1
+1-1-hiyoukou@gmail.com?part=3D3
