@@ -2,37 +2,36 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B859C606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:00:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E33A2606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:00:44 +0000 (UTC)
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E627F10E93D;
-	Thu, 26 Nov 2026 06:00:31 +0000 (UTC)
-Received: from SEYPR02CU001.outbound.protection.outlook.com
- (mail-koreacentralazon11023130.outbound.protection.outlook.com
- [40.107.44.130])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B945910E30E
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4CF5510E94A;
+	Thu, 26 Nov 2026 06:00:44 +0000 (UTC)
+Received: from TYPPR03CU001.outbound.protection.outlook.com
+ (mail-japaneastazon11022079.outbound.protection.outlook.com [52.101.126.79])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF41810E586
  for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:00:12 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=RjJNDUPArqXVNK77/7A9ZEzgq8oQi4fzefAGvL2MDIgiGZ04os8iIIBmo8hOF1RNtC4DfIqAn+2BPxvaaCJvVPujuCF7n2Ybz3QJdEWotdoZW9dpwPtuX2KXvao2S2oHdrF0StIcsjWpXHUPIsil4pxtR/Gva0ln3vKORKbODvFiI2aK5+h7jhuGK0jY5ibxv5RvErJQTEM/zzUfSYmFUp7qNoxrFSptqhYTOCyOBr+B2jgp8JHviCAHLLIp99GIKMaAyd25VSnxAJfFGW0sBQbsQNmek95y91m+Fx5NLEo7DhtXUHYtHVOyf2/tniaJycn668wOe2pbYm/VhYHzLA==
+ b=TAm082y09vdA3ACCfXHLnNILBpGbuiU8JePSAysuvmNug4UT+wCmmVy9lHGWbPWEOn6+YiJLAEGcp2Jcje2pmtgWznGF3bxsrNnziOat8qRHxtMkeCSmQoBxgokyGIZAtPWsAtbgGX36pjPKVj4SIuiYtiRTIEFH88Uq7SIScEEHaGrxWX75ARDZOBTdGS2xsgH9uqYpFK9i+1MxcUUXOa09FXdZWSQEi4PEteWE5VrnCWQTprdFWKf7JKzVunWDWujc5ZtvYBkDYk4UmbCAcxZnvYEQB3KiYXu6pbJaCzg+ITDjewtaGzVJgmhfkZ4mZNOxR/JOQtcRKMaGjSpifg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=qHZzuziRY/XFXnSXoxGpROeRiHUvnW0OcMHgsz+AfWA=;
- b=dB6kjGKGBY8kxEMXAERlwRYtX3poxvjJeNole5Wgzwz/tzNkoLvC3hd0ZAiUTBSx2UYEdDXsUrHclBIvlCXTB9+TYWGQK+hn0u+rlTqyVUFK7b7NHbCUln68L3QZiqspLZc9HGJ6pWxdH+KjZjZP12T4SfjWEiMr/H4VE3prbeonnk0MIROgOoJ5/vbhTpedFKnUWnEZk5z2FYMdg3GGER89EZQt6fnh9/m+BDI57t+LJjo46MaETvMUn+qfmisYsbirP/rtwU+2Pg+4p8xoB8i5wmiAvPmfN9odZZEs1LJI5myW6aCVPPE0ApN9SbW3SiVcG3GzUWOod+kF6ENbVA==
+ bh=16Xsm6XLZ1AZSc4+qMVRk3gVPb93nYWT6NQendcm81I=;
+ b=ACOOT5hrUP7mXA89cSaOeaIW0wbzyOkqEyE/RxuLZzTwQLxma0sMx9xol22TpK6y5n2NrYKHleOlExZGu3xc9MY2TfdjG3VJOlAnv16USPZjaN4E5HYOsgpwRmRRmnqY/+l0M/RUZZ4CllzCS/4/i3Tt469yWHOuzG+joNpTbznr94u1gfDW+DvhQP7+XarOw78/LZ4TBpx6v+C2CppoGeURNB8lF7N1jMbDDThAvxppBIeV378a4lMXOOc3RY1aaLWRbZS94ByYyO0Zeg/03AZj1rWEHdSzrM6OvkgT/I316aNzYEbJkmtJo6dNV/qORO2KTdP6S5wfG3/CKkR3aw==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  222.71.101.198) smtp.rcpttodomain=bootlin.com smtp.mailfrom=cixtech.com;
  dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
  not signed); arc=none (0)
-Received: from SI1PR02CA0030.apcprd02.prod.outlook.com (2603:1096:4:1f4::8) by
- SEYPR06MB6982.apcprd06.prod.outlook.com (2603:1096:101:1e2::8) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.4; Thu, 26 Nov 2026 06:00:06 +0000
-Received: from SG2PEPF000B66CA.apcprd03.prod.outlook.com
- (2603:1096:4:1f4:cafe::2c) by SI1PR02CA0030.outlook.office365.com
- (2603:1096:4:1f4::8) with Microsoft SMTP Server (version=TLS1_3,
+Received: from PS2PR01CA0027.apcprd01.prod.exchangelabs.com
+ (2603:1096:300:58::15) by SI6PR06MB7269.apcprd06.prod.outlook.com
+ (2603:1096:4:245::12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.688.4; Thu, 26 Nov
+ 2026 06:00:07 +0000
+Received: from TY2PEPF0000AB83.apcprd03.prod.outlook.com
+ (2603:1096:300:58:cafe::90) by PS2PR01CA0027.outlook.office365.com
+ (2603:1096:300:58::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Thu, 26
- Nov 2026 06:00:06 +0000
+ Nov 2026 06:00:07 +0000
 X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
  is 222.71.101.198)
  smtp.mailfrom=cixtech.com; dkim=none (message not signed)
@@ -41,12 +40,12 @@ Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
  222.71.101.198 as permitted sender) receiver=protection.outlook.com;
  client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
 Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CA.mail.protection.outlook.com (10.167.240.22) with Microsoft
+ TY2PEPF0000AB83.mail.protection.outlook.com (10.167.253.4) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.688.5 via Frontend Transport; Thu, 26 Nov 2026 06:00:04 +0000
+ 15.21.662.3 via Frontend Transport; Thu, 26 Nov 2026 06:00:05 +0000
 Received: from localhost.localdomain (unknown [172.16.66.33])
- by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 0715640920E2;
- Thu, 26 Nov 2026 14:00:04 +0800 (CST)
+ by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id E2ACD427EFC0;
+ Thu, 26 Nov 2026 14:00:03 +0800 (CST)
 From: Luo Liu <Luo.Liu@cixtech.com>
 To: maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
  andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org,
@@ -55,42 +54,41 @@ Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
  jernej.skrabec@gmail.com, luca.ceresoli@bootlin.com, wuyi.shen@cixtech.com,
  cix-kernel-upstream@cixtech.com
-Subject: [PATCH v5 2/5] drm/bridge: trilinear: add the DPTX hardware layer
-Date: Thu, 26 Nov 2026 14:00:00 +0800
-Message-Id: <20261126060003.3979478-3-Luo.Liu@cixtech.com>
+Subject: [PATCH v5 0/5] drm/bridge: trilinear: add the Sky1 DisplayPort
+ transmitter
+Date: Thu, 26 Nov 2026 13:59:58 +0800
+Message-Id: <20261126060003.3979478-1-Luo.Liu@cixtech.com>
 X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261126060003.3979478-1-Luo.Liu@cixtech.com>
-References: <20261126060003.3979478-1-Luo.Liu@cixtech.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CA:EE_|SEYPR06MB6982:EE_
+X-MS-TrafficTypeDiagnostic: TY2PEPF0000AB83:EE_|SI6PR06MB7269:EE_
 Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: de608be0-467a-480b-ac6a-08df4b828475
+X-MS-Office365-Filtering-Correlation-Id: ad1eca31-f5a1-4e5c-6431-08df4b828528
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|36860700016|1800799024|7416014|376014|23010399003|82310400026|42112799006|56012099006|10067099003|261022113327099003|261022115727099003|261022105027099003|261022075727099003|261026130827099003|261028144727099003|261026121527099003|261026140227099003|261021130227099003|261021123027099003|261021135927099003|261021133027099003|261102123227099003|261021121427099003|261026135527099003|261009223027099003|261009223327099003|261009221727099003|261009220027099003|261009221227099003|22082099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: Ebgz//Syol8kr+lCp/HYrP9LBb3hebnByXLeTIz+pMd5gjNR26P33dd1/TsncoMDVWSuhvceiji53LDh7gFarjM1PlrHl8Dk8Uij/6LPsdh0eW9bRHgFDIZ7A2vrp6CQy3c5fLD3nXSL78Sqng4SO9tjKU6xO6CXDf7NlOSuIaziQPGVkVvMwKf4ZSoc0G7vU7/UDed7aIrxlffxf0A5aa4QvU/255b5zSQpMt3+U/ow1YtZ5r3otHQ05yC+z9j7NjTPPnm3FfOneu/1FNAE5lShSD0clmMt0i3aQicthYV04T4OXIfi1/4l4cyjEQB2/g8lbnYWs0UK1S4N/D9HH1WR++L4YQE7qb8LwNYQ57AVhZkk9w8sTuBKjnSD5AVgYktwdjDAOC8spGtEzzvZeAnIA+yFKSmQ8gEKAARr6GK70P+pqVUvN7OzukDs34Y8ayUyDa1PPPW57KYfdtdFZ0p+Sou9nZjUopjYgvmltvUH6GD5h/XTUqN3re+vGDum9zWAUS7K5tLpYtIwVL2o2yirW7MFQ174yZf4h93fGieuPaXl9CDKvrRvXSvN5FmG
+ ARA:13230040|36860700016|1800799024|7416014|376014|23010399003|82310400026|42112799006|10067099003|5023799004|56012099006|261021121427099003|261009221227099003|261009223027099003|261102130727099003|261009223327099003|261009221727099003|261009220027099003|261102123227099003|261026121527099003|261022105027099003|261026140227099003|261028144727099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info: dMlZLvIj+L5rL6KgUuR0SbytS1UrqP5Z3zKBYXF9DSf5ImIGQXTwtFUR5MbUxEo8ZGirT7JDeRVxbsf3/T/Vn4m5jzibbKax4raNIHGFF7xllf7ivyt16XGxJqyw5bw2JgK2FC85mPB3ko2uU3DMIa/Xuklw7/c92Qfo/uBnPEPBya+3gaIIDax+6X6q5bdtvmgkvLi+PlErx3n2JMO2Mm/qRQB1nQWt7JFQlygQjmKt3z/gQOTOm/+E/sjrdozjejn8aKlib0C0Ltbe8b1vSVgHuTYUTQfaOnJNzDk2cTuKIixl9VfZqINWHF7PdWjTF5hcRtGHClhKhsOBXmAA7a8B3+gAZ33r9UgeaeV2UsKJwfTJ1hnsOeXmqpoCuw5l/KR4krb80wZnPgJnIzATtuy70ko/8CZNX7Tgo8HpqbC4yqiddZ9OC+zMcem3h0BnJmNcoztuO+fmN3Ir7SN+oY4Lm3VVql4xeqylakQDRk76UAoDPjo8oos6AfWbkl7UWbrYzXt2/ybjfDu/Bc1yzjF/a8ccAJt9/8dB4O+zWJcwAlFMaq1utRtQnIIR0PAAiPJPqsLEjrl9WuREgzYAxTGR/37AU80TSc5gdEIlAjxuSqq6chiRCMSMoAFOgKP6jXS+oZydi9+RMGi3gZ2cQEFE+xjy89pWm32UoX9IM6j+K2aSg5ziWucW+XoZXHFIR9FfNYAS310F3PfLMW69AA==
 X-Forefront-Antispam-Report: CIP:222.71.101.198; CTRY:CN; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:smtprelay.cixcomputing.com; PTR:InfoDomainNonexistent;
  CAT:NONE;
- SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(23010399003)(82310400026)(42112799006)(56012099006)(10067099003)(261022113327099003)(261022115727099003)(261022105027099003)(261022075727099003)(261026130827099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021130227099003)(261021123027099003)(261021135927099003)(261021133027099003)(261102123227099003)(261021121427099003)(261026135527099003)(261009223027099003)(261009223327099003)(261009221727099003)(261009220027099003)(261009221227099003)(22082099003)(18002099003)(6133799003)(3023799007);
+ SFS:(13230040)(36860700016)(1800799024)(7416014)(376014)(23010399003)(82310400026)(42112799006)(10067099003)(5023799004)(56012099006)(261021121427099003)(261009221227099003)(261009223027099003)(261102130727099003)(261009223327099003)(261009221727099003)(261009220027099003)(261102123227099003)(261026121527099003)(261022105027099003)(261026140227099003)(261028144727099003)(18002099003)(3023799007);
  DIR:OUT; SFP:1102; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: ZTUV+jttohhUelS4BRu8Lh1W88lditEvg/jAMjaCHpzb5RiCDVjcgcniYOwC9XFC5MyKxqzCeavoS3AvoVMUOqMD6Hxf5MBmji+udHruW/TGuIY9w8NC4MJ5mbxpI65upgcT+QlyiLuksyhYTd3+7HgL4B0mcl6t+NpmlSBeTdK9NnkudLbDhXfXINGMlVM8NGCTDguDYTHqjnWdGs6LLe65FWQoPCpAgAHlB2+Kdh+J5+2n/kFiy8aUVnTFZRS4Tw6/oEoRK3P1o1l37cjf3ZyKqIo9Gi71PYga7CYTbFKzPMzW8E2tPudwILOX9+4iQpjCy/PFQFvzsCeg2c3YUgrmFITqwDCxxdqkSX6xTaPW/4b269wSAoZzv+1szOmGzWDFwCKGI7uAGGZg3FCIQQwl4uSYJnMFw010xwaMiEUmqb1BfITcH7rJAOUSHTeX
+X-MS-Exchange-AntiSpam-MessageData-0: i0CfDGb7iYZ1ermTpYTqmEKKmLNR46CxOwuMPtBITgjx6IeAM8jz/xMOAEmgN4OgiyAsdGV34hZ7h3ya6IyzOeGPW8AiBJRxlcbYmxdAsf9Ynvh7s82u8y4R3KQ3RTampPBCzkY6Zs3BN8N7hCdi5kry79q5TWqm/dKzvZG/SjzhJ27+1XZIsBGs3mVmS3lZ1gcfjOiacfJnm8jJma2L0Rtu0DVPwJAlpZaQBHVfBgeRcF4t6rWlQbfuCrUjST/qt5zJfMquZVBHdHvRjsIGdwAtwxg7o3Zi7QsvCnJCCcr59pvxpX2id6LbwRTca99Cn9jPt3tB7YUO5a+PrCC6qjaOyhaAgddb6g9cAA2C6FDBIZXhYFnfiU0/W/HaziB4qIs/VxxZHe0gRoFnChTDNLBL/An0y9tUagkMBYHFLdhyYKL2hcuxVR8QElSpqxhk
 X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:00:04.5857 (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: de608be0-467a-480b-ac6a-08df4b828475
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 06:00:05.8000 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ad1eca31-f5a1-4e5c-6431-08df4b828528
 X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811; Ip=[222.71.101.198];
  Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource: SG2PEPF000B66CA.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthSource: TY2PEPF0000AB83.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB6982
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI6PR06MB7269
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,1526 +100,109 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.8 required=3.0 tests=BAYES_00,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Add the register and PHY programming for the Trilinear DisplayPort
-transmitter: controller reset, host and core enable, AUX transfers
-through the controller's AUX channel, sink capability parsing from the
-DPCD, and link training with rate downshifting when the sink cannot
-lock.
+Add the Trilinear DisplayPort transmitter as a DRM bridge, with the CIX
+Sky1 platform glue behind a platform data structure.
 
-The transmitter drives up to four lanes at HBR3 and has two SST
-sources. The stream setup programs the main stream attributes, the
-pixel format and the optional VSC SDP per stream. MST is not
-implemented and is left disabled.
+The hardware layer, the DRM bridge and the core state machine live in
+drivers/gpu/drm/bridge/trilinear/, so other SoCs using the same
+transmitter can share them; the platform registers its own dptx_plat_data
+through include/drm/bridge/trilinear_dp.h. The transmitter drives up to
+four lanes at HBR3 and has two SST sources. MST is not implemented and
+stays disabled.
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
----
- drivers/gpu/drm/bridge/trilinear/dptx_hw.c | 1379 ++++++++++++++++++++
- drivers/gpu/drm/bridge/trilinear/dptx_hw.h |  103 ++
- 2 files changed, 1482 insertions(+)
+The USB-C transmitters and the native DP/eDP transmitter use different
+RCSU video-adapter register offsets and bit layouts, so the binding has
+one compatible for each. The Sky1 devicetree nodes are not included in
+this posting.
+
+Scope: DPTX hardware, bridge and bindings only. Komeda (the Sky1 display
+controller that feeds these bridges) and the board DTS are separate
+series. Nothing in this posting wires a full display stack.
+
+Tested on a Radxa Orion O6 board; the USB-C DisplayPort output works
+with the connector created by drm_bridge_connector_init().
+
+Connector handling in this driver:
+
+  The bridge is meant to be attached with DRM_BRIDGE_ATTACH_NO_CONNECTOR
+  and drm_bridge_connector_init() creates the connector from the bridge
+  operations. The driver implements the bridge side only and never
+  registers a connector of its own.
+
+Changes in v5:
+- The bridge no longer outlives the platform device: the release action
+  runs after devm_drm_bridge_add(), struct dp_hw is freed from the
+  bridge .destroy callback, and a released flag makes detect and prepare
+  fail with -ENODEV after unbind.
+- The AUX channel is initialized in dptx_hw_init() before the host sets
+  its power state, its name is allocated once with the bridge, and it is
+  powered down together with the host.
+- HPD reported by the platform is only accepted when the SoC reports it
+  out of band, notifications generated by the driver are marked so they
+  are not fed back into the state machine, and dp->status is updated in
+  the same locked section as the connection state.
+- dptx_pm_complete() replays the deferred hotplug, dptx_pm_prepare()
+  clears the forced HPD state, and dptx_host_reset() disables the host
+  again when the PHY fails to enter DP mode.
+- dptx_bridge_mode_valid() no longer takes the 4:2:0 or 4:2:2 bpp
+  fallback for sinks that report less than 8 bpc.
+- The core owns the struct phy and drives it through the generic PHY
+  API, the exported API carries the trilinear_dptx_ prefix, and the lock
+  helpers are replaced by guard() and scoped_guard(). dptx.h and
+  include/drm/bridge/trilinear_dp.h are added by the bridge patch, so no
+  patch includes a header that appears later in the series.
+
+Luo Liu (5):
+  dt-bindings: display: add CIX Sky1 DisplayPort transmitter
+  drm/bridge: trilinear: add the DPTX hardware layer
+  drm/bridge: trilinear: add the DPTX DRM bridge
+  drm/bridge: trilinear: add the DPTX core and build glue
+  drm/cix: add the Sky1 DisplayPort platform glue
+
+ .../bindings/display/cix,sky1-dp.yaml         |  102 ++
+ MAINTAINERS                                   |   12 +
+ drivers/gpu/drm/Kconfig                       |    1 +
+ drivers/gpu/drm/Makefile                      |    1 +
+ drivers/gpu/drm/bridge/Kconfig                |    2 +
+ drivers/gpu/drm/bridge/Makefile               |    1 +
+ drivers/gpu/drm/bridge/trilinear/Kconfig      |    9 +
+ drivers/gpu/drm/bridge/trilinear/Makefile     |    4 +
+ drivers/gpu/drm/bridge/trilinear/dptx.h       |  112 ++
+ drivers/gpu/drm/bridge/trilinear/dptx_core.c  | 1080 +++++++++++++
+ drivers/gpu/drm/bridge/trilinear/dptx_drm.c   |  713 +++++++++
+ drivers/gpu/drm/bridge/trilinear/dptx_drm.h   |   17 +
+ drivers/gpu/drm/bridge/trilinear/dptx_hw.c    | 1379 +++++++++++++++++
+ drivers/gpu/drm/bridge/trilinear/dptx_hw.h    |  103 ++
+ drivers/gpu/drm/cix/Kconfig                   |    3 +
+ drivers/gpu/drm/cix/Makefile                  |    3 +
+ drivers/gpu/drm/cix/dptx/Kconfig              |   15 +
+ drivers/gpu/drm/cix/dptx/Makefile             |    4 +
+ drivers/gpu/drm/cix/dptx/cix_dptx.c           |  173 +++
+ include/drm/bridge/trilinear_dp.h             |   74 +
+ 20 files changed, 3808 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/cix,sky1-dp.yaml
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/Kconfig
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/Makefile
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx.h
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_core.c
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.c
+ create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_drm.h
  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_hw.c
  create mode 100644 drivers/gpu/drm/bridge/trilinear/dptx_hw.h
+ create mode 100644 drivers/gpu/drm/cix/Kconfig
+ create mode 100644 drivers/gpu/drm/cix/Makefile
+ create mode 100644 drivers/gpu/drm/cix/dptx/Kconfig
+ create mode 100644 drivers/gpu/drm/cix/dptx/Makefile
+ create mode 100644 drivers/gpu/drm/cix/dptx/cix_dptx.c
+ create mode 100644 include/drm/bridge/trilinear_dp.h
 
-diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_hw.c b/drivers/gpu/drm/bridge/trilinear/dptx_hw.c
-new file mode 100644
-index 000000000000..d4dfdba2f5c9
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/trilinear/dptx_hw.c
-@@ -0,0 +1,1379 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * DisplayPort transmitter hardware interface
-+ *
-+ * Copyright (C) 2026 Trilinear Technologies
-+ * Copyright 2026 Cix Technology Group Co., Ltd.
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/interrupt.h>
-+#include <linux/iopoll.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/reset.h>
-+#include <linux/slab.h>
-+#include <linux/sprintf.h>
-+
-+#include <drm/display/drm_dp_helper.h>
-+
-+#include "dptx_hw.h"
-+
-+#define DPTX_SDP_DB_MAX 32
-+#define DP_MAX_TRAINING_TRIES 5
-+#define DP_APB_CLK_RATE 200000000UL
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register offsets */
-+/* ------------------------------------------------------------------------ */
-+/* link configuration */
-+#define DPTX_LINK_BW_SET			0x000ul
-+#define DPTX_LANE_COUNT_SET		0x004ul
-+#define DPTX_ENHANCED_FRAMING_ENABLE	0x008ul
-+#define DPTX_TRAINING_PATTERN_SET	0x00cul
-+#define DPTX_DISABLE_SCRAMBLING		0x014ul
-+#define DPTX_DOWNSPREAD_CONTROL		0x018ul
-+
-+/* core enables */
-+#define DPTX_TRANSMITTER_ENABLE	0x080ul
-+#define DPTX_SOFT_RESET			0x090ul
-+#define DPTX_SOURCE_ENABLE		0x094ul
-+
-+/* misc control */
-+#define DPTX_FORCE_SCRAMBLER_RESET	0x0c0ul
-+
-+/* AUX channel */
-+#define DPTX_AUX_COMMAND			0x100ul
-+#define DPTX_AUX_WRITE_FIFO		0x104ul
-+#define DPTX_AUX_ADDRESS			0x108ul
-+#define DPTX_AUX_CLOCK_DIVIDER	0x10cul
-+#define DPTX_HPD_INPUT_STATE		0x128ul
-+#define DPTX_AUX_REPLY_DATA		0x134ul
-+#define DPTX_AUX_REPLY_CODE		0x138ul
-+#define DPTX_INTERRUPT_CAUSE		0x140ul
-+#define DPTX_INTERRUPT_MASK		0x144ul
-+#define DPTX_AUX_REPLY_DATA_COUNT	0x148ul
-+#define DPTX_AUX_STATUS			0x14cul
-+
-+/* PHY status */
-+#define DPTX_PHY_STATUS			0x280ul
-+
-+/* MST / SST control */
-+#define DPTX_MST_ENABLE			0x500ul
-+#define DPTX_SST_SOURCE_SELECT		0x50cul
-+
-+/* main stream control, virtual source 0 (bases for per-stream helpers) */
-+#define DPTX_SRC0_VIDEO_STREAM_ENABLE	0x800ul
-+#define DPTX_SRC0_SECONDARY_STREAM_ENABLE	0x804ul
-+#define DPTX_SRC0_SECONDARY_DATA_WINDOW	0x808ul
-+#define DPTX_SRC0_DATA_CONTROL		0x810ul
-+#define DPTX_SRC0_MAIN_STREAM_OVERRIDE	0x814ul
-+#define DPTX_SRC0_MAIN_STREAM_HTOTAL	0x820ul
-+#define DPTX_SRC0_MAIN_STREAM_VTOTAL	0x824ul
-+#define DPTX_SRC0_MAIN_STREAM_POLARITY	0x828ul
-+#define DPTX_SRC0_MAIN_STREAM_HSWIDTH	0x82cul
-+#define DPTX_SRC0_MAIN_STREAM_VSWIDTH	0x830ul
-+#define DPTX_SRC0_MAIN_STREAM_HRES	0x834ul
-+#define DPTX_SRC0_MAIN_STREAM_VRES	0x838ul
-+#define DPTX_SRC0_MAIN_STREAM_HSTART	0x83cul
-+#define DPTX_SRC0_MAIN_STREAM_VSTART	0x840ul
-+#define DPTX_SRC0_MAIN_STREAM_MISC0	0x844ul
-+#define DPTX_SRC0_MAIN_STREAM_MISC1	0x848ul
-+#define DPTX_SRC0_TU_CONFIG		0x850ul
-+#define DPTX_SRC0_USER_PIXEL_COUNT	0x858ul
-+#define DPTX_SRC0_USER_DATA_COUNT	0x85cul
-+#define DPTX_SRC0_USER_SYNC_POLARITY	0x864ul
-+
-+/* secondary channel, source 0 */
-+#define DPTX_SEC0_INFOFRAME_ENABLE	0x910ul
-+#define DPTX_SEC0_INFOFRAME_RATE		0x914ul
-+#define DPTX_SEC0_INFOFRAME_SELECT	0x934ul
-+#define DPTX_SEC0_INFOFRAME_DATA		0x938ul
-+
-+/* spacing between consecutive virtual source register blocks */
-+#define DPTX_SOURCE_OFFSET		0x200ul
-+
-+/* per-stream helpers, indexed by source/stream id */
-+#define DPTX_INFOFRAME_ENABLE(stream_id) \
-+	(DPTX_SEC0_INFOFRAME_ENABLE + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_INFOFRAME_SELECT(stream_id) \
-+	(DPTX_SEC0_INFOFRAME_SELECT + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_INFOFRAME_RATE(stream_id) \
-+	(DPTX_SEC0_INFOFRAME_RATE + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_INFOFRAME_DATA(stream_id) \
-+	(DPTX_SEC0_INFOFRAME_DATA + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_VIDEO_STREAM_ENABLE(stream_id) \
-+	(DPTX_SRC0_VIDEO_STREAM_ENABLE + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_SECONDARY_STREAM_ENABLE(stream_id) \
-+	(DPTX_SRC0_SECONDARY_STREAM_ENABLE + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_MISC0(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_MISC0 + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_MISC1(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_MISC1 + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_OVERRIDE(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_OVERRIDE + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_HTOTAL(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_HTOTAL + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_VTOTAL(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_VTOTAL + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_POLARITY(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_POLARITY + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_HSWIDTH(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_HSWIDTH + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_VSWIDTH(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_VSWIDTH + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_HRES(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_HRES + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_VRES(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_VRES + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_HSTART(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_HSTART + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_MAIN_STREAM_VSTART(stream_id) \
-+	(DPTX_SRC0_MAIN_STREAM_VSTART + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_TU_CONFIG(stream_id) \
-+	(DPTX_SRC0_TU_CONFIG + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_USER_DATA_COUNT(stream_id) \
-+	(DPTX_SRC0_USER_DATA_COUNT + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_SECONDARY_DATA_WINDOW(stream_id) \
-+	(DPTX_SRC0_SECONDARY_DATA_WINDOW + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_DATA_CONTROL(stream_id) \
-+	(DPTX_SRC0_DATA_CONTROL + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_USER_PIXEL_COUNT(stream_id) \
-+	(DPTX_SRC0_USER_PIXEL_COUNT + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+#define DPTX_USER_SYNC_POLARITY(stream_id) \
-+	(DPTX_SRC0_USER_SYNC_POLARITY + \
-+	 DPTX_SOURCE_OFFSET * (stream_id))
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register DPTX_MAIN_STREAM_MISC0 bits */
-+/* ------------------------------------------------------------------------ */
-+#define DPTX_STREAM_MISC0_COMP_FORMAT_RGB (0 << 1)
-+#define DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_422 (5 << 1)
-+#define DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_444 (6 << 1)
-+#define DPTX_STREAM_MISC0_BPC_6 (0 << 5)
-+#define DPTX_STREAM_MISC0_BPC_8 BIT(5)
-+#define DPTX_STREAM_MISC0_BPC_10 (2 << 5)
-+#define DPTX_STREAM_MISC0_BPC_12 (3 << 5)
-+#define DPTX_STREAM_MISC0_BPC_16 (4 << 5)
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register DPTX_MAIN_STREAM_MISC1 bits */
-+/* ------------------------------------------------------------------------ */
-+#define DPTX_STREAM_MISC1_Y_ONLY_EN BIT(7)
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register DPTX_MAIN_STREAM_OVERRIDE bits */
-+/* ------------------------------------------------------------------------ */
-+#define DPTX_VSC_COLORIMETRY_EN BIT(6)
-+#define DPTX_STREAM_OVERRIDE_ENABLE BIT(6)
-+/*
-+ * Pixel format in bits [5:3]. 0 is RGB. 4:2:2 and 4:4:4 use the same
-+ * component-format codes as MISC0 bits [2:1]. 4:2:0 cannot be carried
-+ * in MISC0, so it has its own value.
-+ */
-+#define DPTX_STREAM_OVERRIDE_YCbCR_422 BIT(3)
-+#define DPTX_STREAM_OVERRIDE_YCbCR_444 (2 << 3)
-+#define DPTX_STREAM_OVERRIDE_YCbCR_420 (4 << 3)
-+#define DPTX_STREAM_OVERRIDE_BPC_6 (0)
-+#define DPTX_STREAM_OVERRIDE_BPC_8 (1)
-+#define DPTX_STREAM_OVERRIDE_BPC_10 (2)
-+#define DPTX_STREAM_OVERRIDE_BPC_12 (3)
-+#define DPTX_STREAM_OVERRIDE_BPC_16 (4)
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register DPTX_AUX_COMMAND bits */
-+/* ------------------------------------------------------------------------ */
-+#define DPTX_AUX_COMMAND_CMD_SHIFT 8
-+#define DPTX_AUX_COMMAND_ADDRESS_ONLY BIT(12)
-+#define DPTX_AUX_COMMAND_BYTES_SHIFT 0
-+#define DPTX_AUX_STATUS_REPLY_ERROR BIT(3)
-+#define DPTX_AUX_STATUS_REQUEST_IN_PROGRESS BIT(2)
-+#define DPTX_AUX_STATUS_REPLY_IN_PROGRESS BIT(1)
-+#define DPTX_AUX_STATUS_REPLY_RECEIVED BIT(0)
-+
-+#define DPTX_AUX_READ BIT(0)
-+
-+/* ------------------------------------------------------------------------ */
-+/*  Register DPTX_REPLY_DATA_COUNT bits */
-+/* ------------------------------------------------------------------------ */
-+#define DPTX_REPLY_DATA_COUNT_MASK 0xff
-+
-+#define DPTX_MSA_TRANSFER_UNIT_SIZE_TU_SIZE_DEF 64
-+#define DPTX_MAIN_STREAM_POLARITY_HSYNC_SHIFT 0
-+#define DPTX_MAIN_STREAM_POLARITY_VSYNC_SHIFT 1
-+#define DPTX_MAIN_STREAM_POLARITY_DATAENABLE_HIGH 0xc
-+
-+#define DPTX_DATA_CONTROL_DEFAULT		(BIT(13) | BIT(2))
-+#define DPTX_DATA_CONTROL_2PPC_4LANE_HBR3	BIT(2)
-+
-+#define DPTX_INTERRUPT_GP_TIMER_IRQ BIT(4)
-+#define DPTX_INTERRUPT_REPLY_TIMEOUT BIT(3)
-+#define DPTX_INTERRUPT_REPLY_RECEIVED BIT(2)
-+#define DPTX_INTERRUPT_HPD_IRQ BIT(1)
-+#define DPTX_INTERRUPT_HPD_EVENT BIT(0)
-+
-+#define DPTX_INTERRUPT_MASK_ALL 0x3f
-+#define DPTX_INTERRUPT_CFG 0x1c
-+
-+static const char * const stream_clk_names[] = {
-+	"vid0", "vid1",
-+};
-+
-+static u32 dptx_hw_read(struct dp_hw *hw, int offset)
-+{
-+	return readl(hw->base + offset);
-+}
-+
-+static void dptx_hw_write(struct dp_hw *hw, int offset, u32 val)
-+{
-+	writel(val, hw->base + offset);
-+}
-+
-+static bool dptx_hw_hpd_state(struct dp_hw *hw)
-+{
-+	return dptx_hw_read(hw, DPTX_HPD_INPUT_STATE) & BIT(0);
-+}
-+
-+static bool dptx_hw_sink_present(struct dp_hw *hw)
-+{
-+	u8 dpcd_rev;
-+
-+	return drm_dp_dpcd_readb(&hw->aux, DP_DPCD_REV, &dpcd_rev) >= 0;
-+}
-+
-+static int dptx_hw_phy_vs_emph_set(struct dp_hw *hw, struct phy *phy,
-+				   u8 lane_cnt, const u8 *train_set)
-+{
-+	union phy_configure_opts opts = { 0 };
-+	u8 train;
-+	int i;
-+
-+	opts.dp.lanes = lane_cnt;
-+	for (i = 0; i < lane_cnt; i++) {
-+		train = train_set[i];
-+		opts.dp.voltage[i] = (train & DP_TRAIN_VOLTAGE_SWING_MASK) >>
-+				     DP_TRAIN_VOLTAGE_SWING_SHIFT;
-+		opts.dp.pre[i] = (train & DP_TRAIN_PRE_EMPHASIS_MASK) >>
-+				 DP_TRAIN_PRE_EMPHASIS_SHIFT;
-+	}
-+
-+	opts.dp.set_voltages = 1;
-+	return phy_configure(phy, &opts);
-+}
-+
-+static void dptx_hw_aux_clock_divider(struct dp_hw *hw)
-+{
-+	unsigned int rate;
-+
-+	rate = clk_get_rate(hw->apb_clk) / (1000 * 1000);
-+	if (!rate)
-+		rate = 25;
-+
-+	dptx_hw_write(hw, DPTX_AUX_CLOCK_DIVIDER, rate);
-+}
-+
-+static int dptx_hw_apb_clock(struct dp_hw *hw, bool enable)
-+{
-+	int ret;
-+
-+	if (IS_ERR_OR_NULL(hw->apb_clk))
-+		return 0;
-+
-+	if (!enable) {
-+		clk_disable_unprepare(hw->apb_clk);
-+		return 0;
-+	}
-+
-+	if (!clk_get_rate(hw->apb_clk)) {
-+		ret = clk_set_rate(hw->apb_clk, DP_APB_CLK_RATE);
-+		if (ret) {
-+			dev_err(hw->dev, "failed to set apb clock rate: %d\n",
-+				ret);
-+			return ret;
-+		}
-+	}
-+
-+	return clk_prepare_enable(hw->apb_clk);
-+}
-+
-+static void dptx_hw_reset(struct dp_hw *hw, bool assert)
-+{
-+	if (assert)
-+		reset_control_assert(hw->reset);
-+	else
-+		reset_control_deassert(hw->reset);
-+}
-+
-+static void dptx_hw_host_enable(struct dp_hw *hw, bool enable)
-+{
-+	if (enable) {
-+		dptx_hw_write(hw, DPTX_TRANSMITTER_ENABLE, 1);
-+		dptx_hw_write(hw, DPTX_INTERRUPT_MASK,
-+			      DPTX_INTERRUPT_CFG);
-+		dptx_hw_aux_clock_divider(hw);
-+		return;
-+	}
-+
-+	dptx_hw_write(hw, DPTX_TRANSMITTER_ENABLE, 0);
-+	dptx_hw_write(hw, DPTX_INTERRUPT_MASK,
-+		      DPTX_INTERRUPT_MASK_ALL);
-+}
-+
-+static void dptx_hw_core_enable(struct dp_hw *hw, int source_id,
-+				bool enable)
-+{
-+	u32 sources = BIT(source_id);
-+	u32 value;
-+
-+	if (enable) {
-+		dptx_hw_write(hw, DPTX_SOFT_RESET, sources);
-+		dptx_hw_write(hw, DPTX_SOURCE_ENABLE, sources);
-+		dptx_hw_write(hw, DPTX_FORCE_SCRAMBLER_RESET, sources);
-+		dptx_hw_write(hw, DPTX_MST_ENABLE, 0);
-+		dptx_hw_write(hw, DPTX_SST_SOURCE_SELECT, source_id);
-+		return;
-+	}
-+
-+	dptx_hw_write(hw, DPTX_MST_ENABLE, 0);
-+
-+	value = dptx_hw_read(hw, DPTX_SOURCE_ENABLE);
-+	dptx_hw_write(hw, DPTX_SOURCE_ENABLE, value & ~sources);
-+
-+	value = dptx_hw_read(hw, DPTX_SOFT_RESET);
-+	dptx_hw_write(hw, DPTX_SOFT_RESET, value & ~sources);
-+
-+	value = dptx_hw_read(hw, DPTX_FORCE_SCRAMBLER_RESET);
-+	dptx_hw_write(hw, DPTX_FORCE_SCRAMBLER_RESET, value & ~sources);
-+}
-+
-+static void dptx_hw_link_setup(struct dp_hw *hw, u8 lane_cnt,
-+			       bool enhanced, bool downspread)
-+{
-+	dptx_hw_write(hw, DPTX_LANE_COUNT_SET, lane_cnt);
-+	dptx_hw_write(hw, DPTX_ENHANCED_FRAMING_ENABLE, enhanced ? 1 : 0);
-+	dptx_hw_write(hw, DPTX_DOWNSPREAD_CONTROL, downspread);
-+}
-+
-+static int dptx_hw_link_rate(struct dp_hw *hw, struct phy *phy,
-+			     u8 bw_code, u8 lanes)
-+{
-+	union phy_configure_opts opts = { 0 };
-+	u32 ready = (1 << lanes) - 1;
-+	u32 value;
-+	int ret;
-+
-+	dptx_hw_write(hw, DPTX_LINK_BW_SET, bw_code);
-+
-+	opts.dp.link_rate = drm_dp_bw_code_to_link_rate(bw_code) / 100;
-+	opts.dp.set_rate = 1;
-+	ret = phy_configure(phy, &opts);
-+	if (ret)
-+		return ret;
-+
-+	return readl_poll_timeout(hw->base + DPTX_PHY_STATUS, value,
-+				  (value & ready) == ready, 1000, 100 * 1000);
-+}
-+
-+static int dptx_hw_link_configure(struct dp_hw *hw, struct phy *phy,
-+				  u8 bw_code, u8 lane_cnt,
-+				  bool enhanced, u8 num_lanes)
-+{
-+	bool downspread;
-+	int ret;
-+
-+	downspread = hw->dpcd[DP_MAX_DOWNSPREAD] & DP_MAX_DOWNSPREAD_0_5;
-+
-+	dptx_hw_link_setup(hw, lane_cnt, enhanced, downspread);
-+
-+	if (enhanced)
-+		lane_cnt |= DP_LANE_COUNT_ENHANCED_FRAME_EN;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_DOWNSPREAD_CTRL,
-+				 downspread ? DP_SPREAD_AMP_0_5 : 0);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_LANE_COUNT_SET, lane_cnt);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_MAIN_LINK_CHANNEL_CODING_SET,
-+				 DP_SET_ANSI_8B10B);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_LINK_BW_SET, bw_code);
-+	if (ret < 0)
-+		return ret;
-+
-+	return dptx_hw_link_rate(hw, phy, bw_code, num_lanes);
-+}
-+
-+static int dptx_hw_link_set_pattern(struct dp_hw *hw, u32 pattern)
-+{
-+	if (pattern == DP_TRAINING_PATTERN_4) {
-+		dptx_hw_write(hw, DPTX_TRAINING_PATTERN_SET, 0x4);
-+		dptx_hw_write(hw, DPTX_DISABLE_SCRAMBLING, 0);
-+	} else {
-+		dptx_hw_write(hw, DPTX_TRAINING_PATTERN_SET, pattern);
-+		pattern |= DP_LINK_SCRAMBLING_DISABLE;
-+	}
-+
-+	return drm_dp_dpcd_writeb(&hw->aux, DP_TRAINING_PATTERN_SET, pattern);
-+}
-+
-+static int dptx_hw_link_vs_emph(struct dp_hw *hw, struct phy *phy,
-+				u8 lane_cnt)
-+{
-+	int ret;
-+
-+	ret = drm_dp_dpcd_write(&hw->aux, DP_TRAINING_LANE0_SET, hw->train_setting,
-+				lane_cnt);
-+	if (ret < 0)
-+		return ret;
-+
-+	return dptx_hw_phy_vs_emph_set(hw, phy, lane_cnt, hw->train_setting);
-+}
-+
-+static void dptx_hw_link_adjust_train(struct dp_hw *hw, u8 lane_cnt,
-+				      const u8 *link_status)
-+{
-+	u8 voltage;
-+	u8 preemphasis;
-+	int i;
-+
-+	for (i = 0; i < lane_cnt; i++) {
-+		voltage = drm_dp_get_adjust_request_voltage(link_status, i);
-+		preemphasis =
-+			drm_dp_get_adjust_request_pre_emphasis(link_status, i);
-+
-+		if (voltage >= DP_TRAIN_VOLTAGE_SWING_LEVEL_3)
-+			voltage |= DP_TRAIN_MAX_SWING_REACHED;
-+
-+		if (preemphasis >= DP_TRAIN_PRE_EMPH_LEVEL_2)
-+			preemphasis |= DP_TRAIN_MAX_PRE_EMPHASIS_REACHED;
-+
-+		hw->train_setting[i] = voltage | preemphasis;
-+	}
-+}
-+
-+static int dptx_hw_link_clock_recovery(struct dp_hw *hw, struct phy *phy,
-+				       u8 lane_cnt)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	u8 prev[DPTX_MAX_LANES];
-+	bool train_done = false;
-+	int tries = 0;
-+	int i;
-+	int ret;
-+
-+	ret = dptx_hw_link_set_pattern(hw, DP_TRAINING_PATTERN_1);
-+	if (ret < 0)
-+		return ret;
-+
-+	memset(prev, 0xff, lane_cnt);
-+
-+	for (i = 0; i < 512; i++) {
-+		ret = dptx_hw_link_vs_emph(hw, phy, lane_cnt);
-+		if (ret)
-+			return ret;
-+
-+		drm_dp_link_train_clock_recovery_delay(&hw->aux, hw->dpcd);
-+		ret = drm_dp_dpcd_read_link_status(&hw->aux, link_status);
-+		if (ret < 0)
-+			return ret;
-+
-+		train_done = drm_dp_clock_recovery_ok(link_status, lane_cnt);
-+		if (train_done)
-+			break;
-+
-+		if (!memcmp(hw->train_setting, prev, lane_cnt))
-+			tries++;
-+		else
-+			tries = 0;
-+
-+		if (tries == DP_MAX_TRAINING_TRIES)
-+			break;
-+
-+		memcpy(prev, hw->train_setting, lane_cnt);
-+		dptx_hw_link_adjust_train(hw, lane_cnt, link_status);
-+	}
-+
-+	if (train_done)
-+		return 0;
-+
-+	return -EIO;
-+}
-+
-+static int dptx_hw_link_channel_equalization(struct dp_hw *hw, struct phy *phy,
-+					     u8 lane_cnt, bool tps3,
-+					     bool tps4)
-+{
-+	u8 link_status[DP_LINK_STATUS_SIZE];
-+	bool train_done = false;
-+	u32 pattern;
-+	int i;
-+	int ret;
-+
-+	if (tps4)
-+		pattern = DP_TRAINING_PATTERN_4;
-+	else if (tps3)
-+		pattern = DP_TRAINING_PATTERN_3;
-+	else
-+		pattern = DP_TRAINING_PATTERN_2;
-+
-+	ret = dptx_hw_link_set_pattern(hw, pattern);
-+	if (ret < 0)
-+		return ret;
-+
-+	for (i = 0; i < DP_MAX_TRAINING_TRIES; i++) {
-+		ret = dptx_hw_link_vs_emph(hw, phy, lane_cnt);
-+		if (ret)
-+			return ret;
-+
-+		drm_dp_link_train_channel_eq_delay(&hw->aux, hw->dpcd);
-+		ret = drm_dp_dpcd_read_link_status(&hw->aux, link_status);
-+		if (ret < 0)
-+			return ret;
-+
-+		train_done = drm_dp_channel_eq_ok(link_status, lane_cnt);
-+		if (train_done)
-+			break;
-+
-+		if (!drm_dp_clock_recovery_ok(link_status, lane_cnt))
-+			break;
-+
-+		dptx_hw_link_adjust_train(hw, lane_cnt, link_status);
-+	}
-+
-+	if (train_done)
-+		return 0;
-+
-+	return -EIO;
-+}
-+
-+static void dptx_hw_link_train_start(struct dp_hw *hw)
-+{
-+	dptx_hw_write(hw, DPTX_DISABLE_SCRAMBLING, 1);
-+	memset(hw->train_setting, 0, sizeof(hw->train_setting));
-+}
-+
-+static void dptx_hw_link_train_end(struct dp_hw *hw)
-+{
-+	drm_dp_dpcd_writeb(&hw->aux, DP_TRAINING_PATTERN_SET, 0);
-+	dptx_hw_write(hw, DPTX_TRAINING_PATTERN_SET, 0);
-+	dptx_hw_write(hw, DPTX_DISABLE_SCRAMBLING, 0);
-+}
-+
-+static int dptx_hw_link_train(struct dp_hw *hw, struct phy *phy, u8 bw_code,
-+			      u8 lane_cnt, u8 num_lanes)
-+{
-+	int ret;
-+
-+	ret = dptx_hw_link_configure(hw, phy, bw_code, lane_cnt,
-+				     hw->caps.enhanced_framing, num_lanes);
-+	if (ret < 0)
-+		return ret;
-+
-+	dptx_hw_link_train_start(hw);
-+
-+	ret = dptx_hw_link_clock_recovery(hw, phy, lane_cnt);
-+	if (!ret)
-+		ret = dptx_hw_link_channel_equalization(hw, phy, lane_cnt,
-+							hw->caps.tps3_supported,
-+							hw->caps.tps4_supported);
-+
-+	dptx_hw_link_train_end(hw);
-+
-+	return ret;
-+}
-+
-+static int dptx_hw_link_status(struct dp_hw *hw, u8 lane_cnt)
-+{
-+	u8 status[DP_LINK_STATUS_SIZE + 2];
-+	ssize_t ret;
-+
-+	ret = drm_dp_dpcd_read(&hw->aux, DP_SINK_COUNT, status,
-+			       sizeof(status));
-+	if (ret != (ssize_t)sizeof(status))
-+		return ret < 0 ? ret : -EIO;
-+
-+	if (drm_dp_clock_recovery_ok(&status[2], lane_cnt) &&
-+	    drm_dp_channel_eq_ok(&status[2], lane_cnt))
-+		return 0;
-+
-+	return 1;
-+}
-+
-+static int dptx_hw_aux_submit(struct dp_hw *hw, u32 cmd, u32 addr,
-+			      const u8 *buf, u32 len)
-+{
-+	bool is_read = cmd & DPTX_AUX_READ;
-+	u32 value;
-+	int i;
-+	int ret;
-+
-+	value = dptx_hw_read(hw, DPTX_AUX_STATUS);
-+	if (value & (DPTX_AUX_STATUS_REQUEST_IN_PROGRESS |
-+		     DPTX_AUX_STATUS_REPLY_IN_PROGRESS))
-+		return -EBUSY;
-+
-+	dptx_hw_write(hw, DPTX_AUX_ADDRESS, addr);
-+
-+	if (!is_read)
-+		for (i = 0; i < len; i++)
-+			dptx_hw_write(hw, DPTX_AUX_WRITE_FIFO,
-+				      buf[i]);
-+
-+	value = cmd << DPTX_AUX_COMMAND_CMD_SHIFT;
-+	if (!buf || !len)
-+		value |= DPTX_AUX_COMMAND_ADDRESS_ONLY;
-+	else
-+		value |= (len - 1) << DPTX_AUX_COMMAND_BYTES_SHIFT;
-+
-+	dptx_hw_write(hw, DPTX_AUX_COMMAND, value);
-+
-+	ret = readl_poll_timeout(hw->base + DPTX_AUX_STATUS, value,
-+				 value & (DPTX_AUX_STATUS_REPLY_RECEIVED |
-+					  DPTX_AUX_STATUS_REPLY_ERROR),
-+				 100, 4000);
-+	if (ret)
-+		return -ETIMEDOUT;
-+
-+	/*
-+	 * REPLY_ERROR is the block's reply timeout. NACK and DEFER come back
-+	 * as a reply with a non-zero reply code, which the caller reads.
-+	 */
-+	if (value & DPTX_AUX_STATUS_REPLY_ERROR)
-+		return -ETIMEDOUT;
-+
-+	return 0;
-+}
-+
-+static void dptx_hw_aux_reply_data(struct dp_hw *hw, u8 *buf, u32 len)
-+{
-+	int i;
-+
-+	for (i = 0; i < len; i++)
-+		buf[i] = dptx_hw_read(hw, DPTX_AUX_REPLY_DATA);
-+}
-+
-+static int dptx_hw_aux_cmd_submit(struct dp_hw *hw, u32 cmd, u32 addr,
-+				  u8 *buf, u32 bytes, u32 reply_mask,
-+				  u32 reply_ack, u8 *reply)
-+{
-+	bool is_read = cmd & DPTX_AUX_READ;
-+	u32 reply_code;
-+	u32 count;
-+	int ret;
-+
-+	ret = dptx_hw_aux_submit(hw, cmd, addr, buf, bytes);
-+	if (ret)
-+		return ret;
-+
-+	reply_code = dptx_hw_read(hw, DPTX_AUX_REPLY_CODE);
-+	if (reply)
-+		*reply = reply_code;
-+
-+	if ((reply_code & reply_mask) != reply_ack)
-+		return 0;
-+
-+	if (!is_read)
-+		return bytes;
-+
-+	if (!bytes)
-+		return 0;
-+
-+	count = dptx_hw_read(hw, DPTX_AUX_REPLY_DATA_COUNT) &
-+		DPTX_REPLY_DATA_COUNT_MASK;
-+	if (count > bytes)
-+		return -EIO;
-+
-+	dptx_hw_aux_reply_data(hw, buf, count);
-+
-+	return count;
-+}
-+
-+static ssize_t dptx_hw_aux_transfer(struct drm_dp_aux *aux,
-+				    struct drm_dp_aux_msg *msg)
-+{
-+	struct dp_hw *hw = container_of(aux, struct dp_hw, aux);
-+	size_t to_access = 0;
-+	size_t accessed_bytes = 0;
-+	u32 reply_mask;
-+	u32 reply_ack;
-+	u32 addr;
-+	bool is_native;
-+	u8 *buf;
-+	ssize_t ret;
-+
-+	switch (msg->request) {
-+	case DP_AUX_NATIVE_WRITE:
-+	case DP_AUX_NATIVE_READ:
-+		is_native = true;
-+		reply_mask = DP_AUX_NATIVE_REPLY_MASK;
-+		reply_ack = DP_AUX_NATIVE_REPLY_ACK;
-+		break;
-+	default:
-+		is_native = false;
-+		reply_mask = DP_AUX_NATIVE_REPLY_MASK | DP_AUX_I2C_REPLY_MASK;
-+		reply_ack = DP_AUX_NATIVE_REPLY_ACK | DP_AUX_I2C_REPLY_ACK;
-+		break;
-+	}
-+
-+	do {
-+		to_access = min_t(size_t, DP_AUX_MAX_PAYLOAD_BYTES,
-+				  msg->size - accessed_bytes);
-+		buf = accessed_bytes ? msg->buffer + accessed_bytes : msg->buffer;
-+		addr = is_native ? msg->address + accessed_bytes : msg->address;
-+		ret = dptx_hw_aux_cmd_submit(hw, msg->request, addr, buf,
-+					     to_access, reply_mask, reply_ack,
-+					     &msg->reply);
-+		if (ret < 0) {
-+			if (!accessed_bytes)
-+				return ret;
-+			break;
-+		}
-+
-+		if ((msg->reply & reply_mask) != reply_ack)
-+			break;
-+
-+		accessed_bytes += ret;
-+		if ((size_t)ret < to_access)
-+			break;
-+	} while (accessed_bytes < msg->size);
-+
-+	return accessed_bytes;
-+}
-+
-+static int dptx_hw_stream_clock_enable(struct dp_hw *hw, unsigned int stream_id,
-+				       bool enable)
-+{
-+	struct clk *clk;
-+	int ret;
-+
-+	if (stream_id >= DP_STREAM_MAX)
-+		return -EINVAL;
-+
-+	clk = hw->stream_clk[stream_id];
-+	if (IS_ERR_OR_NULL(clk))
-+		return -EINVAL;
-+
-+	if (enable) {
-+		ret = clk_prepare_enable(clk);
-+		if (ret)
-+			return ret;
-+	} else {
-+		clk_disable_unprepare(clk);
-+	}
-+
-+	return 0;
-+}
-+
-+static int dptx_hw_stream_clock_rate_set(struct dp_hw *hw, unsigned int stream_id,
-+					 unsigned long rate)
-+{
-+	struct clk *clk;
-+
-+	if (stream_id >= DP_STREAM_MAX)
-+		return -EINVAL;
-+
-+	clk = hw->stream_clk[stream_id];
-+	if (IS_ERR_OR_NULL(clk) || clk_get_rate(clk) == rate)
-+		return 0;
-+
-+	return clk_set_rate(clk, rate);
-+}
-+
-+static int dptx_hw_dpcd_power_up(struct dp_hw *hw,
-+				 unsigned int delay_ms)
-+{
-+	u8 value;
-+	int ret;
-+
-+	ret = drm_dp_dpcd_readb(&hw->aux, DP_SET_POWER, &value);
-+	if (ret < 0)
-+		return ret;
-+
-+	value = (value & ~DP_SET_POWER_MASK) | DP_SET_POWER_D0;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_SET_POWER, value);
-+	if (ret < 0)
-+		return ret;
-+
-+	msleep(delay_ms);
-+
-+	return 0;
-+}
-+
-+static int dptx_hw_dpcd_power_down(struct dp_hw *hw, bool hpd)
-+{
-+	u8 value;
-+	int ret;
-+
-+	if (!hpd)
-+		return 0;
-+
-+	ret = drm_dp_dpcd_readb(&hw->aux, DP_SET_POWER, &value);
-+	if (ret < 0)
-+		return ret;
-+
-+	value = (value & ~DP_SET_POWER_MASK) | DP_SET_POWER_D3;
-+
-+	ret = drm_dp_dpcd_writeb(&hw->aux, DP_SET_POWER, value);
-+	if (ret < 0)
-+		return ret;
-+
-+	usleep_range(200, 205);
-+
-+	return 0;
-+}
-+
-+static int dptx_hw_dpcd_sink_caps(struct dp_hw *hw)
-+{
-+	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-+	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
-+	int ret;
-+
-+	ret = drm_dp_read_dpcd_caps(&hw->aux, dpcd);
-+	if (ret)
-+		return ret;
-+
-+	ret = drm_dp_read_downstream_info(&hw->aux, dpcd, downstream_ports);
-+	if (ret)
-+		return ret;
-+
-+	memcpy(hw->dpcd, dpcd, sizeof(dpcd));
-+	memcpy(hw->downstream_ports, downstream_ports, sizeof(downstream_ports));
-+
-+	hw->caps.enhanced_framing = drm_dp_enhanced_frame_cap(hw->dpcd);
-+	hw->caps.tps3_supported = drm_dp_tps3_supported(hw->dpcd);
-+	hw->caps.tps4_supported = drm_dp_tps4_supported(hw->dpcd);
-+	hw->caps.vsc_supported = drm_dp_vsc_sdp_supported(&hw->aux, hw->dpcd);
-+
-+	hw->caps.max_lanes = drm_dp_max_lane_count(hw->dpcd);
-+	hw->caps.max_rate = drm_dp_max_link_rate(hw->dpcd);
-+
-+	return 0;
-+}
-+
-+static bool dptx_hw_vsc_supported(struct dp_hw *hw)
-+{
-+	return hw->caps.vsc_supported;
-+}
-+
-+static void dptx_hw_stream_misc(struct dp_hw *hw, unsigned int stream_id,
-+				enum dp_pixelformat format, u8 bpc,
-+				bool vsc)
-+{
-+	u8 override_bpc;
-+	u8 override = 0;
-+	u8 misc1 = 0;
-+	u8 misc0;
-+
-+	switch (format) {
-+	case DP_PIXELFORMAT_YUV444:
-+		misc0 = DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_444;
-+		break;
-+	case DP_PIXELFORMAT_YUV422:
-+		misc0 = DPTX_STREAM_MISC0_COMP_FORMAT_YCRCB_422;
-+		break;
-+	default:
-+		misc0 = DPTX_STREAM_MISC0_COMP_FORMAT_RGB;
-+		break;
-+	}
-+
-+	switch (bpc) {
-+	case 6:
-+		misc0 |= DPTX_STREAM_MISC0_BPC_6;
-+		override_bpc = DPTX_STREAM_OVERRIDE_BPC_6;
-+		break;
-+	case 10:
-+		misc0 |= DPTX_STREAM_MISC0_BPC_10;
-+		override_bpc = DPTX_STREAM_OVERRIDE_BPC_10;
-+		break;
-+	case 12:
-+		misc0 |= DPTX_STREAM_MISC0_BPC_12;
-+		override_bpc = DPTX_STREAM_OVERRIDE_BPC_12;
-+		break;
-+	case 16:
-+		misc0 |= DPTX_STREAM_MISC0_BPC_16;
-+		override_bpc = DPTX_STREAM_OVERRIDE_BPC_16;
-+		break;
-+	default:
-+		misc0 |= DPTX_STREAM_MISC0_BPC_8;
-+		override_bpc = DPTX_STREAM_OVERRIDE_BPC_8;
-+		break;
-+	}
-+
-+	if (!vsc && format == DP_PIXELFORMAT_Y_ONLY)
-+		misc1 |= DPTX_STREAM_MISC1_Y_ONLY_EN;
-+
-+	if (vsc) {
-+		misc1 |= DPTX_VSC_COLORIMETRY_EN;
-+		override = override_bpc | DPTX_STREAM_OVERRIDE_ENABLE;
-+
-+		switch (format) {
-+		case DP_PIXELFORMAT_YUV444:
-+			override |= DPTX_STREAM_OVERRIDE_YCbCR_444;
-+			break;
-+		case DP_PIXELFORMAT_YUV422:
-+			override |= DPTX_STREAM_OVERRIDE_YCbCR_422;
-+			break;
-+		case DP_PIXELFORMAT_YUV420:
-+			override |= DPTX_STREAM_OVERRIDE_YCbCR_420;
-+			break;
-+		default:
-+			break;
-+		}
-+	}
-+
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_MISC0(stream_id), misc0);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_MISC1(stream_id), misc1);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_OVERRIDE(stream_id),
-+		      override);
-+}
-+
-+static void dptx_hw_stream_tu(struct dp_hw *hw, unsigned int stream_id,
-+			      u32 video_kbytes, u32 link_rate,
-+			      u8 lane_cnt)
-+{
-+	u32 bytes_per_tu_scaled;
-+	u32 symbols_per_tu;
-+	u32 frac_symbols_per_tu;
-+	u32 tu;
-+
-+	/*
-+	 * Scaled by 1000 (fixed point) so the fraction below can be split
-+	 * into integer symbols + 1/16 fractional symbols without floating
-+	 * point.
-+	 */
-+	bytes_per_tu_scaled = video_kbytes *
-+			      DPTX_MSA_TRANSFER_UNIT_SIZE_TU_SIZE_DEF /
-+			      (lane_cnt * link_rate / 1000);
-+
-+	symbols_per_tu = (bytes_per_tu_scaled / 1000) & 0xff;
-+
-+	/*
-+	 * Fractional number of valid symbols per TU in units of 1/16th. An
-+	 * accumulator is used to increase the number of data per transaction
-+	 * unit by 1 every 1/N TUs.
-+	 */
-+	frac_symbols_per_tu = ((bytes_per_tu_scaled % 1000) * 16 / 1000) & 0x0f;
-+
-+	tu = DPTX_MSA_TRANSFER_UNIT_SIZE_TU_SIZE_DEF;
-+	tu |= FIELD_PREP(GENMASK(23, 16), symbols_per_tu);
-+	tu |= FIELD_PREP(GENMASK(27, 24), frac_symbols_per_tu);
-+
-+	dptx_hw_write(hw, DPTX_TU_CONFIG(stream_id), tu);
-+}
-+
-+static void dptx_hw_stream_timing_set(struct dp_hw *hw, unsigned int stream_id,
-+				      const struct drm_display_mode *mode,
-+				      u8 bpp, u8 lane_cnt, u32 link_rate,
-+				      u32 pixel_per_cycle)
-+{
-+	u32 data_control = DPTX_DATA_CONTROL_DEFAULT;
-+	u32 polarity;
-+	u32 user_data_count;
-+
-+	if (pixel_per_cycle == 2 && lane_cnt == 4 &&
-+	    link_rate == drm_dp_bw_code_to_link_rate(DP_LINK_BW_8_1))
-+		data_control = DPTX_DATA_CONTROL_2PPC_4LANE_HBR3;
-+
-+	polarity = ((mode->flags & DRM_MODE_FLAG_PVSYNC) ?
-+		    BIT(DPTX_MAIN_STREAM_POLARITY_VSYNC_SHIFT) : 0) |
-+		   ((mode->flags & DRM_MODE_FLAG_PHSYNC) ?
-+		    BIT(DPTX_MAIN_STREAM_POLARITY_HSYNC_SHIFT) : 0);
-+
-+	user_data_count = ((mode->hdisplay * bpp + 7) / 8 + lane_cnt - 1) /
-+			  lane_cnt;
-+
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_HTOTAL(stream_id),
-+		      mode->htotal);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_VTOTAL(stream_id),
-+		      mode->vtotal);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_POLARITY(stream_id),
-+		      polarity);
-+	dptx_hw_write(hw, DPTX_USER_SYNC_POLARITY(stream_id),
-+		      DPTX_MAIN_STREAM_POLARITY_DATAENABLE_HIGH |
-+		      polarity);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_HSWIDTH(stream_id),
-+		      mode->hsync_end - mode->hsync_start);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_VSWIDTH(stream_id),
-+		      mode->vsync_end - mode->vsync_start);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_HRES(stream_id),
-+		      mode->hdisplay);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_VRES(stream_id),
-+		      mode->vdisplay);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_HSTART(stream_id),
-+		      mode->htotal - mode->hsync_start);
-+	dptx_hw_write(hw, DPTX_MAIN_STREAM_VSTART(stream_id),
-+		      mode->vtotal - mode->vsync_start);
-+	dptx_hw_write(hw, DPTX_USER_DATA_COUNT(stream_id),
-+		      user_data_count);
-+	dptx_hw_write(hw, DPTX_SECONDARY_DATA_WINDOW(stream_id),
-+		      (mode->htotal - mode->hdisplay) * (link_rate / 40) *
-+		      9 / mode->clock);
-+	dptx_hw_write(hw, DPTX_DATA_CONTROL(stream_id), data_control);
-+	dptx_hw_write(hw, DPTX_USER_PIXEL_COUNT(stream_id),
-+		      pixel_per_cycle);
-+}
-+
-+static void dptx_hw_stream_timing(struct dp_hw *hw, unsigned int stream_id,
-+				  const struct drm_display_mode *mode,
-+				  u8 bpp, u8 lane_cnt, u32 link_rate,
-+				  u32 pixel_per_cycle)
-+{
-+	dptx_hw_stream_tu(hw, stream_id, mode->clock * bpp / 8, link_rate,
-+			  lane_cnt);
-+	dptx_hw_stream_timing_set(hw, stream_id, mode, bpp, lane_cnt,
-+				  link_rate, pixel_per_cycle);
-+}
-+
-+static void dptx_hw_stream_enable(struct dp_hw *hw, unsigned int stream_id,
-+				  bool enable)
-+{
-+	if (enable) {
-+		dptx_hw_write(hw, DPTX_VIDEO_STREAM_ENABLE(stream_id), 1);
-+		dptx_hw_write(hw, DPTX_SECONDARY_STREAM_ENABLE(stream_id), 1);
-+		return;
-+	}
-+
-+	dptx_hw_write(hw, DPTX_INFOFRAME_ENABLE(stream_id), 0);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_SELECT(stream_id), 0);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_RATE(stream_id), 0);
-+	dptx_hw_write(hw, DPTX_SECONDARY_STREAM_ENABLE(stream_id), 0);
-+	dptx_hw_write(hw, DPTX_VIDEO_STREAM_ENABLE(stream_id), 0);
-+}
-+
-+static void dptx_hw_stream_infoframe_write(struct dp_hw *hw,
-+					   unsigned int stream_id, u32 select,
-+					   const struct dp_sdp *sdp,
-+					   bool repeat)
-+{
-+	u32 value;
-+	int i;
-+
-+	if (stream_id >= DPTX_MST_SOURCE_NUMBER ||
-+	    select >= DPTX_MAX_SDP)
-+		return;
-+
-+	value = dptx_hw_read(hw, DPTX_INFOFRAME_ENABLE(stream_id));
-+	dptx_hw_write(hw, DPTX_INFOFRAME_ENABLE(stream_id),
-+		      value & ~BIT(select));
-+	dptx_hw_write(hw, DPTX_INFOFRAME_SELECT(stream_id), select);
-+
-+	dptx_hw_write(hw, DPTX_INFOFRAME_DATA(stream_id),
-+		      sdp->sdp_header.HB0);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_DATA(stream_id),
-+		      sdp->sdp_header.HB1);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_DATA(stream_id),
-+		      sdp->sdp_header.HB2);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_DATA(stream_id),
-+		      sdp->sdp_header.HB3);
-+
-+	for (i = 0; i < DPTX_SDP_DB_MAX; i++)
-+		dptx_hw_write(hw, DPTX_INFOFRAME_DATA(stream_id),
-+			      sdp->db[i]);
-+
-+	value = dptx_hw_read(hw, DPTX_INFOFRAME_RATE(stream_id));
-+	if (repeat)
-+		value |= BIT(select);
-+	else
-+		value &= ~BIT(select);
-+	dptx_hw_write(hw, DPTX_INFOFRAME_RATE(stream_id), value);
-+
-+	value = dptx_hw_read(hw, DPTX_INFOFRAME_ENABLE(stream_id));
-+	dptx_hw_write(hw, DPTX_INFOFRAME_ENABLE(stream_id),
-+		      value | BIT(select));
-+}
-+
-+static bool dptx_hw_needs_vsc_sdp(enum dp_pixelformat format,
-+				  u32 colorspace)
-+{
-+	if (format == DP_PIXELFORMAT_YUV420)
-+		return true;
-+
-+	switch (colorspace) {
-+	case DRM_MODE_COLORIMETRY_SYCC_601:
-+	case DRM_MODE_COLORIMETRY_OPYCC_601:
-+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-+	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-+		return true;
-+	default:
-+		break;
-+	}
-+
-+	return false;
-+}
-+
-+static enum dp_colorimetry
-+dptx_hw_vsc_colorimetry(enum dp_pixelformat format, u32 colorspace)
-+{
-+	switch (colorspace) {
-+	case DRM_MODE_COLORIMETRY_BT709_YCC:
-+		return DP_COLORIMETRY_BT709_YCC;
-+	case DRM_MODE_COLORIMETRY_XVYCC_601:
-+		return DP_COLORIMETRY_XVYCC_601;
-+	case DRM_MODE_COLORIMETRY_XVYCC_709:
-+		return DP_COLORIMETRY_XVYCC_709;
-+	case DRM_MODE_COLORIMETRY_SYCC_601:
-+		return DP_COLORIMETRY_SYCC_601;
-+	case DRM_MODE_COLORIMETRY_OPYCC_601:
-+		return DP_COLORIMETRY_OPYCC_601;
-+	case DRM_MODE_COLORIMETRY_BT2020_CYCC:
-+		return DP_COLORIMETRY_BT2020_CYCC;
-+	case DRM_MODE_COLORIMETRY_BT2020_RGB:
-+		return DP_COLORIMETRY_BT2020_RGB;
-+	case DRM_MODE_COLORIMETRY_BT2020_YCC:
-+		return DP_COLORIMETRY_BT2020_YCC;
-+	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_D65:
-+	case DRM_MODE_COLORIMETRY_DCI_P3_RGB_THEATER:
-+		return DP_COLORIMETRY_DCI_P3_RGB;
-+	default:
-+		break;
-+	}
-+
-+	/* Unspecified RGB is sRGB. Unspecified YCbCr is BT.709. */
-+	if (format == DP_PIXELFORMAT_RGB)
-+		return DP_COLORIMETRY_DEFAULT;
-+
-+	return DP_COLORIMETRY_BT709_YCC;
-+}
-+
-+static int dptx_hw_stream_format_set(struct dp_hw *hw, unsigned int stream_id,
-+				     enum dp_pixelformat format, u32 colorspace,
-+				     u8 bpc, u8 content_type)
-+{
-+	struct drm_dp_vsc_sdp vsc = {};
-+	struct dp_sdp sdp;
-+	bool enable;
-+	ssize_t len;
-+
-+	enable = hw->caps.vsc_supported &&
-+		 dptx_hw_needs_vsc_sdp(format, colorspace);
-+
-+	if (enable) {
-+		vsc.sdp_type = DP_SDP_VSC;
-+		vsc.revision = 0x5;
-+		vsc.length = 0x13;
-+		vsc.pixelformat = format;
-+		vsc.colorimetry = dptx_hw_vsc_colorimetry(format, colorspace);
-+
-+		switch (bpc) {
-+		case 6:
-+		case 8:
-+		case 10:
-+		case 12:
-+		case 16:
-+			vsc.bpc = bpc;
-+			break;
-+		default:
-+			vsc.bpc = 8;
-+			break;
-+		}
-+
-+		vsc.dynamic_range = DP_DYNAMIC_RANGE_CTA;
-+		vsc.content_type = content_type;
-+
-+		len = drm_dp_vsc_sdp_pack(&vsc, &sdp);
-+		if (len < 0)
-+			return len;
-+	}
-+
-+	dptx_hw_stream_misc(hw, stream_id, format, bpc, enable);
-+
-+	if (enable)
-+		dptx_hw_stream_infoframe_write(hw, stream_id, DPTX_VSC_SDP,
-+					       &sdp, true);
-+	return 0;
-+}
-+
-+static irqreturn_t dptx_hw_irq(struct dp_hw *hw)
-+{
-+	u32 value;
-+	u32 mask;
-+
-+	/*
-+	 * DPTX_INTERRUPT_CAUSE is read-to-clear, so this read also
-+	 * acknowledges the pending interrupts.
-+	 */
-+	value = dptx_hw_read(hw, DPTX_INTERRUPT_CAUSE);
-+	mask = dptx_hw_read(hw, DPTX_INTERRUPT_MASK);
-+	value &= ~mask;
-+	if (!value)
-+		return IRQ_NONE;
-+
-+	if (value & DPTX_INTERRUPT_GP_TIMER_IRQ)
-+		dev_dbg_ratelimited(hw->dev, "gp tmr\n");
-+
-+	if (value & DPTX_INTERRUPT_REPLY_TIMEOUT)
-+		dev_dbg_ratelimited(hw->dev, "reply timeout\n");
-+
-+	if (value & DPTX_INTERRUPT_REPLY_RECEIVED)
-+		dev_dbg_ratelimited(hw->dev, "reply received\n");
-+
-+	if (value & DPTX_INTERRUPT_HPD_EVENT)
-+		hw->hpd_event_callback(hw->data);
-+
-+	if (value & DPTX_INTERRUPT_HPD_IRQ)
-+		hw->hpd_irq_callback(hw->data);
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int dptx_hw_aux_register(struct dp_hw *hw,
-+				struct drm_device *drm)
-+{
-+	int ret;
-+
-+	hw->aux.drm_dev = drm;
-+
-+	ret = drm_dp_aux_register(&hw->aux);
-+	if (ret) {
-+		hw->aux.drm_dev = NULL;
-+		return ret;
-+	}
-+
-+	hw->aux_registered = true;
-+
-+	return 0;
-+}
-+
-+static void dptx_hw_aux_unregister(struct dp_hw *hw)
-+{
-+	if (!hw->aux_registered)
-+		return;
-+
-+	drm_dp_aux_unregister(&hw->aux);
-+	hw->aux.drm_dev = NULL;
-+	hw->aux_registered = false;
-+}
-+
-+static const struct dptx_hw_ops dptx_hw_ops = {
-+	.hpd_state			= dptx_hw_hpd_state,
-+	.sink_present			= dptx_hw_sink_present,
-+
-+	.host_enable			= dptx_hw_host_enable,
-+	.core_enable			= dptx_hw_core_enable,
-+
-+	.apb_clock			= dptx_hw_apb_clock,
-+	.reset				= dptx_hw_reset,
-+
-+	.link_train			= dptx_hw_link_train,
-+	.link_status			= dptx_hw_link_status,
-+
-+	.aux_register			= dptx_hw_aux_register,
-+	.aux_unregister			= dptx_hw_aux_unregister,
-+
-+	.dpcd_power_up			= dptx_hw_dpcd_power_up,
-+	.dpcd_power_down		= dptx_hw_dpcd_power_down,
-+	.dpcd_sink_caps			= dptx_hw_dpcd_sink_caps,
-+	.vsc_supported			= dptx_hw_vsc_supported,
-+
-+	.stream_clock_enable		= dptx_hw_stream_clock_enable,
-+	.stream_clock_rate_set		= dptx_hw_stream_clock_rate_set,
-+	.stream_timing			= dptx_hw_stream_timing,
-+	.stream_enable			= dptx_hw_stream_enable,
-+	.stream_format_set		= dptx_hw_stream_format_set,
-+
-+	.irq				= dptx_hw_irq,
-+};
-+
-+static int dptx_hw_parse_dt(struct dp_hw *hw)
-+{
-+	struct platform_device *pdev = to_platform_device(hw->dev);
-+	struct device *dev = hw->dev;
-+	int i;
-+
-+	hw->base = devm_platform_ioremap_resource_byname(pdev, "dp");
-+	if (IS_ERR(hw->base))
-+		return dev_err_probe(dev, PTR_ERR(hw->base),
-+				     "failed to map dp registers\n");
-+
-+	hw->reset = devm_reset_control_get(dev, NULL);
-+	if (IS_ERR(hw->reset))
-+		return dev_err_probe(dev, PTR_ERR(hw->reset),
-+				     "failed to get reset\n");
-+
-+	hw->apb_clk = devm_clk_get(dev, "apb");
-+	if (IS_ERR(hw->apb_clk))
-+		return dev_err_probe(dev, PTR_ERR(hw->apb_clk),
-+				     "failed to get apb clock\n");
-+
-+	for (i = 0; i < DPTX_MST_SOURCE_NUMBER &&
-+	     i < ARRAY_SIZE(stream_clk_names); i++) {
-+		hw->stream_clk[i] = devm_clk_get(dev, stream_clk_names[i]);
-+		if (IS_ERR(hw->stream_clk[i]))
-+			return dev_err_probe(dev, PTR_ERR(hw->stream_clk[i]),
-+					     "failed to get %s\n",
-+					     stream_clk_names[i]);
-+	}
-+
-+	return 0;
-+}
-+
-+struct dp_hw *dptx_hw_init(struct device *dev, void *data,
-+			   void (*hpd_event_callback)(void *data),
-+			   void (*hpd_irq_callback)(void *data))
-+{
-+	struct dp_hw *hw;
-+	int ret;
-+
-+	hw = kzalloc_obj(*hw);
-+	if (!hw)
-+		return ERR_PTR(-ENOMEM);
-+
-+	hw->dev = dev;
-+	hw->data = data;
-+	hw->hpd_event_callback = hpd_event_callback;
-+	hw->hpd_irq_callback = hpd_irq_callback;
-+	hw->ops = &dptx_hw_ops;
-+
-+	ret = dptx_hw_parse_dt(hw);
-+	if (ret) {
-+		kfree(hw);
-+		return ERR_PTR(ret);
-+	}
-+
-+	hw->aux.name = kasprintf(GFP_KERNEL, "%s AUX", dev_name(dev));
-+	if (!hw->aux.name) {
-+		kfree(hw);
-+		return ERR_PTR(-ENOMEM);
-+	}
-+
-+	hw->aux.dev = dev;
-+	hw->aux.transfer = dptx_hw_aux_transfer;
-+
-+	drm_dp_aux_init(&hw->aux);
-+
-+	return hw;
-+}
-diff --git a/drivers/gpu/drm/bridge/trilinear/dptx_hw.h b/drivers/gpu/drm/bridge/trilinear/dptx_hw.h
-new file mode 100644
-index 000000000000..b56ec3161f76
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/trilinear/dptx_hw.h
-@@ -0,0 +1,103 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * DisplayPort transmitter hardware interface
-+ *
-+ * Copyright (C) 2026 Trilinear Technologies
-+ * Copyright 2026 Cix Technology Group Co., Ltd.
-+ */
-+
-+#ifndef DPTX_HW_H
-+#define DPTX_HW_H
-+
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/interrupt.h>
-+
-+#include <drm/display/drm_dp_helper.h>
-+#include <drm/drm_modes.h>
-+
-+#define DPTX_MST_SOURCE_NUMBER 2
-+#define DP_STREAM_MAX 4
-+#define DPTX_MAX_LANES 4
-+
-+#define DPTX_MAX_SDP 7
-+#define DPTX_VSC_SDP 1
-+
-+struct dptx_hw_ops;
-+struct phy;
-+struct reset_control;
-+struct drm_device;
-+
-+struct dp_sink_caps {
-+	bool enhanced_framing;
-+	bool tps3_supported;
-+	bool tps4_supported;
-+	bool vsc_supported;
-+	u8 max_lanes;
-+	int max_rate;
-+};
-+
-+struct dp_hw {
-+	struct device *dev;
-+	void __iomem *base;
-+	struct clk *apb_clk;
-+	struct clk *stream_clk[DP_STREAM_MAX];
-+	struct reset_control *reset;
-+	struct drm_dp_aux aux;
-+	bool aux_registered;
-+	u8 dpcd[DP_RECEIVER_CAP_SIZE];
-+	u8 downstream_ports[DP_MAX_DOWNSTREAM_PORTS];
-+	u8 train_setting[DPTX_MAX_LANES];
-+	struct dp_sink_caps caps;
-+	void (*hpd_event_callback)(void *data);
-+	void (*hpd_irq_callback)(void *data);
-+	const struct dptx_hw_ops *ops;
-+	void *data;
-+};
-+
-+struct dptx_hw_ops {
-+	bool (*hpd_state)(struct dp_hw *hw);
-+	bool (*sink_present)(struct dp_hw *hw);
-+
-+	void (*host_enable)(struct dp_hw *hw, bool enable);
-+	void (*reset)(struct dp_hw *hw, bool assert);
-+	void (*core_enable)(struct dp_hw *hw, int source_id, bool enable);
-+
-+	int (*apb_clock)(struct dp_hw *hw, bool enable);
-+
-+	int (*link_train)(struct dp_hw *hw, struct phy *phy, u8 bw_code,
-+			  u8 lane_cnt, u8 num_lanes);
-+
-+	int (*link_status)(struct dp_hw *hw, u8 lane_cnt);
-+
-+	int (*aux_register)(struct dp_hw *hw, struct drm_device *drm);
-+	void (*aux_unregister)(struct dp_hw *hw);
-+
-+	int (*dpcd_power_up)(struct dp_hw *hw, unsigned int delay_ms);
-+	int (*dpcd_power_down)(struct dp_hw *hw, bool hpd);
-+	int (*dpcd_sink_caps)(struct dp_hw *hw);
-+	bool (*vsc_supported)(struct dp_hw *hw);
-+
-+	int (*stream_clock_enable)(struct dp_hw *hw, unsigned int stream_id,
-+				   bool enable);
-+	int (*stream_clock_rate_set)(struct dp_hw *hw, unsigned int stream_id,
-+				     unsigned long rate);
-+	void (*stream_timing)(struct dp_hw *hw, unsigned int stream_id,
-+			      const struct drm_display_mode *mode, u8 bpp,
-+			      u8 lane_cnt, u32 link_rate,
-+			      u32 pixel_per_cycle);
-+	void (*stream_enable)(struct dp_hw *hw, unsigned int stream_id,
-+			      bool enable);
-+
-+	int (*stream_format_set)(struct dp_hw *hw, unsigned int stream_id,
-+				 enum dp_pixelformat format, u32 colorspace,
-+				 u8 bpc, u8 content_type);
-+
-+	irqreturn_t (*irq)(struct dp_hw *hw);
-+};
-+
-+struct dp_hw *dptx_hw_init(struct device *dev, void *data,
-+			   void (*hpd_event_callback)(void *data),
-+			   void (*hpd_irq_callback)(void *data));
-+
-+#endif /* DPTX_HW_H */
 -- 
 2.25.1
 
