@@ -2,42 +2,51 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6004606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:46:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A82AB606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:47:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=J6yLs0gh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=iIUMq1HY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F167B10E3B3;
-	Thu, 26 Nov 2026 11:46:48 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B168112380
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:46:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 09EA010E97A;
+	Thu, 26 Nov 2026 11:47:53 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD3BD10E97A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:47:46 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id B3FE36284D;
- Thu, 26 Nov 2026 11:46:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00DA11F000C0;
- Thu, 26 Nov 2026 11:46:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id ABFD6439F7;
+ Thu, 26 Nov 2026 11:47:46 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF3451F000C4;
+ Thu, 26 Nov 2026 11:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795693600;
- bh=9UaZC92oNEtkuiRX5gr12Aj5Vbn1haALXFmoZQfMfr0=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=J6yLs0gh5d6jr6Td2gURNEXzlT4xvVH642Up2kcQ2w0lAEwvR5x4ATafO8O6w14TZ
- 146K2JtUS7zlzmB+U5HrM7qts6YFHoLqbD79apmIorkkSTdL3YAe8wr0yWljUtwSH5
- fe3JNPhiN+5SH/myuc6F85Xe0NBU3t4et9rNojQstuJrl423LsbeHdV0R62uLWRWh+
- vKhMPvodEi6TbnyLcD2xGBiSLjV6o3IXZc81lx1EOFqlFg3UCRfkZzGr9bEtY6t39r
- IN3W+4c3gGT5P53kxAZuQqmZMg6K72m22lwAVkqrfgw1hKSBaeL8DSpoUnbneVbCoa
- 6uARS4NZ0zmhg==
-Message-ID: <sashiko-outbox-235418@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 25/43] drm/vkms: Introduce config for plane format
-To: "Louis Chauvet" <louis.chauvet@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126-vkms-all-config-v7-25-21194cda2468@bootlin.com>
-References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
- <20261126-vkms-all-config-v7-25-21194cda2468@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 11:46:39 +0000
+ s=k20260515; t=1795693666;
+ bh=/IuU2RbLnTfHjvDJt5vubfcTTRydUn5VtyQNhV9yHwc=;
+ h=Date:From:To:Cc:Subject:References:In-Reply-To;
+ b=iIUMq1HYFh7Ug+mB4SJbihaa468j1yKHlqow/OXuId2iW3hUoQ2wS83jcwCECrfMw
+ aVsKkwOcboYfRqoeZR7t4qibEbQhD6PhDjo1i2ANpiL9ue3xFu4jGuVPlVHtht464s
+ HviepUDvEoPYIvURjU3c1+56+9baH91+auYwn4QgztxPsXgEC+shL5TcygPFbznh3u
+ lqCadeeNN9heBa0goOw/UyHKbmT3gs5XbIryL1sYJyTNGSXUBf9tVqBIvYpw+tTabL
+ KjJtNGVgNLjqBQMiV7dTNXNPjezHpVzX5rcpxFqmY+GyzVOojmTzxAadPnxrPK01JC
+ Tl5ohrORWvSBQ==
+Date: Thu, 26 Nov 2026 11:47:28 +0000
+From: Lee Jones <lee@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO
+ power supplies
+Message-ID: <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+References: <20261115085826.89641-1-clamor95@gmail.com>
+ <20261115085826.89641-5-clamor95@gmail.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261115085826.89641-5-clamor95@gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,93 +57,72 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/vkms: malformed kernel-doc on plane format helpers in
-  vkms_config.h
---
+On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
 
-commit d93bc0319c8e32277faad2010bf0ce947960f6bf
-Author: Louis Chauvet <louis.chauvet@bootlin.com>
+> The AAT2870 supports a dedicated main power supply input alongside parent
+> power supply for its internal regulators.
+> 
+> Add support for retrieving and managing these supply regulators
+> (vin-supply and in-ldo-supply) using the regulator framework to ensure
+> proper power supply dependencies and power-up sequencing.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/mfd/aat2870-core.c            | 5 +++++
+>  drivers/regulator/aat2870-regulator.c | 1 +
 
-drm/vkms: Introduce config for plane format
+Is this a build dep?
 
-This commit adds configuration helpers to customize the list of supported
-pixel formats per plane in vkms_config.
+Would something that was working before, break?
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vk=
-ms_config.h
-> index 20369e8d7c6e3..1b353556166c1 100644
-> --- a/drivers/gpu/drm/vkms/vkms_config.h
-> +++ b/drivers/gpu/drm/vkms/vkms_config.h
-
-[ ... ]
-
-> @@ -528,6 +532,53 @@ bool vkms_config_valid_plane_color_range(const struc=
-t vkms_config *config,
->  					 const struct vkms_config_plane *plane_cfg);
->  #endif
-> =20
-> +static inline u32 *
-> +vkms_config_plane_get_supported_formats(const struct vkms_config_plane *=
-plane_cfg)
-> +{
-> +	return plane_cfg->supported_formats;
-> +}
+>  2 files changed, 6 insertions(+)
+> 
+> diff --git a/drivers/mfd/aat2870-core.c b/drivers/mfd/aat2870-core.c
+> index f5409dd91efb3..9017960ee73b1 100644
+> --- a/drivers/mfd/aat2870-core.c
+> +++ b/drivers/mfd/aat2870-core.c
+> @@ -14,6 +14,7 @@
+>  #include <linux/kernel.h>
+>  #include <linux/mfd/aat2870.h>
+>  #include <linux/of_platform.h>
+> +#include <linux/regulator/consumer.h>
+>  #include <linux/regulator/machine.h>
+>  #include <linux/slab.h>
+>  #include <linux/uaccess.h>
+> @@ -307,6 +308,10 @@ static int aat2870_i2c_probe(struct i2c_client *client)
+>  
+>  	aat2870->reg_cache = aat2870_regs;
+>  
+> +	ret = devm_regulator_get_enable(&client->dev, "vin");
+> +	if (ret)
+> +		return dev_err_probe(&client->dev, ret, "Failed to enable regulator\n");
 > +
-> +static inline unsigned int
-> +vkms_config_plane_get_supported_formats_count(struct vkms_config_plane *=
-plane_cfg)
-> +{
-> +	return plane_cfg->supported_formats_count;
-> +}
-> +
-> +/** vkms_config_plane_add_format - Add a format to the list of supported=
- format of a plane
-> + *
-> + * The passed drm_format can already be present in the list. This may fa=
-il if the allocation of a
-> + * bigger array fails.
-> + *
-> + * @plane_cfg: Plane to add the format to
-> + * @drm_format: Format to add to this plane
-> + *
-> + * Returns: 0 on success, -ENOMEM if array allocation fails, -EINVAL if =
-the format is not supported
-> + * by VKMS
-> + */
-> +int __must_check vkms_config_plane_add_format(struct vkms_config_plane *=
-plane_cfg, u32 drm_format);
-> +
-> +/**
-> + * vkms_config_plane_add_all_formats - Helper to quickly add all the sup=
-ported formats
-> + * @plane_cfg: Plane to add the formats to
-> + *
-> + * Returns: 0 on success, -ENOMEM if array allocation fails
-> + * by VKMS
-> + */
-> +int __must_check vkms_config_plane_add_all_formats(struct vkms_config_pl=
-ane *plane_cfg);
+>  	aat2870->en_pin = devm_gpiod_get_optional(&client->dev, "enable",
+>  						  GPIOD_OUT_HIGH);
+>  	if (IS_ERR(aat2870->en_pin))
+> diff --git a/drivers/regulator/aat2870-regulator.c b/drivers/regulator/aat2870-regulator.c
+> index 73b6d06858cff..896f39e345379 100644
+> --- a/drivers/regulator/aat2870-regulator.c
+> +++ b/drivers/regulator/aat2870-regulator.c
+> @@ -105,6 +105,7 @@ static const unsigned int aat2870_ldo_voltages[] = {
+>  #define AAT2870_LDO(ids, match, vsel, vmask) {		\
+>  	.name = #ids,					\
+>  	.of_match = (match),				\
+> +	.supply_name = "in-ldo",			\
+>  	.id = AAT2870_ID_##ids,				\
+>  	.n_voltages = ARRAY_SIZE(aat2870_ldo_voltages),	\
+>  	.volt_table = aat2870_ldo_voltages,		\
+> -- 
+> 2.53.0
+> 
 
-[Severity: Low]
-In the kernel-doc comment for vkms_config_plane_add_format(), the function
-name is on the opening /** line instead of the next line, and the body text
-precedes the @plane_cfg and @drm_format parameter descriptions, which
-scripts/kernel-doc rejects.  Also, the Returns description for
-vkms_config_plane_add_all_formats() has a stray "by VKMS" line left over
-from vkms_config_plane_add_format().
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-vkms-all-c=
-onfig-v7-0-21194cda2468@bootlin.com?part=3D25
+-- 
+Lee Jones
