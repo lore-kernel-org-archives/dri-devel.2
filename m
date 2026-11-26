@@ -2,64 +2,84 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D5E606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED4A3606A31E
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 08:09:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=retsim.com header.i=@retsim.com header.a=rsa-sha256 header.s=abaygg6onarqet2uti4t4yyiczbpngnf header.b=xeeF+tBH;
-	dkim=pass (1024-bit key, unprotected) header.d=amazonses.com header.i=@amazonses.com header.a=rsa-sha256 header.s=hsbnp7p3ensaochzwyq5wwmceodymuwv header.b=HstFvLnb;
-	dkim=temperror header.d=retsim.com header.i=@retsim.com header.a=rsa-sha256 header.s=dkim header.b=VyWiak+B
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yTjvhA9i
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 36EDE1120E2;
-	Thu, 26 Nov 2026 08:09:03 +0000 (UTC)
-X-Greylist: delayed 432 seconds by postgrey-1.36 at gabe;
- Wed, 25 Nov 2026 08:33:53 UTC
-Received: from a27-123.smtp-out.us-west-2.amazonses.com
- (a27-123.smtp-out.us-west-2.amazonses.com [54.240.27.123])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AB69B10E169
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 08:33:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=abaygg6onarqet2uti4t4yyiczbpngnf; d=retsim.com; t=1795595201;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding;
- bh=qsGFfntf6lM+OdsemqqtNR29nCSCQOpdhIf05lfqyx8=;
- b=xeeF+tBHkWeemMKTB52fB5ff0xA+fZ0NYKxrailWdbXgsFeI3eLYAULXElkToIHG
- xITc5RRc9BhSB9KF+xy0pWUKI6yr2sPzsCI3HHwVwRz4mA2ztHCiCuqk7RSG3abbvbu
- GZhMaNuoQYYj8D79j4qljnt64AwzkFe1aODF38sk=
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
- s=hsbnp7p3ensaochzwyq5wwmceodymuwv; d=amazonses.com; t=1795595201;
- h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Feedback-ID;
- bh=qsGFfntf6lM+OdsemqqtNR29nCSCQOpdhIf05lfqyx8=;
- b=HstFvLnbNX72zJSBuJMctYXzvysruKXtQQPsBLQ1BoY3C5E9YECuwYq2hCaufYKl
- Nis5CaDaXeUa09jLuUyLlspfi4Iu2Yfm7U+1EDvZH1j7hnHFeI40423p0QxJfr8/j0l
- khPezcB/E+n9M/okRHI6sFyL8aQZncY+QeamCLXM=
-Authentication-Results: mailserver.retsim.com (amavis); dkim=pass
- reason="pass (just generated, assumed good)" header.d=retsim.com
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=retsim.com; h=
- content-transfer-encoding:content-type:mime-version:x-mailer
- :message-id:date:subject:to:from; s=dkim; t=1795595197; x=
- 1798187198; bh=qsGFfntf6lM+OdsemqqtNR29nCSCQOpdhIf05lfqyx8=; b=V
- yWiak+BtiyYaFf55DS0Q/YozqJhel0pipO673sj1sQ3lFphWoGjDoro+9osFbxei
- Vp/hIMzs+0kbjlBxaGlM4pmLWTI4Lm9sesGBkVfuSXHszZUcmRyjEqjSzZe2Px16
- 92IaM/yCkqK+DUpWZTQ2OTbvFj6z8hXZs7CvWM3Hwn7FwGRVUe+eoPrJKnGXj66M
- /ppYegYoj0iEX+9TymACbdTlWLAmzYszwknqw/ZCealMKvv7dYs7+evpXsbGNKti
- axUZgj03hpK5whFKZpztmWkCaZ5Sl/HRXsLfkUmUb/QRDi6LpSBVX/TRPY1acCp7
- ouKjoHhNgDOyL3mb1U6kg==
-X-Virus-Scanned: Debian amavis at 
-From: Lewis Lakerink <lewis@retsim.com>
-To: imagination@lists.freedesktop.org
-Cc: Alessio Belle <alessio.belle@imgtec.com>, 
- Luigi Santivetti <luigi.santivetti@imgtec.com>, 
- Ryan Brue <ryanbrue.dev@gmail.com>, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, Lewis Lakerink <lewis@retsim.com>
-Subject: [PATCH 0/2] drm/imagination: fix teardown use-after-free after removal
-Date: Wed, 25 Nov 2026 08:26:41 +0000
-Message-ID: <010101a211d069dd-d7d74cfe-9be6-48c0-a9ac-df04d73fa3ed-000000@us-west-2.amazonses.com>
-X-Mailer: git-send-email 2.43.0
+	by gabe.freedesktop.org (Postfix) with ESMTP id C34431120F4;
+	Thu, 26 Nov 2026 08:09:12 +0000 (UTC)
+Received: from mail-dy1-f175.google.com (mail-dy1-f175.google.com
+ [74.125.82.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 756A810E4B9
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:23:23 +0000 (UTC)
+Received: by mail-dy1-f175.google.com with SMTP id
+ 5a478bee46e88-38431138772so8415885eec.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 17:23:23 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795656203; x=1796261003; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
+ b=yTjvhA9iNF6vJHPxfCfnMX7xExmYLGEPNUXl0juoyPwXGR64rZT26h7j1hvQbb1NHG
+ 7WWPmiMz0aqO7VrkxbGqxrlFDyNR8uECqeAFxDFswTlD/6pcRU+s5hE7ZniaRYpILaq2
+ ZCowWCt3k47mSxfJ2D3CYfNSWCGg9ahHYzGtAu3XuVgpxvCXZUSsV4+zpSj2x0p875Oh
+ TqiOGwOtF44skGxRF+KNf95LIvKaAPsbx2E7NxzaNzdZFi6yAb7kmnjPX6NKwg6pDkoW
+ b3Xawek2ow2JS6/bi0qfqx16FESlAJdYay/egRwjcfPw1J12xKWLCLTwpHo30iLmyCPj
+ sPIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795656203; x=1796261003;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=T1o9ngBXV17K0T9VIdpByWQ1tf1l/DUIzKNbevHfagQ=;
+ b=V5wdyOHzghqvkTBFrAWr0t3iVfzfEL1SKuh9YNPcCBnk+bTjHMz9lvM6D55RvXZhNH
+ 9KVucmLF733QnL7a0601DrizSev/OgiSUfHkDrm8w/Hxkl1X9dTjLKX9GUrHWlUd8r+z
+ dxWKtW+ro1xU2brCpCyKtFz9lDq0QyM8g/Q72YG9AtDHNwx50Wpdfglsa+5rJPZXqCji
+ 8HMfJ7BCy7cJ5am0sqfG6tjBAyoI9/U5eGE5tjfODQYwFHssa1FaAWZ61TyZ4j4z8tmv
+ eJDNtGC4nAHBFeX4AnnU0emazklUcTJW58qxI8DLaroeHYi+LS/mzVSimGE9fuofzZEs
+ BRzg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFegK7nH94ifKqMf+VvtO1Riq2XDuOmrlQH8zRiaf26nZJggQCEb4ntJMtNkZQNAauOUqrGu50ccts=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+vemZKgR9MpNXHD22yaCRSfqK/0+r/4nRvDv1yb5+PGDNU858p
+ yehr119mCclANupHhoLVjjkbFpG5rrekU9idZUDFsU1LxRE+icYCHzUR
+X-Gm-Gg: AZFdTZfqu4lSCmroCACrBzsrwtEzaXCQ898OoBC80iu9oIyS9NmMOIXubC5oMr+Bazs
+ ooxxCDBzx46uQ0JFBLke5t7heuf+Lyd2ZIlcWiLOeZ/21ZLr8tTaciDzYOWzF07nRHObQR+aIlv
+ z6f+pWEV/glwnFBsZtPZEczjvyFhE97CKR1UFfXGFa9F5BWpNzn0KeO64tcTzRhzbstCaj7WPN5
+ lchOlmuS/4mmtIJCO5mjeIacKXRkuK8OQzt8i122wXUS28PmJmDUAZ/MT5Uy646K+dEVkOG2DLc
+ ij4eFlPXuSC9vNoWy6PYWm/WEpNBUosKEvG8YqWP8L6pFml7IThndBTHGopeg2oLHZsgF7kB1rw
+ HLsTeC4YFWuKKDvOUOmiXf36261VdXkzHQuuhMArDlQC+SymqZ2OMEKe6h+CI10U53aSj6bmO8R
+ XNMnU8g5QNx2DXGeA8cnoUuSGzgU/SETPamrf+tTAUxS2/28obT9d5Y3OHrM7dhypDQhCub02Uo
+ QBYvf0Niwx07xv+FH0tWnYsUHeZrS6uaKLRWsFi9Q6QzbgfrZn1l+kN5biEhqq4znFV1U3uInH0
+ SV5I1IitgDYLdFRcSBXg
+X-Received: by 2002:a05:693c:600c:b0:36a:1bac:6bf4 with SMTP id
+ 5a478bee46e88-38570451dbemr22625193eec.18.1795656202605; 
+ Wed, 25 Nov 2026 17:23:22 -0800 (PST)
+Received: from a1-free ([2603:c021:8021:f000:0:1865:8c38:18fc])
+ by smtp.gmail.com with ESMTPSA id
+ 5a478bee46e88-38566cd4efesm59360148eec.12.2026.11.25.17.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2026 17:23:22 -0800 (PST)
+From: TAKANO Mitsuhiro <takano32@gmail.com>
+To: amd-gfx@lists.freedesktop.org, Harry Wentland <harry.wentland@amd.com>,
+ Leo Li <sunpeng.li@amd.com>, Alex Deucher <alexander.deucher@amd.com>
+Cc: Rodrigo Siqueira <siqueira@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Thomas Huth <thuth@redhat.com>, Weijie Yuan <wy@wyuan.org>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ TAKANO Mitsuhiro <takano32@gmail.com>
+Subject: [PATCH v2 2/2] drm/amd/display: Document max_gamut_remap_coeff
+Date: Thu, 26 Nov 2026 01:23:16 +0000
+Message-ID: <20261126012316.2624853-2-takano32@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261126012316.2624853-1-takano32@gmail.com>
+References: <20261121041427.1743954-1-takano32@gmail.com>
+ <20261126012316.2624853-1-takano32@gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-Feedback-ID: ::1.us-west-2.jZ+gdeR9TqNTaB6Dq50UPG8S0IjuYZETsFsi7SlhF6Q=:AmazonSES
-X-SES-Outgoing: 2026.11.25-54.240.27.123
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Thu, 26 Nov 2026 08:08:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,88 +92,50 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi all,
+kernel-doc reports:
 
-These two patches fix use-after-free crashes when DRM files, syncobj
-fences, or in-flight jobs outlive the PowerVR platform device:
+  dc.h:329 struct member 'max_gamut_remap_coeff' not described in
+  'mpc_color_caps'
 
-  1. drm/imagination: guard fence release against device removal (13+/1-)
-  2. drm/imagination: quiesce queues before device teardown (135+/6-)
+The 17 resource files that set dc->caps.color.mpc.gamut_remap to 1 also
+set the member to dc_fixpt_from_fraction(S3D12_MAX, DIVIDER); the other
+ten leave it at zero, and the comment of mpc_color_caps does not mention
+it.  Describe it.
 
-pvr_remove() currently calls pvr_device_fini() and
-pvr_queue_device_fini() before drm_dev_unplug(), and leaves scheduler
-workers and timers running.  Unbinding the device while a client holds
-an open DRM file or syncobj crashes on fd close in __queue_work() on
-the destroyed sched_wq (from both drm_syncobj_release() and
-pvr_queue_kill()) and in pvr_meta_vm_unmap() on the freed
-kernel_vm_ctx.
+Fixes: 1c5e6cd8291f ("drm/amd/display: adjust floating point format for gamut remap when needed")
+Link: https://lore.kernel.org/all/ec4d7cff-d23a-46d1-b245-921f442b9a7b@redhat.com/
+Signed-off-by: TAKANO Mitsuhiro <takano32@gmail.com>
+---
+v2: The disclosure moves below the --- line, where Weijie Yuan asked for
+    it; the commit message keeps the change alone.  The patches are
+    unchanged otherwise, so the diff is the one already posted.
 
-Patch 1 guards pvr_queue_fence_release() with drm_dev_enter().  Patch 2
-depends on patch 1 for <drm/drm_drv.h> in pvr_queue.c (the series
-applies cleanly with plain git am), stops the watchdog and calls
-drm_dev_unplug() first when !READ_ONCE(pvr_dev->lost), quiesces active
-and idle queues via drm_sched_entity_fini() + drm_sched_fini(), guards
-postclose/destroy_context/timedout_job, and flushes sched_wq before
-device teardown.  Device objects on files or fences that outlive
-removal are deliberately leaked (reported by the existing WARN_ON()
-checks) rather than reworked around drmm_/refcounted device lifetime
-here so the fixes remain backportable.
+Written with Hermes Agent, an LLM assistant; the author reviewed it and
+ran kernel-doc on the file with and without the change.
 
-Overlap with pending work:
-Ryan Brue's unmerged system-suspend series ("[PATCH v3 0/4]
-drm/imagination: fix system suspend, and the callback design underneath
-it") also moves pvr_watchdog_fini() and drm_dev_unplug() (guarded by
-!pvr_dev->lost) earlier in pvr_remove() (patches 2/4 and 3/4).  This
-series leaves pvr_power.c untouched so it applies cleanly on
-drm-misc-next independently of the system-sleep rework; happy to rebase
-onto v4 of that series if maintainers prefer to land it first.
+ drivers/gpu/drm/amd/display/dc/dc.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Tested on MediaTek MT8173 (PowerVR Rogue GX6250, arm64) on v7.3.6 with
-a Vulkan client and sysfs unbind across close-only, idle unbind, 6
-in-flight unbind/rebind cycles (3 runs across explicit close and
-SIGKILL), and module unload (rmmod): 0 oopses/faults, with the expected
-leaked-object WARN_ONs.  (An earlier revision without the !lost guard
-also passed a 75 s post-unbind hold past SCHED_TIMEOUT_PERIOD.)
+diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
+index debdd69bbe4e..32bf87fed40d 100644
+--- a/drivers/gpu/drm/amd/display/dc/dc.h
++++ b/drivers/gpu/drm/amd/display/dc/dc.h
+@@ -314,6 +314,7 @@ struct lut3d_caps {
+  * @mcm_3d_lut_caps: HW support cap for MCM LUT memory
+  * @rmcm_3d_lut_caps: HW support cap for RMCM LUT memory
+  * @preblend: whether color manager supports preblend with MPC
++ * @max_gamut_remap_coeff: largest gamut remap coefficient the MPC supports
+  */
+ struct mpc_color_caps {
+ 	uint16_t gamut_remap : 1;
+-- 
+2.53.0
 
-Known limits:
-- Compiled (arm64 defconfig, powervr.ko) on drm-misc-next (a2853fd);
-  runtime-tested on v7.3.6 (arm64, MT8173) only.
-- Runtime PM on remove is left untouched (see patch 2): a
-  runtime-active GPU remains powered after removal.
-- Foreign fences outliving both removal and the last drm_file close, and
-  unpopped entity jobs blocked on external fences (deferred to system_wq
-  by drm_sched_entity_kill()), still require a full device-lifetime
-  rework.
-
-Stable notes:
-- Patch 1 (Cc: stable # 6.14+) also affects 6.12.y, which carries
-  df1a1ed5e1bd by backport.
-- Patch 2 (Cc: stable # 6.8+) tracks bug provenance; pre-7.x branches
-  need backport adjustments in pvr_queue_timedout_job() and pre-6.12
-  postclose.
-
-Disclosure: analysis and patches were drafted with an LLM coding
-assistant (Assisted-by: LLM on both patches; no sparse, smatch, or
-coccinelle pass was run).  I reviewed the changes and ran the hardware
-builds and tests.
-
-Signed-off-by: Lewis Lakerink <lewis@retsim.com>
-
-Lewis Lakerink (2):
-  drm/imagination: guard fence release against device removal
-  drm/imagination: quiesce queues before device teardown
-
- drivers/gpu/drm/imagination/pvr_drv.c   | 73 ++++++++++++++++++++--
- drivers/gpu/drm/imagination/pvr_queue.c | 80 ++++++++++++++++++++++++-
- drivers/gpu/drm/imagination/pvr_queue.h |  2 +
- 3 files changed, 148 insertions(+), 7 deletions(-)
-
---=20
-2.43.0
