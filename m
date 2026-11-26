@@ -2,62 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15D3606A691
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:03:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9E4606A32A
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:11:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=VY1CKT1W
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Ce3gG4my
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3DE2010E9F9;
-	Thu, 26 Nov 2026 18:03:27 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9BB2110E9F9
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:03:20 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795716175; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=JACRZCK68+eFCGq9l+1uRAB2x5YjkgF4erINWlAWg1gkyEdC73RqW0MZ8Xes3sKrkr7dSeBhTYHr36LIFRPoj9wv34aNWe7uPb/gxzrxUaB8PulOVsdH9lx/7LG3Vcp+sN7wfWlImGkwNM8gVHT7ltGyawi1CQDpJ4K42Jd6rK4=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795716175;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=eHauIlLMMTu6/oJCbQFESMOeiuDhBPtEwgIIs3toMOQ=; 
- b=PA4gn1LRcI+ueU76S6A0n/cDwW5BWo4tfcuqEHHv8A9KIoPZvC36GQqihxXK0hzDs0RNUGvdSUmA0elrInoJO2BVQMiNZRIEr4MbclckxwZQ8GF/VX0KscbxbtCsehYeRHuILajeEhnTPrqYdmtfbxpccja9gZNJui+vmd86dxg=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
- dmarc=pass header.from=<daniel.almeida@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=VY1CKT1WKAoPLkVpLr9A3qum063NUkG85dFcANQVkS5rpEDk42EG2DiThTHK6AUYcCMabRvQbaT/aKOlvzOyduS5z60+LwHKcCZc+q3n6UwzTVt0ATbeJSC9X/xqrxbOjJ/HtXlYROErQ6Hs5PUWE1EDYuAOrCzkSJb7QlvNSzA=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=eHauIlLMMTu6/oJCbQFESMOeiuDhBPtEwgIIs3toMOQ=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795716172664139.47020216244937; 
- Thu, 26 Nov 2026 10:02:52 -0800 (PST)
-Content-Type: text/plain;
-	charset=utf-8
-X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3901.200.71.1.16\))
-Subject: Re: [PATCH 0/7] rust: reset: add reset control abstractions
-From: Daniel Almeida <daniel.almeida@collabora.com>
-In-Reply-To: <6300821339d6891983af704e2044fd1ed25285f6.camel@collabora.com>
-Date: Thu, 26 Nov 2026 15:02:34 -0300
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?utf-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>, Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- =?utf-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- Philipp Zabel <p.zabel@pengutronix.de>, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org, dri-devel@lists.freedesktop.org,
- Detlev Casanova <detlev.casanova@collabora.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id A793110EA0E;
+	Thu, 26 Nov 2026 18:11:35 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 063D810EA0E
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:11:29 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 178AF60E44;
+ Thu, 26 Nov 2026 18:11:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 924A01F000EB;
+ Thu, 26 Nov 2026 18:11:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795716687;
+ bh=PqaT3TLk49gdQy3zpvwFM2szkreofyDrgsVEIRnESWk=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=Ce3gG4myL2NvDOv1PEayUE63ja20wXv07hrfH85Cp1sd/aSJmdf/eU6Ic913iKWmQ
+ KtTmlsWTmpqHpmOUinzM0V9SmY6kus+o+vFMIegrfIW/JEWhfEO2ROYQFWyT2X4Jgi
+ Iuz67YMgm0V9fRA35G/HoqTG6pJduB4YYirlIbD84f7Q7ib0TG8PKcDrGZb5XqRSgR
+ L4isXcO8OCPbGS/5jKai2b8aasko+L1U5qqd0a6viLNdikuyAdD2v3YkysViWwS1Ad
+ 03RGFuGH3evbcpg2wfUmQBnUYUifdx6FmK2UQBSocxCwW1M965MUyV2bPhXK0WtMj/
+ XJobiGE5KgSgQ==
+Message-ID: <sashiko-outbox-235999@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] drm/nouveau/fifo/gf100-: reset the faulting engine even
+ if it switched channels
+To: =?utf-8?b?RnLDqWTDqXJpYyBNYWjDqQ==?= <frederic.mahe@cirad.fr>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261126175531.916097-1-frederic.mahe@cirad.fr>
+References: <20261126175531.916097-1-frederic.mahe@cirad.fr>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Message-Id: <299B626E-DC60-4175-9D66-2DE58BA5070A@collabora.com>
-References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
- <6300821339d6891983af704e2044fd1ed25285f6.camel@collabora.com>
-To: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-X-Mailer: Apple Mail (2.3901.200.71.1.16)
-X-ZohoMailClient: External
+Date: Thu, 26 Nov 2026 18:11:26 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,68 +48,104 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-Hi Nicolas,
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [High] drm/nouveau/fifo: unsynchronized engn->rc_reset in
+  gf100_fifo_mmu_fault_recover()
+--
 
-> On 26 Nov 2026, at 13:33, Nicolas Dufresne =
-<nicolas.dufresne@collabora.com> wrote:
->=20
-> Hi Daniel,
->=20
-> Le jeudi 26 novembre 2026 =C3=A0 13:04 -0300, Daniel Almeida a =C3=A9cri=
-t :
->> This series adds a Rust abstraction for the consumer side of the =
-reset
->> controller API. A driver can get the reset lines of its device, as an
->> exclusive or a shared reset control, and assert and deassert them.
->>=20
->> This will be used by the upcoming rkvenc driver that my colleagues
->> Detlev Casanova, Nicolas Dufresne and I are working on, to recover a
->> hung core of the encoder without stopping the other one. More details =
-on
->> this driver can be found by watching Nicolas Dufresne's talk at LPC =
-2026
->> [0]. Samsung's Rust UFS RFC [1] also uses reset lines, through an
->> abstraction that it has not posted.
->=20
-> I don't mind being cited, but please give a heads-up, we haven't =
-discussed any
-> of this, so I can't really comment if its a good or bad idea. On the C =
-side,
-> shared reset don't really work today, so I'm left wondering.
->=20
-> Nicolas
->=20
+commit c25dc87b435d54f44150db91d3c558d0942a3224
+Author: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
 
-Fair, sorry for not giving you a heads-up. I have a branch a bit
-further ahead where I have tested both encoder cores at once, including
-this change. Due to the hierarchy of the power domains, to power down
-core 0, you also need to power down core 1. In other words, if core 0
-becomes stuck, there is no way to bring it back by means of a power
-cycle without also stopping the jobs running on core 1.
+drm/nouveau/fifo/gf100-: reset the faulting engine even if it switched chan=
+nels
 
-This series mainly makes it possible to access the reset lines in an
-established pattern (e.g. Regulator<T> already uses it, and so does the
-Clk<T> series). For rkvenc, it allows pulsing only the lines of the
-affected core.
+This commit records when an engine reports an MMU fault in engn->rc_reset
+and resets that engine during runlist recovery even if its current context
+no longer points to the faulting channel group.
 
-Reset lines haven't come up so far because with only a single core
-powered up, a power cycle is fine, since there is no other core to
-affect anyway.
+> diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c b/drivers/g=
+pu/drm/nouveau/nvkm/engine/fifo/gf100.c
+> index e4a4fad2eafce..4f221c0b23fa6 100644
+> --- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
+> +++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
+> @@ -597,9 +597,16 @@ gf100_fifo_mmu_fault_recover(struct nvkm_fifo *fifo,=
+ struct nvkm_fault_data *inf
+>  		   info->reason, er ? er->name : "",
+>  		   chan ? chan->id : -1, info->inst, chan ? chan->name : "unknown");
+> =20
+> -	/* Handle host/engine faults. */
+> -	if (chan)
+> +	/* Handle host/engine faults.  The engine that reported the fault must
+> +	 * be reset even if it has already switched to another channel (its
+> +	 * status then no longer points at the faulting channel), otherwise it
+> +	 * stays stalled and the runlist update never completes.
+> +	 */
+> +	if (chan) {
+> +		if (engine)
+> +			atomic_set(&engn->rc_reset, 1);
+>  		nvkm_runl_rc_cgrp(chan->cgrp);
+> +	}
+> =20
+>  	nvkm_chan_put(&chan, flags);
+>  }
 
-Also note that rkvenc does not use SharedResetControl, but I ended up
-deciding to make it available as well. The same can be said of Clk<T>,
-where we have devm_ and other conveniences like guards that are not
-necessarily used at the moment, but that make sense when you look at
-what a lot of C drivers tend to need and carry that over to Rust.
+[Severity: High]
+Can setting engn->rc_reset before nvkm_runl_rc_cgrp() leave a stale
+rc_reset flag armed when cgrp->rc has already left NVKM_CGRP_RC_NONE?
 
-What does not work with shared resets on the C side?
+nvkm_runl_rc_cgrp() only schedules recovery when cgrp->rc transitions from
+NVKM_CGRP_RC_NONE to NVKM_CGRP_RC_PENDING, and cgrp->rc stays at
+NVKM_CGRP_RC_RUNNING once recovery starts while the channel remains in
+runl->chid until userspace closes it.  If a faulting channel generates
+more than one MMU fault entry (for example, multiple fault buffer entries
+drained by gv100_fault_buffer_process() or a second fault interrupt before
+the engine is reset), the second call sets engn->rc_reset =3D 1 while
+nvkm_runl_rc_cgrp() returns early without scheduling runl->work:
 
-=E2=80=94 Daniel
+CPU0 (fault handler)              CPU1 (runl->work)
+gf100_fifo_mmu_fault_recover()
+  /* fault 1 on chan A */
+  atomic_set(&engn->rc_reset, 1)
+  nvkm_runl_rc_cgrp(cgrpA)
+    cgrpA->rc: NONE -> PENDING
+    nvkm_runl_rc_runl()
+                                  nvkm_runl_rc()
+                                    cgrpA->rc: PENDING -> RUNNING
+                                    ...
+                                    atomic_xchg(&engn->rc_reset, 0)
+                                    nvkm_engine_reset(engn->engine)
+gf100_fifo_mmu_fault_recover()
+  /* fault 2 on chan A */
+  atomic_set(&engn->rc_reset, 1)
+  nvkm_runl_rc_cgrp(cgrpA)
+    cmpxchg(cgrpA->rc) !=3D NONE
+    return;  <-- engn->rc_reset stays 1
 
+A later recovery on the same runlist (such as a fault on another engine)
+will then see engn->rc_reset =3D=3D 1 and reset engn while an unrelated
+channel is running on it.
+
+Conversely, if a second engine in the same channel group faults after
+nvkm_runl_rc() has already passed the engine reset loop for the first
+fault, setting engn2->rc_reset =3D 1 followed by nvkm_runl_rc_cgrp()'s early
+return will never schedule another recovery pass to consume engn2->rc_reset,
+leaving the second engine stalled.  And if an unrelated channel group
+cgrpB faults on engn while nvkm_runl_rc() is already past the cgrp loop
+(for example, waiting for PBDMA idle), the in-progress pass will consume
+engn->rc_reset and reset engn before cgrpB's channels have been disabled
+and removed from the runlist.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126175531.9160=
+97-1-frederic.mahe@cirad.fr?part=3D1
