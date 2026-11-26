@@ -2,73 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9C4606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:24:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9516D606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:25:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=FS4JYBs+
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=aSNHcSQ8
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 761F210F50B;
-	Thu, 26 Nov 2026 06:24:51 +0000 (UTC)
-Received: from mail-dl1-f54.google.com (mail-dl1-f54.google.com [74.125.82.54])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0982E10F51D
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:24:45 +0000 (UTC)
-Received: by mail-dl1-f54.google.com with SMTP id
- a92af1059eb24-1ae58d17cd9so7385220c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:24:45 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E407B10F559;
+	Thu, 26 Nov 2026 06:25:09 +0000 (UTC)
+Received: from mail-dl1-f46.google.com (mail-dl1-f46.google.com [74.125.82.46])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3876110F559
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:24:53 +0000 (UTC)
+Received: by mail-dl1-f46.google.com with SMTP id
+ a92af1059eb24-1a3c08d6928so9890154c88.0
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:24:53 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795674284; x=1796279084;
+ d=chromium.org; s=google; t=1795674292; x=1796279092;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=8r10h3LnRLt9vjVGGqIH+e89aRk+gTjmWUgpe6jQIHI=;
- b=FS4JYBs+4vDYB8gI1H9/r85hB8C8G05fqCMOQ+wWxYg2mUH6w/y8oZyfu+lPGtOhzD
- f0KyL4imiPYa98RmZO9AhkopH2Bjbk2MfClYaTHcg494SLwQLvKX118YZDp4vedhJ+k4
- SUipJxyB9EjMaFq0XBQtDhB3lKSPnIPWu2qgw=
+ bh=jXfP+BBaRmFRvRsRkzl26nbPuaGAtebafKyAvaeF1Hk=;
+ b=aSNHcSQ8dyxfYfubF4DigQ9Wlkl3fjxUycOwcq0CtgZdjm7p2P5+S0U7tB+uKXnOXN
+ b/uGeImkz9t8MnCCdUVSmtM9UQRU0GzdnXRJTzEGmbRFrB2QJJ5xP9Hq/3ij9lH/0vWP
+ kdSddNUK76z8oP2wD904z09TzvXJNchxFh5og=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795674284; x=1796279084;
+ d=1e100.net; s=20260707; t=1795674292; x=1796279092;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=8r10h3LnRLt9vjVGGqIH+e89aRk+gTjmWUgpe6jQIHI=;
- b=rYkdGKm6tt6gGjKFtXr7ucJ9eJX59kKx6yeonAb+r0FCGN4Uv7uCnBJRfoJF/lmHTh
- d66L2Ml6USyw6v2oxY3iPt4rI+2GplGb8337U0asUROSfVge3c9wHvCBM1guzewTi5ND
- G7rV20c5C2nN3ZmAiJi9KRmpeNZPKa3E/KN0cSFneO3xRRrvtEZLbrqEcMBfvKILPokr
- VUM2J7nIoTMKe+rTKwc+RzRcGoztd4di1AGb8mt7oIOJMbNpyMtIb518a1j0NhzIG8Bg
- xIA0g//omN7J/g6kim+1Bx3NtVp0A7eOcLUpiejaRotf2d3M/OmqfidZeYi5Wgl6DgOw
- E8aw==
+ bh=jXfP+BBaRmFRvRsRkzl26nbPuaGAtebafKyAvaeF1Hk=;
+ b=qpH8H/A2LEcHtf0Xbl1ysvf/uGh2ynRvRPKuLClDHVtzsP24z1ftmeBZrYsETDc5gW
+ cHGftGTFQwSEDNHf5609OMR5KQrcKPRaZBVnks5oTiB2L4TAwr8OppCS4mPA4iG2/W/x
+ Hcox1Lu+IM3HpbMT8FUPsFcdMSFvsA6v9IcPtIgP+adPt1em6q/C+QhG9CkCbvrE84mD
+ o2OzS8hcnHuzCzOo5q61NpeIA3IAeRFcOC9aNnWr4a9VEWACaEc7iypj6hqJ2iBBxdz1
+ holO8Dec+F4jx5YnNzIhNJevtC+KvLWns8TdNRUBJ0USvNGaYwCZ7WX1mvpxGvU0dyOP
+ EseQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEWXJ4ADgU4Acutwspp4t+IsQ63JNclQoMuu/i4rvHkM+msyyDXi92isjsbbLA3RHaVdzaZ7Yi4YOY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/Jv0pn9ugtNi/ZQXG9yIe1f/FmSzozefLbJlHT+Td/u8VfJAt4
- e5OX7NSAV+9ztxK6VUgUgND5SCsjEvvAsQPTxIMW1O1U3Go013bFxAiH0C3Zgz4H+A==
-X-Gm-Gg: AZFdTZfVwHdt26moy9XEkuVonixs8ZqcspDwJn7cZfQ0eXryYiip5FCDbCXaBR3r1qw
- DGONQ2SEVjyD4mqGadoYXRrsHyPOvgyAOfdN8j3sqdNsiiF4q2Ysim4zuSdz6ol42BWgxDZCcI0
- uMEkS37h+R4EoJXYlPdX+B3k6K8NL0p9H22NB5joeqRUnWBKbbEFjHE7aLp6ceti472KQvlOmd9
- dneOqsePRT/G2PhxObVV/lYsVfoFLjRtu+zkypoIoEbsp9FJsLsjZWIgbXF3257XaTDqSksgjaf
- fyf7rYi2r9thqR0I3WRfTqO/LACNkdgnxU9qIVW3OeTskNmZPJ6rUzmjZIwVaR4ry+wGRud2BuZ
- OCVC3dSLmNHQXZ30skewZ0iReDjoOAd6q0iSkQgEeTJ9D8r5gH4ayjW+vBMTtkTh270sEX3hnTg
- zyy1+qPacAR/OVprbUm0eKqTuJBYoirqAXlDi3bVSe9mYmygXqKNCUJXqzgwGnAf864/7anT7pb
- 5K9kSrvyX6nHsxLyZQbcRiZpEYfiRSI+Ybh77F700kt4NpZx/jtVR1Ir5bazAQN52azmN91QbI9
- aR9QxwcPdQxGYqGtiAqyzQvx24DcmsA4UyWmpNEBU+6rjuG2zRx0gql/If5VduKMuLRABpbhSTs
- bVX4lxzuRITC8C0Tm5MMzxQ==
-X-Received: by 2002:a05:701a:cc82:20b0:1b5:5a81:d388 with SMTP id
- a92af1059eb24-1b55a81ddfdmr16361341c88.4.1795674284302; 
- Wed, 25 Nov 2026 22:24:44 -0800 (PST)
+ AL+hErGtOYwIQK6ck6Ukug7QBTfabTOdAXvVq2rfZesdutfNitFF99OcIjamz9Oyg0SN4lcOOWmKA+25X28=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9T/62qZVhhTOlDyM4n6mTTuwq/S1J+SaPY91gGKwrWQ6AR7fGE
+ 4IrPdoGdNKCT2eQKAEKvcwrtJhKJJxohmFuua+Q8DoVn0wzOaAsEa5Kgb/umxHxxrw==
+X-Gm-Gg: AZFdTZcGc6vUtjIUvPKQKKZ0EfF/6B591iidF2rALgrvTGgTVv9ad2sH4JyRBCXLlN2
+ RkZJ54nFQZmVgPj4VD/78bRfRSi0mS/6aQ3NO2uVt/DUV3RS/gUxrxf4HHEVCCoWX0k2o/rztMb
+ 8sgBOx6glesdS787pJuvcVCiUZvmz7xyMc+wDg7PmvRnB3qweA+MReNWVvQBNBWZpDzwtLTTjRB
+ IKrkplXUbCgZjpKDdV6MuseJIRX0mCTLTDRwDnZphqt19n6egfe80oqyOpTkIgwAJp9NqqJUe/w
+ j63Zze2STzTGuAv5dKwICzoNMvbZNPln1I0rVKBSxagO6y7DMJApZW8/xc4kuKqJonFxUP+I+en
+ YFqPfWBhSSN7OKV9vKYj3C5V9GabLAoK8AT4IW1exu/E9RHOvypziXag+jHAr+2DVn51GhskGeD
+ OeNzbGGTQkuJWuRN4+i671GI7+w1CWSSE2OS1UlbjjwcEyfywXsp8KhiRhLBxDPIZFbiWyWTLJ3
+ XqGjn6AMw8N2L4Bk1c/UlGJ01Ns8/mRvB9ltiZqvYobcVnqX3aGw716DknX3E7p+jrKhLC4yrVD
+ viVMacjwqpVGiXS7nP+eY6J7WCVGfY0ceo6oV9GIQ+bMUpHU69rEmVnK8dseFikm6a46+w9yDnC
+ LTRjZNn7w9O2/Bago325AEQ==
+X-Received: by 2002:a05:7022:28b:20b0:1ac:f84d:4036 with SMTP id
+ a92af1059eb24-1b55686f9bamr17794762c88.9.1795674292446; 
+ Wed, 25 Nov 2026 22:24:52 -0800 (PST)
 Received: from fshao-cloudtop.c.googlers.com
  (123.142.199.104.bc.googleusercontent.com. [104.199.142.123])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.24.36
+ a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.24.44
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 22:24:43 -0800 (PST)
+ Wed, 25 Nov 2026 22:24:52 -0800 (PST)
 From: Fei Shao <fshao@chromium.org>
-Date: Thu, 26 Nov 2026 14:23:45 +0800
-Subject: [PATCH 3/8] drm/etnaviv: Use DEFINE_DRM_GEM_FOPS()
+Date: Thu, 26 Nov 2026 14:23:46 +0800
+Subject: [PATCH 4/8] drm/msm: Use DEFINE_DRM_GEM_FOPS()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-drm-fops-show-fdinfo-v1-3-7cb1d1a5d6ef@chromium.org>
+Message-Id: <20261126-drm-fops-show-fdinfo-v1-4-7cb1d1a5d6ef@chromium.org>
 References: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 In-Reply-To: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -123,14 +123,14 @@ default. Migrate the driver to use DEFINE_DRM_GEM_FOPS().
 
 Signed-off-by: Fei Shao <fshao@chromium.org>
 ---
- drivers/gpu/drm/etnaviv/etnaviv_drv.c | 6 +-----
+ drivers/gpu/drm/msm/msm_drv.c | 6 +-----
  1 file changed, 1 insertion(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/etnaviv/etnaviv_drv.c b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-index ec1352c1b09f..93869e8f3f96 100644
---- a/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-+++ b/drivers/gpu/drm/etnaviv/etnaviv_drv.c
-@@ -494,11 +494,7 @@ static void etnaviv_show_fdinfo(struct drm_printer *p, struct drm_file *file)
+diff --git a/drivers/gpu/drm/msm/msm_drv.c b/drivers/gpu/drm/msm/msm_drv.c
+index 3675df277f6a..06d997a7a237 100644
+--- a/drivers/gpu/drm/msm/msm_drv.c
++++ b/drivers/gpu/drm/msm/msm_drv.c
+@@ -898,11 +898,7 @@ static void msm_show_fdinfo(struct drm_printer *p, struct drm_file *file)
  	drm_show_memory_stats(p, file);
  }
  
@@ -141,8 +141,8 @@ index ec1352c1b09f..93869e8f3f96 100644
 -};
 +DEFINE_DRM_GEM_FOPS(fops);
  
- static const struct drm_driver etnaviv_drm_driver = {
- 	.driver_features    = DRIVER_GEM | DRIVER_RENDER,
+ #define DRIVER_FEATURES_GPU ( \
+ 		DRIVER_GEM | \
 
 -- 
 2.56.1.839.g22a8290db9-goog
