@@ -2,56 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D69E606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586A5606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=gaGmKrxl
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=fhv8Fp86
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 93D6711281C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 89719112819;
 	Fri, 27 Nov 2026 08:29:10 +0000 (UTC)
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D6B7112665;
- Thu, 26 Nov 2026 17:55:57 +0000 (UTC)
-Received: from retz.cirad.fr (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTPS id 1E536210CB3E;
- Thu, 26 Nov 2026 18:55:55 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTP id F04D320DCBF3;
- Thu, 26 Nov 2026 18:55:54 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr F04D320DCBF3
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
- s=573E3878-7916-11F1-BF4B-F68474317960; t=1795715755;
- bh=CHLgaJFPBR8IktC1roGL62X+2xMi1bLnLcLfpf/cxsc=;
- h=From:To:Date:Message-ID:MIME-Version;
- b=gaGmKrxlj0lxigTnISIKPREc/Ebl3W/C2QC727F7fxE777pAT6bef9eCJ9sezD6/6
- YiBNJOzqwu2RWCcauW539roWsWwBci2Oo5xITLSomjKz5LlnjpEmEDg6RYFuVe6NJ5
- kQ5HEGkvH9XdYuQhl+fqXEtOIGkVxEWOi5VBshVzaxRtLHd6ZlnQns+e/vgxoDap65
- p2HmdSlOgALBCYaPGAh+n0jVL1f6iywMZqsgL43w3YT2rgIGc77I3v8N74/q9HQpRL
- 66++QzuhrFKwL4DC9iKpIEJBycPPzy3X1os6lI1NOvl1oqZ0+Fs6FGVlp5VzUomolC
- DscTSchBYA1hg==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id JxldicDjRCxF; Thu, 26 Nov 2026 18:55:54 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
- [78.196.243.100])
- by retz.cirad.fr (Postfix) with ESMTPSA id 8EEF9210CB3E;
- Thu, 26 Nov 2026 18:55:54 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: nouveau@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau/fifo/gf100-: reset the faulting engine even if it
- switched channels
-Date: Thu, 26 Nov 2026 18:55:31 +0100
-Message-ID: <20261126175531.916097-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com
+ [209.85.128.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4D61410E848
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:37:21 +0000 (UTC)
+Received: by mail-wm1-f41.google.com with SMTP id
+ 5b1f17b1804b1-4a214c5c4c0so66523005e9.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 04:37:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795696640; x=1796301440; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=+fzTSQ4IC4vfCdf4lnBWrMCmW+A1sJUKi7Yho2wo30c=;
+ b=fhv8Fp86liVnLa6yI760vXR9uHnQOSTPZ7ozIfA1r9OqP9WXGquGfIGm3BoLflFh7I
+ ye6HJ+19NfKR1iN8PLGomYle3bJqg4SPYBU0ro4QMHHa4vmmVrrl5hxF9YuHnhxmhbwc
+ dtC4oRCwlatkUbylmMH0Mn28x22lz/zEDXPGP36l0GWrA9fOu+BKcpct5n3a3osuNzCg
+ nuf8MJEUpT2CX7QnQf19Hz8i/4vLm45dB/x+yDDcBf2kdoyQAlmMQfr1S7Hi//g0S5Gc
+ 7Rve4xAY5NpLBWYjkVXjtfLJj2qpYloGkASy2Rfh6hVp9UMq/bXTi8N/bakb/4zbOqx4
+ FB/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795696640; x=1796301440;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=+fzTSQ4IC4vfCdf4lnBWrMCmW+A1sJUKi7Yho2wo30c=;
+ b=dqobnErTg34A5hrSy338taJ36rFdOteqbz6mbFdngjz/c4W5awy5WLTt1W0T7qUppE
+ 3+p9puZNx/JkH8V2R9XwkI0iLhmhTU41omw2r9YmJfSICclrt8Q8uujiG79RjS9u6eSY
+ 6yYDZ5LCuOVLwMAJUJQBmBw01JpZNS5IC72L+z2NADVYSPd00Heh8b9QxEghrTMZosRw
+ ceME1CspMUs/k5TQJODoXEYLJ6YiBxmsvset3smR5KoF/rYyUkhyZqKyYjusc/h/1YIM
+ VQ116ajtkEKoQklTWQqJNiFUO/fsdycuFV6u4LpLmPnoTyVTqQ8U2C3uhv9E3h+ci9Cx
+ yEFQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEkj1lY+1yqgEePG4mYxIdAGlg4ZPuyYnnI4x8H6KAXBo9GjCLWRLhu0YX4Yo38SCfD5G7UkWLx/lE=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/X8jR12AgJsFC5t6McCVUjMWVnpLbh1aEAdcte4kWhVnnRJ68f
+ Kds7rhvO+yUSf+gQyKFoWw9X15Qn7k9KV8nI5y9nNc+S7OnoImEhyCs=
+X-Gm-Gg: AZFdTZdWWR8hFWW+uDbeQCIyhFT++swUttiURR3/o2c1YlGqwVcQFguxVmmt9me401U
+ +rncwHCPIcyVy6Pjje/Njlt3BwAh+aLdCGSbYJXj0DVS+tlodj8NmeICoUZbgDze6XnB4i/Xf5+
+ DISwowHnHIlCc9g72OLCLuMkkwaP2pZaNkr9bwwiPrO3BxhIjayEOMq3GagY1mAJ9woA3KKmyaK
+ xHA9zvysoedTdZRPagwYPm69ggatXV9aLDJsFm0lFsvRs6hgYmrnZJyvIw5dWmkLiXAR1jL5DD1
+ EPb0qsE+BzHK8bJNf/tze32e7d6AHhbvFfa60K7Lxooq7dB4QkboQ/cl+HRK0dyLffUOH2Sfd0g
+ 3wAHZfmJx3Ox33EiHT3DfCMTtdgIg/PoEv/04WsQIoExL8UYmO5Jq1Vp4YW6xt8mbVZXIuvHrWj
+ EIB1U0ALNVU41JAOca9qPF2VRkFg81YrNxav+7YVIC4VWxvGao7eeQviaGDOw3/8btP86UXsOZY
+ NkU8AcSrZMzybVhjCTHKlGjvJ/uKQKWyJTyHCDcsSdzfmKzJV2uxLeAz+ZNlT12s4umUiC03Xfg
+ 3zD4vcEfZsaE2v9FsIsg4kocw5OdJdkQ/btmvc00u/2PUbSJ3SHLh2JTeJn1wl7xdKBsIiW5tlD
+ E0qE6F4NCyBJrduHTV7+UjV092TTRXNvQCySSAqPH41QrMsDj8i4P34EDHtwMaQyIm1acXduqMw
+ MOv0ZXUtNEf+cINmYVIQ7pNfYdRm5WW6MdpC8euIhbuIaqC4nqPuclPlw26+iCkQSVCUwFGAO+B
+ g7d
+X-Received: by 2002:a05:600c:c168:b0:4bb:81b2:c801 with SMTP id
+ 5b1f17b1804b1-4bb889238f1mr412564745e9.20.1795696639507; 
+ Thu, 26 Nov 2026 04:37:19 -0800 (PST)
+Received: from archtop.localdomain (92-242-248-48.broadband.mtnet.hr.
+ [92.242.248.48]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb884a3a3dsm586455245e9.10.2026.11.26.04.37.18
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Nov 2026 04:37:19 -0800 (PST)
+From: Jakov Novak <jakovnovak30@gmail.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, Harry Wentland <harry.wentland@amd.com>,
+ Fangzhi Zuo <Jerry.Zuo@amd.com>,
+ =?UTF-8?q?Tomasz=20Paku=C5=82a?= <tomasz.pakula.oficjalny@gmail.com>,
+ dri-devel@lists.freedesktop.org
+Cc: linux-kernel-mentees@lists.linux.dev,
+ Shuah Khan <skhan@linuxfoundation.org>,
+ Jakov Novak <jakovnovak30@gmail.com>
+Subject: [PATCH] drm/connector: fix kernel-doc string in drm_hdmi_vrr_cap
+Date: Thu, 26 Nov 2026 13:35:44 +0100
+Message-ID: <20261126123544.16968-1-jakovnovak30@gmail.com>
+X-Mailer: git-send-email 2.56.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Nov 2026 08:29:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -64,147 +93,52 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When an engine reports an MMU fault, recovery flags the faulting
-channel group and nvkm_runl_rc() resets only the engines whose current
-context (cxid) belongs to a flagged group.  On Fermi the fault can be
-reported after GR has started switching to another channel: the engine
-status then reads e.g. 0x01140003 (not busy, chid 3) while channel 4
-faulted, so GR is not reset, stays stalled on the fault, and the
-runlist update never completes:
+Building the documentation currently with make htmldocs gives the
+following errors:
 
-  fifo: fault 01 [WRITE] at 0 engine 00 [PGRAPH] client 0f [GPC0/PROP] re=
-ason 02 [PAGE_NOT_PRESENT] on channel 4
-  object-namespac[1768]: channel 4 killed!
-  fifo:000000:00[      gr]: 01140003: busy 0 save 1 unk0 0 unk1 0 chid 3
-  fifo:000000:00[      gr]: cxid not valid
-  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv50.c:228 at nv50_ru=
-nl_wait+0xe8/0x100 [nouveau]
-  fifo: SCHED_ERROR 0d []
-  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:251 at nvkm_ru=
-nl_preempt_wait+0xf7/0x110 [nouveau]
+WARNING: ./include/drm/drm_connector.h:293 struct member 'cnmvrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ./include/drm/drm_connector.h:293 struct member 'cinema_vrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ./include/drm/drm_connector.h:293 Excess struct member 'mcnmvrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cnmvrr', 'cinema_vrr')
+WARNING: ./include/drm/drm_connector.h:293 Excess struct member 'mcinema_vrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cinema_vrr', 'cnmvrr')
+WARNING: ./include/drm/drm_connector.h:293 struct member 'cnmvrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ./include/drm/drm_connector.h:293 struct member 'cinema_vrr' not described in 'drm_hdmi_vrr_cap'
+WARNING: ./include/drm/drm_connector.h:293 Excess struct member 'mcnmvrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cnmvrr', 'cinema_vrr')
+WARNING: ./include/drm/drm_connector.h:293 Excess struct member 'mcinema_vrr' description in 'drm_hdmi_vrr_cap' (did you mean one of: 'cinema_vrr', 'cnmvrr')
 
-After that no channel makes progress: the whole GPU is dead until a
-reboot, and processes using it hang in D state.
+This is because the two member variables names have changed to cinema_vrr
+and cnmvrr. Change the kernel-doc strings to the new names.
 
-Remember which engine reported the fault, and reset it during recovery
-regardless of what its status says.  Resetting GR may discard the context
-being switched in, but that is far better than losing the GPU.
-
-Tested on a Quadro 600 (GF108): a program that faults (piglit
-"object-namespace-pollution glClearTexSubImage texture") while three
-other processes keep GR busy hangs the GPU within one to three faults
-without this patch.  With it, 20 of 20 faults recovered (15 of them hit
-the state above), with no runlist timeouts, and the GPU kept working.
-On an NVS 315 (GF119) the same test hangs the GPU at the first fault
-without this patch; with it, 20 of 20 rounds completed, every fault was
-recovered, and the GPU kept working.
-
-Written with help from Claude (Anthropic); reviewed and tested on hardwar=
-e.
-
-Fixes: 4d60100a23ec ("drm/nouveau/fifo: add common channel recovery")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+Fixes: 014da1db5e64 ("drm/edid: parse HDMI 2.1 gaming (ALLM/VRR) capabilities from HF-VSDB")
+Signed-off-by: Jakov Novak <jakovnovak30@gmail.com>
 ---
-Tested on GF108 and GF119 only. gf100_fifo_mmu_fault_recover() is also us=
-ed by
-gk104, gm107, gv100 and tu102 (non-GSP), so the change applies to those
-too; feedback from such hardware is welcome.
+ include/drm/drm_connector.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-A small libdrm program reproduces this without Mesa or piglit
-(nv-mmu-fault.c, available on request):
-
-  nv-mmu-fault -e noctx
-
-sends one graphics method on a channel that has no graphics object.
-PGRAPH's context-switch unit then faults (READ at 0, HUB/CTXCTL)
-while the engine status no longer names the channel. On an NVS 315
-(GF119), without this patch the GPU is dead after the first run;
-with it, 60 of 60 runs recovered. "nv-mmu-fault -e gr" in a loop
-with three processes keeping PGRAPH busy gives the WRITE fault of
-the log above: dead at the 4th fault without the patch, 40 of 40
-recovered with it.
-
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c | 11 +++++++++--
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c  | 11 ++++++++---
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.h  |  1 +
- 3 files changed, 18 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c b/drivers/g=
-pu/drm/nouveau/nvkm/engine/fifo/gf100.c
-index e4a4fad..4f221c0 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
-@@ -597,9 +597,16 @@ gf100_fifo_mmu_fault_recover(struct nvkm_fifo *fifo,=
- struct nvkm_fault_data *inf
- 		   info->reason, er ? er->name : "",
- 		   chan ? chan->id : -1, info->inst, chan ? chan->name : "unknown");
-=20
--	/* Handle host/engine faults. */
--	if (chan)
-+	/* Handle host/engine faults.  The engine that reported the fault must
-+	 * be reset even if it has already switched to another channel (its
-+	 * status then no longer points at the faulting channel), otherwise it
-+	 * stays stalled and the runlist update never completes.
-+	 */
-+	if (chan) {
-+		if (engine)
-+			atomic_set(&engn->rc_reset, 1);
- 		nvkm_runl_rc_cgrp(chan->cgrp);
-+	}
-=20
- 	nvkm_chan_put(&chan, flags);
- }
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c b/drivers/gp=
-u/drm/nouveau/nvkm/engine/fifo/runl.c
-index 2092521..76fabe8 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
-@@ -99,14 +99,19 @@ nvkm_runl_rc(struct nvkm_runl *runl)
-=20
- 	/* Look for engines that are still on flagged channel groups - reset th=
-em. */
- 	nvkm_runl_foreach_engn_cond(engn, runl, engn->func->cxid) {
-+		bool faulted =3D atomic_xchg(&engn->rc_reset, 0);
-+
- 		cgrp =3D nvkm_engn_cgrp_get(engn, &flags);
--		if (!cgrp) {
-+		if (!cgrp && !faulted) {
- 			ENGN_DEBUG(engn, "cxid not valid");
- 			continue;
- 		}
-=20
--		reset =3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
--		nvkm_cgrp_put(&cgrp, flags);
-+		reset =3D faulted;
-+		if (cgrp) {
-+			reset |=3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
-+			nvkm_cgrp_put(&cgrp, flags);
-+		}
- 		if (!reset) {
- 			ENGN_DEBUG(engn, "cxid not in recovery");
- 			continue;
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.h b/drivers/gp=
-u/drm/nouveau/nvkm/engine/fifo/runl.h
-index 19e6772..08ba44d 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.h
-@@ -28,6 +28,7 @@ struct nvkm_engn {
- 	struct nvkm_engine *engine;
-=20
- 	int fault;
-+	atomic_t rc_reset; /* engine reported a fault: reset it during RC */
-=20
- 	struct {
- 		u32 desc;
---=20
-2.53.0
+diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
+index 2ee7c59329aa..bcdb402a7ede 100644
+--- a/include/drm/drm_connector.h
++++ b/include/drm/drm_connector.h
+@@ -265,10 +265,10 @@ struct drm_hdmi_vrr_cap {
+ 	/** @fva: flag for Fast VActive (Quick Frame Transport) support */
+ 	bool fva;
+ 
+-	/** @mcnmvrr: flag for Negative M VRR support */
++	/** @cnmvrr: flag for Negative M VRR support */
+ 	bool cnmvrr;
+ 
+-	/** @mcinema_vrr: flag for Cinema VRR support */
++	/** @cinema_vrr: flag for Cinema VRR support */
+ 	bool cinema_vrr;
+ 
+ 	/** @mdelta: flag for limited frame-to-frame compensation support */
+-- 
+2.56.1
 
