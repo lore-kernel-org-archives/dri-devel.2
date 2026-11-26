@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F5C606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:38:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB47606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:39:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYgkjBRR
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=HUpYk//x
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 163D5112253;
-	Thu, 26 Nov 2026 09:38:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8C648112245
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 824B1112254;
+	Thu, 26 Nov 2026 09:39:10 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 66C7B112249
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0D6AF6215C;
- Thu, 26 Nov 2026 09:37:42 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 46D78450E7;
+ Thu, 26 Nov 2026 09:37:28 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795685861;
- b=Bn3GEw7VCX4w6opjDTZIThiuH9eMMkf+36Fjh2eELsI1fWe96NRXSXrLMslS5AMNVRzJ
- kheLAOhTTY53NWYONxZ76H8nzjp0UIgaYFQC6Dq7AAQN8xn3f+9MNPtqpVGqEQ9ZuPJWJ
- PYzLPb688PpcHtWa8HrD73bX+HFy3AeHdJHqPYjdxJ/5P32IkDOwydo1h4r7/zGbmzkQV
- WwwPsMuITcUQ2zYKY9piwSC3QygYcB/S8xGPtZYW9TZEpYGd379hrBstxsB4SV34+Q66+
- QzEmnveuCEkPxW5fTx90QXs3Up1ZVENFPzzYgLuHP+tJXEDuKtlmhDBWKfRBjB31DZg==
+ t=1795685848;
+ b=iHlRJnQrOEJvmj5be0vnHzYPsBD9LJl9WuHZ7YS+czH/ey4AUQMhfeeorkq33A4k7EdL
+ yHauyDjvcwPeuaQr6Nyu42bk3ss+md2VZIRMuYZR93d/ArmNdnKoSxIj2r/6LT7ZSq+Bb
+ FAI8m5/ie1gbZS9kMwZNtmnemF9TAVLwvfueHsstD9cHSWOeIf7KAivPocNFo2XWNEEBZ
+ Wfm4rzXWIqxtzdu/xaQM27i4i7miUMZ7cBhp4ldvT3n6/ZOiKI3Yu5pUeU5t/bXYX8tNb
+ aLTQ88ESA0gGTi0jo1bzWNsRt5V0GA4yM14WIS5TZYvieNfaS/iI+TNyMncqIsZnMTw==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795685861;
+ c=relaxed/relaxed; t=1795685848;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=iB2rK2HF5YVHUIf8OZ4ufHb3/01QLr5E/VHA7mic2QQ=;
- b=v+NzNtuewaJoDl7nhCLByK4/YyhNi2z030g8AooY6vmPw6PqmBT6wmmYWeXO14sPia4r
- D/Wzi2CfjOk/D8IToJZgasJAzmdFLpJe1SzVMUS+T5dpVktVihdK7zvYxOWrv4twvXAYt
- I9DH779yvGC00DrAgmVJEch6Hu5j+Sq0Nq2DIiijI2i7U2IlG0ReiiYxOSgh2NRxHXQl4
- pKw1KOumVdsBc+F07qFoGcOlJ4wZuqTmiRWp+gkOdf4G8UY7CSJq91HiS4bRb9NBOOUt3
- Q36H7YWPVNBiC2Xj2akmN/13CeKn88jbtfMjgkxl3AGOPrxVGFB/t/UftWgRjU+1kpA==
+ bh=Px40m0YjZ0/FcREAQzSI37lydK8nL5M7PoD7PHIoihE=;
+ b=wCpjv2RT4iTNuG4p9DpLkTr30PVNsbuD0hIgogAUT3pUqiWBQNISeMuZB0NAyWU2W0MR
+ fo06Aooikx52AzQufmE2buhoGbmsB23Ri2Aqk/thGBlm5Fd1NF5njVA+vj0zH2crA17yi
+ IZknbFE0TLuBiOeHrNBCgfogK86FFT517PooxeZTC7gKyvtFxJDwhz1LdZ0pHDZM34sHd
+ 9+iBM6FmgoP/bbDJ4qsJlH8IvpIznhhKrJGCnQ8fLgJ+r/6FPEVJrhaqc5hH/GQ9AKSSo
+ D3XOGTCCBLOJbkGPlSKG23qbUHBsclqPPf93hJHgy1oS1tYX1QKVRN4mSHJayvCuUSQ==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 47C3A1F00A3C;
- Thu, 26 Nov 2026 09:37:28 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 2E9671F02EF4;
+ Thu, 26 Nov 2026 09:36:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795685861;
- bh=iB2rK2HF5YVHUIf8OZ4ufHb3/01QLr5E/VHA7mic2QQ=;
+ s=k20260515; t=1795685848;
+ bh=Px40m0YjZ0/FcREAQzSI37lydK8nL5M7PoD7PHIoihE=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=dYgkjBRReB0e1IqK+tkBY8EVXx0rd9Cf9HKp9CDenS9otmsCeRx7XkKecK9WSNCTv
- SZzjYAHZ2s+W05tHFUWdTETiCgDgVT6/+dvVhehI/DENBOpH8ji+e+w6OEe72hj+bc
- z4Kr+DJNJp8sRfwneg4/+8eLWTUqKQSfVKk0m2I9EtpkmdNlsGIrTKNbxxP97jI1fQ
- P5qQcFJZnriaF94ElXdiznA3Z+Ir1juVGGw0BnodXkvLeXcRYaf1neqzgH1Zu2+7MZ
- RF+AfQpDTUV5K6csFsGPaM0jfX4iguqgEGyRknZ/SbMQVmXiWOPTFrRsbmoydAZ/XT
- 4kKo6bz6VYGMg==
+ b=HUpYk//xVxwk0jcvK6hjBEmXWk1yNVy6jMv/8i0NmIBzEiDYRvzYkAxHmObGnexoz
+ 9RtIExdqx6O+bbq8bxqoF7KmqQXldX8zu2i+EKXN4tDNX8F0wH5mltddxSgvsN+UFR
+ NZRIGJqJaEK2bNGKWH4/4hXdLabIasRqdUH5oz7pUFgbv0a+KPdNn7jgxNbNiytRsT
+ bS4OuxkDKx7SMlr+75VRK5EXBkIHDqO3V5ENArXiJwd1Ms2Of7nrUfJgB4NMOVkxhu
+ YHhQNb6G6XyU0KQLoihh4CIh8odXcClUFd5su2acqQrmW/qDmSqok6FJ/Icumi8CJv
+ 2Jx78+72UGXiw==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 220034D3A8;
- Thu, 26 Nov 2026 09:36:49 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id AB0E94D37C;
+ Thu, 26 Nov 2026 09:36:47 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 09:36:58 +0000
-Subject: [PATCH v4 15/17] drm/panfrost: Keep the job interrupts masked
- during a reset
+Date: Thu, 26 Nov 2026 09:36:47 +0000
+Subject: [PATCH v4 04/17] drm/panfrost: Don't take a reference on a mapping
+ that is being freed
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-panfrost-long-jobs-v4-15-23579629ceca@gmail.com>
+Message-Id: <20261126-panfrost-long-jobs-v4-4-23579629ceca@gmail.com>
 References: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 In-Reply-To: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1694;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1091;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=6YqPIH+zOU03hye/YOaqcl9r7BbJ+n1uwdvcsqhKcTY=;
- b=o2LHgilBuUxSuZE91SSgqBhGXilMU246E48lGDIfGUWbyBe8W13i1lgiLkptMtxUsc1za1FMc
- bt/uQyVddFGAYTpsj4d2171fPfw3z3+jPVyk1295WapQwfxIPWR/fSx
+ bh=DRy+Ft25cf0YsAswanqBu0wCkKWVe6G3uWYwsT/P0E0=;
+ b=BeRxzfza9dgdvDaouiy4kBCOHRyONEbOdHBsY/digbDvQ/nNj9C3BBftdEP+lgWGQ+skkbxQX
+ pCWD2vRDPm/CpBLdCj5+RWZACHCe2blh0etmG+n0ZxWad+Dw7qwbgT4
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,45 +108,34 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-panfrost_reset() masks the job interrupts without setting
-PANFROST_COMP_BIT_JOB, so a running IRQ thread unmasks them. Use
-panfrost_jm_suspend_irq(), and mask again after its synchronize_irq()
-for a thread that tested the bit just before.
+A mapping stays in the drm_mm after its last reference is dropped, so
+a GPU fault can revive it with kref_get(). Use kref_get_unless_zero().
+Not reproduced.
 
-Fixes: 1d0cab5461d7 ("drm/panfrost: Make sure job interrupts are masked before resetting")
+Fixes: bdefca2d8dc0 ("drm/panfrost: Add the panfrost_gem_mapping concept")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com?part=8
+Link: https://lore.kernel.org/all/sashiko-outbox-206570@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-v4: new (Sashiko on v3 08/14 and 13/14). Tested with a test-only hold
-in the IRQ thread: JOB_INT_MASK read 0x70007 before, 0 after.
+v4: shorter commit message.
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index 74cc3dd02..7a2503f4e 100644
---- a/drivers/gpu/drm/panfrost/panfrost_job.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -459,6 +459,7 @@ void panfrost_jm_suspend_irq(struct panfrost_device *pfdev)
+diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+index faa62643c..789a64fd3 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
++++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
+@@ -576,7 +576,8 @@ addr_to_mapping(struct panfrost_device *pfdev, int as, u64 addr)
+ 		    offset < (node->start + node->size)) {
+ 			mapping = drm_mm_node_to_panfrost_mapping(node);
  
- 	job_write(pfdev, JOB_INT_MASK, 0);
- 	synchronize_irq(pfdev->js->irq);
-+	job_write(pfdev, JOB_INT_MASK, 0);
- }
- 
- static void panfrost_job_handle_err(struct panfrost_device *pfdev,
-@@ -696,8 +697,7 @@ panfrost_reset(struct panfrost_device *pfdev,
- 	/* Mask job interrupts and synchronize to make sure we won't be
- 	 * interrupted during our reset.
- 	 */
--	job_write(pfdev, JOB_INT_MASK, 0);
--	synchronize_irq(pfdev->js->irq);
-+	panfrost_jm_suspend_irq(pfdev);
- 
- 	spin_lock(&pfdev->js->job_lock);
- 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
+-			kref_get(&mapping->refcount);
++			if (!kref_get_unless_zero(&mapping->refcount))
++				mapping = NULL;
+ 			break;
+ 		}
+ 	}
 
 -- 
 2.55.0
