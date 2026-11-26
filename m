@@ -2,42 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73D71606A327
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49902606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:45:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=eEoWqBjz
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=GlOzYjzI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACA6310F528;
-	Thu, 26 Nov 2026 13:41:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 551A610E2C9;
+	Thu, 26 Nov 2026 13:45:47 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 502FC10F528
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:40:54 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1D37E10E332
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:45:41 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 7152E62546;
- Thu, 26 Nov 2026 13:40:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3E21F000CA;
- Thu, 26 Nov 2026 13:40:53 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 552F663365;
+ Thu, 26 Nov 2026 13:45:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC8A51F000E1;
+ Thu, 26 Nov 2026 13:45:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795700453;
- bh=AH2ilCr3J3a/zRMZGWprYbbA+QudQ99cHn7A3yoKUVo=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=eEoWqBjz5cdJ16hrgizAOL3fV63L3gb41KC35N1AVnJbXvIjqD9xZ76tulpDOlH9t
- yNhV1y4VHG5oZJRefEiBirW75bkRtLF3yQ/V3Cz17QJ1OHh99ee7hXyTBfWt9QkXLF
- Iz8u00tQEFot6c6dn78fTDDaGQ+7yYT5vuu6DNhPwBzjnZ/uZDU+gWalJL6+7KaHQa
- OpqUnQnMC7OdX8WW7LsWFtkEvTBliJ/EQLD2Wu06jiKO3kT6ZRQqzwi/eQfSuvcim+
- ByIXLB07JfYb7sBU4spXboab1+Jb3dRrctwTzWxNcl9uEXz6ArYZE50Wqx6cNHEIBJ
- kBE93f/2HzlGg==
-Message-ID: <sashiko-outbox-235633@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] fbdev: ssd1307fb: release PWM if panel initialization
- fails
-To: "Yige Jiang" <yigejiang86@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <rc-b1-20261110-vc-112-b07bbe936b75@gmail.com>
-References: <rc-b1-20261110-vc-112-b07bbe936b75@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 13:40:52 +0000
+ s=k20260515; t=1795700739;
+ bh=TLZ4d9dW8ftPcSnmX1XbcRcgRVW38uBL8vxAl2/zy7E=;
+ h=From:To:Cc:Subject:Date;
+ b=GlOzYjzIERLYvGQNL7hNqMhT85HT1Gj1cu9vrTZV/lz7xTj0DbZAMHOMTQBFfhVyY
+ wueN8CYlwNy2FDq6/zFGDPWG9X/D6xgl7Q8+0JVO///4dzUdc90knaaak88ki0wadF
+ J0BsYxzLgm0J47i878fsCN1EYUVdEmOFz2Ox4yrOc//dIXjexdOgf769X6MIUIskwJ
+ 5WZvDCMg4PirD5LQzSfrlnWZeyXOzeDu6yvBd+4/QcJj7cwkw4O/i267JpzE5NzbBx
+ +zn5BzvwQmXCCPWWIJaxZj/d+HMhyiKgLs0LjlYCXvnK8MdbWhrPGgquQ6oowMsfCB
+ qRurhISInW6zQ==
+From: Vladimir Zapolskiy <vz@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Ritesh Kumar <quic_riteshk@quicinc.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org
+Subject: [PATCH v2 00/10] drm/panel: novatek-nt36672e: Add SM8450 HDK display
+ card
+Date: Thu, 26 Nov 2026 15:44:58 +0200
+Message-ID: <20261126134508.320700-1-vz@kernel.org>
+X-Mailer: git-send-email 2.51.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,77 +58,67 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [Critical] fbdev: ssd1307fb: invalid virtual address passed to
-  __free_pages() [1]
---
+The series extends the NT36672E binding and driver to support the panel
+module, and adds a device tree overlay for the SM8450 HDK display card.
 
-commit 0007b36f0bb513d1789d67a9c3b80f87e05fe107
-Author: Yige Jiang <yigejiang86@gmail.com>
+The display card for the Qualcomm SM8450 HDK board carries an LCD panel
+module based on the Novatek NT36672E display driver IC. Unlike the panel
+module, which is supported by the NT36672E panel driver on the QCM6490
+IDP board, the display card panel is connected over 3 MIPI C-PHY lanes,
+has a resolution of 1080x2400, and it runs at 144Hz with Display Stream
+Compression, therefore a new panel configuration sequence is needed.
 
-fbdev: ssd1307fb: release PWM if panel initialization fails
+The initialization sequence, the display timings and the DSC parameters
+of the display card panel are taken from the Qualcomm display device
+tree source for the panel:
 
-This commit updates ssd1307fb_probe() to jump to panel_init_error when
-ssd1307fb_init() fails so that any requested PWM is disabled and released,
-and clears par->pwm on pwm_get() failure.
+  https://git.codelinaro.org/clo/la/platform/vendor/opensource/display-devicetree
+  tag DISPLAY.LA.6.0.r12-02500-WAIPIO.QSSI17.0
+  display/dsi-panel-nt36672e-fhd-plus-144hz-video-cphy.dtsi
 
-Link: https://sashiko.dev/#/patchset/20260926-fix-fbdefio-error-handling-v1=
--0-a94810b6e263%40kernel.org
+The integrated touchscreen controller of the display card is not
+described, since there is no binding or driver support for it yet.
 
-> diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd130=
-7fb.c
-> index ef4bb920c6ff6..dbe5dc67e0442 100644
-> --- a/drivers/video/fbdev/ssd1307fb.c
-> +++ b/drivers/video/fbdev/ssd1307fb.c
+Changes from v1 to v2:
+- updated the dt example instead of adding reset-gpios documentation,
+  and the GPIO polarity is now corrected by added gpiolib-of quirk,
+- moved allOf to the end of the binding (Krzysztof),
+- reworded the C-PHY link description in the overlay commit (Konrad),
+- rebased on next-20261125, and collected the gained tags.
 
-[ ... ]
+Link to v1:
+- https://lore.kernel.org/all/20261028095151.1682096-1-vz@kernel.org/
 
-> @@ -823,7 +825,6 @@ static int ssd1307fb_probe(struct i2c_client *client)
->  panel_init_error:
->  	pwm_disable(par->pwm);
->  	pwm_put(par->pwm);
-> -regulator_enable_error:
->  	if (par->vbat_reg)
->  		regulator_disable(par->vbat_reg);
->  reset_oled_error:
+Vladimir Zapolskiy (10):
+  dt-bindings: display: panel: novatek,nt36672e: Describe the reset GPIO as active low
+  dt-bindings: display: panel: novatek,nt36672e: Add bias enable GPIO
+  drm/panel: novatek-nt36672e: Fix the reset GPIO polarity
+  drm/panel: novatek-nt36672e: Make the AVDD and AVEE supplies optional
+  drm/panel: novatek-nt36672e: Support the bias enable GPIO
+  drm/panel: novatek-nt36672e: Verify the number of D-PHY data lanes
+  drm/panel: novatek-nt36672e: Add support of the C-PHY panel module
+  arm64: dts: qcom: sm8450-hdk: Add display card overlay
+  arm64: dts: qcom: qcm6490-idp: Fix the panel reset GPIO polarity
+  arm64: dts: qcom: qcm6490-idp: Describe the panel bias enable GPIO
 
-[Severity: Critical]
-This problem wasn't introduced by this patch, but in this error path (and
-in ssd1307fb_remove()), does fb_defio_error corrupt memory by passing a
-virtual address to __free_pages() [1]?
+ .../display/panel/novatek,nt36672e.yaml       |  40 +-
+ arch/arm64/boot/dts/qcom/Makefile             |   4 +
+ arch/arm64/boot/dts/qcom/qcm6490-idp.dts      |  19 +-
+ .../dts/qcom/sm8450-hdk-display-card.dtso     | 144 +++++
+ drivers/gpio/gpiolib-of.c                     |   9 +
+ drivers/gpu/drm/panel/Kconfig                 |   8 +-
+ .../gpu/drm/panel/panel-novatek-nt36672e.c    | 604 +++++++++++++++++-
+ 7 files changed, 772 insertions(+), 56 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
 
-vmem is allocated with __get_free_pages(), which returns a virtual address
-stored as void *:
+-- 
+2.51.0
 
-drivers/video/fbdev/ssd1307fb.c:ssd1307fb_probe() {
-	...
-	vmem =3D (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
-					get_order(vmem_size));
-	...
-fb_defio_error:
-	__free_pages(vmem, get_order(vmem_size));
-}
-
-__free_pages() expects a struct page *, whereas free_pages() takes a
-virtual address.  Because vmem and __va(info->fix.smem_start) are void *,
-they convert implicitly to struct page *, causing __free_pages() to treat
-the framebuffer buffer itself as a struct page descriptor on probe failure
-or module unload.
-
-[1] https://sashiko.dev/#/bug/linux-2cc48a80-14a7-42fb-ac37-6c2eebc04a6d
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/rc-b1-20261110-vc-1=
-12-b07bbe936b75@gmail.com?part=3D1
