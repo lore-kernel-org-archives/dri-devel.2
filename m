@@ -2,68 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82785606A6AB
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 21:57:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DFCC606A323
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 22:00:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=NoP/VQTS
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SIR/jHlR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E374110E408;
-	Thu, 26 Nov 2026 21:57:18 +0000 (UTC)
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
- [165.173.182.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3943E10E468
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:57:13 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795730230; cv=none; 
- d=zohomail.com; s=zohoarc; 
- b=iTcwd8Xp/547Iv+8Q9NX/RmRc95tagyBsdqLCDhbKDajX4OUly5OSStcrTf/w4H5mugysRCVanw0OBvcJzCnM/bp8BwT5YFsl2FiWPnCf1/D2ccADCvc7GXoRgItHtWNwi/93EDH/OY8OCDJhgqp3vsmnEZFpeN8+SRsuGdlbos=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795730230;
- h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=; 
- b=T+WPMLmhxBBu/rh4Ip6+c1YYGaWnrLMvz3aI0LyQsIPlV2oXNZIox1oHKlxN2F2cYwj669M4bQ37UKdMieAvhb7GmtBU3mV9vVGI8bLwkYSMBTfakbzepIgD1eJt6tUFggE0WaWGD4lTUGtxgoWcB10eh37ZKfHocnn8PWLZN9I=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
- dkim=pass  header.i=collabora.com;
- spf=pass  smtp.mailfrom=deborah.brouwer@collabora.com;
- dmarc=pass header.from=<deborah.brouwer@collabora.com>
-DKIM-Signature: a=rsa-sha256;
- b=NoP/VQTSLJwgXVjcQCQu5SFK6wqD/i8LWv+j3KcLB5vO59ezzBk0xo03BXzFiGhtwnAVOQ9JMCt/g3mGrI/WTJ/r2ua7W08TsRTL0jqq3bsBRtNNjF6WiWGKq+NUKiQ84pWB1x+3/ttZKHj3F7KULpSNmk0pjKO05Lw5N08vfJQ=;
- c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=cv1jcP2NCWHHaTZoGDPS2zYOxgzsyVEhti5NT28c/KQ=;
- h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795730228027378.1289641848697;
- Thu, 26 Nov 2026 13:57:08 -0800 (PST)
-Date: Thu, 26 Nov 2026 14:57:06 -0700
-From: Deborah Brouwer <deborah.brouwer@collabora.com>
-To: Janne Grunau <j@jannau.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>,
- =?iso-8859-1?Q?Bj=F6rn?= Roy Baron <bjorn3_gh@protonmail.com>,
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>,
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>,
- Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>,
- Alexandre Courbot <acourbot@nvidia.com>,
- Onur =?iso-8859-1?Q?=D6zkan?= <work@onurozkan.dev>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, nova-gpu@lists.linux.dev,
- stable@vger.kernel.org, stable+noautosel@kernel.org
-Subject: Re: [PATCH v2 0/5] Fix import of dma-buf buffers as DRM GEM shmem
- objects
-Message-ID: <awirMlJMlyqKwPQq@um790>
-References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/295.709.99
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8151510E432;
+	Thu, 26 Nov 2026 22:00:30 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3BEBF10E432
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 22:00:24 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 9CE39601F6;
+ Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167741F00893;
+ Thu, 26 Nov 2026 22:00:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795730423;
+ bh=7c7/oytUm/cTA9mvt2dZkojdQh//AqC3WyEoCbnB0JA=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=SIR/jHlReC/pQgdPSDammzaAJpgLf7Q/QkY3zzhbV8Yw7EsfRq4MFshU2i5A/BFlT
+ z7pWcmD97ZBj0iIkgbWQwItx67vdPv5hwifdh4giJ4q82NWz8BDsJpRzfqHrz0j8SK
+ ZpWJu4DLC/AOMagP8tyOMkc+TAQlh2ZG43W7YCRYVbenYMGlpJTNuu0ysr7DdfYFzy
+ 7LhRD1QZkgyQO6h1s2pjguSP10cOGrUxNbOmOdWkfeyDOM30wMn6BIn26KeXt5aDqC
+ /IggTJlhfNn5GYjlvzmQs5T73vq4VrK8dpBH2/9p4ztJ3RobEgai7U95wfzbUiaeve
+ jZuJJ2/IAhlcg==
+Message-ID: <sashiko-outbox-236290@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 10/11] arm64: dts: allwinner: h616: Add display pipeline
+To: "Jernej Skrabec" <jernej.skrabec@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-sunxi@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261126214433.3562326-11-jernej.skrabec@gmail.com>
+References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
+ <20261126214433.3562326-11-jernej.skrabec@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 26 Nov 2026 22:00:22 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,97 +49,188 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Tue, Nov 24, 2026 at 12:37:42PM +0100, Janne Grunau wrote:
-> Hej,
-> 
-> this series is triggered by the discussion of gem/shmem.rs SGTableMap
-> issues in [1] which has an additional issue with imported objects.
-> Imported objects are supported since GEM shmem's AllocOps use
-> drm_gem_shmem_prime_import_sg_table() as gem_prime_import_sg_table which
-> sets the same function pointer field in struct drm_driver.
-> 
-> The code is broken in two ways. SGTableMap::drop() calls
-> __drm_gem_shmem_free_sgt_locked() uncondiftionally which it must not do
-> for imported objects as the object does not own `sgt`.
-> The second issue is that the imported object is allocated by
-> __drm_gem_shmem_create() with sizeof(struct drm_gem_shmem_object) as
-> size instead of the size of Rust's Object<T>.
-> 
-> The first issue is fixed in the Asahi downstream driver together with a
-> drm_gem_is_imported() wrapper change taken from the Tyr downstream
-> driver.
-> The second issue is fixed by avoiding to allocate Rust GEM objects
-> from C. In addition to size issue v1 addressed Rust gem objects may
-> contain fields with non-trivial `Drop` implementations. Those fields
-> won't be destroyed in error paths in C code which "destroys" the objects
-> with `kfree(obj)`. Solve this by re-implementing
-> gem_prime_import_sg_table() in Rust.
-> The same issues apply to drm_gem_shmem_dumb_create(). As Asahi and Tyr
-> as render only devices do not use the `dumb_create` callback just drop
-> it. When a future driver uses the callback drm_gem_shmem_dumb_create()
-> needs to be re-implemented in Rust as well.
-> 
-> The series is tested in the Asahi downstream driver. As the prime import
-> code path is unused in-tree I marked the fixes as not suitable for stable
-> backports. The known downstream users of the code are aware of the
-> issues and carry fixes downstream. I don't expect new Rust DRM drivers
-> to be based on (old) stable trees.
-> 
-> Link: https://lore.kernel.org/rust-for-linux/20261019-rust-shmem-fixes-v1-1-3f7f6de5b5e7@google.com/ [1]
-> Signed-off-by: Janne Grunau <j@jannau.net>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Medium] arm64: dts: allwinner: h616: tcon_top graph overflows
+  sun4i_drv_probe() kfifo
+--
 
-Thank you Janne for this series, I tested it on my rock 5B
-by running the igt tests [1]
-with the proposed ioctl changes to tyr [2]
-and it is working great.
+commit 01e1e3e0b1574bffa9c9d00380c059ba10691ddb
+Author: Jernej Skrabec <jernej.skrabec@gmail.com>
 
-So, for the whole series:
+arm64: dts: allwinner: h616: Add display pipeline
 
-Tested-by: Deborah Brouwer <deborah.brouwer@collabora.com>
+This commit adds the devicetree nodes for the Allwinner H616 display
+engine 3.3 pipeline, including two mixers, TCON TOP, four TCONs, and HDMI.
 
-[1] https://gitlab.freedesktop.org/drm/igt-gpu-tools/-/tree/master/tests/panthor
-[2] https://lore.kernel.org/rust-for-linux/20261122-tyr-ioctls-v7-0-3a2af624b992@linux.dev/
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/=
+boot/dts/allwinner/sun50i-h616.dtsi
+> index 93c3b8279241f..d7ed84d3c1217 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+[ ... ]
+> @@ -978,6 +1065,339 @@ ohci3: usb@5311400 {
+[ ... ]
+> +		tcon_top: tcon-top@6510000 {
+> +			compatible =3D "allwinner,sun50i-h616-tcon-top";
+> +			reg =3D <0x06510000 0x1000>;
+> +			clocks =3D <&ccu CLK_BUS_TCON_TOP>,
+> +				 <&ccu CLK_TCON_TV0>,
+> +				 <&ccu CLK_TVE0>,
+> +				 <&ccu CLK_TCON_TV1>;
+> +			clock-names =3D "bus",
+> +				      "tcon-tv0",
+> +				      "tve0",
+> +				      "tcon-tv1";
+> +			clock-output-names =3D "tcon-top-tv0",
+> +					     "tcon-top-tv1";
+> +			resets =3D <&ccu RST_BUS_TCON_TOP>;
+> +			#clock-cells =3D <1>;
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				tcon_top_mixer0_in: port@0 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <0>;
+> +
+> +					tcon_top_mixer0_in_mixer0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&mixer0_out_tcon_top_mixer0>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer0_out: port@1 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <1>;
+> +
+> +					tcon_top_mixer0_out_tcon_lcd0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_lcd1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_tv0: endpoint@2 {
+> +						reg =3D <2>;
+> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer0>;
+> +					};
+> +
+> +					tcon_top_mixer0_out_tcon_tv1: endpoint@3 {
+> +						reg =3D <3>;
+> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer0>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer1_in: port@2 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <2>;
+> +
+> +					tcon_top_mixer1_in_mixer1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&mixer1_out_tcon_top_mixer1>;
+> +					};
+> +				};
+> +
+> +				tcon_top_mixer1_out: port@3 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <3>;
+> +
+> +					tcon_top_mixer1_out_tcon_lcd0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_lcd0_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_lcd1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_lcd1_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_tv0: endpoint@2 {
+> +						reg =3D <2>;
+> +						remote-endpoint =3D <&tcon_tv0_in_tcon_top_mixer1>;
+> +					};
+> +
+> +					tcon_top_mixer1_out_tcon_tv1: endpoint@3 {
+> +						reg =3D <3>;
+> +						remote-endpoint =3D <&tcon_tv1_in_tcon_top_mixer1>;
+> +					};
+> +				};
+> +
+> +				tcon_top_hdmi_in: port@4 {
+> +					#address-cells =3D <1>;
+> +					#size-cells =3D <0>;
+> +					reg =3D <4>;
+> +
+> +					tcon_top_hdmi_in_tcon_tv0: endpoint@0 {
+> +						reg =3D <0>;
+> +						remote-endpoint =3D <&tcon_tv0_out_tcon_top>;
+> +					};
+> +
+> +					tcon_top_hdmi_in_tcon_tv1: endpoint@1 {
+> +						reg =3D <1>;
+> +						remote-endpoint =3D <&tcon_tv1_out_tcon_top>;
+> +					};
+> +				};
+> +
+> +				tcon_top_hdmi_out: port@5 {
+> +					reg =3D <5>;
+> +
+> +					tcon_top_hdmi_out_hdmi: endpoint {
+> +						remote-endpoint =3D <&hdmi_in_tcon_top>;
+> +					};
+> +				};
+> +			};
+> +		};
 
-> ---
-> Changes in v2:
-> - Switch to Rust gem_prime_import_sg_table() implementation
-> - Drop unsound drm_gem_shmem_dumb_create() as well
-> - Add `#[inline] annotation to BaseObject::is_imported()
-> - Drop typoed mail address from To:
-> - Added Alice's Reviewed-by tags
-> - Link to v1: https://lore.kernel.org/r/20261026-rust-drm-gem-shmem-imported-sgt-v1-0-36f15ace04b1@jannau.net
-> 
-> ---
-> Janne Grunau (4):
->       rust: drm: gem: shmem: Do not use drm_gem_shmem_dumb_create()
->       drm/gem/shmem: Initialize private objects via drm_gem_shmem_init() too
->       rust: drm: gem: shmem: Implement prime_import_sg_table callback
->       rust: drm: gem: shmem: Do not free SG table of imported objects
-> 
-> Sami Tolvanen (1):
->       rust: drm: gem: add an is_imported() accessor
-> 
->  drivers/gpu/drm/drm_gem_shmem_helper.c | 34 +++++++-------
->  drivers/gpu/drm/nova/gem.rs            |  4 ++
->  drivers/gpu/drm/tyr/gem.rs             |  4 ++
->  include/drm/drm_gem_shmem_helper.h     |  3 +-
->  rust/helpers/drm.c                     |  6 +++
->  rust/kernel/drm/gem/mod.rs             | 17 +++++++
->  rust/kernel/drm/gem/shmem.rs           | 81 ++++++++++++++++++++++++++++++++--
->  7 files changed, 126 insertions(+), 23 deletions(-)
-> ---
-> base-commit: 3497a403264b094ebd61b8b755165d56e7d9dc37
-> change-id: 20261026-rust-drm-gem-shmem-imported-sgt-85c4a45be283
-> 
-> Best regards,
-> -- 
-> Janne Grunau <j@jannau.net>
-> 
+[Severity: Medium]
+Does this tcon_top graph overflow the 16-entry endpoint_list FIFO in
+sun4i_drv_probe() and leak device_node references?
+
+When sun4i_drv_probe() traverses mixer0 and mixer1, both push tcon_top
+into list.fifo.  tcon_top has 9 connected output endpoints across port@1
+(4), port@3 (4), and port@5 (1), and sun4i_drv_traverse_endpoints() queues
+every remote node regardless of whether the target device is disabled:
+
+drivers/gpu/drm/sun4i/sun4i_drv.c:
+struct endpoint_list {
+	DECLARE_KFIFO(fifo, struct device_node *, 16);
+};
+
+drivers/gpu/drm/sun4i/sun4i_drv.c:sun4i_drv_traverse_endpoints() {
+    ...
+	for_each_available_child_of_node(port, ep) {
+		remote =3D of_graph_get_remote_port_parent(ep);
+    ...
+		kfifo_put(&list->fifo, remote);
+	}
+}
+
+Popping the first tcon_top entry pushes 9 remote nodes while the second
+tcon_top entry is still queued (10 entries in list.fifo).  Popping the
+second tcon_top entry then attempts to push 9 more remote nodes (18 in
+total), so the final two kfifo_put() calls for tcon_tv1 and hdmi fail on a
+full 16-entry FIFO, dropping the queue insertions and leaking the two
+remote device_node references from of_graph_get_remote_port_parent().
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126214433.3562=
+326-1-jernej.skrabec@gmail.com?part=3D10
