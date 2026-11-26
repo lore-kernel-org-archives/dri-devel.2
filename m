@@ -2,149 +2,137 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9FA606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 15:02:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93C5F606A339
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 15:02:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=lWclrFBy;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=QbZkl3ig
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=lykXjjjU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F1DEE1124BB;
-	Thu, 26 Nov 2026 15:01:57 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 68FE91124BB
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:01:46 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQEV5xV3664859
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:01:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- BCBvJWUUzh4EABV/c2ZfxvfD28hjPtQ33YkZR/isC78=; b=lWclrFBylEkYJmnz
- uQqsbH3qxDtNpVUljF7B2i5IowP3/Oz5hHlLqH2U8Iyjwo1ACDZJplStp2qvZkyY
- zBA9II2Mz9JjOZQGYlv+5Z6DuuuBpaanwklVZ6x7e/++ESCfR1/Laypp6cMYICX3
- ajwQ4hQXebB8lLxGlADQnuWmKjmzAsREYHp7ecQW79cKIGkSlndiYEFMaDmRicVL
- TcqeI8UcjjWNIoTakZqg3iJTrQlVoIjWRbaXZ1A0PAZhogBCX9AOnz902WUl8VWR
- Lk46w7/BeCv5eKvATozGYNgNfetjve280PVTyMjT7zXWV1v2iZX+NFXNEPOAy4cn
- VJvQ2g==
-Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
- [209.85.221.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6h7g9dhd-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:01:45 +0000 (GMT)
-Received: by mail-vk1-f198.google.com with SMTP id
- 71dfb90a1353d-5ec78f43e7fso318815e0c.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 07:01:45 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795705305; x=1796310105;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=BCBvJWUUzh4EABV/c2ZfxvfD28hjPtQ33YkZR/isC78=;
- b=QbZkl3igEr6+1CYOtx4XwhtT0jk6/JGy37oXcyuIqvS858SlR5oJTpwB74+RLrIIIH
- EjaTxg0GOfeFqR4Iyl7ijE+/C2wr8xufOV9YzhOMbI4hyepwO9aniqFPC5kHPjDMFGuT
- Nzu38Ly4se6zSXyAGHwZtwzPgKQ64SJTZM/wom0yhVJsDXsY9hrfBSVGmH5RCXGXehfs
- nSiEH0eg6T3R9lc8Xk3nKz3alIZwAyXT6IWaW5eesVWcPzQ9Nuo7xH9F2RsChjpdivkR
- yLP2A8hJxN/nYdZmguI8UGmJ7TDORLXdxaUkIA4BB6W/+RM3iZe89x66Uz25FArapvgb
- DfPg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795705305; x=1796310105;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=BCBvJWUUzh4EABV/c2ZfxvfD28hjPtQ33YkZR/isC78=;
- b=T3oCxYOhhjn2JH59tTExmzmzmON9WutMYNyflI98zObE/CVILuCw+qVAPy+4ripvmX
- faYp60qKSlfb5t7IK1uWFCMDgKk6N1+pzfKOVJ6eykgANy4Ll06ugsXgeY1wVJ1yIY13
- P0NJvi38GMwfDY91LXJFH4Zx1PaeVX4MXxSB5CPjeT4aNxRRD06othPQm37CzhcB6blb
- od5SN0qrXR9BLCCI45R96JQIGzOwDBHqZa6Ll37RKnr2Sd5R0wwOEOssIC/6EDzEaoez
- sxK1TOorCKtLmkOBeuY0Xr9Fq2XDCQSX61B0y3eQAYkTMiyuJsqaiMvVBCpcSSZhq7Ra
- ohcA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFZFgitYcfLX7Azn7DEAwNh3jE8w5xEw9oyjRGuJKRqEZS9e3IH5Bv4SWx1SpUj86yBI6MDPB/RPY4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/I6pwYSoFf1IPvhGoHXyptnM4D8kh32jtvCFn1Ec/qUU6CA3fl
- Bs8WSfiWjaC5amdSxqs9yiMmHHxjmWWn+3MB1K0BEfaPnVQIbT+oHvg8OiA6a42R4K7VoddvbpO
- pM655GIIVOpZo19dEy3DWmJ/HkdKOtk5YeOHCmnEOURXUulfO7V/1XnBmSr9aSGQ09nEvGkc=
-X-Gm-Gg: AZFdTZfy3vjCU7S0L95tk/ASnBoFLkobK60Jf6MyLexIJbCWZV2yZ7elG0M0d3RRYX2
- nKIh9A5kCR3fxQ1V96NhcAQnnEy3+nezsR1AgM7VCqg4SBJ5KbyQyGCfkPAD14ihOm/L6+NUoRC
- t9MenDqHr1aRinTT5Jy+JQWSeZsngz0QdqJRxzQYUf1kHVuPZmYseULxCGUhrIRT71siBCwRovM
- bPH2nIxO9tg1Q1GrpLWxGdp85qmGbIQu6AAmN65dVGF6ltJTC9hLwG49FFRobRskQNgkCAczZ3B
- aSOBcrFIM04GjlhS3SZ7EYlQgFffS5PMaBIVZ6M0ORyz/gKAPQUtASR3ad/gPf3G4v7fFVDaV2N
- VF00n0NXSS4uvc3bKjKEWuZ4SG9EM+DaxJtyZ5Q20ICZkz+ZqeU8sS/ce21sCxBv+skkeul0=
-X-Received: by 2002:a05:6122:264d:b0:5e6:589b:eeec with SMTP id
- 71dfb90a1353d-5ee8af4a6c4mr13275376e0c.5.1795705304728; 
- Thu, 26 Nov 2026 07:01:44 -0800 (PST)
-X-Received: by 2002:a05:6122:264d:b0:5e6:589b:eeec with SMTP id
- 71dfb90a1353d-5ee8af4a6c4mr13275286e0c.5.1795705304183; 
- Thu, 26 Nov 2026 07:01:44 -0800 (PST)
-Received: from [192.168.226.72] ([178.235.128.140])
- by smtp.gmail.com with ESMTPSA id
- a640c23a62f3a-c513acff65bsm790932366b.4.2026.11.26.07.01.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 07:01:43 -0800 (PST)
-Message-ID: <00422583-53fb-47a7-bcfc-f517b84283c2@oss.qualcomm.com>
-Date: Thu, 26 Nov 2026 16:01:39 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0213C1124C2;
+	Thu, 26 Nov 2026 15:02:14 +0000 (UTC)
+Received: from PH7PR06CU001.outbound.protection.outlook.com
+ (mail-westus3azon11010051.outbound.protection.outlook.com [52.101.201.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5DF711124C2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:02:07 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=gGL1LbHXBgpL4KXiXJmAXEkFLe+5lw+udW00VImVWAWGH21masb5dt6bLQyvddGuFJFTIFvPIC2bjsG5OytCs85+UDyUe5m/kHGXsizqZTwDSx8u2ZQWTxdySSob1EV40eVx2ecBr74yrfIAIIeUEA1SoAEPu8ZlIXo5ZjgrbRjzwY9X58S8Mly/Q/E5LpPtglE4aziklhfF1anJJH+FegyyjYaBMPWhddpS+YlgZdBhREhCc3LSb54/bGuSWtGXxvoAVGxm5fA/lQhlBZwNxyQLh8oFKEF4IID3QsuWNOxUZ8K5rNYz0gEmWYlj0xHYzbXVGwdqQ7InigcA1VrP6A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=nwC8JHaj9JBezgBKJYCXGfkjL+/PmmrOmTsNnMyRm7c=;
+ b=nMELUjSYR5zssDfaKeAk8svYb99gZSVdqpqlyEciUm1vAJYpafweOevkXwvtf3HnxYHUe4cL1f8PeZyDQHT4l+fc8VxhULYbY0Zgu3B6I0cZbVyuU5RpndgEgFtQEEo/VnfXk+ogWiY3EuHboLYpDINVToMClZKzMcaryLQhXWJJWJPF0rFZC4/H904XX7mYUdV9xWY9brEzP64fGEVDHhXogBpvB2Zr0tIiNptagNsE/4NKidKdxUWqzewvrSAsjIbW3XY6ZqpcyAuVpo+fRhC4cxIBf3/j14frvHZ7cog5Pj2MEsp5hwGy2zplTuF3E5DFkMrWFTFIuuSBET5h4A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=nwC8JHaj9JBezgBKJYCXGfkjL+/PmmrOmTsNnMyRm7c=;
+ b=lykXjjjUZZRM8+s0sVxqoy9M6gY0R4JsI641hnTI9NeY8gZuKUrewYbEN0bgpzR6OOR2mzPU0YnU6xAGZLIqNp6Hx1Yd4Bxu6MDpQrM4Cy2YNKYMUXfbKEhnP4i/PdRnjxsIkFThJPr3JsE86XyTEM2rozYxow65qNzVPXGX6R6t5TFEJrn/oG3W5eLBFcVBOG5b5NcQo/bnLRt1JadnZ7ibefikDRGGslFaMhZNV27PXWyhqen9OiwfCLG/KKjkQv8LyGggbK3lsxblS9kxQxsne8y8kUyH2X0TwyMS6sUwRtmuQ8nY56E8qBphLPvcZi187pUo8bmSvsx3iqUG4g==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from BL3PR12MB6548.namprd12.prod.outlook.com (2603:10b6:208:38f::8)
+ by IA1PR12MB6580.namprd12.prod.outlook.com (2603:10b6:208:3a0::9)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
+ 2026 15:02:02 +0000
+Received: from BL3PR12MB6548.namprd12.prod.outlook.com
+ ([fe80::e916:d870:8994:46c0]) by BL3PR12MB6548.namprd12.prod.outlook.com
+ ([fe80::e916:d870:8994:46c0%3]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
+ 15:02:01 +0000
+Message-ID: <03b5355c-e8c9-4190-95b8-fb847756ad7f@nvidia.com>
+Date: Thu, 26 Nov 2026 10:01:48 -0500
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 7/9] rust: vfio: add PCI variant driver abstractions
+To: Danilo Krummrich <dakr@kernel.org>
+Cc: acourbot@nvidia.com, kvm@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ nova-gpu@lists.linux.dev, linux-pci@vger.kernel.org, alex@shazbot.org,
+ jgg@nvidia.com, yishaih@nvidia.com, skolothumtho@nvidia.com,
+ kevin.tian@intel.com, airlied@gmail.com, simona@ffwll.ch, ojeda@kernel.org,
+ alex.gaynor@gmail.com, boqun.feng@gmail.com, gary@garyguo.net,
+ bjorn3_gh@protonmail.com, lossin@kernel.org, a.hindborg@kernel.org,
+ aliceryhl@google.com, tmgross@umich.edu, jhubbard@nvidia.com,
+ ecourtney@nvidia.com, cjia@nvidia.com, smitra@nvidia.com, kjaju@nvidia.com,
+ alkumar@nvidia.com, ankita@nvidia.com, aniketa@nvidia.com,
+ kwankhede@nvidia.com, targupta@nvidia.com, linux-kernel@vger.kernel.org,
+ zhiwang@kernel.org, zhiw@nvidia.com, boqun@kernel.org,
+ daniel.almeida@collabora.com, tamird@kernel.org, work@onurozkan.dev,
+ jgg@ziepe.ca, bhelgaas@google.com, kwilczynski@kernel.org,
+ dri-devel@lists.freedesktop.org, peter@colberg.org
+References: <20261119215046.2892839-1-xinmengs@nvidia.com>
+ <20261119215046.2892839-8-xinmengs@nvidia.com>
+ <DN4P1UAAVP8G.2TUW0Q8UEQVCG@kernel.org>
+Content-Language: en-US
+From: Simon Song <xinmengs@nvidia.com>
+In-Reply-To: <DN4P1UAAVP8G.2TUW0Q8UEQVCG@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: BY3PR04CA0017.namprd04.prod.outlook.com
+ (2603:10b6:a03:217::22) To BL3PR12MB6548.namprd12.prod.outlook.com
+ (2603:10b6:208:38f::8)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 06/11] drm/msm/dpu: Fix DSI tear interrupts broken by
- adding INTF_9 and INTF_10
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Kuogee Hsieh <quic_khsieh@quicinc.com>,
- Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Cc: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
- Mahadevan P <mahadevan.p@oss.qualcomm.com>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
-References: <20261116-nord-drv-dt-v3-0-e3d3bf0e2c49@oss.qualcomm.com>
- <20261116-nord-drv-dt-v3-6-e3d3bf0e2c49@oss.qualcomm.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261116-nord-drv-dt-v3-6-e3d3bf0e2c49@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: ATt9r-L1JFEehToTxv3P63c5fwLXeTfB
-X-Proofpoint-GUID: ATt9r-L1JFEehToTxv3P63c5fwLXeTfB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfXyFFd3Tc6Y7qy
- YzbgWzyuayukh2ortQ13YcqUWouvo6U7SgHXfmMw2egEZgs17JFxyBLvuXG/GHCIJDY3y7Vlnnf
- Icvu8nDxFdB1G2bu+GwAD8Yby1F3O8NBsRChslq6erf+CgDPcxi+RJBesCB3TSyJEOy4q+wMSYR
- p3bLCfJNByx2gw6O/KjzaruRrDIHrf5U1BKs+BXY5c1cJsRfHHyGh7I9nBa6eQyfKwU9fSD35bm
- VvhNE3prRo9v7RMDpxHwXBG7bmF+d6ONhYZS9yESvFVlENPhbDJzuxaxBXCzb7mSU10athwKs24
- YsNAQuuRmUi4faca0MJOqJBJ1ipRRScNdOWzQQcF1NitG6Bw5bvAd9GvAN95RO+pNIOoleUNiO1
- +PBGandwC3spAxbsJACLJkj74/rtmAnmueEK8NKg8U5g2I8lo94v0sNRCiX92Yux8JlgreHn/74
- vgyVNpIYvg+Nd9DsfSA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI2MDA1OCBTYWx0ZWRfX3VMX3fS68WDz
- aE63z/Vf23/vL87Bl5ABmxs0kQD8znSoFWiO7IIgleoR1wHKr+/jBa09R2HwFFVebxvUgxN4uNs
- qRmcYr+w9RR1TyPIYTeI3wgmRsreOsc=
-X-Authority-Analysis: v=2.4 cv=L4GI0OT8 c=1 sm=1 tr=0 ts=6b0849d9 cx=c_pps
- a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=-NiRQLekuLvWmI5UBGoA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=hhpmQAJR8DioWGSBphRh:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_03,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1015 spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611260058
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL3PR12MB6548:EE_|IA1PR12MB6580:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3b48d6bf-3723-4dd6-7f02-08df4bce395b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|376014|7416014|366016|1800799024|23010399003|4143699003|6133799003|22082099003|18002099003|11063799006|10067099003|56012099006|261102123227099003|261026121527099003|261026140227099003|261021121427099003|261028144727099003|261022105027099003;
+X-Microsoft-Antispam-Message-Info: W8ezL9H+iCttFmqOgVzeG5n6fsGstxj4PCFIn04+tkzvkTyFLvZR/y9e7jln3wLJkbHp14jUnyOHcaMg0KErfe05PSg2Hlk3T29OqLXbG7xpAOEky6whcGV38Mim+tS5j+OwecFGX/v6JhuaPYI8OgAhu5s7TCVNTd4y6oD6w0CyVVstspTwZQQnJZELnjnI1N3Zl4PFAD9jObZGMZszJACXeBeU0jl9qLEwnnSbf85UmEgledAx9Ybn2jTjH3MtdwsWTuLfLgfh52ll3NQa/E9He1M8RTjVvQUmKBNurItbLdG/TKQxiwoKf8Sc/fBInYn9WZbj88Ek4ohQUhF7wrlV+ZXpEJBliW/Ism/WFdDHK3MnA3nCghk51vVfWFuq+FCZ+9HZR6ZS8NnpXmaUm3FEr6u6lHQo54cU3FKJdY2Ln9W6MCrDsDHBK+ffdv+JzQ7urtmITlGSSc/mcgM5BiTWLhrU46vP7+y615P3EOlHkJXUgiz87SteMhMhp0NWi+JRw5DjwKa62dtxZTQNHuWNsCuFnWwNC2PTNgO2m/4pORzM8qKolDFewQ6Gc35N2y4GBOA2f31sMQ+ouzFrokqrHpAjao1agy31+ILSUfGhyWHxE3Sghr0+fx1xmWWdkWwWxF2k/kf3c9Hbclt1EKsc5QGJxNXGQ1lI1IcevSE=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:BL3PR12MB6548.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(4143699003)(6133799003)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006)(261102123227099003)(261026121527099003)(261026140227099003)(261021121427099003)(261028144727099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ZHE0Ull2aVBwMWx1VjdsWFJNejA0a09LTTBoY1B2QllFMW1XZG9XSlVodXlE?=
+ =?utf-8?B?dzJ6R3lJa3dVQkN6T1hablNJR2VaRExQdW45Q3NtM0Joek1BWmszKzYxb3pJ?=
+ =?utf-8?B?Y0JoNk5DVlRvNHJKMlVQVWlzbGp0N3Z6MlJQSVpXdkVFaTlGODcxdHlSUUVQ?=
+ =?utf-8?B?S0RuM2g1R0diUzkxVDR2Q1hlbUFoQkVEYWRUa09jMGVVY3JEMnNHOFhYUEs0?=
+ =?utf-8?B?dGsvSlBSQWd4OUMyUUNzT1pFMjdQSzVhUGZDeVVwczBJSlBkdG0wWEt1aGdI?=
+ =?utf-8?B?NmtCZm5LZGh6SVlWVkJiY0dyc1JIcVlCajN5TGcwa21jcnBNZXd5VTlQcDJt?=
+ =?utf-8?B?bzJqWnRyNnc1c2liejZZR2tHYTNYakVaYjk1QVhRQWE2VEFIaXM1MzJFZ24w?=
+ =?utf-8?B?Wk5OQXNobFpQS3pOZGpkTWxXbHdpeVcwSjRUdG9rSWJOMlFFWGNTMndLMys1?=
+ =?utf-8?B?dzZabENiY0R2emVKbUdZQU5oWStkelNqczFFYkJGbDBzRFdKb2tDakJWUTA1?=
+ =?utf-8?B?Yzdrd2NNRGVWSmQ0bWJhMDFLUk5IK3cwb2VHWEt1V3RiNGJSeVRaUW5uMEdW?=
+ =?utf-8?B?d0h5ZlE1RWZvUWUzeTd0TC9TSWpZMm0vUDc0ZDQydWE5RGxncFY5TFo1UnlV?=
+ =?utf-8?B?QnNJUk83bWpvd0hIb1IxZU9JQjgybXkzbmVUbWljcTNxUUJIc09vcE9jZGJQ?=
+ =?utf-8?B?cFM2clZLL0taTjNDbGNGdXkrNjVDQk5vTTF5Umx4MFY4KzNpWXpmVHBQK0ZP?=
+ =?utf-8?B?cVRIaXltWlNZdm1jZHlGZkJSandlckVKUHhReWVRak5XYzhjRDc5eG9sSU1x?=
+ =?utf-8?B?S1RaT0hkN2FlSWo4WldsRGtoRGVRK0xCWTFKdlNVQ2xtOVltU2xHWlBraGpP?=
+ =?utf-8?B?TVExSlJlVVNPenAzN3RHRXZGeC9ObllYbW5Cb1hLdjEreUJWL2RwVWN2WG54?=
+ =?utf-8?B?aEpMUlF4c3ErK2trY0pQdEVsSFpFdTRrUjFucEZMY2tkZDhoMHkwalQ3cCtw?=
+ =?utf-8?B?SmMxZTJDNHVpZ0Y3NnJJelJpdjRpWlVMbVhuUU1MSHN4V2dkUnR5NXk4bHY0?=
+ =?utf-8?B?ZkZMenlqSnFPazdROXBZZDl1WVlJRFVFd2dGL01WT1FTdWttZlozMVRqWlk4?=
+ =?utf-8?B?ZHVWN1hPdlF1Zk9vSHdUTGVKTFEraFRPa0NGa0E1R2lWZjJUNkV3clVOVXhJ?=
+ =?utf-8?B?dlN4T2U3eG1icEpwOTlzMUU5MnNtUS9NUGtxcUgxVHNLb0hPQmFPZHZyU1A0?=
+ =?utf-8?B?K041RG13ajh5UlF1YlJzTTh6cWJPaW9HUUdVNE5rZ1MybWl2NTVJdllqd2lh?=
+ =?utf-8?B?RFpBU1VqSjJ1ZkhmbnNoSDBNMnVGN1JNZSt2ZElvb1hQa3JNbEpmY2RLbFZN?=
+ =?utf-8?B?cTJhR3pSSU1Sajl5WHdObW0wQTZwTSs4bUNkN1Z5Ym9OeXVjUWVGdE83WCty?=
+ =?utf-8?B?VXJLYTI2eEh6dlg2dVhGSkJReGFVMUREZ0h1TE9ZdkwwME5yRW8yV3Jaamc4?=
+ =?utf-8?B?SFY0eXlaaWF4UXpzUnpEUGpvVVIvcG1oRW0yZmlTZzlEOUVSaGtRalV3NXNv?=
+ =?utf-8?B?UDJRSWNHR0hJZ3dkYzZoSHZJWHNrdFNFOUp1T25hVURwTjloYklmWFFLOGRo?=
+ =?utf-8?B?emlWRnlhYm9WcE8vRHErVTJySXpUT3R1cThKY0NpNkdyWFM0czFJZ3U4cVZB?=
+ =?utf-8?B?U1dLQXI0ODBYTlZBcGtGdmNxSGpXT05lZlMrSnpGMjdiVnRoYVdiMTUrYzRK?=
+ =?utf-8?B?dmQ5bklOV1U1dWp5akJyR2FZcTkya0lsaVBKb1RiZDRXVXpzckxKVXk3K1lI?=
+ =?utf-8?B?eGUzTENIYzNEMXdwNjJramZaZDdWVzVhMThCaWVRRVY5N3UzbHU3cEZTSkQv?=
+ =?utf-8?B?UHNiTllsR0c4NHFxWlVTM0MySGxsQWx4Sy9GaVJYb29PZyt5NFU3RWRMbEt0?=
+ =?utf-8?B?NzR3OW1ySHo3Sm04T0ZBVlFROHNaT2JTeXFlYmc3NlpOWngraWhBcStKeE5I?=
+ =?utf-8?B?V1pzVEJobUk4bUlxRHkwcmhLT3dxRld5dy9xdnQ5L0dMOEZuaXVERktCZFMx?=
+ =?utf-8?B?L2k0QTZWMnRZWnVWU1lNcFc2Z1o3ckszcmpPZWtGWnlSZ21DREkrd3RIU3Ji?=
+ =?utf-8?B?eTQrdmZlc0MxdlVoSktOaFY5Y2xjY0Z5TGNoa0o1UXRwTnRTckUrRGIyRzhj?=
+ =?utf-8?B?ZGZTM3V2a0p6R3NpdE1FeVA5K0xGNm9zMDBJNFVoWUM0THZQRk8vQmxZakE4?=
+ =?utf-8?B?N2J6VnpQbmxXN0REdkQ1NjBGUDNFNXNZbW1GRGQ0MmUrMzVhbFNLQllDdTZh?=
+ =?utf-8?B?RjkwR1pyck1RM01MTDlXUTl4Nll6UHF0a25TQm50UTROaHBUNkVYZz09?=
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b48d6bf-3723-4dd6-7f02-08df4bce395b
+X-MS-Exchange-CrossTenant-AuthSource: BL3PR12MB6548.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 15:02:01.1332 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: A0RyyHWFH5fFGvtNYawbmu1NAxg6q1UJRFYIw+BRX2ZOxPwArCIiq7E/u3P/hzx3cCfJzIPqNJKc2tQeMLg27A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB6580
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,33 +144,57 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/16/26 2:16 PM, Nabige Aala wrote:
-> Nord requires INTF_9 and INTF_10. However, enum dpu_hw_intr_reg relies
-> on all MDP_INTFn_INTR entries being sequential — MDP_INTFn_INTR() macro
-> computes the interrupt index as MDP_INTF0_INTR + (intf - INTF_0).
-> Appending INTF_9 and INTF_10 after the tear entries would break this
-> assumption, causing DSI tear interrupts on existing platforms to map to
-> wrong interrupt registers.
-> 
-> Fix this by inserting MDP_INTF9_INTR and MDP_INTF10_INTR before
-> MDP_INTF1_TEAR_INTR and MDP_INTF2_TEAR_INTR, keeping the sequential
-> block intact. Add the corresponding register entries to
-> dpu_intr_set_7xxx and dpu_intr_set_13xx.
-> 
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
+On 11/25/2026 3:51 PM, Danilo Krummrich wrote:
 
-The subject should be more along the lines of "add missing INTF9/10
-interrupts". Then, the commit message should explain the reasoning
-and effect.
+>> +impl RuntimeActive {
+>> +    fn new(dev: &device::Device<device::Bound>) -> Result<Self> {
+>> +        // SAFETY: `dev` is a valid device. This is `pm_runtime_get_sync()`, which takes a usage
+>> +        // reference even if it fails.
+>> +        #[cfg(CONFIG_PM)]
+>> +        let ret =
+>> +            unsafe { bindings::__pm_runtime_resume(dev.as_raw(), bindings::RPM_GET_PUT as c_int) };
+>> +        #[cfg(not(CONFIG_PM))]
+>> +        let ret = 0;
+>> +        // INVARIANT: `this` owns the usage reference, and drops it if the resume failed.
+>> +        let this = Self(dev.into());
+>> +        to_result(ret)?;
+>> +        Ok(this)
+>> +    }
+>> +}
+>> +
+>> +impl Drop for RuntimeActive {
+>> +    fn drop(&mut self) {
+>> +        // SAFETY: `self.0` is a valid device, and `new()` took the usage reference dropped
+>> +        // here. This is `pm_runtime_put()`.
+>> +        #[cfg(CONFIG_PM)]
+>> +        unsafe {
+>> +            bindings::__pm_runtime_idle(
+>> +                self.0.as_raw(),
+>> +                (bindings::RPM_GET_PUT | bindings::RPM_ASYNC) as c_int,
+>> +            )
+>> +        };
+>> +    }
+>> +}
+> 
+> This seems reasonable, but doesn't belong into VFIO core code. This should e.g.
+> go under rust/kernel/device/pm.rs.
+> 
+> However, it would become dead code once we land the runtime PM stuff and enable
+> it for PCI, right? I think an alternative could be to just make nova-vgpu depend
+> on !PM.
+> 
 
-Konrad
+Right, this goes away once driver has runtime PM callbacks, I tried !PM and it works, but CONFIG_PM
+is set in x86_64_defconfig and allmodconfig, so driver won't be built there with default option for
+x86, would you rather keep RuntimeActive and moved it to pm.rs or prefer to depend on the CONFIG_PM
+until the runtime PM for PCI lands?
+
+
+
