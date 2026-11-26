@@ -2,93 +2,55 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2431E606A31E
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDAC606A321
 	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 03:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=aV5HkW0A
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zXcrer25
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0459310E1A4;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 05AC310E1EF;
 	Thu, 26 Nov 2026 03:16:03 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4512710E1EF
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 03:15:46 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 56E9460180;
- Thu, 26 Nov 2026 03:15:45 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795662945;
- b=gyWjPmjtNxkrrR2p22uOGZSozQf0Cg3kyEuuzoDTjb1iNi+nmDY2POyU1nsO/VaaPOGs
- RY+UKHFseAL+YYqslUqkd0U34NkHd1lkc2IyWp2EubMpIFurOngI6V0TpVP9CfjfIXD1B
- tVdqQalrZG26bQFSD6YNa53UIpCKoArr4whWD7bH8OogRY+xLyAUta8Y9OgxA4UfHl+hX
- ssdXkBg2/h4O73UvA3jqiLuBIIBUFPv2Sfk/iylf/7gOv54DMfLDySfln7zVSlrXb2kq/
- DqYdhXkrqvbrjjvQmUHiaQs4Kxgb1REcHQD0knKlPHFYcDOyhrD6FRZhuF4uV8TXP1g==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795662945;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=ZSmv7LTcmbL4aQ49F7az28aiJc5rqxHA7rjPOy2NtXg=;
- b=e0wEDc2O6npA+5zaZTsw1bfMhEzYZElcL6yjtr0e+mUDn6R76YxOxifulKC2sAQIcGgg
- zQVvlzxti6OwroL4TQYxb6AljGZhJHv6suF/AKmDmMWKqWH7fQUSY8QLbmlOjKQytanB4
- TYsQcuoFOREYSAOB8V+e7xIy4BdCVcjFgzvtvA15QS5ya9ft9u4VHALqsJg6/Dq2GFa35
- mV0OYJJgdG9xBf1XFIzhBMlUhneW9bJ2y4qcC39AYAM+uEMbJSLkLvJPW7TSyibWDGzh1
- pexdkYGMDMsRwSFDt0mSTKVMj61KdVTJeR1BxuJ3f6/4nDzh9CA0TRdkCZBE7v/a/JA==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 8E3291F000C6;
- Thu, 26 Nov 2026 03:15:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795662945;
- bh=ZSmv7LTcmbL4aQ49F7az28aiJc5rqxHA7rjPOy2NtXg=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=aV5HkW0AhFeiFTdi4TKO+lq2HxkFlp76nZBHcstkJES39wzzJi48sEoOB3pbKqJdJ
- Xjb4ULlqLI1zUWSuuww42UA75MuMhmcAzuMG26UOh9EzKPcWrqgyxjZ9Lg87CRydEc
- tmFXCEWzd08rgSqPWpMP9gP4hPFW6VNIiNqfBsfOHXwSlWcZCl58nx1whvxmpyjBep
- zya7c1GOHEb41xUHMdRNX45qBc1DcylyWXgKkjgqoLe8+uAKP57XlxEHO5f4BG47TP
- LrXRcutedPAsWbz6GX5xjRKMErbpc4neaoEblyamE+J/Te2LGmTZMK+EQCgfXxsVIX
- dpQAVFlsG8yyw==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 202774D1C9;
- Thu, 26 Nov 2026 03:15:43 +0000 (UTC)
-From: Hank Liou via B4 Relay <devnull+hank.liou.mediatek.com@kernel.org>
-Date: Thu, 26 Nov 2026 11:15:43 +0800
-Subject: [PATCH] drm/mediatek: dp: Disable HPD IRQ before cancelling
- debounce timer
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com
+ [113.46.200.227])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9311B10E1A4
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 03:15:41 +0000 (UTC)
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+ c=relaxed/relaxed; q=dns/txt; h=From;
+ bh=AxS9gVTk7ONc3uzkbA9wh8yrs74SVjyjoJSUTpcd3i8=;
+ b=zXcrer25cO+HqgmDqwEL+33dGrP/qKTg1isAwBHE0otrD2E1KMTPc9oe47xHiPjPfTl0ATKUu
+ OGbRncICSlS8cpKPNVtYQpbB2RiQgIJk8Mb/wsTabQ0AokfIbN8bd+/DfRAwAzK83i8iwB4sHt1
+ lH7OF5JLwr2K2KB9O0gsyLA=
+Received: from mail.maildlp.com (unknown [172.19.163.15])
+ by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jZhVd1f3kznTW8;
+ Thu, 26 Nov 2026 11:14:49 +0800 (CST)
+Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
+ by mail.maildlp.com (Postfix) with ESMTPS id CBAEB40578;
+ Thu, 26 Nov 2026 11:15:37 +0800 (CST)
+Received: from localhost.huawei.com (10.169.64.31) by
+ kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 26 Nov 2026 11:15:37 +0800
+From: Yongbang Shi <shiyongbang@huawei.com>
+To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
+ <tiantao6@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
+ <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
+ <kong.kongxinwei@hisilicon.com>
+CC: <liangjian010@huawei.com>, <shuliubin@huawei.com>,
+ <chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <shiyongbang@huawei.com>,
+ <helin52@h-partners.com>, <shenjian15@huawei.com>, <shaojijie@huawei.com>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: [PATCH for drm-misc-fixes v6 2/2] drm/hisilicon/hibmc: Add a flag to
+ indicate whether the OS-side driver has been loaded
+Date: Thu, 26 Nov 2026 11:06:48 +0800
+Message-ID: <20261126030648.3231196-3-shiyongbang@huawei.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261126030648.3231196-1-shiyongbang@huawei.com>
+References: <20261126030648.3231196-1-shiyongbang@huawei.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-mtk-dp-hpd-irq-v1-1-0b8663980732@mediatek.com>
-X-B4-Tracking: v=1; b=H4sIAF6kB2sC/x3MQQqAIBBA0avErBvIgSy6SrSoHGuIyjQiEO+et
- HyL/yME9sIBuiKC50eCnEeGKguY1/FYGMVkA1WklSKN+72hcbg6g+IvrO3cTto2xJohR86zlfc
- f9kNKHzLLnKdgAAAA
-X-Change-ID: 20261126-mtk-dp-hpd-irq-5fc8b6f72e6e
-To: Chun-Kuang Hu <chunkuang.hu@kernel.org>, 
- Philipp Zabel <p.zabel@pengutronix.de>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- CK Hu <ck.hu@mediatek.com>, Jitao Shi <jitao.shi@mediatek.com>, 
- dri-devel@lists.freedesktop.org, linux-mediatek@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Hank Liou <hank.liou@mediatek.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795662942; l=1945;
- i=hank.liou@mediatek.com; s=20261126; h=from:subject:message-id;
- bh=l8xHL6bFv9F0w89mKejFr4yktC399A1FMDm4H5KqRU4=;
- b=GMsAhPoL7vpG1VsZ4mqOsHWU7s0UrcQwn0VDsAGlTrnk2NTX+fHABoTmEUf+xrjgHTZSOx5qV
- 8qi+ncW7drhCPh3Y5V+fsYw6ylYT6RVz4Z9L86R0hWFvc5cCKTeJoHC
-X-Developer-Key: i=hank.liou@mediatek.com; a=ed25519;
- pk=oQN2zU+HMrJQgqX4bhL5CVRrBmac4amZ/53yK20L/6M=
-X-Endpoint-Received: by B4 Relay for hank.liou@mediatek.com/20261126 with
- auth_id=1646
-X-Original-From: Hank Liou <hank.liou@mediatek.com>
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ kwepemk200005.china.huawei.com (7.202.194.71)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,64 +61,234 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: hank.liou@mediatek.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Hank Liou <hank.liou@mediatek.com>
+From: Lin He <helin52@huawei.com>
 
-mtk_dp_remove() cancels debounce_timer with timer_delete_sync(), but the
-HPD interrupt that re-arms it from mtk_dp_hpd_event_thread() is
-requested with devm_request_threaded_irq() and stays enabled until
-devres runs after .remove returns. An HPD falling edge between the
-timer cancellation and the IRQ release re-arms the timer, which can
-then expire after the driver has been unbound, when the struct mtk_dp
-that embeds it may already be freed.
+Add a flag to indicate whether the OS-side driver has been loaded to
+prevent the BMC from enabling DP if the driver is not loaded, which could
+lead to system failure in handling interrupts and generate error messages
+like:
 
-Disable the IRQ first, which also waits for a running hard or threaded
-handler, then cancel the timer. Do this before the runtime PM calls so
-the interrupt is quiesced while the hardware is still powered.
+irq xx: nobody cared (try booting with the "irqpoll" option)
+...
+Call Trace:
+<TRQ>
+...
 
-Fixes: 4652e95e7ea6 ("drm/mediatek: dp: Add hpd debounce")
-Signed-off-by: Hank Liou <hank.liou@mediatek.com>
+The flag is set only after hibmc_dp_init() succeeded, so it also means
+that the DP block is ready.  If DP initialization fails, only the vblank
+MSI vector is requested, so the DP interrupt is not registered at all.
+
+Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
+Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
+Signed-off-by: Lin He <helin52@huawei.com>
+Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
 ---
-Fix the ordering of the HPD IRQ disable and the debounce timer cancellation in mtk_dp_remove().
+ChangeLog:
+v5 -> v6:
+  - Use cleanup-based lock guards for gpio_lock. (Thomas Zimmermann)
+v4 -> v5:
+  - Only set the enable flag when DP was initialized, clear it only when
+    it was set, and do not request the DP interrupt if DP initialization
+    failed. (sashiko-bot)
+v2 -> v3:
+  - Move hibmc_set_enable_flag() before drm_dev_register() and
+    hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
+    race window. (sashiko-bot)
+  - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
+    operations on 0x0802A4. (sashiko-bot)
+v1 -> v2:
+  - The call to `hibmc_set_enable_flag()` has been moved before
+    `drm_client_setup()`, specifically before the connector detection
+    triggers the I2C bit operation. (sashiko-bot)
+  - A read-modify-write operation has been implemented instead of directly
+    writing to prevent clearing the I2C mask bits. (sashiko-bot)
 ---
- drivers/gpu/drm/mediatek/mtk_dp.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 41 ++++++++++++++++++-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 10 ++++-
+ .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
+ 6 files changed, 54 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/gpu/drm/mediatek/mtk_dp.c b/drivers/gpu/drm/mediatek/mtk_dp.c
-index 974c4fff6..7a5e380fd 100644
---- a/drivers/gpu/drm/mediatek/mtk_dp.c
-+++ b/drivers/gpu/drm/mediatek/mtk_dp.c
-@@ -2865,10 +2865,13 @@ static void mtk_dp_remove(struct platform_device *pdev)
- {
- 	struct mtk_dp *mtk_dp = platform_get_drvdata(pdev);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+index 84faa1a7439d..10772cddcfc8 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
+@@ -57,6 +57,7 @@ struct hibmc_dp {
+ 	struct hibmc_dp_cbar_cfg cfg;
+ 	int hpd_status;
+ 	int phys_status;
++	bool initialized;
+ };
  
-+	if (mtk_dp->data->bridge_type != DRM_MODE_CONNECTOR_eDP) {
-+		disable_irq(mtk_dp->irq);
-+		timer_delete_sync(&mtk_dp->debounce_timer);
-+	}
+ int hibmc_dp_hw_init(struct hibmc_dp *dp);
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+index 6ea70c31d1a9..9fa49a2ba093 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
+@@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
+ 	connector->polled = DRM_CONNECTOR_POLL_HPD;
+ 
+ 	dp->phys_status = connector_status_disconnected;
++	dp->initialized = true;
+ 
+ 	return 0;
+ }
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+index 7920f03895fe..5334edf8f88a 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
+@@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
+ 	if (ret)
+ 		return ret;
+ 
++	spin_lock_init(&priv->gpio_lock);
 +
- 	pm_runtime_put(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
--	if (mtk_dp->data->bridge_type != DRM_MODE_CONNECTOR_eDP)
--		timer_delete_sync(&mtk_dp->debounce_timer);
- 	platform_device_unregister(mtk_dp->phy_dev);
- 	if (mtk_dp->audio_pdev)
- 		platform_device_unregister(mtk_dp->audio_pdev);
-
----
-base-commit: ebb7a8dc1e74c705daffe11c2faf38ec2628f838
-change-id: 20261126-mtk-dp-hpd-irq-5fc8b6f72e6e
-
-Best regards,
+ 	dev->mode_config.min_width = 0;
+ 	dev->mode_config.min_height = 0;
+ 	dev->mode_config.max_width = 1920;
+@@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
+ static int hibmc_msi_init(struct drm_device *dev)
+ {
+ 	struct pci_dev *pdev = to_pci_dev(dev->dev);
++	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
++	int max_vectors = HIBMC_MIN_VECTORS;
+ 	int valid_irq_num;
+ 	int irq;
+ 	int ret;
+ 
+-	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
+-				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
++	if (priv->dp.initialized)
++		max_vectors = HIBMC_MAX_VECTORS;
++
++	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
++				    PCI_IRQ_MSI);
+ 	if (ret < 0) {
+ 		drm_err(dev, "enabling MSI failed: %d\n", ret);
+ 		return ret;
+@@ -430,6 +437,32 @@ static int hibmc_load(struct drm_device *dev)
+ 	return ret;
+ }
+ 
++static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
++{
++	u32 value;
++
++	if (!priv->dp.initialized)
++		return;
++
++	guard(spinlock_irqsave)(&priv->gpio_lock);
++	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
++	value |= HIBMC_ENABLE_STATE;
++	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
++}
++
++static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
++{
++	u32 value;
++
++	if (!priv->dp.initialized)
++		return;
++
++	guard(spinlock_irqsave)(&priv->gpio_lock);
++	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
++	value &= ~HIBMC_ENABLE_STATE;
++	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
++}
++
+ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 			   const struct pci_device_id *ent)
+ {
+@@ -465,6 +498,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 		goto err_return;
+ 	}
+ 
++	hibmc_set_enable_flag(priv);
++
+ 	ret = drm_dev_register(dev, 0);
+ 	if (ret) {
+ 		drm_err(dev, "failed to register drv for userspace access: %d\n",
+@@ -477,6 +512,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
+ 	return 0;
+ 
+ err_unload:
++	hibmc_set_disable_flag(priv);
+ 	hibmc_unload(dev);
+ err_return:
+ 	return ret;
+@@ -487,6 +523,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
+ 	struct drm_device *dev = pci_get_drvdata(pdev);
+ 
+ 	drm_dev_unregister(dev);
++	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
+ 	hibmc_unload(dev);
+ }
+ 
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+index dce8572bf63e..c2a82000ea7f 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
+@@ -49,6 +49,8 @@ struct hibmc_drm_private {
+ 	struct drm_crtc crtc;
+ 	struct hibmc_vdac vdac;
+ 	struct hibmc_dp dp;
++
++	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
+ };
+ 
+ static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+index 44860011855e..6d158b8ad7fa 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
+@@ -27,7 +27,10 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
+ {
+ 	struct hibmc_vdac *vdac = data;
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+-	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
++	u32 tmp_dir;
++
++	guard(spinlock_irqsave)(&priv->gpio_lock);
++	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+ 
+ 	if (value) {
+ 		tmp_dir &= ~mask;
+@@ -47,7 +50,10 @@ static int hibmc_get_i2c_signal(void *data, u32 mask)
+ {
+ 	struct hibmc_vdac *vdac = data;
+ 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
+-	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
++	u32 tmp_dir;
++
++	guard(spinlock_irqsave)(&priv->gpio_lock);
++	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
+ 
+ 	if ((tmp_dir & mask) != mask) {
+ 		tmp_dir &= ~mask;
+diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+index 17b30c393b10..b95add5b253c 100644
+--- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
++++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
+@@ -200,5 +200,8 @@
+ 
+ #define HIBMC_CRT_PALETTE                       0x80C00
+ 
++#define HIBMC_ENABLE_FLAG			0x802A4
++#define HIBMC_ENABLE_STATE			BIT(2)
++
+ #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
+ #endif
 -- 
-Hank Liou <hank.liou@mediatek.com>
-
+2.33.0
 
