@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511D7606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:01:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94C3C606A326
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:01:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=fUOXCYpq
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=bZRIS+CC
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A1FD311256D;
-	Thu, 26 Nov 2026 16:01:20 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0673E112574;
+	Thu, 26 Nov 2026 16:01:30 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id DE6AF11256D
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:01:14 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 688D3112572;
+ Thu, 26 Nov 2026 16:01:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id E7FC661D0A;
- Thu, 26 Nov 2026 16:01:13 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 887F31F000D1;
- Thu, 26 Nov 2026 16:01:13 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id E1D0661D0A;
+ Thu, 26 Nov 2026 16:01:22 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3AD0B1F000D0;
+ Thu, 26 Nov 2026 16:00:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795708873;
- bh=1euGQyyIiUIoszx3IDZrsKtBTddUDqula4SHqbKPINU=;
+ s=k20260515; t=1795708852;
+ bh=SWjD6PLxz9KndqGcYLO0+S3kCBNR1pBxV1hz/urwc1k=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=fUOXCYpq8v0sXfHSQAJ3cMyQhuXnCYA0EJkU+tX+4xqI7cILBA74ZG1NtVk6uua+P
- bDVRg2Pits5XkORZN3fWpgPaN+scG55wSdplMYsOX+SHh/Pq9gC8nVlsTKcnzB/DI3
- W2KQIvni6Nv905tENz0J3ygU8M1pVtNFXHoJEZjqQvm1Q8sIhxGd3LqF9t7JOR3mcK
- 92ijUK6faIuRMYXQWCmAIA+toeI777W5Zy8dzdavwCPL9Lr//Udzy/YagXMEdGtmMO
- nzJMJUFhxeyP8Jo98rxvFKVgwpMec6BHwmvJhFBD+HkZ4FdhMBGcq+ktwu3pwoHjak
- N/e3yUHXehQLQ==
-Message-ID: <sashiko-outbox-235870@kernel.org>
+ b=bZRIS+CCpfFjHJ1kcFZ+kylrKmaJ5vm+jbQl24LsiQSin4Pbx1SXvAp+Yhip841ux
+ YkfXMuL1JyIqIDAUcVMcMR7X+Ko1xnYAekwrGKxG4F1nVjkgmx6jWPtcZsC6Qe7rmc
+ mZ1bL1FeYDUBCsCeGA0ddGS3wSFfBX4niFh80SYcipJbh4WSctYcwOp1Mamhi40tXn
+ v7X9MvEqZO+PEUwjWQTRFRC2usnThbeYul8DIXkbx7zD8xBarkxV7P8mWy4UaTi4D6
+ iEGRH8+Pip9c4IyNy7Sk7eI4LiAgAPWVHAgv67sxcMXySBcKBueiYKwXRzrfTrGjhA
+ nbeBp0tN0x9PA==
+Message-ID: <sashiko-outbox-235869@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/vkms: copy a full-screen frame straight to
- writeback
-To: "Oarora Etimis" <oaroraetimis@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126-composer-fastpath-v1-2-aa7458d84a7b@gmail.com>
-References: <20261126-composer-fastpath-v1-0-aa7458d84a7b@gmail.com>
- <20261126-composer-fastpath-v1-2-aa7458d84a7b@gmail.com>
+Subject: Re: [RFC] drm/sched: Track sched fence scheduled and finished time
+ directly
+To: "Tvrtko Ursulin" <tvrtko.ursulin@igalia.com>,
+ dri-devel@lists.freedesktop.org
+Cc: amd-gfx@lists.freedesktop.org
+In-Reply-To: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
+References: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 26 Nov 2026 16:01:13 +0000
+Date: Thu, 26 Nov 2026 16:00:51 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -53,158 +53,156 @@ Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 3 potential
 issues to consider:
-- [Medium] drm/vkms: uncomputed zero CRC queued after writeback_direct()
-  fast path
-- [Low] drm/vkms: missing kernel-doc descriptions for writeback_direct()
-  and blend()
+- [Medium] drm/sched: drm_sched_fence_advance_start_time() advances
+  start_ts past end
+- [Medium] drm/sched: race in drm_sched_fence_scheduled() drops start_ts
+  advancement
+- [Low] drm/sched: wrong kernel-doc comment on
+  drm_sched_fence_finished_time()
 --
 
-commit b8f92ae3007226a9078822ce948db7eb0d6b0153
-Author: Oarora Etimis <oaroraetimis@gmail.com>
+commit 410c845aad37c46edfe8c0d12fc45e44b4afc986
+Author: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 
-drm/vkms: copy a full-screen frame straight to writeback
+drm/sched: Track sched fence scheduled and finished time directly
 
-This commit adds a fast path to copy a full-screen 32-bit plane directly
-into a matching writeback framebuffer when no CRC calculation, gamma LUT,
-rotation, or blending is active.
+This commit records scheduled and finished timestamps directly in struct
+drm_sched_fence under a dedicated spinlock instead of reading and
+overwriting dma_fence.timestamp.
 
-> diff --git a/drivers/gpu/drm/vkms/vkms_composer.c b/drivers/gpu/drm/vkms/=
-vkms_composer.c
-> index 4e2dd568bc3e3..7ecd8b459ed26 100644
-> --- a/drivers/gpu/drm/vkms/vkms_composer.c
-> +++ b/drivers/gpu/drm/vkms/vkms_composer.c
-> @@ -581,6 +581,49 @@ static bool compose_direct(const struct vkms_crtc_st=
-ate *crtc_state)
->  	return true;
->  }
+> diff --git a/drivers/gpu/drm/scheduler/sched_fence.c b/drivers/gpu/drm/sc=
+heduler/sched_fence.c
+> index 94ba0cf4fe027..5fecd3ebfffbb 100644
+> --- a/drivers/gpu/drm/scheduler/sched_fence.c
+> +++ b/drivers/gpu/drm/scheduler/sched_fence.c
+> @@ -65,6 +65,9 @@ static void drm_sched_fence_set_parent(struct drm_sched=
+_fence *s_fence,
+>  void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+>  			       struct dma_fence *parent)
+>  {
+> +	ktime_t now =3D ktime_get();
+> +	unsigned long flags;
+> +
+>  	/* Set the parent before signaling the scheduled fence, such that,
+>  	 * any waiter expecting the parent to be filled after the job has
+>  	 * been scheduled (which is the case for drivers delegating waits
+> @@ -74,14 +77,26 @@ void drm_sched_fence_scheduled(struct drm_sched_fence=
+ *fence,
+>  	if (!IS_ERR_OR_NULL(parent))
+>  		drm_sched_fence_set_parent(fence, parent);
 > =20
-> +/**
-> + * writeback_direct() - Can the frame skip the line buffer?
-> + * @crtc_state: the state to compose
-> + * @wb: the writeback job, or NULL
-> + *
-> + * True when nothing needs 16-bit pixels: no CRC, no LUT, no colour pipe=
-line,
-> + * same 32-bit format on both sides.
-> + *
-> + * Returns: true if the frame can be copied straight into the writeback =
-buffer.
-> + */
-> +static bool writeback_direct(const struct vkms_crtc_state *crtc_state,
-> +			     const struct vkms_writeback_job *wb,
-> +			     const struct vkms_plane_state *plane)
-> +{
-> +	const struct vkms_output *output;
-> +	const struct drm_format_info *format;
+> -	dma_fence_signal(&fence->scheduled);
+> +	spin_lock_irqsave(&fence->ts_lock, flags);
+> +	fence->start_ts =3D now;
+> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
 > +
-> +	if (!wb)
-> +		return false;
-> +
-> +	/* The CRC is computed over the 16-bit line buffer. */
-> +	output =3D drm_crtc_to_vkms_output(crtc_state->base.crtc);
-> +	if (READ_ONCE(output->crc_enabled))
-> +		return false;
-> +
-> +	/* The gamma LUT is applied to the 16-bit line buffer. */
-> +	if (crtc_state->gamma_lut.y)
-> +		return false;
-> +
-> +	/* The copy walks source rows, so the plane cannot be rotated. */
-> +	if (plane->frame_info.rotation !=3D DRM_MODE_ROTATE_0)
-> +		return false;
-> +
-> +	if (plane->frame_info.src.x1 || plane->frame_info.src.y1)
-> +		return false;
-> +
-> +	format =3D plane->frame_info.fb->format;
-> +	if (format !=3D wb->wb_frame_info.fb->format)
-> +		return false;
-> +
-> +	return format->cpp[0] =3D=3D 4;
-> +}
-> +
->  /**
->   * blend - blend the pixels from all planes and compute crc
->   * @wb: The writeback frame buffer metadata
-> @@ -597,7 +640,8 @@ static bool compose_direct(const struct vkms_crtc_sta=
-te *crtc_state)
->  static void blend(struct vkms_writeback_job *wb,
->  		  struct vkms_crtc_state *crtc_state,
->  		  u32 *crc32, struct line_buffer *stage_buffer,
-> -		  struct line_buffer *output_buffer, size_t row_size)
-> +		  struct line_buffer *output_buffer, size_t row_size,
-> +		  bool direct)
+> +	dma_fence_signal_timestamp(&fence->scheduled, now);
+>  }
 
-[Severity: Low]
-The kernel-doc comments above writeback_direct() and blend() are missing
-descriptions for the @plane and @direct parameters, which will trigger
-W=3D1 kernel-doc warnings.
+[Severity: Medium]
+Can drm_sched_fence_scheduled() overwrite a start_ts advancement on an
+unordered submit_wq?
+
+drm_sched_run_job_work() adds the job to sched->pending_list in
+drm_sched_job_begin() before calling run_job() and
+drm_sched_fence_scheduled().  If the previous head job finishes while
+this job is between drm_sched_job_begin() and acquiring fence->ts_lock:
+
+work_run_job (next)               work_free_job (prev)
+drm_sched_job_begin(next)
+  list_add_tail(..., pending_list)
+fence =3D run_job(next)
+drm_sched_fence_scheduled()
+  now =3D ktime_get()
+                                  drm_sched_get_finished_job()
+                                    ts =3D ...finished_time(prev)
+                                    drm_sched_fence_advance_start_time()
+                                      /* start_ts =3D=3D 0, no-op */
+  spin_lock(&fence->ts_lock)
+  fence->start_ts =3D now;  <-- older than prev's finished_ts
+
+The advancement to prev's finish timestamp is lost and next->s_fence
+keeps the earlier timestamp, overaccounting GPU time.
 
 [ ... ]
 
-> @@ -690,6 +734,15 @@ static int compose_active_planes(struct vkms_writeba=
-ck_job *active_wb,
->  	if (WARN_ON(check_format_funcs(crtc_state, active_wb)))
->  		return -EINVAL;
+> diff --git a/drivers/gpu/drm/scheduler/sched_internal.h b/drivers/gpu/drm=
+/scheduler/sched_internal.h
+> index 32d3ddb820be6..be90e55af9470 100644
+> --- a/drivers/gpu/drm/scheduler/sched_internal.h
+> +++ b/drivers/gpu/drm/scheduler/sched_internal.h
+> @@ -67,6 +67,47 @@ void drm_sched_fence_scheduled(struct drm_sched_fence =
+*fence,
+>  			       struct dma_fence *parent);
+>  void drm_sched_fence_finished(struct drm_sched_fence *fence, int result);
 > =20
-> +	direct =3D compose_direct(crtc_state);
+> +/**
+> + * drm_sched_fence_advance_start_time - Advance scheduler fence schedule=
+d timestamp
+> + * @fence: scheduler fence
+> + * @t: time to advance to
+> + *
+> + * Advances the scheduler fence scheduled time to @t if the fence has al=
+ready
+> + * been scheduled with an older timestamp.
+> + */
+> +static inline void
+> +drm_sched_fence_advance_start_time(struct drm_sched_fence *fence, ktime_=
+t t)
+> +{
+> +	unsigned long flags;
 > +
-> +	if (direct && writeback_direct(crtc_state, active_wb, crtc_state->activ=
-e_planes[0])) {
-> +		for (int y =3D 0; y < crtc_state->base.mode.vdisplay; y++)
-> +			vkms_writeback_row_direct(active_wb, crtc_state->active_planes[0], y);
-> +
-> +		return 0;
-> +	}
+> +	spin_lock_irqsave(&fence->ts_lock, flags);
+> +	if (fence->start_ts && ktime_after(t, fence->start_ts))
+> +		fence->start_ts =3D t;
+> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
+> +}
 
 [Severity: Medium]
-Can this fast path cause vkms_composer_worker() to enqueue an uncomputed
-0x00000000 CRC entry when CRC collection is opened concurrently?
+Can drm_sched_fence_advance_start_time() advance fence->start_ts past an
+already recorded fence->finished_ts?
 
-When writeback_direct() returns true, compose_active_planes() skips
-blend() and leaves crc32 at 0, but vkms_composer_worker() still
-unconditionally passes crc32 to drm_crtc_add_crc_entry():
+If a later job on sched->pending_list finishes before the head job (for
+example, when run_job() returns an error or NULL for a canceled job so
+drm_sched_run_job_work() immediately calls drm_sched_job_done(), or when
+parent fences signal out of order), next->s_fence->finished_ts is set to
+T1 while next remains queued behind the head job.  When the head job
+later completes at T2 > T1, drm_sched_get_finished_job() advances
+next->s_fence->start_ts to T2 because drm_sched_fence_advance_start_time()
+does not check fence->finished_ts.
 
-drivers/gpu/drm/vkms/vkms_composer.c:vkms_composer_worker() {
-    ...
-	u32 crc32 =3D 0;
-    ...
-	if (wb_pending)
-		ret =3D compose_active_planes(active_wb, crtc_state, &crc32);
-    ...
-	while (frame_start <=3D frame_end)
-		drm_crtc_add_crc_entry(crtc, true, frame_start++, &crc32);
-}
+ktime_sub(end, start) then yields a negative duration in
+drm_sched_entity_stats_job_add_gpu_time() and amdgpu_ctx_fence_time(),
+subtracting from accumulated runtime and passing a negative value cast to
+unsigned long into ewma_drm_sched_avgtime_add(), which wraps
+stats->avg_job_us and sched->avg_job_us near ULONG_MAX.
 
-In crtc_crc_open(), crc->entries is allocated and published before
-.set_crc_source() (vkms_set_crc_source()) updates output->crc_enabled:
+> +
+> +/**
+> + * drm_sched_fence_finished_time - Queries the scheduler fence finished =
+timestamp
+> + * @fence: scheduler fence
+> + *
+> + * Advances the scheduler fence scheduled time to @t if the fence has al=
+ready
+> + * been scheduled with an older timestamp.
+> + *
+> + * Returns: Scheduler fence finished timestamp.
+> + */
 
-CPU0 (vkms_composer_worker)       CPU1 (crtc_crc_open)
-                                  spin_lock_irq(&crc->lock)
-                                  crc->opened =3D true
-                                  crc->entries =3D entries
-                                  spin_unlock_irq(&crc->lock)
-compose_active_planes()
-  writeback_direct()
-    READ_ONCE(output->crc_enabled) -> false
-  vkms_writeback_row_direct()
-                                  vkms_set_crc_source()
-                                    WRITE_ONCE(out->crc_enabled, true)
-drm_crtc_add_crc_entry(..., &crc32)
-  <-- queues uncomputed crc32 =3D=3D 0 into crc->entries
-
-Even if crtc_crc_open() runs after writeback_direct() checks
-output->crc_enabled, drm_crtc_add_crc_entry() will still see the newly
-opened ring buffer and enqueue a bogus zero CRC for the in-flight frame.
+[Severity: Low]
+This kernel-doc body looks copy-pasted from
+drm_sched_fence_advance_start_time() and refers to @t, which
+drm_sched_fence_finished_time() does not take.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126-composer-f=
-astpath-v1-0-aa7458d84a7b@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126154200.7118=
+0-1-tvrtko.ursulin@igalia.com?part=3D1
