@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E212A606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:11:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F240606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 11:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=KxLaj4sJ
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.a=rsa-sha256 header.s=20170329 header.b=LGs31Giz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 61A6C10E989;
-	Thu, 26 Nov 2026 11:11:37 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0B66710E96A;
+	Thu, 26 Nov 2026 11:11:50 +0000 (UTC)
 Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8385710E989
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:11:31 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED6C8112215
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:11:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com; 
  s=20170329;
  h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
  Date:Subject:Cc:To:From:From:Reply-To;
- bh=jJ1tq71DpD3RX2IBJ7zvIFQs67UcDAT39C7AfDJhYaE=; t=1795691491; x=2111051491; 
- b=KxLaj4sJZyREy4mkyuUTbwNuUBrxYRiesUyyfEFaCWEumD6iGuiQhf2iKmF+4vbhwikLL1GUGEO
- en9gIHlb5+sJ6rYQIkagN9gYifgO74aFyutbBtZKUFMLv4+88ZvWX4mjt+B77gcNBU939PXXTekzs
- alwHDg+YpScxYZbBIol5ZyR9+f3tkrAsOf5eB2r3mZqggKxdmAMluL7nDZi7RjlxuFQRzMi+M5hTp
- 8k8UjNtunla9T8aqbccXuT77oq8ARNvfkeIizs5WOB1Q4tO2pQ+2uYXVD/WdNDjnb+z1ZFzVoUZaN
- TpsYES814ymm0HrI+yjI7dHnOCObvCD815+w==;
+ bh=fUCRSyEo5ryAWrtfk0hGWy+cooObOYllnkoNXrZOqgE=; t=1795691492; x=2111051492; 
+ b=LGs31GizC86oMFMoR5iW130UwqDDtgy3doDuSNYwnLI+cpJ3cdK+usTsdbmkE+ooSAjvwqe/mgx
+ SC6ontQ6UKX4ox9ctN7ck8bN9qHM5xXQP6XhZiV7M6z0LcnPKbs5MWM8yGDmwMrleEzmO7zCVNoHc
+ v+Tw/oWpnFQPft/MU4v1VZ2z5MJry+ax6lVblSTXFlYbduuWhmjQObM7Bk0ysuUr/OQ330m6IBLik
+ 34NOY1KqRvJfUXt6RLVJi+POPr4gu/HNCnEI64yJNMbygqtHyY3gNfivZx/A0LD3Vmh/G0cYeWjtL
+ wKpuSNclE2/F+LRurhQj8C5VLBpI6tFpfSpQ==;
 Received: from [81.79.79.1] (helo=localhost)
  by fanzine2.igalia.com with esmtpsa 
  (Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
- id 1xWXNx-00000004MPl-43S2; Thu, 26 Nov 2026 12:11:30 +0100
+ id 1xWXNz-00000004MQ5-1VE9; Thu, 26 Nov 2026 12:11:31 +0100
 From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 To: dri-devel@lists.freedesktop.org
 Cc: kernel-dev@igalia.com, Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
  Fei Yu <fei.yu@intel.com>,
- =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>
-Subject: [PATCH 1/7] drm/syncobj: Use vmemdup_array_user in
- drm_syncobj_array_find
-Date: Thu, 26 Nov 2026 11:11:11 +0000
-Message-ID: <20261126111117.67342-2-tvrtko.ursulin@igalia.com>
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>
+Subject: [PATCH 3/7] drm/syncobj: Use scoped cleanup for
+ drm_syncobj_array_wait_timeout syncobjs
+Date: Thu, 26 Nov 2026 11:11:13 +0000
+Message-ID: <20261126111117.67342-4-tvrtko.ursulin@igalia.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
 References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
@@ -60,40 +61,147 @@ X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Using a helper shrinks the code and separating the user and kernel slabs
-is more secure.
+Use scoped cleanup for drm_syncobj_array_wait_timeout entries array
+allocation and syncobj cleanup.
+
+This converts the remaining parts of the function resulting in simpler
+error handling and easier extending with a fast path in the future.
 
 Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-Cc: Fei Yu <fei.yu@intel.com>
 Cc: Christian König <christian.koenig@amd.com>
+Cc: Fei Yu <fei.yu@intel.com>
+Cc: Maíra Canal <mcanal@igalia.com>
 ---
- drivers/gpu/drm/drm_syncobj.c | 13 ++++---------
- 1 file changed, 4 insertions(+), 9 deletions(-)
+ drivers/gpu/drm/drm_syncobj.c | 61 +++++++++++++++++++++++------------
+ 1 file changed, 40 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-index 6cc654641183..663d6cb8dbf8 100644
+index bd3f9e74e678..7d5c4e4e29b2 100644
 --- a/drivers/gpu/drm/drm_syncobj.c
 +++ b/drivers/gpu/drm/drm_syncobj.c
-@@ -1252,15 +1252,10 @@ static int drm_syncobj_array_find(struct drm_file *file_private,
- 	if (count_handles > DRM_SYNCOBJ_MAX_HANDLES)
- 		return -EINVAL;
+@@ -1044,6 +1044,31 @@ static void syncobj_wait_syncobj_func(struct drm_syncobj *syncobj,
+ 	list_del_init(&wait->node);
+ }
  
--	handles = kvmalloc_objs(*handles, count_handles);
--	if (handles == NULL)
--		return -ENOMEM;
--
--	if (copy_from_user(handles, user_handles,
--			   sizeof(uint32_t) * count_handles)) {
--		ret = -EFAULT;
--		goto err_free_handles;
++struct syncobj_wait_entries {
++	struct drm_syncobj **syncobjs;
++	struct syncobj_wait_entry *entries;
++	unsigned int count;
++};
++
++static void syncobj_wait_entries_free(struct syncobj_wait_entries *e)
++{
++	if (!e->entries)
++		return;
++
++	for (unsigned int i = 0; i < e->count; i++) {
++		drm_syncobj_remove_wait(e->syncobjs[i], &e->entries[i]);
++		if (e->entries[i].fence_cb.func)
++			dma_fence_remove_callback(e->entries[i].fence,
++						  &e->entries[i].fence_cb);
++		dma_fence_put(e->entries[i].fence);
++	}
++
++	kvfree(e->entries);
++}
++
++DEFINE_FREE(syncobj_wait_entries, struct syncobj_wait_entries,
++	    syncobj_wait_entries_free(&_T))
++
+ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 						  void __user *user_points,
+ 						  uint32_t count,
+@@ -1052,6 +1077,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 						  uint32_t *idx,
+ 						  ktime_t *deadline)
+ {
++	struct syncobj_wait_entries cleanup __free(syncobj_wait_entries) = {};
+ 	struct syncobj_wait_entry *entries;
+ 	u64 *points __free(kvfree) = NULL;
+ 	struct dma_fence *fence;
+@@ -1076,6 +1102,11 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 	if (!entries)
+ 		return -ENOMEM;
+ 
++	/* After this the entries cleanup is fully automatic. */
++	cleanup.syncobjs = syncobjs;
++	cleanup.entries = entries;
++	cleanup.count = count;
++
+ 	/* Walk the list of sync objects and initialize entries.  We do
+ 	 * this up-front so that we can properly return -EINVAL if there is
+ 	 * a syncobj with a missing fence and then never have the chance of
+@@ -1091,12 +1122,10 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 		if (!fence || dma_fence_chain_find_seqno(&fence, points[i])) {
+ 			dma_fence_put(fence);
+ 			if (flags & (DRM_SYNCOBJ_WAIT_FLAGS_WAIT_FOR_SUBMIT |
+-				     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE)) {
++				     DRM_SYNCOBJ_WAIT_FLAGS_WAIT_AVAILABLE))
+ 				continue;
+-			} else {
+-				timeout = -EINVAL;
+-				goto cleanup_entries;
+-			}
++
++			return -EINVAL;
+ 		}
+ 
+ 		if (fence)
+@@ -1115,7 +1144,7 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 	if (signaled_count == count ||
+ 	    (signaled_count > 0 &&
+ 	     !(flags & DRM_SYNCOBJ_WAIT_FLAGS_WAIT_ALL)))
+-		goto cleanup_entries;
++		return timeout;
+ 
+ 	/* There's a very annoying laxness in the dma_fence API here, in
+ 	 * that backends are not required to automatically report when a
+@@ -1160,40 +1189,30 @@ static signed long drm_syncobj_array_wait_timeout(struct drm_syncobj **syncobjs,
+ 				} else {
+ 					if (idx)
+ 						*idx = i;
+-					goto done_waiting;
++					__set_current_state(TASK_RUNNING);
++					return timeout;
+ 				}
+ 			}
+ 		}
+ 
+ 		if (signaled_count == count)
+-			goto done_waiting;
++			break;
+ 
+ 		if (timeout == 0) {
+ 			timeout = -ETIME;
+-			goto done_waiting;
++			break;
+ 		}
+ 
+ 		if (signal_pending(current)) {
+ 			timeout = -ERESTARTSYS;
+-			goto done_waiting;
++			break;
+ 		}
+ 
+ 		timeout = schedule_timeout(timeout);
+ 	} while (1);
+ 
+-done_waiting:
+ 	__set_current_state(TASK_RUNNING);
+ 
+-cleanup_entries:
+-	for (i = 0; i < count; ++i) {
+-		drm_syncobj_remove_wait(syncobjs[i], &entries[i]);
+-		if (entries[i].fence_cb.func)
+-			dma_fence_remove_callback(entries[i].fence,
+-						  &entries[i].fence_cb);
+-		dma_fence_put(entries[i].fence);
 -	}
-+	handles = vmemdup_array_user(user_handles, count_handles,
-+				     sizeof(*handles));
-+	if (IS_ERR(handles))
-+		return PTR_ERR(handles);
+-	kvfree(entries);
+-
+ 	return timeout;
+ }
  
- 	syncobjs = kvmalloc_objs(*syncobjs, count_handles);
- 	if (syncobjs == NULL) {
 -- 
 2.56.0
 
