@@ -2,49 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F341F606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:46:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E052B606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JorL3aJo
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Z0VY7+XD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 267B910E3B7;
-	Thu, 26 Nov 2026 12:46:16 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 131BC10E2D3;
+	Thu, 26 Nov 2026 12:47:31 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 727B010E3B7
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:46:10 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0F3B510E2D3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:47:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 19DEB42369;
- Thu, 26 Nov 2026 12:46:10 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D33A1F000CF;
- Thu, 26 Nov 2026 12:46:08 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id CF1284663E;
+ Thu, 26 Nov 2026 12:47:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8D721F000D0;
+ Thu, 26 Nov 2026 12:47:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795697169;
- bh=rdckaT7Rt0EQb8wTCfji2xEphbWqzL0dz1XZ9l8Clsc=;
+ s=k20260515; t=1795697244;
+ bh=q4oaVRG88t+rJ671yZUZBq0iKBzOxZgNztWtKYUJVTI=;
  h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=JorL3aJoW2gdhWICjJZWD9lShxKhQ3aR0FERUD/a77KVrVtieN41jVosl/Ng8vteW
- e6zG24bGmaK33JWWjSlqLWYtW04LUWdomEe99l3sFtRjQoIaTzqWjIEvvWPFK6wsfU
- Onjp4PZYkYghGmM6w+W8yDHQRobbwtj9+secXT8gVa+iOzTk2nHnoxkbp9ilciyYOE
- yB7orAik8emW3NxVWiTDMq8VRJXNAqzjiIqb06uWgVhwu3yAtGBMcXF0dIVH2OadCx
- wmfkKIjlrp6IFAtnJ8bsNGiwKsyHzeNaKZXzyJHmbvq78PjtVFGkn4qiYIufExgQyj
- cjHDti7AVJzzQ==
-Date: Thu, 26 Nov 2026 12:46:05 +0000
+ b=Z0VY7+XDTSGwCNFGY9Vo4wDSQRlh/DcTkHoq0uA68MVx8XxzkifE1qxOEUGbbeuLO
+ BH6J9AxzdCEljo4uH0bHCasdJR+FlF7JeF7IJyZwQtA9P1UVFb4Im/q5Vl3wa2uCIT
+ FRvg8X8zfykFpphpk9NnITVPR4NWv97L0nnN7Wb/mImjqwfCjcqd7R0JrdFbe7tPhe
+ pWgqQ1O5+AQB9pc2FkU/G6Jw56nDY0FyHogp7TdzTD43uTFYoW1KpDKRke+9UICWwm
+ Nx135+KNmoFylG3do5CAJz6JYa9vTDI2n9MuUc0Gl2KwDDYr2M9sLwSAM39Ur3lSgT
+ NShKA0E4s989g==
+Date: Thu, 26 Nov 2026 12:47:19 +0000
 From: Lee Jones <lee@kernel.org>
 To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Helge Deller <deller@gmx.de>, dri-devel@lists.freedesktop.org,
- linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] video: leds: backlight: lm3533: Support getting LED
- sources from DT
-Message-ID: <20261126124605.GI38590@joneslee-macbookpro.roam.internal>
-References: <20261115085155.80043-1-clamor95@gmail.com>
- <20261126114506.GF38590@joneslee-macbookpro.roam.internal>
- <CAPVz0n1QApS9Y67WH1xJ34wg9AWz+RQ0DXEd5jAPEnAw=cTd2g@mail.gmail.com>
+Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>,
+ Mark Brown <broonie@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+ Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ mfd@lists.linux.dev, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO
+ power supplies
+Message-ID: <20261126124719.GJ38590@joneslee-macbookpro.roam.internal>
+References: <20261115085826.89641-1-clamor95@gmail.com>
+ <20261115085826.89641-5-clamor95@gmail.com>
+ <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+ <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n1QApS9Y67WH1xJ34wg9AWz+RQ0DXEd5jAPEnAw=cTd2g@mail.gmail.com>
+In-Reply-To: <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -65,112 +70,35 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 On Thu, 26 Nov 2026, Svyatoslav Ryhel wrote:
 
-> чт, 26 лист. 2026 р. о 13:45 Lee Jones <lee@kernel.org> пише:
+> чт, 26 лист. 2026 р. о 13:47 Lee Jones <lee@kernel.org> пише:
 > >
 > > On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
 > >
-> > > Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-> > > defined in the device tree.
+> > > The AAT2870 supports a dedicated main power supply input alongside parent
+> > > power supply for its internal regulators.
+> > >
+> > > Add support for retrieving and managing these supply regulators
+> > > (vin-supply and in-ldo-supply) using the regulator framework to ensure
+> > > proper power supply dependencies and power-up sequencing.
 > > >
 > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > Reviewed-by: Daniel Thompson (RISCstar) <danielt@kernel.org>
 > > > ---
-> > > This was part of the original LM3533 controller DT/OF conversion patchset,
-> > > but it appears to have been accidentally separated during the final iteration.
-> > > Therefore, I am sending it as a follow-up.
-> > >
-> > > Changes in v2:
-> > > - leds: switch to macros in regmap_update_bits() calls to apply 0xff mask
-> > >   since regmap writes may cause unwanted writing.
-> > >
-> > > Changes in v3:
-> > > - leds part moved into a separate patchset
-> > > - switched to dev_err_probe()
-> > > - for loop moved out of if condition
-> > > ---
-> > >  drivers/video/backlight/lm3533_bl.c | 44 +++++++++++++++++++++++++++++
-> > >  1 file changed, 44 insertions(+)
-> > >
-> > > diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-> > > index fd6e7f4f1f61c..cb9df6ff73001 100644
-> > > --- a/drivers/video/backlight/lm3533_bl.c
-> > > +++ b/drivers/video/backlight/lm3533_bl.c
-> > > @@ -7,6 +7,7 @@
-> > >   * Author: Johan Hovold <jhovold@gmail.com>
-> > >   */
-> > >
-> > > +#include <linux/bits.h>
-> > >  #include <linux/module.h>
-> > >  #include <linux/init.h>
-> > >  #include <linux/platform_device.h>
-> > > @@ -21,6 +22,7 @@
-> > >  #define LM3533_HVCTRLBANK_COUNT              2
-> > >  #define LM3533_BL_MAX_BRIGHTNESS     255
-> > >
-> > > +#define LM3533_REG_OUTPUT_CONF1              0x10
-> > >  #define LM3533_REG_CTRLBANK_AB_BCONF 0x1a
-> > >  #define   CTRLBANK_AB_BCONF_ALS(n)   BIT(2 * (n))
-> > >  #define   CTRLBANK_AB_BCONF_MODE(n)  BIT(2 * (n) + 1)
-> > > @@ -35,6 +37,9 @@ struct lm3533_bl {
-> > >       u32 max_current;
-> > >       u32 pwm;
-> > >
-> > > +     int num_leds;
-> > > +     u32 led_strings[LM3533_HVCTRLBANK_COUNT];
-> > > +
-> > >       bool have_als;
-> > >       bool linear;
-> > >  };
-> > > @@ -236,6 +241,8 @@ static const struct attribute_group *lm3533_bl_attribute_groups[] = {
-> > >  static int lm3533_bl_setup(struct lm3533_bl *bl)
-> > >  {
-> > >       int ctrlbank = lm3533_bl_get_ctrlbank_id(bl);
-> > > +     u32 output_cfg_val = 0;
-> > > +     u32 output_cfg_mask = 0;
-> > >       int ret;
-> > >
-> > >       ret = regmap_assign_bits(bl->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
-> > > @@ -243,6 +250,21 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
-> > >       if (ret)
-> > >               return ret;
-> > >
-> > > +     for (int i = 0; i < bl->num_leds; i++) {
-> > > +             if (bl->led_strings[i] >= LM3533_HVCTRLBANK_COUNT)
-> > > +                     continue;
-> > > +
-> > > +             output_cfg_val |= ctrlbank << bl->led_strings[i];
-> > > +             output_cfg_mask |= BIT(bl->led_strings[i]);
-> > > +     }
-> > > +
-> > > +     if (bl->num_leds) {
-> > > +             ret = regmap_update_bits(bl->regmap, LM3533_REG_OUTPUT_CONF1,
-> > > +                                      output_cfg_mask, output_cfg_val);
-> > > +             if (ret)
-> > > +                     return ret;
-> > > +     }
-> > > +
-> > >       ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
-> > >       if (ret)
-> > >               return ret;
-> > > @@ -320,6 +342,28 @@ static int lm3533_bl_probe(struct platform_device *pdev)
-> > >
-> > >       device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
-> > >
-> > > +     /*
-> > > +      * If led-sources property is not set then either this Control Bank uses
-> > > +      * its default HVLED or is not linked to any HVLED at all.
-> > > +      */
-> > > +     bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-> > > +     if (bl->num_leds > LM3533_HVCTRLBANK_COUNT)
-> > > +             return dev_err_probe(&pdev->dev, -EINVAL,
-> > > +                                  "num of LED sources %d exceeds max %d\n",
+> > >  drivers/mfd/aat2870-core.c            | 5 +++++
+> > >  drivers/regulator/aat2870-regulator.c | 1 +
 > >
-> > Nit: As I mentioned before, this is user-documentation - should be number?
+> > Is this a build dep?
 > >
 > 
-> Daniel Thompson was fine with num
+> More a logical link, I can break it but it still will be part of this patch set.
+> 
+> > Would something that was working before, break?
+> 
+> Other way, it was broken (aat2870 may have a dedicated supply) and now
+> it is fixed.
 
-I'm not.  I'll let 'max' slide, but not 'num'.
+Great.  Split it and Mark and I will take them into our own subsystems.
+
+Thanks.
 
 -- 
 Lee Jones
