@@ -2,73 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80ABD606A32C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:25:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FFC2606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:25:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=Tv09dO3e
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=m6PYmqqI
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4D6710F532;
-	Thu, 26 Nov 2026 06:25:22 +0000 (UTC)
-Received: from mail-dl1-f48.google.com (mail-dl1-f48.google.com [74.125.82.48])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B093B10F51D
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:25:09 +0000 (UTC)
-Received: by mail-dl1-f48.google.com with SMTP id
- a92af1059eb24-170135e43c7so10346709c88.0
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:25:09 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id B496D10F596;
+	Thu, 26 Nov 2026 06:25:30 +0000 (UTC)
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D5D5D10F528
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:25:17 +0000 (UTC)
+Received: by mail-dl1-f41.google.com with SMTP id
+ a92af1059eb24-1b3acec6677so10090341c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:25:17 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795674309; x=1796279109;
+ d=chromium.org; s=google; t=1795674317; x=1796279117;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=M/GwF7ja2EExmiOCCoGRHXQh66DBZWnwfGBy5FGHJ3U=;
- b=Tv09dO3e3HhN6Ro66ozJfVLKlOKFrunPnHZuHKGtZqA/FZWODpioDV1ipL2lZS6smW
- HcmY/GwsoN2m74t2rPEa0csmiw05YXW+jF9dOZRCon7DUAfedvT/eTbHUtuaPyw8b6R/
- KovabbwAWScO1EpUPbyVeROzV/FTSD3TXtmzo=
+ bh=HNRVcWsUwEqRjHp3GCePDYV+jK31QihzT78TeRmMmIA=;
+ b=m6PYmqqIcOCS6kbF64zaNuIjTgj4qCodwKNaNyQv/HRQC5Ss/tnV4zzAQW6egXgTQ0
+ 8Mu2BZFLI5ozKUyYIDvTuJ+Zpyy2KKXPq9hKuGAjTV15sB258cR/0Qrx8wzez00uek3j
+ FgSuQbbY7w4PH/CfuWoygtn1U9///0iuZMxZI=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795674309; x=1796279109;
+ d=1e100.net; s=20260707; t=1795674317; x=1796279117;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=M/GwF7ja2EExmiOCCoGRHXQh66DBZWnwfGBy5FGHJ3U=;
- b=kNfnglMdp5eh/5miqZwkFNWSbFlMTdfzmdS6twH4St3whBJHtjhSDM0IiAZrBFHTuY
- BZK98SrBb1jqhr3sBYLt77FkYgt/3o8ZkANcpsEtNKYqNjgBXSSh8Ekn+RY0tBi0cr9N
- 0j7az2Zdmoy7UD3km8BTPzSKukLJarij8cD1gzTfEETiKAekaXD8cfwA8Ag/KvmN5YVQ
- ABgfYttDOgd6Mamy7kfhFe324tyLc6uiylSEkvjB9eg/RIA5WPXvbDC2ql/cyLnUdgFD
- JWN7hiHc9g6faO2lrOs5/whR4vR4odOWF1gqk3PwnMkTIF33q2SSLHCJZC+d9rZ4YM7P
- dKyA==
+ bh=HNRVcWsUwEqRjHp3GCePDYV+jK31QihzT78TeRmMmIA=;
+ b=OPXiR7aBCr8YNwmLL6TyGTqXkkFDiNXHYFwEWyX5NVSjoZ0ZuESrxTt/61vvoMnHZt
+ x2g0++8I6NbVKqj7bHyhi94HZGSGJcIJm7+qhWln2bgMl++eZL7ZGm+/LsfCGTAJ1uPE
+ iWmN5yt1LZtf514bDBEBm6jwAglvvZAB24ZOIRXjUGyz7Y7bjVZCiQSWTeh4BTGrAao4
+ q6nrpVTd0Kzozm8jd4fiIEDUBDMJach7qaMHfVEGIGZs2yM6YorGpmdJDyDG0i9w+aSw
+ qfCjeiARFMlPPImvMo2Yx4CSxCXxwEVDJ7gQLuuU8ehkQFIcHiFJeXpxLyGfJQarLV1Q
+ 7Z3A==
 X-Forwarded-Encrypted: i=1;
- AL+hErHFb7pEyA5VxoQB2A+mkD0EDtbwCDXXK4Eh+6QcuvLMnx5ePPQuXeZMgotcEuXqZ6e4+O7Nl9G4wJE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+AbW1uSIb8sNd0uk4vOpV0u2XaeYC7lALIXyknhiFbZTHVt3WY
- HBvIH3ioE6ZMgnGRA9jwWVM56a5Akg9jQz4UtSf0Gfb60vUyxkLNi5Cp29F+MhjVHw==
-X-Gm-Gg: AZFdTZex+ZmXpv5xRe8y6auJqQJG0pnFFPQMFYTE+vqnuZunTpi7bei7CbRuSoE9QTr
- IxCYHg8aMGNqR47Xj7KysHhKOXaJM9r0uXbGpcuXgOjZ8LogHgg+apiKLLnLZ9K02e7L1GpDl50
- Mr8W4Kz+nXpmeqpN5z+jyIC0Cq8w6Xx/zbjj0xtnResv2cAbarSeC68Y25angS5yaZ7707RxMa/
- 0yLAITwOErUi2RLKS9KH7duTheQyQvSY0/9VijRX0ge14I0ecGE3OeeN44f/sSfz9qoD2kSHlX/
- H/QKby6SOgDOzBhk3bZGPHmFmicmBJAEYpAelrLKwW/Tlb4xA15wXS5AG1rQfd+TLl4f2WLgT+u
- Ya7qXZyJ9C8QKdTlH/PjFgasez5dAPWf1urPSH6NRbPGq2DhgSEPJgcwzHX0mByM0qYFgS7Dbpf
- /pLNFlt0nq5r6KylqBKWdM2ylpQlSqKuLP9DQ4svqDeBINC5WckC4pFp7DaxvQX3+77S380N0ce
- ysMybfGBBa72YmXUq5gG5HXK1gQNqkWkvsIFEnTU3JBvaIvkXwG/7XUZWy7lhFihjf59r3MNAIT
- 1KarEm+tHlo2v01gt/qmj8Taw6mQDRFrKB94e0qAwOh+U1moqnb6thODD3alkE7H/hZIFYFsPRK
- iQDFz2a1X9MZmwgoVZSTRUA==
-X-Received: by 2002:a05:701b:2918:b0:192:e5a8:6bae with SMTP id
- a92af1059eb24-1b570d52afcmr11431758c88.40.1795674308955; 
- Wed, 25 Nov 2026 22:25:08 -0800 (PST)
+ AL+hErEQSGtwxYZ2zz4RXnrhH6sJn5LsN+S3TsI29ilRNoKUxyp33JQnqpvgm/yaUwhAVSzMFNLWK+27osQ=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+FbhbCAW56DH27j4cHN1NNZLtsgD2WmcANSEDm/Rm5v3AFAhmq
+ ESaFqfnF56yqXQY71SlfoFBB5Fh0fK0rLsW3Yy35GlBbz8Xy6awhcRy4OG1yiWCWEg==
+X-Gm-Gg: AZFdTZd2nODvZ7UyqXyr4XnrzOtAao3wTp0dyJkXOlkgF9esfG5WIjdbA/cYbnzdy6Z
+ P3pPFUOfEgWzbYocqv8/Pch1ywH/JMOwqvfgyVtA9SEd8MAuzIZPL//kqNG2pe+ISREGnRicMRz
+ U/cyuo2rJgtsrWGJwndITbohvxY5b60+bhH4VPVje4GpRL8GzTyyh1SSFvnTPWjoiG92nND9Am2
+ wfTX3jxlicsdJFAywLnmyW8v95yEl/hwgKVoPR8r5x1t68hhH7wAxG+4CC08uwdow0WLeEOxLzo
+ MtNTiuWxwA2SwcnB8cjFHVi8F8+4z5+F4KNEV81Ekj1QaZUYL8cZk4FBu6XH7htxNo65JetZzXh
+ JjQqwZb34wIgIJYb+8W/qRqba0gPzKI5GsNrY1OrHxFVSEeix+lYK4tSXlxry23nnvReXGXo5Wb
+ dNw51JEvDgCd2c8KhbfgBNscfzkbJ0DgcoEY8EPffNJAkOy9MK6h4tU2mVeEVnJbrGY29nJCsOP
+ jXRjVzk9Rs825CnbuZcqthZZNiWRioib20sJCNSSw/CMjsNHkYsBs8MRLvJAzkyrD6DSZnJA43W
+ QmH+20uhhlla6+lZOojiU1zCJf9BM1MNmrXPshmspWaZ5Jr0osmNw9UCIr2JHuifTgFfvWoYQDZ
+ bF+nh+5Atd0MZgozgdcQVVQ==
+X-Received: by 2002:a05:7022:3a8c:b0:1b5:3490:d715 with SMTP id
+ a92af1059eb24-1b55691e0camr20072859c88.34.1795674317094; 
+ Wed, 25 Nov 2026 22:25:17 -0800 (PST)
 Received: from fshao-cloudtop.c.googlers.com
  (123.142.199.104.bc.googleusercontent.com. [104.199.142.123])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.25.01
+ a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.25.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 22:25:08 -0800 (PST)
+ Wed, 25 Nov 2026 22:25:16 -0800 (PST)
 From: Fei Shao <fshao@chromium.org>
-Date: Thu, 26 Nov 2026 14:23:48 +0800
-Subject: [PATCH 6/8] drm/v3d: Use DEFINE_DRM_GEM_FOPS()
+Date: Thu, 26 Nov 2026 14:23:49 +0800
+Subject: [PATCH 7/8] accel/ivpu: Use DEFINE_DRM_ACCEL_FOPS()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-drm-fops-show-fdinfo-v1-6-7cb1d1a5d6ef@chromium.org>
+Message-Id: <20261126-drm-fops-show-fdinfo-v1-7-7cb1d1a5d6ef@chromium.org>
 References: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 In-Reply-To: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -118,31 +118,34 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DEFINE_DRM_GEM_FOPS() now wires .show_fdinfo to drm_show_fdinfo() by
-default. Migrate the driver to use DEFINE_DRM_GEM_FOPS().
+DEFINE_DRM_ACCEL_FOPS() now wires .show_fdinfo to drm_show_fdinfo() by
+default (evaluating to NULL when CONFIG_PROC_FS is disabled). Migrate
+the driver to use DEFINE_DRM_ACCEL_FOPS().
 
 Signed-off-by: Fei Shao <fshao@chromium.org>
 ---
- drivers/gpu/drm/v3d/v3d_drv.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ drivers/accel/ivpu/ivpu_drv.c | 8 +-------
+ 1 file changed, 1 insertion(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/v3d/v3d_drv.c b/drivers/gpu/drm/v3d/v3d_drv.c
-index b790be8a7fac..bde3561c0e69 100644
---- a/drivers/gpu/drm/v3d/v3d_drv.c
-+++ b/drivers/gpu/drm/v3d/v3d_drv.c
-@@ -240,11 +240,7 @@ static void v3d_show_fdinfo(struct drm_printer *p, struct drm_file *file)
- 	drm_show_memory_stats(p, file);
+diff --git a/drivers/accel/ivpu/ivpu_drv.c b/drivers/accel/ivpu/ivpu_drv.c
+index 28cb18dcfa9b..933edc272f05 100644
+--- a/drivers/accel/ivpu/ivpu_drv.c
++++ b/drivers/accel/ivpu/ivpu_drv.c
+@@ -609,13 +609,7 @@ int ivpu_shutdown(struct ivpu_device *vdev)
+ 	return ret;
  }
  
--static const struct file_operations v3d_drm_fops = {
+-static const struct file_operations ivpu_fops = {
 -	.owner = THIS_MODULE,
--	DRM_GEM_FOPS,
+-	DRM_ACCEL_FOPS,
+-#ifdef CONFIG_PROC_FS
 -	.show_fdinfo = drm_show_fdinfo,
+-#endif
 -};
-+DEFINE_DRM_GEM_FOPS(v3d_drm_fops);
++DEFINE_DRM_ACCEL_FOPS(ivpu_fops);
  
- /* DRM_AUTH is required on SUBMIT_CL for now, while we don't have GMP
-  * protection between clients.  Note that render nodes would be
+ static int ivpu_gem_prime_handle_to_fd(struct drm_device *dev, struct drm_file *file_priv,
+ 				       u32 handle, u32 flags, int *prime_fd)
 
 -- 
 2.56.1.839.g22a8290db9-goog
