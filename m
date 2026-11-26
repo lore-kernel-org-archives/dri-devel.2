@@ -2,61 +2,88 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6668C606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8C6606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=npnm.eu header.i=@npnm.eu header.a=rsa-sha256 header.s=ovhmo-selector-1 header.b=lbTKHwFE
+	dkim=pass (1024-bit key, unprotected) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=S8Q+2CV4
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 727C910E4C8;
-	Fri, 27 Nov 2026 08:29:09 +0000 (UTC)
-Received: from 6.mo2.mail-out.ovh.net (6.mo2.mail-out.ovh.net [178.33.109.252])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4FAA10E9AE
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:13:48 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net [79.137.60.36])
- by mo2.mail-out.ovh.net (Postfix) with ESMTPS id 4jZz6y3XYKz42f5;
- Thu, 26 Nov 2026 14:13:46 +0000 (UTC)
-Received: from director2.derp.mail-out.ovh.net
- (director2.derp.mail-out.ovh.net. [127.0.0.1])
- by director2.derp.mail-out.ovh.net (inspect_sender_mail_agent) with SMTP
- for <dakr@kernel.org>; Thu, 26 Nov 2026 14:13:46 +0000 (UTC)
-Received: from mta3.priv.ovhmail-u1.ea.mail.ovh.net (unknown [10.110.0.169])
- by director2.derp.mail-out.ovh.net (Postfix) with ESMTPS id 4jZz6y1nR6z1xxH;
- Thu, 26 Nov 2026 14:13:46 +0000 (UTC)
-Received: from npnm.eu (unknown [10.1.6.2])
- (Authenticated sender: laniel_francis@npnm.eu)
- by mta3.priv.ovhmail-u1.ea.mail.ovh.net (Postfix) with ESMTPSA id 0A214942153; 
- Thu, 26 Nov 2026 14:13:44 +0000 (UTC)
-Authentication-Results: garm.ovh; auth=pass
- (GARM-112S006542bf720-37e3-4677-9f40-7e48ff031ce1,
- 230BAD52BFC520DA66055B44D06E91CCCAB19385) smtp.auth=laniel_francis@npnm.eu
-X-OVh-ClientIp: 159.26.112.43
-From: Francis Laniel <laniel_francis@npnm.eu>
-To: Lyude Paul <lyude@redhat.com>, Danilo Krummrich <dakr@kernel.org>,
- Dave Airlie <airlied@redhat.com>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org,
- Dave Airlie <airlied@redhat.com>
-Subject: Re: [PATCH] drm/nouveau/devinit/gf100-: fix double vbios init checks
-Date: Thu, 26 Nov 2026 16:13:43 +0200
-Message-ID: <5119322.GXAFRqVoOG@pmachine>
-In-Reply-To: <20261123-nouveau-fix-disp-v1-1-ebdc525287ce@redhat.com>
-References: <20261123-nouveau-fix-disp-v1-1-ebdc525287ce@redhat.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0809F1127EB;
+	Fri, 27 Nov 2026 08:29:10 +0000 (UTC)
+X-Greylist: delayed 413 seconds by postgrey-1.36 at gabe;
+ Thu, 26 Nov 2026 16:01:39 UTC
+Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BED1E11257B
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:01:39 +0000 (UTC)
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout3.samsung.com (KnoxPortal) with ESMTP id
+ 20261126155444epoutp03dcd4ec9596cec66ed694dc1c2cd611a1~ro1pFr0S32621526215epoutp032;
+ Thu, 26 Nov 2026 15:54:44 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
+ 20261126155444epoutp03dcd4ec9596cec66ed694dc1c2cd611a1~ro1pFr0S32621526215epoutp032
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+ s=mail20170921; t=1795708484;
+ bh=5M9xtfTWt/rD6V3Yq9/gJOzmL0PuY9q0JOmTonMrkYc=;
+ h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
+ b=S8Q+2CV47r+jcyB/hxRZQoNdHuxQ/gWyvqpTmqCCGD4I8E1N/8Sp5R2e+BT1h5Dit
+ Id45RW2ZS5AZJEl/R4M3H3tcJ9xLhuBNVHLz9LrKcWbkmclmhrryoUfbwW/+ukJYtW
+ oFWXu+LFCdF+trLev1upv67SG1axo8gAriR3T9dQ=
+Received: from epsnrtp03.localdomain (unknown [182.195.42.155]) by
+ epcas5p3.samsung.com (KnoxPortal) with ESMTPS id
+ 20261126155443epcas5p3efe33a75b41143a93560ac14ae0acd78~ro1oKmgN02527325273epcas5p3D;
+ Thu, 26 Nov 2026 15:54:43 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.95]) by
+ epsnrtp03.localdomain (Postfix) with ESMTP id 4jb1MQ68Ssz3hhT3; Thu, 26 Nov
+ 2026 15:54:42 +0000 (GMT)
+Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20261126140745epcas5p4f87a6186091785f4d3de4b69734aed88~rnYO8DwMQ2019420194epcas5p43;
+ Thu, 26 Nov 2026 14:07:45 +0000 (GMT)
+Received: from green245.gost (unknown [107.99.41.245]) by
+ epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20261126140741epsmtip24d507cb1363ab8b6b8b6b2fe8c81b878~rnYK24Eeh1787017870epsmtip2c;
+ Thu, 26 Nov 2026 14:07:41 +0000 (GMT)
+Date: Thu, 26 Nov 2026 19:36:51 +0530
+From: Nitesh Shetty <nj.shetty@samsung.com>
+To: Pavel Begunkov <asml.silence@gmail.com>
+Cc: Mengmeng Zhao <mengmeng.zhao@linux.dev>, Anuj Gupta
+ <anuj20.g@samsung.com>, Christoph Hellwig <hch@lst.de>, Christian Brauner
+ <brauner@kernel.org>, Anuj Gupta <anuj1072538@gmail.com>, Jens Axboe
+ <axboe@kernel.dk>, Sumit Semwal <sumit.semwal@linaro.org>, Christian Koenig
+ <christian.koenig@amd.com>, Philipp Stanner <phasta@kernel.org>, Dan
+ Williams <djbw@kernel.org>, Matthew Wilcox <willy@infradead.org>, Jan Kara
+ <jack@suse.cz>, Alexander Viro <viro@zeniv.linux.org.uk>, Theodore Ts'o
+ <tytso@mit.edu>, Andreas Dilger <adilger.kernel@dilger.ca>, Baokun Li
+ <libaokun@linux.alibaba.com>, Ojaswin Mujoo <ojaswin@linux.ibm.com>, Ritesh
+ Harjani <ritesh.list@gmail.com>, Zhang Yi <yi.zhang@huawei.com>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, Randy
+ Dunlap <rdunlap@infradead.org>, linux-block@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nvdimm@lists.linux.dev, linux-ext4@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ linaro-mm-sig@lists.linaro.org, Li Wang <liwang@kylinos.cn>, Mengmeng Zhao
+ <zhaomengmeng@kylinos.cn>
+Subject: Re: [RFC PATCH v2 0/8] ext4: Add dma-buf read/write support
+Message-ID: <20261126140651.vzs2gdwajemvf6kt@green245.gost>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-x-ovh-tracer-id: 4510917978956178936
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTF0IONlquxZNWUhUvGZyMCQXwLelxUagklbWqSogw585TOg8zBW1CXrB92mV4jjXV3xgsW9KNCjNOU2FP4N2sOsLHXD2JkUaStcOk0tHwOBS1rDF8lJXebPmbJHI5BQHECQxVUqh8A1xD/LbSiVu0myBy2GK/chXDQUDhckvyOPbUk56Gnybx+ycusaZrrBCiaIndF4UCka36c8sE67FTXvTKQiexPtYoxEqJKxz842l394MvKAYXw3L1ajM9osvTqYMXRqP39heWExXTZvm2OucXnxFDdV4DfbByzTqzu2x9+pDYVDfK1NsEdqd0DPhURYd34+bl9x4U0biz9H2u4ahDWdGaOWawiI+IU6KnDDFUF+esdL/XkjxfANAxW1WzxNiUt1yJFksOl1p8SKdCAMcXNWTVQgBRK1HazAHOCwVn/dsnvNSrbTjHxTsJvptUzRPYNJ/RLVKNvWMNcQ2Lo979mjkNl5DakGfX05vjaBeGHcJE4l6qyC4+zByzLI/hlngq/XDyrkE/uGwm4Rd2DCf7sWSfYpI9rk7H88JiLCJBjAhdUg6Xj37axj3iSJ3nuTk1p3XfFJyWQa+mPB07DLABk/COxyZ97tuDYplEOMQW5qPIHuQoRPYIW5fXEE35oSL4r/OAGN/+aWK3mYmqPbzYPQh5JODJ14Z7xOt5KNRw
-DKIM-Signature: a=rsa-sha256; bh=t19ExeCYrk4svaMovrOfWcyhStdg0gO19dQd849gvH8=; 
- c=relaxed/relaxed; d=npnm.eu; h=From; s=ovhmo-selector-1;
- t=1795702426; v=1;
- b=lbTKHwFEwZUcmaVMfjG8WspeQFR97ebVOsWV22ndDSxiTmfmlIaohr3Hz53ZLG6IKGvEGpX5
- p9JrQULNOC80AfMLMhVSnic4g8ugQHJG9GlyJt1sB/+mmf7kIsaKPj2ZWMrthCxJZ2w0FQRL+wG
- uD44kMy9fflDA9nBV8L53BrMajwaNgTX0n36Cyz2hCbOkRAFQhDCL8MSYKc3zj2Qred4B4SiA8N
- Ba5sisDd4xwPgZ08/+o26ljee/WBmSuxEsnPrMHBdLZ53WRpk9HuHA8xjxETWb6ne8v9u4HH6Ak
- r9smHq2/wrZudq8izON0yXuziNE1h2P/Gef6K1jxpGjAw==
+In-Reply-To: <0b76171b-7f2e-41d2-8a5c-102dbe4cb85b@gmail.com>
+X-CMS-MailID: 20261126140745epcas5p4f87a6186091785f4d3de4b69734aed88
+X-Msg-Generator: CA
+Content-Type: multipart/mixed;
+ boundary="----sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_"
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-542,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d
+References: <20261113070621.273953-1-mengmeng.zhao@linux.dev>
+ <20261120154153.GC28611@lst.de>
+ <361c4312-f77b-495f-9ee4-e0b9612b4463@linux.dev>
+ <CGME20261124084131epcas5p3098eab1bc134da7aefcc83c646b54a9d@epcas5p3.samsung.com>
+ <20261124084025.2101804-1-anuj20.g@samsung.com>
+ <3bce3a69-e41c-4683-b1ca-9477dd41a7e0@linux.dev>
+ <0b76171b-7f2e-41d2-8a5c-102dbe4cb85b@gmail.com>
 X-Mailman-Approved-At: Fri, 27 Nov 2026 08:29:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -69,90 +96,32 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi,
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_
+Content-Type: text/plain; charset="utf-8"; format="flowed"
+Content-Disposition: inline
 
-Le lundi 23 novembre 2026, 02:25:26 heure normale d=E2=80=99Europe de l=E2=
-=80=99Ouest Dave Airlie a =C3=A9crit :
-> The initial fix from 2017 wasn't updated for modern nouveau devinit
-> disable paths.
->=20
-> Fix that and just check if display exists instead.
->=20
-> Fixes: 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-run=
-ning vbios scripts")
-> Signed-off-by: Dave Airlie <airlied@redhat.com>
-> ---
->  drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c b/driver=
-s/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-> index 186e09ea0cb1..b256404c2454 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/devinit/gf100.c
-> @@ -107,12 +107,12 @@ gf100_devinit_preinit(struct nvkm_devinit *base)
->  	 * VBIOS multiple times may have detrimental effects.
->  	 */
->  	if (base->post) {
-> -		u64 disable =3D nvkm_devinit_disable(base);
-> +		nvkm_devinit_disable(base);
->  		/* magic to detect whether or not x86 vbios code has
->  		 * executed the devinit scripts to initialise the
->  		 * board. only works if there's a display engine.
->  		 */
-> -		if (!(disable & (1ULL << NVKM_ENGINE_DISP))) {
-> +		if (device->disp) {
->  			if (nvkm_rdvgac(device, 0, 0x00) ||
->  			    nvkm_rdvgac(device, 0, 0x1a)) {
->  				base->post =3D false;
->=20
-> ---
-> base-commit: b6a9fa34ce4187cb69d3c588a4bbffc31ce5db8f
-> change-id: 20261123-nouveau-fix-disp-62f59fd96fee
->=20
-> Best regards,
->=20
+On 26/11/26 10:44AM, Pavel Begunkov wrote:
+>I'll resend it later, how to store the tag is the least interesting
+>part, it can just move inside the block/ext4/etc code, which would
+>be uglier, but whatever.
+>
 
-Thank you for the patch! I tested it, and I can now boot my laptop with it:
-[    1.404564] nouveau: loading out-of-tree module taints kernel.
-[    1.404624] nouveau: module verification failed: signature and/or requir=
-ed key missing - tainting kernel
-[    1.739550] nouveau: detected PR support, will not use DSM
-[    1.739571] nouveau 0000:2d:00.0: enabling device (0006 -> 0007)
-[    1.739648] nouveau 0000:2d:00.0: NVIDIA GP108 (138000a1)
-[    1.776320] nouveau 0000:2d:00.0: bios: version 86.08.3e.00.26
-[    1.776582] nouveau 0000:2d:00.0: pmu: firmware unavailable
-[    1.860292] nouveau 0000:2d:00.0: fb: 2048 MiB GDDR5
-[    1.897865] nouveau 0000:2d:00.0: drm: VRAM: 2048 MiB
-[    1.897868] nouveau 0000:2d:00.0: drm: GART: 536870912 MiB
-[    1.897869] nouveau 0000:2d:00.0: drm: BIT table 'A' not found
-[    1.897871] nouveau 0000:2d:00.0: drm: BIT table 'L' not found
-[    1.897871] nouveau 0000:2d:00.0: drm: Pointer to TMDS table not found
-[    1.902700] nouveau 0000:2d:00.0: drm: MM: using COPY for buffer copies
-[    1.902820] [drm] Initialized nouveau 1.4.0 for 0000:2d:00.0 on minor 0
-[    1.902908] nouveau 0000:2d:00.0: [drm] No compatible format found
-[    1.902910] nouveau 0000:2d:00.0: [drm] Cannot find any crtc or sizes
+What about the f_op method instead of storing the
+tag in multiple users that we support now i.e., block/ext4/xfs code?
+We refined your patches with this approach and it seemed to fit well.
 
-Tested-by: Francis Laniel <laniel_francis@npnm.eu>
+--
+Nitesh
 
-As 2139cb633d48 ("drm/nouveau/devinit/gf100-: try to avoid double-running v=
-bios scripts")
-is part of stable kernel, at least 6.12.118, I am wondering if this should =
-be also posted to stable?
-Particularly as some other debian users are hit by this:
-https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=3D+1155040
-What do you think?
-
-Best regards,
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_
+Content-Type: text/plain; charset="utf-8"
 
 
-
-
-
+------sfnc.NZyIOBfLTiZTLswaXBSL0w4GQC52Zj1LhBq2cHN2.MV=_ad66_--
