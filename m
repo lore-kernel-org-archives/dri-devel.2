@@ -2,79 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95B4C606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFF1606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=mHu9LVa4
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ahvs2Qkd
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id CAFA610E00C;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA9AD112826;
 	Fri, 27 Nov 2026 08:29:14 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0ED0810E848
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 10:37:15 +0000 (UTC)
-Received: by mail-pj1-f45.google.com with SMTP id
- 98e67ed59e1d1-3b43d30822fso3675426a91.3
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 02:37:15 -0800 (PST)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E61EE10E9A8
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:36:01 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-cc758830601so5237172a12.2
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 05:36:01 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795689434; x=1796294234; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795700161; x=1796304961; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=M/yk3Rw+nb4AIlTzNbRnpuuYhSg7gPe5Ia3PULum9P8=;
- b=mHu9LVa40PH8qd1854MGcfNY7mL4nhlAe9qK7iWqZha8AjiiDusTZkXChecg+CNoIV
- Hu2ZaMIYRfUScagqYIPFvjvyN2qMuyLotOqsG0SytZ+pQ4I4ruySv4bnQJAxTZur44Jd
- kEyA0zGWI2jzy5lTSeLwb5Hwuf8slN294I4CZvHh4lOWQA9pfcvBsU19ANxznZEuK8NP
- 4VYE5lL8eYM0PBuZ/ZkqweACv9nT+T8p4xHOO6yGJPhfB+MaUfsQSaGDCOczS/sd6hxQ
- Im4CUr0EBO2xoAE/P4X3cuZ86mQZixL88Q3XawkJawMt/UH13XqJvlcNC0LRpa119070
- qPkw==
+ bh=/L59GtHvh66Qoj8GKGfFbB0DmYWNSBlgqJLSXZ9x1vs=;
+ b=Ahvs2QkdO/Uj23iMdseqae6q3RkvkvXTuudYX2CU2fFC97MUJsi3uPxQ+oHopmv6zn
+ B85vgVeERq80lH2gdGJJWFJ/82mNmK1EcVhCuLSIQt43AJ0EsXS2cU7qEi7mC19i96NR
+ lgkzgHS9Ske55s+rrQIWkb5D7z/kQXj748G26NIWQSKiermstafP3v1PVC4k6H7W9RKP
+ k6wUxZiVzalU4BFaSaxKT7KNtC760jpI6NRbcdkpf/kW4A+mAfseWSKk0RrMCmNPkLfa
+ 0Ha6OghBJTKAHmoeXSxQdig0ATzHnyYmoK9P1NJPyIpxsYLjMsgopSMdVwJR6yKIl+dX
+ ixpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795689434; x=1796294234;
+ d=1e100.net; s=20260707; t=1795700161; x=1796304961;
  h=content-transfer-encoding:mime-version:message-id:date:subject:cc
  :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=M/yk3Rw+nb4AIlTzNbRnpuuYhSg7gPe5Ia3PULum9P8=;
- b=MHBwueYiD8kSPQouhK9hq9EwWiF+m0LKmnxFJ9dD2Hwcqs9CnW9BEnifAqTU9Ijik8
- 2leZoPDPNmkxbRmfjmWHFAPCq70fUq8XiPS8H/K20HMhFC0TJGdha74NLfIj3g9+Emyh
- ag+Mo9x4HBkWe9w9nXCukwmi1M8HaqiNoStV4PiojYn7Ns0Kau0LSNgJcsF9MGBI93LJ
- TccAWSx3yMceIJYiGx11bLn1lLF7U5qnFR29p+D5KDKiyiOYmyf9TIHjq9GpaPRHZ9UI
- 7mYn9Jyhyi/m4k3+6kKoKF/i5aRcse+0OnmgoTQalQaklve8CHiQ0oWWzmI2cXzMwFWf
- g5WQ==
+ bh=/L59GtHvh66Qoj8GKGfFbB0DmYWNSBlgqJLSXZ9x1vs=;
+ b=tpNPb97LL6v/6XOYCAUzYhyJYgZrPiKD4Jl5slOA7lwUvN0ACRZF7fjqHf8zAlXwnQ
+ 5kGN/pinAkzj0sqbb5F7uPapfyDBkkSve1wFOS35wi6Agsmh2fqUHmYDKhe6sGvjwhdB
+ SFKwfkBwhngQ4433kH5JdvSJSpawWd3nB2fa+AK8xyW30CoEfhB6rjtEeZ9Q3rIp9VCz
+ IuOzr5Wx4QZSrbbK8BW/C4le0ggaScku3luIZOClyS25rkskW6DXX9+Rli72BpvqONij
+ awEFhPMKf5uEAxnxVusn6LRU+9Ry4EvjIZj9TGhqUHlyeuKv2sVbhqgX7OM1BXSyNd6s
+ BAaA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHexAkDWLEOuP08wnIhKpfVPFVu2DNuEC928tFT8SeKuKnytvUYFMp9t5CwBC8wTa0vAoPyKqpWKgw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+JMxWsnt82+MDjOP/PRd25DMA/RzInfdJ+qR4HaMgAudJmcqYq
- cKzarO+T/IIdOONVNZoC/gYaUwk0U4vOGj+htMdc+ficui02CAQQZnxl
-X-Gm-Gg: AZFdTZcFqffABYrKD27G508hDDTvMqqiV1AcgLTLMDibdfNH+U7LWJd/81i9yT9gzSX
- 5rL2u6FblmA41H6dJEK9hPMQDD6m9jpHgqYQvQbhyNgSdjPJ/CMdM+fg4knViMPoyL/kWKAvfQD
- 2ZR1rCLjJTomJd3QrJ8XAxg4ft4cYGcWo3Zn0YpSUh4QUddUXR97p8ATsQmneErzH4PhHFubr//
- GT8dMkFIPP+WE5op3pC9m44z6x5BsyuVPUiaXUIyqhyqMjRt0Pzo//mDPHlN+DzpROGBdIGyW2j
- gH5T68iHKBm21XqoOLYG6Cj4EruBJfNceITeaNleHDq+brr+zQNzHgdYZbCAu8Y5MRm4pLUaPtk
- Hf0ZMVDgQEsgN804RbVWUx5/TSaY3lLY6oXmQnesfQLVEkSfVdLRPxvo5HvFuVvrHpZiqzhK2E1
- hjNboD344ayPFP9IXnpml1tIr4d5a3mcM8oUu/kj+UvnqhOJifpdjSr/KxTDl6RcDT4alMAHbPG
- L4mWlFwgcSPK531gtEc6C+KxBX/+19N2xfhEQmfIk5z0jNhuHaWy+669qsZSovj2TV72X0nBBhf
- YnSu2bwj22Feidf9DsXlxHOjSQOyK7vnUCR75RJoNqnYZXngbTuh6YQOercDPsJaKV5CsrChMpP
- YMKeHKWFarJTaWMWvlmFmWZC4DwtX7dg=
-X-Received: by 2002:a17:90b:4983:b0:3b4:1357:d529 with SMTP id
- 98e67ed59e1d1-3b41c97c444mr20610837a91.51.1795689434219; 
- Thu, 26 Nov 2026 02:37:14 -0800 (PST)
-Received: from DESKTOP-TPPBPA1 (36-226-201-204.dynamic-ip.hinet.net.
- [36.226.201.204]) by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b405d135e9sm34846229a91.4.2026.11.26.02.37.11
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2026 02:37:13 -0800 (PST)
-From: Roy <rongh7426@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, Roy <rongh7426@gmail.com>
-Subject: [PATCH] drm/vc4: plane: Don't log LBM and UPM allocation failures as
- errors
-Date: Thu, 26 Nov 2026 18:37:09 +0800
-Message-ID: <20261126103709.655707-1-rongh7426@gmail.com>
-X-Mailer: git-send-email 2.51.1.windows.1
+ AL+hErHe1bIGq7sXP3Ul0qUvmOAOG3zVmOEO/nbXP29JX4EAFwtRBkX+ZCkD9hpHzEDvgCwA3JYWflzCjRM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+gZw+tYGjD0HiJGsu0KpoApp1A5S1FCd3qchqksPPITSpQpE0I
+ KdRkAzCOCqxqy71aXrQUYr9QPpcSgrVAgvzxpa/6nIVROlWRVBmrKSw=
+X-Gm-Gg: AZFdTZdoj3NJZwSftHcvyePvxFTYGetA2k1kpzYf/8716ezicjkSqOgOxGWqdBitDq/
+ ke5k+ha+WJAGriaCduKevj1gVRbai9XiMIbBmfBwhYTrMsTpvaoWLKt1dT3u6Vj1Pd0ZEyzDUeE
+ locbd7fgjEr/SLiF95DSJDqDdE14QTlKxwTjn6SzsKCyNz5iF2eRKcJmY+5rkvvr9SiB1t6RsFg
+ aLz4kb3PfjPtjpvJ1eQghp4FIMA7DkhjGibXtFB2SQsEzLRxUjI/68FcLohMkNoxgPF81qlItWY
+ Prt+rw6XrPAFAIJPMSg8k4BpxqWHzKyyml5g2FcZZaEOEp4C7BwnozUHS32cFdRJwE4AwAIutnP
+ WLqV5KNQLUpGbsJTBQreEaok5K+X9kLQWQNFULHmVZxo3WzwdqXNn47rq/Jj8AbIE2V9XVSYrou
+ x+BIH+Bo0gioRg4HBbsIHJkzU/dzzgYNbIy+bonBwCHP1XYBnph/7j09P3KuO7lOv0CENwgcf7L
+ mRm8BRRpHSOQq4BkB+EqjvgAQ3iz5w11pydmOUVpaXp/5gwpn7MEfCNd611A5JzMN9ELlCzwnNN
+ U+ZAj6RdeAYvbqTtOv2PdHfq3sOOcgXsXdX8YQAdDu5KYzdwsX4j0KD4qAayLVbqZ0PNQPJ4fgd
+ 09A+aPu59aTdI
+X-Received: by 2002:a17:90b:3e81:b0:3b3:ff66:4097 with SMTP id
+ 98e67ed59e1d1-3b41c92a1cdmr18216781a91.26.1795700161363; 
+ Thu, 26 Nov 2026 05:36:01 -0800 (PST)
+Received: from localhost.localdomain ([2406:3003:2002:639c:a06e:23f:85ed:4cfe])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b44b6fe711sm14480336a91.1.2026.11.26.05.35.59
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Thu, 26 Nov 2026 05:36:01 -0800 (PST)
+From: Yige Jiang <yigejiang86@gmail.com>
+To: Helge Deller <deller@gmx.de>
+Cc: Yige Jiang <yigejiang86@gmail.com>, linux-fbdev@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: [PATCH] fbdev: ssd1307fb: release PWM if panel initialization fails
+Date: Thu, 26 Nov 2026 21:35:56 +0800
+Message-ID: <rc-b1-20261110-vc-112-b07bbe936b75@gmail.com>
+X-Mailer: git-send-email 2.50.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
@@ -98,63 +93,67 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-vc4_plane_allocate_lbm() and vc6_plane_allocate_upm() run from the
-plane's atomic_check. When the line buffer memory or the BCM2712's
-unified pixel memory can't fit a new state, they return -ENOSPC, which
-is the expected way to reject a configuration that needs more of a
-limited resource than is free. They also print it with drm_err().
+On the SSD1307 variant, ssd1307fb_init() gets and enables the PWM
+before it sends the panel init commands over I2C. If one of those
+writes fails, ssd1307fb_probe() jumps to regulator_enable_error, below
+the pwm_disable()/pwm_put() at panel_init_error. The PWM is left
+enabled and requested, and its references on the PWM chip device and
+module are never dropped. As the PWM stays marked as requested, a later
+probe of the display can no longer get it (pwm_device_request() returns
+-EBUSY).
 
-That lets the DRM master fill the kernel log with error messages just
-by testing configurations with DRM_MODE_ATOMIC_TEST_ONLY, as a
-compositor or an igt test probing plane limits does. On a Raspberry
-Pi 5, 1000 TEST_ONLY commits of 18 full-screen planes add 1000
-"*ERROR* Failed to allocate UPM entry: -28" records, and the same with
-the planes upscaled 2x adds 1000 "Failed to allocate LBM entry: -28"
-records.
+The sashiko AI review bot pointed this out on 2026-09-26, while
+reviewing an unrelated ssd1307fb error-handling patch.
 
-Use drm_dbg_kms() for both, as is already done for running out of UPM
-handles in the same function. The messages are still there with
-drm.debug=0x04.
+Jump to panel_init_error instead and drop the now unused
+regulator_enable_error label. pwm_disable() and pwm_put() accept NULL,
+which covers variants without a PWM, so clear par->pwm when pwm_get()
+fails instead of leaving an ERR_PTR() for the error path.
 
-Tested on a Raspberry Pi 5 (Raspberry Pi OS kernel 6.18.39, with this
-change applied to its vc4 driver), counting /dev/kmsg records around
-1000 TEST_ONLY commits that fail with -ENOSPC:
-- UPM: 1000 records before, 0 after
-- LBM: 1000 records before, 0 after
-- with drm.debug=0x04, both messages are printed from
-  vc4_plane_atomic_check
-
-This change and its description were written with the help of an AI
-coding assistant (Claude); the testing above was done on real
-hardware.
-
-Signed-off-by: Roy <rongh7426@gmail.com>
+Fixes: bbc79089ae2b ("video: ssd1307fb: Add support for SSD1306 OLED controller")
+Cc: stable@vger.kernel.org
+Link: https://sashiko.dev/#/patchset/20260926-fix-fbdefio-error-handling-v1-0-a94810b6e263%40kernel.org
+Signed-off-by: Yige Jiang <yigejiang86@gmail.com>
 ---
- drivers/gpu/drm/vc4/vc4_plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Based on linux-next next-20261109 (630059a5a632).
+Compile-tested: arm64, GCC 14.2.0, W=1, CONFIG_FB_SSD1307=m, CONFIG_PWM=y, CONFIG_COMPILE_TEST=y; baseline and patched ssd1307fb.o, no new warnings.
+No hardware or runtime test was performed.
+The path needs an I2C write error during panel init on a solomon,ssd1307fb-i2c device.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_plane.c b/drivers/gpu/drm/vc4/vc4_plane.c
-index 20c9fc9..81df567 100644
---- a/drivers/gpu/drm/vc4/vc4_plane.c
-+++ b/drivers/gpu/drm/vc4/vc4_plane.c
-@@ -958,7 +958,7 @@ static int vc4_plane_allocate_lbm(struct drm_plane_state *state)
- 		spin_unlock_irqrestore(&vc4->hvs->mm_lock, irqflags);
- 
- 		if (ret) {
--			drm_err(drm, "Failed to allocate LBM entry: %d\n", ret);
-+			drm_dbg_kms(drm, "Failed to allocate LBM entry: %d\n", ret);
- 			return ret;
+ drivers/video/fbdev/ssd1307fb.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/video/fbdev/ssd1307fb.c b/drivers/video/fbdev/ssd1307fb.c
+index ef4bb920c6ff..dbe5dc67e044 100644
+--- a/drivers/video/fbdev/ssd1307fb.c
++++ b/drivers/video/fbdev/ssd1307fb.c
+@@ -403,7 +403,9 @@ static int ssd1307fb_init(struct ssd1307fb_par *par)
+ 		par->pwm = pwm_get(&par->client->dev, NULL);
+ 		if (IS_ERR(par->pwm)) {
+ 			dev_err(&par->client->dev, "Could not get PWM from device tree!\n");
+-			return PTR_ERR(par->pwm);
++			ret = PTR_ERR(par->pwm);
++			par->pwm = NULL;
++			return ret;
  		}
- 	} else {
-@@ -1028,7 +1028,7 @@ static int vc6_plane_allocate_upm(struct drm_plane_state *state)
- 							 0, 0);
- 			spin_unlock_irqrestore(&hvs->mm_lock, irqflags);
- 			if (ret) {
--				drm_err(drm, "Failed to allocate UPM entry: %d\n", ret);
-+				drm_dbg_kms(drm, "Failed to allocate UPM entry: %d\n", ret);
- 				refcount_set(&refcount->refcount, 0);
- 				ida_free(&hvs->upm_handles, upm_handle);
- 				vc4_state->upm_handle[i] = 0;
--- 
-2.51.1.windows.1
+ 
+ 		pwm_init_state(par->pwm, &pwmstate);
+@@ -794,7 +796,7 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ 
+ 	ret = ssd1307fb_init(par);
+ 	if (ret)
+-		goto regulator_enable_error;
++		goto panel_init_error;
+ 
+ 	bl = backlight_device_register("ssd1307fb-bl", dev, par, &ssd1307fb_bl_ops,
+ 				       NULL);
+@@ -823,7 +825,6 @@ static int ssd1307fb_probe(struct i2c_client *client)
+ panel_init_error:
+ 	pwm_disable(par->pwm);
+ 	pwm_put(par->pwm);
+-regulator_enable_error:
+ 	if (par->vbat_reg)
+ 		regulator_disable(par->vbat_reg);
+ reset_oled_error:
 
+base-commit: 630059a5a632377b9b7b487baccde92b7ae1dd47
