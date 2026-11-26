@@ -2,96 +2,90 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCA6E606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:18:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4437D606A6AA
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:37:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=liEwAXni
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=KgEiyHRz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DE2E410E636;
-	Thu, 26 Nov 2026 09:18:23 +0000 (UTC)
-Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
- [209.85.215.170])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 34BE010E636
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:18:17 +0000 (UTC)
-Received: by mail-pg1-f170.google.com with SMTP id
- 41be03b00d2f7-cdb628232d2so3788122a12.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:18:17 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795684697; x=1796289497;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=YJ7q/+GsupT2Rad40vkEUvwwqt01kPVk/F4EqfpxWnw=;
- b=liEwAXninr76z8zo+IdxmXVOMFYEmvwYRcocQTm8ZUDMkpPFi1o6mWHKYSEjdaQ/96
- NCi3ritvYEC+UM6SL7F7dNogx3vhuonrA+v3zxAJpL6ypCo64fAXxSQjQUx4kRmSV0Ow
- XMgRNyt0oNaoiXt+8GNXsAnLtGfyb4CHTQ+FI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795684697; x=1796289497;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=YJ7q/+GsupT2Rad40vkEUvwwqt01kPVk/F4EqfpxWnw=;
- b=ZD9d//iYgepy8F6ySf+EGEHh/cOIPtRWzuohQdupXdqR0WR7noGwQiBtV1SS2LkMIQ
- 4j9jAQ/KvZ03PlaJu81ATH4p8Vp8Au1dzE5CMfaRWvmCV1sV+4aCBeA+bH2rwO7Z679x
- BXoYKsmzeuvNm8e29DvMuuTn4mAqapmFJWXjlW1oJQyNK7ysmF0CWkYj9zCoR2wNw7Ic
- LYG1g/z+g4K3cPfaTQ2jpWgWdyq47u1xTdXQLbFafl12oir+Kti+E5s+tsvIzaLxzaS0
- 04JgT6dy4pBw38Iy/9vwAH6Hz3sM8u4yUrCCzKEPBqZ17YaB5waEayqG2GUVws//4vO2
- YPXg==
-X-Forwarded-Encrypted: i=1;
- AL+hErFPRDdkYvxzswU56K7AVWrIDCPpkeAYmqmnM75BdaizOrVjoNK/nllsahj41k7OhYXlqodbxPWws3Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/yU4IgJvqSXSrb8CHjH5i/orHbPcWrfgkNPxiEwvUyX3wZOejf
- TMIsy7cr/7ecqtqVcRqdM28Nt6jXFaquZr8pEA/2rejj0C0HkZ6wQh5cUcGjGYtbyR7ZMFJq/Gj
- 7VoZiPw==
-X-Gm-Gg: AZFdTZc0U9IcHBL9ffHoUi86+Q0JAHhFjUcf+aLYanNwrrZmVFaviNCRla6oJg5qILJ
- cuCZ54yziKW84qQ8xVo+RKd0BCt8aAeeCuspGYyCbpWPN5GIsZMCPd82ucKrgYXoAT76OGz5Hnv
- jdSqqgXeWW1rfhDfiEGhBCxQMqodt6lo6S7RdbGZO3Uk/j+K22Zg0my+0rvGUJWbHgWtrGyVl9H
- /nxsZIo9Z+QPR05bx0NT9bp89zylFW4BcTi/MMrXLMRCc4MA/su3Qixg/M85+tbT+bBDzZD+jx5
- OFMdJEvf5QGTwd0UUxmInFNz8Jbwvt6DyVRNoKzikoVoxOOTzpW85CbsYtbjzk1FohN5gp0NHVg
- Zf0ZCEaFaNne+4vq1SA2r4HpbiUL6JmAjjEVWRBZO9cDC/a/8cpDe7pkpJk5TRwVi/qrIRYkmcq
- mSzLwdWZFChCwXFVHr/ZFz3OOYQSqvRnMEefHgBZFCiyo0eqD6YJuQcIPlKA/Yc7tB1MbSHYhU2
- zBGDeZ2b1h7xqYd5zfR/ErnOpvFPKh7g97yjWwaO6z4Zb3r0cEvgTvET9MuS0xjY16UPJGaC1Sc
- QJ9WzldfB3mcJ3128TeAziJxllMn5qPhxtOKnZnwspGSr2iuh7Mcr9AYu+eGt2eCJdg=
-X-Received: by 2002:a05:6a20:748b:b0:3f8:c7b1:688b with SMTP id
- adf61e73a8af0-4014d4579b7mr22211597637.34.1795684696676; 
- Thu, 26 Nov 2026 01:18:16 -0800 (PST)
-Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com.
- [74.125.82.172]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8c87077fe3fsm10778464b3a.4.2026.11.26.01.18.16
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 01:18:16 -0800 (PST)
-Received: by mail-dy1-f172.google.com with SMTP id
- 5a478bee46e88-33fb4680717so2092178eec.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 01:18:16 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErFxw6qUSXl69S0rIwo19G07PqInRTJg54Yh7vI8+SFanD403nwzbvpiFDMomFrakbVHsfw9OjxxOMA=@lists.freedesktop.org
-X-Received: by 2002:a05:693c:8859:b0:386:b826:3f9 with SMTP id
- 5a478bee46e88-386b82605b9mr10045446eec.7.1795684694765; Thu, 26 Nov 2026
- 01:18:14 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 59E2310E0EE;
+	Thu, 26 Nov 2026 09:37:21 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55B9810E0EE
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:15 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 20DCD45F6F;
+ Thu, 26 Nov 2026 09:37:15 +0000 (UTC)
+Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
+ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
+ t=1795685834;
+ b=1J8Si5t0E10XhHZcqgLl86GunqE5NYAVQzAtdIrRMSj53u6tfJiq6/+H4Mcbtsy72rs5
+ guIgCN3DB4uRfcRfN0l9LAtdtw0NyCWj9XZMKe+1Y4h2F56cA9awTVd4hQj8aaectdXFU
+ x8Y92616AKpX1ZkWC6WYLg4EQtOh6+TRvQ5/zyIis1tslQitBsXZptie6rF4r1aK2xwW5
+ yJjI01yqisCph1uXMecUKVkG7bsInXuBTlRZ6+3i4GgKzRRk+b/cNwZoIpdQLDvCkLrns
+ OAgDPjxlV5nF5eV7zLChPeBVyjOuUsbQcXdBfy118bN3OMephby68XMQ3ZG/vFdec7g==
+ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
+ c=relaxed/relaxed; t=1795685834;
+ h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
+ Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
+ X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
+ X-Original-From:Reply-To:Content-Transfer-Encoding;
+ bh=Bek0tQOss9y058o3OZ6jwGk+0z4tO0g6QTI9DYa0+Vk=;
+ b=XmVeQ3MG3w4mc9FwhIp7I49NbiMOpcP9FkKXYFztWyq5DFkShPQyu8VqOo69a74wp9ZM
+ SEklphu7whHd+jmDeBtm541gs0JMSBgTlzMhhBuytICn158Vc3H6KOxheQLXp92VhiskZ
+ plyo/R5vHjn9Wu5bZzjtrgHWxY3RYZ0PigOt78O7HYMLbWTh7Qi+nbQhkwoOasHCcr1EZ
+ gUOFvasNdorwAzpBzHvy5A9sC9qHdo+zKLDEnjU1kUwtInfO1c++X4aJU/mzR5l3bxAGY
+ zR5ci8nJnxJWIg2LO6ExEkGcq133z0GGxJwjtdhaoxF57aR7f7ST6p8u1dFEc72QlqA==
+ARC-Authentication-Results: i=1; smtp.kernel.org; 
+ arc=none smtp.remote-ip=100.80.115.77
+Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+ (No client certificate requested)
+ by smtp.kernel.org (Postfix) with ESMTPS id D20DB1F02838;
+ Thu, 26 Nov 2026 09:36:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795685834;
+ bh=Bek0tQOss9y058o3OZ6jwGk+0z4tO0g6QTI9DYa0+Vk=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
+ b=KgEiyHRzDIC93pRBrG7JcKt8gMM3a1nwmAKaND1wWLUSwfdw/CHBbtu7VfGc0zaPh
+ P154jRNOy1EiF3+uQQ+WhmX7YN4a5tRzkRycj5Eq4nLUUt7Vi/HfPh7gkcmT10+p+E
+ uoS8dQvz3xQ03p2ZDLgk7YbherYZ5S+N1sHvuXS/RvMFb8T3Tlwd3v2NHpgREu68qL
+ m1SC579Dtbsn03Lxf1ZW2v/U4/moGQTgfBj1A0b8kN5FFu8ey+mojb+cM7c+dJzAP3
+ epFca9hql8XU/9in1Yl8m8q2l1hy935Tm5+JIu4L8m8gxDEKfSHSqB2O+yucOWoMZu
+ TSL8WfNO2VK/g==
+Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
+ by lkml.kernel.org (Postfix) with ESMTP id 4C0E74D373;
+ Thu, 26 Nov 2026 09:36:47 +0000 (UTC)
+From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
+Date: Thu, 26 Nov 2026 09:36:44 +0000
+Subject: [PATCH v4 01/17] drm/panfrost: Freeze the reset workqueue during
+ system sleep
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-23-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-23-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Thu, 26 Nov 2026 17:17:37 +0800
-X-Gmail-Original-Message-ID: <CAC=S1nhLFoHcCCPT8KzfeGR=_FE_-WXXjttWL8N9j5RyXdbdTw@mail.gmail.com>
-X-Gm-Features: Aa3M54qPRICfCIh7RUjjGiJ_0TC4b-0YY-WXywPDgZZ0L82ERU6OYtXByrL3V2k
-Message-ID: <CAC=S1nhLFoHcCCPT8KzfeGR=_FE_-WXXjttWL8N9j5RyXdbdTw@mail.gmail.com>
-Subject: Re: [PATCH v2 22/46] soc: mediatek: mtk-mmsys: Migrate to new
- Multimedia DDP HW indexing
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Message-Id: <20261126-panfrost-long-jobs-v4-1-23579629ceca@gmail.com>
+References: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
+In-Reply-To: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Rob Herring <robh@kernel.org>, Steven Price <steven.price@arm.com>, 
+ =?utf-8?q?Adri=C3=A1n_Larumbe?= <adrian.larumbe@collabora.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ Arun Iyengar <aiyengar1990@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1382;
+ i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
+ bh=6c2Dpu03JGJeqBmpPCQQMuKsg5qJDVUkSb2yqZ0AwZ8=;
+ b=kcxN7jyStNOcc+0ERAgPsFBQOcBb441MSYfRB7xv1nj7A4SOYGIzHgZWGnCgiMnfJyZ7ALQ5H
+ V0YvcIVTlj3C7puqcE7Pss/PPS7n/+/8oBP2Xdsmi034hh0QWny1NjP
+X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
+ pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
+X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
+ auth_id=1480
+X-Original-From: Arun Iyengar <aiyengar1990@gmail.com>
+Content-Transfer-Encoding: 7bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,91 +96,50 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: aiyengar1990@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,FREEMAIL_REPLYTO_END_DIGIT,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Jul 14, 2026 at 7:45=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> The mediatek-drm driver is ready to switch to the new Multimedia
-> Subsystem Display Controller HW indexing.
->
-> Perform the switch by:
->  - Adding new "from_comp_inst" and "to_comp_inst" members in the
->    Multimedia Subsystem HW Routes structure (mtk_mmsys_routes);
->  - Changing the MMSYS_ROUTE() macro to use those, which performs
->    the migration of all SoCs in one go (as all of them use this
->    macro to declare their route entries);
->  - Adding new mtk_mmsys_hw_connect() and mtk_mmsys_hw_disconnect()
->    functions, making use of the new HW Component Type-Instance
->    indexing.
->
-> Unfortunately, this change needs to go along with the related one
-> in the mediatek-drm driver, otherwise functionality of the Display
-> Controller will regress.
->
-> The only way to make this possible in two steps is to duplicate
-> all of the routes structure arrays for all of the SoCs, which
-> would result in a total of around ~1200 lines changed twice, and
-> that ignores the big increase in size for this driver during the
-> migration process so, in order to avoid useless bloat, I opted
-> for an inter-dependency between the two changes: mediatek-drm
-> and mtk-mmsys.
->
-> Acked-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora=
-.com>
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
-> ---
->  drivers/soc/mediatek/mtk-mmsys.c       | 99 ++++++++++++++++++++------
->  drivers/soc/mediatek/mtk-mmsys.h       | 15 ++--
->  include/linux/soc/mediatek/mtk-mmsys.h | 16 ++---
->  3 files changed, 90 insertions(+), 40 deletions(-)
->
-[snip]
-> +void mtk_mmsys_hw_connect(struct device *dev,
-> +                         enum mtk_ddp_comp_type src_type, u8 src_hw_inst=
-_id,
-> +                         enum mtk_ddp_comp_type dst_type, u8 dst_hw_inst=
-_id)
->  {
->         struct mtk_mmsys *mmsys =3D dev_get_drvdata(dev);
->         const struct mtk_mmsys_routes *routes =3D mmsys->data->routes;
-> -       int i;
->
-> -       for (i =3D 0; i < mmsys->data->num_routes; i++)
-> -               if (cur =3D=3D routes[i].from_comp && next =3D=3D routes[=
-i].to_comp)
-> -                       mtk_mmsys_update_bits(mmsys, routes[i].addr, rout=
-es[i].mask,
-> -                                             routes[i].val, NULL);
-> +       for (int i =3D 0; i < mmsys->data->num_routes; i++) {
-> +               if (src_type !=3D routes[i].from_comp_type ||
-> +                   src_hw_inst_id !=3D routes[i].from_comp_inst ||
-> +                   dst_type !=3D routes[i].to_comp_type ||
-> +                   dst_hw_inst_id !=3D routes[i].to_comp_inst)
-> +                       continue;
->
-> -       if (mmsys->data->vsync_len)
-> -               mtk_mmsys_update_bits(mmsys, MT8188_VDO1_MIXER_VSYNC_LEN,=
- GENMASK(31, 0),
-> -                                     mmsys->data->vsync_len, NULL);
+From: Arun Iyengar <aiyengar1990@gmail.com>
 
-The refactor drops this vsync_len register write block, leaving MT8188
-VDOSYS1 unconfigured.
-Is this intentional? Otherwise please mention it in the commit message.
+pm_runtime_force_suspend() can power the GPU off under the timeout
+handler or the reset work. Make their workqueue freezable.
 
-Regards,
-Fei
+Fixes: f3ba91228e8e ("drm/panfrost: Add initial panfrost driver")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/sashiko-outbox-210830@kernel.org/
+Closes: https://sashiko.dev/#/patchset/20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com?part=13
+Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
+---
+v4: new (Sashiko on v3 01/14 and 13/14). Tested with s2idle entered in
+a test-only 8 s hold in both: before, the GPU was runtime suspended
+inside panfrost_reset(); after, the freezer waited for the work.
+---
+ drivers/gpu/drm/panfrost/panfrost_job.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> +               mtk_mmsys_update_bits(mmsys, routes[i].addr, routes[i].ma=
-sk, routes[i].val, NULL);
-> +               dev_dbg(dev, "Connected %u-%u to %u-%u\n",
-> +                       src_type, src_hw_inst_id, dst_type, dst_hw_inst_i=
-d);
-> +       }
+diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
+index 6a604b5da..79b302fef 100644
+--- a/drivers/gpu/drm/panfrost/panfrost_job.c
++++ b/drivers/gpu/drm/panfrost/panfrost_job.c
+@@ -893,7 +893,7 @@ int panfrost_jm_init(struct panfrost_device *pfdev)
+ 		return ret;
+ 	}
+ 
+-	pfdev->reset.wq = alloc_ordered_workqueue("panfrost-reset", 0);
++	pfdev->reset.wq = alloc_ordered_workqueue("panfrost-reset", WQ_FREEZABLE);
+ 	if (!pfdev->reset.wq)
+ 		return -ENOMEM;
+ 	args.timeout_wq = pfdev->reset.wq;
+
+-- 
+2.55.0
+
+
