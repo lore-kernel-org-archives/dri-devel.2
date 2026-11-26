@@ -2,74 +2,73 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDD3606A333
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408D9606A327
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 06:24:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=hesUhtNa
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=ex+i4VAM
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 481B910E2A5;
-	Thu, 26 Nov 2026 06:24:34 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9D1B610F354;
+	Thu, 26 Nov 2026 06:24:42 +0000 (UTC)
 Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E3F6C10F40A
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:24:28 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D082F10F40A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:24:36 +0000 (UTC)
 Received: by mail-dl1-f51.google.com with SMTP id
- a92af1059eb24-1b50a4bd2f3so4854844c88.1
- for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:24:28 -0800 (PST)
+ a92af1059eb24-14394530ec6so80282c88.1
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 22:24:36 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795674268; x=1796279068;
+ d=chromium.org; s=google; t=1795674276; x=1796279076;
  darn=lists.freedesktop.org; 
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=1d5rRHIyLnLkkI5kSP1hcdlsa/voBQeRYBRgutIn/lg=;
- b=hesUhtNaMzLrW5ggmdf8E4nGKw5sCXjvywaSV7pwACFumJtCcf4iZPHOC87OTXplIw
- uCHnlYbqjnAGDaNKjhJ3ibEttDf67V3s85wotWtLX44ieWnPFy35IKUG8bbUX8p8J1p4
- uJc6+p/8eVmFNXdMKS4T/uifBFo9uQStHXuFo=
+ bh=ePKddXgsQ/sIOcUIgiDq+rw3pTmufgmB0dzzvy5WTTU=;
+ b=ex+i4VAMxeydb8vFmt/p0LPycPxoqyrzLdS5mmLB4pByfOEfGqfoqpnP/5PK+qB4AE
+ G2kGVgUQkSHGciMyzC7yqq4mX3ThOB+eIf0Zq2mJww+DIb09yI43+4/edNppVIK6elEZ
+ m3mAdLSAbAbspO218YCIeT1kKSpwI2JfSRcCk=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795674268; x=1796279068;
+ d=1e100.net; s=20260707; t=1795674276; x=1796279076;
  h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
  :content-type:mime-version:subject:date:from:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=1d5rRHIyLnLkkI5kSP1hcdlsa/voBQeRYBRgutIn/lg=;
- b=E630yFwTo6VQqV4ZGqtYf+e28PgFD+j6tDks9tB2DwWy9df4CSCX1KzIa89y5Ec8U6
- 50AlbrfrllwvDk8cnUXV344Rs0ImJvGHd707QHI5jtaV6tGmPEARLIwDefXUNCt1m3uy
- TAU7ORSjhVhBFra2ezCgOBC2dGzjvhmRkBVhkUTUW4Moef5F6rixNLGNNSRjwaxyLSrH
- SnGSWzohgixWPRbJCjWu/izX2bzdTylAgtJqNdklKcPkmgSwt76bT2/KqkYZr1SSkSaX
- ScSMfhoBA4+o8Om/EAVVKH3LrI1f29QIaeXVfwB7FF5Zcdxg0sHHGd+J+b1zZi53KJiX
- cXsQ==
+ bh=ePKddXgsQ/sIOcUIgiDq+rw3pTmufgmB0dzzvy5WTTU=;
+ b=Fb7RAUufSDvXoBTgORUrtCSpUGBjhgBaCoDm+h5p8ZtNy4qrdYIbjSCklq70BoCZUK
+ R7uy/Z6tlAAPtXIyNG6aoZpuiv/xv4pusTG+ymUIp3tuthpYXVb27caS3VZNikbN+dHG
+ YwdMuqD8+EInt3bH2q77tj5i4TLvZnVeBVagjpbInoswpDEHNfYPQBV0W1t+8/h93Nho
+ oRDmxHnI5F0xTZR8O6YJ2fXSJQR1/2u/nwHg/SwwHr7/IkENUPAO/DiRvRq78LnZGcCt
+ wJZ0oXhXWLX+ObhHy9NgFtU1CWhUfZ4nZo1v+4wDWTrUIUDFGPyPrjkaRSNN/O4xk20C
+ EUtw==
 X-Forwarded-Encrypted: i=1;
- AL+hErHjHtdTAgRhsQMHBvOCOG3tuSS2DeB4G9VJVm2QqZC2lq7QjT4UG8+ZCBtM9mgQME7gL6Sc5zCRuEI=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9IbvLsmux2v3E3UEZAw8waGrdmfBzEH7juuFLHaMMRYpbtz6kY
- MbVORWPxqphyOTp3+VUUwPKEWYFzRUFPeqI7t/U32AEvG24aoWUOTHUG9MFCWdsLdg==
-X-Gm-Gg: AZFdTZdIEUHL0W1SRC942F8sJd8Lnvk8z1TiX+SbvDwEbnF6fEdYnHRQHK30L1/xatY
- upjRsob4fYvMdZMzwq69Vy+A087KKJ/RtIbm6um65GaqHgO8cE549ppwFp47uFOHVitd7lHNVfB
- q8LCoSBA9EmnixgQdR0xmYIRMsoqG7AO3BfbNAR7PF8ABSsMz4QfDNIZXMRONRPOSbQVn9HkC9l
- Z2KWUjL15pAyQSxaFMp9SQv65C6qKi/tQCqHaVPCXlpONIKazmSj9sR/fitVNmKu7iQiOd1U9v2
- ZHLgTm4NL5Ub8Snq/iD6Z24Boa0eyE1z1V6wHQ3tTFnbwkoyqfgB80VbTKP7MDt7KYn9dcsxU+N
- mRYmuZ7V9UKxXYhoqWS+wRSUWDGqq8ST7jye1luHv0/4eryh8IkaOCoItm8PdVmIJ6QnDJYsnjI
- c+S+lMMfJuec+SkoJVPLLJ9DJt04NT5xaiPOUqLfMWpeOqWC7QQWDPsZoA61I4knIwTL5UW9cBb
- P/2t4LOkZKPg7SvRy5LpT1KGb8OKXd0Kse9isXmVhWEkqfzvqtsGgjnnuH8BiB60FkLeY2YAT8Z
- VfxU9hD+drw83fvCOfQ2qCLP/J5MmuGpaJxqncZxKtRXs8xqTRg+9hc9BOb2uh4bl2iF89+FaZq
- jADHHawDtfBuMDaJYq8tjsg==
-X-Received: by 2002:a05:7022:290:b0:1b5:283:79c8 with SMTP id
- a92af1059eb24-1b5567a6eb4mr19652296c88.4.1795674267942; 
- Wed, 25 Nov 2026 22:24:27 -0800 (PST)
+ AL+hErFvhrufbbmuJWfKN8GIDsfLZcQdgMmroDi8RB85EAD7fGnSJuZEINwELL3FY3JYgkGflJN7Fq7Btqg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9mfz3GxyjByw/2qHIffGzMo7ifNruVh1Tw8NQL0sOd00CT+lWQ
+ B+s1qTjlI5f2mqPKU9IuiD/Zr3jEkO6m5oL0+Qyjt+l0Ei3UjKIirhQh61P0/st6Qw==
+X-Gm-Gg: AZFdTZdorgVa/HJSKCWssOY5a7ygGY7OMmldNreJwuH6DfqGHRJuUI1kYaIA1FN2PBb
+ R17y7uPEox/3aeID6ZDrTPfATfOo/4cbMupAPHRBk5NgNS4y69BqJeUgulXgCwbHuFfC4EAuXKW
+ Tg+achL84VdqjQ4eW1akfXJdj4OYrSbokUwovFL23++4FeHikbvw3zptT9abokxhStY1A0E8n9o
+ aqTLEZONOQzpjJXZG8Maw/Cx71W3Gr5/cS5OrSuEkF4QORmuZZjAvM3auGfT5U+s++e4ZrmqKE+
+ dG718xV+5QttjUYRNuXHgFCGUF2/79LYu2sNsufANFCkVWjyGiWJadR+fbn+/FYJjRoJc/azBiT
+ jpROiRT+KJnDFwz8c/aA2ZnEOZq0Khhobcily16ZmEh9wtXq0QuXBSOZwPUJCI8H1cgLW4l9bod
+ dLYIpFIe5uAGBTcCd1CWna3T2Jq5TTZb0RnJ0XytiCWtt1PE4rdsvJN8OAmGf7V0GY80H1iD/FP
+ l3tW3PVx1mHZZ+FOW/K3ktWR97OSLZgI9aiK2JoUETAU4ngEv0c+0VMzVnpOFfg965+UgmdjEtp
+ aZSHG1G8NwULMvcDIKfqgIka0OlNCBKBx6OizNxXecUbvDiFLdEjfT47Bu0UeRRkN/paauwWagi
+ 48ktvbCyCwGBWCW7R0sZwAg==
+X-Received: by 2002:a05:701b:4585:10b0:1b5:8f22:9803 with SMTP id
+ a92af1059eb24-1b58f229b6bmr2042435c88.1.1795674276127; 
+ Wed, 25 Nov 2026 22:24:36 -0800 (PST)
 Received: from fshao-cloudtop.c.googlers.com
  (123.142.199.104.bc.googleusercontent.com. [104.199.142.123])
  by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.24.20
+ a92af1059eb24-1b56ef9fd16sm36793186c88.4.2026.11.25.22.24.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 25 Nov 2026 22:24:27 -0800 (PST)
+ Wed, 25 Nov 2026 22:24:35 -0800 (PST)
 From: Fei Shao <fshao@chromium.org>
-Date: Thu, 26 Nov 2026 14:23:43 +0800
-Subject: [PATCH 1/8] drm/file: Define drm_show_fdinfo as NULL when
- CONFIG_PROC_FS is disabled
+Date: Thu, 26 Nov 2026 14:23:44 +0800
+Subject: [PATCH 2/8] drm: Wire drm_show_fdinfo() into default fops helpers
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-drm-fops-show-fdinfo-v1-1-7cb1d1a5d6ef@chromium.org>
+Message-Id: <20261126-drm-fops-show-fdinfo-v1-2-7cb1d1a5d6ef@chromium.org>
 References: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 In-Reply-To: <20261126-drm-fops-show-fdinfo-v1-0-7cb1d1a5d6ef@chromium.org>
 To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
@@ -119,53 +118,61 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Define drm_show_fdinfo() as NULL when CONFIG_PROC_FS is disabled
-(matching drm_compat_ioctl() and drm_gem_get_unmapped_area()) and guard
-its definition. This prepares for simplifying .show_fdinfo assignment in
-the DEFINE_DRM_*_FOPS() helpers.
+Wire drm_show_fdinfo() into DEFINE_DRM_*_FOPS() in the DRM headers, so
+drivers using the default fops helpers support showing standard fdinfo
+out of the box.
 
 Signed-off-by: Fei Shao <fshao@chromium.org>
 ---
- drivers/gpu/drm/drm_file.c | 2 ++
- include/drm/drm_file.h     | 4 ++++
- 2 files changed, 6 insertions(+)
+ include/drm/drm_accel.h          | 1 +
+ include/drm/drm_gem.h            | 2 ++
+ include/drm/drm_gem_dma_helper.h | 1 +
+ 3 files changed, 4 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index ec820686b302..bcc1b47616c0 100644
---- a/drivers/gpu/drm/drm_file.c
-+++ b/drivers/gpu/drm/drm_file.c
-@@ -961,6 +961,7 @@ void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file)
- }
- EXPORT_SYMBOL(drm_show_memory_stats);
+diff --git a/include/drm/drm_accel.h b/include/drm/drm_accel.h
+index 20a665ec6f16..1f3088002e52 100644
+--- a/include/drm/drm_accel.h
++++ b/include/drm/drm_accel.h
+@@ -48,6 +48,7 @@
+ 	static const struct file_operations name = {\
+ 		.owner		= THIS_MODULE,\
+ 		DRM_ACCEL_FOPS,\
++		.show_fdinfo	= drm_show_fdinfo,\
+ 	}
  
-+#ifdef CONFIG_PROC_FS
- /**
-  * drm_show_fdinfo - helper for drm file fops
-  * @m: output stream
-@@ -1003,6 +1004,7 @@ void drm_show_fdinfo(struct seq_file *m, struct file *f)
- 	drm_dev_exit(idx);
- }
- EXPORT_SYMBOL(drm_show_fdinfo);
-+#endif
+ #if IS_ENABLED(CONFIG_DRM_ACCEL)
+diff --git a/include/drm/drm_gem.h b/include/drm/drm_gem.h
+index 56dd15921c7a..d0c30bf23e58 100644
+--- a/include/drm/drm_gem.h
++++ b/include/drm/drm_gem.h
+@@ -43,6 +43,7 @@
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+ #include <drm/drm_device.h>
+ #endif
++#include <drm/drm_file.h>
+ #include <drm/drm_vma_manager.h>
  
- /**
-  * drm_file_err - log process name, pid and client_name associated with a drm_file
-diff --git a/include/drm/drm_file.h b/include/drm/drm_file.h
-index 6ee70ad65e1f..6fc3d7060f30 100644
---- a/include/drm/drm_file.h
-+++ b/include/drm/drm_file.h
-@@ -525,7 +525,11 @@ void drm_print_memory_stats(struct drm_printer *p,
- 			    const char *region);
+ struct iosys_map;
+@@ -501,6 +502,7 @@ struct drm_gem_object {
+ 	static const struct file_operations name = {\
+ 		.owner		= THIS_MODULE,\
+ 		DRM_GEM_FOPS,\
++		.show_fdinfo	= drm_show_fdinfo,\
+ 	}
  
- void drm_show_memory_stats(struct drm_printer *p, struct drm_file *file);
-+#ifdef CONFIG_PROC_FS
- void drm_show_fdinfo(struct seq_file *m, struct file *f);
-+#else
-+#define drm_show_fdinfo NULL
-+#endif
- 
- struct file *mock_drm_getfile(struct drm_minor *minor, unsigned int flags);
- 
+ #ifdef CONFIG_TRANSPARENT_HUGEPAGE
+diff --git a/include/drm/drm_gem_dma_helper.h b/include/drm/drm_gem_dma_helper.h
+index f2678e7ecb98..3fc22b426070 100644
+--- a/include/drm/drm_gem_dma_helper.h
++++ b/include/drm/drm_gem_dma_helper.h
+@@ -267,6 +267,7 @@ unsigned long drm_gem_dma_get_unmapped_area(struct file *filp,
+ 		.read		= drm_read,\
+ 		.llseek		= noop_llseek,\
+ 		.mmap		= drm_gem_mmap,\
++		.show_fdinfo	= drm_show_fdinfo,\
+ 		.fop_flags = FOP_UNSIGNED_OFFSET, \
+ 		DRM_GEM_DMA_UNMAPPED_AREA_FOPS \
+ 	}
 
 -- 
 2.56.1.839.g22a8290db9-goog
