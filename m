@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F9F606A323
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:38:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4F5C606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:38:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JW5e4reb
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dYgkjBRR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C80DD112252;
-	Thu, 26 Nov 2026 09:38:27 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 163D5112253;
+	Thu, 26 Nov 2026 09:38:33 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 55033112249
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:45 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8C648112245
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:42 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id CD7B362CB7;
- Thu, 26 Nov 2026 09:37:44 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 0D6AF6215C;
+ Thu, 26 Nov 2026 09:37:42 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795685864;
- b=cXdjkvWEq5fST86IyzHehXrhdE3xvU0beYbwa4Dl5IYPTM9UgqqPWv2+QSu4uwHm2XcB
- ZKrZJTIfLojUZuV9z5szDgbU5fKqKbmrxEOuR6uUIZRHRM5NuqyF1DCDa9WY3O5dqQD6u
- hZuMhsDFIQBmZx7KXt54lkYLmG3JN09D0OkWfrACxFlIJacJFmSGEw/9zSrArh4HX1Jgk
- Fd4Kvtjmd8yry5gbcSJE+0G4F04020qtAoEv9Y57dVy5+K/Y/IU0V7UtMUleDq0Ab1TSq
- 5MLYcMEjqo9TWbNSFPWRY3n7PO8+Q6dLFxywbrp+puslgWpwZJ0PtIs3ieSQ6a2GLoA==
+ t=1795685861;
+ b=Bn3GEw7VCX4w6opjDTZIThiuH9eMMkf+36Fjh2eELsI1fWe96NRXSXrLMslS5AMNVRzJ
+ kheLAOhTTY53NWYONxZ76H8nzjp0UIgaYFQC6Dq7AAQN8xn3f+9MNPtqpVGqEQ9ZuPJWJ
+ PYzLPb688PpcHtWa8HrD73bX+HFy3AeHdJHqPYjdxJ/5P32IkDOwydo1h4r7/zGbmzkQV
+ WwwPsMuITcUQ2zYKY9piwSC3QygYcB/S8xGPtZYW9TZEpYGd379hrBstxsB4SV34+Q66+
+ QzEmnveuCEkPxW5fTx90QXs3Up1ZVENFPzzYgLuHP+tJXEDuKtlmhDBWKfRBjB31DZg==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795685864;
+ c=relaxed/relaxed; t=1795685861;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=a8P8VypdTASzl6lH/vOFbcp09GFgTV1ODriwboyagiE=;
- b=VUAyslR1H4848rMk07S5Zjq74WWgOxMji22qr3d4GjS0jXJ5tjZaHNlv4zchYpNKipmK
- BmT8xhsKRxstGOyGJaE6/PrduzHLzcAqZFpuV4LeavMaYWqX7c0vWzEHJxeiWwgA95pyt
- mDouReww/Vq60QXmT4ByrRD71AyHFNHoXSXhergNiwdyd0PO3AqIJyj9tzGnG32JXTHls
- 5fB0Kaq2jfzu0Fi/wslvzwaHGz06rvMmEDcSYPzql8TYEUDm7gID6OkYlELoyaapdVH8L
- dGllykDdwG/ExDwfw/flmaIhChqda/n7wF882hsjEkG5EV8Q7dcJtzkMVG5aoVgBNPQ==
+ bh=iB2rK2HF5YVHUIf8OZ4ufHb3/01QLr5E/VHA7mic2QQ=;
+ b=v+NzNtuewaJoDl7nhCLByK4/YyhNi2z030g8AooY6vmPw6PqmBT6wmmYWeXO14sPia4r
+ D/Wzi2CfjOk/D8IToJZgasJAzmdFLpJe1SzVMUS+T5dpVktVihdK7zvYxOWrv4twvXAYt
+ I9DH779yvGC00DrAgmVJEch6Hu5j+Sq0Nq2DIiijI2i7U2IlG0ReiiYxOSgh2NRxHXQl4
+ pKw1KOumVdsBc+F07qFoGcOlJ4wZuqTmiRWp+gkOdf4G8UY7CSJq91HiS4bRb9NBOOUt3
+ Q36H7YWPVNBiC2Xj2akmN/13CeKn88jbtfMjgkxl3AGOPrxVGFB/t/UftWgRjU+1kpA==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id D99691F000EF;
- Thu, 26 Nov 2026 09:37:24 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id 47C3A1F00A3C;
+ Thu, 26 Nov 2026 09:37:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795685864;
- bh=a8P8VypdTASzl6lH/vOFbcp09GFgTV1ODriwboyagiE=;
+ s=k20260515; t=1795685861;
+ bh=iB2rK2HF5YVHUIf8OZ4ufHb3/01QLr5E/VHA7mic2QQ=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=JW5e4rebwMXwTbnfmrEA2uqnSsMOCRLt0kdBXHMIVI33F863oEJB6TNqRUdTfEgri
- NosKSClZCLlje1qV1mO+vGMen9lTEVI/74LjqCWnrvMml1zJqX/m6CN+YZiNBlN7/Q
- sWrcQ+oERvJJ+8Exb5CBNCLeo66KUdc+iM19o1MPWjydGEbNrG9Nr5iFY5miYNVyzb
- JF3ZptGxVnK9QKiFEvZFX8nGWade4JiJO90R5idXoZRGppTm/NAW0S3E8xY8a2cDfy
- wwc7oVr2vA5D2iheW2DbHpQFr0k7+/UksqfQEem4E7J43ZJaSEXsTnMOoD8zVaIUox
- 3pj9ocCCKAzjQ==
+ b=dYgkjBRReB0e1IqK+tkBY8EVXx0rd9Cf9HKp9CDenS9otmsCeRx7XkKecK9WSNCTv
+ SZzjYAHZ2s+W05tHFUWdTETiCgDgVT6/+dvVhehI/DENBOpH8ji+e+w6OEe72hj+bc
+ z4Kr+DJNJp8sRfwneg4/+8eLWTUqKQSfVKk0m2I9EtpkmdNlsGIrTKNbxxP97jI1fQ
+ P5qQcFJZnriaF94ElXdiznA3Z+Ir1juVGGw0BnodXkvLeXcRYaf1neqzgH1Zu2+7MZ
+ RF+AfQpDTUV5K6csFsGPaM0jfX4iguqgEGyRknZ/SbMQVmXiWOPTFrRsbmoydAZ/XT
+ 4kKo6bz6VYGMg==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 75D2F4D394;
- Thu, 26 Nov 2026 09:36:48 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id 220034D3A8;
+ Thu, 26 Nov 2026 09:36:49 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 09:36:53 +0000
-Subject: [PATCH v4 10/17] drm/panfrost: Don't cancel a job that completed
+Date: Thu, 26 Nov 2026 09:36:58 +0000
+Subject: [PATCH v4 15/17] drm/panfrost: Keep the job interrupts masked
  during a reset
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-panfrost-long-jobs-v4-10-23579629ceca@gmail.com>
+Message-Id: <20261126-panfrost-long-jobs-v4-15-23579629ceca@gmail.com>
 References: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 In-Reply-To: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1339;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1694;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=3lUBnktZkSvOacj1VqiKAjZOrqk7CYYBcx6fKO/61xk=;
- b=QOC1f2Xvp2yll8tHGNoYUUQCDqpNDP+S+DbA6TlYqU7HbbSIv3Vh5JrnjrDRvxL6PX8rkqLCk
- amGqoYBjnRsCxA8HeSjA1IMcIG8Jbd5KX8q01t7eZl/QQsicd18tGcn
+ bh=6YqPIH+zOU03hye/YOaqcl9r7BbJ+n1uwdvcsqhKcTY=;
+ b=o2LHgilBuUxSuZE91SSgqBhGXilMU246E48lGDIfGUWbyBe8W13i1lgiLkptMtxUsc1za1FMc
+ bt/uQyVddFGAYTpsj4d2171fPfw3z3+jPVyk1295WapQwfxIPWR/fSx
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,39 +108,45 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-A job that completes during panfrost_reset() has its jc cleared, so
-drm_sched_start() cancels it. Return its done fence instead. Depends
-on the previous patch. Not reproduced.
+panfrost_reset() masks the job interrupts without setting
+PANFROST_COMP_BIT_JOB, so a running IRQ thread unmasks them. Use
+panfrost_jm_suspend_irq(), and mask again after its synchronize_irq()
+for a thread that tested the bit just before.
 
-Fixes: 03877d621db0 ("drm/scheduler: mark jobs without fence as canceled")
+Fixes: 1d0cab5461d7 ("drm/panfrost: Make sure job interrupts are masked before resetting")
 Cc: stable@vger.kernel.org
 Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-206581@kernel.org/
+Closes: https://sashiko.dev/#/patchset/20261113-panfrost-long-jobs-v3-0-80ae78d38f6e@gmail.com?part=8
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
-v4: shorter commit message.
+v4: new (Sashiko on v3 08/14 and 13/14). Tested with a test-only hold
+in the IRQ thread: JOB_INT_MASK read 0x70007 before, 0 after.
 ---
- drivers/gpu/drm/panfrost/panfrost_job.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/gpu/drm/panfrost/panfrost_job.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_job.c b/drivers/gpu/drm/panfrost/panfrost_job.c
-index c9bd3555f..a64c33047 100644
+index 74cc3dd02..7a2503f4e 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_job.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_job.c
-@@ -409,11 +409,9 @@ static struct dma_fence *panfrost_job_run(struct drm_sched_job *sched_job)
- 	if (unlikely(job->base.s_fence->finished.error))
- 		return NULL;
+@@ -459,6 +459,7 @@ void panfrost_jm_suspend_irq(struct panfrost_device *pfdev)
  
--	/* Nothing to execute: can happen if the job has finished while
--	 * we were resetting the GPU.
--	 */
-+	/* Done in the reset: drm_sched_start() cancels it without a fence */
- 	if (!job->jc)
--		return NULL;
-+		return dma_fence_get(job->done_fence);
+ 	job_write(pfdev, JOB_INT_MASK, 0);
+ 	synchronize_irq(pfdev->js->irq);
++	job_write(pfdev, JOB_INT_MASK, 0);
+ }
  
- 	fence = panfrost_fence_create(pfdev, slot);
- 	if (IS_ERR(fence))
+ static void panfrost_job_handle_err(struct panfrost_device *pfdev,
+@@ -696,8 +697,7 @@ panfrost_reset(struct panfrost_device *pfdev,
+ 	/* Mask job interrupts and synchronize to make sure we won't be
+ 	 * interrupted during our reset.
+ 	 */
+-	job_write(pfdev, JOB_INT_MASK, 0);
+-	synchronize_irq(pfdev->js->irq);
++	panfrost_jm_suspend_irq(pfdev);
+ 
+ 	spin_lock(&pfdev->js->job_lock);
+ 	for (i = 0; i < NUM_JOB_SLOTS; i++) {
 
 -- 
 2.55.0
