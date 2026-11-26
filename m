@@ -2,84 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EE3606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 15:52:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96C2606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 15:59:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=So+WdnWi
+	dkim=pass (2048-bit key, unprotected) header.d=mailbox.org header.i=@mailbox.org header.a=rsa-sha256 header.s=mail20150812 header.b=in+7UJLS
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C13E510E9CC;
-	Thu, 26 Nov 2026 15:52:17 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 9676A10E9CC
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 15:52:11 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E995E1BA8;
- Thu, 26 Nov 2026 07:52:07 -0800 (PST)
-Received: from arm.com (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 8D9373F632;
- Thu, 26 Nov 2026 07:52:03 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1795708330; bh=t/iAXo76mNWOYi6NXRXLm9HYRbfENwEmeSuVZl+vjQ8=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
- b=So+WdnWiITxUEA+zPA0qZrHfIgEWB8UDt3yn4IEO5THcFQuUupbSyZ38WSbYLlzZO
- Rdd4TpDOmHWWTHsRW+t1aSXOFu6+xeusbEXx8t6R4TR3fxZ+3I/eAfWH7BVYVPd6hg
- fcIkARwHaaJVtuaYyOlwbtgwfzyTh/vzHdKQd+qA=
-Date: Thu, 26 Nov 2026 15:52:00 +0000
-From: Catalin Marinas <catalin.marinas@arm.com>
-To: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: "Aneesh Kumar K.V" <aneesh.kumar@kernel.org>, linux-coco@lists.linux.dev,
- Andrew Morton <akpm@linux-foundation.org>,
- Baoquan He <baoquan.he@linux.dev>, Mike Rapoport <rppt@kernel.org>,
- Pasha Tatashin <pasha.tatashin@soleen.com>,
- Pratyush Yadav <pratyush@kernel.org>,
- Christian K?nig <christian.koenig@amd.com>,
- Joerg Roedel <joro@8bytes.org>, Marc Zyngier <maz@kernel.org>,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Robin Murphy <robin.murphy@arm.com>, Steven Price <steven.price@arm.com>,
- Sumit Semwal <sumit.semwal@linaro.org>,
- Suzuki K Poulose <suzuki.poulose@arm.com>,
- Thomas Gleixner <tglx@kernel.org>, Will Deacon <will@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Benjamin Gaignard <benjamin.gaignard@collabora.com>,
- Brian Starkey <Brian.Starkey@arm.com>, John Stultz <jstultz@google.com>,
- Mark Rutland <mark.rutland@arm.com>, Radu Rendec <radu@rendec.net>,
- "T.J. Mercier" <tjmercier@google.com>,
- Madhavan Srinivasan <maddy@linux.ibm.com>,
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- Christophe Leroy <chleroy@kernel.org>,
- Ritesh Harjani <ritesh.list@gmail.com>,
- Shrikanth Hegde <sshegde@linux.ibm.com>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- Gerald Schaefer <gerald.schaefer@linux.ibm.com>,
- Heiko Carstens <hca@linux.ibm.com>, Vasily Gorbik <gor@linux.ibm.com>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Sven Schnelle <svens@linux.ibm.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>,
- Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
- "H . Peter Anvin" <hpa@zytor.com>, Kiryl Shutsemau <kas@kernel.org>,
- Rick Edgecombe <rick.p.edgecombe@intel.com>,
- "K . Y . Srinivasan" <kys@microsoft.com>,
- Haiyang Zhang <haiyangz@microsoft.com>,
- Wei Liu <wei.liu@kernel.org>, Dexuan Cui <decui@microsoft.com>,
- Long Li <longli@microsoft.com>, Paolo Bonzini <pbonzini@redhat.com>,
- Vitaly Kuznetsov <vkuznets@redhat.com>, Andy Lutomirski <luto@kernel.org>,
- Peter Zijlstra <peterz@infradead.org>,
- dri-devel@lists.freedesktop.org, iommu@lists.linux.dev,
- linaro-mm-sig@lists.linaro.org,
- linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org,
- linux-mm@kvack.org, kvmarm@lists.linux.dev, patches@lists.linux.dev
-Subject: Re: [PATCH v10 04/13] irqchip/gic-v3-its: Allocate shared tables
- using CoCo shared memory allocator
-Message-ID: <awhVoDXluqpncgcd@arm.com>
-References: <20261116091137.94252-1-aneesh.kumar@kernel.org>
- <20261116091137.94252-5-aneesh.kumar@kernel.org>
- <awQd81MwZqi55gf8@arm.com> <yq5aa4mybbmv.fsf@kernel.org>
- <20261124134621.GI9566@ziepe.ca>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4D14811258D;
+	Thu, 26 Nov 2026 15:59:20 +0000 (UTC)
+Received: from mout-p-103.mailbox.org (mout-p-103.mailbox.org [80.241.56.161])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3EC0211250E;
+ Thu, 26 Nov 2026 15:59:14 +0000 (UTC)
+Received: from smtp2.mailbox.org (smtp2.mailbox.org
+ [IPv6:2001:67c:2050:b231:465::2])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ by mout-p-103.mailbox.org (Postfix) with ESMTPS id 4jb1SZ4kxpzKnxv;
+ Thu, 26 Nov 2026 16:59:10 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org;
+ s=mail20150812; 
+ t=1795708750; h=from:from:reply-to:reply-to:subject:subject:date:date:
+ message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+ content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=8RDHQecOSvwkPFk9Qkk7oLr1trdZz2TmN5Aaxweh42U=;
+ b=in+7UJLSMG+SYjQ+AIIzDRvyho/J/dToB6rcSjjaertddvlnYx4fTYyhiMBLmE5bStqzpb
+ b0hwkoybTK9GVvDA5Vt4cpObM6OWyzHS707D+J5ngblDxe+Zi6VySQfsNww/D08mg9uj+m
+ VQpNyc5JEDWJ6dBLY5pp+ybP86mvat+2sFOLSBKuSnKUbFWQEeFUEPCYSBRMbmsRvlsR3v
+ uGOiPgqqix9AXiyMlmNZSGpcNXWJDo0xfKbqKa4x577kj33mVaJvNWGmHVBmmlXS+xChSp
+ cxCWcJ/Qt7Z6dkCEU2hJKylRFX34O+68nrw1znNpp02A8SjAjgKEEywoEsVrJw==
+Message-ID: <f4c37f8d72c545dde2111bb8a3038ac05228800e.camel@mailbox.org>
+Subject: Re: [RFC] drm/sched: Track sched fence scheduled and finished time
+ directly
+From: Philipp Stanner <phasta@mailbox.org>
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, 
+ dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Christian =?ISO-8859-1?Q?K=F6nig?=	
+ <christian.koenig@amd.com>, Danilo Krummrich <dakr@kernel.org>, Matthew
+ Brost	 <matthew.brost@intel.com>, Philipp Stanner <phasta@kernel.org>, 
+ amd-gfx@lists.freedesktop.org
+Date: Thu, 26 Nov 2026 16:59:07 +0100
+In-Reply-To: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
+References: <20261126154200.71180-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-3.fc44) 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261124134621.GI9566@ziepe.ca>
+X-MBO-RS-META: seb7bb6pmmz4mffau7cnssenfn71kigq
+X-MBO-RS-ID: 0055c6263bf2eb29fe1
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,34 +62,175 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: phasta@kernel.org
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Nov 24, 2026 at 09:46:21AM -0400, Jason Gunthorpe wrote:
-> On Tue, Nov 24, 2026 at 07:00:00PM +0530, Aneesh Kumar K.V wrote:
-> 
-> > Taking Jason's feedback into account, we could have the allocator
-> > request compound pages and recover the actual allocation order with
-> > compound_order(). That would avoid passing an order to free:
-> > 
-> > void *alloc_cc_shared_node(int nid, gfp_t gfp, unsigned int order);
-> > void *alloc_cc_shared(gfp_t gfp, unsigned int order);
-> > void free_cc_shared(void *addr);
-> 
-> It probably shouldn't be order here, that is hard to use. Just size_t
-> len
-> 
-> And round up internally
+On Thu, 2026-11-26 at 15:42 +0000, Tvrtko Ursulin wrote:
+> Philipp reports the current usage of overwriting the dma-fence timestamp
+> from the free_job worker is racy and unsafe due missing memory ordering
+> and especially with drivers which use own unordered submit workqueue for
+> the scheduler. Consider also that the timestamp field is the union in the
+> dma-fence object.
 
-Minor point in favour of keeping the '_pages' naming and order is that
-it makes it more obvious what alignment is returned for code that needs
-it like the ITS. Otherwise we can just document it, I don't have a
-strong opinion either way (only that it's simpler than what was proposed
-earlier).
+Yeah, the union thing is also something I realized during the last
+days. If that should ever be read misordered it would blow up the
+entire scheduling algorithm because the fence's callback-list pointer
+would be interpreted as a timestamp=E2=80=A6
 
--- 
-Catalin
+> On top of these serious issue there is also a smaller problem where the
+> said race can cause GPU time overaccounting.
+>=20
+> Lets try and solve all issues in one swoop by stopping messing with
+> dma-fence internals and just track what we want in our own derived fence
+> object.
+>=20
+> We care about fence submit and finish times and by adding a dedicated
+> lock to manage them we can safely access both and adjust the former
+> without any races.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> References: https://lore.kernel.org/dri-devel/20261119131830.2535266-2-ph=
+asta@kernel.org/
+
+After this thread, I started investigating timestamp-ordering in fence.
+I have ideas how we might fix it and have started preparing patches,
+also one that would touch the scheduler. But yours here seems to do
+more of the heavy lifting.
+
+> References: https://lore.kernel.org/dri-devel/20261117094324.8256-1-tvrtk=
+o.ursulin@igalia.com/
+> Cc: Christian K=C3=B6nig <christian.koenig@amd.com>
+> Cc: Danilo Krummrich <dakr@kernel.org>
+> Cc: Matthew Brost <matthew.brost@intel.com>
+> Cc: Philipp Stanner <phasta@kernel.org>
+> Cc: amd-gfx@lists.freedesktop.org
+> ---
+> =C2=A0drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c=C2=A0=C2=A0=C2=A0 | 15 ++++=
+----
+> =C2=A0drivers/gpu/drm/scheduler/sched_entity.c=C2=A0=C2=A0 |=C2=A0 6 ++--
+> =C2=A0drivers/gpu/drm/scheduler/sched_fence.c=C2=A0=C2=A0=C2=A0 | 20 ++++=
++++++--
+> =C2=A0drivers/gpu/drm/scheduler/sched_internal.h | 41 +++++++++++++++++++=
++++
+> =C2=A0drivers/gpu/drm/scheduler/sched_main.c=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=
+=A0 8 ++---
+> =C2=A0include/drm/gpu_scheduler.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 | 39 ++++++++++++++++++=
+++
+> =C2=A06 files changed, 113 insertions(+), 16 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c b/drivers/gpu/drm/am=
+d/amdgpu/amdgpu_ctx.c
+> index 2f0349233695..1a6985283acc 100644
+> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ctx.c
+> @@ -171,21 +171,20 @@ static unsigned int amdgpu_ctx_get_hw_prio(struct a=
+mdgpu_ctx *ctx, u32 hw_ip)
+> =C2=A0static ktime_t amdgpu_ctx_fence_time(struct dma_fence *fence)
+> =C2=A0{
+> =C2=A0	struct drm_sched_fence *s_fence;
+> +	ktime_t start, end;
+> =C2=A0
+> =C2=A0	if (!fence)
+> =C2=A0		return ns_to_ktime(0);
+> =C2=A0
+> -	/* When the fence is not even scheduled it can't have spend time */
+> =C2=A0	s_fence =3D to_drm_sched_fence(fence);
+> -	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->scheduled.flags))
+> -		return ns_to_ktime(0);
+> +	drm_sched_fence_get_times(s_fence, &start, &end);
+> +
+> +	/* When the fence is not even scheduled it can't have spend time */
+> +	if (!start)
+> +		return start;
+> =C2=A0
+> =C2=A0	/* When it is still running account how much already spend */
+> -	if (!test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &s_fence->finished.flags))
+> -		return ktime_sub(ktime_get(), s_fence->scheduled.timestamp);
+> -
+> -	return ktime_sub(s_fence->finished.timestamp,
+> -			 s_fence->scheduled.timestamp);
+> +	return ktime_sub(end ?: ktime_get(), start);
+
+That's also a sequence I worked on.
+
+First I wanted to fully lock dma_fence_timestamp() and use it here.
+
+But guess what, I then couldn't use it because amdgpu_ctx_fence_time()
+is called under fctx lock, which is the same as the fence lock ->
+deadlock.
+
+[=E2=80=A6]
+
+> =C2=A0void drm_sched_fence_scheduled(struct drm_sched_fence *fence,
+> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 struct dma_fence *parent)
+> =C2=A0{
+> +	ktime_t now =3D ktime_get();
+> +	unsigned long flags;
+> +
+> =C2=A0	/* Set the parent before signaling the scheduled fence, such that,
+> =C2=A0	 * any waiter expecting the parent to be filled after the job has
+> =C2=A0	 * been scheduled (which is the case for drivers delegating waits
+> @@ -74,14 +77,26 @@ void drm_sched_fence_scheduled(struct drm_sched_fence=
+ *fence,
+> =C2=A0	if (!IS_ERR_OR_NULL(parent))
+> =C2=A0		drm_sched_fence_set_parent(fence, parent);
+> =C2=A0
+> -	dma_fence_signal(&fence->scheduled);
+> +	spin_lock_irqsave(&fence->ts_lock, flags);
+> +	fence->start_ts =3D now;
+> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
+
+I get what you are doing here. I think it'll work, and also it's
+partially necessary because we should not overwrite a dma_fence's
+timestamp.
+
+Nevertheless, it seems that you don't use dma_fence_timestamp() at all
+anymore. Not even in amdgpu above.
+
+So we are then tempted to wonder what dma_fence->timestamp is even good
+for anymore, and if we're running danger of re-implementing parts of
+the fence functionality in sched_fence?
+
+Christian?
+
+> +
+> +	dma_fence_signal_timestamp(&fence->scheduled, now);
+
+You write the fence timestamp, but it seems it's not read anymore since
+sched_fence now does that? IOW, whom are you setting the timestamp for,
+who will ever evaluate it who shouldn't instead evaluate the time
+stamps of sched_fence?
+
+> =C2=A0}
+> =C2=A0
+> =C2=A0void drm_sched_fence_finished(struct drm_sched_fence *fence, int re=
+sult)
+> =C2=A0{
+> +	ktime_t now =3D ktime_get();
+> +	unsigned long flags;
+> +
+> =C2=A0	if (result)
+> =C2=A0		dma_fence_set_error(&fence->finished, result);
+> -	dma_fence_signal(&fence->finished);
+> +
+> +	spin_lock_irqsave(&fence->ts_lock, flags);
+> +	fence->finished_ts =3D now;
+> +	spin_unlock_irqrestore(&fence->ts_lock, flags);
+> +
+> +	dma_fence_signal_timestamp(&fence->finished, now);
+
+input from Christian will be needed; just recently we were envisioning
+to reduce the number of signal-functions.
+
+If you can wait a few days I would also like to present an RFC for the
+memory ordering in dma_fence_timestamp().
+
+
+P.
