@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3018606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D4C606A31E
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 13:47:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=koSN8y0s
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AotPOypH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E6D5C10EA38;
-	Thu, 26 Nov 2026 13:47:01 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5C668112427;
+	Thu, 26 Nov 2026 13:47:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AD8F410E306
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:45:44 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7764411241D
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:46:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 8A2BC404E2;
- Thu, 26 Nov 2026 13:45:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FCAE1F000C0;
- Thu, 26 Nov 2026 13:45:40 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5F5C145ECB;
+ Thu, 26 Nov 2026 13:46:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323101F00ACF;
+ Thu, 26 Nov 2026 13:46:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795700744;
- bh=GYvtdup1iOkPumPiryt8h5FINLGh7OImHJxS3+ykLCs=;
+ s=k20260515; t=1795700777;
+ bh=GM0knM8CZmPBsRo84TZenc8h+9hHSMZz/2xEKakNC6g=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=koSN8y0syq7Wbizj4EKfZl0lNS5/5tam0qAcLbQazXBmEOYDd+qaWxGQgDrvLBV11
- JIqxxfJNONL5KB29nOOVHE7IHVe6iQ7j2AfalIscuFJo+djeF7MWXHeVME4icg09mu
- 6n7kgQZJrDBqX5Q/Zv1L+1BQ3a6H3gmyLNUF2Tiidth995lj8kOXHri+9BucFaBI4B
- 801Da7BOytZULKDQ39GT4HWj9C02xL4Y7m5t1B06I2E4j/Bd3kK/BQkqgboSr5B0ok
- zus0d0PatCHGAepdZpTLsFVfe/gpjzXIEPB0HP9B+O3FiOxeho4C8ygSneBWdq/Avn
- 3p/HMGXABp9lQ==
+ b=AotPOypHn3Bk9pGgkpM0G9nFeXMaq+DKqMVadOdbk7Opo9IJVGHvYruZ5aNOuz4Hb
+ FqsemuVB+EHhnUf+YSe5P3pjpapZecq8cS3TooOuqwWYuww/yc0TiIoS3da1+0dZKA
+ gHp95ERPSJkJoEdOWzZRsu3k9g/0nOW8RFROjCV4pd46gqmnONEvDkpy2N6Quuz19l
+ B7mDCaDfuoYYh67rdnAkXlBqtgt8uba5s4ASx9WanFWlFSpzZnCVxmhdA4D2TX+lYC
+ S72+Uf6uNI+MXV5CG0lOotGds8m74mqkyuZDsYMImGjx+eK25V+sfDnbgP9XNcrqqh
+ 7t1b4SXw7zOyg==
 From: Vladimir Zapolskiy <vz@kernel.org>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
  Jessica Zhang <jesszhan0024@gmail.com>,
@@ -39,11 +39,12 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
  Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org
-Subject: [PATCH v2 01/10] dt-bindings: display: panel: novatek,
- nt36672e: Describe the reset GPIO as active low
-Date: Thu, 26 Nov 2026 15:44:59 +0200
-Message-ID: <20261126134508.320700-2-vz@kernel.org>
+ Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v2 08/10] arm64: dts: qcom: sm8450-hdk: Add display card
+ overlay
+Date: Thu, 26 Nov 2026 15:45:06 +0200
+Message-ID: <20261126134508.320700-9-vz@kernel.org>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20261126134508.320700-1-vz@kernel.org>
 References: <20261126134508.320700-1-vz@kernel.org>
@@ -61,37 +62,203 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The RESET_N pin of Novatec NT36672E panels is an active low signal, and
-panel-common.yaml expects active low reset GPIOs to be described as such,
-however the example in the binding describes the reset GPIO as active
-high, which does not match the panel hardware, but matches the inverted
-reset signal polarity overlooked in the panel device driver.
+The SM8450 HDK board can be connected to an external display card, which
+carries a 1080x2400 LCD panel module powered by the Novatek NT36672E
+display driver IC with an integrated touchscreen controller.
 
+The panel is connected to DSI0 over MIPI C-PHY links, power is supplied
+by VREG_L12C_1P8, the bias supplies are on the panel module, and they
+are enabled by signal PM8350 GPIO8 (LCD_BIAS_EN).
+
+The backlight is controlled by the PM8350 GPIO9 (LCD_WLED_EN) signal
+and the PM8350C LPG PWM on PM8350C GPIO8 (LCD_PWM).
+
+The DSI0 output is shared with the on-board Lontium LT9611UXC HDMI
+bridge, thus disable the bridge and its power supplies in the overlay.
+
+The touchscreen controller is not described, since there is no binding
+or driver support for it yet.
+
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
 ---
- .../devicetree/bindings/display/panel/novatek,nt36672e.yaml     | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ arch/arm64/boot/dts/qcom/Makefile             |   4 +
+ .../dts/qcom/sm8450-hdk-display-card.dtso     | 144 ++++++++++++++++++
+ 2 files changed, 148 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
 
-diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-index bb10d62ac2e4..dabee16bee22 100644
---- a/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/novatek,nt36672e.yaml
-@@ -47,7 +47,7 @@ examples:
-             compatible = "novatek,nt36672e";
-             reg = <0>;
- 
--            reset-gpios = <&tlmm 44 GPIO_ACTIVE_HIGH>;
-+            reset-gpios = <&tlmm 44 GPIO_ACTIVE_LOW>;
- 
-             vddi-supply = <&vreg_l8c_1p8>;
-             avdd-supply = <&disp_avdd>;
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 19310879349d..96f1b98a06b8 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -467,6 +467,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-microsoft-surface-duo2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-sony-xperia-sagami-pdx214.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8350-sony-xperia-sagami-pdx215.dtb
++
++sm8450-hdk-display-card-dtbs	:= sm8450-hdk.dtb sm8450-hdk-display-card.dtbo
++
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-hdk-display-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8450-samsung-r0q.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+new file mode 100644
+index 000000000000..3fcaae7f2abc
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/sm8450-hdk-display-card.dtso
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) Linaro Limited
++ * Copyright (c) Vladimir Zapolskiy <vz@kernel.org>
++ */
++
++/*
++ * Display Card kit overlay
++ *
++ * S5702 switch 7 should be turned OFF to route DSI0 to the display panel
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/phy/phy.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	lcd_backlight: backlight {
++		compatible = "pwm-backlight";
++		pwms = <&pm8350c_pwm 3 65535>;
++		enable-gpios = <&pm8350_gpios 9 GPIO_ACTIVE_HIGH>;
++
++		pinctrl-0 = <&lcd_wled_en>;
++		pinctrl-names = "default";
++	};
++};
++
++/* Disable HDMI bridge related nodes (mutually exclusive with the display card) */
++
++&i2c9 {
++	status = "disabled";
++};
++
++&lt9611_1v2 {
++	status = "disabled";
++};
++
++&lt9611_3v3 {
++	status = "disabled";
++};
++
++&lt9611_codec {
++	status = "disabled";
++};
++
++&mdss_dsi0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	panel@0 {
++		compatible = "novatek,nt36672e";
++		reg = <0>;
++
++		enable-gpios = <&pm8350_gpios 8 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&tlmm 0 GPIO_ACTIVE_LOW>;
++
++		vddi-supply = <&vreg_l12c_1p8>;
++
++		backlight = <&lcd_backlight>;
++
++		pinctrl-0 = <&disp0_reset_n_active>, <&mdp_vsync>, <&lcd_bias_en>;
++		pinctrl-1 = <&disp0_reset_n_suspend>, <&mdp_vsync>, <&lcd_bias_en>;
++		pinctrl-names = "default", "sleep";
++
++		port {
++			panel0_in: endpoint {
++				remote-endpoint = <&mdss_dsi0_out>;
++			};
++		};
++	};
++};
++
++&mdss_dsi0_out {
++	remote-endpoint = <&panel0_in>;
++	data-lanes = <0 1 2>;
++};
++
++&mdss_dsi0_phy {
++	phy-type = <PHY_TYPE_CPHY>;
++};
++
++&pm8350_gpios {
++	lcd_bias_en: lcd-bias-en-state {
++		pins = "gpio8";
++		function = "normal";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++
++	lcd_wled_en: lcd-wled-en-state {
++		pins = "gpio9";
++		function = "normal";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++};
++
++&pm8350c_gpios {
++	lcd_pwm: lcd-pwm-state {
++		pins = "gpio8";
++		function = "func1";
++		output-low;
++		bias-disable;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
++		power-source = <0>;
++	};
++};
++
++&pm8350c_pwm {
++	pinctrl-0 = <&lcd_pwm>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++
++&tlmm {
++	disp0_reset_n_active: disp0-reset-n-active-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <8>;
++		bias-disable;
++	};
++
++	disp0_reset_n_suspend: disp0-reset-n-suspend-state {
++		pins = "gpio0";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++
++	mdp_vsync: mdp-vsync-state {
++		pins = "gpio86";
++		function = "mdp_vsync";
++		drive-strength = <2>;
++		bias-pull-down;
++	};
++};
 -- 
 2.51.0
 
