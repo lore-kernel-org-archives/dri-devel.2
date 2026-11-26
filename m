@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19E65606A31E
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 21:45:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53888606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 21:45:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=yGXbKkb9
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=xYaXuX+c
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 33F35112746;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B2029112747;
 	Thu, 26 Nov 2026 21:45:30 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id BD249112738
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:44:49 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-4acb44dcd7bso6706121f8f.0
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:44:49 -0800 (PST)
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com
+ [209.85.128.42])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DFB53112743
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:44:54 +0000 (UTC)
+Received: by mail-wm1-f42.google.com with SMTP id
+ 5b1f17b1804b1-4bba5e17cbeso21654975e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 13:44:54 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795729488; x=1796334288; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795729493; x=1796334293; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=acaXZc4OKei2F0ZgQ8y8R54n527Bro3xiFkohRD4bNk=;
- b=yGXbKkb9LcBpJaH9uTSFgqnz7l35r6IfqJLOQ1l4ebk8s+5bZ1BFyy4rRim8B7/Ieu
- KVmGvYyjwAw1VfmbB75L3zDHZYQWCa8xDCLuzuRdgd7ign24wx6MmlNCKynz5E8/waMO
- J90ETJWBRrsUtFY5Om95MlxtKl1Z0WK4Pfo6oa4fyzsK/fkQrmcGd3G/dSAlYJee/p9u
- voamRb4i+grlMoqjkHSpFbf4CHos6BEROzV21KrlI+GZjwp1MZp7EwjydrfGnuiIi6KN
- KOhA92Il8iTmT1Bfo2qZej1MaolOTQnET3XoEocQzvxGKJqZKALMmyGGtugx8gXVMF/k
- y0Tw==
+ bh=4iGg5XMVGlXwhaaIBet1cpm1QfD+VB5UjTjNYIbHbFQ=;
+ b=xYaXuX+cQH+fQ53/Ot8CGKaUAHgO6ChLL/0mW0B/BMT7ByCYIu8RQDPPKo8FCuT/ul
+ DJCgtdNJrbjYR2ZcMMnC+oWXoxbEK3tA1MAcJ79Tw6cYoSIh9gFBaKc5tlw+/xcwx5lr
+ +BwVhrotmYJa75oDy2Km7VVtUrYoNpqT23kD5G/IBiT5pVRlAnbLzhzI77gqAG9AIG9j
+ Tj8GtwCPbcl7VXTi3g3auAVzs2XhLO+zROHqxXAqizbU0cHUBp4l7yXjRV1I3KepWGtS
+ YAN6JaH5VQOGysDo4w6tj2hW/3NQ2OXUdlbHRA8+elALEb0ojP3kOI5yIWEXBN9j7bQI
+ ssYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795729488; x=1796334288;
+ d=1e100.net; s=20260707; t=1795729493; x=1796334293;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=acaXZc4OKei2F0ZgQ8y8R54n527Bro3xiFkohRD4bNk=;
- b=RaWkYfS7D/9PVBRAdgdBTBHSO7z6JkwzL/ILQDY8NtzEvPQrNR9GQ4CZjnz+8rDgei
- 0bF0BaCgikFmz0SS5HXT3oKpW/P0xEjrVIBPChs9vb9Tt9BtLADZVDcSUHCm5KrU4l7I
- Lbx/sO+wfopEpquScxM20lumOrCAZOfMaYv1gvAKMkgv5zl1tFvUhuI5MG2OLQmv/Hf7
- yJ8KWuMKgjhAI0EBPnVcfEzRC2+kRGsGNauSxJy+7WSJ9tNTi5emBz2BwQpAGOLwWjp+
- b924N8IeQ3DEoSlTUJ64ThZmNpAvfyZblxcybPikA2fvXS9Qwx3aFakBNq1P+BOONCJn
- wxLg==
+ bh=4iGg5XMVGlXwhaaIBet1cpm1QfD+VB5UjTjNYIbHbFQ=;
+ b=iyg/B2GjBdBm68r74pNNVQmnUo9kJlJAXku0SsROTxdETSAcNNexy7Mc1qWnVP+R0Y
+ VmFBpNEvdGWYxhlzWpUF4G0EdG+qUXxYBds9rdoCKxci2zwLw4haF7izMT2iOCoV2v1G
+ jGhlaM5eesFqYXZRz4jx9uAM6n14IxYxL8HEyZDnIT5t1MO5zR+KGi2t4O1BlxFSp81h
+ 703fz59GHDO/X0rO/bV37Hg+eiBmCxnAytoG6Y55zOpbpRQJdH+CW3MI2iqZXVruIwEQ
+ uUiE89IUcDmjtfgUrx9m71bpjUqBPr4QnockLgDLOYcWzMEDSwES3fmWdtnObBCgoM3D
+ N+LQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErGdFzkqwgXqsocpJWcNV8WMn8O6muFZAVkXYoYoVmIvKdUZFzZtjFB8Zdk4kZscDQQZ/UA0zE41dA8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+al9U/m85S7rwjoHPhOMtuEzXTgTQyIE1c3e8bM68VlzNh86V8
- TTrArIfRB2toh2X8/xVI0Cp4CEjyKCAUb1tJcygb2CC4Zp/RBkTrI6mN
-X-Gm-Gg: AZFdTZdvrzkix2qPkIziWpkfWwzpePpGIr+UFAPqmzKnwrXDkoGYtS6aEE48PiH20hq
- GNW1DcmOYINzvcHlrqDw3H8F77W9vtFSXGGdRdQDDkM4J4hIk5b+4xwpMDqHuN/BvtbmfqZYJmk
- l+JIMZ97rnbZAisDEWXXYU2iQyIU6B1qQDmb8GSQiCSm/nhUWp4fysCmIpeZvyScMq2Xtd7RfNt
- Biuxz7qYfrPm6b5yyG5V2OsYdVgEccuZpIK2uUwRO6t9SZkQjVLY+hKEBSqZWUVDZjHid69w5U9
- SAPv8PSQ6JsSGL0hCIkkBkhI5f4a2zX2S1/FiR8rueKkC1B216v+KzhWpHEIhHnkh+Y85Qlp0+S
- OehgxbM0WtTeRk1Yb9REK2tjGhajAxOb/3JT0xVaM+Da4jgBKvlDgjP6uV4vIdFwUaxgKDMl+uR
- lbvCb4sVh0vJex01U2yp/9SpQ/PmD0eci/kbJcLqcL6DI1IPZw4m+ncbf/SIV8se/aj6axKtec8
- oPO2Cxe+Fhxho+CpzajhNaAYRrEkTjYwazPtD1M8/fVz2yVBaA/zYV72suXktd3hsqZNUNfUcQY
- BuO/rrealIX/Zphv0DROdy8THDj0dNNZZA4q52OXqQ7WBWyI4Tt+C2ELCVX7XiJSbQA6i8eQbSc
- 8wXk6U68mwTgdonfwJChJnqdZTuKiPyAtMekl2IlwSwobrefI02oNsy9E0Yips3PDctu1nUddvo
- gdBenTD2Tm173Ix5kAgXlRTaQYCp4Dqf4avuwS0bTLi0XGUCGjGwOjUB3ei0DHHxlmV0MlcLBgM
- prX5g0f9Ev23ZpiXtEFUno2400uyMOH1ih5KRtlug==
-X-Received: by 2002:a05:6000:2c13:b0:4a7:9630:7b57 with SMTP id
- ffacd0b85a97d-4abb43dece6mr43971087f8f.44.1795729488089; 
- Thu, 26 Nov 2026 13:44:48 -0800 (PST)
+ AL+hErHUM28/78u0v7uG/8fmuDGmTvtShD2n6LiAnN3Bvh8HV8B93QFNDJghaIVX6eDy/YU8IGtM7TxrKVA=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/7uQqgLW+vXWV5fLgvll7Hic4Hpd2LnnilTw+MwkxyBXK7ePZc
+ LjLsDr5B3gca4lVTUMIQGAhZPOnMrVW0QsKwhEsaN1tkQ2wU40KDJYVD
+X-Gm-Gg: AZFdTZdT5mxcbj9vqlXcwAc6gP274baAaa8iQCGa7u6kjmETL5wu0d/5ivOzZolCt/m
+ 5VScrDL1ZSObCBs+mEXWg+q7hPPvrnezDMBiKBOsRALtmud8aRaH1FivspgLR5VoNTIhRdZ0hFu
+ N1ps2JMC9rlaB88DRqg7PdOHku9/FIAETJZHRyffcrtwG+loQyy8bX9yYq1lb3/+PL4NHciA3XY
+ YmvLPVYzJQlFa2/Q5DyI37sxX8TqnNGxHfGzirWFHSdleYmFW/MxruPO4DqMs/TrtlDwbpTLd28
+ MA+1iUw9QZcbUu2PE1jhuWAlPUuOArdh9xVG9dpWR/XJ8TbfOo8KWmZx/+LKdt+Hw/AkjRb8jiS
+ 2lrS9WlkmGjyPiOJrkq3fgEb62PhrWNk1V85yer0eAzvmAkMGU6lGafmhVy5RfJfAQUewvpdaug
+ Jhi6Jz1adzghBHHrnfb2C+rQ4VzIsHp3lD4qSuxDNBnKgJQ8/WeXDT50ujIG3Ti56s1fSCSSgCb
+ mm+iLbymoKp5iNLn3i2vcy6UGZjbSQW3Nwgm9Z5haBkxTzuM3Q/SsORPplo8LlBobk39tXVRRkI
+ 2Y/4alHQo2Lqa6T1VlggzQ7M7SkudP7DgDrAqwJRkzEPiYE7HwiGHvG7cJ7ee5M8UKcTfarZS0Z
+ dwGv5mb12RJb7oTSNcTWWYWnAr0Ly7BnW5/wHNvexZioXz6XuAE7FT0Lcnh1RTD5/CfZqefA1/g
+ DT+5qzrdPkcVGMW1MdaWTTBT8Fyan8+AfmdHYtDNulbeaYwsK+bJcMxVXOXXbbiPn/dPJE/Iji9
+ 3taQDLclGZOrUyW54d8O8VXt+AGCdTavqJyl+LyBxVNwLl1B9+xCpitlLtNe3Y=
+X-Received: by 2002:a05:600c:4f84:b0:4bb:8701:a2df with SMTP id
+ 5b1f17b1804b1-4bb88809950mr458713105e9.17.1795729493210; 
+ Thu, 26 Nov 2026 13:44:53 -0800 (PST)
 Received: from jernej-laptop (77-38-7-250.dynamic.telemach.net. [77.38.7.250])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.46
+ ffacd0b85a97d-4abbd84e661sm40403963f8f.18.2026.11.26.13.44.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2026 13:44:47 -0800 (PST)
+ Thu, 26 Nov 2026 13:44:52 -0800 (PST)
 From: Jernej Skrabec <jernej.skrabec@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
@@ -74,9 +74,9 @@ Cc: mripard@kernel.org, maarten.lankhorst@linux.intel.com, tzimmermann@suse.de,
  dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
  linux-kernel@vger.kernel.org
-Subject: [PATCH 06/11] drm/sun4i: tcon: Add support for R40 LCD
-Date: Thu, 26 Nov 2026 22:44:28 +0100
-Message-ID: <20261126214433.3562326-7-jernej.skrabec@gmail.com>
+Subject: [PATCH 10/11] arm64: dts: allwinner: h616: Add display pipeline
+Date: Thu, 26 Nov 2026 22:44:32 +0100
+Message-ID: <20261126214433.3562326-11-jernej.skrabec@gmail.com>
 X-Mailer: git-send-email 2.56.1
 In-Reply-To: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
 References: <20261126214433.3562326-1-jernej.skrabec@gmail.com>
@@ -102,126 +102,468 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-R40 TCON LCD supports LVDS output. It shares the mux function with
-TCON TV, so use the same set_mux callback.
-
-Each TCON LCD has analog registers for both LVDS PHYs. TCON LCD1 drives
-the second PHY, so in single link mode it has to program the second
-analog register instead of the first one. Add a LVDS PHY setup callback
-which selects the register based on the TCON index.
-
-Add support for it.
+H616 contains a display engine 3.3 with two mixers and four TCONs.
+Add the display pipeline DT nodes for it.
 
 Signed-off-by: Jernej Skrabec <jernej.skrabec@gmail.com>
 ---
- drivers/gpu/drm/sun4i/sun4i_tcon.c | 49 ++++++++++++++++++++++++++----
- 1 file changed, 43 insertions(+), 6 deletions(-)
+ .../arm64/boot/dts/allwinner/sun50i-h616.dtsi | 420 ++++++++++++++++++
+ 1 file changed, 420 insertions(+)
 
-diff --git a/drivers/gpu/drm/sun4i/sun4i_tcon.c b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-index 77b6026bc895..0cbd6ae66c4e 100644
---- a/drivers/gpu/drm/sun4i/sun4i_tcon.c
-+++ b/drivers/gpu/drm/sun4i/sun4i_tcon.c
-@@ -139,24 +139,25 @@ static void sun4i_tcon_setup_lvds_phy(struct sun4i_tcon *tcon,
- 			   SUN4I_TCON0_LVDS_ANA0_EN_MB);
- }
+diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+index 93c3b8279241..d7ed84d3c121 100644
+--- a/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
++++ b/arch/arm64/boot/dts/allwinner/sun50i-h616.dtsi
+@@ -7,8 +7,11 @@
+ #include <dt-bindings/clock/sun50i-h616-ccu.h>
+ #include <dt-bindings/clock/sun50i-h6-r-ccu.h>
+ #include <dt-bindings/clock/sun6i-rtc.h>
++#include <dt-bindings/clock/sun8i-de2.h>
++#include <dt-bindings/clock/sun8i-tcon-top.h>
+ #include <dt-bindings/reset/sun50i-h616-ccu.h>
+ #include <dt-bindings/reset/sun50i-h6-r-ccu.h>
++#include <dt-bindings/reset/sun8i-de2.h>
+ #include <dt-bindings/thermal/thermal.h>
  
--static void sun6i_tcon_setup_lvds_phy(struct sun4i_tcon *tcon,
--				      const struct drm_encoder *encoder)
-+static void sun6i_tcon_setup_lvds_phy_reg(struct sun4i_tcon *tcon,
-+					  const struct drm_encoder *encoder,
-+					  unsigned int reg)
- {
- 	u8 val;
+ / {
+@@ -94,6 +97,12 @@ l2_cache: l2-cache {
+ 		};
+ 	};
  
--	regmap_write(tcon->regs, SUN4I_TCON0_LVDS_ANA0_REG,
-+	regmap_write(tcon->regs, reg,
- 		     SUN6I_TCON0_LVDS_ANA0_C(2) |
- 		     SUN6I_TCON0_LVDS_ANA0_V(3) |
- 		     SUN6I_TCON0_LVDS_ANA0_PD(2) |
- 		     SUN6I_TCON0_LVDS_ANA0_EN_LDO);
- 	udelay(2);
- 
--	regmap_update_bits(tcon->regs, SUN4I_TCON0_LVDS_ANA0_REG,
-+	regmap_update_bits(tcon->regs, reg,
- 			   SUN6I_TCON0_LVDS_ANA0_EN_MB,
- 			   SUN6I_TCON0_LVDS_ANA0_EN_MB);
- 	udelay(2);
- 
--	regmap_update_bits(tcon->regs, SUN4I_TCON0_LVDS_ANA0_REG,
-+	regmap_update_bits(tcon->regs, reg,
- 			   SUN6I_TCON0_LVDS_ANA0_EN_DRVC,
- 			   SUN6I_TCON0_LVDS_ANA0_EN_DRVC);
- 
-@@ -165,11 +166,17 @@ static void sun6i_tcon_setup_lvds_phy(struct sun4i_tcon *tcon,
- 	else
- 		val = 0xf;
- 
--	regmap_write_bits(tcon->regs, SUN4I_TCON0_LVDS_ANA0_REG,
-+	regmap_write_bits(tcon->regs, reg,
- 			  SUN6I_TCON0_LVDS_ANA0_EN_DRVD(0xf),
- 			  SUN6I_TCON0_LVDS_ANA0_EN_DRVD(val));
- }
- 
-+static void sun6i_tcon_setup_lvds_phy(struct sun4i_tcon *tcon,
-+				      const struct drm_encoder *encoder)
-+{
-+	sun6i_tcon_setup_lvds_phy_reg(tcon, encoder, SUN4I_TCON0_LVDS_ANA0_REG);
-+}
++	de: display-engine {
++		compatible = "allwinner,sun50i-h616-display-engine";
++		allwinner,pipelines = <&mixer0>, <&mixer1>;
++		status = "disabled";
++	};
 +
- static void sun4i_tcon_lvds_set_status(struct sun4i_tcon *tcon,
- 				       const struct drm_encoder *encoder,
- 				       bool enabled)
-@@ -1410,6 +1417,27 @@ static int sun6i_tcon_set_mux(struct sun4i_tcon *tcon,
- 	return 0;
- }
+ 	reserved-memory {
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+@@ -150,6 +159,84 @@ soc {
+ 		#size-cells = <1>;
+ 		ranges = <0x0 0x0 0x0 0x40000000>;
  
-+static void sun8i_r40_tcon_setup_lvds_phy(struct sun4i_tcon *tcon,
-+					  const struct drm_encoder *encoder)
-+{
-+	unsigned int reg = SUN4I_TCON0_LVDS_ANA0_REG;
-+	struct device_node *port;
++		bus@1000000 {
++			compatible = "allwinner,sun50i-h616-de33",
++				     "allwinner,sun50i-a64-de2";
++			reg = <0x1000000 0x400000>;
++			allwinner,sram = <&sram_c 1>;
++			#address-cells = <1>;
++			#size-cells = <1>;
++			ranges = <0 0x1000000 0x400000>;
 +
-+	/*
-+	 * Each TCON LCD has analog registers for both LVDS PHYs. TCON LCD1
-+	 * drives the second LVDS PHY (LVDS1 pins), so in single link mode
-+	 * it has to configure its second analog register.
-+	 */
-+	port = of_graph_get_port_by_id(tcon->dev->of_node, 0);
-+	if (port) {
-+		if (sun4i_tcon_of_get_id_from_port(port) == 1)
-+			reg = SUN4I_TCON0_LVDS_ANA1_REG;
-+		of_node_put(port);
-+	}
++			display_clocks: clock@8000 {
++				compatible = "allwinner,sun50i-h616-de33-clk";
++				reg = <0x8000 0x100>;
++				clocks = <&ccu CLK_BUS_DE>, <&ccu CLK_DE>;
++				clock-names = "bus", "mod";
++				resets = <&ccu RST_BUS_DE>;
++				#clock-cells = <1>;
++				#reset-cells = <1>;
++			};
 +
-+	sun6i_tcon_setup_lvds_phy_reg(tcon, encoder, reg);
-+}
++			planes: planes@100000 {
++				compatible = "allwinner,sun50i-h616-de33-planes";
++				reg = <0x100000 0x180000>;
++				allwinner,plane-mapping = <&display_clocks>;
++			};
 +
- static int sun8i_r40_tcon_tv_set_mux(struct sun4i_tcon *tcon,
- 				     const struct drm_encoder *encoder)
- {
-@@ -1521,6 +1549,14 @@ static const struct sun4i_tcon_quirks sun8i_a83t_tv_quirks = {
- 	.has_channel_1		= true,
- };
++			mixer0: mixer@280000 {
++				compatible = "allwinner,sun50i-h616-de33-mixer-0";
++				reg = <0x280000 0x20000>,
++				      <0x8100 0x40>;
++				reg-names = "display", "top";
++				clocks = <&display_clocks CLK_BUS_MIXER0>,
++					 <&display_clocks CLK_MIXER0>;
++				clock-names = "bus", "mod";
++				resets = <&display_clocks RST_MIXER0>;
++				allwinner,planes = <&planes>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					mixer0_out: port@1 {
++						reg = <1>;
++
++						mixer0_out_tcon_top_mixer0: endpoint {
++							remote-endpoint =
++								<&tcon_top_mixer0_in_mixer0>;
++						};
++					};
++				};
++			};
++
++			mixer1: mixer@2a0000 {
++				compatible = "allwinner,sun50i-h616-de33-mixer-0";
++				reg = <0x2a0000 0x20000>,
++				      <0x8140 0x40>;
++				reg-names = "display", "top";
++				clocks = <&display_clocks CLK_BUS_MIXER0>,
++					 <&display_clocks CLK_MIXER1>;
++				clock-names = "bus", "mod";
++				resets = <&display_clocks RST_MIXER1>;
++				allwinner,planes = <&planes>;
++
++				ports {
++					#address-cells = <1>;
++					#size-cells = <0>;
++
++					mixer1_out: port@1 {
++						reg = <1>;
++
++						mixer1_out_tcon_top_mixer1: endpoint {
++							remote-endpoint =
++								<&tcon_top_mixer1_in_mixer1>;
++						};
++					};
++				};
++			};
++		};
++
+ 		gpu: gpu@1800000 {
+ 			compatible = "allwinner,sun50i-h616-mali",
+ 				     "arm,mali-bifrost";
+@@ -978,6 +1065,339 @@ ohci3: usb@5311400 {
+ 			status = "disabled";
+ 		};
  
-+static const struct sun4i_tcon_quirks sun8i_r40_lcd_quirks = {
-+	.supports_lvds		= true,
-+	.has_channel_0		= true,
-+	.set_mux		= sun8i_r40_tcon_tv_set_mux,
-+	.dclk_min_div		= 1,
-+	.setup_lvds_phy		= sun8i_r40_tcon_setup_lvds_phy,
-+};
++		hdmi: hdmi@6000000 {
++			compatible = "allwinner,sun50i-h616-dw-hdmi",
++				     "allwinner,sun50i-h6-dw-hdmi";
++			reg = <0x06000000 0x10000>;
++			reg-io-width = <1>;
++			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_HDMI>, <&ccu CLK_HDMI_SLOW>,
++				 <&ccu CLK_HDMI>, <&ccu CLK_HDMI_CEC>,
++				 <&ccu CLK_HDCP>, <&ccu CLK_BUS_HDCP>;
++			clock-names = "iahb", "isfr", "tmds", "cec", "hdcp",
++				      "hdcp-bus";
++			resets = <&ccu RST_BUS_HDMI>, <&ccu RST_BUS_HDCP>;
++			reset-names = "ctrl", "hdcp";
++			phys = <&hdmi_phy>;
++			phy-names = "phy";
++			status = "disabled";
 +
- static const struct sun4i_tcon_quirks sun8i_r40_tv_quirks = {
- 	.has_channel_1		= true,
- 	.polarity_in_ch0	= true,
-@@ -1562,6 +1598,7 @@ const struct of_device_id sun4i_tcon_of_table[] = {
- 	{ .compatible = "allwinner,sun8i-a33-tcon", .data = &sun8i_a33_quirks },
- 	{ .compatible = "allwinner,sun8i-a83t-tcon-lcd", .data = &sun8i_a83t_lcd_quirks },
- 	{ .compatible = "allwinner,sun8i-a83t-tcon-tv", .data = &sun8i_a83t_tv_quirks },
-+	{ .compatible = "allwinner,sun8i-r40-tcon-lcd", .data = &sun8i_r40_lcd_quirks },
- 	{ .compatible = "allwinner,sun8i-r40-tcon-tv", .data = &sun8i_r40_tv_quirks },
- 	{ .compatible = "allwinner,sun8i-v3s-tcon", .data = &sun8i_v3s_quirks },
- 	{ .compatible = "allwinner,sun9i-a80-tcon-lcd", .data = &sun9i_a80_tcon_lcd_quirks },
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				hdmi_in: port@0 {
++					reg = <0>;
++
++					hdmi_in_tcon_top: endpoint {
++						remote-endpoint = <&tcon_top_hdmi_out_hdmi>;
++					};
++				};
++
++				hdmi_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		hdmi_phy: hdmi-phy@6010000 {
++			compatible = "allwinner,sun50i-h616-hdmi-phy";
++			reg = <0x06010000 0x10000>;
++			clocks = <&ccu CLK_BUS_HDMI>, <&ccu CLK_HDMI_SLOW>;
++			clock-names = "bus", "mod";
++			resets = <&ccu RST_BUS_HDMI_SUB>;
++			reset-names = "phy";
++			#phy-cells = <0>;
++		};
++
++		tcon_top: tcon-top@6510000 {
++			compatible = "allwinner,sun50i-h616-tcon-top";
++			reg = <0x06510000 0x1000>;
++			clocks = <&ccu CLK_BUS_TCON_TOP>,
++				 <&ccu CLK_TCON_TV0>,
++				 <&ccu CLK_TVE0>,
++				 <&ccu CLK_TCON_TV1>;
++			clock-names = "bus",
++				      "tcon-tv0",
++				      "tve0",
++				      "tcon-tv1";
++			clock-output-names = "tcon-top-tv0",
++					     "tcon-top-tv1";
++			resets = <&ccu RST_BUS_TCON_TOP>;
++			#clock-cells = <1>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_top_mixer0_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_top_mixer0_in_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&mixer0_out_tcon_top_mixer0>;
++					};
++				};
++
++				tcon_top_mixer0_out: port@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++
++					tcon_top_mixer0_out_tcon_lcd0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_lcd0_in_tcon_top_mixer0>;
++					};
++
++					tcon_top_mixer0_out_tcon_lcd1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_lcd1_in_tcon_top_mixer0>;
++					};
++
++					tcon_top_mixer0_out_tcon_tv0: endpoint@2 {
++						reg = <2>;
++						remote-endpoint = <&tcon_tv0_in_tcon_top_mixer0>;
++					};
++
++					tcon_top_mixer0_out_tcon_tv1: endpoint@3 {
++						reg = <3>;
++						remote-endpoint = <&tcon_tv1_in_tcon_top_mixer0>;
++					};
++				};
++
++				tcon_top_mixer1_in: port@2 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <2>;
++
++					tcon_top_mixer1_in_mixer1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&mixer1_out_tcon_top_mixer1>;
++					};
++				};
++
++				tcon_top_mixer1_out: port@3 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <3>;
++
++					tcon_top_mixer1_out_tcon_lcd0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_lcd0_in_tcon_top_mixer1>;
++					};
++
++					tcon_top_mixer1_out_tcon_lcd1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_lcd1_in_tcon_top_mixer1>;
++					};
++
++					tcon_top_mixer1_out_tcon_tv0: endpoint@2 {
++						reg = <2>;
++						remote-endpoint = <&tcon_tv0_in_tcon_top_mixer1>;
++					};
++
++					tcon_top_mixer1_out_tcon_tv1: endpoint@3 {
++						reg = <3>;
++						remote-endpoint = <&tcon_tv1_in_tcon_top_mixer1>;
++					};
++				};
++
++				tcon_top_hdmi_in: port@4 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <4>;
++
++					tcon_top_hdmi_in_tcon_tv0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_tv0_out_tcon_top>;
++					};
++
++					tcon_top_hdmi_in_tcon_tv1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_tv1_out_tcon_top>;
++					};
++				};
++
++				tcon_top_hdmi_out: port@5 {
++					reg = <5>;
++
++					tcon_top_hdmi_out_hdmi: endpoint {
++						remote-endpoint = <&hdmi_in_tcon_top>;
++					};
++				};
++			};
++		};
++
++		tcon_lcd0: lcd-controller@6511000 {
++			compatible = "allwinner,sun50i-h616-tcon-lcd",
++				     "allwinner,sun8i-r40-tcon-lcd";
++			reg = <0x06511000 0x1000>;
++			interrupts = <GIC_SPI 64 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TCON_LCD0>, <&ccu CLK_TCON_LCD0>;
++			clock-names = "ahb", "tcon-ch0";
++			clock-output-names = "tcon0-pixel-clock";
++			#clock-cells = <0>;
++			resets = <&ccu RST_BUS_TCON_LCD0>, <&ccu RST_BUS_LVDS>;
++			reset-names = "lcd", "lvds";
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_lcd0_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_lcd0_in_tcon_top_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_top_mixer0_out_tcon_lcd0>;
++					};
++
++					tcon_lcd0_in_tcon_top_mixer1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_mixer1_out_tcon_lcd0>;
++					};
++				};
++
++				tcon_lcd0_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		tcon_lcd1: lcd-controller@6512000 {
++			compatible = "allwinner,sun50i-h616-tcon-lcd",
++				     "allwinner,sun8i-r40-tcon-lcd";
++			reg = <0x06512000 0x1000>;
++			interrupts = <GIC_SPI 65 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TCON_LCD1>, <&ccu CLK_TCON_LCD1>;
++			clock-names = "ahb", "tcon-ch0";
++			clock-output-names = "tcon1-pixel-clock";
++			#clock-cells = <0>;
++			resets = <&ccu RST_BUS_TCON_LCD1>, <&ccu RST_BUS_LVDS>;
++			reset-names = "lcd", "lvds";
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_lcd1_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_lcd1_in_tcon_top_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_top_mixer0_out_tcon_lcd1>;
++					};
++
++					tcon_lcd1_in_tcon_top_mixer1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_mixer1_out_tcon_lcd1>;
++					};
++				};
++
++				tcon_lcd1_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
++		tcon_tv0: lcd-controller@6515000 {
++			compatible = "allwinner,sun50i-h616-tcon-tv";
++			reg = <0x06515000 0x1000>;
++			interrupts = <GIC_SPI 66 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TCON_TV0>,
++				 <&tcon_top CLK_TCON_TOP_TV0>;
++			clock-names = "ahb",
++				      "tcon-ch1";
++			resets = <&ccu RST_BUS_TCON_TV0>;
++			reset-names = "lcd";
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_tv0_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_tv0_in_tcon_top_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_top_mixer0_out_tcon_tv0>;
++					};
++
++					tcon_tv0_in_tcon_top_mixer1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_mixer1_out_tcon_tv0>;
++					};
++				};
++
++				tcon_tv0_out: port@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++
++					tcon_tv0_out_tcon_top: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_hdmi_in_tcon_tv0>;
++					};
++				};
++			};
++		};
++
++		tcon_tv1: lcd-controller@6516000 {
++			compatible = "allwinner,sun50i-h616-tcon-tv";
++			reg = <0x06516000 0x1000>;
++			interrupts = <GIC_SPI 67 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TCON_TV1>,
++				 <&tcon_top CLK_TCON_TOP_TV1>;
++			clock-names = "ahb",
++				      "tcon-ch1";
++			resets = <&ccu RST_BUS_TCON_TV1>;
++			reset-names = "lcd";
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				tcon_tv1_in: port@0 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <0>;
++
++					tcon_tv1_in_tcon_top_mixer0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&tcon_top_mixer0_out_tcon_tv1>;
++					};
++
++					tcon_tv1_in_tcon_top_mixer1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_mixer1_out_tcon_tv1>;
++					};
++				};
++
++				tcon_tv1_out: port@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++
++					tcon_tv1_out_tcon_top: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&tcon_top_hdmi_in_tcon_tv1>;
++					};
++				};
++			};
++		};
++
+ 		rtc: rtc@7000000 {
+ 			compatible = "allwinner,sun50i-h616-rtc";
+ 			reg = <0x07000000 0x400>;
 -- 
 2.43.0
 
