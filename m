@@ -2,107 +2,74 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F114606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:37:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5864C606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 18:47:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=goldelico.com header.i=@goldelico.com header.a=rsa-sha256 header.s=strato-dkim-0002 header.b=M5X5HITu;
-	dkim=fail reason="signature verification failed" header.d=goldelico.com header.i=@goldelico.com header.a=ed25519-sha256 header.s=strato-dkim-0003 header.b=VsiAfvSh
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=mail header.b=qwXQWvlx
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7CFA8112691;
-	Thu, 26 Nov 2026 18:37:50 +0000 (UTC)
-Received: from mo4-p02-ob.smtp.rzone.de (mo4-p02-ob.smtp.rzone.de
- [85.215.255.83])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4D06E10E9DC
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:37:44 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795718191; cv=none;
- d=strato.com; s=strato-dkim-0002;
- b=J991VfTQxDV9HXTqDDuT+ttE7+L8zYNJmnh2n0bg29QdlQHeh7ymOY3PRDHsj4eMwk
- 2V54jEX5K5A0iGS/d3TLeY/9m5usQ+f6QTIw7JA2V2LKTr6LHhybM84kCHrNq/+bbQzC
- vr/+6TlCxGEOZUTZqbPZ7N5TT/g+fErVdMg2wtjN1aa01pb2QcICY8M4zoeVStyGpli+
- mLTMh3kUaY+P8AjwE9Lbr4aG0HLqtk4fQeg0X+hhQ/i8eylRqlm7LIbxg8gG2bBn8NxY
- 80B91p8OMusb2May46qmf/XwiDl0Y0+tJKbGb01AAOkfRxQGbQ7ckvKNZgyzwLxSGjrb
- e6TA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; t=1795718191;
- s=strato-dkim-0002; d=strato.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=NYe3fpJiKO8+IsXNE3ip4kByrEDJ+wWHRmGWym8cbdo=;
- b=g+IoJTz89+C1jquOfbCbjYnlDDOlOBjCOpL2E2hiZHiLieighaXdcSq5J53Grkq0Qa
- wmH+MPtZ29jJSK/Pv7DhYKxuoWTheGFVqY+EUh06hU6/LO2fCKMhdw80zR8RJwMRtgHx
- pMSPwBL7/gQ+MKvrkUEafypzmB0iBK4bFezt0pCROLZSxOx6kBK4rUyf6TPk25hdmuh3
- xAJX1+Hdx0QKEkpfssen7eNs1GXxdz6921aMzeofB8OmMsRcMMyhxxNr9+X59EWvDnKA
- h9il8RiIeFS2zd7kfTupI34TwBOC9sQOYdSwKTnUo8PJCDkn2+MOZq4rxlLyvqSayVUx
- iFvw==
-ARC-Authentication-Results: i=1; strato.com;
-    arc=none;
-    dkim=none
-X-RZG-CLASS-ID: mo02
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; t=1795718191;
- s=strato-dkim-0002; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=NYe3fpJiKO8+IsXNE3ip4kByrEDJ+wWHRmGWym8cbdo=;
- b=M5X5HITulfuTW6C706dwdeNdHxjT3tUE4Za+jZj/L94gV6qsfBCQ/I+1r7SCTdt1IJ
- 5gxBwbYOxs1izTnJDyDVMwqKj8yP3qC8YTmc0U7fK72fILK8VGehvONy9BDQM5PbkQdx
- +KvsG1JYWm/hpJdX8EJ7NQPZmdj6j3sFIxXyPabDazYzV1zfq7PIePaX5vtna2+MMwph
- b3eCH9Tf4C0aW+olQTzEL6ypSXtMpM8MdR/brA1dDlmI+Jcb3HCfTjN+wnkeTyPnXiTX
- mv/TPdZuCoNDMuiY12JhjyojQ9Pkgcnw08nPzJiZzU5tlk9zcSuxYhqNZs6MaLqxtNsj
- Yc3g==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; t=1795718191;
- s=strato-dkim-0003; d=goldelico.com;
- h=To:References:Message-Id:Cc:Date:In-Reply-To:From:Subject:Cc:Date:
- From:Subject:Sender;
- bh=NYe3fpJiKO8+IsXNE3ip4kByrEDJ+wWHRmGWym8cbdo=;
- b=VsiAfvShX038YzxMDGCBnWBKQXU15hM3/nec/5OEW9bdKrQ9KHQd68FEBeQVGf7Ad/
- cj633Nrf/Dh7UfLW9KAQ==
-X-RZG-AUTH: ":JGIXVUS7cutRB/49FwqZ7WcJeFKiMhflhwDubTJ9qVpwcQVkPW4I1HrSippbmsiNApeHDyjDkvgGuStcrkeTGFmktdrc"
-Received: from smtpclient.apple by smtp.strato.de (RZmta 55.6.3 AUTH)
- with ESMTPSA id Qb56a22AQIaTEph
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (curve X9_62_prime256v1
- with 256 ECDH bits, eq. 3072 bits RSA))
- (Client did not present a certificate);
- Thu, 26 Nov 2026 19:36:29 +0100 (CET)
-Content-Type: text/plain;
-	charset=us-ascii
+	by gabe.freedesktop.org (Postfix) with ESMTP id A387B10E9F8;
+	Thu, 26 Nov 2026 18:46:57 +0000 (UTC)
+Received: from bali.collaboradmins.com (bali.collaboradmins.com
+ [148.251.105.195])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9FD9010E9F8
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:46:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+ s=mail; t=1795718810;
+ bh=15MjkrZo96Wtk7+oJJeShfMhLRx962x5eFfNDruHPYs=;
+ h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+ b=qwXQWvlxAorgriUDT67rJAZK2UFFeGfNH7SV/wtVTH9C1W5nS1eY2a8IhC+qx2+7h
+ tShfulZB2KOamEPgntoO2BslP+gVZ8GRQz1S1/66X+7dLhaHoYWpo6MsV1YULuqqu/
+ tDVqKfymS0YvCSFDMjYWJLxkyzN1wMwQv2ONzrlOVmDpwVjeCtRpkKIuotEnbrKPiK
+ T21APHxSdxkqAnLAdTVEcwkxkZ9RR1oCLqQfacIVUsFPe78Z1yxiKYSK8w8SFbIqYO
+ Lhs9CoAzzR4RbV7g04DTb5k2qHUlS0TUoDWpEikNoPDIlBBuy+awLnxP9cud6B/HCY
+ 8/dcWeU2Ncufw==
+Received: from [100.64.0.214] (unknown [100.64.0.214])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest
+ SHA256) (No client certificate requested)
+ (Authenticated sender: nicolas)
+ by bali.collaboradmins.com (Postfix) with ESMTPSA id EA0A717E0DCD;
+ Thu, 26 Nov 2026 19:46:47 +0100 (CET)
+Message-ID: <6e6bc569248e4d72a83de38b8aa83c66abc831f6.camel@collabora.com>
+Subject: Re: [PATCH 0/7] rust: reset: add reset control abstractions
+From: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+To: Daniel Almeida <daniel.almeida@collabora.com>
+Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein	 <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	 <work@onurozkan.dev>,
+ Philipp Zabel <p.zabel@pengutronix.de>, 	linux-kernel@vger.kernel.org,
+ rust-for-linux@vger.kernel.org, 	dri-devel@lists.freedesktop.org, Detlev
+ Casanova <detlev.casanova@collabora.com>
+Date: Thu, 26 Nov 2026 13:46:46 -0500
+In-Reply-To: <D28A86A5-8077-49BA-B366-FF29E9E75736@collabora.com>
+References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
+ <6300821339d6891983af704e2044fd1ed25285f6.camel@collabora.com>
+ <299B626E-DC60-4175-9D66-2DE58BA5070A@collabora.com>
+ <ffb55e45af601f0afaf5071f92e123c81de22a70.camel@collabora.com>
+ <D28A86A5-8077-49BA-B366-FF29E9E75736@collabora.com>
+Autocrypt: addr=nicolas.dufresne@collabora.com; prefer-encrypt=mutual;
+ keydata=mDMEaCN2ixYJKwYBBAHaRw8BAQdAM0EHepTful3JOIzcPv6ekHOenE1u0vDG1gdHFrChD
+ /e0J05pY29sYXMgRHVmcmVzbmUgPG5pY29sYXNAbmR1ZnJlc25lLmNhPoicBBMWCgBEAhsDBQsJCA
+ cCAiICBhUKCQgLAgQWAgMBAh4HAheABQkJZfd1FiEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrjo
+ CGQEACgkQ2UGUUSlgcvQlQwD/RjpU1SZYcKG6pnfnQ8ivgtTkGDRUJ8gP3fK7+XUjRNIA/iXfhXMN
+ abIWxO2oCXKf3TdD7aQ4070KO6zSxIcxgNQFtDFOaWNvbGFzIER1ZnJlc25lIDxuaWNvbGFzLmR1Z
+ nJlc25lQGNvbGxhYm9yYS5jb20+iJkEExYKAEECGwMFCwkIBwICIgIGFQoJCAsCBBYCAwECHgcCF4
+ AWIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCaCyyxgUJCWX3dQAKCRDZQZRRKWBy9ARJAP96pFmLffZ
+ smBUpkyVBfFAf+zq6BJt769R0al3kHvUKdgD9G7KAHuioxD2v6SX7idpIazjzx8b8rfzwTWyOQWHC
+ AAS0LU5pY29sYXMgRHVmcmVzbmUgPG5pY29sYXMuZHVmcmVzbmVAZ21haWwuY29tPoiZBBMWCgBBF
+ iEE7w1SgRXEw8IaBG8S2UGUUSlgcvQFAmibrGYCGwMFCQll93UFCwkIBwICIgIGFQoJCAsCBBYCAw
+ ECHgcCF4AACgkQ2UGUUSlgcvRObgD/YnQjfi4+L8f4fI7p1pPMTwRTcaRdy6aqkKEmKsCArzQBAK8
+ bRLv9QjuqsE6oQZra/RB4widZPvphs78H0P6NmpIJ
+Organization: Collabora Canada
+Content-Type: multipart/signed; micalg="pgp-sha512";
+ protocol="application/pgp-signature"; boundary="=-SnTR6pbYW0CfO0KFqPeH"
+User-Agent: Evolution 3.62.1 (3.62.1-1.fc45) 
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.700.81.1.11\))
-Subject: Re: [PATCH v2 06/20] dt-bindings: sound: Document OpenPandora sound
- card
-From: "H. Nikolaus Schaller" <hns@goldelico.com>
-In-Reply-To: <20261126192036.6646c688@kemnade.info>
-Date: Thu, 26 Nov 2026 19:35:58 +0100
-Cc: linux-fbdev@vger.kernel.org, Lee Jones <lee@kernel.org>,
- linux-pwm@vger.kernel.org, Tony Lindgren <tony@atomide.com>,
- Linus Walleij <linus.walleij@linaro.org>, dri-devel@lists.freedesktop.org,
- Jaroslav Kysela <perex@perex.cz>,
- =?utf-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- David Airlie <airlied@gmail.com>, linux-leds@vger.kernel.org,
- Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>,
- Aaro Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>,
- Helge Deller <deller@gmx.de>, Bartosz Golaszewski <brgl@kernel.org>,
- Russell King <linux@armlinux.org.uk>,
- Peter Ujfalusi <peter.ujfalusi@gmail.com>,
- Daniel Thompson <danielt@kernel.org>, devicetree@vger.kernel.org,
- Conor Dooley <conor+dt@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Roger Quadros <rogerq@kernel.org>,
- linux-gpio@vger.kernel.org, Mark Brown <broonie@kernel.org>,
- linux-sound@vger.kernel.org, Takashi Iwai <tiwai@suse.com>,
- linux-omap@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jingoo Han <jingoohan1@gmail.com>, Liam Girdwood <lgirdwood@gmail.com>,
- linux-kernel@vger.kernel.org, Thomas Zimmermann <tzimmermann@suse.de>,
- kernel@pyra-handheld.com, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Jarkko Nikula <jarkko.nikula@bitmer.com>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Discussions about the Letux Kernel <letux-kernel@openphoenux.org>
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <0CDC9F92-70F4-43CF-BBAD-255D98465F64@goldelico.com>
-References: <cover.1795505160.git.hns@goldelico.com>
- <5c6f7deca16f70f1f19cb40c57d70e30068d6000.1795505160.git.hns@goldelico.com>
- <20261124224300.519d8686@kemnade.info> <20261126192036.6646c688@kemnade.info>
-To: Andreas Kemnade <andreas@kemnade.info>
-X-Mailer: Apple Mail (2.3826.700.81.1.11)
+MIME-Version: 1.0
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,58 +81,90 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-3.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Andreas,
+--=-SnTR6pbYW0CfO0KFqPeH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> Am 26.11.2026 um 19:20 schrieb Andreas Kemnade <andreas@kemnade.info>:
+Le jeudi 26 novembre 2026 =C3=A0 15:36 -0300, Daniel Almeida a =C3=A9crit=
+=C2=A0:
 >=20
-> On Tue, 24 Nov 2026 22:43:00 +0100
-> Andreas Kemnade <andreas@kemnade.info> wrote:
+> > On 26 Nov 2026, at 15:11, Nicolas Dufresne <nicolas.dufresne@collabora.=
+com> wrote:
+> >=20
+> > Le jeudi 26 novembre 2026 =C3=A0 15:02 -0300, Daniel Almeida a =C3=A9cr=
+it :
+> > > What does not work with shared resets on the C side?
+> >=20
+> > Above make sense, for shared, you need a mechanism to coordinate the re=
+set. A
+> > bit like the comment above you made about flushing active jobs, and hol=
+ding on
+> > new jobs until the reset has completed. I think for multiple instance o=
+f the
+> > same driver its quite feasible, but when the triggering driver have no =
+clue what
+> > other driver it shares with, there is nothing as far as I know to help =
+with this
+> > coordination, and its possibly non-trivial, specially if that was not p=
+art of
+> > the initial design.
+> >=20
+> > Nicolas
 >=20
->> On Tue, 24 Nov 2026 08:25:46 +0100
->> "H. Nikolaus Schaller" <hns@goldelico.com> wrote:
->>=20
->>> The OpenPandora audio subsystem describes the routing links between =
-the
->>> OMAP3 McBSP interface, the external PCM1773 DAC, and the TWL4030 =
-audio
->>> codec, alongside amplifiers and power supplies.
->>>=20
->> I think at least in some commit message should be commented why such
->> an interface is needed and the generic sound cards are not =
-sufficient,
-
-I think there was a specific reason as I would be happy to remove the =
-board
-specific driver as well. But I have to check.
-
->> also as a starting point to recheck that later if these reasons are =
-still
->> valid.
-
-Agreed, that at least a comment would be necessary.
-
->>=20
-> To clarify a bit what I am talking about:
-> there is e.g.
 >=20
-> =
-https://lore.kernel.org/linux-omap/20261123-omap-mcbsp-tdm-slot-v2-0-3e3aa=
-e215952@telaak.dev/
+> My understanding (correct me if I am wrong?) is that this coordination is
+> indeed needed, but baked into the C assert/deassert API:
 >=20
-> which might be one piece of the puzzle.
+> Someone on a shared line has no power to assert the line
+> unconditionally, all a single consumer can say is "I'd like this line to
+> be asserted". The line is only asserted when all users agree (i.e.: when
+> all other users also ask for a reset).
+>=20
+> So if driver A wants a reset, it gets its house in order, and asks for
+> it. Same for all other drivers, and it goes through when the last one
+> does so. This is the de-facto coordination between consumers and it is
+> not something that Rust influences one way or the other.
+>=20
+> Sure, B is not told that A wants a reset, and A is not told by the reset
+> APIs when the reset goes through, but at least no user gets its hardware
+> yanked from them all of a sudden.
 
-Yes, it looks like it may be a piece of solution.
+Which comes back to my point, if the drivers have no back-channel, the lone=
+ly
+driver wanting to reset will wait forever. And the interaction with runtime=
+ PM
+seems a bit undefined too no? My question is if this is actually usable in
+practice.
 
-This should at least also be mentioned and checked if if it is applied =
-upstream to rely on.
+>=20
+> In fact, we do enforce this even harder by making sure that one cannot
+> construct a SharedResetControl<Asserted>, for the reasons above.
 
-BR and thanks,
-Nikolaus
+Maybe I'm just missing concrete examples.
 
+Nicolas
 
+>=20
+> -- Daniel
+
+--=-SnTR6pbYW0CfO0KFqPeH
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part
+Content-Transfer-Encoding: 7bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQTvDVKBFcTDwhoEbxLZQZRRKWBy9AUCawh+lgAKCRDZQZRRKWBy
+9I8pAQDBxtsGXueaBkl3fN6Srv2E9qjon97wkLGnrGJfbcFA3wEA4SYuf5FQpGbA
+iUJZwtoIA620HHS9JmbtT3AaTThrIw0=
+=0emc
+-----END PGP SIGNATURE-----
+
+--=-SnTR6pbYW0CfO0KFqPeH--
