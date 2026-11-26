@@ -2,69 +2,62 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF3EC606A332
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:24:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D39D8606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:31:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=bAivDR2C
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=XSq0R6eb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 2965C10E7BD;
-	Thu, 26 Nov 2026 16:24:40 +0000 (UTC)
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 893B710E7BD
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:24:33 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 448F810E3C7;
+	Thu, 26 Nov 2026 16:31:32 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CD43510E3C7
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:31:25 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-03.galae.net (Postfix) with ESMTPS id 422994E4179A;
- Thu, 26 Nov 2026 16:24:31 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id 2CF08C2B9D2;
+ Thu, 26 Nov 2026 16:31:32 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id EA25860558;
- Thu, 26 Nov 2026 16:24:30 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id B15E360558;
+ Thu, 26 Nov 2026 16:31:23 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id B33F111E6914A; Thu, 26 Nov 2026 17:24:04 +0100 (CET)
+ with ESMTPSA id 9187311E69139; Thu, 26 Nov 2026 17:31:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795710264; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795710677; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=Mp9D7pFPwCc0xm6C56ewwnHz36Xm2c9SF3YyvxKT0jc=;
- b=bAivDR2C35PhwnrRDbM0ubJtlM8WREdKoDtv8oyGFcLEbdkTrz41SLrg//H1eEUqhCzFlJ
- lzuFHTRbfcWExSuvEE9gNsYQb4b1644KMpczPnQVW3dK6wmMubxf3e/h+WOm9/GI3wYPt5
- 6Vhj6/ihGRqvUv/ieBsQE8bp3ELAtBxFtdWj/htVxu5K9LON5kvq/IYvgWVKAJc48nGOQn
- j8ITNyt1NNe//9eE6bFqxqQnWcotDBl1xgwZjV41q0K7GWuwAckrnF+Qa6/5TCbSExclVV
- hA8sGg2w597segnATDIotV4Awrtdx4o40lkojytTIBzXrZrrqowzfZUAkBvpFw==
+ bh=oEbc6GvfEpsr54onGmOLNQTpL2P8UYZyii5KitTQG4U=;
+ b=XSq0R6ebButZYZwwXysdG/xGnajy3rqQ4suyD0LoJQbwU11hLRZ1B0eoOxf1MbLLk4HqS3
+ cpet4drLlqhnOh+GwYQvI6OuVAiw/q3rVszc/4nO0pJWDlAh7R8gh2yJY5zcVkHxKyhuza
+ DHdjhh6BTJHeYwhKCnni7suBpptl0yz2DC9gPhRNtyO3H/KOmt1/9+tUcvolvNrPhZFkzZ
+ MZUZfhcfo1dD5aSekGbXyv4R+D31dMMRuGEsmVEMZpTiVZS9U/7R5/t39J3XkOIawMv2WU
+ rFpaTCg3QLM3N+fbFhdlYxdZ2Nprpo0UHzn78390G59CUwax7EF2RxquDvxRjQ==
 X-Archived-By: <archiver.kernel.org>
 Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset=UTF-8
-Date: Thu, 26 Nov 2026 17:24:03 +0100
-Message-Id: <DN5A5LAYR6AW.X45Z2L7J1T4H@bootlin.com>
-Cc: "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Yixun Lan" <dlan@kernel.org>, "Troy
- Mitchell" <troy.mitchell@linux.spacemit.com>, "Vinod Koul"
- <vkoul@kernel.org>, "Neil Armstrong" <neil.armstrong@linaro.org>,
- "Manivannan Sadhasivam" <mani@kernel.org>, "Haylen Chu" <heylenay@4d2.org>,
- "Michael Turquette" <mturquette@baylibre.com>, "Stephen Boyd"
- <sboyd@kernel.org>, "Brian Masney" <bmasney+clk@redhat.com>, "Philipp
- Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>, "Palmer
- Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Yao Zi" <me@ziyao.cc>,
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, "Icenowy
- Zheng" <uwu@icenowy.me>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Sarah
- Emery" <sarah.emery@canonical.com>, "Ze Huang" <ze.huang@oss.qualcomm.com>,
- "Dmitry Baryshkov" <lumag@kernel.org>, "Cody Kang" <codykang@vsit.ai>,
- <dri-devel@lists.freedesktop.org>, <linux-riscv@lists.infradead.org>,
- <devicetree@vger.kernel.org>, <spacemit@lists.linux.dev>,
- <linux-kernel@vger.kernel.org>, <linux-phy@lists.infradead.org>,
- <linux-clk@vger.kernel.org>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-To: "Guodong Xu" <docular.xu@gmail.com>, "Cody Kang" <codykang.hk@gmail.com>
+Date: Thu, 26 Nov 2026 17:31:09 +0100
+Message-Id: <DN5AB16C26GE.3M5Y1X38QATK8@bootlin.com>
 From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v3 12/17] drm/spacemit: add Innosilicon DP/eDP
- controller bridge driver
+Subject: Re: [PATCH v2 0/2] drm/bridge: tc358762: fix reset handling
+Cc: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+ <kernel@dh-electronics.com>, <linux-stm32@st-md-mailman.stormreply.com>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-gpio@vger.kernel.org>
+To: "Andreas Kemnade" <andreas@kemnade.info>, "Neil Armstrong"
+ <neil.armstrong@linaro.org>, "Dmitry Baryshkov" <lumag@kernel.org>, "Robert
+ Foss" <rfoss@kernel.org>, "Laurent Pinchart"
+ <Laurent.pinchart@ideasonboard.com>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Luca Ceresoli" <luca.ceresoli@bootlin.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
+ Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Christoph Niedermaier"
+ <cniedermaier@dh-electronics.com>, "Marek Vasut" <marex@nabladev.com>,
+ "Maxime Coquelin" <mcoquelin.stm32@gmail.com>, "Alexandre Torgue"
+ <alexandre.torgue@foss.st.com>, "Tomi Valkeinen"
+ <tomi.valkeinen@ideasonboard.com>, "Linus Walleij" <linusw@kernel.org>,
+ "Bartosz Golaszewski" <brgl@kernel.org>
 X-Mailer: aerc 0.22.0
-References: <20261121-k3-display-v3-0-ec419e8e96b8@gmail.com>
- <20261121-k3-display-v3-12-ec419e8e96b8@gmail.com>
- <9ec2f818084f2e723e8b82218a302258.docular.xu@gmail.com>
-In-Reply-To: <9ec2f818084f2e723e8b82218a302258.docular.xu@gmail.com>
+References: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
+In-Reply-To: <20261125-tc3-reset-v2-0-32eefcaf1460@kemnade.info>
 X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -84,17 +77,31 @@ X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 26, 2026 at 2:16 AM CET, Guodong Xu wrote:
-...
-> Luca (added to Cc), is module unload something your bridge hotplug
-> series [1] is meant to cover?
+Hello Andreas,
 
-No, I'm afraid it does nothing related to modules.
+On Wed Nov 25, 2026 at 12:37 PM CET, Andreas Kemnade wrote:
+> The bridge driver desserts reset after disable and asserts that
+> upon enbale. That requires users to workaround that by declaring
+> the reset gpio wrongfully active high.
+>
+> Fix polarity in the one device tree actually declaring
+> a reset line. That patch has to go in after the bridge fix.
+>
+> The issue came to sight during experiments with reset lines on the
+> Epson Moverio BT-200. There are two of these chips with a shared reset
+> line, so also prepare for future conversion to use a reset controller.
+>
+> To avoid having GPIO maintainers spammed with a bunch of patches for
+> BT200 support, do that fix separately and now, so it can go in more
+> fast-track way.
+>
+> The devicetree change is only compile tested and is more
+> a cleanup, not an urgent fix.
 
-It's complicated enough without! :-)
+Can you test it and report back? I guess it just means applyint patch 2
+without patch 1 and checking whether it works.
 
-> [1] https://lore.kernel.org/r/20261118-drm-bridge-hotplug-v3-0-44bb3b4a82=
-8f@bootlin.com
+Other than that the patches look OK.
 
 Luca
 
