@@ -2,125 +2,104 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F094606A31C
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:19:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36CBF606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 12:20:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=4xjYGXZX
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=t0tw077D
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B323112157;
-	Thu, 26 Nov 2026 12:19:32 +0000 (UTC)
-Received: from CH1PR05CU001.outbound.protection.outlook.com
- (mail-northcentralusazon11010004.outbound.protection.outlook.com
- [52.101.193.4])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 16FC510E2ED
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:19:26 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WfOGGH6Ep49EZkKv19IpcEecOO9WCLDH1hvmD2sPsRZeDqQWz4oP0Zby6gWP99kQJIwbiTug/MRZZz+AXaBbKUzWDbFrKwnq6Uibm9KxjAg8rIY7V5MBbpP0w/7fUFmGDtbZgjSKkWpC58C/wAy+9WJPh0jWzqueTioJn4m19v2bILZbOL5TMUzhQWD/Ucwk6WGKEM0oXadgzByymuJxam3Wy3EKE2/qzQJRJTTE5Y708h12wI7wBlNW5m6+mEYR6adJ6RFE7nVI/qMfB6DUM2Z8OoG/BVa9EGYsite+gYerAXhZd3f0LX9XQGvw/Xy/0nAkQS0NfBINDfZ3H4U0VA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4ndxSdIej7FOJOtcK1BgDxqGC7LZ1xn7QI9kbX9UNkw=;
- b=XerlD7JnWPPE3MUY/eCglHHVcQ8fZVE3HkgZWCqbT7brEJWs19dW/cDMQcKHjFdnwrwVxrX8+DzldDMfzoBtV9PeTfViiee7O6Ar4PSodBQ5qPjx4bc1V37utls7I0x3T/9nP0JjW97iu9Pou2ZMVmfryAcLoCaVyhIy9UQfUWIFgtiduO6MjZQOE2VTys9gpnrveSaK2Y26I28OHtifrHBYxUTZwnjnzVV1dPvdqvWmlEE1fd/1GxOlLGiuCznWuu3byMzRo7YkRIWd/ZLaCdtexEhKEeOxXMey4Mc3phn6T8GEYLSOMJKHakL3EZIIf+Cq7k0/XAqzEQZSKqP0Tg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4ndxSdIej7FOJOtcK1BgDxqGC7LZ1xn7QI9kbX9UNkw=;
- b=4xjYGXZXras49P7Oc4/8xuRxuY5uWnloPogsJPeKcdUhZXWdXPTGzOej44Ru9qKgd60BEdKVQIgnTgeKMDp9A5NUMop4eoTVHngl+D++hLTO/tbu7y5LluQPZihn/BGxqAvfhzbE564iXD0tEe/YpFYcMstTWPDibW0KFn2ww8U=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
- by BL1PR12MB5898.namprd12.prod.outlook.com (2603:10b6:208:396::7)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Thu, 26 Nov
- 2026 12:19:21 +0000
-Received: from PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
- ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0662.004; Thu, 26 Nov 2026
- 12:19:21 +0000
-Message-ID: <ba9e1f8d-abd7-4254-ba78-09d3b2f10f22@amd.com>
-Date: Thu, 26 Nov 2026 13:19:18 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 5/7] drm/syncobj: Use scoped cleanup for
- drm_syncobj_timeline_signal_ioctl chains
-To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, dri-devel@lists.freedesktop.org
-Cc: kernel-dev@igalia.com, Fei Yu <fei.yu@intel.com>,
- =?UTF-8?Q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
- <20261126111117.67342-6-tvrtko.ursulin@igalia.com>
-Content-Language: en-US
-From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
-In-Reply-To: <20261126111117.67342-6-tvrtko.ursulin@igalia.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: BL1PR13CA0350.namprd13.prod.outlook.com
- (2603:10b6:208:2c6::25) To PH7PR12MB5685.namprd12.prod.outlook.com
- (2603:10b6:510:13c::22)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9678410E27B;
+	Thu, 26 Nov 2026 12:19:55 +0000 (UTC)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com
+ [74.125.82.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ED5FD10E27B
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 12:19:49 +0000 (UTC)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-38190551625so13508143eec.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 04:19:49 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795695589; cv=none;
+ d=google.com; s=arc-20260327;
+ b=GnRxblBAOEsDzhTiAUYKjq77Xzt5HkBsmu5Qpj+or7Njq8zApkQ+F2OIu0gMC9kHTV
+ hLcUgffSf9xnWOHktEwt//ocUqp/5+kzA7Q3TwWLuLbWEc5sCwKVr4ypOTx6OjEr9Bmo
+ gaNy8R2THavFpcp+rQXCN7JvdiDl1DY4vjFOJb6XFgEsv043FnlljkDjGmJwQHuBCgs+
+ JWD6PxcJutsawrCLU7x/bz7lMtHKQOiFqCN+78Mk5Gt6o4jR1dFKuoY3hxso5yYemuUC
+ xbds2XlFMz1zR6QB57js8L2ZftDXJ26cW+1kq5peh9lJDffiF9g/wnX5DXdnh2wBIcpg
+ zhKg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:dkim-signature;
+ bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
+ fh=rUSAo+94mSo8LrSmvZAggwmahmgHSJtUPTIpbWq2nHY=;
+ b=gURjcZte6woCs97Pp7UTq39tS/acxQjaHsigPZW8HNBY/r/Q7IL3gDWbdwKgwylwOC
+ zKVSFatjQqzlV7PQGYBYO6mkz3q5hO13X6UdeS6qo5MewH4BItDIGOzNq8CXtR16d4LE
+ djzAilez38ZdMzK+EEIk/X3/j9uR6WKdLKjJXfuCakF/MAQs4dwu+UtAY/m275mGYqWo
+ gRfLI64EesBtfO6uV7EKkDT8ug4LG38DKK0xXF5Vtzf5avTNbqLj68WabarZuWqCHIJg
+ 058DuI+iBXqoaDFPkKY13r6yQcFn8K1RXXgSRaIRlyytiaevbwJRI7DBY2Ci9oZvLH9Y
+ PeAA==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795695589; x=1796300389; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
+ b=t0tw077D4N9CKRByvAw0TUg86djk+kNq6PiTt5Z4e9hkUs/a0kw/W/5sRD11fyCOzw
+ nrNebgVo78DX7VaXo8Gzp117aQC02l842HyvtnIIs4Uum+Vsp5s+Jcc0o3S+LaJwb30M
+ hVwkBxOWxIVy/JUut0EasFfBE1dTkopQtRuv2/lc9Ip+SGObSS7zpyD/XXpqBAzy842c
+ rWrwynRgG7wihavoj8VyetHt9KtO3iimA0hoVzQu3hTQMZqwyLd45Rs1ihMpR7JMfrb6
+ g/QuG1Nh7B3/PixvqUvh66x2PZ0CKv/WS1167wirn1BDBKdfmWiEseS0FtWwndJ6luRn
+ jRcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795695589; x=1796300389;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=ZYEewzeGbNDfeOmY59g+Qph2DiYQKE8Yfta5ll+tJaY=;
+ b=lG1iL09w+sbzL25QbRF3jmULfHvNZcVz+dvvZHLqz0AeLvUuMh51dS7/RiRryQiD7g
+ 1KUIbJML0v3qWFqv5b4+sV3zPPV5iZ/g0KIidUHgLAbPkJk9oE9d+Cuz9zCxvv8VAg9x
+ InWgSytSqXo9HbN8fQKyqthSLDbgpQ/q2nwuLgETTc0sFBnjTg+n2OCeMBv+IWgTHodf
+ UsmJc4ZN3p7aWQqerjDgKpO8v4/RDQo3DkouGDP/yEl68DW1cvvWgESYkcuf8arWR8oZ
+ eWDlujOcf5WQFC81lyVD6Hw1qt6HFOEOfmIF36VDC6KceRCHGLtkueZV5GNDfzYx6KN8
+ zvpQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFShdXXZof2VDjW5JXyR6BUmFleCZKMn9SNov0Aj8F5+Kn2cueh4zN31WeBQNe7+AMJZ82l3Dzgpp0=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z//SDQdfmciK/+2moPjS+XdMtNSsJYM099y9QftQBUn0y/AhawQ
+ WD5r7q4E3CQymC2mjkBrsS7gQG93q+FK3aY1xXjy0eEFGXEktHgU5+ootIPUVO5d5TB4Nzxoh08
+ pBg8SFmjrZIUSXWUWpOgBtx67GO1WUzw=
+X-Gm-Gg: AZFdTZdnX2gWtYBCmmGqFsgtsMeMOIelbPlPK+GL4Cl6gYzWuSScifSe6hsN1VNSw+Y
+ meYZfjQAOOMATggsJiXMvaBzr1aZa14W5JZKgOcC8pMeoKocLryEYmd0WlkOvJFCDgQ1sXeK4i3
+ ujUMuha1HAsOKUbwkXCX4qqhILf+uhgm9acydYWRBOfxP0VaMmu9cD19cFA2Ju0QLnO2jr0ypbe
+ rq+xfoMVWemGt1lbYqiUOs6xblSsqaR23KDjd9rbtzo/PE7i1DXmWSvqew5reAM5jm4i/t353BW
+ I3bQeXWQ3a/5TGKoMOsZhBpdpH8BNKWVX3ZoOyyq/nH7n0l9vJBvKgozYaWVegKkDqInCnYkyoX
+ V2uw7O6lLOjMftKUxDlccAbnfRpcaUtGJliT9Ml3HVzqDjOo2a3PeHU5LA9Dlw5+h5H/YcC0iWD
+ rWwlbtOAoWZtUFBqygC1d3MeNpW3K7Zw==
+X-Received: by 2002:a05:693c:895b:10b0:385:cf42:9b98 with SMTP id
+ 5a478bee46e88-385cf429dcfmr20910606eec.34.1795695589053; Thu, 26 Nov 2026
+ 04:19:49 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|BL1PR12MB5898:EE_
-X-MS-Office365-Filtering-Correlation-Id: 32c83765-d73a-408e-4ae8-08df4bb78069
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|366016|23010399003|1800799024|4143699003|6133799003|261009223027099003|261009221227099003|22082099003|18002099003|10067099003|56012099006|11063799006|261102123227099003|261028144727099003|261026140227099003|261021123027099003|261021121427099003|261022105027099003;
-X-Microsoft-Antispam-Message-Info: 7s9MKv1tcRVUrSfeEbAPCCkdFaCdEK2Gm0manIMna1AFb6W5LpontHx3EznGFzFJk9X6WUfpVxUsZgptP0K6BkRYuBX/4r/7yzXIp2Hf+uKZ0czkBga8hncQmYk6+8f8hE1q3H+Bw9PSFAt1MJtFIoiroRJi91atOehSaUus0TKNmi+h7MGX7HFQn2DOh0YfoUb5KadQZfP81beECiyCx5BzCqYtJ4ump0pZzq2az6CS04FFEG1eGHlJMQ80JhOa0Ug/QZNghqgpf0zrrTu67JGgcXls5ZjTfsznp/639iu/HYEA1/gT19v4cl2VzYPlFe3VZw/k0ovZgxoJWyEGWtJtAockGLF2D6G+Tfww1K5EviVg+aRj9fz4Bq7yeDwcxxTDXf+IeIUc6c9PxkeLXXApDtNRwbcz1SdW0asX3jVdc/iJM5kKUWGyWf3+o57JMsdYwM45bDjD2phCKIY1THCVwhJUKh3tA3bHRjcObrDV7F33apKn8+Dfnckrw1x7Lu+Ok786ltaw2pZzvlUTrqBeDow40vllpChPJmFIEUcBSRMkFOrWLEMqJ35WChajdmaE22PuyiHZ4Ah7Z3+mQRj47OM4+bv2/Blsk/A/kGTL3P7OpRsvo9fiiy/JdKMi3uT1ZKdRmODTWN6cqK7skBZWPfoDIk0yUpq4+yRdvPQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(366016)(23010399003)(1800799024)(4143699003)(6133799003)(261009223027099003)(261009221227099003)(22082099003)(18002099003)(10067099003)(56012099006)(11063799006)(261102123227099003)(261028144727099003)(261026140227099003)(261021123027099003)(261021121427099003)(261022105027099003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?dG9uUWVPY1dMdFYyNk9aYW9pRTFPakxBblNZRlpNQmgyR2pVemx0R1J2ZVJN?=
- =?utf-8?B?cHNMa3pxSW9paGRRRTY2UXBhY0dUTUpHQXhzaEtZUjZoMnhUT09vSlhKODQ0?=
- =?utf-8?B?a3UyM0tUUDFTQjFiQVg2VnVVRWJqdytKa25KNEhkcUVWSzk5cVBQYSsyRkhV?=
- =?utf-8?B?T3liVVZUNSt6SVN0bjMvM0NXY0NxanBTUnRpMTVaZmwrWlhpMFJvY1E1ayt6?=
- =?utf-8?B?V05odko3SUFTN0lpV291Z2lqTldOSnNIc2NUbkJaTjZDTEJvNWVqV2Q5bUln?=
- =?utf-8?B?ck1pOFZ3V0RXTjdIMTIxOG84OWsxUGFRd01UNFVxRDNNSVZUTTlZQWRyeFZM?=
- =?utf-8?B?Tm1NREhkaTBjd1lxYm5HWHBXY3dEREhqOTBNRXZEUDhQZUFBaUFwa254R0sw?=
- =?utf-8?B?L21aSVZxQVJNN2ZrUVpnbnU3VFhiN2tBUlY4MFJhMi9kbHBOVGR5bGpwRVJv?=
- =?utf-8?B?WDQ3OGowNFg1cWxNL0djalhtZHNJeitwR3U4MFBTWHZhVFlIdE5aYVdSRndt?=
- =?utf-8?B?RW4yRFhBQmN3UG01ajh5UmFxZmtBc1gwSXJ1MDhZR2V5SFJYeHVVSHU2TEVH?=
- =?utf-8?B?aUNJSXhVRS96dkVJdXU1RFRIUTRtbnNoaWdOMjlBUkY0UEkxeTJqYUFEQXJp?=
- =?utf-8?B?ME90NjJrczhQY09lc0ZWU3dQVHNWT2dDTXozOXM0T0FMaHVUZDdPeXVzTitT?=
- =?utf-8?B?SlJyVFFtZVhkWWtNeTR4Z1AzTmxaQ2FJVmNVVTFVM3VWWm11Wk9jVlpGWnlI?=
- =?utf-8?B?OGpza2tNVlV1bmJjT1U3WnVaZDZjZWxwM0g2eGFKNE1mNkNaMGFEYk44MWRK?=
- =?utf-8?B?eUdsYWpicGx4T1dReC9kc01kUVM0NDh6ZFVjZFRGcXBpeHE5V0lrTndMUXpQ?=
- =?utf-8?B?c2lxcFF2bXNYZHVzY2FPUGJtbFR6QkNaVmpZNTJDdklhZklpZkUxS2xJS09P?=
- =?utf-8?B?UWwvS3ZzSlZST01PSHN4TFhRR2loTTYzUGFyTngxMnRWWW1WZFEvb0NBbGhZ?=
- =?utf-8?B?RGNTTWNQelJ6Zk14QUNJbzZLelY0a3lkTHcrN1N5aTZCUjNXN2k3ZnFiUHFU?=
- =?utf-8?B?dnJ6NFFUeGlRdUo2OFZ2Y2FRRjJxUTAvVUpJdndxMm50dmpYZ1BIYlhDZXNE?=
- =?utf-8?B?S0dCLzdmeStRSW02Wk4wU2N5Wk1VRzdyNG5Zclp2cmhMdTVLQm4xTXlRaWEw?=
- =?utf-8?B?Sk1ZN0xOMWJkczV2UkNFNmY3N0NTaXhyOWl3OVJSVEorMWxNU0M1V0FZSzV6?=
- =?utf-8?B?ckdkZVdaMnlLd0RMTzB1NkpDRDloeUQrQU5xK2N6Y3U5WU9SYjdJYndCQ1Y5?=
- =?utf-8?B?dU5TbEpPWjMyTy9KYjE3UTF6MlREbmo4Z0J4bUxpRXk3enpxaGFUOVN6UFVF?=
- =?utf-8?B?d2huWlhnSUNHdnh3blJ2Y0hWa24wUFNOTEdma2lZUEtZMjlVOGI1Y3FqaUJN?=
- =?utf-8?B?YVQ1aVk1WlUzRFJldE9ITTJHMmM0REFTS3ptMmZQZ3E2VjlYS1JsYmJFRGRi?=
- =?utf-8?B?NUdHL1EwZFdLM1hXdXRHcm5EOUdWWExIa1E4UHFleHRDYjRhRktXSktLdFN1?=
- =?utf-8?B?Vm5pSzVQR0pwRXhTSG9KTzNOcit5ZWs5L2lSQ2tWU1lIL09hN1NDb1BIaVZv?=
- =?utf-8?B?cERDamxMZ2lhZS95VjdmNk5KMk1WL3V2MVM0TkJVdFc4OVBub1VJUHdDS0Fx?=
- =?utf-8?B?TlVQTmpQOG0waVd6T2o1bS9mT1p1RUpsbWFNZGdkcWR6TmNKUDFzempHWHVK?=
- =?utf-8?B?K2RFWGEvS3hzR3lwUUdTYnhnR2FXMlAvbnFEMjZzbXEyb3JSQ2hjRGtha2xa?=
- =?utf-8?B?ZTNKWlk2Kys0ZlBYTm1sTVZIR2JSaDZhU1ErQzhpMXd4Sk5NRi94TWZsQkJu?=
- =?utf-8?B?MjBnNzlQZGIxdm85Q29uRDZmdkZ2ZVVZRk1ac3hGaHVZeWdxVEJFNzNBbWd1?=
- =?utf-8?B?eXFWeU9qaC80Z2hocHBHS0hyQVZmMnpQckFzSGlmSWFLTEdTKzAvcmg2enRG?=
- =?utf-8?B?YjQ1bmxDSHlFS2M5bzBML3pVRXRFT01zQWxpSjJaT24zMVA3cGRZLzUrazBy?=
- =?utf-8?B?cTJiOXl1ZlV2c3dnUm9pVjRSQWFtcXhXbXNibm0vblZvOE5FVk1pMkYwbHZu?=
- =?utf-8?B?TDBvNUhDa29CMFdXZjBxcTFjbmg3dlRtWXo5cmV0TXpjeFQ3QjFPcTV3UFNW?=
- =?utf-8?B?QTJlY1JaK3JVUVFzR0VEMkJWLzNJeGpacHdGMXR4bUNSYWRQNXVtK0s3MDdJ?=
- =?utf-8?B?Wm42Ky9hczlON0pkUUpxcEYrbDBiL2hNSEJ2SXlxWlZwKytWdDQyeVlsd3k1?=
- =?utf-8?Q?Nexk3z2VLNeEyVj/aR?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 32c83765-d73a-408e-4ae8-08df4bb78069
-X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Nov 2026 12:19:21.7045 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zTj+CrHzO7Z4DdO1ZPAV1JGqTass4aoSQi2LrANr/V8DSKHFlQd8SkEN+NEeDSSR
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5898
+References: <20261115085826.89641-1-clamor95@gmail.com>
+ <20261115085826.89641-5-clamor95@gmail.com>
+ <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+In-Reply-To: <20261126114728.GG38590@joneslee-macbookpro.roam.internal>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 26 Nov 2026 14:19:37 +0200
+X-Gm-Features: Aa3M54o45-8oLpV7u0fds3mVX__iIW7iqATGNdrlwb2jFlsQvtadJWGIKMAZpQU
+Message-ID: <CAPVz0n138PXP88++q4QXiao-7=nzade=e_jAdfKK0_xsEyPtFg@mail.gmail.com>
+Subject: Re: [PATCH v7 4/4] mfd: aat2870: Add support for VIN and IN-LDO power
+ supplies
+To: Lee Jones <lee@kernel.org>
+Cc: Pavel Machek <pavel@kernel.org>, Griffin Kroah-Hartman <griffin@kroah.com>,
+ Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+ dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,114 +111,40 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=ham autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-12.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/26/26 12:11, Tvrtko Ursulin wrote:
-> Use scoped cleanup for drm_syncobj_timeline_signal_ioctl chains array
-> allocation.
-> 
-> This is a split out step towards converting the whole function with the
-> goal of simpler error handling and easier extending with a fast path in
-> the future.
-> 
-> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
-> Cc: Christian König <christian.koenig@amd.com>
-> Cc: Fei Yu <fei.yu@intel.com>
-> Cc: Maíra Canal <mcanal@igalia.com>
-> ---
->  drivers/gpu/drm/drm_syncobj.c | 41 +++++++++++++++++++++++++----------
->  1 file changed, 29 insertions(+), 12 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/drm_syncobj.c b/drivers/gpu/drm/drm_syncobj.c
-> index e05051c3895f..da90ae11382e 100644
-> --- a/drivers/gpu/drm/drm_syncobj.c
-> +++ b/drivers/gpu/drm/drm_syncobj.c
-> @@ -1566,15 +1566,33 @@ drm_syncobj_signal_ioctl(struct drm_device *dev, void *data,
->  	return ret;
->  }
->  
-> +struct syncobj_chains {
-> +	struct dma_fence_chain **chains;
-> +	unsigned int count;
-> +};
-> +
-> +static void syncobj_chains_free(struct syncobj_chains *c)
-> +{
-> +	if (!c->chains)
-> +		return;
-> +
-> +	for (unsigned int i = 0; i < c->count; i++)
-> +		dma_fence_chain_free(c->chains[i]);
-> +
-> +	kvfree(c->chains);
+=D1=87=D1=82, 26 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 13:4=
+7 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, 15 Nov 2026, Svyatoslav Ryhel wrote:
+>
+> > The AAT2870 supports a dedicated main power supply input alongside pare=
+nt
+> > power supply for its internal regulators.
+> >
+> > Add support for retrieving and managing these supply regulators
+> > (vin-supply and in-ldo-supply) using the regulator framework to ensure
+> > proper power supply dependencies and power-up sequencing.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/mfd/aat2870-core.c            | 5 +++++
+> >  drivers/regulator/aat2870-regulator.c | 1 +
+>
+> Is this a build dep?
+>
 
-Yeah same here, I would only remove the kvfree and not the refcounting cleanup.
+More a logical link, I can break it but it still will be part of this patch=
+ set.
 
-Regards,
-Christian.
+> Would something that was working before, break?
+>
 
-> +}
-> +
-> +DEFINE_FREE(syncobj_chains, struct syncobj_chains, syncobj_chains_free(&_T))
-> +
->  int
->  drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->  				  struct drm_file *file_private)
->  {
->  	struct drm_syncobj_timeline_array *args = data;
-> +	struct syncobj_chains chains __free(syncobj_chains) = {};
->  	u64 *points __free(kvfree) = NULL;
->  	struct drm_syncobj **syncobjs;
-> -	struct dma_fence_chain **chains;
-> -	uint32_t i, j;
-> +	unsigned int i;
->  	int ret;
->  
->  	if (!drm_core_check_feature(dev, DRIVER_SYNCOBJ_TIMELINE))
-> @@ -1606,30 +1624,29 @@ drm_syncobj_timeline_signal_ioctl(struct drm_device *dev, void *data,
->  		goto out;
->  	}
->  
-> -	chains = kvmalloc_objs(*chains, args->count_handles);
-> -	if (!chains) {
-> +	chains.chains = kvmalloc_objs(*chains.chains, args->count_handles);
-> +	if (!chains.chains) {
->  		ret = -ENOMEM;
->  		goto out;
->  	}
->  	for (i = 0; i < args->count_handles; i++) {
-> -		chains[i] = dma_fence_chain_alloc();
-> -		if (!chains[i]) {
-> -			for (j = 0; j < i; j++)
-> -				dma_fence_chain_free(chains[j]);
-> +		chains.chains[i] = dma_fence_chain_alloc();
-> +		if (!chains.chains[i]) {
->  			ret = -ENOMEM;
-> -			goto err_chains;
-> +			goto out;
->  		}
-> +		chains.count++;
->  	}
->  
->  	for (i = 0; i < args->count_handles; i++) {
->  		struct dma_fence *fence = dma_fence_get_stub();
->  
-> -		drm_syncobj_add_point(syncobjs[i], chains[i],
-> +		drm_syncobj_add_point(syncobjs[i], chains.chains[i],
->  				      fence, points[i]);
-> +		chains.chains[i] = NULL; /* Ownership transferred to syncobj */
->  		dma_fence_put(fence);
->  	}
-> -err_chains:
-> -	kvfree(chains);
-> +
->  out:
->  	drm_syncobj_array_free(syncobjs, args->count_handles);
->  
-
+Other way, it was broken (aat2870 may have a dedicated supply) and now
+it is fixed.
