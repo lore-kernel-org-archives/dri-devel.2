@@ -2,55 +2,83 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDAC606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 03:16:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E10A1606A321
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 03:23:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.a=rsa-sha256 header.s=dkim header.b=zXcrer25
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=dPkxK9OX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 05AC310E1EF;
-	Thu, 26 Nov 2026 03:16:03 +0000 (UTC)
-Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com
- [113.46.200.227])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 9311B10E1A4
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 03:15:41 +0000 (UTC)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
- c=relaxed/relaxed; q=dns/txt; h=From;
- bh=AxS9gVTk7ONc3uzkbA9wh8yrs74SVjyjoJSUTpcd3i8=;
- b=zXcrer25cO+HqgmDqwEL+33dGrP/qKTg1isAwBHE0otrD2E1KMTPc9oe47xHiPjPfTl0ATKUu
- OGbRncICSlS8cpKPNVtYQpbB2RiQgIJk8Mb/wsTabQ0AokfIbN8bd+/DfRAwAzK83i8iwB4sHt1
- lH7OF5JLwr2K2KB9O0gsyLA=
-Received: from mail.maildlp.com (unknown [172.19.163.15])
- by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4jZhVd1f3kznTW8;
- Thu, 26 Nov 2026 11:14:49 +0800 (CST)
-Received: from kwepemk200005.china.huawei.com (unknown [7.202.194.71])
- by mail.maildlp.com (Postfix) with ESMTPS id CBAEB40578;
- Thu, 26 Nov 2026 11:15:37 +0800 (CST)
-Received: from localhost.huawei.com (10.169.64.31) by
- kwepemk200005.china.huawei.com (7.202.194.71) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 26 Nov 2026 11:15:37 +0800
-From: Yongbang Shi <shiyongbang@huawei.com>
-To: <tzimmermann@suse.de>, <dmitry.baryshkov@oss.qualcomm.com>,
- <tiantao6@hisilicon.com>, <maarten.lankhorst@linux.intel.com>,
- <mripard@kernel.org>, <airlied@gmail.com>, <daniel@ffwll.ch>,
- <kong.kongxinwei@hisilicon.com>
-CC: <liangjian010@huawei.com>, <shuliubin@huawei.com>,
- <chenjianmin@huawei.com>, <fengsheng5@huawei.com>, <shiyongbang@huawei.com>,
- <helin52@h-partners.com>, <shenjian15@huawei.com>, <shaojijie@huawei.com>,
- <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH for drm-misc-fixes v6 2/2] drm/hisilicon/hibmc: Add a flag to
- indicate whether the OS-side driver has been loaded
-Date: Thu, 26 Nov 2026 11:06:48 +0800
-Message-ID: <20261126030648.3231196-3-shiyongbang@huawei.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261126030648.3231196-1-shiyongbang@huawei.com>
-References: <20261126030648.3231196-1-shiyongbang@huawei.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id DA2A810E2AF;
+	Thu, 26 Nov 2026 03:23:31 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+ [209.85.216.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 2264D10E22A
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 03:23:24 +0000 (UTC)
+Received: by mail-pj1-f49.google.com with SMTP id
+ 98e67ed59e1d1-3b147e50af1so543241a91.2
+ for <dri-devel@lists.freedesktop.org>; Wed, 25 Nov 2026 19:23:24 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795663404; x=1796268204; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=HtWcfzq6QYRKud0neDB6yUmZQgDuRRFbJcQVKQlnPhY=;
+ b=dPkxK9OXd0dNtRpXS8edjs84GI8vpWGhpxLd4fiF/y371hQ08Sd87Kv/i7A1ez64Dc
+ gfcPWwxaoOPMbmmyBEQOzUwENC9Sx8tnZWz9VZVePCd3wISXzoHIofckvhYwFy30oxzg
+ 1JAbt7TCBBij2AB9ALOjk2PGB0khV0UMMoE9fMoJbDFaman8WiS2SNV9NeTJ70JELVZQ
+ +Xjlo+BU4Anq2kNFDxS/6rVWtVVWb69LmkJN/oVvBUjcZHxwEB3tPw9PuFPpu8EvzoUh
+ MlzVVNZoXE5QGy6aIo724ZZA499IYP5RVH+cxleo1XREFvwuEF9wzOnngSuL8NCVBbS5
+ llzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795663404; x=1796268204;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=HtWcfzq6QYRKud0neDB6yUmZQgDuRRFbJcQVKQlnPhY=;
+ b=KBX5HT7zQPv1RkUTDNWx+JHFqD1W1XEalX5JBU1hLiO+3CGRLgh7qgGRXsWEJhJ0qF
+ HwtrcE1o5neebR7ArwbkdMaaZYqZJraPe96EREKFqHocyXOPTMJrOT/nzAmuYwUAhyP7
+ 81ExmxChh5vHzVAm2yL4t3aRd4rhJ3olM3EpjElDRttICV6wHTAu0+RRO6iDZ2eTA6gJ
+ YEKT4JWJB3+Llpn2akygaKn36aFZXA6B4hD2XYfxWYA827UTZM3UZKTHIYw6nxG86H7r
+ TidZ7+KvpdLSiZ6ddS7gL4R1x1lo3QX3+fmGX62+LmeXSRoC0X1zMyki9+5t9+kDNwRv
+ 7Uxg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE7P/wQovZ4A/AT6+lTHRD0sU/WiimJA7NiAarbmSy+RUpYAzLJjRw4WkcNM+dCXRtfZSJLfz6v/nU=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8RK97ikDB5w54bixNOFm9AaUwU3hvinQIoSx86+FeqlW9m86ox
+ B6eRDDzSaDPcXFU3A/sL+FdVHCK8GtHy/GopUvzt2TjwPZ1BNfFw3Jqw
+X-Gm-Gg: AZFdTZfI+Z9t5Z2H/zB6RJIQN4sb4thm3tzj2Gl3HUGYuiGc+jTr5HImFrVINLxrqBz
+ B8lRlfsjlVACdkxm09W13fSOvSSfQyKHb+G4/ml4xHcUQjnDEuXL085qQl2hJnoRRVAgZNsvlVD
+ HrV1NCjMDhg36u8k/q3t35+tJaBCN37AahiNFxQ3A+WLmXF42feWOLVOwp0xHNyFSbbxh45gZk0
+ 1CgX3Fl40bKBqkvmJyi75XQGtyFYKH07gnil9RJHYNYL7+P8r3jFAtBYu3JaOwgm8o77tRNAm3A
+ WfrQ3StzQCpgmSdUzd5s7ZnzNJVhsIwsBiJrEWgxp4GfjIn1pnYefcRj4NwXSP6YTJflEdvllL+
+ 2MsGzZvOiLa/ub2Jylc2qgERbGeb1nHtA6lrviDqFIEUassNvE9DsrNJANaSn8Olb0xijbPJ4Y/
+ 5LuMV2hTfUIpnGIqSbocv0bPUJV399fvt1rtmn5HbAliUqkoFnT/OJcMwIeCDa9KnEff8/qSv2j
+ nNRyRaVrXz/C1Tf83yHkZEhq1mMbcjjnGKwQEyhcb6Vdnvag054EqPn6RxEf9hyKnNUfb53pM2u
+ eKOQCGBiI1JH2FEt7oVT+H+DKr89sBS5
+X-Received: by 2002:a17:90a:e705:b0:3b0:9e2c:9b55 with SMTP id
+ 98e67ed59e1d1-3b41c803ae0mr28913249a91.2.1795663404159; 
+ Wed, 25 Nov 2026 19:23:24 -0800 (PST)
+Received: from localhost.localdomain ([240e:36d:b08:5b40::a60])
+ by smtp.gmail.com with ESMTPSA id
+ 41be03b00d2f7-cdea2aed207sm3916423a12.11.2026.11.25.19.23.20
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 25 Nov 2026 19:23:23 -0800 (PST)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: xiaqinghuan@mail.ustc.edu.cn
+Cc: abhinav.kumar@linux.dev, dmitry.baryshkov@oss.qualcomm.com,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ jesszhan0024@gmail.com, linux-arm-msm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, lumag@kernel.org,
+ marijn.suijten@somainline.org, robin.clark@oss.qualcomm.com,
+ sean@poorly.run, Jianfeng Liu <liujianfeng1994@gmail.com>
+Subject: Re: [PATCH v2] drm/msm/dsi/phy: program PLL_SYSTEM_MUXES on the first
+ PHY enable
+Date: Thu, 26 Nov 2026 11:23:15 +0800
+Message-ID: <20261126032315.2226704-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261117052047.32129-1-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261117052047.32129-1-xiaqinghuan@mail.ustc.edu.cn>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
- kwepemk200005.china.huawei.com (7.202.194.71)
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,233 +90,34 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Lin He <helin52@huawei.com>
+Hi Qianhui,
 
-Add a flag to indicate whether the OS-side driver has been loaded to
-prevent the BMC from enabling DP if the driver is not loaded, which could
-lead to system failure in handling interrupts and generate error messages
-like:
+On Tue, 17 Nov 2026 13:20:47 +0800, Qianhui Xu wrote:
+>Fixes: cb55f39bf7b1 ("drm/msm/dsi/phy: Fix reading zero as PLL rates when unprepared")
+>Signed-off-by: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
 
-irq xx: nobody cared (try booting with the "irqpoll" option)
-...
-Call Trace:
-<TRQ>
-...
+Tested-by: Jianfeng Liu <liujianfeng1994@gmail.com>
 
-The flag is set only after hibmc_dp_init() succeeded, so it also means
-that the DP block is ready.  If DP initialization fails, only the vblank
-MSI vector is requested, so the DP interrupt is not registered at all.
+I can confirm this patch fixes DSI panel on my Xiaomi Pad 5 Pro. Thanks
+for your work and I'm looking forward to it getting merged.
 
-Fixes: 0ab6ea261c1f ("drm/hisilicon/hibmc: add dp module in hibmc")
-Acked-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: Lin He <helin52@huawei.com>
-Signed-off-by: Yongbang Shi <shiyongbang@huawei.com>
----
-ChangeLog:
-v5 -> v6:
-  - Use cleanup-based lock guards for gpio_lock. (Thomas Zimmermann)
-v4 -> v5:
-  - Only set the enable flag when DP was initialized, clear it only when
-    it was set, and do not request the DP interrupt if DP initialization
-    failed. (sashiko-bot)
-v2 -> v3:
-  - Move hibmc_set_enable_flag() before drm_dev_register() and
-    hibmc_set_disable_flag() after drm_dev_unregister() to narrow the
-    race window. (sashiko-bot)
-  - Add spinlock_t gpio_lock to hibmc_drm_private to protect all
-    operations on 0x0802A4. (sashiko-bot)
-v1 -> v2:
-  - The call to `hibmc_set_enable_flag()` has been moved before
-    `drm_client_setup()`, specifically before the connector detection
-    triggers the I2C bit operation. (sashiko-bot)
-  - A read-modify-write operation has been implemented instead of directly
-    writing to prevent clearing the I2C mask bits. (sashiko-bot)
----
- drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h    |  1 +
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c    |  1 +
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c   | 41 ++++++++++++++++++-
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h   |  2 +
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c   | 10 ++++-
- .../gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h  |  3 ++
- 6 files changed, 54 insertions(+), 4 deletions(-)
+BTW I wonder if this mail is ignored by the mailing list because from this
+link[1], I can see:
 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-index 84faa1a7439d..10772cddcfc8 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/dp/dp_hw.h
-@@ -57,6 +57,7 @@ struct hibmc_dp {
- 	struct hibmc_dp_cbar_cfg cfg;
- 	int hpd_status;
- 	int phys_status;
-+	bool initialized;
- };
- 
- int hibmc_dp_hw_init(struct hibmc_dp *dp);
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-index 6ea70c31d1a9..9fa49a2ba093 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_dp.c
-@@ -256,6 +256,7 @@ int hibmc_dp_init(struct hibmc_drm_private *priv)
- 	connector->polled = DRM_CONNECTOR_POLL_HPD;
- 
- 	dp->phys_status = connector_status_disconnected;
-+	dp->initialized = true;
- 
- 	return 0;
- }
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-index 7920f03895fe..5334edf8f88a 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.c
-@@ -174,6 +174,8 @@ static int hibmc_kms_init(struct hibmc_drm_private *priv)
- 	if (ret)
- 		return ret;
- 
-+	spin_lock_init(&priv->gpio_lock);
-+
- 	dev->mode_config.min_width = 0;
- 	dev->mode_config.min_height = 0;
- 	dev->mode_config.max_width = 1920;
-@@ -346,12 +348,17 @@ static void hibmc_unload(struct drm_device *dev)
- static int hibmc_msi_init(struct drm_device *dev)
- {
- 	struct pci_dev *pdev = to_pci_dev(dev->dev);
-+	struct hibmc_drm_private *priv = to_hibmc_drm_private(dev);
-+	int max_vectors = HIBMC_MIN_VECTORS;
- 	int valid_irq_num;
- 	int irq;
- 	int ret;
- 
--	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS,
--				    HIBMC_MAX_VECTORS, PCI_IRQ_MSI);
-+	if (priv->dp.initialized)
-+		max_vectors = HIBMC_MAX_VECTORS;
-+
-+	ret = pci_alloc_irq_vectors(pdev, HIBMC_MIN_VECTORS, max_vectors,
-+				    PCI_IRQ_MSI);
- 	if (ret < 0) {
- 		drm_err(dev, "enabling MSI failed: %d\n", ret);
- 		return ret;
-@@ -430,6 +437,32 @@ static int hibmc_load(struct drm_device *dev)
- 	return ret;
- }
- 
-+static inline void hibmc_set_enable_flag(struct hibmc_drm_private *priv)
-+{
-+	u32 value;
-+
-+	if (!priv->dp.initialized)
-+		return;
-+
-+	guard(spinlock_irqsave)(&priv->gpio_lock);
-+	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-+	value |= HIBMC_ENABLE_STATE;
-+	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-+}
-+
-+static inline void hibmc_set_disable_flag(struct hibmc_drm_private *priv)
-+{
-+	u32 value;
-+
-+	if (!priv->dp.initialized)
-+		return;
-+
-+	guard(spinlock_irqsave)(&priv->gpio_lock);
-+	value = readl(priv->mmio + HIBMC_ENABLE_FLAG);
-+	value &= ~HIBMC_ENABLE_STATE;
-+	writel(value, priv->mmio + HIBMC_ENABLE_FLAG);
-+}
-+
- static int hibmc_pci_probe(struct pci_dev *pdev,
- 			   const struct pci_device_id *ent)
- {
-@@ -465,6 +498,8 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 		goto err_return;
- 	}
- 
-+	hibmc_set_enable_flag(priv);
-+
- 	ret = drm_dev_register(dev, 0);
- 	if (ret) {
- 		drm_err(dev, "failed to register drv for userspace access: %d\n",
-@@ -477,6 +512,7 @@ static int hibmc_pci_probe(struct pci_dev *pdev,
- 	return 0;
- 
- err_unload:
-+	hibmc_set_disable_flag(priv);
- 	hibmc_unload(dev);
- err_return:
- 	return ret;
-@@ -487,6 +523,7 @@ static void hibmc_pci_remove(struct pci_dev *pdev)
- 	struct drm_device *dev = pci_get_drvdata(pdev);
- 
- 	drm_dev_unregister(dev);
-+	hibmc_set_disable_flag(to_hibmc_drm_private(dev));
- 	hibmc_unload(dev);
- }
- 
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-index dce8572bf63e..c2a82000ea7f 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_drv.h
-@@ -49,6 +49,8 @@ struct hibmc_drm_private {
- 	struct drm_crtc crtc;
- 	struct hibmc_vdac vdac;
- 	struct hibmc_dp dp;
-+
-+	spinlock_t gpio_lock; /* protects RMW on I2C/ENABLE_FLAG (0x0802A4) */
- };
- 
- static inline struct hibmc_vdac *to_hibmc_vdac(struct drm_connector *connector)
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-index 44860011855e..6d158b8ad7fa 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_i2c.c
-@@ -27,7 +27,10 @@ static void hibmc_set_i2c_signal(void *data, u32 mask, int value)
- {
- 	struct hibmc_vdac *vdac = data;
- 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
--	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-+	u32 tmp_dir;
-+
-+	guard(spinlock_irqsave)(&priv->gpio_lock);
-+	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
- 
- 	if (value) {
- 		tmp_dir &= ~mask;
-@@ -47,7 +50,10 @@ static int hibmc_get_i2c_signal(void *data, u32 mask)
- {
- 	struct hibmc_vdac *vdac = data;
- 	struct hibmc_drm_private *priv = to_hibmc_drm_private(vdac->connector.dev);
--	u32 tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
-+	u32 tmp_dir;
-+
-+	guard(spinlock_irqsave)(&priv->gpio_lock);
-+	tmp_dir = readl(priv->mmio + GPIO_DATA_DIRECTION);
- 
- 	if ((tmp_dir & mask) != mask) {
- 		tmp_dir &= ~mask;
-diff --git a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-index 17b30c393b10..b95add5b253c 100644
---- a/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-+++ b/drivers/gpu/drm/hisilicon/hibmc/hibmc_drm_regs.h
-@@ -200,5 +200,8 @@
- 
- #define HIBMC_CRT_PALETTE                       0x80C00
- 
-+#define HIBMC_ENABLE_FLAG			0x802A4
-+#define HIBMC_ENABLE_STATE			BIT(2)
-+
- #define HIBMC_FIELD(field, value) (field(value) & field##_MASK)
- #endif
--- 
-2.33.0
+-- strict thread matches above, loose matches on Subject: below --
+2026-11-17  5:20 [PATCH v2] " Qianhui Xu
 
+And the mail from 11-17 doesn't have a subject.
+
+[1] https://lore.kernel.org/linux-arm-msm/20261116150334.78710-1-xiaqinghuan@mail.ustc.edu.cn/
+
+Best regards,
+Jianfeng
