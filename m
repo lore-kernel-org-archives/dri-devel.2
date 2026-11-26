@@ -2,111 +2,101 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEB2606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36DC7606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:29:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Fobx1Bne
+	dkim=pass (2048-bit key, unprotected) header.d=fastmail.com header.i=@fastmail.com header.a=rsa-sha256 header.s=fm3 header.b=PabZVgmO;
+	dkim=pass (2048-bit key, unprotected) header.d=messagingengine.com header.i=@messagingengine.com header.a=rsa-sha256 header.s=fm3 header.b=w0MB20Sn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B5737112852;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 3A7FF112848;
 	Fri, 27 Nov 2026 08:29:33 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E149A112444
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 14:01:10 +0000 (UTC)
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-3b501791bb5so821834a91.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 06:01:10 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795701670; cv=none;
- d=google.com; s=arc-20260327;
- b=lU8jISqtrCFNTOdlIRPG1wz2WLijhCzYA0Q9t8E0AdaiL9a5dtTGX5Crlu/iA8fwJB
- uO//pIVK3RqUauY3BWu/bU5zRh2LAvgoAyLg0H9sM93AFrMy2xS/TidGl/22R9+YqQHg
- jrD+DfpNSCwovk7SrUF4n8Wp2OJVMHLsrWsbMPXQkSm36xGYO7gz0b6Mh6IahjyI97ZY
- QRE+cK92lQPPMhWiNfW4C4K3wnLaFKmxrTn1kIdpFB+sr0WfcYrZpW0hu4DDn71+3ZsF
- awrEM0ICdPZsehqg3qvetfzRmmdkqFhSGaPORyYhjwKweSfChvzGV4nbn3Yt5jA8DyGR
- QhEw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=cc:to:subject:message-id:date:from:references:in-reply-to
- :mime-version:dkim-signature;
- bh=+7PsyILtAxa7IPKxzpI7zOKx9SpmvIvo+vE3udAtUiY=;
- fh=RSIbT5Av+rHvGjVLZLYbBrcvptJBfrsShXHbocChCHk=;
- b=N6KI9FgmiG8OYhVnPaXXmg219+TarkMt7hKlNsD4urcFOKNmY2BvFcsH4bNjYQuRA5
- liJxA9bKn8iyrsirLqwKetSUOv7bzFyAiyo/xAN+ItWkw8vKftK/PzBVqMoxdXGCoUN8
- rtZdfVbVYdar326Nlw4ZpA2gwppK2q/HlUyqUXAit0prwiv2U6VdZy3Nya5sVJpx6iZ6
- ubTbHnTMkP+f5Xd68Mi/ztfQ8GtF9a1EK7si+iec9/q4YneRRNVgY5pKgTvB2a+Sy2Zo
- 47xjt8nZSbwP2ouDvpdudyDOeQjf+ZHtOF89+Z/ojT0mey4Ooah6Aj5bSXqjjYTWBppm
- Up/A==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795701670; x=1796306470; darn=lists.freedesktop.org;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=+7PsyILtAxa7IPKxzpI7zOKx9SpmvIvo+vE3udAtUiY=;
- b=Fobx1BnekaAXc/6b5wtzObXgGv6xFzZfU/KnPCEpRtzxByR9o6xNvNcIY82wSU0jQB
- EmhDel2lKbf8fyULk09FCgqWDmDSVhjgKD6d43xWDqPzqDIyNMIy6Zr/acUGUlUWxm2p
- QwMEq5IVHxk/LhgBs4ir867FS2MPV5Z25c/ul2UBzQH8aTpjSQzYXRj/ZIvVy1zdezNA
- qbqQcljS+SgkrGOr/u95x1H0TZwmS7ckQsqzgO9EaEVHLpPE/YQoaOoqhI8jJ81gQgkR
- oA1YnBBI8SeVW2rm6KO8gmIHlGUt0MCGvYdS9w3eoHBboA0sRV7Fbfv+f1Gefeggogxi
- ZLwg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795701670; x=1796306470;
- h=content-type:cc:to:subject:message-id:date:from:references
- :in-reply-to:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=+7PsyILtAxa7IPKxzpI7zOKx9SpmvIvo+vE3udAtUiY=;
- b=1+0JXx7WRofY72U9lKgC3cFVkx/JY46Z+A5N9t4iDGTiA8V1tYHea1fyDy4QrvGaUH
- UnvcXcHwwacEzT/QDwj7R6HGnTQxChPbRHYdoEduTFVVttZRSyXBnFIREYeEMMAtfYT9
- ii0ThMuPGVf+iWE0RmIjlkDdq+4cL9ZZpboJ8w/JjUQumRXdkU2bIpZ0px6ESZwCHpGL
- iWmvar0asHKd1Hs240fg/eJMl3D9I9BVMsskxv1gJ7GhLf96KYqoK2JY6J2oDXxUZfYb
- +ioNSuf0b8hbVpWKuyzcEvR/SWGc8JElX52q9YmmF2Qf2bRKqfP38QRCO1TLdEbQj8Rc
- 4a9g==
-X-Forwarded-Encrypted: i=1;
- AL+hErFLcWQh3NZilEe5P/aTfzGTnifKw8l+zY7tTJuuta0s+78QaIt5tNs8x9HgXCz71y6k6vrLiqMGEgY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8c5z+hf6D/yUADEQ6G+VjAnGVEjcr92gMhEYzDRMDQkW7t89WV
- F90yR1wYFjv4Pq31AB+wdxknb78hBcYBaFoF41ZhxA8PvvSTo/w4fm8GmaSkdQW2myH05ZFmp6Q
- oLDriom1l1P4oJfXKgYtk17JpYvOeVFk=
-X-Gm-Gg: AZFdTZdHGl3QwWmH5hXvY731jeYLJn2gTgblYI5fFyABRNHxfXhdXJl8KBcN1lDZp68
- YCrzqNp8sD8t4Q6IVyTZ2VsvVFKQU9c5rNetR40mMDWK1ZBtYghVpWEi6A3of59u7wIvI+wOZAq
- Jwefnf+pS0B76U4RI2LR71QMCp9Bc/6ebLpkIMxJPelh31HppqdF5BqngfRrn0HBPHCbCFxI4oj
- 4ZVbQZr+hi4Stbe6wnPo/QbB6rQPhERWQh7ta30PC4BKdoFCjLH7cl18nbbC/MsDgiPRzcy67L8
- n3zfWCRROdkVCvFy8H4lOZvxzX1+mC/goG8mesRr/rHlGaHIOoXOVs7g+yuUInJg8dnYTlQgfVA
- M4TzL4uU4ymihCsDjTSZjaW57k/GnuUKNv3/Ut4sm5OOV1GI1T2uLKWrDtcp7i6vmI2G2xDbrYZ
- B8QyNFtPXCEgc3CxFhru02xU/dyWV+/1pvehulM+nkSpglgc10
-X-Received: by 2002:a17:90b:3e48:b0:3ac:adce:60ad with SMTP id
- 98e67ed59e1d1-3b41c98a343mr17253681a91.22.1795701670094; Thu, 26 Nov 2026
- 06:01:10 -0800 (PST)
+Received: from fhigh-b2-smtp.messagingengine.com
+ (fhigh-b2-smtp.messagingengine.com [202.12.124.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2B7B112594
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:05:42 +0000 (UTC)
+Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
+ by mailfhigh.stl.internal (Postfix) with ESMTP id 429987A057F
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 11:05:42 -0500 (EST)
+Received: from phl-frontend-04 ([10.202.2.163])
+ by phl-compute-06.internal (MEProxy); Thu, 26 Nov 2026 11:05:42 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fastmail.com; h=
+ cc:cc:content-transfer-encoding:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to; s=fm3; t=1795709140; x=1795795540; bh=0jJSJ14/au0I5tvGdZLv3
+ VBdYXYm14UxYMphMpPpqg0=; b=PabZVgmOfamECvaOL1H8mHIQUtt/Q2CbaTdWV
+ uiWdtuD9ovRmhYcNM/c760gOa6jDaOjEuXW2SuXIb2jciC4yJVtUQLkyp0lsPoT+
+ EYVqpY3CnxHSIis4SlEqFePIpXvXIORFksKtDJAyQ+uqe5HK5dUIs06Nf+Queis3
+ zCI9fDxB1LuDbQdKjWSwebl2SpOfu2aaCKeLIbnJM9Eu0kNHTAo44laLGvpdxobV
+ psZ7rkcAl61yQfgsVsPqBQ1rRvC595KVSklKlZxVRABANVFe98G2mqz6LiPtvMqj
+ qlI+Xnp4q4EqG8a8/Z4V1vzS+cbsJTGxdE/iUtRGp7otLWfPA==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-transfer-encoding
+ :content-type:date:date:feedback-id:feedback-id:from:from
+ :in-reply-to:message-id:mime-version:reply-to:subject:subject:to
+ :to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm3; t=
+ 1795709140; x=1795795540; bh=0jJSJ14/au0I5tvGdZLv3VBdYXYm14UxYMp
+ hMpPpqg0=; b=w0MB20Sn6Hjt7deu5NuNlpKMCC70pKa/u0+lv5M+glrjgCxOBhd
+ VLpH8PnW5z9WhTredz5vsB8ut842ZdHXYQ13+K+RJ8GYBPuiUHvtlW6xNqNcSGtL
+ o9R5AvFKzXpIotHsyObl8ap2caRmvDVJDWt0VY2sGEsSfaxQOGViBqobD3qhedfS
+ 956p1GYZaShyj48LwHpPaaXOkmAInehWaEEo6pRyzZD0oIUXgL4OMxwcn9pMzopn
+ jIp95lJH1wTFTZHXtD5nv9a9GeCrlFeCvZYHfC8iwbFS39wN6Lc1hQIRJHDViUkj
+ qL7VCfA5V1zbFHvEbBPTp1YAEZi2K68eK8g==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=sign d=fastmail.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1795709140; d=fastmail.com;
+ mf=PGJhcmFudEBmYXN0bWFpbC5jb20+;
+ rt=PGRyaS1kZXZlbEBsaXN0cy5mcmVlZGVza3RvcC5vcmc+;
+ s=fm3:rsa-sha256:ADQi3BYYyG2fuV3C+5ZhR7IP5Xpb3yqTF4A9e1Ro6SH8yR4
+ PQJMhpPVcsbKozpEc8BdWUuwcimOzrKGR4iX/uN93kuYXTr6a6ZtpOc+LZrlBMQH
+ XIugAVLvjDshKlUr5M2xWLdpb+yiiRNU2NyO9f2D/eMCv/7k6UkTCjS3mx5Y/xGY
+ N2ozHjMdk8mJvBhDb40Ondf4bRxGcgSI6wz2pj6uRd2UWb6AOJCNU8BfauWPwWFB
+ 1DzxhpJNDjF2LAuQvhJ2eoZvkViFuUn/PV9vKD1cbcbpgyYCo9LJ84FoGiqSfB1f
+ AoS3c4b8kZj+BdX++6wfuVgvfwjVrtPMX9slX4A==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-09;
+ repo=github.com/dkim2wg/interop; date=2026-11-03; sw=lmtpprox;
+ action=mi-m=1; hc=9;
+ hn=cc,content-transfer-encoding,date,feedback-id,from,
+ message-id,mime-version,subject,to;
+Message-Instance: m=1;
+ h=sha256:F6kfNk6FSJJLJjYOLQdGJdV+34dbXvz59y5HSzyjEDQ=:vQqCiOEAJ5fdy/X2Eu1ZZCDteP3JyJpjgB8/9HEG7Pw=;
+X-ME-Sender: <xms:1FgIa6NWkeiPJ0uJUA_56QIIhEFk_Mi49__RqafDYFdb2IHBp3MQbQ>
+ <xme:1FgIazmFfFMGGLEzm8Reb018XvdLhke2ERjEWjf7aCVUoK3oykzQDn1ZE8WBZlvbj
+ jMvba94XBY59iCD9CTfjkkFqM4S10JKFeFogdsffZvIMstCKche_jo>
+X-ME-Received: <xmr:1FgIa3Sl47u0SeG-9VjeqRS-3EHZZOkYQik77cqQ6hgvi6LpXawqV9zz>
+X-ME-Proxy-Cause: dmFkZTEbOjtD6V/wkwTVGH9xCFVJJKrdCMFjVFjGnd6lcfh2GndMeiOBdtUvzQWH9iYIcz
+ Ct1PhE8RwksXbz7aefrdX56LROZT/pPlPokU7SszlhN/E5nmLV7xzdB0aHN8efmY4GefHQ
+ fMoBQH7SY+RThmSTYhQLfFMZj+3eLOzXI0oA4qdr/AeVbI/NYs6vm9NYXm1JkMPe74h348
+ qH0NFvS8/oXjBACPslIq2upoNdLJq6fSC+n3t0OxC5xKvSOuDlGzV7ieZJ7SUh+ZwYykAJ
+ 5Iwj7kJE53juRfCix+4+63/AO7O3gicL8E1dLetP5YLBLYt2t5g48KBvPwvYtlhdWuWsDU
+ COwdhqk2zpFvaf5UvdKBue2+MPzLyXANOsYZHQ0LZGLcJ5h5yDZmclhfad6bxctpRSed49
+ FAhqZxNRAWtZgKvIMyigA/JvdmLifrZwBClPQ/QdBdX4DuN6aOsJcSmlbQGTDLqjK0P4XT
+ 2Zlo1AQmsK3FjY6YCrJ5t0JtHQZ+fWKVbbxc3Eof9XOiyNIZmv/4q9t4hK2fRwitW9XTOE
+ Yq13vOdPi0ZFbMnp9jyGyxuGbsRysUvrIPfXIbS5by2XZG8+yf0ZvL0oy/tKRiCuhwT+mw
+ TRlKxKlnjLauC1QFc8Mtky+dtxl84eJRk2J02sHTO/gyD3T3HM6KXR0dadtg
+X-ME-Proxy: <xmx:1FgIa6Wmim6r8lblNpmXrENxNmK_VAWqWezdL5Rqx5CH0ZnS6C8vMA>
+ <xmx:1FgIazIZqdDah1xoAAxRCGCi9eUEGKNjb6_VoQYPgLNWBmFq17-98A>
+ <xmx:1FgIay3fYM4HN6SAp7USru6COEfg_PaalIIdyR5VLwI2bwUQRty1rg>
+ <xmx:1FgIa4J1stsui1Y_vK8CbmFlXCCjrG200VsDcGimSlDVRoLxgsTkig>
+ <xmx:1FgIa1_51uEc7wpV1pUcK3unFHoE_Bq0BCr9uK_TYhhpCB4ItrdaLpwG>
+Feedback-ID: i9dce4b48:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 26 Nov 2026 11:05:38 -0500 (EST)
+From: Baran Tuna <barant@fastmail.com>
+To: Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
+ Rodrigo Siqueira <siqueira@igalia.com>,
+ Alex Deucher <alexander.deucher@amd.com>,
+ =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
+Cc: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH] drm/amd/display: Use str_enable_disable() helper
+Date: Thu, 26 Nov 2026 19:05:29 +0300
+Message-ID: <321392d0d9dba36777ec771663c677509fb49c15.1795702369.git.barant@fastmail.com>
+X-Mailer: git-send-email 2.53.0
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Received: by 2002:a05:6674:130c:b0:771:4e9f:71e1 with HTTP; Thu, 26 Nov 2026
- 06:01:08 -0800 (PST)
-In-Reply-To: <20261125-crosshatch-panel-v4-7-120adc58e737@ixit.cz>
-References: <20261125-crosshatch-panel-v4-0-120adc58e737@ixit.cz>
- <20261125-crosshatch-panel-v4-7-120adc58e737@ixit.cz>
-From: Petr Vorel <petr.vorel@gmail.com>
-Date: Thu, 26 Nov 2026 15:01:08 +0100
-X-Gm-Features: Aa3M54r3jOMoaN604G_PpkDABxE0tA8XJpn1t4KmQ5BOdp8OIW38I_If28UAF8Q
-Message-ID: <CAB1t1CyR_jDOBnofzWZddgutyUyEib0CN-6jhiTP0B=YPTJCKg@mail.gmail.com>
-Subject: Re: [PATCH v4 7/9] drm/panel: s6e3ha8: Add Samsung AMB630QY01 (Google
- Pixel 3 XL) panel
-To: "david@ixit.cz" <david@ixit.cz>
-Cc: Dzmitry Sankouski <dsankouski@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- Abel Vesa <abelvesa@kernel.org>, Marco Mattiolo <marco.mattiolo@hotmail.it>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- "dri-devel@lists.freedesktop.org" <dri-devel@lists.freedesktop.org>, 
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
- "linux-arm-msm@vger.kernel.org" <linux-arm-msm@vger.kernel.org>, 
- "phone-devel@vger.kernel.org" <phone-devel@vger.kernel.org>
-Content-Type: multipart/alternative; boundary="0000000000002b2f9b06612e6067"
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Fri, 27 Nov 2026 08:29:09 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -119,28 +109,50 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-4.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,HTML_MESSAGE,INCLUDES_CR_TRAILER,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+Message-ID: <20261126160529.xj9JvAhUd7wgAhUYCpnHomfivSX7XPi3prteyWIXi_c@z>
 
---0000000000002b2f9b06612e6067
-Content-Type: text/plain; charset="UTF-8"
+Replace the open-coded enable ? "enable" : "disable" ternary with
+the str_enable_disable() helper from <linux/string_choices.h>.
 
-Hi David, all,
+Found by scripts/coccinelle/api/string_choices.cocci.
 
-LGTM
+Signed-off-by: Baran Tuna <barant@fastmail.com>
+---
+Compile-tested only.
 
-Reviewed-by: Petr Vorel <petr.vorel@gmail.com>
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-Petr
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 5d1b010bec9b..870b4653314f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -85,6 +85,7 @@
+ #include <linux/firmware.h>
+ #include <linux/component.h>
+ #include <linux/sort.h>
++#include <linux/string_choices.h>
+ 
+ #include <drm/drm_privacy_screen_consumer.h>
+ #include <drm/display/drm_dp_mst_helper.h>
+@@ -1468,7 +1469,7 @@ STATIC_IFN_KUNIT void dm_gpureset_toggle_interrupts(struct amdgpu_device *adev,
+ 			rc = amdgpu_dm_irq_set(adev, irq_source, enable) ? 0 : -EBUSY;
+ 			if (rc)
+ 				drm_warn(adev_to_drm(adev), "Failed to %s pflip interrupts\n",
+-					 enable ? "enable" : "disable");
++					 str_enable_disable(enable));
+ 
+ 			if (dc_supports_vrr(adev->dm.dc->ctx->dce_version)) {
+ 				if (enable) {
 
---0000000000002b2f9b06612e6067
-Content-Type: text/html; charset="UTF-8"
+base-commit: 25faec9ce61c01fb45abf812a222c5b43c3cd5c5
+-- 
+2.53.0
 
-<div>Hi David, all,</div><div><br></div><div>LGTM<br><br>Reviewed-by: Petr Vorel &lt;<a href="mailto:petr.vorel@gmail.com">petr.vorel@gmail.com</a>&gt;<br><br></div><div>Petr</div>
-
---0000000000002b2f9b06612e6067--
