@@ -2,68 +2,68 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CC0760A381B
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:37:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7AB3606A331
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 09:37:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Y31dNdot
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=imU+P913
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4FD18112248;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A615D11224C;
 	Thu, 26 Nov 2026 09:37:45 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AED94112247
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:34 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DB95112247
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 09:37:27 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 3243E6244D;
- Thu, 26 Nov 2026 09:37:34 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 539B146512;
+ Thu, 26 Nov 2026 09:37:27 +0000 (UTC)
 Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
 ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795685853;
- b=Uy/P9feKejjnN1XyZqzF35B5Rp/LT+crmIjIAC6voZJ4xOqC4hupHcrlqUi04ztpDZ/M
- sHU3i7yRb1UEfTNwz64EkpXUwUe9w0IZ6Djcjl/LjEEzTcmbWwgpK7/nJP4pBY5K+BnQO
- j+AD/mp90OfG1pO9mXUXdyQPGLifhlcBUbcCE7hNeODeKNUEm7g7A7HDHKxQ+iXnSj9u4
- W5hPMniU6Uipg4mHoLCejvSzC/gaUIInQQoVZU1LDQ5alDKyk1uPeD8ZsmCx31QxrZgei
- DOmbykharRVgvPwlXIPAPLxaahkX03cUPS0rIP2b6LL7IIfLEIdvsWNVLM6e+bba6jg==
+ t=1795685847;
+ b=xFhKr6YzOoagpPXbePQQrgv+YIVTVmyjhIrWzLHW1gQWtWUAfUb0fAI/wv9ANwUUCF1L
+ z/fGzYEXOR0QzzF5k/cCTLXfkBPXSuB9yd7lNwvDyH/4US5xrv9qhi/bgJanftYMFPtVV
+ t41m7wWVdTyw+9kebQftgxns0wC/adlC8M1Rf5/ui9CST3ynl/4mCjvC3zmgbxjzmmH2V
+ 2c7OrsM9uszzkftamNSLg5+xKXk1jO2wazIEsHVlKr04MpdcDjgShMNxTvU/iPez5DBXN
+ 7+T2qqgFAzCz/dNfMZQvwd71CPg6mrb7nYYMLpD88nGitnVsxZYLCiauATCVGKMfgsA==
 ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795685853;
+ c=relaxed/relaxed; t=1795685847;
  h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
  Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
  X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
  X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=u8vVbY9l5xchkpD8NxU5Vb+8nf2rc5z52Xi2T5uba18=;
- b=xxZLBAbo4k+uZumL7dk6xgZemCcz77akTxmcAwebMRtAX3ko/BSMpLQCFoyNtatYJ+Hr
- /VAdMyArvkXfNlG8TdeNIhLVbrZSMC+j8pH8yvpFzzAXPyGmZ37XOm+kV5/AcLG5Ag5XL
- vcLba/I2rBmOSVqY34QEbNFetGUVKDA3mEko7LnlCALVsIZeFHILVfy0+a0DY+8wvVtzj
- J3r6mGAAM+x92t1L310jVS1JxwSOcu4RpJKGY+J2lXcOlCyniZCrvZt2eNiiyzT5ae7my
- h3QcgejF6T+G7EmSN6S1eKYBwPnT/h5wjEslqZR91Pw6TaAUl328Uf1+z1cC9XJr6iQ==
+ bh=K1EBAYTDShITHjIGR2ujPscGBbbDr+2wQ9JYIaEtWTY=;
+ b=PrM8nCp+3vuuQsf3lAbgXKcxXpiShO71KgpohkeegD6pbI1K9XwX3soly1OA1Hz++jsc
+ OwhedzbM/1sLEd9LrlKGt9CXr9FRCw7nIdHWbqRSUO31/9nNephfeupQo1Emldkdj6s8X
+ tJqbuOCpGvNJG4KkQFm2cEUNJu3HCibu0cdW2nRvH91D0P1QV/az0i7VLY2ZYbaW45IO1
+ FS/ltBX3vqWnaVsUcXgcz49rORCe4f7+gQz2BQMEW/RUEqiiKaSVQLXyuctOVv8vGDAdJ
+ szwo2oZjF32RBHoqqQ5F5pteqmi/opEx9s9JenQnGfuryirWksKiX8Sjn3+yuewhMSw==
 ARC-Authentication-Results: i=1; smtp.kernel.org; 
  arc=none smtp.remote-ip=100.80.115.77
 Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
  (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 876BF1F000EE;
- Thu, 26 Nov 2026 09:37:22 +0000 (UTC)
+ by smtp.kernel.org (Postfix) with ESMTPS id D79361F000E0;
+ Thu, 26 Nov 2026 09:37:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795685853;
- bh=u8vVbY9l5xchkpD8NxU5Vb+8nf2rc5z52Xi2T5uba18=;
+ s=k20260515; t=1795685847;
+ bh=K1EBAYTDShITHjIGR2ujPscGBbbDr+2wQ9JYIaEtWTY=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=Y31dNdot0KckhpBobKhymRtTQppcuOjKSykJ08eULx4bJiU+qunRHAOB3ZGHIQjmX
- qIkZYyPIE05Gsj2ero6B5eHEE9hL6BSxvhUzjYmdtnuhr3g42JoZ+VccyFeU0xWp3V
- C4V+yJmRjleIgZCoeZwZFoqf7my+hNMQbZW2NF5t78+SuZ7QXk1HfEaRD5coXIitC8
- Bt3zgiJEy1rmWw5QoJSVwOlakorKmvvts+70z03Q16COc+6cbO9ETwfaHeWQ/ZGS/D
- udRMEsmSR+1jin3JYVd4kW9P4f5o6lCZHUayVZQ7PX0QeA56HXdBb30OEJ92OG60I9
- ePclyyupj0VEg==
+ b=imU+P91323OhNApzjBQGOpVy/ejWT36YzeBB8Pz7BfX5MFfmNQxcRuGEEsp/NeRTC
+ 5rMOC6GYmPctJ+1Pm4gLr9NNJzYeyXkRjkBHX/MaLHrr1QO7nunq0Wv9th7SxdSdJC
+ RZ1gVQt9wv3iffDtH1Yuuh3KHp9/A8ycSgLEnPQNavubfHeTMR15+xby5ID/oqkCna
+ UHh7ydU9yZf0B6fKRnd4LIWgbns11tHkd093Z11wHd2kt7ISDaFtF2y/WwK/wmdUG3
+ W5ENhGu3IUL2ZPbEX3eDBCuNFNH27yNPaPxQEG1DoUMHgxCnwxIHoot+PcY0sgcFZJ
+ 4+bJ5XSr+nU0A==
 Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 354434D38C;
- Thu, 26 Nov 2026 09:36:48 +0000 (UTC)
+ by lkml.kernel.org (Postfix) with ESMTP id EA8CE4D384;
+ Thu, 26 Nov 2026 09:36:47 +0000 (UTC)
 From: Arun Iyengar via B4 Relay <devnull+aiyengar1990.gmail.com@kernel.org>
-Date: Thu, 26 Nov 2026 09:36:51 +0000
-Subject: [PATCH v4 08/17] drm/panfrost: Don't WARN for a heap folio a
- neighbouring chunk filled
+Date: Thu, 26 Nov 2026 09:36:49 +0000
+Subject: [PATCH v4 06/17] drm/panfrost: Unwind a failed GPU mapping without
+ dropping its pages
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261126-panfrost-long-jobs-v4-8-23579629ceca@gmail.com>
+Message-Id: <20261126-panfrost-long-jobs-v4-6-23579629ceca@gmail.com>
 References: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 In-Reply-To: <20261126-panfrost-long-jobs-v4-0-23579629ceca@gmail.com>
 To: Boris Brezillon <boris.brezillon@collabora.com>, 
@@ -75,11 +75,11 @@ To: Boris Brezillon <boris.brezillon@collabora.com>,
 Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
  Arun Iyengar <aiyengar1990@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=1719;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1795685806; l=2423;
  i=aiyengar1990@gmail.com; s=20261110; h=from:subject:message-id;
- bh=h1Sah06axHBoYiBV3DUxqBu4DuKnGCu2PGurGHT6NWk=;
- b=CCvH+szO5tk/6eO0K116Yny/jSRapqhHbmXz25bRXJzaY3XTeVqqjngpqIb/J+qrF+d7qlxOl
- RM/4aqfiCXABTvJ8WQIWPPa7r9qfA3vIfNWvPoQ/plJNJeebHdQPWbD
+ bh=B/OG9Mi1gxkvCDAJITmI6/1lXQ/Ts4PcA1q80c3wpeo=;
+ b=bcjlOTqPwsnf21usnsfiZw56HGvmcI17qplT8gQopkmT5sDR57+EeWPdxy7GwOcKWKRin6Av6
+ DeDxpjdymdIDdhAVCZvyMYUPx3tYIW8UMqGnpkT6014fdkl1+kONgLu
 X-Developer-Key: i=aiyengar1990@gmail.com; a=ed25519;
  pk=zXpRgUTrhaFe6jLyPqbBy3ccfkj04w0g2690Wv3mg+0=
 X-Endpoint-Received: by B4 Relay for aiyengar1990@gmail.com/20261110 with
@@ -108,43 +108,76 @@ X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 
 From: Arun Iyengar <aiyengar1990@gmail.com>
 
-With 16K or 64K pages, a THP folio can be larger than the 2 MB heap
-chunk, and the first fault in it fills the page array of neighbouring
-chunks too. Every later fault there WARNs, although dropping the extra
-folio reference is all it has to do. Warn only for a folio that fits
-in the chunk. Not reproduced (4K pages here).
+Two error paths leave wrong state when a BO mapping fails part-way:
+- If mmu_map_sg() fails, panfrost_mmu_map() calls
+  drm_gem_shmem_put_pages_locked() without the reservation lock and
+  drops pages that shmem->sgt still maps (an imported BO underflows
+  pages_use_count). Keep the pages.
+- If ops->map_pages() fails, the PTEs that call mapped stay in a VA
+  range drm_mm hands out again. Unmap and flush them too.
 
-Fixes: b49c35ba0ce1 ("drm/panfrost: Fix a page leak in panfrost_mmu_map_fault_addr() when THP is on")
+Tested with a test-only map_pages() failure: before, the pages were
+freed under the cached sg table and an imported BO kept 512 PTEs;
+after, neither.
+
+Fixes: 4da352cf8fb1 ("drm/panfrost: Handle page mapping failure")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/sashiko-outbox-210837@kernel.org/
 Signed-off-by: Arun Iyengar <aiyengar1990@gmail.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_mmu.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+v4: test result added; no code change.
+---
+ drivers/gpu/drm/panfrost/panfrost_mmu.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/gpu/drm/panfrost/panfrost_mmu.c b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-index 9edf66f6e..92a4d2963 100644
+index e70ae393e..e59a16b68 100644
 --- a/drivers/gpu/drm/panfrost/panfrost_mmu.c
 +++ b/drivers/gpu/drm/panfrost/panfrost_mmu.c
-@@ -703,11 +703,13 @@ static int panfrost_mmu_map_fault_addr(struct panfrost_device *pfdev, int as,
- 			pages[pg++] = folio_page(folio, i);
- 		}
+@@ -442,8 +442,10 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
  
--		/* We always fill the page array at a folio granularity so
--		 * there's no valid reason for a folio range to be partially
--		 * populated.
-+		/* We always fill the page array at a folio granularity, so a
-+		 * folio is already owned only if it is larger than the chunk
-+		 * and the fault of a neighbouring chunk filled it.
- 		 */
--		if (drm_WARN_ON(&pfdev->base, already_owned)) {
-+		if (already_owned) {
-+			drm_WARN_ON(&pfdev->base,
-+				    folio_nr_pages(folio) <= NUM_FAULT_PAGES);
- 			folio_put(folio);
- 		} else {
- 			got_start = min(got_start, first);
+ 			ret = ops->map_pages(ops, iova, paddr, pgsize, pgcount, prot,
+ 				       GFP_KERNEL, &mapped);
+-			if (ret)
++			if (ret) {
++				total_mapped += mapped;
+ 				goto err_unmap_pages;
++			}
+ 
+ 			/* Don't get stuck if things have gone wrong */
+ 			mapped = max(mapped, pgsize);
+@@ -459,7 +461,10 @@ static int mmu_map_sg(struct panfrost_device *pfdev, struct panfrost_mmu *mmu,
+ 	return 0;
+ 
+ err_unmap_pages:
+-	mmu_unmap_range(mmu, start_iova, total_mapped);
++	if (total_mapped) {
++		mmu_unmap_range(mmu, start_iova, total_mapped);
++		panfrost_mmu_flush_range(pfdev, mmu, start_iova, total_mapped);
++	}
+ 	return ret;
+ }
+ 
+@@ -483,18 +488,15 @@ int panfrost_mmu_map(struct panfrost_gem_mapping *mapping)
+ 	if (IS_ERR(sgt))
+ 		return PTR_ERR(sgt);
+ 
++	/* shmem->sgt holds the only page reference: keep the pages. */
+ 	ret = mmu_map_sg(pfdev, mapping->mmu, mapping->mmnode.start << PAGE_SHIFT,
+ 			 prot, sgt);
+ 	if (ret)
+-		goto err_put_pages;
++		return ret;
+ 
+ 	mapping->active = true;
+ 
+ 	return 0;
+-
+-err_put_pages:
+-	drm_gem_shmem_put_pages_locked(shmem);
+-	return ret;
+ }
+ 
+ void panfrost_mmu_unmap(struct panfrost_gem_mapping *mapping)
 
 -- 
 2.55.0
