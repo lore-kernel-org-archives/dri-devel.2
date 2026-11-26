@@ -2,44 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4EC4606A321
-	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:05:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BD34606A31C
+	for <dri-devel@archiver.kernel.org>; Thu, 26 Nov 2026 16:05:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=C5bVt5Ml
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=LAipYRBo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A4C5111258B;
-	Thu, 26 Nov 2026 16:05:38 +0000 (UTC)
-Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
- [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 64BF511258A
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:05:28 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795709105; cv=none; 
+	by gabe.freedesktop.org (Postfix) with ESMTP id 94F12112599;
+	Thu, 26 Nov 2026 16:05:51 +0000 (UTC)
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com
+ [165.173.182.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 12CF5112590
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 16:05:39 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795709101; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=Ugpy+eup+rDqcYyfdyVCVfMxMbbC3rTYNPRuyLXGTzz4HbO0ZdfwrjGUjDGq6i2DkExqTmwxY5WOxuReBFziai8Mg5PY9FGTl2ezNklxwIQv/iVSWug+SUr/I5ynE9NC7NekPtv16OFk3WINqNQKJ93J66vuD8K+wD0L/jmw2Hc=
+ b=AiT5EmWlElrYLYk4iA8AV/ClU0lpCCO3W0jqqSll0qkehbpvfy4LMs1bN97LmA9vzQ0sYgjVPNofAqHDK+iAtsF/W5l6iIFi3BmWuVtUmF83LutTIXYzS6FqeY8kj3HnL/uLXP9oNiLjStY4CgjoFMtHpx/Vchh4eATtF4P+OVg=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795709105;
+ s=zohoarc; t=1795709101;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=l5OYIe75wHzFRIOHh0kfNH2rcb0KVmBnsaIGoSidDr4=; 
- b=bvD+3HGHzs059X4MdyeIFqMbmqur7BWxz0kNQrUfJCOyybhxDm7rymTcuhFXjGI+ERmyfJrbaJ9L/tqnu/4eIsllNxwUquyOWLfPvXkvjlEpudVHs+yWsZzGHgaunljjpm8TQ6bsTcjBfnFL+dalNHcVYbNQYSU8AtHgGSC8vWY=
+ bh=hH+O4poUD8IDco5i9Wi+HTMOJ8P6lijm/qP4q5nqc9w=; 
+ b=DaFJmv49hw56BSuQftShnOoGawnGlfAGWj035DC8I94CmO0k3JQGKU72t6UJKqZeNZ1pnKjvDSDjAFeTlvjzs4UXx93GpMBqU18EVOlNhiXmSqeViFJmrcZXg7NOwhpCGUS52j6dzZpH6jLZxFe9cdrwQxfiwWiqojLHpM+caS4=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=C5bVt5MlJfuVjfJ8Qc7sNCg5plkyjKo7LO9yYILyO7pCqy77LfbXYu74K1bBTRbrUQPMuJTdie9slxouINyHQYVa5vSdIjZroAjfpNQb2XA4a3/WXqrLj7AuSGZrJ5gx3yuCX9lklVRt9aIXYcf861ujbIophPhOZpSUwoWD7iY=;
+ b=LAipYRBoa/XmOVpR1kxgt0DijMU5sZ8B3sU+J6dd1WnBF8QcW3x+PBjpMYoET63VlaU2nJSXaYDheDu2CjUhCRWuWJR22qmLxRyAo8s8yFxigpvamcqP0RbK+k77kWkIEcdvz5nx9itaKj2ChHyP8TTwwgozKDLT+UgGSynBYjo=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=l5OYIe75wHzFRIOHh0kfNH2rcb0KVmBnsaIGoSidDr4=;
+ bh=hH+O4poUD8IDco5i9Wi+HTMOJ8P6lijm/qP4q5nqc9w=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795709104416312.4345849624442;
- Thu, 26 Nov 2026 08:05:04 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 179570909891318.635666966732288; 
+ Thu, 26 Nov 2026 08:04:58 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Thu, 26 Nov 2026 13:04:31 -0300
-Subject: [PATCH 4/7] rust: reset: add AssertedGuard
+Date: Thu, 26 Nov 2026 13:04:30 -0300
+Subject: [PATCH 3/7] rust: reset: add ExclusiveResetControl::get_array()
+ and get_array_optional()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261126-b4-rust-reset-v1-4-9c4c3d029080@collabora.com>
+Message-Id: <20261126-b4-rust-reset-v1-3-9c4c3d029080@collabora.com>
 References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
 In-Reply-To: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
 To: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, 
@@ -77,128 +78,163 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Some drivers hold their device in reset for a short time while they
-are bound.
-
-Add ExclusiveResetControl::assert_guard() as a convenience for them. It
-asserts the reset line of an Unknown control and returns an
-AssertedGuard that deasserts it when dropped, so the control stays in
-the Unknown state.
-
-The guard borrows the control mutably because, unlike regulators,
-exclusive resets do not have an "enabled" count. Therefore, allowing
-more than one guard at a time would not work, as dropping one of them
-would invalidate the other while it is still alive.
+Add ExclusiveResetControl::get_array() and get_array_optional(), which
+get all the reset lines in the resets property of a device as a single
+reset control. This is for drivers that assert and deassert all the
+reset lines of their device together.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/reset.rs | 82 ++++++++++++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 82 insertions(+)
+ rust/helpers/reset.c |  7 ++++
+ rust/kernel/reset.rs | 96 ++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 2 files changed, 101 insertions(+), 2 deletions(-)
 
+diff --git a/rust/helpers/reset.c b/rust/helpers/reset.c
+index ea2e6f09b7d5..435f2c7c815d 100644
+--- a/rust/helpers/reset.c
++++ b/rust/helpers/reset.c
+@@ -16,6 +16,13 @@ rust_helper_reset_control_get_optional_exclusive(struct device *dev,
+ }
+ 
+ #ifndef CONFIG_RESET_CONTROLLER
++__rust_helper struct reset_control *
++rust_helper_fwnode_reset_control_array_get(struct fwnode_handle *fwnode,
++					   enum reset_control_flags flags)
++{
++	return fwnode_reset_control_array_get(fwnode, flags);
++}
++
+ __rust_helper void rust_helper_reset_control_put(struct reset_control *rstc)
+ {
+ 	reset_control_put(rstc);
 diff --git a/rust/kernel/reset.rs b/rust/kernel/reset.rs
-index 7ca83f2d6abf..3bbd226825d8 100644
+index 396f1e19ee2e..7ca83f2d6abf 100644
 --- a/rust/kernel/reset.rs
 +++ b/rust/kernel/reset.rs
-@@ -12,6 +12,10 @@
- //! A driver can also get a single reset control for all the reset lines in the `resets`
- //! property of its device. Its operations then act on all of those lines.
+@@ -9,6 +9,9 @@
+ //! assert and deassert the line. A new control is in the [`Unknown`] state. Its `assert()` and
+ //! `deassert()` methods, when they succeed, move it to the [`Asserted`] or [`Deasserted`] state.
  //!
-+//! An [`ExclusiveResetControl`] in the [`Unknown`] state can also assert its line for a limited
-+//! time, with [`ExclusiveResetControl::assert_guard`]. The [`AssertedGuard`] that it returns
-+//! deasserts the line when dropped, and the control stays in the [`Unknown`] state.
++//! A driver can also get a single reset control for all the reset lines in the `resets`
++//! property of its device. Its operations then act on all of those lines.
 +//!
  //! C header: [`include/linux/reset.h`](srctree/include/linux/reset.h)
  //!
  //! See [Reset controller API](https://docs.kernel.org/driver-api/reset.html) for more information.
-@@ -381,6 +385,24 @@ pub fn assert(self) -> Result<ExclusiveResetControl<'a, Asserted>, Error<Self>>
-     pub fn deassert(self) -> Result<ExclusiveResetControl<'a, Deasserted>, Error<Self>> {
-         self.deassert_internal()
+@@ -96,8 +99,9 @@ fn from(err: Error<T>) -> Self {
+ /// Exclusive means that the driver has direct control over the reset line. A reset line can be
+ /// held by one [`ExclusiveResetControl`] at a time.
+ ///
+-/// A reset control obtained with [`ExclusiveResetControl::get_optional`] may have no reset line,
+-/// in which case every operation on it succeeds and does nothing.
++/// A reset control obtained with [`ExclusiveResetControl::get_optional`] or
++/// [`ExclusiveResetControl::get_array_optional`] may have no reset line, in which case every
++/// operation on it succeeds and does nothing.
+ ///
+ /// The reset control is released when the [`ExclusiveResetControl`] is dropped. The lifetime `'a`
+ /// is that of the reference to the bound device it was obtained from, so an
+@@ -143,6 +147,8 @@ fn from(err: Error<T>) -> Self {
+ ///
+ /// - [`reset_control_get_exclusive()`]
+ /// - [`reset_control_get_optional_exclusive()`]
++/// - `fwnode_reset_control_array_get()` with the `RESET_CONTROL_EXCLUSIVE` or
++///   `RESET_CONTROL_OPTIONAL_EXCLUSIVE` flag
+ ///
+ /// It is treated as an opaque token that may only be accessed using C API methods (e.g., it may be
+ /// `NULL` if the C API returns `NULL`). The [`ExclusiveResetControl`] owns the reference that the
+@@ -213,6 +219,92 @@ pub fn get_optional(dev: &'a Device<Bound>, name: Option<&CStr>) -> Result<Self>
+             _phantom: PhantomData,
+         })
      }
 +
-+    /// Asserts the reset line and returns an [`AssertedGuard`], which deasserts it when dropped.
-+    ///
-+    /// The [`ExclusiveResetControl`] stays in the [`Unknown`] state, and it cannot be used while
-+    /// the guard exists.
-+    ///
-+    /// The line is asserted with the kernel's [`reset_control_assert()`].
-+    ///
-+    /// [`reset_control_assert()`]:
-+    /// https://docs.kernel.org/driver-api/reset.html#c.reset_control_assert
-+    #[inline]
-+    pub fn assert_guard(&mut self) -> Result<AssertedGuard<'_, 'a>> {
-+        // SAFETY: By the type invariants, `self.inner` is a pointer that a C getter returned, and
-+        // `self` owns its reference.
-+        to_result(unsafe { bindings::reset_control_assert(self.inner) })?;
++    /// Gets the reset lines of `dev` as one [`ExclusiveResetControl`], as [`Self::get_array`] does
++    /// or, if `optional` is set, as [`Self::get_array_optional`] does.
++    fn get_array_internal(dev: &'a Device<Bound>, optional: bool) -> Result<Self> {
++        let flags = if optional {
++            bindings::reset_control_flags_RESET_CONTROL_OPTIONAL_EXCLUSIVE
++        } else {
++            bindings::reset_control_flags_RESET_CONTROL_EXCLUSIVE
++        };
 +
-+        Ok(AssertedGuard { reset: self })
++        let fwnode = dev
++            .fwnode()
++            .map_or(ptr::null_mut(), |fwnode| fwnode.as_raw());
++
++        // SAFETY: `fwnode` is the firmware node of `dev` or `NULL`, which
++        // `fwnode_reset_control_array_get()` checks for.
++        let inner = unsafe { bindings::fwnode_reset_control_array_get(fwnode, flags) };
++        let inner = from_err_ptr(inner)?;
++
++        // INVARIANT: `inner` comes from a successful call to `fwnode_reset_control_array_get()`
++        // with one of the two flags above, and the returned value owns the reference from that
++        // call.
++        Ok(Self {
++            inner,
++            _phantom: PhantomData,
++        })
++    }
++
++    /// Gets the reset lines listed in the `resets` property of `dev` as one
++    /// [`ExclusiveResetControl`].
++    ///
++    /// Its operations act on all the lines, in no guaranteed order. If one of them fails on a
++    /// line, the opposite operation is run on the lines it had already succeeded on, whatever
++    /// state they were in before. This includes operations that are done on drop. The caller only
++    /// gets the error from the line that failed, while errors from the opposite operation are
++    /// discarded.
++    ///
++    /// Equivalent to the kernel's `fwnode_reset_control_array_get()` on the firmware node of
++    /// `dev`, as `devm_reset_control_array_get_exclusive()` does.
++    ///
++    /// # Examples
++    ///
++    /// Keeping all the reset lines of a device deasserted:
++    ///
++    /// ```
++    /// use kernel::{
++    ///     device::{
++    ///         Bound,
++    ///         Device, //
++    ///     },
++    ///     reset::{
++    ///         Deasserted,
++    ///         ExclusiveResetControl, //
++    ///     },
++    /// };
++    ///
++    /// struct Data<'a> {
++    ///     // Dropping `Data` tries to assert the lines again.
++    ///     resets: ExclusiveResetControl<'a, Deasserted>,
++    /// }
++    ///
++    /// fn probe<'a>(dev: &'a Device<Bound>) -> Result<Data<'a>> {
++    ///     let resets = ExclusiveResetControl::get_array(dev)?.deassert()?;
++    ///
++    ///     Ok(Data { resets })
++    /// }
++    /// ```
++    #[inline]
++    pub fn get_array(dev: &'a Device<Bound>) -> Result<Self> {
++        Self::get_array_internal(dev, false)
++    }
++
++    /// Gets the reset lines listed in the `resets` property of `dev` as one
++    /// [`ExclusiveResetControl`], if there are any.
++    ///
++    /// Behaves the same as [`Self::get_array`], except when `dev` has no firmware node, when its
++    /// `resets` property has no entry or cannot be read, or when `CONFIG_RESET_CONTROLLER` is
++    /// disabled. In those cases, it returns an [`ExclusiveResetControl`] on which every operation
++    /// succeeds and does nothing.
++    ///
++    /// Equivalent to the kernel's `fwnode_reset_control_array_get()` on the firmware node of
++    /// `dev`, as `devm_reset_control_array_get_optional_exclusive()` does.
++    #[inline]
++    pub fn get_array_optional(dev: &'a Device<Bound>) -> Result<Self> {
++        Self::get_array_internal(dev, true)
 +    }
  }
  
- impl<'a> ExclusiveResetControl<'a, Asserted> {
-@@ -423,3 +445,63 @@ fn drop(&mut self) {
-         unsafe { bindings::reset_control_put(self.inner) };
-     }
- }
-+
-+/// A guard returned by [`ExclusiveResetControl::assert_guard`], which deasserts the reset line when
-+/// dropped.
-+///
-+/// An error from the deassert done on drop is discarded. [`AssertedGuard::deassert`] deasserts the
-+/// line and returns the error.
-+///
-+/// # Examples
-+///
-+/// Holding a device in reset for a limited time:
-+///
-+/// ```
-+/// use kernel::reset::{
-+///     ExclusiveResetControl,
-+///     Unknown, //
-+/// };
-+///
-+/// # fn restart_clocks() -> Result { Ok(()) }
-+/// fn reset_device(reset: &mut ExclusiveResetControl<'_, Unknown>) -> Result {
-+///     let asserted = reset.assert_guard()?;
-+///
-+///     // If this fails, dropping `asserted` deasserts the line.
-+///     restart_clocks()?;
-+///
-+///     asserted.deassert()
-+/// }
-+/// ```
-+#[must_use = "the reset line is deasserted immediately when the guard is unused"]
-+pub struct AssertedGuard<'r, 'a> {
-+    reset: &'r mut ExclusiveResetControl<'a, Unknown>,
-+}
-+
-+impl<'r, 'a> AssertedGuard<'r, 'a> {
-+    /// Deasserts the reset line and consumes the guard.
-+    ///
-+    /// The only difference from dropping the guard is that this returns an error from the
-+    /// deassert, which a drop discards.
-+    ///
-+    /// Equivalent to the kernel's [`reset_control_deassert()`].
-+    ///
-+    /// [`reset_control_deassert()`]:
-+    /// https://docs.kernel.org/driver-api/reset.html#c.reset_control_deassert
-+    #[inline]
-+    pub fn deassert(self) -> Result {
-+        // Skip `drop()`, which would deassert the line a second time.
-+        let guard = ManuallyDrop::new(self);
-+
-+        // SAFETY: By the type invariants of `ExclusiveResetControl`, `guard.reset.inner` is a
-+        // pointer that a C getter returned, and `guard.reset` owns its reference.
-+        to_result(unsafe { bindings::reset_control_deassert(guard.reset.inner) })
-+    }
-+}
-+
-+impl<'r, 'a> Drop for AssertedGuard<'r, 'a> {
-+    fn drop(&mut self) {
-+        // SAFETY: By the type invariants of `ExclusiveResetControl`, `self.reset.inner` is a
-+        // pointer that a C getter returned, and `self.reset` owns its reference.
-+        unsafe { bindings::reset_control_deassert(self.reset.inner) };
-+    }
-+}
+ impl<'a, State: ResetState> ExclusiveResetControl<'a, State> {
 
 -- 
 2.56.0
