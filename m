@@ -2,137 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F574606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 19:58:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7D606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 20:03:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=g3FX8NKb;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=E4KP2qYb
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iargXrBa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 90DC9112D63;
-	Fri, 27 Nov 2026 19:58:44 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7C06410E62D
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:58:33 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ARJBFuD3753119
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:58:32 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=+XTNWIgi9ID8EoeN/DwyL/tK
- Je5joumzVvmrChys3j4=; b=g3FX8NKb7bzFF9rqGgqaeJGhFiOFZPYid3kFU+dw
- H4wUAAiqNfq2dOJU4uEG35zZVPR/mjCoWWOLltGW8MYRPw1ewdCbr+fW0r+ktYT9
- R7bGvYPtkknaZ+X3X4TUds3mvDYcrh+BtQVvOYed45LCnUHK9GIcPR7EXthKW+pO
- uxc2GME/0mZ/7Fdh6tiD1/BJ0lmxSspyf0B6m4UzCz+SyiF4OO8teYoQcaGzcMMp
- F37MTtK/umQfmwA1mP7CWtb52gXC2rLRLIjk+gdBCN60h9/32UPAhICCW9zqN07F
- pAgk3wOA983UtygjFUiDJHDfKpwkHPWgbmjlz65gKdE2uw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j74ghaqcu-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:58:32 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id
- af79cd13be357-949b0d3232fso1145824285a.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:58:32 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73659112D65;
+	Fri, 27 Nov 2026 20:03:12 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE88112D65
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:03:06 +0000 (UTC)
+Received: by mail-ed1-f47.google.com with SMTP id
+ 4fb4d7f45d1cf-6b86fcbd647so12943904a12.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:03:06 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795809512; x=1796414312;
+ d=baylibre.com; s=google; t=1795809785; x=1796414585;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=+XTNWIgi9ID8EoeN/DwyL/tKJe5joumzVvmrChys3j4=;
- b=E4KP2qYbS8WGNTAw/5nvel1oDizIbYYIF4yVYVD8raVCVJbjqBH0+69Jeh0j25bdsx
- bCGvKgBrLUTLuJKjkdQ7DXA8n36aAbvfP+w64999hfyawitY8zhwlvOeBlOB2JR51CFr
- Ny37wxvp8UpvWcqS+mKNQvireSSq/lIY1hwiecA6YvhBGhrCFJCAETudBKaKntZ9K6VV
- F0rhwYOeDTeeQwKwpECLipOdyOSAl+y5cpdBwy/RPiiEq734OvDHtKE4HapNeRodmmeN
- xb7DqOzFMAm0qgtJy6rAgWAv6WNEfcFLkOw1/RwOQOG9xBJ/kU6QEk73X3ttlNlBddE5
- BROw==
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=L/E3JJyk32BLVSmJPSu88QD4Xx3KecbTtSFMtKZvIaA=;
+ b=iargXrBaSwph/CTaXfpaioaYSipv+PC/wjAWualfnvGo1IdnbmwC31oKkJs1uqgmCD
+ DWJn9aU8kA7ErJEwULqSczUaAfQ2du3TGVgETtcWfqJ65T9P2HEL31GNdJX0u+J1JeZb
+ ym5pLsf69xSUq7B746fJHgbyez6V2SSZn8wmlZH0eZ3vJufyv4hQtjJBZubV4jvV5N7p
+ ttBu6o/YcxhVFfNaJ9kPuY0erK+GRHI3cwkPCThG5iZWGrqOtogMTepyehuaYj5zQPJV
+ Ncm/fqpi/8gPxeXVIpU/Xdx2kyg1Rj/BTVLb3zEty7vBwdFCbBLNu7/J7sLFzL+JjGiG
+ StWw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795809512; x=1796414312;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
+ d=1e100.net; s=20260707; t=1795809785; x=1796414585;
+ h=message-id:date:references:in-reply-to:cc:to:from:subject
+ :content-transfer-encoding:content-type:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=+XTNWIgi9ID8EoeN/DwyL/tKJe5joumzVvmrChys3j4=;
- b=qMwkZgs+CSUBBjiJqT129bxnkz8Nb6VporVgOJYF2WJG/RvCX56i0UXxwBrv3MwjZv
- grY08WVDZjbDQ9JUZbG/tk+Fnta6tJRAQ24IM4RThJgue8jr4FgfaRmTTuseDjHPrZum
- u/8ZaMtmq3pkP6+l9rD2kOKYsaEbmWPwOuc9WAjTA6RY013XiDy010eaM0NjnMkko29Y
- Mf06do0RZFGyGW2dPzMYEv3hxHulFFq9dOt7wkPoHypJjlOyvT6Zm4IbXljzFQ7buDMy
- gGup+MCiotXk/XLDISzYUSaUBC44B7+8lqD3MQK47TMBLtJ1QfxQXlqUHJVrbxuet4OV
- pmJg==
+ bh=L/E3JJyk32BLVSmJPSu88QD4Xx3KecbTtSFMtKZvIaA=;
+ b=T0OdoFRh6Rz3xrNNI0alhJMaA91EcvpLKRnd1ar7iUQ+6I4VsXoI7f0XKWqLJSbozk
+ T4xr6A9774kVlNo+4rQnTxRkA/zlFdBKq2tuEDjlTq7NlW7aou2A5oiKm74cZ/swJ4mD
+ Se2IzTPVIC4o0lk/GosSOogQIiFgBCJpdY9Xvik1lYQkJ4HrVTND4Eq7uFlmmpn/3RYf
+ XxqwCJLFU7fBWMHwbn1VA2qhtgUdwilathE6STant/IOejXmW6ik8KRlj5Ctn9RDZTkd
+ APjKfCV+rES1tSrgvlP5pdoBZuOCuOBlDPT1dh+o1VxjzRwfcoUU/yHG2+da6I4faT4d
+ 8aiw==
 X-Forwarded-Encrypted: i=1;
- AL+hErEdAbuiQrLz9TrVXoaJYo4c7NYs90iVBes66eGr7cQNMhvtv0+Z/EmfUOXcruQiLQFS0Gdsg8hxZB8=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+1xuS4hY4taTyYiJubvtmuGcpeqnzw56PVys5XWIdh7LjYcDJx
- YBc4ARvn5an1+Sf+XWiN0zAlCT8gsO1X1QpUGBhp0pEmV3lysN9IhWk5B5RzFWVaSZk9+ZnUpH8
- MuaX7H1o0Z7tiupe5hru6YfQvYRqKOiF8BVPyuKCvUu7zNB2dXL5evxauKBmwx67ikcUbyHo=
-X-Gm-Gg: AZFdTZf9924rTfoC2spWnqCrmT8buhWVbX+cpzjVCCD5fO3c1rdPXpEUAwG21CWxn/Y
- p9j68JQmo1naGDMTh3x/m99wzGfNjhUJiBBYdokveaDCWKAmA1wKzJEKr9ih0cRG6iKXyCsYArm
- AQJmXSuRSJAmle9mbZ3KDy4B99KLE8PZu2AiTn2/jFe+Hw9ujPZNctC3AB5as+t3irJZJTu4su/
- eVwrXIBQJo/dSIuvF6/3GDP7jXp8hLDki5gbbpAdeO6EcR0gQrfnQFxA7SDrokoVp124Pm71fs3
- fOyglfBUd84eTcgevqyND1/HOOHWW3m+lG6x8xEjzvAVnAUerWJYfa7UfnzbqUDy64L5gqPRCwn
- 8KBY02cdFvyfkkE6keUhSC5x+8bHRe1jQjf1T7R1D0xcu0CgEuJGqYfo3ipoQlcDzBhd9YuepAT
- Xg+hK20dcd5fbfiLqsHyPFOmYNYxtj4jMyL4dRiqqljp/dcnzQJ/KiyXv1oHm9/A==
-X-Received: by 2002:a05:620a:8005:b0:949:3066:5569 with SMTP id
- af79cd13be357-949bab2f113mr4792663685a.46.1795809511893; 
- Fri, 27 Nov 2026 11:58:31 -0800 (PST)
-X-Received: by 2002:a05:620a:8005:b0:949:3066:5569 with SMTP id
- af79cd13be357-949bab2f113mr4792660685a.46.1795809511466; 
- Fri, 27 Nov 2026 11:58:31 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ AL+hErEmqrwwDkoKoMA7rgEz3UogmhSN7ba/xgZFEpvArW9A9VhC8nQRhedfc2pp7TbtRKvmASXpqHt6opc=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/c0wtPiZ2eMVJcraeShrKKFbvHivs77P9D+JxllT+KzcNOAwq2
+ TAgqHevZ/cXB2ZWM/TZVYHPMEK5ZvOEtwtJ3DWkv1c0n6JAliPlMdh87D0LHQ2ULfFw=
+X-Gm-Gg: AZFdTZckAaarsFQf4pbvwtaYv94osdFMasGXhgJ3kLBird3vHodn95nZmg0wSlk8Pe8
+ XrS0Wo8NGpL84LRl1IWhtSOCfc/Eb5z6gYww/rvOYwLIDKOJ3LKwH9KkZRUq+ukfVMbnPiSvr4H
+ PHKE/d6239kjeydAha3MElKF9pOsmt6H1s5KW7rWcBs1swL/3D70u3alrlP4xMDe78Mw3xQhpr2
+ rqHN+7jPp3EI5r7/nj+7+k5sQqp8ymNqLCS8Vwv+0jzcFyHx5L9sBImRwVMUBJiSwaEkOLflZb/
+ PVdltv5j/tv3MauzV+6igU7O68yrum1nDIoz0+xgbIAozvN8jliPzbT7vMoEr84zTAy7yq+LwkS
+ /bD4ZFzodulPdQwubXmNJd9a/HFAtFDiVkM6kZ+k9qJkuPK2k0wHUiAQOrG5d7iHpx0047skSDV
+ xF4T93H2EGlCKxFAFFg31WjSqUYBXKRC8iWGl9Heem32alpuxlnCUV1tCIoL2fTmE0mMF+ck5nR
+ kxp3ocE6DC1CBsE33z2G2G08weap1x9oEsCmACfnV9rjytWsRr0+iEz9CJxe0NdeMPXVUjmxtmU
+ 7iBeSC/9RhVqYQmiVJYOzjAAN04itL0NKt4yY/DnDmEd/WPx
+X-Received: by 2002:aa7:d402:0:b0:6a9:8863:ada4 with SMTP id
+ 4fb4d7f45d1cf-6ba1fae103fmr14763271a12.3.1795809784883; 
+ Fri, 27 Nov 2026 12:03:04 -0800 (PST)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
  by smtp.gmail.com with ESMTPSA id
- 2adb3069b0e04-5c1bd041813sm6192040e87.53.2026.11.27.11.58.30
+ 4fb4d7f45d1cf-6ba6f8fa5b9sm9906969a12.37.2026.11.27.12.03.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 11:58:30 -0800 (PST)
-Date: Fri, 27 Nov 2026 21:58:28 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Michael McAllister <me@michaelmcallister.org>
-Cc: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] drm/msm/dsi: clear the DMA buffer pointer after freeing it
-Message-ID: <o7iv6phsonvuruw7oufoj3d3glo6hpknpuwedue77wnprum2gz@ws2ux4bckblw>
-References: <179422752570.88190.13452031230666113805.msm-dsi-pin-leak@michaelmcallister.org>
- <6m4cssgagnpvm2wawyj62veoqbglxv62rcqgxzaxvjynhn3dts@tlkaxvd6ph3n>
- <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
+ Fri, 27 Nov 2026 12:03:03 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179458248277.51880.11276326781897812340.msm-dsi-double-free@michaelmcallister.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA3OSBTYWx0ZWRfX1YNmikFW7RSe
- 09oqimamww08bMKiKsENP9HImsa52y5msBLrxeMsIPKVZGY9hxBFGoM5JEL26BAJHVOYiEDjUeR
- IJsZu90BoqGw70j/lq8F27MNqTkMCfE=
-X-Proofpoint-GUID: wxrIZUdtZsDhzKspo4rRA1bQtV_wZZe7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA3OSBTYWx0ZWRfXxPAWkD74clGj
- 6Vge/UoyuCizgjUZM9kRPnj7Lyhe/c0G5tOPA4KbL8sfeT9Y0f/pHkkyMD2bzmPsVBKBrADryr5
- Mm+pXSjfNokLzWzTJMDl2cRurpt3IkN0mkXnLqV7sQ9EuR//h+sA3uaOefLlzFELdGxEfje1xM6
- zkPrrVQjdFAaghzteOqad4uz1a/NdYfE099CKGiATFLTftNUsUTL/IwWKhp7er2nb/168iMAOmj
- cXwBz+cQrUTW2PBc45VnhpT3JwY/vfpg4peBbZGo43apCh1GXEl9sG5h28WHnZnsyodbWuGUveh
- dK7e2YcdS+qzHSK30DoLjzCvdXI6CcpBPjoeFuD26u1zY2fq3VZPwgmoaIyqv07T7dwVeoEp7Vp
- Y1o7rSvfdqGfF/BuQb6cGrqZbTlAIlzupapbk4mq/e3kr5l05zdt8EzgkIrwoKLgHvefmXYzEof
- QvpRqULa3Pkz/sqJMOw==
-X-Authority-Analysis: v=2.4 cv=U5kHnuru c=1 sm=1 tr=0 ts=6b09e0e8 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=c92rfblmAAAA:8
- a=VwQbUJbxAAAA:8 a=JwJ85b4fAAAA:8 a=EUspDBNiAAAA:8 a=hKRTAnW6OJ533CQEYPgA:9
- a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22 a=GvGzcOZaWPEFPQC_NcjD:22
- a=qg2vb7sgHZQYDKbllo_a:22
-X-Proofpoint-ORIG-GUID: wxrIZUdtZsDhzKspo4rRA1bQtV_wZZe7
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_04,2026-11-27_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 malwarescore=0 suspectscore=0 spamscore=0
- priorityscore=1501 lowpriorityscore=0 bulkscore=0 impostorscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
- definitions=main-2611270079
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/6] clk: Remove unused clk.dev
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
+ Andreas Kemnade <andreas@kemnade.info>, Kevin Hilman <khilman@baylibre.com>, 
+ Roger Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>, 
+ Russell King <linux@armlinux.org.uk>, Paul Walmsley <paul@pwsan.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Sandy Huang <hjc@rock-chips.com>, 
+ =?utf-8?q?Heiko_St=C3=BCbner?= <heiko@sntech.de>, 
+ Andy Yan <andyshrk@163.com>, Ulf Hansson <ulfh@kernel.org>, 
+ linux-clk@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
+ linux-pm@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
+In-Reply-To: <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
+References: <cover.1795094688.git.geert+renesas@glider.be>
+ <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
+Date: Fri, 27 Nov 2026 21:02:59 +0100
+Message-Id: <179580977968.3028968.220600254133838233.b4-review@b4>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=438; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=1x7I9OxtWjxbS+wEVDFGimHZA2zKBIWqfRJtzMCbXkE=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNmcD7/5dtokM+ZkaTF6K2ZGVttk1rMrH2fK8un5tvb9D
+ fstDRc7SlkYxLgYZMUUWWq4q8XfSWp9mTVd5zbMHFYmkCEMXJwCMJH4Q4wMmxfdaay4eymZS6GK
+ Z55007ypBev3ur2PCN636eTcxxoMGYwMv2pstwfXV9w7/0GsKypkd/dKC/bAd4cr1ViY1xxhVqj
+ nAgA=
+X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
+ fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,29 +107,25 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 13, 2026 at 03:08:02PM +0000, Michael McAllister wrote:
-> The DSI host survives component unbind. On DSI v2, freeing the command
-> buffer leaves tx_buf pointing at freed memory. If a later bind fails
-> before allocating a new buffer, another unbind can free it again.
+On Thu, 19 Nov 2026 14:40:34 +0100, Geert Uytterhoeven <geert+renesas@glider.be> wrote:
+> This basically reverts commit efa850487a6b6742 ("clk: Inform the core
+> about consumer devices").
 > 
-> Clear tx_buf after freeing it, as we already do for tx_gem_obj.
+> This commit added a struct device pointer member to struct clk and a
+> parameter to clk_hw_create_clk(), but the new member was never used
+> beyond setting.
 > 
-> Fixes: 5e05be782645 ("drm/msm/dsi: free TX buffer in unbind")
-> Cc: stable@vger.kernel.org
-> Link: https://sashiko.dev/#/bug/linux-6f5085d3-ef49-482c-86e4-a2438bc1b91f
-> Signed-off-by: Michael McAllister <me@michaelmcallister.org>
-> ---
+> [...]
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
 
 -- 
-With best wishes
-Dmitry
+Jerome
+
