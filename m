@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971E1606A327
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:16:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9FE606A330
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:16:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=AnFkbc4b
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=SsSId3GG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC7E1129A5;
-	Fri, 27 Nov 2026 10:15:56 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 2DD59112984;
+	Fri, 27 Nov 2026 10:16:02 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 74A6B112984
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:49 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 8EB02112984
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:55 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5EA1544505
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E6671F000C1;
- Fri, 27 Nov 2026 10:15:49 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 794A241697
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:55 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293171F000C1;
+ Fri, 27 Nov 2026 10:15:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795774549;
- bh=oA15S41djRxnINuMPkdfggALPMoaT/KDR43EedBUcIg=;
+ s=k20260515; t=1795774555;
+ bh=Ee8GXp4xjV7v5Y34cA3qq6FSqLMtlRynCf3o2qgvr3s=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=AnFkbc4bK0jNW94KMz7qPu8KQpmFHBdTZn2AA9jg+7zjGUlV3zlAVhwC9MDvYIZkT
- MmNVuOc9EZAeUK5+rgme0ADmLy28cr8xaKRLBLFCjKDU3PqDCAmH9rV7kNogZXvGHG
- jEamyWmsv2NZkOPXg/xkkSOL1D5Ij74ic1aUCam/wxtmN1SQ4SvWkIcAroThgFnJAR
- 51vSXsaMI0f2dUequPjSbuGctGwU1GELsu1u6sSH7NBDbG6De+RBMfmYG0iLh0BRq9
- HsbxN2QP2hryQrHHWng7FBPRmTty0o/Jt4RsRfXP5KVsGh2kH4M0JH/oqQc37qQnp7
- Vmdl3VeHxljpg==
-Message-ID: <sashiko-outbox-237076@kernel.org>
+ b=SsSId3GGFVodveiI06qYSJUzLfa9NSUnBblQkCDhiix22kfPqvsMvNzSWDvl3jLPg
+ kwoatvEyiyMC3QHiouug6dgaZXHsdzPDBh+5ad5VpY1++qpeCfGoOoyz92yo84pDd8
+ NneoDaVYjqmlShec6VthJLIvtJkX8bfj9QvJEsisz5fl0iTSL0OLBRUC0EMJ80AKAF
+ Ro11Tgm+gKxVurLmVb6tlSueTLsXjz4hcD2KxYHpY46IOvcBcblxEElyC2Q4rFvPAy
+ 4u+/9QFA4VD/KiHKITHvrKMc70twcObQ7mOA/mDpibiVrkFLTDYcZ1u7NZeHztAD9s
+ 5Etv5lyo2uRiQ==
+Message-ID: <sashiko-outbox-237077@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 12/36] drm/atomic_sro: Provide helpers to implement
- hardware state readout
+Subject: Re: [PATCH v10 25/36] drm/tidss: Implement hw_reset
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127-drm-state-readout-v10-12-0259582d45a8@kernel.org>
+In-Reply-To: <20261127-drm-state-readout-v10-25-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
- <20261127-drm-state-readout-v10-12-0259582d45a8@kernel.org>
+ <20261127-drm-state-readout-v10-25-0259582d45a8@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:15:48 +0000
+Date: Fri, 27 Nov 2026 10:15:54 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,48 +60,68 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Low] drm/atomic_sro: missing linux/types.h include in readout helper
-  header
+- [Medium] drm/tidss: request_irq() called before hardware reset in
+  tidss_probe()
 --
 
-commit 160ed062541d8710e5efc0797d1320aa912540b0
+commit b7be101c4a90886c580dfd2b9acb390dc70de5c1
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/atomic_sro: Provide helpers to implement hardware state readout
+drm/tidss: Implement hw_reset
 
-This commit adds KMS helpers to build, install, and read out atomic
-hardware state, along with a helper to create a DMA GEM object for a
-read-out buffer.
+This commit moves the DISPC hardware reset out of dispc_init() into a new
+drm_mode_config_funcs.hw_reset callback so the hardware is only reset on
+the reset path during initial state creation.
 
-> diff --git a/include/drm/drm_atomic_state_readout_helper.h b/include/drm/=
-drm_atomic_state_readout_helper.h
-> new file mode 100644
-> index 0000000000000..315a541412498
-> --- /dev/null
-> +++ b/include/drm/drm_atomic_state_readout_helper.h
-> @@ -0,0 +1,41 @@
-> +/* SPDX-License-Identifier: GPL-2.0-or-later */
-> +
-> +#ifndef DRM_ATOMIC_SRO_HELPER_H_
-> +#define DRM_ATOMIC_SRO_HELPER_H_
-> +
-> +struct drm_atomic_commit;
-> +struct drm_atomic_sro_state;
-> +struct drm_device;
-> +struct drm_gem_dma_object;
-> +
-> +struct drm_gem_dma_object *
-> +drm_atomic_helper_sro_create_gem_dma_object(struct drm_device *dev,
-> +					    dma_addr_t dma_addr, size_t size);
+> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/=
+tidss_dispc.c
+> index 8c4d7e148eb0e..e186c63ba5fb9 100644
+> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
+> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+[ ... ]
+> @@ -3003,10 +2994,6 @@ int dispc_init(struct tidss_device *tidss)
+>  	of_property_read_u32(dispc->dev->of_node, "max-memory-bandwidth",
+>  			     &dispc->memory_bandwidth_limit);
+> =20
+> -	r =3D dispc_init_hw(dispc);
+> -	if (r)
+> -		return r;
+> -
+>  	tidss->dispc =3D dispc;
+> =20
+>  	return 0;
 
-[Severity: Low]
-Does this header need to include <linux/types.h> for dma_addr_t and
-size_t?  Without it, standalone header compilation under
-CONFIG_DRM_HEADER_TEST=3Dy fails with unknown type name errors.  A later
-patch in the series, commit "drm/atomic-state-helper: Provide comparison
-macros", pulls it in transitively via <linux/string_choices.h>, but the
-build fails at this commit and the three following commits.
+[Severity: Medium]
+Can moving the hardware reset from dispc_init() to
+drm_mode_config_create_initial_state() allow tidss_irq_handler() to fire
+while the device is still runtime-suspended?
+
+Commit d4652187367b ("drm/tidss: IRQ code cleanup") dropped hardware IRQ
+masking from tidss_irq_install() because dispc_init() had already reset
+the hardware and masked all IRQs before request_irq().  With the reset
+deferred to drm_mode_config_create_initial_state(), tidss_probe() now
+calls tidss_irq_install() -> request_irq() before the hardware is reset:
+
+drivers/gpu/drm/tidss/tidss_drv.c:tidss_probe() {
+    ...
+	ret =3D tidss_irq_install(ddev, irq);
+	if (ret) {
+		dev_err(dev, "tidss_irq_install failed: %d\n", ret);
+		goto err_runtime_suspend;
+	}
+
+	drm_kms_helper_poll_init(ddev);
+
+	ret =3D drm_mode_config_create_initial_state(ddev);
+    ...
+}
+
+If the bootloader or a previous kexec kernel left DISPC interrupts
+enabled, an interrupt arriving after request_irq() will run
+tidss_irq_handler() -> dispc_read_and_clear_irqstatus() while the device
+is runtime-suspended and dispc->fclk is disabled, causing unclocked MMIO
+register accesses.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-drm-state-=
-readout-v10-0-0259582d45a8@kernel.org?part=3D12
+readout-v10-0-0259582d45a8@kernel.org?part=3D25
