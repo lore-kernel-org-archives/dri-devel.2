@@ -2,49 +2,59 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55C44606A704
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 14:30:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAF53606A332
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 14:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=U+rWz7fN
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=SrI6B9Rr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C1C08112B22;
-	Fri, 27 Nov 2026 14:30:42 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EEB05112B25
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 14:30:36 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 95B5445639;
- Fri, 27 Nov 2026 14:30:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95F721F00A02;
- Fri, 27 Nov 2026 14:30:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795789836;
- bh=6uEJdRpzIecL7B4T/UaaujAOtHBrEgeZYaX/LhI1YXU=;
- h=Date:Cc:To:From:Subject:References:In-Reply-To;
- b=U+rWz7fNUZwT5gY0YEv0D4tQd0m3mK/TP7Y2N7Z5IA3moxhkpnGklUpPp6K9cWxWN
- wlHsiVgrD5fuXkq3Kc6u/ELaQ6WvUJ1bkHQwvCAY+jyTrghXHhA/+4auSEzI9SLD0R
- 3R5XZxp24Tv/X81w9Cn3abgOdgb4Di7NNcwgTi9unYRMQ48HBy5rWws9BYS2a+Zgve
- BH74a2nmlrFD8+LlvzKUGX/CUhA1RT7IUbTdw7SzOz2btgg+Whvv4Mdr5v1ofw3LPF
- aRJgC3w0KyHUDT3R+CDsXbWUKopKw8LFYeGCyxtg6unkbQrEfY7jOyNhsYsXDuFcHk
- GatBj7AbhIa5Q==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A7BC10E906;
+	Fri, 27 Nov 2026 14:32:20 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B8CC810E906
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 14:32:13 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795789926; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=VDJenMUGCxMYbbi1tIZ5vUH5bIfnpXpyi64KZvys2WATQxZLJ/ZN7wp44T5c+wMi7b6TMocbG0nezaUoSBeD0f7pOhEafK0EGTEaeamzR2gBoO1NqKreTVKLxBSeGw1f6Le0NP7IPMkPzx687Q4wTmRkUtNI94jCijrcbGiGs7o=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795789926;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=2aBCFCTbBvxpXomypl7B95nglL+nlWfk31gcjZu/DpI=; 
+ b=XSTb9+og9p4FkcVVKVYp4xUSFHSbrqPO9xVEZ05f5MezQNgbSvhYDFFqhV7R/AxFM9NI3m49VKRNEOUGcp/8wnqNmMnpkI6VPDIlUF82eYDLK7650tCu+pIBIT6xk3axpUVBT+zRyA44qiBchV7sgSYKX4PbOBrH9h2W7TOqzWw=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=dmitry.osipenko@collabora.com;
+ dmarc=pass header.from=<dmitry.osipenko@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=SrI6B9RrxfzAem+fDD1WawCBZ18NkTHs+cGuM1AaKyASlQF8Ff6q8sS1Vcu+jifYXj8+NTxctInsN6bQFoiJ8p+9JskLOzi4ud9iCfuhZt1XOZZd1UKrHh6TxAQ9V6y/hI9Qw7Z0xK2Z6Bk6JWgK6oJC/KQrm1VRsOOS+FCebQI=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=2aBCFCTbBvxpXomypl7B95nglL+nlWfk31gcjZu/DpI=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795789924543373.26687838343344; 
+ Fri, 27 Nov 2026 06:32:04 -0800 (PST)
+Message-ID: <ef65b7ae-3d02-46ee-ad2f-b260156ef96e@collabora.com>
+Date: Fri, 27 Nov 2026 17:32:00 +0300
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 15:30:33 +0100
-Message-Id: <DN62D8GGT0NN.1YHSKVVC6M67B@kernel.org>
-Cc: "Matthew Brost" <matthew.brost@intel.com>,
- =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Sumit
- Semwal" <sumit.semwal@linaro.org>, "Tvrtko Ursulin"
- <tvrtko.ursulin@igalia.com>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <linux-media@vger.kernel.org>
-To: "Philipp Stanner" <phasta@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH] drm/sched: Document reclaim restrictions for
- ops->prepare_job()
-References: <20261127142425.2956053-3-phasta@kernel.org>
-In-Reply-To: <20261127142425.2956053-3-phasta@kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v10 0/4] drm/virtio: userptr blobs for native-context
+ compute
+To: "Huang, Honglei" <honghuan@amd.com>,
+ Akihiko Odaki <odaki@rsg.ci.i.u-tokyo.ac.jp>,
+ David Airlie <airlied@redhat.com>, Gerd Hoffmann <kraxel@redhat.com>,
+ =?UTF-8?Q?Alex_Benn=C3=A9e?= <alex.bennee@linaro.org>
+Cc: Gurchetan Singh <gurchetansingh@chromium.org>,
+ Chia-I Wu <olvaffe@gmail.com>, Ray Huang <Ray.Huang@amd.com>,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux.dev,
+ linux-kernel@vger.kernel.org
+References: <20261106082625.812860-1-honghuan@amd.com>
+ <baa471a6-502d-41ac-9ef3-cbac35a103e0@amd.com>
+Content-Language: en-US
+From: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+In-Reply-To: <baa471a6-502d-41ac-9ef3-cbac35a103e0@amd.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -56,58 +66,43 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 27, 2026 at 3:24 PM CET, Philipp Stanner wrote:
-> drm_sched_backend_ops->prepare_job() gets called from
-> drm_sched_entity_pop_job(). Thus, it's in the fence critical path where
-> a memory reclaim might wait for the job / fence to complete.
->
-> Sleeping in general seems to be (currently) allowed in prepare_job(),
-> but a sleeping allocation risks deadlock.
->
-> Document the allocation pitfals for prepare_job().
->
-> Signed-off-by: Philipp Stanner <phasta@kernel.org>
-> ---
-> Didn't we recently discuss deprecating this callback for good?
-> There's a great many users, though...
-> ---
->  include/drm/gpu_scheduler.h | 4 ++++
->  1 file changed, 4 insertions(+)
->
-> diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
-> index 3b0978fa8cf0..1e4d0399a9b9 100644
-> --- a/include/drm/gpu_scheduler.h
-> +++ b/include/drm/gpu_scheduler.h
-> @@ -447,6 +447,10 @@ struct drm_sched_backend_ops {
->  	 *
->  	 * Can be NULL if no additional preparation to the dependencies are
->  	 * necessary. Skipped when jobs are killed instead of run.
-> +	 *
-> +	 * This gets called in the job submission path (dma_fence critical path=
-).
+Hi,
 
-I think "job submission path" is slightly misleading. Not all of the operat=
-ions
-a driver performs on job submission are within the DMA fence signaling crit=
-ical
-path.
+On 11/25/26 09:41, Huang, Honglei wrote:
+> 
+> 
+> On 11/6/2026 4:26 PM, Honglei Huang wrote:
+>> This series adds virtio-gpu userptr support for ROCm native compute
+>> contexts. The guest kernel pins an existing userspace mapping with
+>> FOLL_LONGTERM and exposes it to the host as ordinary CREATE_BLOB
+>> backing entries, avoiding a second shmem allocation and memcpy.
+>>
+>> A non-zero userptr field selects that path. Probe
+>> VIRTGPU_PARAM_USERPTR before using the field so an older guest kernel
+>> rejects the request instead of silently creating a shmem blob.
+>>
+>> See overall detail in virglrenderer pr [1]
+> 
+> Hi all，
+> 
+> Any review comments on this series? includes code for the kernel, QEMU,
+> and other components.
+> 
+> Open to any review.
 
-Maybe something like "This is called after the job's fence may have been
-published and hence must be considered a DMA fence sginaling critical secti=
-on."
+I want to see ack on VIRTIO_GPU_FLAG_BLOB_READONLY_ENABLED and userptr 
+patches from Akihiko before merging since he requested the RO 
+enforcement feature and reviewed userpatch patch.
 
-> +	 * You must not perform sleeping allocations in your implementation, or
-> +	 * deadlock can occur.
->  	 */
->  	struct dma_fence *(*prepare_job)(struct drm_sched_job *sched_job,
->  					 struct drm_sched_entity *s_entity);
-> --=20
-> 2.56.0
+BTW, you may drop RFC, this is already v10. RFC usually comes before v1.
 
+-- 
+Best regards,
+Dmitry
