@@ -2,46 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85392606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:21:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A02D6606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:21:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=PzxejwKi
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=djKR8I6d
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E76E610E37F;
-	Fri, 27 Nov 2026 11:21:13 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 6D7AF10E5B8
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:21:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08FF910E5B8;
+	Fri, 27 Nov 2026 11:21:21 +0000 (UTC)
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9E4F410E9B5
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:21:12 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 4706D1A1832;
- Fri, 27 Nov 2026 11:21:05 +0000 (UTC)
+ by smtpout-04.galae.net (Postfix) with ESMTPS id DEDA5C2AC4C;
+ Fri, 27 Nov 2026 11:21:19 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 114256049C;
- Fri, 27 Nov 2026 11:21:05 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 2E4566049C;
+ Fri, 27 Nov 2026 11:21:11 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 4ED6711E6930D; Fri, 27 Nov 2026 12:20:57 +0100 (CET)
+ with ESMTPSA id CEE4311E69318; Fri, 27 Nov 2026 12:21:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795778463; h=from:subject:date:message-id:to:cc:mime-version:content-type:
- content-transfer-encoding; bh=LLm6hMsQBQFbf768oUzPJc/Sb15c553IoVLWEezd7kY=;
- b=PzxejwKiRCMoTKGMyTjO+0pLn54hlw4x4yMaiYyygReKdsMd55G5nr8oy4hlOhrxSBd8Yr
- 8G8b1k4s4qiLbuP1QROoliOrpSCNcd5X6AfQIgTu7v6MA3bsXy/3dfA6IKzH/dFA4JH6Gi
- jHT1w88GEFIVsJIDqNRcoH7jHapai0d1vfQ6JPhs0ll1U6zZJ1MS7xjr8wrJXo1OrF1iyX
- oIJVsVGohx40gLuxmfxffEuPcRCG7gQN9vVH1tZA5/8MI1Wbskdy8sxYxPreJUFLJHlCWh
- +/iz9hVImkb9zVJHV8arqTE3qDXZiLqqgnodvrlORCo54yD7WOFQWtaPr026rA==
+ t=1795778469; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=Jix6Pz7UW5pobNRnrruUYw+ovR/f4EeQICu+13Oeqv4=;
+ b=djKR8I6dFfVi4JSDL2RujtjcTL3aNWdXrGLhBE04WDhnsnKieD252IL0pu7TXKw3XL49+p
+ 8jYWdL9u+zaBaOpiRqnXTA1YiMbBxOM5F3QIodkJDvWzVl7CqMoFxudUyTjE2OH9N+d/Px
+ yd9SBXbSFZk4TAbna76F149P+//VsgKKnC4IELxkluAAyLnPUj26dGI/U+hpxOgQfrNdsz
+ 7yqgptijrUiuxx+sYdHTUgowGaknln2JiWNKbV0p3/GiDFmFZzFZDUOxZZAO1qgdpl0mWa
+ b5hRrybkZO5YYwHzdKhWw1NObuaMWkgcE/d783xXjAhh4P7mpbb250KRKRct6Q==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH v2 0/4] drm/bridge: ite-it66121: use bulk read, improve
- probe logging
-Date: Fri, 27 Nov 2026 12:20:35 +0100
-Message-Id: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
+Date: Fri, 27 Nov 2026 12:20:37 +0100
+Subject: [PATCH v2 2/4] drm/bridge: ite-it66121: simplify getting the chip IDs
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/5WOQQ6CMBBFr0K6dkzbaAFX3sOwgDKFGmDItBIN4
- e4WPIHL9/Pz/l9FQPYYxC1bBePig6cpgT5lwvb11CH4NrHQUhsl1RVaHsHHFEdjlFYwUAczU4O
- AzMQBSltYh66oc5eLpJkZnX8fE4/qx+HVPNHG3bs3eh8i8ef4sKi998fcokBC7lpTlheUDcp7Q
- xQHP50tjaLatu0LDyzv7uQAAAA=
-X-Change-ID: 20261015-drm-ite-it66121-log-probe-errors-9c8cfef8a7f7
+Message-Id: <20261127-drm-ite-it66121-log-probe-errors-v2-2-dbe9b5a3c5df@bootlin.com>
+References: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
+In-Reply-To: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
 To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
  Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
  Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
@@ -76,41 +73,51 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-This small series improves it66121_probe() in various ways:
+Simplify how the vendor and device ID are computed by using
+get_unaligned_le16 instead of open-coded bit operations.
 
- * use a bulk read for reading the vendor and device ID registers
- * log errors in ID reading and matching instead of failing silently
- * on successful probe be quiet on !DEBUG, more informative on DEBUG
-
-Note there is a separate series fixing probing on the BeagleBone Black
-rev.D [0]. That is orthogonal and they overall improve probing of this
-chip.
-
-[0] https://lore.kernel.org/lkml/20261105-drm-ite-it66121-fix-reset-v2-1-02039d66af29@bootlin.com/
+While there, also store the IDs into variables and log them for debugging.
 
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+
 ---
+
 Changes in v2:
-- Split patch 1 in two parts
-- Use just a u8[4] array for the bulk read
-- Link to v1: https://patch.msgid.link/20261015-drm-ite-it66121-log-probe-errors-v1-0-7fd6994e0be0@bootlin.com
-
+- new patch, split out of v1 patch 1 (Javier)
 ---
-Luca Ceresoli (4):
-      drm/bridge: ite-it66121: check for read errors reading IDs
-      drm/bridge: ite-it66121: simplify getting the chip IDs
-      drm/bridge: ite-it66121: log an error if the IDs do not match
-      drm/bridge: ite-it66121: make successful probe quiet
+ drivers/gpu/drm/bridge/ite-it66121.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
- drivers/gpu/drm/bridge/ite-it66121.c | 30 +++++++++++++++++++-----------
- 1 file changed, 19 insertions(+), 11 deletions(-)
----
-base-commit: f210da5b4aace6919f2723586d22126b73c0e31a
-change-id: 20261015-drm-ite-it66121-log-probe-errors-9c8cfef8a7f7
+diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
+index 8bc96ef006f8..4642a32f1bd0 100644
+--- a/drivers/gpu/drm/bridge/ite-it66121.c
++++ b/drivers/gpu/drm/bridge/ite-it66121.c
+@@ -1573,6 +1573,7 @@ static const struct it66121_chip_info it66xx_chip_info[] = {
+ static int it66121_probe(struct i2c_client *client)
+ {
+ 	__u8 chip_id_regs[4];
++	u16 vendor_id, device_id;
+ 	u32 revision_id;
+ 	struct device_node *ep;
+ 	int ret, i;
+@@ -1646,10 +1647,14 @@ static int it66121_probe(struct i2c_client *client)
+ 	revision_id = FIELD_GET(IT66121_REVISION_MASK, chip_id_regs[3]);
+ 	chip_id_regs[3] &= IT66121_DEVICE_ID1_MASK;
+ 
++	vendor_id = get_unaligned_le16(&chip_id_regs[0]);
++	device_id = get_unaligned_le16(&chip_id_regs[2]);
++	dev_dbg(dev, "vendor %04x device %04x (rev %01x)\n", vendor_id, device_id, revision_id);
++
+ 	for (i = 0; i < ARRAY_SIZE(it66xx_chip_info); i++) {
+ 		chip_info = &it66xx_chip_info[i];
+-		if ((chip_id_regs[1] << 8 | chip_id_regs[0]) == chip_info->vid &&
+-		    (chip_id_regs[3] << 8 | chip_id_regs[2]) == chip_info->pid) {
++		if (vendor_id == chip_info->vid &&
++		    device_id == chip_info->pid) {
+ 			ctx->id = chip_info->id;
+ 			break;
+ 		}
 
-Best regards,
---  
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+-- 
+2.56.1
 
