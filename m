@@ -2,44 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86737606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 02:12:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F134606A32D
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 02:15:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VF8iEAlW
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=M+5hGzMb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EF8621127BB;
-	Fri, 27 Nov 2026 02:12:46 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3B0A71127AD
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:12:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 4A3D81127AD;
+	Fri, 27 Nov 2026 02:15:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E7E8A1127AD
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:15:04 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 2BDDC60D2A;
- Fri, 27 Nov 2026 02:12:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2F161F00893;
- Fri, 27 Nov 2026 02:12:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 62BE641295;
+ Fri, 27 Nov 2026 02:15:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC821F000C1;
+ Fri, 27 Nov 2026 02:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795745559;
- bh=WUlbIRIxRBrzeriXpA0JDk9wpe7FK4dVNCDJgpiaqlU=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=VF8iEAlW5Imvwq/SPvz3rta8fI+NUDM00C+/tIUKkkSbawQ6LKDpzNuvN1HWXMtJJ
- DmcPau+Q1uGNFe98it/vSeNYhpj12+GUPmNzRk0zS/GKFw+GKzptNpd9DXfyYj6th0
- 3u5f/j+xebCdkG5KAL+IsSgc7e62aLIukLue4Ng23/AJoHMqcqV8a8n9evYUH4BYvX
- FcNXps6Iv5muZdWPjI84ka1iBh3j8rdFZfIY2HC4+fWaudcAAsbEP8YVIasvb7UUtM
- +jDlzdluRy7bqTJUG7+LfmNtuk+xGe9ZqWglKlK0QxFjPoMMAvQiQgRqpKvGEjK7nT
- lEAzSG03ZwDGQ==
-Message-ID: <sashiko-outbox-236434@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: display: panel: sitronix,st7701: make
- the port optional for DSI
-To: "Romain TISSERAND" <romain.tisserand@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261127020815.1621790-2-romain.tisserand@gmail.com>
-References: <20261127020815.1621790-1-romain.tisserand@gmail.com>
- <20261127020815.1621790-2-romain.tisserand@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 02:12:39 +0000
+ s=k20260515; t=1795745704;
+ bh=AxO6ITynFYCz3tbaMENDiJEbA1Xn/FD4c7DpBtb53bw=;
+ h=From:To:Cc:Subject:Date;
+ b=M+5hGzMb0Dv0e7MP9/ygGNIsrN/GQKIsP4HBIflDhn/YloB3b0rPuljc15qttw4iS
+ 2szIK9KEpwvqFEezDjtqMEYahpYkIzKlXhLJsUCVXHwgagq/e5Ivu/GvfdlokvCVyV
+ 8FLUG7Z+NlgF+hIcK1ICqltDMMcLYh87rsvXwf4lkxGUQ1yVfWnBLW9xfY9aLw8jye
+ 3nXzIjfl1hClv5jRq8GAOGOTys3CDV/TD372Wuet/oA90m4c0lKUU9OqwtDk7AUd28
+ Sy6Ux+4ead4CBUdPR9V4wLdRepW8DBPiFDQAEMQC9mWX4iH2khAgeODwzuQ1DBRHQe
+ XAzGqOSAnmJlQ==
+From: Thorsten Blum <blum@kernel.org>
+To: Junjie Cao <junjie.cao@linux.dev>, Lee Jones <lee@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Helge Deller <deller@gmx.de>, Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>, Junjie Cao <caojunjie650@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Subject: [PATCH] backlight: aw99706: Clamp negative max brightness values
+Date: Fri, 27 Nov 2026 03:14:23 +0100
+Message-ID: <20261127021423.656745-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1147; i=blum@kernel.org;
+ h=from:subject; bh=0R0jCEkBvOQqFhQNu9vWsv/8OunR3DCCny4Kf8o4nvE=;
+ b=owGbwMvMwCUWt7pQ4caZUj3G02pJDNkcz+s762/MerP9wkxp3vs9p8vWX05a+OaZ5+XT5TKfl
+ /ff+n/oY0cpC4MYF4OsmCLLg1k/ZviW1lRuMonYCTOHlQlkCAMXpwBMpLOY4a/oXu77y999+Lbv
+ +Odnh6o/2hdvPrL+0ouq6ZK/3N82ZzouYfgrwxQn9Pb2L/GmK0brXkxwUDurcsjKgf9iqGiMxRP
+ zDYFMAA==
+X-Developer-Key: i=blum@kernel.org; a=openpgp;
+ fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,79 +58,37 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] dt-bindings: display: sitronix,st7701: duplicate if/then for
-  rg28xx-panel
---
+device_property_read_u32() reads the "max-brightness" property directly
+into the signed int max_brightness field. Values larger than INT_MAX are
+interpreted as negative and pass the upper-bound check.
 
-commit 8125a9df8a4287a7ea90e2141e5a278695835f1d
-Author: Romain TISSERAND <romain.tisserand@gmail.com>
+Also clamp negative values to AW99706_MAX_BRT_LVL to prevent this.
 
-dt-bindings: display: panel: sitronix,st7701: make the port optional for DSI
+Fixes: 147b38a5ad06 ("backlight: aw99706: Add support for Awinic AW99706 backlight")
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ drivers/video/backlight/aw99706.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-This commit removes port from the top-level required list in the
-sitronix,st7701 binding and makes it required only for the SPI-controlled
-anbernic,rg28xx-panel.
-
-> diff --git a/Documentation/devicetree/bindings/display/panel/sitronix,st7=
-701.yaml b/Documentation/devicetree/bindings/display/panel/sitronix,st7701.=
-yaml
-> index 044b84d8638d6..3ca9aa215b7f8 100644
-> --- a/Documentation/devicetree/bindings/display/panel/sitronix,st7701.yaml
-> +++ b/Documentation/devicetree/bindings/display/panel/sitronix,st7701.yaml
-> @@ -54,7 +54,6 @@ required:
->    - reg
->    - VCC-supply
->    - IOVCC-supply
-> -  - port
->    - reset-gpios
-> =20
->  allOf:
-> @@ -69,6 +68,16 @@ allOf:
->      then:
->        $ref: /schemas/spi/spi-peripheral-props.yaml#
-> =20
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            # RGB input, controlled over SPI
-> +            const: anbernic,rg28xx-panel
-> +    then:
-> +      required:
-> +        - port
-
-[Severity: Low]
-This isn't a bug, but the block right above under allOf already matches
-anbernic,rg28xx-panel:
-
-Documentation/devicetree/bindings/display/panel/sitronix,st7701.yaml:
-  - if:
-      properties:
-        compatible:
-          contains:
-            # SPI connected panels
-            enum:
-              - anbernic,rg28xx-panel
-    then:
-      $ref: /schemas/spi/spi-peripheral-props.yaml#
-
-Can required: [port] be added to that existing then: clause instead of
-adding a second if/then block for the same compatible string, matching how
-2f50e0a0f9d3 ("dt-bindings: display: panel: Make DSI panels port optional")
-handled ilitek,ili9806e.yaml?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127020815.1621=
-790-1-romain.tisserand@gmail.com?part=3D1
+diff --git a/drivers/video/backlight/aw99706.c b/drivers/video/backlight/aw99706.c
+index 43f82c83f91a..c8168a36284d 100644
+--- a/drivers/video/backlight/aw99706.c
++++ b/drivers/video/backlight/aw99706.c
+@@ -272,7 +272,8 @@ static void aw99706_dt_parse(struct aw99706_device *aw,
+ 	device_property_read_u32(aw->dev, "max-brightness",
+ 				 &bl_props->max_brightness);
+ 
+-	if (bl_props->max_brightness > AW99706_MAX_BRT_LVL)
++	if (bl_props->max_brightness < 0 ||
++	    bl_props->max_brightness > AW99706_MAX_BRT_LVL)
+ 		bl_props->max_brightness = AW99706_MAX_BRT_LVL;
+ 
+ 	if (bl_props->brightness > bl_props->max_brightness)
