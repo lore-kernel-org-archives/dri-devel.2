@@ -2,62 +2,95 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E8E6606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 17:39:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D684606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 17:58:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.a=rsa-sha256 header.s=mail header.b=E0oOTNwq
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=0BEA2oG5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 409F610E606;
-	Fri, 27 Nov 2026 17:39:53 +0000 (UTC)
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com
- [213.167.242.64])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A97DC10E606
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 17:39:46 +0000 (UTC)
-Received: from [192.168.88.20] (91-158-153-178.elisa-laajakaista.fi
- [91.158.153.178])
- by perceval.ideasonboard.com (Postfix) with ESMTPSA id EE316C51;
- Fri, 27 Nov 2026 18:37:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
- s=mail; t=1795801029;
- bh=CfMGeCRxn2dBlsYV0X+kisJYeGKSA+2kY+3iG0dhUNk=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=E0oOTNwqF0k+EbBN1vMnbALT3dNT+x1am3P5bcbzF5XUw86z+U0jIzwt9eNJtCPSG
- J6wuK0sOiCwkJLaBHlj36fiI4I9g+PRUpEFauPef7VyljqcleFhpwUdUdAvZXuvgeb
- IApkUXfwFvJ3Lv9Hh17jI5JFRSHeGuuwweM4xAeg=
-Message-ID: <70541cfc-f7a3-4e90-a1f4-b4e1055971f2@ideasonboard.com>
-Date: Fri, 27 Nov 2026 19:39:41 +0200
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9F54A10E499;
+	Fri, 27 Nov 2026 17:58:02 +0000 (UTC)
+Received: from mail-ot1-f53.google.com (mail-ot1-f53.google.com
+ [209.85.210.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6090C10E499
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 17:57:56 +0000 (UTC)
+Received: by mail-ot1-f53.google.com with SMTP id
+ 46e09a7af769-85ac281604dso4182569a34.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:57:56 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795802275; cv=none;
+ d=google.com; s=arc-20260327;
+ b=VUNdMwG/rT/6yI3P1kBPaYcocGQVOqgyS0xUMjFXL+vnZKypmzYNhrXwXA8797tZDm
+ +ZIWIw9k2W+fDBzhg8MUjzlVZxid+I8UUxFTBmBngQs6sn9u4WSf98gLXv1Wa970A/ab
+ 6me/GJTVe1N+3Mc0rOsGSSRE2sI4PsLbWydwHx9j5sxX7EXDKqGmGhBV5//ubaBGRbUS
+ mA7FQGOJ+i1FzZHSTh3VwG6isn16p8Xi4NmHi3qavkz4tOxkfqgBuN3WjZBG5vt+ba5y
+ j6dwCw8rG2G1HBhh8DHTJYZ7jeeFkwFfytdwE9e4+Fkg3UteZaDohb/oqkrdo2V9xjIS
+ d6jw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=r89bi3N8igRjPKtxY0/AYTvIwguFglFSkm5fyq/4TZ4=;
+ fh=ilLqXmjNRPIr55pJvOutiHz7t1Zv8JnNLtrTdWam73g=;
+ b=oTf2y7WEdHvVafeSHFVECFq2au8JR+BFGAgSuP0AK2AYRUNUHWH2/4WfJvXnVPRn+u
+ pW/O4YpS2yyEb9ckoo1EG5ZHV+jHhCMud4pAuOZuFPT4nABlcL7FGza94X9snedI+ifK
+ NXcx/rcj2c6GJSWZKEgs1S7J5/C/KoToDyepGAfQIV5Cpy7Zw1QpMVMPEF1IyrVTzMdE
+ PisB4yKptb8AowFBcvkak9pa8aNvEmpUiojjB4jO43x8jVBdn3yX0XmFVbGf1mLd5I5/
+ xSJLOcmW+dGYLsScjHnOcFoc6aTuAQ9XXy2sO1xMCBAgjBLcDl9ImUdLdRWVosujcPUC
+ O3Ag==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795802275; x=1796407075; darn=lists.freedesktop.org;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=r89bi3N8igRjPKtxY0/AYTvIwguFglFSkm5fyq/4TZ4=;
+ b=0BEA2oG5fNn6W+uNKHMGW1DL+bpf14UkLJidVpab1rcqMpp/gIzShXx0du8wluMux0
+ zyQkOeh2kajQUFjw7XMWvU2AmqfpFOChYBWroF1iS+5GQ928vtGq0J85fWWWJvuqdqwJ
+ /e9tLbg0zfszwtXbPsEg5+nkLTJ/C/8bb7mWws7SpX52R5oLQDKzOP+E32of/yHCGNZY
+ jBvVC4JWt7UDrtVNtRV1UeRsBniQ4VihOOUI4vZ1auxBMj39DgrwAMNOUlncm92GbocB
+ k+esXGkX0sxMG6SfkchR7nqSTCenfG+oLxwBbydneaqFEb3GA6y28GFIkqqR63aKoh7E
+ PHSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795802275; x=1796407075;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=r89bi3N8igRjPKtxY0/AYTvIwguFglFSkm5fyq/4TZ4=;
+ b=x26ljWY6ediSeL8v9ISPFAM57uuxQAdW2spZi4RhHVViCGURb4yNC62l7EoIb+pxlC
+ INPuCoYHMuQnSG1wVRGcRcf2ttn7f/uK8fh2+EE+TKAOySbtMhOV+VGOJSpoUBnEUo1H
+ BmbD794AvMWV1EYApSpu4l0Dsb48JgxBSDj3F0VZp4wusOUPmy5C0uUaEEzQDSKefteK
+ oIcRR7Mw5mfjbCnHK5WpbC2MC2+vsX2njMcw+W4ysMHqhFJPWZ3Cp8kzX7Bhy6P7C+3d
+ gs9RczIIDl2l5xx0elLpnytQNceUi/91WPm0FdTgMJqeH8OAQ8wvq0PBDbnmwP8KR/Js
+ NARw==
+X-Gm-Message-State: APuU4Z8Y2TiNDFFv0JNyGqJNjCh+Uil3ZfVVahhpppk3L+fCgL7uNjSA
+ AeS3jpgY4eFctSyBhx07o4FxVkTIuFqfX06YMHXg3tJLGhTbWKmQGzitXlTaObDFmFjWKuDrmAm
+ U25XqphVmkleyBhvChTB1t/bplb8eWUc=
+X-Gm-Gg: AZFdTZd+O203CzZfjWHgp89KPrHBgetIy24gScF80ulDYsllfQ75R2iM6b3erxYoQwh
+ 2TwNzNkWuXpWK5a8c1ykyUSGovZYd9TWttXukc6A3bCL1lW0PkzHJ/Rk40yRwRQIs5xNqblAVds
+ sfjYyy6kK0lJGr8zpBx7vOQsznYhmUTKow29AURiLOpN4Mb6o6rQQTgYozn069cGGnYmvMKedmp
+ pgsV0v4rE2FECdNKQX4bNsrIIdzH8+BPSVZmED08AjYeMlDdB9a6iKBNK1FboRUtMeBXngqK9cw
+ lCeM/utiIWWwWv2V27fSEXz70Qsd2NXpYAOq3CC9SNU8xM3BpeRz8EJlWrYCc0beBTBzbGmukrY
+ EDigr1D+zPKgYgT5ovGbTCDUGvusVYAvzLJFHtwAdMlZBnThFrcq3uTkh6RIIv32I/FC+rj31Yt
+ QY2g4o48p7XlcUKfU1OkXQqNlyLr4xbMg=
+X-Received: by 2002:a05:6830:4c18:b0:824:e29:e00e with SMTP id
+ 46e09a7af769-863159c069fmr25712859a34.20.1795802275351; Fri, 27 Nov 2026
+ 09:57:55 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-To: Maxime Ripard <mripard@kernel.org>
-Cc: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
+References: <20261112154520.151617-1-hjf3108@gmail.com>
+ <55c2f09b-71b7-4aba-8f87-58f98aaf9e13@suse.de>
+In-Reply-To: <55c2f09b-71b7-4aba-8f87-58f98aaf9e13@suse.de>
+From: Jie Feng <hjf3108@gmail.com>
+Date: Sat, 28 Nov 2026 01:57:18 +0800
+X-Gm-Features: Aa3M54q895r8_E-MN064VdwuBWxnz6l02qG5-v487UDRTqOZKbwQ6xFMTCrK5KI
+Message-ID: <CABOQOSW+Df5STmeexmdwGm4dVtXunezZJoMR_HPKtYZgRYd4Xw@mail.gmail.com>
+Subject: Re: [PATCH v6] drm/tiny: trigger5: Add MCT Trigger 5 USB display
+ driver
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: dri-devel@lists.freedesktop.org, cyrozap@gmail.com, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org
-References: <20261116142707.1299360-1-maximpedraza@gmail.com>
- <20261116142707.1299360-4-maximpedraza@gmail.com> <avs2dagfmQkv00H0@houat>
- <20261118212114.150992-1-maximpedraza@gmail.com>
- <20261124141119.441163-1-maximpedraza@gmail.com>
- <e58a5ff5-9c1b-40cc-a65d-c7fbfdaf18d1@ideasonboard.com>
- <awazkzDVZtpUsdQb@houat>
- <d9a10f1f-7550-49ee-9085-6ad4c662080d@ideasonboard.com>
- <awbOkmmNIp2ng97n@houat>
- <4d93a4af-9e57-4394-913f-4f861e3e7954@ideasonboard.com>
- <awme8rFbamSrpyoQ@houat>
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Content-Language: en-US
-In-Reply-To: <awme8rFbamSrpyoQ@houat>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+ Maxime Ripard <mripard@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ open list <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,333 +102,250 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
-	autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-17.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 Hi,
 
-On 27/11/2026 18:11, Maxime Ripard wrote:
-> On Wed, Nov 25, 2026 at 04:55:51PM +0200, Tomi Valkeinen wrote:
->> Hi,
->>
->> On 25/11/2026 14:21, Maxime Ripard wrote:
->>> On Wed, Nov 25, 2026 at 01:43:55PM +0200, Tomi Valkeinen wrote:
->>>> Hi,
->>>>
->>>> On 25/11/2026 12:11, Maxime Ripard wrote:
->>>>> On Tue, Nov 24, 2026 at 04:38:43PM +0200, Tomi Valkeinen wrote:
->>>>>> Hi,
->>>>>>
->>>>>> On 24/11/2026 16:11, Màxim Pedraza Padilla wrote:
->>>>>>> On Wed, Nov 18, 2026 at 10:21:14PM +0100, Màxim Pedraza Padilla wrote:
->>>>>>>> Makes sense, I'll use the same approach in tilcdc, and see if it can be
->>>>>>>> turned into a common helper along the way.
->>>>>>>
->>>>>>> A follow-up on this one, now that I've rebased on v9. I ended up doing
->>>>>>> it differently, so I'd rather explain why before sending the next
->>>>>>> version.
->>>>>>>
->>>>>>> The tidss approach rounds the clock to the closest standard refresh rate.
->>>>>>> Panels driven by tilcdc often don't use one: with the timings from its
->>>>>>> datasheet, the panel on this board runs at 56.8 Hz (33.3 MHz), which would
->>>>>>> be read back as 60 Hz and 35.19 MHz. The adopted mode would then never
->>>>>>> match the panel mode, even with U-Boot programming exactly the same one.
->>>>>>
->>>>>> I felt that approach was a bit odd (and if I recall right, failed with my
->>>>>> OLDI panel), and in my tidss version I just used the clock rate directly
->>>>>> from the clk_get_rate() (see dispc_vp_readout_mode):
->>>>>
->>>>> The problem is that you're losing information when setting the clock.
->>>>> Especially for panels where you don't really have an established set of
->>>>> pixel clocks, the clock is very likely to not be able to give the exact
->>>>> frequency you asked for.
->>>>>
->>>>> So when you're reading the clock frequency, the mode you're reading and
->>>>> the one you'd set at first modeset will not necessarily match, so you
->>>>> need to take that difference into account and try to get back on your
->>>>> feet.
->>>>
->>>> If I understand correctly, your code in tidss is trying to guess the pclk
->>>> rate in (say) the simple-panel driver via assuming the refresh rate is one
->>>> of the standard ones?
->>>
->>> Yes, and I have yet to see a panel that would have a refresh rate that
->>> isn't one of the standard ones.
->>
->> They often have quite wide ranges, and don't define clear nominal timings
->> and refresh rate. But I agree, almost always one can have a 60Hz timing with
->> them.
->>
->> That doesn't mean our panel/bridge drivers would define such neat clocks. In
->> my experience, the panel's timings are often based on X, which probably is
->> something that happened to work on one platform, and was good enough. Those
->> can be fixed to result timings close to the 60 Hz, but then we risk breaking
->> the panel for some platforms.
-> 
-> I don't think we should accomodate those. If the pixel clock is not
-> properly defined, then we need to fix the panel. And if some panel
-> drivers make some controllers to setup something wrong, then we need to
-> fix the controller too.
-> 
-> And it's not like having an off pixel clock is harmless, at the very
-> least it means that the vblank interrupts don't get send at their
-> expected frequency anymore.
-> 
-> It would sound like a much better solution to me to have something that
-> takes a display_timing and adjust the blanking periods and / or the
-> porches within their acceptable range to make sure we always have the
-> right refresh rate despite having a rounded clock.
+On Fri, 27 Nov 2026 at 17:49, Thomas Zimmermann <tzimmermann@suse.de> wrote:
+>
+> Hi,
+>
+> I think the driver looks much better now. I left a few notes below that
+> you might want to address.
+>
+>
+> Am 12.11.26 um 16:45 schrieb Jie Feng:
+> > From: Ho Jie Feng <hjf3108@gmail.com>
+> >
+> > Add a DRM driver for MCT Trigger 5 USB display adapters.
+> > This supports USB 3 to HDMI/VGA displays adapters with
+> > trigger5 chipsets from j5create, StarTech and various others.
+> >
+> > The driver implements modesetting and USB framebuffer updates,
+> > connector detection, and EDID retrieval.
+> >
+> > The protocol is based on reverse-engineering work by Forest Crossman
+> > (cyrozap) at: https://github.com/cyrozap/mct-usb-display-adapter-re
+> > and usb packet captures between the Windows driver and the device.
+> >
+> > Only the HDMI path has been tested. VGA selection is inferred from the
+> > absence of USB audio interfaces.
+> >
+> > Tested on JUA355. The list of USB device IDs are taken from the
+> > Windows driver INF.
+> >
+> > Signed-off-by: Ho Jie Feng <hjf3108@gmail.com>
+> > ---
+> > Patchwork:
+> > https://patchwork.freedesktop.org/series/176855/
+> >
+> > Changes in v6:
+> > - Replace the USB transfer worker and vmalloc frame buffers
+> >    with eight URBs that send the frame in chunks
+> > - Remove keepalive work, it is not needed if it is never sent,
+> >    and disarm any keepalive it already has
+> > - Use container_of_const(), drm_dbg(), and drm_err_once()
+> > - Group plane code and function tables before CRTC code and tables.
+> > - Use the standard NULL-CRTC plane-check pattern and remove redundant
+> >    mode checks, the driver-specific no-EDID fallback, and the INF comment.
+> >
+> > Link to v5:
+> > https://lore.kernel.org/dri-devel/20261026112843.69795-1-hjf3108@gmail.com/
+> > Changes in v5:
+> > - Fix warnings found by kernel test robot
+> >
+> > Changes in v4:
+> > - Move the driver to drm/tiny
+> > - Remove the buffer resizing to reduce size of file
+> >
+> > Changes in v3:
+> > - Flush the vmalloc buffer before submitting the USB transfer.
+> > - Support display panning by using the source offset
+> >
+> > Changes in v2:
+> > - Move the buffer resizing to crtc_* functions so that we can report
+> >    out of memory errors to userspace
+> > - Change the PLL search function so that it is faster and doesn't
+> >    produce checkpatch warnings
+> > - Update drm functions: crtc reset becomes create_state
+> > - Fix warnings reported by kernel test robot
+> >
+> > sashiko review false positives in v1-4:
+> > - atomic in these function names mean that the changes should go through
+> >    through at once or not at all, nothing to do with atomic context.
+> >    Furthermore other drivers also have similar patterns
+> > - drm_gem_fb_begin_cpu_access is also required
+> >
+> >   MAINTAINERS                     |   7 +
+> >   drivers/gpu/drm/tiny/Kconfig    |  14 +
+> >   drivers/gpu/drm/tiny/Makefile   |   1 +
+> >   drivers/gpu/drm/tiny/trigger5.c | 990 ++++++++++++++++++++++++++++++++
+> >   4 files changed, 1012 insertions(+)
+> >   create mode 100644 drivers/gpu/drm/tiny/trigger5.c
+> >
+...
+> > +static void trigger5_plane_atomic_update(struct drm_plane *plane,
+> > +                                      struct drm_atomic_commit *atomic_state)
+> > +{
+> > +     struct drm_plane_state *old_state =
+> > +             drm_atomic_get_old_plane_state(atomic_state, plane);
+> > +     struct drm_plane_state *state =
+> > +             drm_atomic_get_new_plane_state(atomic_state, plane);
+> > +     struct drm_shadow_plane_state *shadow_plane_state =
+> > +             to_drm_shadow_plane_state(state);
+> > +     struct trigger5_device *trigger5 = to_trigger5(plane->dev);
+> > +     struct trigger5_transfer *transfer;
+> > +     struct trigger5_bulk_header *header;
+> > +     struct drm_rect current_rect, src_rect, clip;
+> > +     struct iosys_map data_map;
+> > +     size_t payload_len;
+> > +     int width, height, lines_per_urb;
+> > +     int idx, y;
+> > +
+> > +     if (!drm_atomic_helper_damage_merged(old_state, state, &current_rect))
+> > +             return;
+>
+> Never use _damage_merged in your display update code. (^1) Userspace
+> supplies damage rectangles for ares that have changed in the current
+> frame. Merging them creates a bounding box around all of them.  IOW you
+> add areas that have not changed.  For example, have a blinking cursor
+> near the lower left corner and move the mouse around the window's
+> menubar, and your driver easily transfers half of the screen or more for
+> nothing.
+Talking about cursor, this hardware supports a cursor plane and a form
+of lossless image compression, I might add those in a follow up patch.
 
-In my experience, changes to the blanking & porches will break the 
-display much more easily than changing the clock.
+> Therefore always iterate over the damage rectangles and handle them one
+> by one. Don't be concerned with overlapping damage regions. I did some
+> tests with Gnome and could not find any operlaps. It appears that Gnome
+> already submits an optimized list damage regions.  Overlapping can also
+> be detected algorithmically and filtered out by our damage handlers.
+> But a merged bounding box cannot be optimized.
+>
+> ^1: White lie, as we use _damage_merged for ast's cursor. But this code
+> really is different.
+The hardware seems to only accept 3 damage rects per vblank according
+to my tests. Since I do not know in between which of the 3 damage
+rects the frame is being output, I think we should just use
+_damage_merged to avoid any sort of screen tearing. In this case the
+compositor might get wrong feedback if the damage rects are small, so
+should I pad some extra rects so that it gets correct feedback of the
+current speed of vblank?
 
-In any case, I'm not against the idea of calculating ideal pclk here, 
-and fixing the panel drivers. But I am saying that it may not be so easy 
-as it may feel =).
+This kind of behaviour looks to be quite common, the hardware for
+ms91xx only accepts 1 damage rect per vblank, so _damage_merged is
+mandatory there.
 
->> Bridge drivers can also adjust the adjusted_mode's clock when they have
->> special needs (DSI).
->>
->>>> I don't think that works... Even if the target refresh rate in the panel
->>>> driver is close to (or exactly) those standard ones, it won't be the same
->>>> clock rate except by luck. And u-boot may have a different PLL calculation,
->>>> or different pclk in its dtso.
->>>>
->>>> I think the u-boot part should be fixed just by "fix your bootloader": if
->>>> you want SRO to work, make your bootloader use the same videomode (including
->>>> pclk) as the kernel.
->>>>
->>>> But even then it won't work. If the simple panel states pclk as 150.274 MHz,
->>>> it will cause the HW to set 150.0 MHz, and the SRO in this series will
->>>> calculate 150.124675 MHz. This will cause a full modeset, and also the SRO
->>>> check will given an error.
->>>
->>> Not really, because it will try to match the closest, and then try to
->>> keep that within a defined tolerance. So, in your example, if the
->>> expected pclk is 150.274MHz, and what's programmed in hardware is 150MHz
->>> (which also is the closest pick we can find), then it will be happy with
->>> 150MHz.
->>
->> What will be happy?
->>
->> *ERROR* crtc-0 configuration mismatch in mode expected "1920x1200": 60
->> 150274 1920 1952 2004 2028 1200 1224 1232 1235 0x48 0x0, got "1920x1200": 60
->> 150124 1920 1952 2004 2028 1200 1224 1232 1235 0x40 0x5
-> 
-> Can you share more about what is going on here? What frequency is setup
-> by U-Boot? is happening only for the first modeset, or all the others?
-> Is the rounding of the clock similar between u-boot and the kernel?
-
-This is with AM62-SK and OLDI. It's the example I gave. This happens 
-with every modeset, as the panel driver has a different clock than what 
-the SRO comes up with.
-
-But I think your point is that the panel driver has to be fixed, so that 
-it uses 150.124 MHz clock, which is the one the SRO will come up with.
-
-Even then, I'm not sure if it'll work. If the clock is supposed to be 60 
-Hz exact, but the actual clock in the HW is low enough, won't SRO then 
-think it's 60 * 1000/1001, which results in a different ideal clock?
-
->>> And let's turn this around: what happens if your expected pclk is
->>> 150.274MHz, and the actual rate programmed by u-boot is, say, 124MHz?
->>>
->>> Should we do a modeset then?
->>
->> If clk_set_rate(150274000) results in pclk of 124MHz, then it's the correct
->> mode, no modeset needed. There are cases like that, but I'm fine with not
->> targeting them at least initially.
-> 
-> No it's not the correct mode, it's completely off, a bootloader bug, and
-> the best thing the kernel needs to be doing is go through a new modeset
-> to fix it.
-
-It's either that or no display at all. The numbers were invented, but on 
-some platforms the clock rates can be very coarse, especially on higher 
-clocks. That's the origin of the 5% tolerance you've complained about. 
-K3 DSS doesn't need it as the PLL is quite ok, but OMAP DSS definitely 
-has very coarse clock rates (on some OMAP versions).
-
-That said, maybe those SoCs are not our prime targets here. But, again, 
-the point is, this may not be so easy to get right in a general sense as 
-it may sound.
-
->>> It's also a matter of consistency within the framework. The framework
->>> expects the "ideal" mode everywhere. How is the pclk actually programmed
->>> isn't tracked anywhere. So, if you have a regular modeset, we'd have
->>> mode and adjusted_mode have the "ideal" pclk, but in the case of SRO
->>> we'd have the actual one, possibly forever?
->>
->> With regular modeset, we'd have the ideal pclk in mode, and the real pclk in
->> adjusted_mode, right?
-> 
-> Except that you have no way to make sure that the clock in adjusted_mode
-> is going to be the "real" one.
-
-Indeed, for some reason I thought the drivers read it back. But it's 
-just an adjusted target clock.
-
->> My worry is that we'll not be able to guess the ideal pclk very well. Maybe
->> that can be solved with fixing the panel drivers when we encounter non-ideal
->> timings, and having a clear rule that the provided timings have to result in
->> a "normal" refresh rate, even if the platform has to adjust them when
->> applying.
-> 
-> Time will tell I guess, but I'd rather keep that in the back of our
-> heads as a last resort than admit defeat from the get-go :) Because,
-> yes, I do believe a lot of drivers are broken and it's an opportunity to
-> find and fix them.
-> 
->>>> So... First, I think at least in the adjusted_mode we should have the real
->>>> pclk.
->>>
->>> You can't have that. The closest you'd have would be calling
->>> clk_round_rate() at atomic_check, but you have no guarantee that it's
->>> actually going to be the same rate by the time you call clk_set_rate().
->>
->> Why is that?
-> 
-> Because clk_round_rate() depends on the current context for that clock:
-> its parent rates, the ranges the other users have requested, etc.
-> Between atomic_check and atomic_commit, that context might have change
-> and you might have a different result.
-> 
->> Can't we do the clk_round_rate in SRO? The SRO state has the adjusted
->> timings, doesn't it?
-> 
-> I'm not really concerned about SRO, I'm concerned about everything after
-> it: the mode we expose to userspace, the consistency between an SRO
-> state and a committed state, etc.
-> 
->> Yes, I guess clk_round_rate() there and clk_set_rate() later might result in
->> different rates in theory, but can that happen in practice? If the clock is
->> being kept on, it's unlikely that its parent clocks would change.
-> 
-> On some platforms, maybe. On others it's absolutely the case. That's why
-> we have clk_set_rate_exclusive(), and why
-> https://lore.kernel.org/linux-clk/20260327-clk-scaling-v8-0-86cd0aba3c5f@redhat.com/
-> is a thing.
-
-But is that an actual problem here? The main use case here is keeping 
-the display unchanged from bootloader to the first userspace modeset. If 
-the clock is changed while the bootsplash is being shown, the use case 
-is already broken.
-
->> So it's not immediately clear to me when this could happen.
-> 
-> Even from a purely software PoV, if you have two users, and one calls
-> clk_round_rate for 42MHz which isn't rounded, and then the second does a
-> clk_set_max_rate(40MHz), then clk_round_rate will now return 40MHz.
-> 
->>> Either way, assuming we would do that, it would give you adjusted_mode.
->>> You'd still need mode, and mode is what is shown to userspace.
->>
->> Yes.
->>
->>>> The SRO check should pass only an equals check there. For mode's pclk,
->>>> I think setting the actual pclk makes sense, at least more than guessing it.
->>>> Or could we, at that stage, see what modes the connector advertises, and
->>>> pick a clock from there?
->>>
->>> It's difficult, because then you assume that A) the bootloader will have
->>> used a mode reported by the monitor and B) crtcs need to be readout
->>> before connectors.
->>
->> Isn't A) needed anyway for fully working SRO and smooth transition to the
->> userspace app's display? The userspace's modeset will most likely use the
->> preferred mode from the display, and if that's different than the
->> bootloader's it will then cause a full modeset.
-> 
-> It's a reasonable assumption at first, but my point was more about "What
-> happens if it isn't?"
-
-My assumption is that for bootsplash and SRO to work, bootloader and 
-kernel must work correctly together, they have to do things just right 
-(e.g. the clock config has to be the same, including clock tree, etc). 
-That said, it's great if we can make this work more generally too =).
-
-> Also, once SRO works, I would expect the splash screen, plymouth, and so
-> on to revert the logic and go for something like "if it's enabled, use
-> that, otherwise use the preferred mode and do a modeset".
-
-Ok, that changes the case a bit, and allows a bit more leeway. But... If 
-we do that, isn't it the same or better to just use the HW clock rate as 
-the mode clock? Then the userspace sees the "real" mode. Then again, now 
-that I think about it, userspace doesn't see that for normal modesetting 
-either, does it... It just knows the mode it's trying to set. So a DRM 
-app can never know what the real refresh rate is, except measuring vblanks?
-
->> Or how do apps usually work? Do they try to get the current mode from the
->> crtc, and use that, even if it's not the connector's advertised default
->> mode?
->>
->>>> If we can't get the pclks from the connector, the mode->clock won't match,
->>>> and we should either skip checking that in the SRO checks, or have plenty of
->>>> tolerance.
->>>
->>> tidss has 5% of tolerance when most of the drivers have .5%. How much do
->>> you need?
->>
->> I was referring to the SRO code, which currently gives errors if the modes
->> don't match exactly.
-> 
-> Which isn't true? There are warnings, and we're literally discussing a
-
-Well, the warnings say "*ERROR*" =).
-
-> function that does introduce a tolerance when trying to match the modes.
-> 
-> Let's turn this around. I think we both agree that matching exactly
-> won't work. I guess it wouldn't be hard to agree that a panel running at
-> half the refresh rate, with different polarities, or with different
-> timings shouldn't be considered a match.
-
-I'm not sure about that. Depends =). We can never recreate the original 
-mode from the HW registers fully, but I think on some platforms it will 
-be further away than on some. The clock is the prime example. Without 
-display PLL, the pixel clock rates can be quite far away.
-
-> So my question is: where do you want to draw the line?
-
-I'm fine with the ideal mode calculations with some kind of small 
-tolerance. We can initially target platforms that have adequate hardware.
-
-But I feel that this could eventually have to be a platform specific 
-thing, unless SoCs without good video PLLs are a thing from the distant 
-past.
-
-Perhaps we can worry about them if we get there.
-
-In any case, if SRO is more an opt-in than enabled by default, we're safe.
-
->>>> I think it still leads to a full modeset, but can the driver check if
->>>> setting the mode->clock would results in the current pclk, and somehow
->>>> abort the full modeset?
->>>
->>> I'd rather discuss an actual bug here. Do you have a case you can share
->>> where the logic we currently have doesn't work and is not an instance of
->>> poor panel timings?
->>
->> It's the case with the OLDI panel. You should be able to test it with
->> AM62-SK even without an actual panel, just load the
->> k3-am625-sk-microtips-mf101hie-panel.dtbo. Ah, actually, there's the
->> touchscreen in the dtbo, so you may need to disable that in the dtso.
->> Although I guess even if it's enabled, you'll just possibly see an error
->> from the touch driver, and it doesn't affect the display.
->>
->> So even if you don't have bootloader that enabled the OLDI panel, you should
->> see the configuration mismatch errors.
-> 
-> But it wouldn't have enabled the clock at the right rate though, right?
-No, it wouldn't have OLDI enabled at all (nor the clocks), but you can 
-still test as you'll see the warnings in normal modesetting if the SRO 
-comparison doesn't match. So a normal modeset with panel's clock at e.g. 
-150.274 MHz, triggers the SRO, which comes up with 150.124 MHz, and the 
-check fails.
-
-  Tomi
-
+> > +
+> > +     if (!drm_dev_enter(plane->dev, &idx))
+> > +             return;
+> > +
+> > +     src_rect = drm_plane_state_src(state);
+> > +
+> > +     /* Match drm_atomic_helper_damage_iter_init() rounding. */
+> > +     src_rect.x1 >>= 16;
+> > +     src_rect.y1 >>= 16;
+> > +     src_rect.x2 = (src_rect.x2 >> 16) + !!(src_rect.x2 & 0xffff);
+> > +     src_rect.y2 = (src_rect.y2 >> 16) + !!(src_rect.y2 & 0xffff);
+> > +
+> > +     /* Clip merged damage to the new resolution. */
+> > +     if (!drm_rect_intersect(&current_rect, &src_rect))
+> > +             goto exit;
+> > +
+...
+> > +             iosys_map_set_vaddr(&data_map, transfer->urb->transfer_buffer);
+> > +             drm_fb_xrgb8888_to_rgb888(&data_map, NULL,
+> > +                                       &shadow_plane_state->data[0],
+> > +                                       state->fb, &clip,
+> > +                                       &shadow_plane_state->fmtcnv_state);
+> > +
+> > +             if (trigger5_submit_urb(transfer,
+> > +                                     width * 3 * drm_rect_height(&clip)))
+> > +                     break;
+> > +     }
+>
+> Good to see that the worker has been removed.
+>
+> > +
+> > +exit_end_cpu_access:
+> > +     drm_gem_fb_end_cpu_access(state->fb, DMA_FROM_DEVICE);
+> > +exit:
+> > +     drm_dev_exit(idx);
+> > +}
+> > +
+> > +static const struct drm_plane_helper_funcs trigger5_plane_helper_funcs = {
+> > +     DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
+> > +     .atomic_check = trigger5_plane_atomic_check,
+> > +     .atomic_update = trigger5_plane_atomic_update,
+> > +};
+> > +
+> > +static const struct drm_plane_funcs trigger5_plane_funcs = {
+> > +     .update_plane = drm_atomic_helper_update_plane,
+> > +     .disable_plane = drm_atomic_helper_disable_plane,
+> > +     .destroy = drm_plane_cleanup,
+> > +     DRM_GEM_SHADOW_PLANE_FUNCS,
+> > +};
+> > +
+> > +static const u32 trigger5_plane_formats[] = {
+> > +     DRM_FORMAT_XRGB8888,
+>
+> I suggest to support RGB888 as well. It's not common nowadays. But it's
+> the native format and does run slightly faster is used. Can be a
+> follow-up patch.
+>
+> > +};
+> > +static enum drm_mode_status
+> > +trigger5_crtc_mode_valid(struct drm_crtc *crtc,
+> > +                      const struct drm_display_mode *mode)
+> > +{
+> > +     struct trigger5_pll pll;
+> > +     u64 err, ppm;
+> > +
+> > +     if (mode->hsync_end <= mode->hsync_start ||
+> > +         mode->htotal <= mode->hsync_end)
+> > +             return MODE_H_ILLEGAL;
+> > +
+> > +     if (mode->vsync_end <= mode->vsync_start ||
+> > +         mode->vtotal <= mode->vsync_end)
+> > +             return MODE_V_ILLEGAL;
+>
+> You don't nee that basic stuff. See [2]. Just test for hardware specifics.
+>
+> [2]
+> https://elixir.bootlin.com/linux/v7.3.4/source/drivers/gpu/drm/drm_modes.c#L1652
+Nice that this is already handled. The checks are actually for the
+fields in the struct with /* minus one */ comments.
+> > +
+> > +     if (trigger5_mode_buf_len(mode) > TRIGGER5_MAX_FRAME_SIZE)
+> > +             return MODE_MEM;
+> > +
+> > +     err = trigger5_calculate_pll(&pll, mode->clock);
+> > +     ppm = div64_u64(err * 1000, mode->clock);
+> > +     if (ppm > 10000)
+> > +             return MODE_CLOCK_RANGE;
+> > +
+> > +     return MODE_OK;
+> > +}
+> > +
+...
+> > +
+> > +     ret = trigger5_alloc_urbs(trigger5);
+> > +     if (ret)
+> > +             goto err_free_urbs;
+>
+> I still thing that URBs should not be pre-allocated and you should go
+> for something like i try with udl. But that's fine tuning for later.
+> Pre-alloc is fine for now.
+I can send in a follow up patch once the udl design is finalised,
+along with RGB888.
+> Best regards
+> Thomas
+>
+Best regards,
+Jie Feng
