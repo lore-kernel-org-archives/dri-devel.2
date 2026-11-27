@@ -2,113 +2,60 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A04A606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27F1606A31E
 	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:56:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=TktZyj1F
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLVWLZqU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3580112948;
+	by gabe.freedesktop.org (Postfix) with ESMTP id B8FF8112947;
 	Fri, 27 Nov 2026 09:56:11 +0000 (UTC)
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
- [209.85.221.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF3BD112939
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:55:28 +0000 (UTC)
-Received: by mail-wr1-f52.google.com with SMTP id
- ffacd0b85a97d-4a9be758734so4980591f8f.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 01:55:28 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795773327; cv=none;
- d=google.com; s=arc-20260327;
- b=IZykFQn172BNC2yCXh70e9hIKZUZXHytrTG0jFsvOsnRyducD290f/SE72oDt7cI+l
- 5kvGP0IuN0fpDkKyXYArcXMOwtpr8bPq2tWWRkpwTlrk5Lg4Z6HRC8RWPyGrAAbOJOjs
- wvc2E8A9TR4vKBXs6R1MugD4rmV4xg/jK+/MdO1aU6zuhbDJZ9ykvuFvOXsGDJqYQ7hu
- iMIkWSV5BzunbWY0KoQv7yIsatJ8x0gXDGeqT9EjbecSn7oZDoeZ0RH1lc3kb+JKdmw4
- sRUkXC/pZazOCLmKphnVhnqSW9qcV4NyssFH8j2CXetBOjjtRXETfIn65UkPb8ViXUWA
- BMtw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vpy+L8ilFk/xVj47uBuvADr4xljwNe7U/d1k7VvtaJ8=;
- fh=YIF9ftlaK+MsvYLLPrE+IeyREcbyD+1VGGKDaSGJFzA=;
- b=V0RBTZXXY6W7I5p6U5rr2kG3Xaq1KgCRNW8bf8YLH9KWDIs8+X/bt5cl8W5KwE7Rvg
- 7CJVVf8RJ/QAIgR7SzWEqEWiE9tfjX2GMu77GP2inZxCJp0Cp/Ds4/5dOdSsMuaTsIKJ
- 64WvxhWqqlwCN2pNcFJcqn7S7RyjxSwSmGDg88J0m35sAur9mCDn2TsIqwpFSKKWAbBa
- U5pO0bXDoQKUN77f736fzkom5Wp+okO38pZRQOd9gKlPePL9B8ZEtqYs/+3mwGPX3h2I
- 4YdEQ2Q3K8hftO2JgvpDo26aNGsMREuCCmwNrTDBN4szmicKeUAxJfULWS/vdMv+GVrc
- WpZA==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795773327; x=1796378127;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vpy+L8ilFk/xVj47uBuvADr4xljwNe7U/d1k7VvtaJ8=;
- b=TktZyj1FjtE6pYsCTJ03i5hdt2zg8DMBmhwUrs+x+g1DThOBX2rJMza5s7wofJ4dl5
- Rqhqza3JQ66Io+YM8MzjWT3GMqi0KF8R/iqlAejUDgkJFDgdIk/cNx+WEc6Vv8VWWBuz
- Gmklr35clXdDeIMmNsr5zsVygNSoGtDSVqnNA80xhvRpF/g8HAAwV7jP0W1xQKLznba7
- 2pJzjvrzGpi8mnAcChjK0l05daYDuaWLGmeRU7FzBpG8tCxQDS3IqwELE5aTSGXZUMNm
- IhAbCwHpzlIk84p0D3mEsLhFmyGugCaaDaMOJAaaA8ckg+D1Pod/7HoERebhGsRcaNKo
- b5PA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795773327; x=1796378127;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vpy+L8ilFk/xVj47uBuvADr4xljwNe7U/d1k7VvtaJ8=;
- b=kWos0yl+MijpCtLA6bLqpVnwE1qLt293jYQwYKB02awOMt58jSY5UI50g5EWkPkKoN
- 8VHgmwk5AgCmGerFcJ44rR/EqIpZqUKB9VXcnBYJ5USCRVb01aYOehPExGLRhlLyqGjm
- 0NPHO6L/Cdq6GlpG2j4zjT6I3U75GB5IewsEyNNPYAwpr34y68sK5qAMlKj3jrpYQBBD
- vqYnYTj6voit7GHOd5+TqI/5DA34+z2T5F98nFwUwROmlfcAnHVyWNfzSICxoXUbFzGA
- i5f+GdksfS+8X1x9SOq2zYzltN7jE25HzYDr0Lo8l+pJt+Q6VkSQwdwjTRK1gvJNB36N
- aNyA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFzl7xiCZ6Eiz6/MOC9rSFeQ5OK/ULgebrXBbPUFoiR71Tq67YXO+yUbUSL6ZdIwM4fvC/m0lvuy/k=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z8iTPGnLd2af9oqjYGjWVBGjFKen6A49IzlEScVQ6AFzAV6Ewv1
- qh7ZA7xw1CNnqGm3xvhtRaxaovwgjsUqHpfdMfjvfFgZpnsPZ7tM+IOZdupaHKyqHy+MFZ2SsRq
- 75j6FwtgP2rVCM1JaajdrKK0sn4L1jzERdHsFK3hk
-X-Gm-Gg: AZFdTZe1v1Uc8S73W56MmTGOK01Hpuw2NmQV3mNgpIIsnnnLPuukLB0PUh+LBijsDzx
- vL6kx7apelmyoaDwMocON14kGcGyaphVm8r49yXYjnHwuyTVZDLqUbKecXIpVExhVXk0CY5CD2D
- cEtGCOCr46zXlMcul17x4C9Ve/1vJ7lOhaMFA2mW+0ofNXxBF5QScoSj+vLOA5DYBMY7ixoB1MG
- 5dKj8rVl6Gj6azZSUkzfM1imYrnkSpdtosarRN+o3l4AxG+8Vc7aF95ktR5dgORHf/M0LdZhEpo
- W2BkWhaQpC8tiU217s2j3BdUH23Jq8zlfI6HF3lApCCt1T1DQfPdHyEXAYtVwvOUFVAGrY7dcrr
- CRh0KwJ+PdPUDhX50k1ZuU1zOvZtFnPmwghCt4Cz3mV3bSXuWnI0bhMwj8CQoLs1teUOA/4/mQC
- u5iHZCKdGxO12P9MdfmuJIJ6bYmmB0U/vkLUyhk+NzXgYq
-X-Received: by 2002:a5d:588b:0:b0:48e:66d0:664c with SMTP id
- ffacd0b85a97d-4abaf64be12mr50144469f8f.15.1795773326393; Fri, 27 Nov 2026
- 01:55:26 -0800 (PST)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A4DEC112931
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:54:59 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 276B462610;
+ Fri, 27 Nov 2026 09:54:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4B81F00A15;
+ Fri, 27 Nov 2026 09:54:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795773298;
+ bh=LVcqMPL/cVjj07Ag9jA9Tchgu+aX50FVq/RUUKGDd+E=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=WLVWLZqUGOQa0CrTZFjTNkXmQQRNMyHHSOoHCU0nT3KFE+rWhZncFupUuonbsVqT3
+ aD+QK+x80DULQzQhNvzKQxsdUk5nE8xoi5TqKu2McQYYVEHSiBlo8R1/T0FJu8hHzM
+ YuQeMtABebKZHSDowO037LfUoUD80o399usoZt9H4qFI97SopiB1WabyQzg844pRFG
+ IVFBR0mgUg8MDSsvoLVT2gt8FRrENFmM+J24P/cGNDAFH6uuv+QgW3LpF+lFtWOz31
+ Fv44X22ftiGoev8NHl6qVdUx+uSlb4u048omBmdFFrPQK3yMtmRoc1lBiTetFdHhz2
+ dQ1DkKwBriTkQ==
+From: Maxime Ripard <mripard@kernel.org>
+Date: Fri, 27 Nov 2026 10:53:11 +0100
+Subject: [PATCH v10 29/36] drm/tidss: kms: Hook up hardware state readout
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261124-rust-drm-gem-shmem-imported-sgt-v2-0-000f7a9ccb8d@jannau.net>
- <20261124-rust-drm-gem-shmem-imported-sgt-v2-3-000f7a9ccb8d@jannau.net>
- <awXA70GWssuU991c@google.com> <20261125113846.GB372978@robin.jannau.net>
-In-Reply-To: <20261125113846.GB372978@robin.jannau.net>
-From: Alice Ryhl <aliceryhl@google.com>
-Date: Fri, 27 Nov 2026 09:55:14 +0000
-X-Gm-Features: Aa3M54oiZNSDgmAEoH9NzLLBRhpgjBRE2cJGZY4MeBf6M2cJPAdsD-3P1zcRduo
-Message-ID: <CAH5fLggRtEUopYT0ZacNvczLRTNk4sKDrE7q-isgW=MDn4mqMQ@mail.gmail.com>
-Subject: Re: [PATCH v2 3/5] rust: drm: gem: shmem: Implement
- prime_import_sg_table callback
-To: Janne Grunau <j@jannau.net>
-Cc: Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>,
- Gary Guo <gary@garyguo.net>, 
- =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Trevor Gross <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>,
- Tamir Duberstein <tamird@kernel.org>, 
- Alexandre Courbot <acourbot@nvidia.com>,
- =?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Sami Tolvanen <samitolvanen@google.com>, Lyude Paul <lyude@redhat.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, rust-for-linux@vger.kernel.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- nova-gpu@lists.linux.dev, stable+noautosel@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-drm-state-readout-v10-29-0259582d45a8@kernel.org>
+References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
+In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2349; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=j53T2XJ2/TUEz9lH3HBjNxg3SCldDQuCBvpkD+KMxlo=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwZz5Vn6WmQm+EfZr2beaSk7q4vyavk0sQb40YeVBh
+ 543K053TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgImwqDDW2W3K2xOb9yg1+tw+
+ CRdBNdsFcoW2P2WNjs3fsf6ze6PPnj1am81fXqrIfiJ2bUPdRoVGxob5P3cLvt/SF+l8Jki3trj
+ 6g/qb0q1yd17uf/+oJsFlezSzc+LeixYhs29KLKn7u+ra7UwA
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,43 +67,75 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_IN_DEF_DKIM_WL
-	autolearn=no autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 25, 2026 at 11:38=E2=80=AFAM Janne Grunau <j@jannau.net> wrote:
->
-> On Tue, Nov 24, 2026 at 04:53:03PM +0000, Alice Ryhl wrote:
-> > On Tue, Nov 24, 2026 at 12:37:45PM +0100, Janne Grunau wrote:
-> > > +        // SAFETY: The DRM shmem helper only invokes this callback f=
-or a registered DRM device of
-> > > +        // type `T::Driver`, which is `Self`'s driver per the `Alloc=
-Impl` impl below.
-> > > +        let dev: &Device<T::Driver> =3D unsafe { Device::from_raw(ra=
-w_dev) };
-> >
-> > `drm::Driver` in `rust/kernel/drm/driver.rs` currently declares:
-> >
-> >     type Object: AllocImpl;
-> >
-> > without any constraint that `T::Object::Driver =3D T`. I think we shoul=
-d
-> > introduce one similar to how Driver::File constrains this?
->
-> so changing it to `type Object: AllocImpl<Driver =3D Self>;`?
+The CRTC, plane and bridge state readout hooks of the tidss driver are
+only called by the KMS core if the device opts in to the state readout
+infrastructure.
 
-Yeah that's what I meant.
+Set drm_mode_config_funcs.atomic_sro_readout_state to
+drm_atomic_helper_sro_readout_state(), and
+drm_mode_config_helper_funcs.atomic_sro_build_state and
+drm_mode_config_helper_funcs.atomic_sro_install_state to
+drm_atomic_helper_sro_build_state() and
+drm_atomic_helper_sro_install_state() respectively, which implement the
+standard readout sequence on top of the per-object hooks.
 
-> I think it's hard to get that accidentally wrong but since the change
-> relies on that constraint and we can express it sure.
->
-> I added it locally for v3 but feel free to make that change before
-> pushing this series to drm-rust-next if there is nothing else that
-> warrants a v3.
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/tidss/tidss_kms.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-I'm ok with adding it on apply if there's nothing else.
+diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
+index fd7bb2c88931..32e11e36627d 100644
+--- a/drivers/gpu/drm/tidss/tidss_kms.c
++++ b/drivers/gpu/drm/tidss/tidss_kms.c
+@@ -4,10 +4,12 @@
+  * Author: Tomi Valkeinen <tomi.valkeinen@ti.com>
+  */
+ 
+ #include <drm/drm_atomic.h>
+ #include <drm/drm_atomic_helper.h>
++#include <drm/drm_atomic_state_readout.h>
++#include <drm/drm_atomic_state_readout_helper.h>
+ #include <drm/drm_bridge.h>
+ #include <drm/drm_gem_framebuffer_helper.h>
+ #include <drm/drm_of.h>
+ #include <drm/drm_panel.h>
+ #include <drm/drm_print.h>
+@@ -62,11 +64,13 @@ static void tidss_atomic_commit_tail(struct drm_atomic_commit *old_state)
+ 
+ 	tidss_runtime_put(tidss);
+ }
+ 
+ static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
+-	.atomic_commit_tail = tidss_atomic_commit_tail,
++	.atomic_commit_tail	= tidss_atomic_commit_tail,
++	.atomic_sro_build_state = drm_atomic_helper_sro_build_state,
++	.atomic_sro_install_state = drm_atomic_helper_sro_install_state,
+ };
+ 
+ static int tidss_atomic_check(struct drm_device *ddev,
+ 			      struct drm_atomic_commit *state)
+ {
+@@ -131,10 +135,11 @@ static void tidss_hw_reset(struct drm_device *dev)
+ 
+ static const struct drm_mode_config_funcs mode_config_funcs = {
+ 	.fb_create = drm_gem_fb_create,
+ 	.atomic_check = tidss_atomic_check,
+ 	.atomic_commit = drm_atomic_helper_commit,
++	.atomic_sro_readout_state = drm_atomic_helper_sro_readout_state,
+ 	.hw_reset = tidss_hw_reset,
+ };
+ 
+ static const char * const tidss_internal_bridge_compatibles[] = {
+ 	"ti,j721e-dsi",
 
-Alice
+-- 
+2.56.1
+
