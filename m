@@ -2,55 +2,85 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 520B1606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 21:07:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4C52606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 21:09:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=VrdmPbgt
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=E9V8VedL
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id AFF9D10EABF;
-	Fri, 27 Nov 2026 21:07:02 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id EF59810EABF
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 21:06:55 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1E41A60238;
- Fri, 27 Nov 2026 21:06:55 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 679081F00893;
- Fri, 27 Nov 2026 21:06:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795813614;
- bh=x2vbCxhKlDEYGyJLF8a1r9DvhsL84+yAuxXVlq9Dapc=;
- h=Date:To:From:Subject:Cc:References:In-Reply-To;
- b=VrdmPbgtrUh9fv6xn4MIpy2/VbzIxqsxaUK+so8t3HGTNxx5Fdf22S/BihAuOFu89
- FM/jVk1tzAxNs3OCGXQTOIrXrXSFKZFYG6S5TJVOyS78eVoIxN7cSdKLD3dQV4HHId
- uHCuSCFDn5Xg22M4GEw8Db3dMCxRboJHBFUZN/TMswBCbOy5KTzfrg2enlM/0E6qQY
- 4+N5Z3x/YrPTHclUQHwUCOOwuxik+/BiZvRyBRH7yHfApp6Aqhc8n3FcAEYHfH5ckb
- eWPtnke6gZs0Fl5qyCplhwWYgZ9Lh/FInGRPLwVC1kXhR6BzyvD+aGSFMyPiomkIJA
- 7RnkuRW/oU9ew==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1A2A110E299;
+	Fri, 27 Nov 2026 21:09:18 +0000 (UTC)
+Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
+ [209.85.222.180])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7E9FE10E299
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 21:09:12 +0000 (UTC)
+Received: by mail-qk1-f180.google.com with SMTP id
+ af79cd13be357-93f1e5d7450so781276585a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 13:09:12 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795813751; x=1796418551; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=XIvy0mpNH25dJka9yiHVSc+lFF3CQmZ8/QH30h3M4Z8=;
+ b=E9V8VedLpUv7hJrsw3OrCkO2HtlhK6oRtGORFZLQYlnWnBDYTy4irCYQs81rg1oqnL
+ WNqL+9Uqa/w6kmjM+U3fJ59CFZgZSFfCkaehOgdSXNxBS6FopJVt2KzzbxXZEKC07Nxv
+ 6GKeDx66ot4x5e+21Qnie8uyFtuMjrJZBT2xld0RSikYc7FLdaNPToN3jRfMFZMF+nk2
+ UM/4Mpu9pWfFVckIYKcQksjH4ld1SJM/vzJz/tQTRQ71sQcvd1FW4uLptN7SsT+hrChZ
+ poV9/r+uHmXx4aRt0/Lp3KIZ4SZ+8MMNZETxzm7JxiNFH8f7PdmrpRGahHReKdlnnVqt
+ WngA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795813751; x=1796418551;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=XIvy0mpNH25dJka9yiHVSc+lFF3CQmZ8/QH30h3M4Z8=;
+ b=ZpfwID2yrq0F8SXCLazdGolLg+2NQzCVk4le6JR+yD+CkSOJb0ulZjP2dPtD3xmetL
+ kUu7etyGp1SLt+dcdnzxAVWwaGfeeFLk/n4jDmSFwEYFnF7uEL7PURi7lVvqhFdF0Pn5
+ 13/bGhXuc798w1Aw35Zqyf+SrPgEmH7MFaUJVSELIu78IOCASUBrcC+9LYx/iEEzQ+o3
+ NiD9SEjoupC8qOFZPlmefghhwp/qCfKv43cDmRVoKL77BqkI5xtLKOaEvrvhnSBguZeT
+ psYXDqA5I8WmL4/bVF4QCdtKFityUsOBxHoeylHL6I+1U+le6Wc8rVtdyLUuKjPNVjho
+ rhyQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErEfWHWQGxQ5HSKA/uuA/gUxzRkw8tc82T9jDwHS+XvxD/UglTl6qiWbCOYjyUlsiF4SyfWCJT9F71k=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+xT61DPvYcRqagHE1ST7lAAw36Mgq+Om6oMdNN6/2jU0R/CRu+
+ tKkXsNbm+V3L3XedGCdwvtoc+/1nacROMZjHtp9+bsxRKspgfWMF5UQ9WzRN4JTzfq8FrJAl
+X-Gm-Gg: AZFdTZf5akXh3i5Y7rG4nU3NcEKGp8Ay+ZIoMxPi2lIHe3lBoKvzoksLRCTaGbpfP6d
+ 2eXYRCXZqEnvV7Y7+xQi0DdHWhSosZ/ikgvQVjj60aHBTQzOcLZdKBFEKFZLcG/VgR2NAfXwjMo
+ G4IPHdv5O+sJYv1RZXs2uzyVy1MvwlICQw75d/LBEfMEqZbOhFP0no/4IX1dUsxQwb11jUhFlf0
+ Rdma+4QUP2OJnPnsr9OzsNhr00M6yuDzXfgTAut0eFwI88nMrGHyZ64GWGBXTmxwaDgj0a0wC8F
+ jN+tDitqAl8FDtEZnYl/Ofo0pyVAQkHXdHtyFhpcQGI2+gZ6aLkJdfyVSRDmewfgVR2tr9scT7c
+ lzcInAogGCQ8FlMacF1YYaqJjKtz7ULGC+TXnD6rt2OoJUG+44a0rOKJSw2c6eCkcBDXhVMT+mK
+ qg0rvAIz3m5ha7Ubjy0NjPT+wpok+aloYmz3f3O5sdulkBIkS5IOQcDE9FDO4PvxZDpgOcjzbG2
+ rJ3XWv6YIvqBk+x+eie+DJncNaP7d4VSPLGkDHMczdAwCdSXTrs4+adbj+LnydKWjUSaAQ0BusN
+ qwf8T8n2dRh0XZ6POCcFm2qhnE+mM1fVf9TPVrM5rK1gHvVyd9O/jKr6rm/7mD3iPxv3SQt9jhb
+ uFOs1vYjaGVpodXh7W3hOmChK0L0Cm06zz2o769LM0dlBllGCDUMqxCBZakl4IGoWGL/zAjnFxy
+ IKDr3JBpv+AV7lM61KFsGPkjDKo0QT+Z4k6WD/6vFdtCGi91OxSqRmW12LcE8rp+miBniwP4Qo/
+ z7Y45h5EjV1uNduEuplbUkH1bxWfbYc3QDvYfoshOjYtQ==
+X-Received: by 2002:a05:622a:a10:b0:55d:17e:f87 with SMTP id
+ d75a77b69052e-55d769374d6mr471770991cf.1.1795813739524; 
+ Fri, 27 Nov 2026 13:08:59 -0800 (PST)
+Received: from LRMS.tailf8556c.ts.net
+ ([2600:4041:5046:1a00:2403:c7fc:983f:c934])
+ by smtp.gmail.com with ESMTPSA id
+ d75a77b69052e-55d7882e32dsm219584681cf.13.2026.11.27.13.08.57
+ (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+ Fri, 27 Nov 2026 13:08:58 -0800 (PST)
+From: Jesse Casco <jesse.casco@gmail.com>
+To: Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>
+Cc: Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ Jesse Casco <jesse.casco@gmail.com>, stable@vger.kernel.org
+Subject: [PATCH] drm/msm/dpu: link Glymur layer mixers 4-7 to DSPPs 4-7
+Date: Fri, 27 Nov 2026 16:08:57 -0500
+Message-ID: <20261127210857.65336-1-jesse.casco@gmail.com>
+X-Mailer: git-send-email 2.56.0
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 22:06:50 +0100
-Message-Id: <DN6ASNF6NW8Q.13GAZAC9LHRN3@kernel.org>
-To: "Daniel Almeida" <daniel.almeida@collabora.com>
-From: "Danilo Krummrich" <dakr@kernel.org>
-Subject: Re: [PATCH 1/2] rust: dma_buf: dma_fence: add SignallingSection
-Cc: "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Philipp
- Stanner" <phasta@kernel.org>, "Alice Ryhl" <aliceryhl@google.com>, "Miguel
- Ojeda" <ojeda@kernel.org>, "Boqun Feng" <boqun@kernel.org>, "Gary Guo"
- <gary@garyguo.net>, =?utf-8?q?Bj=C3=B6rn_Roy_Baron?=
- <bjorn3_gh@protonmail.com>, "Benno Lossin" <lossin@kernel.org>, "Andreas
- Hindborg" <a.hindborg@kernel.org>, "Trevor Gross" <tmgross@umich.edu>,
- "Tamir Duberstein" <tamird@kernel.org>, "Alexandre Courbot"
- <acourbot@nvidia.com>, =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linaro-mm-sig@lists.linaro.org>, <rust-for-linux@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-References: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
- <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
-In-Reply-To: <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,123 +92,69 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri Nov 27, 2026 at 7:30 PM CET, Daniel Almeida wrote:
-> dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
-> code that the completion of a dma-fence depends on, so that lockdep can
-> check it against the dma-fence rules. However, up until now, it was not
-> possible to use the signalling tokens from Rust.
->
-> Thus, add SignallingSection, a guard that begins a section when it is
-> created and ends it when it is dropped. Code on the signalling path can
-> take a &SignallingSection to require that its caller opened one.
->
-> Use it in the DriverFence example, which has a TODO for it.
->
-> A later patch in this series makes DriverFence::signal() require one.
->
-> Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
-> ---
->  rust/kernel/dma_buf/dma_fence.rs | 70 ++++++++++++++++++++++++++++++++++=
-+++++-
->  rust/kernel/dma_buf/mod.rs       |  3 +-
->  2 files changed, 71 insertions(+), 2 deletions(-)
->
-> diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_f=
-ence.rs
-> index a1d851656562..7ee87935d3be 100644
-> --- a/rust/kernel/dma_buf/dma_fence.rs
-> +++ b/rust/kernel/dma_buf/dma_fence.rs
-> @@ -17,6 +17,7 @@
->      error::to_result,
->      prelude::*,
->      types::ForeignOwnable,
-> +    types::NotThreadSafe,
->      types::Opaque, //
->  };
-> =20
-> @@ -589,6 +590,71 @@ unsafe fn dec_ref(ptr: NonNull<Self>) {
->      }
->  }
-> =20
-> +/// A dma-fence signalling critical section on the current task.
-> +///
-> +/// All code needed to signal a [`DriverFence`] must run in such a secti=
-on,
+The Glymur DPU catalog defines eight DSPP blocks (DSPP_0..DSPP_7), but
+only LM_0..LM_3 set .dspp. When a CRTC requests a DSPP per mixer (e.g.
+for a CTM or gamma LUT), any third display assigned to LM_4..LM_7 fails
+resource reservation:
 
-Hm...this makes an annotation policy sound like an unconditional prerequisi=
-te
-for signalling any DriverFence.
+  LM_4, invalid DSPP_-1
+  failed to reserve hw resources: -119
 
-It is clarified below with "Without `CONFIG_LOCKDEP`, the section has no
-effect.", but I'd probably first explain the annotation mechanism and then
-explain what drivers are expected to do.
+Set .dspp = DSPP_4..DSPP_7 on LM_4..LM_7 to match the declared DSPP
+blocks. Tested on an ASUS Zenbook A16 (UX3607OA) with eDP, HDMI, and
+USB-C DP active simultaneously.
 
-> +/// from the point where its [`Fence`] becomes visible to other threads =
-up to
-> +/// the point where it is signalled. With `CONFIG_PROVE_LOCKING`, the se=
-ction
+Fixes: e2aeb8deddae ("drm/msm/dpu: Add support for Glymur")
+Cc: stable@vger.kernel.org
+Signed-off-by: Jesse Casco <jesse.casco@gmail.com>
+---
+ drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-I'd add a bit more detail on what cases we need to protect once the fence
-becomes visible to other threads or is published.
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
+index 4eb4a0e..280df25 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
++++ b/drivers/gpu/drm/msm/disp/dpu1/catalog/dpu_12_2_glymur.h
+@@ -175,6 +175,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_5,
+ 		.pingpong = PINGPONG_4,
++		.dspp = DSPP_4,
+ 	}, {
+ 		.name = "lm_5", .id = LM_5,
+ 		.base = 0x49000, .len = 0x400,
+@@ -182,6 +183,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_4,
+ 		.pingpong = PINGPONG_5,
++		.dspp = DSPP_5,
+ 	}, {
+ 		.name = "lm_6", .id = LM_6,
+ 		.base = 0x4a000, .len = 0x400,
+@@ -189,6 +191,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_7,
+ 		.pingpong = PINGPONG_6,
++		.dspp = DSPP_6,
+ 	}, {
+ 		.name = "lm_7", .id = LM_7,
+ 		.base = 0x4b000, .len = 0x400,
+@@ -196,6 +199,7 @@ static const struct dpu_lm_cfg glymur_lm[] = {
+ 		.sblk = &sm8750_lm_sblk,
+ 		.lm_pair = LM_6,
+ 		.pingpong = PINGPONG_7,
++		.dspp = DSPP_7,
+ 	},
+ };
+ 
+-- 
+2.56.0
 
-Especially the more subtle parts, such as indirect dependencies on memory
-reclaim.
-
-> +/// is a [DMA Fence Signalling Annotation], which validates that code ag=
-ainst
-> +/// the [DMA Fence Cross-Driver Contract]. Without `CONFIG_LOCKDEP`, the
-> +/// section has no effect.
-> +///
-> +/// A function that is part of the signalling path can take a
-> +/// `&SignallingSection` to require that its caller opened one. Sections=
- nest,
-> +/// and only the outermost one is annotated.
-> +///
-> +/// [DMA Fence Signalling Annotation]: https://docs.kernel.org/driver-ap=
-i/dma-buf.html#dma-fence-signalling-annotations
-> +/// [DMA Fence Cross-Driver Contract]: https://docs.kernel.org/driver-ap=
-i/dma-buf.html#dma-fence-cross-driver-contract
-> +///
-> +/// # Examples
-> +///
-> +/// ```
-> +/// use kernel::dma_buf::SignallingSection;
-> +///
-> +/// // Code on the signalling path takes a section to require that its c=
-aller
-> +/// // opened one.
-> +/// fn on_signalling_path(_section: &SignallingSection) {}
-> +///
-> +/// let section =3D SignallingSection::begin();
-> +/// on_signalling_path(&section);
-> +/// ```
-
-Hm...I'm not sure the example is overly useful. What about an example that =
-shows
-how it catches a violation? I'm usually not a fan of this, but in this case=
- it
-kinda makes sense.
-
-> @@ -704,9 +771,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceCon=
-textOps> {
->  /// let cb_reg =3D unsafe { FenceCallbackRegistration::new(&waiting_fenc=
-e, cb_data) };
->  /// let cb_reg =3D KBox::pin_init(cb_reg, GFP_KERNEL)?;
->  ///
-> -/// // TODO signalling guards
-> +/// let section =3D SignallingSection::begin();
->  /// assert_eq!(waiting_fence.is_signaled(), false);
->  /// fence.signal(Ok(()));
-> +/// drop(section);
->  /// assert_eq!(waiting_fence.is_signaled(), true);
-
-I think that's a separate patch, or actually the subsequent patch is a natu=
-ral
-fit.
