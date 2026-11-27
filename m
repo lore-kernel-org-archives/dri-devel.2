@@ -2,39 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C27F1606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:56:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15839606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:56:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=WLVWLZqU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHBD0nqt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B8FF8112947;
-	Fri, 27 Nov 2026 09:56:11 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0399911294C;
+	Fri, 27 Nov 2026 09:56:12 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A4DEC112931
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:54:59 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBBF112926
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:55:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 276B462610;
- Fri, 27 Nov 2026 09:54:59 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B4B81F00A15;
- Fri, 27 Nov 2026 09:54:58 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id D75EC6256D;
+ Fri, 27 Nov 2026 09:55:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975B31F00897;
+ Fri, 27 Nov 2026 09:55:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773298;
- bh=LVcqMPL/cVjj07Ag9jA9Tchgu+aX50FVq/RUUKGDd+E=;
+ s=k20260515; t=1795773316;
+ bh=Cf5zlw1l9n6HfDH4uFzF7HFBp2lDbS35SdnNx3cueGA=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=WLVWLZqUGOQa0CrTZFjTNkXmQQRNMyHHSOoHCU0nT3KFE+rWhZncFupUuonbsVqT3
- aD+QK+x80DULQzQhNvzKQxsdUk5nE8xoi5TqKu2McQYYVEHSiBlo8R1/T0FJu8hHzM
- YuQeMtABebKZHSDowO037LfUoUD80o399usoZt9H4qFI97SopiB1WabyQzg844pRFG
- IVFBR0mgUg8MDSsvoLVT2gt8FRrENFmM+J24P/cGNDAFH6uuv+QgW3LpF+lFtWOz31
- Fv44X22ftiGoev8NHl6qVdUx+uSlb4u048omBmdFFrPQK3yMtmRoc1lBiTetFdHhz2
- dQ1DkKwBriTkQ==
+ b=gHBD0nqtLwWo42R6g3cfaYer8BzaqYdv2hX5T6jm+hqPNqjOQibiEepRV7+IRPFhC
+ gn/yTHtwbZRQFnO1NpB1sMHwxpJDUzF+/t6ny3YKXzHuiIHgkwYRd5kv4ETPsRVKD2
+ cHatBgy3yfgqNZ7nm3fLaY9cntjXklKosYCl1VpGUojd1tWQUy0Qt4keS4AY3B4ezf
+ yV5qfGDhvuwdlxHYXSu7P2qi7/sStJwaIN8UibKgf1iZC7ZYwgNT0gokaksjZdaW2g
+ 4lRDuKKGpxh6It5f6/BL9D18O8s0lTb8rikCH/jREuVDLwfiGBENWR5XwWNd1LUnwF
+ ozF/cuLDVIA2A==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 27 Nov 2026 10:53:11 +0100
-Subject: [PATCH v10 29/36] drm/tidss: kms: Hook up hardware state readout
+Date: Fri, 27 Nov 2026 10:53:16 +0100
+Subject: [PATCH DO NOT MERGE v10 34/36] fixup! drm/tidss: dispc: Add
+ hardware state readout helpers
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-state-readout-v10-29-0259582d45a8@kernel.org>
+Message-Id: <20261127-drm-state-readout-v10-34-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -48,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2349; i=mripard@kernel.org;
- h=from:subject:message-id; bh=j53T2XJ2/TUEz9lH3HBjNxg3SCldDQuCBvpkD+KMxlo=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwZz5Vn6WmQm+EfZr2beaSk7q4vyavk0sQb40YeVBh
- 543K053TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgImwqDDW2W3K2xOb9yg1+tw+
- CRdBNdsFcoW2P2WNjs3fsf6ze6PPnj1am81fXqrIfiJ2bUPdRoVGxob5P3cLvt/SF+l8Jki3trj
- 6g/qb0q1yd17uf/+oJsFlezSzc+LeixYhs29KLKn7u+ra7UwA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2240; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=oNX9pAcT4865cGeGahJBGvGQIvhOnpZxzEJnEv60btw=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwdy37L9NDpXZ9XQ6708BzWn/GfMvxnXkGWeWTGMNm
+ nXk1Jd1HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAidRWM9f7dteEss3j6+Wcv
+ Kf5Tt+LcQ1P2loOKaS/qe7UeZ+8wP8Wwfodj58YKywjDFAl31pyPjA3zrsS90TRMsrI2XnMyUPh
+ mgQzDuTnXP/++f2S38YNPn3nP3vaS67XjfpKrnx3+iC8tdDoA
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -74,67 +75,59 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The CRTC, plane and bridge state readout hooks of the tidss driver are
-only called by the KMS core if the device opts in to the state readout
-infrastructure.
+The state readout of the OLDI transmitters needs to know how the
+firmware configured them, but the dispc helpers only allow to program
+the OLDI configuration register of a video port with
+tidss_configure_oldi() and to clear it with tidss_disable_oldi().
 
-Set drm_mode_config_funcs.atomic_sro_readout_state to
-drm_atomic_helper_sro_readout_state(), and
-drm_mode_config_helper_funcs.atomic_sro_build_state and
-drm_mode_config_helper_funcs.atomic_sro_install_state to
-drm_atomic_helper_sro_build_state() and
-drm_atomic_helper_sro_install_state() respectively, which implement the
-standard readout sequence on top of the per-object hooks.
+Add tidss_get_oldi_config() to read that register back.
+
+This is only needed by the OLDI state readout, which hasn't been tested
+yet, and should be folded into the dispc readout helpers if that one
+gets merged.
 
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/tidss/tidss_kms.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tidss/tidss_dispc.c | 5 +++++
+ drivers/gpu/drm/tidss/tidss_dispc.h | 1 +
+ 2 files changed, 6 insertions(+)
 
-diff --git a/drivers/gpu/drm/tidss/tidss_kms.c b/drivers/gpu/drm/tidss/tidss_kms.c
-index fd7bb2c88931..32e11e36627d 100644
---- a/drivers/gpu/drm/tidss/tidss_kms.c
-+++ b/drivers/gpu/drm/tidss/tidss_kms.c
-@@ -4,10 +4,12 @@
-  * Author: Tomi Valkeinen <tomi.valkeinen@ti.com>
-  */
- 
- #include <drm/drm_atomic.h>
- #include <drm/drm_atomic_helper.h>
-+#include <drm/drm_atomic_state_readout.h>
-+#include <drm/drm_atomic_state_readout_helper.h>
- #include <drm/drm_bridge.h>
- #include <drm/drm_gem_framebuffer_helper.h>
- #include <drm/drm_of.h>
- #include <drm/drm_panel.h>
- #include <drm/drm_print.h>
-@@ -62,11 +64,13 @@ static void tidss_atomic_commit_tail(struct drm_atomic_commit *old_state)
- 
- 	tidss_runtime_put(tidss);
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
+index 15395e06f3f8..335eea08d70c 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.c
++++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+@@ -496,10 +496,15 @@ int tidss_configure_oldi(struct tidss_device *tidss, u32 hw_videoport,
+ void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport)
+ {
+ 	dispc_vp_write(tidss->dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
  }
  
- static const struct drm_mode_config_helper_funcs mode_config_helper_funcs = {
--	.atomic_commit_tail = tidss_atomic_commit_tail,
-+	.atomic_commit_tail	= tidss_atomic_commit_tail,
-+	.atomic_sro_build_state = drm_atomic_helper_sro_build_state,
-+	.atomic_sro_install_state = drm_atomic_helper_sro_install_state,
- };
++u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport)
++{
++	return dispc_vp_read(tidss->dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG);
++}
++
+ /*
+  * TRM gives bitfields as start:end, where start is the higher bit
+  * number. For example 7:0
+  */
  
- static int tidss_atomic_check(struct drm_device *ddev,
- 			      struct drm_atomic_commit *state)
- {
-@@ -131,10 +135,11 @@ static void tidss_hw_reset(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
+index ce48c75b19ad..806e0cf749bd 100644
+--- a/drivers/gpu/drm/tidss/tidss_dispc.h
++++ b/drivers/gpu/drm/tidss/tidss_dispc.h
+@@ -100,10 +100,11 @@ extern const struct dispc_features dispc_am65x_feats;
+ extern const struct dispc_features dispc_j721e_feats;
  
- static const struct drm_mode_config_funcs mode_config_funcs = {
- 	.fb_create = drm_gem_fb_create,
- 	.atomic_check = tidss_atomic_check,
- 	.atomic_commit = drm_atomic_helper_commit,
-+	.atomic_sro_readout_state = drm_atomic_helper_sro_readout_state,
- 	.hw_reset = tidss_hw_reset,
- };
+ int tidss_configure_oldi(struct tidss_device *tidss, u32 hw_videoport,
+ 			 u32 oldi_cfg);
+ void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport);
++u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport);
+ unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate);
  
- static const char * const tidss_internal_bridge_compatibles[] = {
- 	"ti,j721e-dsi",
+ void dispc_set_irqenable(struct dispc_device *dispc, dispc_irq_t mask);
+ dispc_irq_t dispc_read_and_clear_irqstatus(struct dispc_device *dispc);
+ 
 
 -- 
 2.56.1
