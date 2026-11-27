@@ -2,40 +2,39 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EBA606A681
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C781606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=T9yUiRww
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Bx8pavkG
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id B52E411292F;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EC984112930;
 	Fri, 27 Nov 2026 09:54:51 +0000 (UTC)
 Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C33E210E6BD
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:53:57 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D88010E6BD
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:54:25 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 47AC662440;
- Fri, 27 Nov 2026 09:53:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4DE1F0089A;
- Fri, 27 Nov 2026 09:53:55 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id B59C36256D;
+ Fri, 27 Nov 2026 09:54:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E38F91F0089A;
+ Fri, 27 Nov 2026 09:54:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773236;
- bh=rrApX75lnByiHbTtdPpa1WsPnkpnupIwz1oeZkvymG8=;
+ s=k20260515; t=1795773264;
+ bh=qjLDn09dTMF+yGot0oyS/QwR+JADoWCgWlYkoQAGJ34=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=T9yUiRwwOnXJhcY6C6+SMFs41xjCEJRegJ1W3FPC2iC0qYF/N/XTLxKGyhOGIGu3Z
- 5lS4aAdd49Wp3qLbnUDqBExzI7g0bu61KNBJtg9B+zu0auDJ1cQF+8eTSseGj00Qry
- yKwjkb83rNSdUVi+UhKt2XHInS7MqFnWrI3665BXjy42knVX3y42ORiHxGeS+d2XQP
- uSBdVwfvrSn8W21bzleGTTCTLbho7Mk0Qoe6wixVxCZVw0J4iF0hD5aHifopi05PTc
- hgmgVaSXByJ6ABHbCo/ZNlb7tTc4g5DRK4+M3/jjJs0q/jVc6D5vOnl0m0mDP7DWbD
- ff4D5+yMNKTcA==
+ b=Bx8pavkG3axxY87FBS1UeIs1eqJh0OSEgiAmurXZFwaesVvPXbPrbABGnKWj7f2ia
+ uUCV/OhdDf0VNuSRcUPFUdKN4f43k2/c4MgNMNd1he1V/namxRw2vipJEsOryXWvYp
+ zL4rQJ9+0MwbwEo10KuTqwcjCnar8dcUWHCsPQdTrAnwfLCdpZ63QMcxG23kf2ux06
+ IhRsJoYU5TFjlnI9duUwhk8S3bC70Gv/avo9dq7xebvJwWyq+8x34mIKUUhzX+byVR
+ J89BY3Sf60LfYyqthmKfQxa9OxIlrrWrYttNucylj0/b7ineUrCHTgj2rJINVE8eYY
+ 1xz7r9DfqpS5w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 27 Nov 2026 10:52:53 +0100
-Subject: [PATCH v10 11/36] drm/mode-config: Read out hardware state in
- drm_mode_config_create_initial_state
+Date: Fri, 27 Nov 2026 10:53:01 +0100
+Subject: [PATCH v10 19/36] drm/tests: kunit: Add a drm_printer helper
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-state-readout-v10-11-0259582d45a8@kernel.org>
+Message-Id: <20261127-drm-state-readout-v10-19-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +48,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4402; i=mripard@kernel.org;
- h=from:subject:message-id; bh=iS4H0KMcEylVFkbuEVjUhr9+icqXA76qQQiJmJZDVfc=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwYxS9bXy3smdgm93FYdPMXvkdO7x8bfqOZt+tK86E
- uLgt3xBx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZjIn/mMDSe1pvs/F+nT6rW7
- 7FKeeLb066UZCcd5D+z+frrb5/7juTsYuXcs+PjJoC3eesPHLeWzmxkbJn7RS594sXOPt2OxhrX
- ZlM54sSOsS5UeKueJWv42jBPfUMuZLxr3R2C77RWppmWTjp0HAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4541; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=SVSu4TnbJ7fs2BcenZ5opVCd0fx1y4OKeAmbkC2JQdI=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwSxGO/+LvOvrzhE72+/HXbGpQMUyYZNq1d5M6/mH5
+ H+UpgZ3TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIlIMzI2NM3dMXtL240PSSs/
+ 5F7cZrvitnW8yzbZ4z8cDbnV194Q0lFh2rQ3e4KDj9vZRZs/1L0UY2x4IVqz+vOZDoV0rXl3n4Z
+ tnWZkU3jk0sk/za92/8jrPpd985XF3wnsumfiZOy0Xt/IuqYGAA==
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,127 +74,148 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_create_initial_state() creates the initial state for
-all KMS objects at driver registration time.
+Some DRM helpers report the state of an object through a drm_printer,
+most notably to report which fields of two states differ when comparing
+them.
 
-Call the drm_mode_config_funcs.atomic_sro_readout_state hook from it
-so that the initial state is populated from the hardware rather than
-being left as a pristine default. If the readout isn't supported or
-fails, fall back to allocating pristine states, which moves to a
-static drm_mode_config_create_state() helper.
+Tests exercising such code paths need to pass a drm_printer as well, and
+would rather have its output show up in the KTAP log of the test than
+anywhere else, so that a failure comes with the report that caused it.
 
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Add drm_kunit_helper_printer() that returns a drm_printer whose messages
+are logged through kunit_log() at the LOGLEVEL_* level requested by the
+caller.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_mode_config.c | 69 ++++++++++++++++++++++++++++++---------
- 1 file changed, 54 insertions(+), 15 deletions(-)
+ drivers/gpu/drm/tests/drm_kunit_helpers.c | 78 +++++++++++++++++++++++++++++++
+ include/drm/drm_kunit_helpers.h           |  4 ++
+ 2 files changed, 82 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_mode_config.c b/drivers/gpu/drm/drm_mode_config.c
-index c1e993a78702..d6f92e1a54d2 100644
---- a/drivers/gpu/drm/drm_mode_config.c
-+++ b/drivers/gpu/drm/drm_mode_config.c
-@@ -29,10 +29,11 @@
- #include <drm/drm_file.h>
- #include <drm/drm_framebuffer.h>
+diff --git a/drivers/gpu/drm/tests/drm_kunit_helpers.c b/drivers/gpu/drm/tests/drm_kunit_helpers.c
+index 63d024946500..5fdffbf78245 100644
+--- a/drivers/gpu/drm/tests/drm_kunit_helpers.c
++++ b/drivers/gpu/drm/tests/drm_kunit_helpers.c
+@@ -6,20 +6,98 @@
+ #include <drm/drm_drv.h>
+ #include <drm/drm_edid.h>
+ #include <drm/drm_fourcc.h>
+ #include <drm/drm_kunit_helpers.h>
  #include <drm/drm_managed.h>
- #include <drm/drm_mode_config.h>
- #include <drm/drm_modeset_helper_vtables.h>
-+#include <drm/drm_modeset_lock.h>
- #include <drm/drm_print.h>
- #include <drm/drm_colorop.h>
- #include <linux/dma-resv.h>
++#include <drm/drm_print.h>
  
- #include "drm_crtc_internal.h"
-@@ -320,25 +321,11 @@ void drm_mode_config_reset(struct drm_device *dev)
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
- }
- EXPORT_SYMBOL(drm_mode_config_reset);
+ #include <kunit/device.h>
+ #include <kunit/resource.h>
  
--/**
-- * drm_mode_config_create_initial_state - Allocates the initial state
-- * @dev: drm device
-- *
-- * This functions creates the initial state for all the objects. Drivers
-- * can use this in e.g. probe to initialize their software state.
-- *
-- * It has two main differences with drm_mode_config_reset(): the reset()
-- * hooks aren't called and thus the hardware will be left untouched, but
-- * also the &drm_private_obj structures will be initialized as opposed
-- * to drm_mode_config_reset() that skips them.
-- *
-- * Returns: 0 on success, negative error value on failure.
-- */
--int drm_mode_config_create_initial_state(struct drm_device *dev)
-+static int drm_mode_config_create_state(struct drm_device *dev)
- {
- 	struct drm_crtc *crtc;
- 	struct drm_colorop *colorop;
- 	struct drm_plane *plane;
- 	struct drm_connector *connector;
-@@ -406,10 +393,62 @@ int drm_mode_config_create_initial_state(struct drm_device *dev)
- 	}
- 	drm_connector_list_iter_end(&conn_iter);
+ #include <linux/device.h>
+ #include <linux/export.h>
+ #include <linux/platform_device.h>
  
- 	return 0;
- }
+ #define KUNIT_DEVICE_NAME	"drm-kunit-mock-device"
+ 
++struct drm_printer_ctx {
++	struct drm_printer	p;
++	int			level;
++	struct kunit		*test;
++};
++
++/*
++ * kunit_log() is a macro that only accepts a compile-time log level,
++ * so the level has to be dispatched to the matching kunit_log() call.
++ */
++static void drm_kunit_printf(struct drm_printer *p, struct va_format *vaf)
++{
++	struct drm_printer_ctx *ctx = p->arg;
++
++	switch (ctx->level) {
++	case LOGLEVEL_EMERG:
++		kunit_log(KERN_EMERG, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_ALERT:
++		kunit_log(KERN_ALERT, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_CRIT:
++		kunit_log(KERN_CRIT, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_ERR:
++		kunit_log(KERN_ERR, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_WARNING:
++		kunit_log(KERN_WARNING, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_NOTICE:
++		kunit_log(KERN_NOTICE, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_DEBUG:
++		kunit_log(KERN_DEBUG, ctx->test, "%pV", vaf);
++		break;
++	case LOGLEVEL_INFO:
++	default:
++		kunit_log(KERN_INFO, ctx->test, "%pV", vaf);
++		break;
++	}
++}
 +
 +/**
-+ * drm_mode_config_create_initial_state - Allocates the initial state
-+ * @dev: drm device
++ * drm_kunit_helper_printer - Creates a &drm_printer logging into a KUnit test log
++ * @test: The test context object
++ * @level: The log level to log the messages at, one of the LOGLEVEL_* constants
 + *
-+ * This functions creates the initial state for all the objects. Drivers
-+ * can use this in e.g. probe to initialize their state.
++ * Creates a &struct drm_printer that will log anything printed through
++ * it, using kunit_log(), both to the kernel log at the @level log
++ * level and to the log of the KUnit test @test.
 + *
-+ * It creates the initial state in several steps. It first tries to
-+ * read-out the initial state from the hardware for all objects if state
-+ * read-out is enabled and the driver supports it. Then, if state
-+ * read-out isn't supported or fails, it creates a new, pristine state
-+ * using the objects atomic_create_state callback.
++ * This is the KUnit counterpart of the drm_print.h printers like
++ * drm_info_printer() or drm_err_printer(), and @level should be the
++ * log level of the printer it replaces.
 + *
-+ * For historical reasons, drm_mode_config_reset() is similar, but
-+ * doesn't support state read-out, and will always reset the hardware.
-+ * It will also ignore all &drm_private_obj.
-+ *
-+ * The function holds all the modeset locks for the duration of the
-+ * readout and the state creation, so drivers don't need to guarantee
-+ * any kind of exclusivity themselves.
-+ *
-+ * Returns: 0 on success, negative error value on failure.
++ * Returns:
++ * A pointer to the &drm_printer, or an ERR_PTR() otherwise.
 + */
-+int drm_mode_config_create_initial_state(struct drm_device *dev)
++struct drm_printer *
++drm_kunit_helper_printer(struct kunit *test, int level)
 +{
-+	struct drm_modeset_acquire_ctx ctx;
-+	int ret;
++	struct drm_printer_ctx *ctx;
 +
-+	/*
-+	 * The initial state is usually created while the device is
-+	 * being initialized and nothing can access it concurrently,
-+	 * but holding all the modeset locks puts the readout, the
-+	 * installation of its result and the creation of the pristine
-+	 * states under the same locking contract as the regular
-+	 * atomic paths.
-+	 */
-+	DRM_MODESET_LOCK_ALL_BEGIN(dev, ctx, 0, ret);
++	ctx = kunit_kzalloc(test, sizeof(*ctx), GFP_KERNEL);
++	if (!ctx)
++		return ERR_PTR(-ENOMEM);
 +
-+	if (dev->mode_config.funcs->atomic_sro_readout_state) {
-+		ret = dev->mode_config.funcs->atomic_sro_readout_state(dev);
-+		if (!ret)
-+			goto out;
-+	}
++	ctx->level = level;
++	ctx->p.printfn = drm_kunit_printf;
++	ctx->p.arg = ctx;
++	ctx->test = test;
 +
-+	ret = drm_mode_config_create_state(dev);
-+
-+out:
-+	DRM_MODESET_LOCK_ALL_END(dev, ctx, ret);
-+
-+	return ret;
++	return &ctx->p;
 +}
- EXPORT_SYMBOL(drm_mode_config_create_initial_state);
++EXPORT_SYMBOL_GPL(drm_kunit_helper_printer);
++
+ static const struct drm_mode_config_funcs drm_mode_config_funcs = {
+ 	.atomic_check	= drm_atomic_helper_check,
+ 	.atomic_commit	= drm_atomic_helper_commit,
+ };
  
- /*
-  * Global properties
-  */
+diff --git a/include/drm/drm_kunit_helpers.h b/include/drm/drm_kunit_helpers.h
+index 97d35818f2ce..6aafaeeacf32 100644
+--- a/include/drm/drm_kunit_helpers.h
++++ b/include/drm/drm_kunit_helpers.h
+@@ -13,12 +13,16 @@ struct drm_connector;
+ struct drm_crtc_funcs;
+ struct drm_crtc_helper_funcs;
+ struct drm_device;
+ struct drm_plane_funcs;
+ struct drm_plane_helper_funcs;
++struct drm_printer;
+ struct kunit;
+ 
++struct drm_printer *drm_kunit_helper_printer(struct kunit *test,
++					     int level);
++
+ struct device *drm_kunit_helper_alloc_device(struct kunit *test);
+ void drm_kunit_helper_free_device(struct kunit *test, struct device *dev);
+ 
+ struct drm_device *
+ __drm_kunit_helper_alloc_drm_device_with_driver(struct kunit *test,
 
 -- 
 2.56.1
