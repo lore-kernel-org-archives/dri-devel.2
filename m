@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2FBB606A337
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0103F606A338
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=od0F0G+7
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=lfvKi2+C
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA12B11291B;
-	Fri, 27 Nov 2026 09:53:54 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 492ED10E6BD
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:53:44 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 5B67811291C;
+	Fri, 27 Nov 2026 09:53:55 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C7B58112918
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:53:37 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 33334415DC;
- Fri, 27 Nov 2026 09:53:44 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 533311F0089B;
- Fri, 27 Nov 2026 09:53:43 +0000 (UTC)
+ by tor.source.kernel.org (Postfix) with ESMTP id 46F4362610;
+ Fri, 27 Nov 2026 09:53:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E08B1F008A0;
+ Fri, 27 Nov 2026 09:53:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773223;
- bh=diCU/ktHvDbBpy17ZF4dSPbCVYuDO0JoafcFza/2TiM=;
+ s=k20260515; t=1795773216;
+ bh=28knq8AU4ne1GaB5Jv9e9EwMkib0UXbXv/E+xYKN/lc=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=od0F0G+7/tH8WQbeJn0YwfcLJ/mrNbpXgCsZiOlqfvZqtPobLBnInp40qLySlPHCT
- Ga5vb7BiQtJPMTt+oH4zxZFiGx8jmbUG+2Ydx22iczuNm0lClu5jYuKPEcsK0HLT/A
- waZf1d4dBAgd/+ImUjyFC6ERi8FvqnAfYxxFjIamEeYV4ktn8mVsp78VNPhD/6iSWC
- qcrf5sQmkq/udihkLyBpTH6YGM3hb8l+cTzHLOCXMGIrunxOamtXU6vyn04h58S6Bq
- ZlOJlDI2LzHScesPXjXepM969m187YuiYHiYvcnVq8NhXh4LJRFVKNnJa6FncA/9If
- 0ZEeEenSsG0vQ==
+ b=lfvKi2+CiWzBu7QebBPpw3TtJlD40yXUKxuQohY8f90KNxsjn6S1tLH172AIZ0Amq
+ h1f7u4zXj8Gixb9UgL1Wjlib02YlZzg71YCJ95HjT2X/r3XwcITAz+fC402aLQcmXe
+ n50DBhCAslTo8MIc4FGnDRxScYErYn3f+BMCphI6o7lyWPbvTPfCGdKov+GH219o6g
+ W4Mu3CXRKUDg4ICFMMr3DliFnGpVOVbXGpjBwL7OSwWigwxn93FWmDW7PGqmiuCEfY
+ SHMjMxyb8Vc17hUWVDuVs4blD41vROPSIkSXpmzyaldftTsKzEJESi24EbvUJ6PJZa
+ uXMbdaKWZV0QA==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 27 Nov 2026 10:52:49 +0100
-Subject: [PATCH v10 07/36] drm/atomic_sro: Create kernel parameter to force
- or disable readout
+Date: Fri, 27 Nov 2026 10:52:47 +0100
+Subject: [PATCH v10 05/36] drm/bridge: Switch print_state to use bridge
+ name
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-state-readout-v10-7-0259582d45a8@kernel.org>
+Message-Id: <20261127-drm-state-readout-v10-5-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -47,14 +47,15 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Jyri Sarha <jyri.sarha@iki.fi>, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>, Simona Vetter <simona.vetter@ffwll.ch>
+ Maxime Ripard <mripard@kernel.org>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4691; i=mripard@kernel.org;
- h=from:subject:message-id; bh=4dIAOph3F48K8q6bwiTqWMDmGfVAqhkI9awfwiD3aT8=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcQf8V5m4u/XyPk+fHh1v/qt5z3l1x+rt/nMQ9DaZX0
- wRUQivKOqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBENs1nbFgXXHlt0oorhyQn
- aTKrnfT+H7pzunjcCZVZQUc+Ku5pVskWKf5hXRSnOXn/oe37lZ8aLmKsFX51dNM7z8dM20NPr5z
- Bzhv/5KpdzkqOwFv7pj3d0s5bIRjF6M/g9ODemxg/ZYHeL20KAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1726; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=v1MI1el1I1ZkthZs2b1UGL4na6g/WUYwdqIT3feNnbM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcQf84hHYUxAdM6e45w/aoQI5bovZKFGdkbv/dL6wGl
+ aJHDjR2TGVhEOZkkBVTZHkiE3Z6efviKgf7lT9g5rAygQxh4OIUgIm0PWNsODv728dVr2/5Ptzr
+ ECJlK/Ivpd6hseDB1733l6nK/fl/v/7mnf9HVh6SzLkQ46670DO1i7HhNdcrL/Zt51Zo3trD2Xr
+ gE+P+CqeTb1+a7FrdnHzDRvq889kJMw5//PD3Q55Fa/meiTMOAwA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,137 +76,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The hardware state readout is useful, but might need to be disabled
-in case of bugs, or its checks relaxed during development when not
-all hooks are implemented yet.
+drm_bridge_atomic_print_priv_state() currently identifies bridges by
+printing the symbol name of bridge->funcs using the %ps format
+specifier. This produces output like a raw function pointer name, which
+is not particularly user-friendly for debugging.
 
-Add a module parameter to control the readout behavior: it can be
-disabled entirely, or the checks for missing compare or readout hooks
-can be skipped independently.
+Since bridges now carry a human-readable name, switch to printing
+bridge->name instead. This makes the state readout output more
+consistent and easier to interpret.
 
-Suggested-by: Simona Vetter <simona@ffwll.ch>
-Reviewed-by: Simona Vetter <simona.vetter@ffwll.ch>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
 Reviewed-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- Documentation/admin-guide/kernel-parameters.txt | 12 ++++++++++
- drivers/gpu/drm/drm_atomic_state_readout.c      | 31 +++++++++++++++++++++++++
- include/drm/drm_atomic_state_readout.h          | 13 +++++++++++
- 3 files changed, 56 insertions(+)
+ drivers/gpu/drm/drm_bridge.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index 0b3c140babd9..59ff44c49f31 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1375,10 +1375,22 @@ Kernel parameters
- 			the EDID name. Each connector may use a unique EDID
- 			data set by separating the files with a comma. An EDID
- 			data set with no connector name will be used for
- 			any connectors not explicitly specified.
- 
-+	drm.atomic_readout=	[DRM]
-+			Control the KMS atomic hardware state readout
-+			(SRO), used to initialize the atomic state from
-+			the state the firmware left the hardware in at
-+			boot instead of programming a new one.
-+			0: disable the state readout entirely,
-+			1: enable it (default),
-+			2: ignore the objects missing a comparison
-+			   implementation,
-+			3: ignore the objects missing a readout or
-+			   comparison implementation.
-+
- 	dscc4.setup=	[NET]
- 
- 	dt_cpu_ftrs=	[PPC,EARLY]
- 			Format: {"off" | "known"}
- 			Control how the dt_cpu_ftrs device-tree binding is
-diff --git a/drivers/gpu/drm/drm_atomic_state_readout.c b/drivers/gpu/drm/drm_atomic_state_readout.c
-index dc9e1cbfe0d8..dab47fef6672 100644
---- a/drivers/gpu/drm/drm_atomic_state_readout.c
-+++ b/drivers/gpu/drm/drm_atomic_state_readout.c
-@@ -12,10 +12,41 @@
- #include <linux/sched/mm.h>
- 
- #include "drm_internal.h"
- #include "drm_crtc_internal.h"
- 
-+unsigned int drm_atomic_sro_status = DRM_ATOMIC_SRO_ENABLED;
-+EXPORT_SYMBOL(drm_atomic_sro_status);
-+
-+module_param_named_unsafe(atomic_readout, drm_atomic_sro_status, uint, 0400);
-+MODULE_PARM_DESC(atomic_readout,
-+		 "Enable Hardware State Readout (0 = disabled, 1 = enabled, 2 = ignore missing compares, 3 = ignore missing readouts and compares, default = 1)");
-+
-+/**
-+ * drm_atomic_sro_device_can_readout - check if a device supports hardware state readout
-+ * @dev: DRM device to check
-+ *
-+ * Verifies that the device is an atomic driver, that readout is
-+ * enabled, and that all KMS objects implement the relevant hooks.
-+ *
-+ * RETURNS:
-+ *
-+ * True if the device supports full hardware state readout, false
-+ * otherwise.
-+ */
-+bool drm_atomic_sro_device_can_readout(struct drm_device *dev)
-+{
-+	if (!drm_drv_uses_atomic_modeset(dev))
-+		return false;
-+
-+	if (drm_atomic_sro_status == DRM_ATOMIC_SRO_DISABLED)
-+		return false;
-+
-+	return true;
-+}
-+EXPORT_SYMBOL(drm_atomic_sro_device_can_readout);
-+
- static unsigned int max_connector_index(struct drm_device *dev)
+diff --git a/drivers/gpu/drm/drm_bridge.c b/drivers/gpu/drm/drm_bridge.c
+index 21219958c0dd..b6cdbc172f68 100644
+--- a/drivers/gpu/drm/drm_bridge.c
++++ b/drivers/gpu/drm/drm_bridge.c
+@@ -570,13 +570,13 @@ drm_bridge_atomic_print_priv_state(struct drm_printer *p,
  {
- 	struct drm_connector_list_iter conn_iter;
- 	struct drm_connector *connector;
- 	unsigned int max = 0;
-diff --git a/include/drm/drm_atomic_state_readout.h b/include/drm/drm_atomic_state_readout.h
-index 4b1a92291cc1..bbed8e8dccf0 100644
---- a/include/drm/drm_atomic_state_readout.h
-+++ b/include/drm/drm_atomic_state_readout.h
-@@ -1,10 +1,12 @@
- /* SPDX-License-Identifier: GPL-2.0-or-later */
+ 	const struct drm_bridge_state *state = drm_priv_to_bridge_state(s);
+ 	struct drm_bridge *bridge = drm_priv_to_bridge(s->obj);
  
- #ifndef DRM_ATOMIC_SRO_H_
- #define DRM_ATOMIC_SRO_H_
+ 	if (bridge->of_node)
+-		drm_printf(p, "bridge: %ps (%pOFfc)\n", bridge->funcs, bridge->of_node);
++		drm_printf(p, "bridge: %s (%pOFfc)\n", bridge->name, bridge->of_node);
+ 	else
+-		drm_printf(p, "bridge: %ps\n", bridge->funcs);
++		drm_printf(p, "bridge: %s\n", bridge->name);
  
-+#include <linux/types.h>
-+
- struct drm_connector;
- struct drm_connector_state;
- struct drm_crtc;
- struct drm_crtc_state;
- struct drm_device;
-@@ -12,10 +14,21 @@ struct drm_plane;
- struct drm_plane_state;
- struct drm_printer;
- struct drm_private_obj;
- struct drm_private_state;
- 
-+enum drm_atomic_sro_status_values {
-+	DRM_ATOMIC_SRO_DISABLED = 0,
-+	DRM_ATOMIC_SRO_ENABLED,
-+	DRM_ATOMIC_SRO_SKIP_MISSING_COMPARE,
-+	DRM_ATOMIC_SRO_SKIP_MISSING_READOUT,
-+};
-+
-+extern unsigned int drm_atomic_sro_status;
-+
-+bool drm_atomic_sro_device_can_readout(struct drm_device *dev);
-+
- /**
-  * struct __drm_atomic_sro_plane - plane entry of a &struct drm_atomic_sro_state
-  */
- struct __drm_atomic_sro_plane {
- 	/**
+ 	drm_printf_indent(p, 1, "input bus configuration:");
+ 	drm_printf_indent(p, 2, "code: %04x", state->input_bus_cfg.format);
+ 	drm_printf_indent(p, 2, "flags: %08x", state->input_bus_cfg.flags);
+ 	drm_printf_indent(p, 1, "output bus configuration:");
 
 -- 
 2.56.1
