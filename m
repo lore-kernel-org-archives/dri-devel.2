@@ -2,56 +2,93 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C06606A326
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90288606A333
 	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=XuFVFQdE
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=ALPPIaO5
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A216A10E5B7;
+	by gabe.freedesktop.org (Postfix) with ESMTP id A7DD110E5C9;
 	Sat, 28 Nov 2026 09:41:23 +0000 (UTC)
-Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B2FE510E045;
- Fri, 27 Nov 2026 11:30:22 +0000 (UTC)
-Received: from retz.cirad.fr (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTPS id 653A520DC832;
- Fri, 27 Nov 2026 12:30:21 +0100 (CET)
-Received: from localhost (localhost [127.0.0.1])
- by retz.cirad.fr (Postfix) with ESMTP id 3FF9320DC64F;
- Fri, 27 Nov 2026 12:30:21 +0100 (CET)
-DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 3FF9320DC64F
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
- s=573E3878-7916-11F1-BF4B-F68474317960; t=1795779021;
- bh=K5Swrz1cA4/FZhj9LgmmqfX1toxT4yNd5HBltxE7hfU=;
- h=From:To:Date:Message-ID:MIME-Version;
- b=XuFVFQdETYRurfvSIC5qxXpI0J3JWM1KxGu6CKVm8B24p0OzAIO4CdmfHuEo2cG47
- pCzshr0OSXqA1ZyiJ2sxQN1Vd993ZrcSox0RH+ktSSqS4lfOKn8XTqhb6n/O2zbCbu
- Vgd9fUCz84SrmPBgFRL8aX0roGhygn/xqFbaD7xyspPEJhhqnSJIV2hM9uODeGWQ/L
- OWVimU2+Ind7OPjyHfRXvbXcDNHT2uzfiih0s3HVgotlNNbwik5btXfaxNNT0jVrAi
- /EBFv5rGEPJH5L9k1t4E/tPtzUFAbXZWNii2EHrO4WzpUSCZxJ5VfnXszCufLc9AFl
- krk5ytvI4MSyA==
-X-Virus-Scanned: amavis at retz.cirad.fr
-Received: from retz.cirad.fr ([127.0.0.1])
- by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
- id Fz9y9CjViu0B; Fri, 27 Nov 2026 12:30:21 +0100 (CET)
-Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
- [78.196.243.100])
- by retz.cirad.fr (Postfix) with ESMTPSA id D751920DC832;
- Fri, 27 Nov 2026 12:30:20 +0100 (CET)
-From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
-To: nouveau@lists.freedesktop.org
-Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
- Danilo Krummrich <dakr@kernel.org>,
- =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
- stable@vger.kernel.org
-Subject: [PATCH v2] drm/nouveau/fifo/gf100-: reset the faulting engine even if
- it switched channels
-Date: Fri, 27 Nov 2026 12:30:05 +0100
-Message-ID: <20261127113005.981725-1-frederic.mahe@cirad.fr>
-X-Mailer: git-send-email 2.47.3
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com
+ [209.85.128.50])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9107E10E3C0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:19:08 +0000 (UTC)
+Received: by mail-wm1-f50.google.com with SMTP id
+ 5b1f17b1804b1-4a2153c8525so65191785e9.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:19:08 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=suse.com; s=google; t=1795781947; x=1796386747; darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=e9DOyZqREfCbWSQdjYH3Cx6SxSP6lHmhvZmakX1uIME=;
+ b=ALPPIaO5ce3qUrGE9FSrBetEaco2EZntAZqz4bzrAWolfuo1dCdf5k/3HlXw67lgXT
+ ZODLAiCeyfTk2XOUScVvrwXEBUCbvHBBxZsqLEYw8Qp8zOK3eiPvg3Jpro9PJYP6+26i
+ A0qHcrY9XoFHaibDcx11tfXCFboY9OhDRMBvkJoIZ+AWAjlMkrQElzf65epI2hmHW2mP
+ E73uYFkxqA5iFBKNsJpnwisGoQxQKjMr9nrrEBsnKIOcs2dbszFZ44v09O5IyPiTTU6r
+ SM46MFouelSRydEnTFPOetx9FHR76WtG7T4Dz4lkzZJEW02POiALpyXzhNKNRXygOw9c
+ hDRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795781947; x=1796386747;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+ :to:cc:subject:date:message-id:reply-to:content-type;
+ bh=e9DOyZqREfCbWSQdjYH3Cx6SxSP6lHmhvZmakX1uIME=;
+ b=bvLd+ePL4ulnm2pDMpN+HjFk/7olWnEIdIc0yG3E2DLLSCbVDktoAjN1LwdnG43IYx
+ YbBw3kOJhAHRUIaRXIBQ0INXSRqvW0mU5jV5rpa/JZFnDzZxn0G51OYjXjLU7zexVZd4
+ IPp8AVHZRqjD/B8GE9OYmMcgNjrtgpgwKn226A1cAV+jnSHrJcRWGqZ0Sgnj5YecrRWI
+ YUaZdJDPFlAzXVHVCrdCsXd2R4DJ/svldz3+Y7ez3ff9Lz4DFgTCG5sBtckDZKI7ns5N
+ 25CzN5YAOz5pWJtiAQQyhHu0/SGNb6sM5tDDyV3AfDgkMP8z4lPtLF8lAPNZ0UaWq8QX
+ lLOA==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGdT3lUp23O7KX546Ein7YtroS1G3C8e+gulXr7A3lpZmpR2maoy9i4r5OhHw6FE5EZ4ZYlhHjAFPM=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8nJmGpposq2Xfihw+c7fhfdNLfKyggiBEvBCIFcLw4+Rix6Fcc
+ Qzy0xCWvfUMGpxiYBqQ3Xvirda5lrTlMvJ9cBEY7iUwmFpECzS9xi82kc79sgRHh9v8=
+X-Gm-Gg: AZFdTZdPBlIpFH4/Fsdgi8//uYNVPaFUELrHzOAlUGtWcIOVtqWZCO2/Ag+BXNcdzOT
+ 68u7fECuPvJVqKxbNCVjRx0WqPD1Q+qfcX3JKVuDXKJxAyClKXGpx09ANNIZpStHjodYv/yE39y
+ c4WKywYoSI87V9hLcOjuTbakWpggQ83iPaYt2oChuTeeZrH25AhGI/P0zkzpIBRvvux1wLVWhqb
+ YVR+D2uYgcsniMogZyOgL65yQs33p9u/0087xd/jNTUiLzIFRK2VNOH9oCnVfKA283g3IHtljyH
+ 9NHn9j2VjLRNmA/NMA12HppM4/SD+eTr/xwgyqLW/nXWxobksxcRBZ/urXE3ISwRAYogApQv9Zu
+ IOkcojzNWDe9HBlQVV5fMgrcrpZUYo1keD7CaSOVmrIeOxuoOfSJwky+oVxjPIamwhnl92vdOpj
+ 6qdONeHsaavqQxffkeTKrGbC3Hm44gk5SnfXUPLiJhGo9cxl/gFPrsUJ3B2Z5HQqtWwp8lzOecT
+ hTSnSbjC/StG0rxyxNU7kJr3Rh8zSbYGcOBkF6JpexuZCy6l7Ag3TDCU4dr4sC/k5uwsPry859n
+ LyczETB6qD+dqoU7gL+cFZud0Z7vBXfIc6AgSSqaMHFOTjJN7g==
+X-Received: by 2002:a05:600c:1389:b0:4af:83ad:8f70 with SMTP id
+ 5b1f17b1804b1-4bb88924f66mr488154985e9.35.1795781946969; 
+ Fri, 27 Nov 2026 04:19:06 -0800 (PST)
+Received: from localhost ([195.94.148.180]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb9065744esm373251435e9.1.2026.11.27.04.19.06
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2026 04:19:06 -0800 (PST)
+From: Andrea della Porta <andrea.porta@suse.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
+ Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
+ Saenz Julienne <nsaenz@kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
+ Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Phil Elwell <phil@raspberrypi.com>, Dom Cobley <popcornmix@gmail.com>,
+ Maxime Ripard <mripard@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Andrea della Porta <andrea.porta@suse.com>,
+ =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>, dri-devel@lists.freedesktop.org
+Subject: [PATCH v4 18/28] drm/vc4: hdmi: Pass the CPU physical address of
+ MAI_DATA to the DMA engine
+Date: Fri, 27 Nov 2026 13:22:08 +0100
+Message-ID: <20261127122236.4976-19-andrea.porta@suse.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20261127122236.4976-1-andrea.porta@suse.com>
+References: <20261127122236.4976-1-andrea.porta@suse.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 28 Nov 2026 09:41:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -72,199 +109,71 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When an engine reports an MMU fault, recovery flags the faulting
-channel group and nvkm_runl_rc() resets only the engines whose current
-context (cxid) belongs to a flagged group.  On Fermi the fault can be
-reported after GR has started switching to another channel: the engine
-status then reads e.g. 0x01140003 (not busy, chid 3) while channel 4
-faulted, so GR is not reset, stays stalled on the fault, and the
-runlist update never completes:
+The address of the DMA slave is handed to the DMA engine through the
+dma_slave_config, where it is meant to be a CPU physical address that
+the DMA controller driver translates into its own view of the bus. The
+driver instead reads the untranslated address out of its reg property,
+which only happens to be what the BCM2835 DMA controller expects because
+the DMA engine driver used the address verbatim.
 
-  fifo: fault 01 [WRITE] at 0 engine 00 [PGRAPH] client 0f [GPC0/PROP] re=
-ason 02 [PAGE_NOT_PRESENT] on channel 4
-  object-namespac[1768]: channel 4 killed!
-  fifo:000000:00[      gr]: 01140003: busy 0 save 1 unk0 0 unk1 0 chid 3
-  fifo:000000:00[      gr]: cxid not valid
-  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv50.c:228 at nv50_ru=
-nl_wait+0xe8/0x100 [nouveau]
-  fifo: SCHED_ERROR 0d []
-  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:251 at nvkm_ru=
-nl_preempt_wait+0xf7/0x110 [nouveau]
+Now that the DMA engine driver translates slave addresses itself, use the
+CPU physical address of the register resource and drop the comment
+describing the old workaround.
 
-After that no channel makes progress: the whole GPU is dead until a
-reboot, and processes using it hang in D state.
-
-Record in the channel group which engines reported a fault for it.  The
-recovery pass that takes the group from pending to running collects
-that mask, and resets those engines regardless of what their status
-says.  Resetting GR may discard the context being switched in, but that
-is far better than losing the GPU.
-
-Faults reported for a group whose recovery is already running are
-recorded but never acted on: as before, such a group is not recovered
-again, and keeping the mask with the group means a later recovery of
-another group cannot reset an engine on its behalf.
-
-Tested on a Quadro 600 (GF108): a program that faults (piglit
-"object-namespace-pollution glClearTexSubImage texture") while three
-other processes keep GR busy hangs the GPU within one to three faults
-without this patch.  With it, 20 of 20 faults recovered (17 of them hit
-the state above), with no runlist timeouts, and the GPU kept working.
-On an NVS 315 (GF119) the same test hangs the GPU at the first fault
-without this patch; with it, 20 of 20 rounds completed, every fault was
-recovered, and the GPU kept working.
-
-Written with help from Claude (Anthropic); reviewed and tested on hardwar=
-e.
-
-Fixes: 4d60100a23ec ("drm/nouveau/fifo: add common channel recovery")
-Cc: stable@vger.kernel.org
-Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
+Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
 ---
-v2: keep the faulting engines in the channel group (cgrp->rc_engm)
-instead of a per-engine flag, and consume them only in the recovery
-pass that takes that group into recovery.  v1 could leave the flag set
-when a second fault arrived for a group already in recovery, so that a
-later recovery of another group would reset the engine; it could also
-let a pass already in progress reset an engine for a group whose
-channels it had not removed yet.  Both reported by the Sashiko review of
-v1.  rc_engm is initialised explicitly, as nvkm_cgrp_new() uses kmalloc.
-v2 was tested again on the Quadro 600 (GF108): the piglit test above
-recovered 20 of 20 faults (17 in the state above); "nv-mmu-fault -e
-noctx" (below) recovered 60 of 60 runs, plus 20 of 20 with fifo debug
-output, where GR was reset every time through the new mask (its status
-held no valid context); "-e gr" under load recovered 2 x 40 of 40.  No
-runlist timeouts.  The NVS 315 numbers are from v1.
-v1: https://lore.kernel.org/nouveau/20261126175531.916097-1-frederic.mahe=
-@cirad.fr/
+ drivers/gpu/drm/vc4/vc4_hdmi.c | 16 ++++++----------
+ 1 file changed, 6 insertions(+), 10 deletions(-)
 
-Tested on GF108 and GF119 only. gf100_fifo_mmu_fault_recover() is also us=
-ed by
-gk104, gm107, gv100 and tu102 (non-GSP), so the change applies to those
-too; feedback from such hardware is welcome.
-
-A small libdrm program reproduces this without Mesa or piglit
-(nv-mmu-fault.c, available on request):
-
-  nv-mmu-fault -e noctx
-
-sends one graphics method on a channel that has no graphics object.
-PGRAPH's context-switch unit then faults (READ at 0, HUB/CTXCTL)
-while the engine status no longer names the channel. On an NVS 315
-(GF119), without this patch the GPU is dead after the first run;
-with it, 60 of 60 runs recovered. "nv-mmu-fault -e gr" in a loop
-with three processes keeping PGRAPH busy gives the WRITE fault of
-the log above: dead at the 4th fault without the patch, 40 of 40
-recovered with it.
-
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c  |  1 +
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h  |  1 +
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c | 11 +++++++++--
- drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c  | 15 ++++++++++++---
- 4 files changed, 23 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c b/drivers/gp=
-u/drm/nouveau/nvkm/engine/fifo/cgrp.c
-index 7e2d5711a..93b79bcaf 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
-@@ -241,6 +241,7 @@ nvkm_cgrp_new(struct nvkm_runl *runl, const char *nam=
-e, struct nvkm_vmm *vmm, bo
- 	INIT_LIST_HEAD(&cgrp->vctxs);
- 	mutex_init(&cgrp->mutex);
- 	atomic_set(&cgrp->rc, NVKM_CGRP_RC_NONE);
-+	atomic_set(&cgrp->rc_engm, 0);
-=20
- 	if (runl->cgid) {
- 		cgrp->id =3D nvkm_chid_get(runl->cgid, cgrp);
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h b/drivers/gp=
-u/drm/nouveau/nvkm/engine/fifo/cgrp.h
-index 5f6abd59a..e7e6abe9e 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
-@@ -50,6 +50,7 @@ struct nvkm_cgrp {
- #define NVKM_CGRP_RC_PENDING 1
- #define NVKM_CGRP_RC_RUNNING 2
- 	atomic_t rc;
-+	atomic_t rc_engm; /* engines that faulted on the group, reset during it=
-s RC */
-=20
- 	struct list_head head;
- };
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c b/drivers/g=
-pu/drm/nouveau/nvkm/engine/fifo/gf100.c
-index e4a4fad2e..b12f7d396 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
-@@ -597,9 +597,16 @@ gf100_fifo_mmu_fault_recover(struct nvkm_fifo *fifo,=
- struct nvkm_fault_data *inf
- 		   info->reason, er ? er->name : "",
- 		   chan ? chan->id : -1, info->inst, chan ? chan->name : "unknown");
-=20
--	/* Handle host/engine faults. */
--	if (chan)
-+	/* Handle host/engine faults.  The engine that reported the fault must
-+	 * be reset even if it has already switched to another channel (its
-+	 * status then no longer points at the faulting channel), otherwise it
-+	 * stays stalled and the runlist update never completes.
-+	 */
-+	if (chan) {
-+		if (engine && engn->runl =3D=3D chan->cgrp->runl && !WARN_ON(engn->id =
->=3D 32))
-+			atomic_or(BIT(engn->id), &chan->cgrp->rc_engm);
- 		nvkm_runl_rc_cgrp(chan->cgrp);
-+	}
-=20
- 	nvkm_chan_put(&chan, flags);
- }
-diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c b/drivers/gp=
-u/drm/nouveau/nvkm/engine/fifo/runl.c
-index 209252105..daddc2080 100644
---- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
-+++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
-@@ -63,6 +63,7 @@ nvkm_runl_rc(struct nvkm_runl *runl)
- 	struct nvkm_engn *engn;
- 	unsigned long flags;
- 	int rc, state, i;
-+	u32 engm =3D 0;
- 	bool reset;
-=20
- 	/* Runlist is blocked before scheduling recovery - fetch count. */
-@@ -75,6 +76,9 @@ nvkm_runl_rc(struct nvkm_runl *runl)
- 	nvkm_runl_foreach_cgrp_safe(cgrp, gtmp, runl) {
- 		state =3D atomic_cmpxchg(&cgrp->rc, NVKM_CGRP_RC_PENDING, NVKM_CGRP_RC=
-_RUNNING);
- 		if (state =3D=3D NVKM_CGRP_RC_PENDING) {
-+			/* Collect the engines that reported a fault for the group. */
-+			engm |=3D atomic_xchg(&cgrp->rc_engm, 0);
-+
- 			/* Disable all channels in them, and remove from runlist. */
- 			nvkm_cgrp_foreach_chan_safe(chan, ctmp, cgrp) {
- 				nvkm_chan_error(chan, false);
-@@ -99,14 +103,19 @@ nvkm_runl_rc(struct nvkm_runl *runl)
-=20
- 	/* Look for engines that are still on flagged channel groups - reset th=
-em. */
- 	nvkm_runl_foreach_engn_cond(engn, runl, engn->func->cxid) {
-+		bool faulted =3D engn->id < 32 && (engm & BIT(engn->id));
-+
- 		cgrp =3D nvkm_engn_cgrp_get(engn, &flags);
--		if (!cgrp) {
-+		if (!cgrp && !faulted) {
- 			ENGN_DEBUG(engn, "cxid not valid");
- 			continue;
- 		}
-=20
--		reset =3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
--		nvkm_cgrp_put(&cgrp, flags);
-+		reset =3D faulted;
-+		if (cgrp) {
-+			reset |=3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
-+			nvkm_cgrp_put(&cgrp, flags);
-+		}
- 		if (!reset) {
- 			ENGN_DEBUG(engn, "cxid not in recovery");
- 			continue;
---=20
-2.53.0
+diff --git a/drivers/gpu/drm/vc4/vc4_hdmi.c b/drivers/gpu/drm/vc4/vc4_hdmi.c
+index 2cc46036f11d..9dc1a67aa7fd 100644
+--- a/drivers/gpu/drm/vc4/vc4_hdmi.c
++++ b/drivers/gpu/drm/vc4/vc4_hdmi.c
+@@ -47,7 +47,6 @@
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/of.h>
+-#include <linux/of_address.h>
+ #include <linux/pm_runtime.h>
+ #include <linux/rational.h>
+ #include <linux/reset.h>
+@@ -2288,7 +2287,7 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ 	struct snd_soc_dai_link *dai_link = &vc4_hdmi->audio.link;
+ 	struct snd_soc_card *card = &vc4_hdmi->audio.card;
+ 	struct device *dev = &vc4_hdmi->pdev->dev;
+-	const __be32 *addr;
++	struct resource *res;
+ 	int index, len;
+ 	int ret;
+ 
+@@ -2324,22 +2323,19 @@ static int vc4_hdmi_audio_init(struct vc4_hdmi *vc4_hdmi)
+ 	}
+ 
+ 	/*
+-	 * Get the physical address of VC4_HD_MAI_DATA. We need to retrieve
+-	 * the bus address specified in the DT, because the physical address
+-	 * (the one returned by platform_get_resource()) is not appropriate
+-	 * for DMA transfers.
+-	 * This VC/MMU should probably be exposed to avoid this kind of hacks.
++	 * Get the physical address of VC4_HD_MAI_DATA. The DMA engine
++	 * translates it into the address its controller has to use.
+ 	 */
+ 	index = of_property_match_string(dev->of_node, "reg-names", "hd");
+ 	/* Before BCM2711, we don't have a named register range */
+ 	if (index < 0)
+ 		index = 1;
+ 
+-	addr = of_get_address(dev->of_node, index, NULL, NULL);
+-	if (!addr)
++	res = platform_get_resource(vc4_hdmi->pdev, IORESOURCE_MEM, index);
++	if (!res)
+ 		return -EINVAL;
+ 
+-	vc4_hdmi->audio.dma_data.addr = be32_to_cpup(addr) + mai_data->offset;
++	vc4_hdmi->audio.dma_data.addr = res->start + mai_data->offset;
+ 	vc4_hdmi->audio.dma_data.addr_width = DMA_SLAVE_BUSWIDTH_4_BYTES;
+ 	vc4_hdmi->audio.dma_data.maxburst = 2;
+ 
+-- 
+2.51.0
 
