@@ -2,96 +2,135 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CD6606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 12:26:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F4C2606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 12:26:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cxaJTaQt
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=LM3TbVUo
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D978B10E568;
-	Fri, 27 Nov 2026 12:26:34 +0000 (UTC)
-Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
- [209.85.210.172])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 85ADC10E568
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:26:28 +0000 (UTC)
-Received: by mail-pf1-f172.google.com with SMTP id
- d2e1a72fcca58-8b600fae14dso2936376b3a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:26:28 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=chromium.org; s=google; t=1795782388; x=1796387188;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=6wJPtmDOKQWl0gKDtiuKlNF32reQWcBhdrSBFhz15UA=;
- b=cxaJTaQtyJA5TgLOhS7DF837uAFFvc0h79kLErQmyb2w0RenWGZO/LBnq+sKtmWKcI
- vYFuPcO4MQctcYyvXvj5anlsYlRk0KgvCc1Oc4RaQYkPrXcc3z3lKvznmPZ7EDn6+i9+
- AopnTBWUJBUKDU+R7MTyujvXHMN9eEtf2oDZc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795782388; x=1796387188;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=6wJPtmDOKQWl0gKDtiuKlNF32reQWcBhdrSBFhz15UA=;
- b=sL/EhZHtOQLqrhO3pRycjiRy3lCTXnJxC1cFU968zz0CqX6iadJXLlAicDDNtnVXGU
- f8Pbb2Q5htOE7rneyIYxMFmqTOgtsP02d0sDjYySwB5uLKHT8zeyqtTQhYMlsu0U7i02
- lMO9LztC+ILZrZiHVN6GdVQwSJqC0749kYbLclLBcQuGqulu+JZsCf3LXcMkIB2kb76R
- 7YBN68PPGW+eW279f7+CHmlQY4IIpqZ7UpjseDELM4fpmLKN2zcLlVvB7HynKxvtAD9x
- FK+tkFxs4qIU8GldPKeMKM/r8sqK3HaN1k8PzGDYxmvCOv++RrGLHVd7FuRahQs2eYbI
- Lqwg==
-X-Forwarded-Encrypted: i=1;
- AL+hErHBib5gQbA9Ivl1RXEyqD1cZS8ChULEMBvcADjELasKhq+xr5kejth9Cv08fM7u6NgyhSau2Y4zKqg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/aCfIfOEpML1rsH8c8HKtxBV70kYZLXeaCAZIB/HldVRXjzJfB
- JIoC0c0agi2QQSNgoE0QqghjRVMNO2dLo7eh/jZkI6Nlur/U6x6c8JNMkMLUu8FdnEoUrSAYcCL
- 6WvHAhQ==
-X-Gm-Gg: AZFdTZcoO+RTTSp8pyfjNWpC6BKSz2bwN6ZtjjFVV0hP4qvJJjf326zg27tRbV/FPcr
- kcA9r4/dCrHMZQbMP8Qomaf3kioe1/uAbCRZoDN5dvfT9pTOv8zzEeB7aZrZWDAuGSE+6FWdTFu
- mqV13OkfOsPi7CjE1Z5/j0bGIzx5TMzi+hDdpk/2xaxvP3oiYJa4jvNp7Y3u619WljToht2LBLc
- bLbLVd04w/UzN4Y8LCfljdPf8E+K9VDcqKKTf3yV8Ac32Lu2tKzev7giOWaxB37v/shZ8iQsRSu
- D0VrNjOtgdB/g+nMEBMMFjwUDhyujotgXx7P/bxarLKc+p5epZ0I8yORFxX6YpV9viYjKRw6ghW
- TbkcdjxJJTvWuUuVGXBhe5D3pfZGmySVJXQeElgSA3AVDCRDTHpmij5S8mFn1IQUS5PN2wXS5o6
- Lo9hapiT/aA0b41nYBJH3EHe2tNEW9KzLaGVkkOpZ0nLhIDYJKLwEvfNzA30nwvkFo53sHQfeqP
- E2L3chN7IPTkuiOqlFjYCQEmkLYZ1048JA3Od6XI+DzUwT27nagv6TrLmQNkw87G+O61XYgxjWE
- lDXlLOd8M/1eZHyHbW251dtEqDE8woxRGTtwzC0Bm+Vw+1Dz1EWgvQIYkguGz3BDHlE=
-X-Received: by 2002:a05:6a20:3ca2:b0:3f8:99b4:bef7 with SMTP id
- adf61e73a8af0-4014a17aa7emr29605266637.7.1795782387873; 
- Fri, 27 Nov 2026 04:26:27 -0800 (PST)
-Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com.
- [74.125.82.180]) by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8c87077babfsm12672117b3a.5.2026.11.27.04.26.26
- for <dri-devel@lists.freedesktop.org>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Nov 2026 04:26:27 -0800 (PST)
-Received: by mail-dy1-f180.google.com with SMTP id
- 5a478bee46e88-38692f62b22so10827045eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:26:26 -0800 (PST)
-X-Forwarded-Encrypted: i=1;
- AL+hErE+0JyX/J8bdmSW+qhjdPBEtzFFcbKi1kT5Ctw/EGD+u8ljompzLA4KmuMTXlK3IcAHcmuXB78u2dQ=@lists.freedesktop.org
-X-Received: by 2002:a05:7301:4d0c:b0:376:a6d7:8f6f with SMTP id
- 5a478bee46e88-3856ec3ec8bmr25649718eec.17.1795782385135; Fri, 27 Nov 2026
- 04:26:25 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9B0C610E84C;
+	Fri, 27 Nov 2026 12:26:44 +0000 (UTC)
+Received: from BL2PR02CU003.outbound.protection.outlook.com
+ (mail-eastusazon11011011.outbound.protection.outlook.com [52.101.52.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3779A10E84C
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:26:38 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wQYx43AUjCT/XtNUi9DFdSOeccW+wDOjGlEp2pxErGBizjKgqZsd/IwL2gBo8FwKuH0CZxtIuFKu5XioCwJYPE6WnvOVEtArNUX4Da3Z7tyeJpa/5IotJiG2Xl0bK0pXOS+4VGQOxHfvtWuPXFLUj/VjShtZyMMjD3CDdgCO8xe6QR96+634ZwXJUB1sXnnfY/Fsxyh3D5J5D9ZQVRru4J0oi7i9Dk5CnqyRJc+pRWV34RCNfSYspbzMX+QgkLJMGYSc8DcKoxfPkd3SqTc3eBqEeQoGA7dyWPKN4SMX4ESEk27jY4j8Fo48kKWDWHDfCgh8r2ddAkCvy6c6RYDnqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gWjhJ60jVRGf/66/XDSbcWr0uLMGOs5GIgCdqJwlPH4=;
+ b=PN+K+/nYdazEL09iR+CMvy5D4IKW859AIWSO6X31jQdnfqNeHP3hDjwCyMQSC7QOgRDldxFYNQfY4pUk/wTgdWlaPeqraiPyKCE1+7E3XYW78EAWVB8lNMkM1f3jG2QhfFHt/dM1ADFFoTyMEBsUBjynob9AIUjIgqSc58NPa/eBVT+n5c6nAJyTUBen6j5BTUl1xpGtgBKztkhD+c3FuFFXaR2mxynhgcSUxgbmDLQRtWWz/z7BX9q/ZYn2S/8PNAGbhrTmiLYZ9nCjkqdGhuZrxUanSNZcWF8vzhaxcJa7e80V+mJPmclbqAwTz5att5O914gmeie3rbQOhhs6yA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gWjhJ60jVRGf/66/XDSbcWr0uLMGOs5GIgCdqJwlPH4=;
+ b=LM3TbVUoFSquuqBjDdtm4Hpg1Nb+LpR04yD7B2GPhmlaT9JLx6Vx1eEDAMUP9JkGXej8TBQoxhwEWrlEcuh6rez5sR/LTc7FkORiJhwpRu5SIaQQu4//iRzt1QrQlTJs/6mnsdrhRp2VtjvF92T/tFWPjpPASF1r3eQ9kuL97E+I2O5J28ZW4BkyEIkw6m/Qyef88UbMlJ5fLBxL7mGeLKSt23H1n6JB/hG8cRY+R8AVGw1MnFnJlYxho/5HM+X1qLm88a7bjPXDv7czlbdPUFe/3DRI9+rkCftkhcCoQHc5XrONwT6Q/DPwYYh+7Z7IDTv++piY6H3NC84uHmdX6w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by DS6PR12MB765380.namprd12.prod.outlook.com (2603:10b6:8:411::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.11; Fri, 27 Nov
+ 2026 12:26:33 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 12:26:32 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: devicetree@vger.kernel.org
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based
+ on bus flags
+Date: Fri, 27 Nov 2026 21:26:28 +0900
+Message-ID: <kaWzD58LSXePk8E_XcD28g@nvidia.com>
+In-Reply-To: <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com>
+References: <20261122081820.53199-1-clamor95@gmail.com>
+ <CAPVz0n3YEoq5dg4+sHfd74rT8x_R9DEv1eTzW7UHVKEABGa-BQ@mail.gmail.com>
+ <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TY6P301CA0011.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:3be::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
- <20260714114414.184512-47-angelogioacchino.delregno@collabora.com>
-In-Reply-To: <20260714114414.184512-47-angelogioacchino.delregno@collabora.com>
-From: Fei Shao <fshao@chromium.org>
-Date: Fri, 27 Nov 2026 20:25:42 +0800
-X-Gmail-Original-Message-ID: <CAC=S1nh8TnQeGfW+At1vCs3ie=7EYiG2R9xSTyfZ1A4mW0+CGQ@mail.gmail.com>
-X-Gm-Features: Aa3M54p-uqcPZ0BTjnlZ-C4P_vANwYAAc7cv53pfujMjetYD2ahEumQx7Kd9jG4
-Message-ID: <CAC=S1nh8TnQeGfW+At1vCs3ie=7EYiG2R9xSTyfZ1A4mW0+CGQ@mail.gmail.com>
-Subject: Re: [PATCH v2 46/46] drm/mediatek: mtk_drm_drv: Fail init only if all
- paths are invalid
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
- simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
- tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
- matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
- linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS6PR12MB765380:EE_
+X-MS-Office365-Filtering-Correlation-Id: cb79a553-fc70-4090-e49f-08df4c81ab92
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|10070799003|366016|1800799024|376014|261102123227099003|261028144727099003|261022105027099003|261022075727099003|261021121427099003|261026140227099003|261026121527099003|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|6133799003|261009223027099003;
+X-Microsoft-Antispam-Message-Info: ViInzIFgbFH39Ea1qxpu2NXJnPn+zGsweMdcnhwJbpViufsOgjDYzyMQavCBr5wB/ev4S+cHdJomcbD0S8rP1hJokKFGG5uRMZavrmIOWN/FSHPTJH/U4gg5PYHjR883mLm5J91Kcdw0lBWgjAT+pa0rXg7iDTfwW5o5jE4vPlvRQHiGBhpNs10zuAqYrFfnZ+w7S9R6iHjPmUU4ikW5FcFzGGyOHWpXAGX8ffdjcz2QP7xuFL3l3bObDe8psSZzqprqrK0C9/4i05lqDMuFaspGSeBtiHebonOzvvOWlHuaglKhPaR5I0hRrLKH2gvOLFbyu4KM3LG2MEmwhlYrjGqac72TVKBqk0ocacFWfVMZHvossI+eAETP25UQf9I1Ko5ftJByme3FZjJlphvZsVCmSxqxOiYUhC1CSFbJgkeIPOm8QOlIOBMLle0d1vIcrE+ErRKyet8D9uwAN2TT0c6WGrnOrLyXCOW19nYW0bzlO9WooFimyT/F5/3QpIMxTxYQKkxVSLKH7Aj3opkHFu6el4lOaFbQrgaEFiF7NqfNvocT8SUMQ0BTEySfngSlO9tTdrGRJh6eJDrikPRIJZ7nmLXppcTtpeMapy81P8n0uGTYdVR3lev8m/3YwBRO16wooEUEJR3S7OIGERMhPNjRgvlDa7DRpxnFVUsEPMs=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(10070799003)(366016)(1800799024)(376014)(261102123227099003)(261028144727099003)(261022105027099003)(261022075727099003)(261021121427099003)(261026140227099003)(261026121527099003)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(6133799003)(261009223027099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?YnkwK2VWY04yU05mSVkyRjhaWFRCcnIvTjFCNVR4WDU5RlJZNFFDb3BjZ2w5?=
+ =?utf-8?B?TEhtR1VDUW9SNFFWODlZdjR0bjZvWE1qN2dSbEhVSExaQWgxcjMrS0o4WStH?=
+ =?utf-8?B?SEZHVmg1dUlFM25MUjN2Y2JZTjVNdWYyd0tKYTI5a0ZVNEkvNVE3V1daRzRj?=
+ =?utf-8?B?dnJTRjMrSTlmNW1iUks4eTVPUGptYlRSaUpZcTU5bUJFV2lENDZ5dm9wTmRH?=
+ =?utf-8?B?SkVkb3h4eTM0RjVMaEtlRzMwaFo4bXdabWhNNW5sOXVab3BXaDc2bEFZUVl0?=
+ =?utf-8?B?ekxVcDRGTlRac2Y0bDZKWVZXdHVNdC9mUmNDRVFib08xbHNwRWJndWF3WE5v?=
+ =?utf-8?B?eEpPL05VWnZOU2t2MzI1enl1TzFsUTBvYXg2UHRZSHdQRHVoNGhBRnNtbjZY?=
+ =?utf-8?B?VmxpbHdLUWM1Z3FQLzZsbTJCaDFJY0EvQnQ0ZVZnWk83RFlaVzRJcytaZXIr?=
+ =?utf-8?B?R0FkQXBaT2JMZDFoR1hCeStqcmFTaFJMN3c2NS9Wc3pWNm1sZEZZOXJyYUFm?=
+ =?utf-8?B?VWV1MTc3c05uWmxmT29MblJzRk5KaW45OXQvb083WjF5Qi95T1Rvd1FmSUxx?=
+ =?utf-8?B?MlFZblF4SHRWTzE0NmdxMjgxS0t5WDFLMVY3NkUrNmZ3NklkMjdsOTdIT3M3?=
+ =?utf-8?B?YmdQSWpBU1ZaMUF4Z1NWYUlhMU5uNjZBQ3BPbGIrcmxXMGNZdFlpaHRFd2s4?=
+ =?utf-8?B?V1E3ckdBQytGUHJyRkg2ZDRucFJyZ2dxc1NHcnBMLzJrbVZrRklJeW1qb1Z3?=
+ =?utf-8?B?WXhPT1ExZUtyWGlQYzRRY3dWY0ZyMkRUQ3MrMUVpZjlLWUYzL3ZvbFJwTE9E?=
+ =?utf-8?B?WGlSNUZEa2sySkNOUDNZeUdDOXpVNTFaazBwWjVPdXpZWkZXVmpCZzlpV3dk?=
+ =?utf-8?B?UUxlWUU4NUxkc0pGVU5nSEZhZmdHRTRvWWxNelA4Vk5vNGYwMmZJdDI1OVlG?=
+ =?utf-8?B?NWhXNkxxMHZZUC9GelJVU1ZOQisvalVIV2ZxMUJ5V2hkenFjWGR2WVRiNXNU?=
+ =?utf-8?B?UXJVT3BXNWJQWXR2cGFJK2cwQnpzbERYZVJ0U0YyejJmaVhyWTYvK1pEZG9K?=
+ =?utf-8?B?d2FOQi91dE1sb2ZITHQwRnFaRTEwb3RQSW9lN0N6d2VxNU9EbkdGTzJWUndw?=
+ =?utf-8?B?QXk4QTJzQnlMUGVmSWxmYVhTbTVwOXAwb0NQeThwaUVrQ2lGUnkzRTY4cWhL?=
+ =?utf-8?B?bjgyOEdWeFJUd1NNbVNBUUVLOXhwb1EyYUZIeXM5citibS8xdU9TZkorTERQ?=
+ =?utf-8?B?c1kzNUpucTJSdjlLSThBL3BMSTh4N3VqaW5pZXVycWVvdmRKNXRxb3owYWU3?=
+ =?utf-8?B?b0dGOWNHektUT3JHN2ZlMkp3RGpGSjlIanNFWmZ2UEF3alh3TmQwclBSUUlk?=
+ =?utf-8?B?RG03aWZvalVwN3lQVXV4a25DQjVuNXZ4a3V6RmRtaDk0RmJiK09SNmxrbTB4?=
+ =?utf-8?B?RklyL04yRkNqZW5wTm84bER2bGhBQ0hYQkNvbjFXdTI5SnFtT0FPRWo5Y1dB?=
+ =?utf-8?B?Y3pwSnhzbjYxTWFoNjFXeXVzYzRMeW0vODlybzlnYjBFSFhET0tTRmdrSUpT?=
+ =?utf-8?B?S2hyRitBc3M5WHBpeUMySXh6WE0yRGJ3U0g3MXdXZlYvazY2dW83L0tkdkpT?=
+ =?utf-8?B?dG42R0VDMFJpS2V0OXJIRVRNOW9acDNtNDlXenlvNEVJUFBiaUFobGtKcHd4?=
+ =?utf-8?B?ZGhVN2tUMFd2OFQ2QU43RGVBSVRDNHFVcERiaUVjdjVKYW4wMmxtWldsZVV3?=
+ =?utf-8?B?SkMzZk9zMklEWndITWtkalMvYmhPelZKbi9TVXl5OGMvbVFXSU5MaU9MdkFE?=
+ =?utf-8?B?SHc1VjZYUDlsbjc0RHgzU2RKNGR4eXRraTZmejNleEp0OC9KaU1JWEJQWlor?=
+ =?utf-8?B?blVGL2pYQU1rT2FRbnMxcjFJSktYejZEdG9panZyVktOcFZtd0RRbTNkclZV?=
+ =?utf-8?B?RU8rM0dkeDN5RDhqdUExU0NSa0FIeUFCYlJQcktRQUZOV3Y0ZTk3LzU2SzFz?=
+ =?utf-8?B?NmZ5aDBhMjNPU1RDSE51YjBoL1JMWmlTMk9qaXdjQjIxZ215SmlFbE1OMnJ2?=
+ =?utf-8?B?Qkl5aVZLVUFyNHlOV1JsbkowenBKK001ZXhLa1AwOUo4NTJrRkpQbFVJN2VU?=
+ =?utf-8?B?M0VuYjNLZVpQTll0QnEzNFI1K2ZGUlkyTkFiOEo0OFQ2VVVOYUg5eHM1VFVx?=
+ =?utf-8?B?aUltSVcrMU9OSjF2SGNsUEJxTW9hMkFUZjhLRFZETTMxbkRTZGk2RTNLTDVY?=
+ =?utf-8?B?WnVZL3p1c1lVUUwzNkw2UFk1eExQVWZFQ0kxYXlRL054UHpMR0E2T0JiZk03?=
+ =?utf-8?B?YmNtYTh3L3NxTit0Y1hzYnRXcEdIWmZaZlRMSzBqTlpJQnNBSGZvMU1XU0N1?=
+ =?utf-8?Q?DMaeP5gAxnul3AzZuRq6K5ExPHhSJiTAu4aLljQgrDGn1?=
+X-MS-Exchange-AntiSpam-MessageData-1: OW0TC1u5DQkgEw==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cb79a553-fc70-4090-e49f-08df4c81ab92
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 12:26:32.4955 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: tWSQWWQ4RXzewlHexBIsvHpWz4jmSLFvhVYATytVoyLNTDt/FRvlfCP7AYQ5fThO2uTzXU/GphzL9/hA3i+Lyg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS6PR12MB765380
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,112 +142,85 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Tue, Jul 14, 2026 at 7:47=E2=80=AFPM AngeloGioacchino Del Regno
-<angelogioacchino.delregno@collabora.com> wrote:
->
-> Up until now, if not all display controller paths were valid, the
-> driver would fail probing and refuse to bind components: while
-> that was a good idea before, now that mediatek-drm gained much
-> more flexibility, it is finally possible to gracefully handle
-> this situation and register only the valid paths while leaving
-> the invalid ones unregistered, without any crash.
->
-> Count how many output paths are found, and then count how many
-> have failed probing: if there is at least one valid path, avoid
-> erroring out, so that at least some outputs will just work.
->
-> Of course, any path failing is not a clean situation and must be
-> resolved: in this case, function mtk_crtc_create() still prints
-> error messages so, even though some output works, that will not
-> go unnoticed, as a quick check in kmsg will show the errors that
-> made a certain path not to register.
->
-> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
-abora.com>
-> ---
->  drivers/gpu/drm/mediatek/mtk_drm_drv.c | 20 ++++++++++++++++++--
->  1 file changed, 18 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
-iatek/mtk_drm_drv.c
-> index 82d844b6abf7..7c9cb50909c8 100644
-> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
-> @@ -394,6 +394,8 @@ static int mtk_drm_kms_init(struct drm_device *drm)
->         struct mtk_drm_private *priv_n;
->         struct device *dma_dev =3D NULL;
->         struct drm_crtc *crtc;
-> +       int num_failed =3D 0;
-> +       int num_paths =3D 0;
->         int ret, i, j;
->
->         if (drm_firmware_drivers_only())
-> @@ -460,15 +462,29 @@ static int mtk_drm_kms_init(struct drm_device *drm)
->                         if (!priv_n->data->output_paths[i].len)
->                                 continue;
->
-> +                       num_paths++;
-> +
-> +                       dev_vdbg(drm->dev,
-> +                                "[CTRL%d-CRTC%d] Path Len:%d, Controller=
- Order:%u\n",
-> +                                j, i, priv_n->data->output_paths[i].len,
-> +                                priv_n->data->output_paths[i].order);
-> +
->                         ret =3D mtk_crtc_create(drm, i, j,
->                                               priv_n->data->conn_routes,
->                                               priv_n->data->num_conn_rout=
-es);
-> +                       if (ret =3D=3D 0)
-> +                               break;
+On Friday, November 27, 2026 6:41=E2=80=AFPM Svyatoslav Ryhel wrote:
+> =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 11=
+:21 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> >
+> > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
+> > > > Parameterize configuration based on bus flags passed from the bridg=
+e or
+> > > > panel. The list of supported flags includes now pixel clock polarit=
+y,
+> > > > display enable (DE) polarity, and data alignment.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> ...
+> > > > +     /* configure DATA order and alignment */
+> > > > +     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
+> > > > +
+> > > > +     if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
+> > > > +             value |=3D DISP_ALIGNMENT_LSB;
+> > > > +     else
+> > > > +             value &=3D ~DISP_ALIGNMENT_LSB;
+> > >
+> > > DRM_BUS_FLAG_DATA_LSB_TO_MSB does not seem the correct thing to check
+> > > here. According to the TRM, DISP_ALIGNMENT doesn't swap between LSB/M=
+SB
+> > > bit ordering in a classical way, instead:
+> > >
+> > >   // DISP_DATA_ALIGNMENT =3D 0 (MSB)
+> > >   LD[23:0] =3D {R[1:0], G[1:0], B[1:0],
+> > >               R[7:2], G[7:2], B[7:2]};
+> > >
+> > >   // DISP_DATA_ALIGNMENT =3D 1 (LSB)
+> > >   LD[23:0] =3D {R[7:0], G[7:0], B[7:0]};
+> > >
+> > > I suppose MSB is more natural for 18-bit panels and LSB for 24-bit
+> > > panels depending on the layout. So the correct value depends on how t=
+he
+> > > panel is wired to the SoC on the board. Hence, I think we should
+> > > describe this with a new property in device tree under rgb/dbi or
+> > > endpoint node. Something like 'nvidia,rgb888-wiring' for LSB? And
+> > > document that this means the above kind of wiring - not all RGB888
+> > > panels use it.
+> > >
+> >
+> > Ugh, why is this so confusing...
+> >
+>=20
+> Using 'nvidia,rgb888-wiring' may be confusing since as you mentioned
+> not all RGB888 panels use it. I can add 'nvidia,data-alignment' to rgb
+> properties and set 0 to msb (default) and 1 to lsb, or directly set
+> boolean `nvidia,data-alignment-lsb`. Let me know which is preferred.
 
-Since patch 38/46, mtk_crtc_create() already combines all controllers
-(`order 0..N`) for `output_paths[i]` into one CRTC, so only the leader
-(`order =3D=3D 0`) should call it.
+data-alignment is a very ambiguous name if one isn't deeply familiar=20
+with the hardware, hence I was thinking something a bit clearer would be=20
+better.
 
-Relying on `if (ret =3D=3D 0) break;` instead of filtering `order =3D=3D 0`=
- has
-a few issues:
-- If a follower (`order > 0`) appears before the leader in
-  `all_drm_private[]`, `mtk_crtc_create()` gets the follower's `j` as
-  `priv_data_index` (setting `mmsys_dev`, CMDQ, and `conn_routes` from
-  the follower) and breaks before reaching the leader.
-- If `mtk_crtc_create()` fails, the loop retries it on every remaining
-  follower for the same CRTC.
-- Patches 38/46..45/46 don't have this `break;` yet and register
-  duplicate CRTCs for each follower.
+I agree nvidia,rgb888-wiring isn't the best either, but I'm not sure=20
+what would be the best choice here, off-hand.
 
-Skip `priv_n->data->output_paths[i].order > 0` in the loop (starting
-in patch 38/46) instead of breaking on `ret =3D=3D 0`.
+>=20
+> > > > +
+> > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONTRO=
+L);
+> > > >
+> > > >       tegra_dc_commit(rgb->dc);
+> > > > --
+> > > > 2.53.0
+> > > >
 
-Regards,
-Fei
 
->
-> -                       if (ret)
-> -                               goto err_component_unbind;
-> +                       num_failed++;
->                 }
->         }
->
-> +       if (num_failed =3D=3D num_paths) {
-> +               dev_err(drm->dev, "No valid Display Controller path! Goin=
-g out.\n");
-> +               ret =3D -ENODEV;
-> +               goto err_component_unbind;
-> +       }
-> +
->         /* IGT will check if the cursor size is configured */
->         drm->mode_config.cursor_width =3D 512;
->         drm->mode_config.cursor_height =3D 512;
-> --
-> 2.54.0
->
->
+
+
