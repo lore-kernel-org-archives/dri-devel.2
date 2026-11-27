@@ -2,45 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F2606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:31:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E9AE606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:31:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=A44NmbwD
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=UQIShDyz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8B654112CF2;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 98EB9112CF7;
 	Fri, 27 Nov 2026 18:31:21 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3D319112CDE
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 6DEFC112CF2
  for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 18:31:15 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795804259; cv=none; 
+ARC-Seal: i=1; a=rsa-sha256; t=1795804255; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=cwpj7eAt1TcEP6Cl9neCjZiFf+UfUtb61w3x/XCZMvKdaPnrQ2paKX3rgy1ZiNe2aSE3wJ9l08SuwD7LBNZ03st39RNr1kwR7p4R+XK56pV6mEmRsjjHcjdHCYdp0YlwfecehSPZ+q/k0y632Ce4l6vzuDms/e52J/tjNv5XxQU=
+ b=c7M/SE/n2BIQsM7JPTHveyBNcDqOwmKbEUHW61pGKA/fuFS3tt37P1JICwvuX0xl+897Lk1ubzsVimvCcMUO4MINDjvA/2GtNuVoplxiCyk9lBZLBK4g3NucjyOZYvcI+jHe2RDgveagnEhOMC6UL6RUpJaXYCSHyvurfXoMEBk=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795804259;
+ s=zohoarc; t=1795804255;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=bhmBavxBDu7oBvEaPUxGwfDqUyaXtuf03Km8pH8uDSA=; 
- b=Ga+BVaHevH5wXtQpJ2u79J7dTjqYZ6Q0ZSczLEy+3QphgzCEyuv/pZ7/Vb5s1uRdoA7gAVC/ITj3YUAUiSDx749es/dr0GKh7m1lmJo9g9HJUOHnXb0yuLZhqJObM0zQfU9nCm9cYParE7xv5Hxz/b88+0/y3ETw3KCy/XhWUnY=
+ bh=3z99BsU30U4rERu+ZiV0NBny6Si8flrmsiUiHE4Lweg=; 
+ b=M7nU9Tn5KC0qkSGLIRHvmcg08f+RwwV9hb/wLhoA89Nr8TxcuB2n0/lQqTM8jLiHqG2/wdzJNIkUPoAmb3mp+MwjT3eAAiD5JZ+sJ/8KGApqDWiy0xGVRubiKNysPgag6sn06C1pmizggeBx4WMAP0jC5Hm2tiVerqIH7gjKB3E=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=A44NmbwDn61EUeS8XE/ZYmrckPVuocb3GpD8pCXQMgRO0p9xddP0Gfk+v4z2+RNZEk5iFBtbAB249fJdZLZWJli5nkutGWg/BcByzeO1WfdM9UVuFgjrRyJHn5CFZ/L2X5eMwBcCWy2f/eAvE5tdgQGxHhPLgE8H6hMdTRFqj78=;
+ b=UQIShDyzw7L92zIhABO0WxYb2m0Y0sKeHfFOO1XGZ4NiPjCHiQum57w3F5NJXZQQvvbVNzK+FbnwiWmWiwRaVK8/nSI8jOeWWoxVKRHYn2/R8pVwZADZSa3uHbribJiDV9JUsirzzZd/4B3ygKi6mBPagy6f1gsGyu1usELGhqE=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=bhmBavxBDu7oBvEaPUxGwfDqUyaXtuf03Km8pH8uDSA=;
+ bh=3z99BsU30U4rERu+ZiV0NBny6Si8flrmsiUiHE4Lweg=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795804258302402.81084280671587; 
- Fri, 27 Nov 2026 10:30:58 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795804253474968.8695268999385;
+ Fri, 27 Nov 2026 10:30:53 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Fri, 27 Nov 2026 15:30:38 -0300
-Subject: [PATCH 2/2] rust: dma_buf: dma_fence: require a SignallingSection
- in signal()
+Date: Fri, 27 Nov 2026 15:30:37 -0300
+Subject: [PATCH 1/2] rust: dma_buf: dma_fence: add SignallingSection
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-dma-fence-signalling-v1-2-c44e8f4910ca@collabora.com>
+Message-Id: <20261127-dma-fence-signalling-v1-1-c44e8f4910ca@collabora.com>
 References: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
 In-Reply-To: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
@@ -78,53 +77,141 @@ X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-DriverFence::signal() is where a fence's signalling path ends. The
-dma-fence rules require the whole path, from the point where the fence
-becomes visible to other threads up to the signal, to run in a
-signalling section. A caller of signal() has most likely been running
-on that path before the call.
+dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
+code that the completion of a dma-fence depends on, so that lockdep can
+check it against the dma-fence rules. However, up until now, it was not
+possible to use the signalling tokens from Rust.
 
-Make DriverFence::signal() take a &SignallingSection, so that callers
-have to open a section. This does not ensure that the section covers
-the whole signalling path, as drivers can simply do:
+Thus, add SignallingSection, a guard that begins a section when it is
+created and ends it when it is dropped. Code on the signalling path can
+take a &SignallingSection to require that its caller opened one.
 
-    fence.signal(res, &SignallingSection::begin());
+Use it in the DriverFence example, which has a TODO for it.
 
-But at least it nudges drivers in the right direction and forces them
-to consider signalling sections instead of ignoring them.
-
-Update the DriverFence example accordingly.
+A later patch in this series makes DriverFence::signal() require one.
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- rust/kernel/dma_buf/dma_fence.rs | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ rust/kernel/dma_buf/dma_fence.rs | 70 +++++++++++++++++++++++++++++++++++++++-
+ rust/kernel/dma_buf/mod.rs       |  3 +-
+ 2 files changed, 71 insertions(+), 2 deletions(-)
 
 diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
-index 7ee87935d3be..39f9bb9d1be3 100644
+index a1d851656562..7ee87935d3be 100644
 --- a/rust/kernel/dma_buf/dma_fence.rs
 +++ b/rust/kernel/dma_buf/dma_fence.rs
-@@ -773,7 +773,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+@@ -17,6 +17,7 @@
+     error::to_result,
+     prelude::*,
+     types::ForeignOwnable,
++    types::NotThreadSafe,
+     types::Opaque, //
+ };
+ 
+@@ -589,6 +590,71 @@ unsafe fn dec_ref(ptr: NonNull<Self>) {
+     }
+ }
+ 
++/// A dma-fence signalling critical section on the current task.
++///
++/// All code needed to signal a [`DriverFence`] must run in such a section,
++/// from the point where its [`Fence`] becomes visible to other threads up to
++/// the point where it is signalled. With `CONFIG_PROVE_LOCKING`, the section
++/// is a [DMA Fence Signalling Annotation], which validates that code against
++/// the [DMA Fence Cross-Driver Contract]. Without `CONFIG_LOCKDEP`, the
++/// section has no effect.
++///
++/// A function that is part of the signalling path can take a
++/// `&SignallingSection` to require that its caller opened one. Sections nest,
++/// and only the outermost one is annotated.
++///
++/// [DMA Fence Signalling Annotation]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-signalling-annotations
++/// [DMA Fence Cross-Driver Contract]: https://docs.kernel.org/driver-api/dma-buf.html#dma-fence-cross-driver-contract
++///
++/// # Examples
++///
++/// ```
++/// use kernel::dma_buf::SignallingSection;
++///
++/// // Code on the signalling path takes a section to require that its caller
++/// // opened one.
++/// fn on_signalling_path(_section: &SignallingSection) {}
++///
++/// let section = SignallingSection::begin();
++/// on_signalling_path(&section);
++/// ```
++///
++/// # Invariants
++///
++/// `cookie` was returned by `dma_fence_begin_signalling()` on the current task
++/// and has not been passed to `dma_fence_end_signalling()` yet.
++#[must_use = "the signalling section ends immediately when the value is unused"]
++pub struct SignallingSection {
++    cookie: bool,
++    _not_send: NotThreadSafe,
++}
++
++impl SignallingSection {
++    /// Begins a signalling section on the current task.
++    #[inline]
++    pub fn begin() -> Self {
++        // SAFETY: `dma_fence_begin_signalling()` has no preconditions.
++        let cookie = unsafe { bindings::dma_fence_begin_signalling() };
++
++        // INVARIANT: `cookie` was just returned by `dma_fence_begin_signalling()`
++        // on the current task.
++        Self {
++            cookie,
++            _not_send: NotThreadSafe,
++        }
++    }
++}
++
++impl Drop for SignallingSection {
++    #[inline]
++    fn drop(&mut self) {
++        // SAFETY: By the type invariants, `cookie` comes from
++        // `dma_fence_begin_signalling()` on the current task and has not been
++        // passed to `dma_fence_end_signalling()` yet.
++        unsafe { bindings::dma_fence_end_signalling(self.cookie) };
++    }
++}
++
+ // Necessary to guarantee that `inner` always comes first and can be freed by C.
+ // Also useful for using casts instead of container_of().
+ #[repr(C)]
+@@ -654,6 +720,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///         FenceContextOps,
+ ///         FenceCallback,
+ ///         FenceCallbackRegistration,
++///         SignallingSection,
+ ///     },
+ ///     str::CString,
+ ///     sync::aref::ARef, //
+@@ -704,9 +771,10 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ /// let cb_reg = unsafe { FenceCallbackRegistration::new(&waiting_fence, cb_data) };
+ /// let cb_reg = KBox::pin_init(cb_reg, GFP_KERNEL)?;
  ///
- /// let section = SignallingSection::begin();
+-/// // TODO signalling guards
++/// let section = SignallingSection::begin();
  /// assert_eq!(waiting_fence.is_signaled(), false);
--/// fence.signal(Ok(()));
-+/// fence.signal(Ok(()), &section);
- /// drop(section);
+ /// fence.signal(Ok(()));
++/// drop(section);
  /// assert_eq!(waiting_fence.is_signaled(), true);
  ///
-@@ -873,7 +873,10 @@ pub fn as_fence(&self) -> &Fence {
-     }
- 
-     /// Signal the fence. This will invoke all registered callbacks.
--    pub fn signal(self, res: Result) {
-+    ///
-+    /// Takes a [`SignallingSection`] because all code needed to signal the
-+    /// fence must run in one.
-+    pub fn signal(self, res: Result, _section: &SignallingSection) {
-         let fence = self.as_fence().lock();
- 
-         // SAFETY: `fence` is valid because `self` is valid. The lock must be
+ /// Ok::<(), Error>(())
+diff --git a/rust/kernel/dma_buf/mod.rs b/rust/kernel/dma_buf/mod.rs
+index 4764a828642e..8dda6d91b650 100644
+--- a/rust/kernel/dma_buf/mod.rs
++++ b/rust/kernel/dma_buf/mod.rs
+@@ -10,5 +10,6 @@
+     FenceCallback,
+     FenceCallbackRegistration,
+     FenceContext,
+-    FenceContextOps, //
++    FenceContextOps,
++    SignallingSection, //
+ };
 
 -- 
 2.56.0
