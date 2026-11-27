@@ -2,75 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B4E606A336
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C2C606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:59:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.a=rsa-sha256 header.s=2025a header.b=MqoaPRnM
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceHnuKyn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02B661128FB;
-	Fri, 27 Nov 2026 10:52:21 +0000 (UTC)
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E49771128FB
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:52:13 +0000 (UTC)
-Received: from hawking.lan (ntp.lan [10.0.1.1])
- by www.nmnhosting.com (Postfix) with ESMTPSA id 7BF464C990;
- Fri, 27 Nov 2026 21:52:09 +1100 (AEDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a; 
- t=1795776729;
- h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
- to:to:cc:cc:mime-version:mime-version:content-type:content-type:
- content-transfer-encoding:content-transfer-encoding:
- in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
- bh=U5UWhZwhfOwBecIRseR9hgdutFja5ObnqmEgqdaERIc=;
- b=MqoaPRnM0yPfNaJQzZcIEVJ57++JGsBpflZQeYs69AEZ8X427aH6Vw99pK9B0Y7axwNhxr
- rZDRbeRXw9Ue3Rsj4JwHC8nQ5njYKENG8LK4+Jik1KfutRKPKEgg0LoNDFmOEKvttuTGQj
- NC4g7QRorkjUoAkOVwPw6fnvfnl33EwGJudSb+IpFH8nB5QzR66WswHQqGympHi/kGBa3f
- Jx9HDq97s8kztWD6BSPlR8zkOTK9JMlSwMHcgee6yo0dQfqlRWA7vPhSDmMfTx2eVldyI1
- tR0U9ElwLqvQz9j9SPthD4pTFNSTOvkTu3ICgNCwRcdLj3dX82qw7lP0xQ9edA==
-Message-ID: <de646ea81e92792caf6644716ac91399a8b6b677.camel@d-silva.org>
-Subject: Re: [PATCH 0/3] arm64: dts: allwinner: sun60i-a733: Add simplefb
- HDMI support
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Andre Przywara <andre.przywara@arm.com>, Hans de Goede
- <hansg@kernel.org>,  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland	 <samuel@sholland.org>
-Cc: linux-fbdev@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-sunxi@lists.linux.dev
-Date: Fri, 27 Nov 2026 21:52:09 +1100
-In-Reply-To: <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-References: <20261127080649.1982883-1-alastair@d-silva.org>
- <18637573-d20f-4a58-9e63-6bf71b015cef@arm.com>
- <d4a41c5cfb33d6d39f0ba927541beca1175ad001.camel@d-silva.org>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0B111284A;
+	Fri, 27 Nov 2026 10:59:24 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C906111284A
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:59:18 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 80A8B40846;
+ Fri, 27 Nov 2026 10:59:18 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDEFC1F000C1;
+ Fri, 27 Nov 2026 10:59:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795777158;
+ bh=rjfHqJlYTe0ioCy7egr/57Kmw5/Ei4oflfwEw7r+Zi0=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=ceHnuKyn6qJBY8guf7U2epp0A+9zbXn3n2G4GBOA6jjrIIBwj3/bMCBaMC+/5BiEz
+ hlNcoE1yY2vNfXFoqlPSMjUHVqkHh65r5SP1GDXFyNV6VLmX4+/rFheXeU9uivamw8
+ Kw3hPU0GnvrWEvMfzbjpdFuUnNM/p1SoSFV5A+MzGIPnCZvIkeBZpEXQMjxOEh+xqe
+ ay1lOHHbFb4vT8st+cWfj4yXurDenB0G/Kx+cJv1BfBK8ShsBShx8cYfzkeP7GaOOc
+ fHLZ5xb7C8SpmtL04/xt1IhFPDhGni0eenGdHygMkX7Ayyh8LMLzMWPTbDDaWkvRqm
+ ZvNUt3XfJi/ew==
+Message-ID: <sashiko-outbox-237194@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 07/10] drm/msm/dp: fix HPD plugged, AUX gate, and
+ runtime PM tracking
+To: "Gianfranco Mariotti" <gianfranco.mariotti94@gmail.com>
+Cc: dri-devel@lists.freedesktop.org
+In-Reply-To: <20261127101417.24303-8-gianfranco.mariotti94@gmail.com>
+References: <20261127101417.24303-1-gianfranco.mariotti94@gmail.com>
+ <20261127101417.24303-8-gianfranco.mariotti94@gmail.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
+Date: Fri, 27 Nov 2026 10:59:17 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,32 +49,163 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On Fri, 2026-11-27 at 21:20 +1100, Alastair D'Silva wrote:
->=20
-> On Fri, 2026-11-27 at 10:03 +0000, Andre Przywara wrote:
-> > Hi,
-> >=20
-> > On 11/27/26 09:06, Alastair D'Silva wrote:
-> > > This series adds boot-time simplefb HDMI support for Allwinner A733
-> > > (sun60i-a733). U-Boot enables DE3.5, TCON_TV0, and DW-HDMI2.0 and
-> >=20
-> > Where does it do that and which U-Boot version does?
-> >=20
+Thank you for your contribution! Sashiko AI review found 2 potential
+issues to consider:
+- [High] drm/msm/dp: early return in msm_dp_hpd_plug_handle() skips
+  branch sink init
+- [Medium] drm/msm/dp: stale sink_count in
+  msm_dp_display_is_dongle_plugged() on unplug
+--
 
-Oh, I forgot to answer this, this was going to be a follow-up on the
-opi4pro series to U-Boot, once the base implementation was accepted.
+commit f7be63be5e39d6eb47128f66765be92b0a077052
+Author: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 
-It's on my Github, but I haven't posted it to the list yet.
+drm/msm/dp: fix HPD plugged, AUX gate, and runtime PM tracking
 
-Cheers,
+This commit updates hotplug, connector detection, and link preparation in t=
+he
+MSM DP driver to balance dp->plugged state, AUX transfer enablement, and
+runtime PM reference counting.
+
+> diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
+/dp_display.c
+> index 7831dd13b0674..a48f42a173657 100644
+> --- a/drivers/gpu/drm/msm/dp/dp_display.c
+> +++ b/drivers/gpu/drm/msm/dp/dp_display.c
+> @@ -408,8 +408,9 @@ static int msm_dp_display_handle_irq_hpd(struct msm_d=
+p_display_private *dp)
+> =20
+>  static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
+>  {
+> -	int ret;
+>  	struct platform_device *pdev =3D dp->msm_dp_display.pdev;
+> +	bool phy_deinit;
+> +	int ret;
+> =20
+>  	drm_dbg_dp(dp->drm_dev, "Before, type=3D%d sink_count=3D%d\n",
+>  			dp->msm_dp_display.connector_type,
+> @@ -417,6 +418,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
+ay_private *dp)
+> =20
+>  	guard(mutex)(&dp->plugged_lock);
+> =20
+> +	if (dp->plugged)
+> +		return 0;
+> +
+>  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
+>  	if (ret) {
+>  		DRM_ERROR("failed to pm_runtime_resume\n");
+> @@ -425,9 +429,16 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_disp=
+lay_private *dp)
+> =20
+>  	msm_dp_aux_enable_xfers(dp->aux, true);
+> =20
+> -	msm_dp_display_host_phy_init(dp);
+> +	phy_deinit =3D msm_dp_display_host_phy_init(dp);
+> =20
+>  	ret =3D msm_dp_display_process_hpd_high(dp);
+> +	if (ret && ret !=3D -ENOTCONN) {
+> +		msm_dp_aux_enable_xfers(dp->aux, false);
+> +		if (phy_deinit)
+> +			msm_dp_display_host_phy_exit(dp);
+> +		pm_runtime_put(&pdev->dev);
+> +		return ret;
+> +	}
+> =20
+>  	drm_dbg_dp(dp->drm_dev, "After, type=3D%d sink_count=3D%d\n",
+>  			dp->msm_dp_display.connector_type,
+> @@ -435,8 +446,8 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
+ay_private *dp)
+> =20
+>  	dp->plugged =3D true;
+> =20
+> -	return ret;
+> -};
+> +	return 0;
+> +}
+
+[Severity: High]
+Does the early return when dp->plugged is true skip downstream sink
+initialization when a monitor is later plugged into an already-attached emp=
+ty
+branch device?
+
+When an empty branch dongle is connected first, msm_dp_panel_read_link_caps=
+()
+sets dp->link->sink_count =3D 0 and returns -ENOTCONN before reading EDID, =
+and
+msm_dp_hpd_plug_handle() sets dp->plugged =3D true.  When a downstream moni=
+tor
+is connected afterward and msm_dp_bridge_hpd_notify() calls
+msm_dp_hpd_plug_handle() (for example on external Type-C HPD where
+hpd_link_status is ISR_DISCONNECTED, or via drm_bridge_connector_detect()),
+msm_dp_hpd_plug_handle() returns early without running
+msm_dp_display_process_hpd_high().  Because msm_dp_bridge_detect() only rea=
+ds
+DP_SINK_COUNT into a local variable, dp->link->sink_count stays 0, EDID is
+never read, and msm_dp_display_prepare_link() fails with -ENOTCONN.
+
+[ ... ]
+
+> @@ -1598,6 +1603,22 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *=
+bridge)
+>  	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
+>  }
+> =20
+> +static bool msm_dp_display_is_dongle_plugged(struct msm_dp_display_priva=
+te *dp,
+> +					     u32 hpd_link_status)
+> +{
+> +	u8 rev;
+> +
+> +	guard(mutex)(&dp->plugged_lock);
+> +
+> +	if (!dp->plugged || !dp->link->has_sink_count || dp->link->sink_count)
+> +		return false;
+> +
+> +	if (hpd_link_status !=3D ISR_DISCONNECTED)
+> +		return true;
+> +
+> +	return !drm_dp_dpcd_read_byte(dp->aux, DP_DPCD_REV, &rev);
+> +}
+> +
+>  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
+>  			      struct drm_connector *connector,
+>  			      enum drm_connector_status status)
+> @@ -1626,7 +1647,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *br=
+idge,
+>  		} else {
+>  			msm_dp_hpd_plug_handle(dp);
+>  		}
+> -	} else {
+> +	} else if (!msm_dp_display_is_dongle_plugged(dp, hpd_link_status)) {
+>  		msm_dp_hpd_unplug_handle(dp);
+>  	}
+
+[Severity: Medium]
+Can msm_dp_display_is_dongle_plugged() see a stale non-zero
+dp->link->sink_count when a downstream monitor is unplugged from an attached
+branch dongle?
+
+When a downstream monitor is disconnected and detection runs through
+drm_bridge_connector_detect() -> msm_dp_bridge_detect() without a prior
+native IRQ_HPD pulse updating dp->link->sink_count, msm_dp_bridge_detect()
+reads DP_SINK_COUNT =3D=3D 0 into a local variable and returns
+connector_status_disconnected while dp->link->sink_count remains >=3D 1.
+msm_dp_display_is_dongle_plugged() then returns false and
+msm_dp_bridge_hpd_notify() calls msm_dp_hpd_unplug_handle(), tearing down
+dp->plugged, AUX transfers, and runtime PM for the still-attached dongle.
 
 --=20
-Alastair D'Silva
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101417.2430=
+3-1-gianfranco.mariotti94@gmail.com?part=3D7
