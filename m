@@ -2,44 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E545606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:27:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B549606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:29:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UX+RWlr+
+	dkim=pass (2048-bit key, unprotected) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=nyGSkPRY
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 4180B10E07B;
-	Fri, 27 Nov 2026 16:27:18 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B781410E07B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 16:27:11 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 5ECB243CE6;
- Fri, 27 Nov 2026 16:27:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A47DB1F00893;
- Fri, 27 Nov 2026 16:27:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795796830;
- bh=+5uK595nRr/sn943YCkDPktJJ49OiwnDZhbJ7KWjkP4=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=UX+RWlr+9Gp4Y47L60qkZ9dFFqRWLRtaBwEeiJ174S7zRTQLMUfNBO6Z/DsUYhTzH
- cGCpYs8zXu2jVPjm58GM72hY5GhGAeeiimnbyjqEYFV1qKiSsxGot/GagEnrn31jFV
- R/7uNvVI+NcqSMDUFwcGKHaqGeqxMfiW7GmSPJSTz1txBF4yDqV2FuU40sw+Q4xk35
- vwR3sX20db0rjjAjQybRkQzdNg5hCQ2rrWYxgC3lluZoyaxcunAmE3VqoNApgxjGYl
- 2Azwy4bcy6PtdIBP12/KyK0N6XiLRWAjpWXFzOuj4+74vyMRG5t2r0hH271+fAXR2b
- gk2AqNxcm3hYw==
-Message-ID: <sashiko-outbox-237877@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] drm/bridge: inno-hdmi: Report hotplug through
- drm_bridge_hpd_notify()
-To: "Michal Wilczynski" <m.wilczynski@samsung.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127-inno-hdmi-ddc-of-node-v1-2-465622e1b7ad@samsung.com>
-References: <20261127-inno-hdmi-ddc-of-node-v1-0-465622e1b7ad@samsung.com>
- <CGME20261127161907eucas1p1686924e9c6528a60f5a0f030b39c8436@eucas1p1.samsung.com>
- <20261127-inno-hdmi-ddc-of-node-v1-2-465622e1b7ad@samsung.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6FBF810E19B;
+	Fri, 27 Nov 2026 16:29:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E60B310E19B;
+ Fri, 27 Nov 2026 16:29:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795796945; x=1827332945;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=8vUqsYqHXYNvIPyVuLyQr6VTY5KrYvaDNtrVhBKrUAQ=;
+ b=nyGSkPRYOp1bKdxLl4o5N2Jqae79paEIo12Aj4xkdUvckre10IvzXF52
+ F5FbL0M4pwgmVIoHPV9/bgOu94hPqIMcq98RWLt9MqmTriwWKIFkxWorB
+ hOKbRi2z5ceNt+rsB8fFtu/kBqPd47J5wpGmkybSafSEQnsH0rChZgbL7
+ lwLw+fv6DcJlYVR2A8lJzW4H+7hwPLx3+CexvdcSfMxfA0cZyag6g7MRb
+ 6quL2JrGtPmg2JMqy0z2jw5OM7hC+zKueGNXGm6oPZEE6iZc7ROMY6VE1
+ pxVlg/DTdS5euqS4Brrr1H4tDMB+XtmYtq79AgTKHzD/SpnB3ObqeuUA6 A==;
+X-CSE-ConnectionGUID: mzjDLWOkQh2BVIoPmHhUFw==
+X-CSE-MsgGUID: pH9QA18iR4KYyViX6QlEGw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4565895"
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
+   d="scan'208";a="4565895"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+ by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 08:29:05 -0800
+X-CSE-ConnectionGUID: jg/vKOpZRyOnnFZyNVYjPA==
+X-CSE-MsgGUID: 8jfKlTrXRUq3/TM9eV1kew==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12216674"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 08:29:03 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville Syrjala <ville.syrjala@linux.intel.com>,
+ dri-devel@lists.freedesktop.org
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/i915/bios: Attempt to match the VBT PnP ID
+ against DisplayID first
+In-Reply-To: <20261124224621.6506-3-ville.syrjala@linux.intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
+ <20261124224621.6506-3-ville.syrjala@linux.intel.com>
+Date: Fri, 27 Nov 2026 18:29:00 +0200
+Message-ID: <76c590b4a6156485f96ba751b2683851871842be@intel.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 16:27:10 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -50,85 +67,227 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found no new issues
-in this patch, but noticed 1 related pre-existing issue it does not
-introduce:
-- [High] drm/bridge: inno-hdmi: null pointer dereference in
-  inno_hdmi_i2c_xfer() [1]
---
+On Wed, 25 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>
+> The Windows driver policy appears to be now to first match the
+> VBT PnP ID against the DisplayID product ID block, and only if
+> there is no match (not even a partial one) then attempt to
+> match the against the EDID base block vendor/product ID.
+> Implement the same policy.
+>
+> We also need to implement the same weird scheme of just smashing
+> the first two bytes of the DisplayID three byte OUI into the
+> old EISA/PNPID field of the EDID defined structure. That is
+> then matched against the similar old EDID style structures in
+> the VBT.
+>
+> Smoke tested with a firmware override of EDID and VBT:
+>  [drm:get_panel_type [xe]] Panel type (VBT): 255
+>  [drm:pnpid_get_panel_type [xe]] DisplayID manufacturer name: NRA, produc=
+t code: 16826, serial number: 0, year of manufacture: 2014
+>  [drm:pnpid_get_panel_type [xe]] DisplayID raw product id: ba 41 ba 41 00=
+ 00 00 00 00 18
+>  [drm:get_panel_type [xe]] Panel type (PNPID DisplayID): 3
+>  [drm:pnpid_get_panel_type [xe]] EDID manufacturer name: SDC, product cod=
+e: 16826, serial number: 65441, year of manufacture: 2024
+>  [drm:pnpid_get_panel_type [xe]] EDID raw product id: 4c 83 ba 41 a1 ff 0=
+0 00 00 22
+>  [drm:get_panel_type [xe]] Panel type (fallback): 0
+>  [drm:get_panel_type [xe]] Selected panel type (PNPID DisplayID): 3
+>
+> Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8969
+> Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+> ---
+>  drivers/gpu/drm/i915/display/intel_bios.c | 81 ++++++++++++++++++-----
+>  1 file changed, 63 insertions(+), 18 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/=
+i915/display/intel_bios.c
+> index b77d1599482a..5b0fc87e7673 100644
+> --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> @@ -684,27 +684,22 @@ static int vbt_get_panel_type(struct intel_display =
+*display,
+>  }
+>=20=20
+>  static int pnpid_get_panel_type(struct intel_display *display,
+> -				const struct intel_bios_encoder_data *devdata,
+> -				const struct drm_edid *drm_edid, bool use_fallback)
+> +				const struct drm_edid_product_id *product_id,
+> +				const char *source)
+>  {
+>  	const struct bdb_lfp_data *data;
+>  	const struct bdb_lfp_data_ptrs *ptrs;
+> -	struct drm_edid_product_id product_id, product_id_nodate;
+> +	struct drm_edid_product_id product_id_nodate;
+>  	struct drm_printer p;
+>  	int i, best =3D -1;
+>=20=20
+> -	if (!drm_edid)
+> -		return -1;
+> +	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, source);
+> +	drm_edid_print_product_id(&p, product_id, true);
 
-commit 95253be01dd44552656110fd639d49c16e43c337
-Author: Michal Wilczynski <m.wilczynski@samsung.com>
+This will now print the wrong year for DisplayID, off by 10 years.
 
-drm/bridge: inno-hdmi: Report hotplug through drm_bridge_hpd_notify()
+[Unprintable words about not learning anything from Y2K.]
 
-This commit changes inno_hdmi_irq() to report hotplug events through
-drm_bridge_hpd_notify() and moves devm_request_threaded_irq() in
-inno_hdmi_bind() after devm_drm_bridge_add().
+I'm beginning to think we should have a separate struct that's not
+__packed or serialized, which can be initialized from either EDID or
+DisplayID. And have drm_edid_print_product_id() operate on that. But
+maybe it's a bit too much for this now.
 
-> diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/=
-inno-hdmi.c
-> index 3bdcacf3cbc84..bbc90ae9eaae0 100644
-> --- a/drivers/gpu/drm/bridge/inno-hdmi.c
-> +++ b/drivers/gpu/drm/bridge/inno-hdmi.c
+The EDID spec says the year is mandatory. The DisplayID spec says 0x00
+is a reserved value, but also contradicts itself by saying, "If the Year
+of Manufacture/Model Year field is not used, the byte would be cleared
+to all 0s."
 
-[ ... ]
+One approach is to make drm_edid_print_product_id() treat zero week and
+year as "not specified", basically incorrectly reporting displays
+manufactured in the year 1990. And then printing product_id_nodate
+here. Possibly an acceptable compromise?
 
-> @@ -1129,6 +1124,16 @@ struct inno_hdmi *inno_hdmi_bind(struct device *de=
-v,
->  	if (ret)
->  		return ERR_PTR(ret);
-> =20
-> +	/*
-> +	 * The hotplug handler takes the bridge's HPD mutex, which
-> +	 * drm_bridge_add() initialises, so request the interrupt only now.
-> +	 */
-> +	ret =3D devm_request_threaded_irq(dev, irq, inno_hdmi_hardirq,
-> +					inno_hdmi_irq, IRQF_SHARED,
-> +					dev_name(dev), hdmi);
-> +	if (ret)
-> +		return ERR_PTR(ret);
+I don't know. It's a mess.
+
+>=20=20
+> -	drm_edid_get_product_id(drm_edid, &product_id);
+> -
+> -	product_id_nodate =3D product_id;
+> +	product_id_nodate =3D *product_id;
+>  	product_id_nodate.week_of_manufacture =3D 0;
+>  	product_id_nodate.year_of_manufacture =3D 0;
+>=20=20
+> -	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, "EDID");
+> -	drm_edid_print_product_id(&p, &product_id, true);
+> -
+>  	ptrs =3D bdb_find_section(display, BDB_LFP_DATA_PTRS);
+>  	if (!ptrs)
+>  		return -1;
+> @@ -718,7 +713,7 @@ static int pnpid_get_panel_type(struct intel_display =
+*display,
+>  			get_lfp_pnp_id(data, ptrs, i);
+>=20=20
+>  		/* full match? */
+> -		if (!memcmp(vbt_id, &product_id, sizeof(*vbt_id)))
+> +		if (!memcmp(vbt_id, product_id, sizeof(*vbt_id)))
+>  			return i;
+>=20=20
+>  		/*
+> @@ -733,6 +728,48 @@ static int pnpid_get_panel_type(struct intel_display=
+ *display,
+>  	return best;
+>  }
+>=20=20
+> +static int pnpid_edid_get_panel_type(struct intel_display *display,
+> +				     const struct intel_bios_encoder_data *devdata,
+> +				     const struct drm_edid *drm_edid, bool use_fallback)
+> +{
+> +	struct drm_edid_product_id product_id;
 > +
->  	ret =3D drm_bridge_attach(encoder, &hdmi->bridge, NULL, DRM_BRIDGE_ATTA=
-CH_NO_CONNECTOR);
->  	if (ret)
->  		return ERR_PTR(ret);
+> +	if (!drm_edid)
+> +		return -1;
+> +
+> +	drm_edid_get_product_id(drm_edid, &product_id);
+> +
+> +	return pnpid_get_panel_type(display, &product_id, "EDID");
+> +}
+> +
+> +static int pnpid_displayid_get_panel_type(struct intel_display *display,
+> +					  const struct intel_bios_encoder_data *devdata,
+> +					  const struct drm_edid *drm_edid, bool use_fallback)
+> +{
+> +	struct drm_displayid_product_id displayid_id;
+> +	struct drm_edid_product_id product_id;
+> +
+> +	if (!drm_edid)
+> +		return -1;
+> +
+> +	drm_displayid_get_product_id(drm_edid, &displayid_id);
 
-[Severity: High]
-This problem wasn't introduced by this patch, but can
-inno_hdmi_i2c_adapter() race with a concurrent I2C transfer and cause a
-NULL pointer dereference in inno_hdmi_i2c_xfer() [1]?
+Having this return a value based on whether the product id was found or
+not would indeed be useful.
 
-Just before devm_drm_bridge_add(), inno_hdmi_bind() calls
-inno_hdmi_i2c_adapter(), which publishes the adapter via
-devm_i2c_add_adapter() before assigning hdmi->i2c:
+> +
+> +	/*
+> +	 * Only the first two bytes of the OUI get
+> +	 * smashed into the old EISA/PNPID field, and
+> +	 * that gets matched against what's in the VBT.
+> +	 */
+> +	product_id.manufacturer_name =3D
+> +		cpu_to_be16((displayid_id.vendor_id[0] << 8) |
+> +			    displayid_id.vendor_id[1]);
 
-CPU0                              CPU1
-inno_hdmi_i2c_adapter()
-  i2c_set_adapdata(adap, hdmi)
-  devm_i2c_add_adapter(..., adap)
-                                  inno_hdmi_i2c_xfer()
-                                    hdmi =3D i2c_get_adapdata(adap)
-                                    i2c =3D hdmi->i2c  <-- NULL
-                                    mutex_lock(&i2c->lock)
-  hdmi->i2c =3D i2c
+I'll take your word for this.
 
-If a transfer starts right after devm_i2c_add_adapter() registers the
-adapter, inno_hdmi_i2c_xfer() reads a NULL hdmi->i2c and dereferences it
-in mutex_lock(&i2c->lock).
+Apart from the comments, everything else looks good,
 
-[1] https://sashiko.dev/#/bug/linux-c25575e8-f25c-439d-83ee-81502085106c
+Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+
+> +	product_id.product_code =3D displayid_id.product_code;
+> +	product_id.serial_number =3D displayid_id.serial_number;
+> +	product_id.week_of_manufacture =3D displayid_id.week_of_manufacture;
+> +	product_id.year_of_manufacture =3D displayid_id.year_of_manufacture;
+> +
+> +	return pnpid_get_panel_type(display, &product_id, "DisplayID");
+> +}
+> +
+>  static int fallback_get_panel_type(struct intel_display *display,
+>  				   const struct intel_bios_encoder_data *devdata,
+>  				   const struct drm_edid *drm_edid, bool use_fallback)
+> @@ -743,7 +780,8 @@ static int fallback_get_panel_type(struct intel_displ=
+ay *display,
+>  enum panel_type {
+>  	PANEL_TYPE_OPREGION,
+>  	PANEL_TYPE_VBT,
+> -	PANEL_TYPE_PNPID,
+> +	PANEL_TYPE_PNPID_DISPLAYID,
+> +	PANEL_TYPE_PNPID_EDID,
+>  	PANEL_TYPE_FALLBACK,
+>  };
+>=20=20
+> @@ -766,9 +804,13 @@ static int get_panel_type(struct intel_display *disp=
+lay,
+>  			.name =3D "VBT",
+>  			.get_panel_type =3D vbt_get_panel_type,
+>  		},
+> -		[PANEL_TYPE_PNPID] =3D {
+> -			.name =3D "PNPID",
+> -			.get_panel_type =3D pnpid_get_panel_type,
+> +		[PANEL_TYPE_PNPID_DISPLAYID] =3D {
+> +			.name =3D "PNPID DisplayID",
+> +			.get_panel_type =3D pnpid_displayid_get_panel_type,
+> +		},
+> +		[PANEL_TYPE_PNPID_EDID] =3D {
+> +			.name =3D "PNPID EDID",
+> +			.get_panel_type =3D pnpid_edid_get_panel_type,
+>  		},
+>  		[PANEL_TYPE_FALLBACK] =3D {
+>  			.name =3D "fallback",
+> @@ -792,8 +834,11 @@ static int get_panel_type(struct intel_display *disp=
+lay,
+>  	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
+>  		i =3D PANEL_TYPE_OPREGION;
+>  	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
+> -		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
+> -		i =3D PANEL_TYPE_PNPID;
+> +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_DISPLAYID].panel_typ=
+e))
+> +		i =3D PANEL_TYPE_PNPID_DISPLAYID;
+> +	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
+> +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_EDID].panel_type))
+> +		i =3D PANEL_TYPE_PNPID_EDID;
+>  	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
+>  		i =3D PANEL_TYPE_VBT;
+>  	else
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-inno-hdmi-=
-ddc-of-node-v1-0-465622e1b7ad@samsung.com?part=3D2
+Jani Nikula, Intel
