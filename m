@@ -2,62 +2,61 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 309F9606A32C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4ED606A338
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:54:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Pny9fciZ
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DCHFbK4m
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C65A311291E;
+	by gabe.freedesktop.org (Postfix) with ESMTP id EA65111291F;
 	Fri, 27 Nov 2026 09:53:55 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3048110E56B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:53:33 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DD89B10E80E
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:53:29 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 193824166D;
- Fri, 27 Nov 2026 09:53:33 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00B471F000C1;
- Fri, 27 Nov 2026 09:53:31 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id C65974106F;
+ Fri, 27 Nov 2026 09:53:29 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D61A1F0089A;
+ Fri, 27 Nov 2026 09:53:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773212;
- bh=BhtTwakQWtgSZJXOvwDEeFMMlQVjXPLF5C6qOnOHtgU=;
- h=Date:From:To:Cc:Subject:References:In-Reply-To;
- b=Pny9fciZjUcKNV2chnlD3t7RI59NfzSFH65ftRtNycfh4D+BNgeca6d2IsvVbykh8
- Peu8ty5dyLYc2Qh5ID6blrya7kMNZ32VlsDJQvIOoDW96httkIkSW+++xIdLf63scU
- WrwmzuyR6zjWGyIkolH9zGSrD/H4ql4trv6nqJMLyWb1YMDs39YpGbSQiVZZd470g9
- FdP0SLTJfTTH30vL8e2+siKB4OujF07gZYNeFUP08xE+Eb80zZ1zMf+moMW1jF54kF
- PGRx8c9KQSm9fAQVt1Hdw3QEPtnvhCmsl1pOPDaSZJ+QmLOQNL1bt/wVWwn4IsmEhI
- 3zfeQL/Vb4hsQ==
-Date: Fri, 27 Nov 2026 10:53:29 +0100
+ s=k20260515; t=1795773209;
+ bh=46rwGOIr1WSEldYVuPd+sifEGeEC7phpZLBzCymqrP8=;
+ h=From:Date:Subject:References:In-Reply-To:To:Cc;
+ b=DCHFbK4mzJoC2OcTPM3wXnvea3eLOLdmIpnCgyYMDn1bAPqHNWJIi5QqkkXD/r7Lp
+ Ctbie+8gGK30EZ13wlbSYBfwxfV0FQ12UNFBpmHDmYaHRJr8B6DkwdWI+w0dWxPnIN
+ 2en4Q8mP8h9DR1Q3pDaknCgYO0L9UHXwgrzMgTEB6LHL+mctaYxtzP7bgeu0RApuSb
+ 025gtxYnxxlJpCgSF5ZnfORFS+sQTRzilLKyu+akKrPyCRBh9A+pwBk/cCyjADuWjS
+ JjfHgY4geHfG+djzwfUFmFRuib8sTGLw83qgm4TDwjZzsear8LOJyR6z8/HA7JH/Oq
+ xy4OK2nJ+9FoA==
 From: Maxime Ripard <mripard@kernel.org>
-To: =?utf-8?B?TcOgeGlt?= Pedraza Padilla <maximpedraza@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
- Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, 
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-Message-ID: <awlJD_6Ff2oGQ2bM@houat>
-References: <20261116142707.1299360-1-maximpedraza@gmail.com>
- <20261116142707.1299360-4-maximpedraza@gmail.com>
- <avs2dagfmQkv00H0@houat>
- <20261118212114.150992-1-maximpedraza@gmail.com>
- <20261124141119.441163-1-maximpedraza@gmail.com>
- <awau4IF7KE7hUg6U@houat>
- <20261125133150.507558-1-maximpedraza@gmail.com>
+Date: Fri, 27 Nov 2026 10:52:45 +0100
+Subject: [PATCH v10 03/36] drm/tests: hdmi-state-helper: Handle EDEADLK in
+ the color format test
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
- protocol="application/pgp-signature"; boundary="fzwyrulvhvot56sy"
-Content-Disposition: inline
-In-Reply-To: <20261125133150.507558-1-maximpedraza@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261127-drm-state-readout-v10-3-0259582d45a8@kernel.org>
+References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
+In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jyri Sarha <jyri.sarha@iki.fi>, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
+ Maxime Ripard <mripard@kernel.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2775; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=2zoDFF3Jb087rQHX1vYF1zxAqeV2u5e/4Qs1dwYBwzY=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcQX8rdOZeCpn0RvV/t8G51NipVSwqWcze/jbLbQ4se
+ bjOyPBsx1QWBmFOBlkxRZYnMmGnl7cvrnKwX/kDZg4rE8gQBi5OAZgIjzljvdeR1MOGeVo7Qu6/
+ WrJlrndHnFT6ribujKSl7vabzCOS9XbyTHQ/xGY13yZm0Z79wtqqjHU6vF+rDzaubbjyXFSm2mt
+ pysnJ+mYz9ohkX5p+/drypj2r9vfaT2CduINRS/t4fMPKU44A
+X-Developer-Key: i=mripard@kernel.org; a=openpgp;
+ fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -69,88 +68,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+The atomic state API is allowed to return -EDEADLK whenever the
+wound/wait mutex code detects a deadlock, and the caller is then
+expected to back off and restart the whole sequence.
 
---fzwyrulvhvot56sy
-Content-Type: text/plain; protected-headers=v1; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 3/4] drm/tilcdc: Implement state readout support
-MIME-Version: 1.0
+drm_test_check_hdmi_color_format() wasn't doing any of that, and
+reported a spurious failure when drm_atomic_set_crtc_for_connector()
+returned -EDEADLK, just like its 420-only counterpart fixed earlier.
+Since the ticket ordering depends on the execution, this could only be
+observed occasionally.
 
-Hi,
+The assertion also aborted before the locking context could be
+released, leaving connection_mutex held when the device was released,
+which drm_modeset_lock_fini() then reported through
+drm_mode_config_cleanup().
 
-On Wed, Nov 25, 2026 at 02:31:49PM +0100, M=E0xim Pedraza Padilla wrote:
-> On Wed, Nov 25, 2026 at 11:07:17AM +0100, Maxime Ripard wrote:
-> > > The tidss approach rounds the clock to the closest standard refresh r=
-ate.
-> > > Panels driven by tilcdc often don't use one: with the timings from its
-> > > datasheet, the panel on this board runs at 56.8 Hz (33.3 MHz), which =
-would
-> > > be read back as 60 Hz and 35.19 MHz. The adopted mode would then never
-> > > match the panel mode, even with U-Boot programming exactly the same o=
-ne.
-> >
-> > This is *very* surprising. Do you have the datasheet available somewher=
-e?
->=20
-> You were right to be surprised, I got it wrong, sorry. The datasheet
-> counts the sync pulse within the back porch: a line is 1056 clocks
-> (800 + 46 + 210) and a frame 525 lines (480 + 23 + 22), so 60.06 Hz at
-> 33.3 MHz. The board DT added the sync lengths on top of the porches,
-> hence the 56.8 Hz. The bootloader had the same mistake, and also ran the
-> panel at 16.94 MHz.
->=20
-> With the timings fixed, and the bootloader programming the same mode as
-> the kernel, the readout adopts exactly the DT mode (33300 kHz, 60 Hz),
-> and the first commit from userspace with that mode doesn't need a
-> modeset at all.
+Add the usual backoff and restart pattern.
 
-Awesome :)
+Fixes: f7235a4805a4 ("drm/tests: hdmi: Add tests for the color_format property")
+Signed-off-by: Maxime Ripard <mripard@kernel.org>
+---
+ drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-> > > So the readout keeps the actual rate (rounded to the nearest kHz), and
-> > > tilcdc's CRTC compare hook accepts a 1% difference on the pixel clock
-> > > before calling drm_atomic_helper_crtc_compare_state(). [...]
-> >
-> > Yes, that's why we need the above mentionned helper, and more generally
-> > why a lot of drivers allow some deviation from the clock.
->=20
-> If it helps, I can write that helper: dispc_find_closest_refresh_rate_fro=
-m_clk()
-> turned into a DRM helper, with the tolerance as a parameter since drivers
-> want different ones (5% for tidss, 0.5% for most). Something like:
->=20
-> 	int drm_mode_set_clock_from_rate(struct drm_display_mode *mode,
-> 					 unsigned long rate,
-> 					 unsigned int tolerance);
->=20
-> with the tolerance in per mille, so 0.5% can be expressed. It would fill
-> mode->clock with the ideal clock of the closest standard refresh rate, or
-> return an error if none is close enough. tidss would then use it, and so
-> would tilcdc instead of its own compare hook. I'm also fine with you
-> folding it into your series if you'd rather do it yourself, just let me
-> know.
+diff --git a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+index 395a31171bd3..acfa0932a6dc 100644
+--- a/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
++++ b/drivers/gpu/drm/tests/drm_hdmi_state_helper_test.c
+@@ -2296,33 +2296,47 @@ static void drm_test_check_hdmi_color_format(struct kunit *test)
+ 	KUNIT_ASSERT_TRUE(test, drm_mode_is_420(info, preferred));
+ 
+ 	state = drm_kunit_helper_atomic_state_alloc(test, &priv->drm, &ctx);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, state);
+ 
++retry:
+ 	conn_state = drm_atomic_get_connector_state(state, &priv->connector);
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, conn_state);
+ 
+ 	conn_state->color_format = param->fmt;
+ 
+ 	ret = drm_atomic_set_crtc_for_connector(conn_state, priv->crtc);
++	if (ret == -EDEADLK)
++		goto backoff;
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+ 	crtc_state = drm_atomic_get_crtc_state(state, priv->crtc);
++	if (IS_ERR(crtc_state) && PTR_ERR(crtc_state) == -EDEADLK)
++		goto backoff;
+ 	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, crtc_state);
+ 
+ 	ret = drm_atomic_set_mode_for_crtc(crtc_state, preferred);
+ 	KUNIT_ASSERT_EQ(test, ret, 0);
+ 
+ 	crtc_state->enable = true;
+ 	crtc_state->active = true;
+ 
+ 	ret = drm_atomic_check_only(state);
++	if (ret == -EDEADLK)
++		goto backoff;
+ 	KUNIT_EXPECT_EQ(test, ret, param->expected_ret);
+ 	KUNIT_EXPECT_EQ(test, conn_state->hdmi.output_format, param->expected);
+ 
+ 	drm_modeset_drop_locks(&ctx);
+ 	drm_modeset_acquire_fini(&ctx);
++
++	return;
++
++backoff:
++	drm_atomic_commit_clear(state);
++	drm_modeset_backoff(&ctx);
++	goto retry;
+ }
+ 
+ static const struct color_format_test_param hdmi_color_format_params[] = {
+ 	{
+ 		.fmt = DRM_CONNECTOR_COLOR_FORMAT_AUTO,
 
-This is part of v10 now, together with some unit tests.
+-- 
+2.56.1
 
-Maxime
-
---fzwyrulvhvot56sy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCawlTGAAKCRAnX84Zoj2+
-dsusAX4polzpDxLM/JzsPTZ+aWWNCgNuR3Pls8tn7dg+ZaT49xEUpX3up2WAlDhe
-LX/H/OEBgNgVsDrYu+c3dmtUbaLwAjl7aODJRJ8YMj1eHFBQ5UftUpVr9aK575y5
-wc+LXEq75g==
-=JxUI
------END PGP SIGNATURE-----
-
---fzwyrulvhvot56sy--
