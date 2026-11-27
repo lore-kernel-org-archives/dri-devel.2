@@ -2,80 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6DDC606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:19:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFDDF606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:20:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.a=rsa-sha256 header.s=mail20170921 header.b=TbudbJfN
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=CeiOKUj3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E9A8A112BFE;
-	Fri, 27 Nov 2026 16:19:37 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 833E6112C09
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 16:19:09 +0000 (UTC)
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20261127161908euoutp018222750d7dc5ae8816e1784d5112ff08~r80Ot4MFe2721927219euoutp01M
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 16:19:08 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20261127161908euoutp018222750d7dc5ae8816e1784d5112ff08~r80Ot4MFe2721927219euoutp01M
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
- s=mail20170921; t=1795796348;
- bh=hW4PnFCT49QnJHLHRZYt9yWGbDa7JaYp1uG9G1RshfE=;
- h=From:Date:Subject:In-Reply-To:To:Cc:References:From;
- b=TbudbJfN2KEAcseLCdqwwdr/3N0wOH56zgL2BIimSzpkBxuP/owSfOiCEhof6SP2C
- MiUaDOnX9CG+igbpmtHKVvakO0UfRcR5O2R1KPGRA2LdUyj1tOB3B0CQ7X9vCoZtbo
- Am8wlPKUb0JuspNHw5s4QNGgclbyXZMM+UasxgR8=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20261127161908eucas1p2fae4a07f1d72df6f675b1e4015727f13~r80OX2Anv1885618856eucas1p2L;
- Fri, 27 Nov 2026 16:19:08 +0000 (GMT)
-Received: from AMDC4942.eu.corp.samsungelectronics.net (unknown
- [106.210.136.40]) by eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20261127161907eusmtip2fc9fbad8311ea1a87aa12e400dd147cb~r80Ngzdhl2969229692eusmtip26;
- Fri, 27 Nov 2026 16:19:07 +0000 (GMT)
-From: Michal Wilczynski <m.wilczynski@samsung.com>
-Date: Fri, 27 Nov 2026 17:19:01 +0100
-Subject: [PATCH 3/3] drm/bridge: inno-hdmi: Don't give the DDC adapter an OF
- node
+	by gabe.freedesktop.org (Postfix) with ESMTP id 27E30112C12;
+	Fri, 27 Nov 2026 16:20:54 +0000 (UTC)
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+ by gabe.freedesktop.org (Postfix) with ESMTP id EBB9B112C12
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 16:20:47 +0000 (UTC)
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+ by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8D2C41570;
+ Fri, 27 Nov 2026 08:20:44 -0800 (PST)
+Received: from [10.0.129.128] (e122027.cambridge.arm.com [10.0.129.128])
+ by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id E60123F632;
+ Fri, 27 Nov 2026 08:20:42 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+ t=1795796447; bh=YWYVJy6Zcj9T84QCaab6JYnUa5XB+sHSowf3FjvcGBM=;
+ h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+ b=CeiOKUj33P9EF1X+JNoBQhYtrJosCaT77qK+d0WZVUgKQm79E9K4QNYhMDqRs0pCE
+ LFfyZOHUVxsM6YfM/Q/0lyxyw0INTOo7YgBb/eAATimHahf1DvcGcMsCdjJdg64GWy
+ eQ6oyfgP0NxgCIK/Sh9UANOqD1az5Wfbl/zeRzxs=
+Message-ID: <819cab19-0756-4ba2-806a-dbeb7c5c2474@arm.com>
+Date: Fri, 27 Nov 2026 16:20:40 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] drm/panthor: Don't access gpu_contexts of a destroyed
+ heap pool
+To: Jiwoo Kim <arpe1618@gmail.com>,
+ Boris Brezillon <boris.brezillon@collabora.com>,
+ Liviu Dudau <liviu.dudau@arm.com>
+Cc: Akash Goel <akash.goel@arm.com>, Karunika Choo <karunika.choo@arm.com>,
+ Lukas Zapolskas <lukas.zapolskas@arm.com>,
+ Chris Diamand <chris.diamand@arm.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20261113162648.110226253-1-arpe1618@gmail.com_quarantine>
+From: Steven Price <steven.price@arm.com>
+Content-Language: en-GB
+In-Reply-To: <20261113162648.110226253-1-arpe1618@gmail.com_quarantine>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-inno-hdmi-ddc-of-node-v1-3-465622e1b7ad@samsung.com>
-In-Reply-To: <20261127-inno-hdmi-ddc-of-node-v1-0-465622e1b7ad@samsung.com>
-To: Andy Yan <andyshrk@163.com>, Neil Armstrong <neil.armstrong@linaro.org>,
- Robert Foss <rfoss@kernel.org>,  Laurent Pinchart
- <Laurent.pinchart@ideasonboard.com>,  Jernej Skrabec
- <jernej.skrabec@gmail.com>,  Luca Ceresoli <luca.ceresoli@bootlin.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,  Maxime Ripard
- <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,  David Airlie
- <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,  Yakir Yang
- <kuankuan.y@gmail.com>, Dmitry Baryshkov <lumag@kernel.org>,  Heiko Stuebner
- <heiko@sntech.de>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,  Maud Spierings
- <maud_spierings@murena.io>,  Byron Stanoszek <gandalf@winds.org>, Dominique
- Belhachemi <db@domibel.de>,  Owen O'Hehir <oo.hehir@gmail.com>,  Michal
- Wilczynski <m.wilczynski@samsung.com>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1611;
- i=m.wilczynski@samsung.com; h=from:subject:message-id;
- bh=PekPu8YIeS97KeLHxN3IfvfgL2ZCxwDu1aOL1IF9Aio=;
- b=owGbwMvMwCGWumv6zndzRCIZT6slMWRzri1fLcSmmGKvGXY7KeviEk6XVxoSnKo+1w1/t+Xzc
- f0qeZXbUcrCIMbBICumyHJ2Y7SR5D+Gp+XHH/+CmcPKBDKEgYtTACbyV4Xhn0r+v+W/WJwebM9Z
- wfc/LG3P25ePnF56euxSVnvMUbu9O4/hf0j183bZlVf2cX1c8uZm9cPKp/Uv4vX3TWZMYDWLVIn
- JZgEA
-X-Developer-Key: i=m.wilczynski@samsung.com; a=openpgp;
- fpr=CDB15B3219FE00E577C7E3FA65BA97B9EE9C1459
-X-CMS-MailID: 20261127161908eucas1p2fae4a07f1d72df6f675b1e4015727f13
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261127161908eucas1p2fae4a07f1d72df6f675b1e4015727f13
-X-EPHeader: CA
-X-CMS-RootMailID: 20261127161908eucas1p2fae4a07f1d72df6f675b1e4015727f13
-References: <20261127-inno-hdmi-ddc-of-node-v1-0-465622e1b7ad@samsung.com>
- <CGME20261127161908eucas1p2fae4a07f1d72df6f675b1e4015727f13@eucas1p2.samsung.com>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,47 +59,152 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-inno_hdmi_i2c_adapter() sets the DDC adapter's of_node to the HDMI
-controller's node. When the adapter is registered, the I2C core then
-tries to create an I2C client for every child of that node. On RK3036,
-RK3128 and the JH7110 the only child is the OF graph 'ports' node, which
-is not an I2C device, so each boot logs, here on the JH7110:
+On 13/11/2026 16:26, Jiwoo Kim wrote:
+> panthor_heap_grow() and panthor_heap_return_chunk() compute the heap
+> context offset from pool->gpu_contexts before taking pool->lock.
+> 
+> The tiler OOM work holds references on the group, its VM and the heap
+> pool when it calls these functions, but nothing stops
+> panthor_vm_destroy() from destroying the pool in the meantime.
+> panthor_heap_pool_destroy() frees the gpu_contexts BO under pool->lock
+> and marks the pool as destroyed by clearing pool->vm, but leaves
+> pool->gpu_contexts pointing to the freed BO. VM destruction doesn't
+> wait for the work either: panthor_sched_prepare_for_vm_destruction()
+> only flushes the scheduler tick work, and only when the VM is active,
+> and evicting the group doesn't help, as group_unbind_locked() uses
+> cancel_work(), which doesn't wait for a tiler OOM work that is already
+> running. Such a work can then read the freed BO.
+> 
+> Take pool->lock before dereferencing pool->gpu_contexts, and return
+> -EINVAL if the pool has been destroyed, as panthor_heap_create()
+> already does.
+> 
+> The problem was found through AI-assisted source code review. The fix
+> is compile-tested only and there is no reproducer, as I don't have
+> Mali CSF hardware.
 
-  i2c i2c-7: of_i2c: modalias failure on .../controller/ports
-  i2c i2c-7: Failed to create I2C device for .../controller/ports
+This does look plausible, and doesn't break my hardware ;) I'm not sure
+how to actually test the described issue, so I haven't been able to test
+that.
 
-Nothing on the DDC bus is described in DT, and nothing looks the
-adapter up by its node, so don't assign one, as dw-hdmi doesn't either.
+> Fixes: 9cca48fa4f89 ("drm/panthor: Add the heap logical block")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Claude:claude-opus-5-5
 
-Fixes: 412d4ae6b7a5 ("drm/rockchip: hdmi: add Innosilicon HDMI support")
-Reported-by: Owen O'Hehir <oo.hehir@gmail.com>
-Closes: https://lore.kernel.org/all/20261012175941.258219-1-electronicconsult1@gmail.com/
-Signed-off-by: Michal Wilczynski <m.wilczynski@samsung.com>
----
- drivers/gpu/drm/bridge/inno-hdmi.c | 1 -
- 1 file changed, 1 deletion(-)
+Note that the requirement to include "Assisted-by" for LLM patches was
+dropped (and checkpatch now complains about these tags).
 
-diff --git a/drivers/gpu/drm/bridge/inno-hdmi.c b/drivers/gpu/drm/bridge/inno-hdmi.c
-index bbc90ae9eaae04166d502c05fde52e126462b8be..bf39483d483e00ccef0daefb80f6579d5c86815a 100644
---- a/drivers/gpu/drm/bridge/inno-hdmi.c
-+++ b/drivers/gpu/drm/bridge/inno-hdmi.c
-@@ -1044,7 +1044,6 @@ static struct i2c_adapter *inno_hdmi_i2c_adapter(struct inno_hdmi *hdmi)
- 	adap = &i2c->adap;
- 	adap->owner = THIS_MODULE;
- 	adap->dev.parent = hdmi->dev;
--	adap->dev.of_node = hdmi->dev->of_node;
- 	adap->algo = &inno_hdmi_algorithm;
- 	strscpy(adap->name, "Inno HDMI", sizeof(adap->name));
- 	i2c_set_adapdata(adap, hdmi);
+> Signed-off-by: Jiwoo Kim <arpe1618@gmail.com>
 
--- 
-2.34.1
+Reviewed-by: Steven Price <steven.price@arm.com>
+
+Thanks,
+Steve
+
+> ---
+> 
+> Notes:
+>     This conflicts trivially with Osama Abdelkader's pending "drm/panthor:
+>     Fix race when retrieving the new chunk in panthor_heap_grow()", as both
+>     change the local variables at the top of panthor_heap_grow(). I can
+>     rebase on top of it if it lands first.
+>     
+>     While looking at this, I also noticed that panthor_heap_create() reads
+>     pool->vm without pool->lock when allocating the initial chunks, in
+>     panthor_alloc_heap_chunk(), so a concurrent VM destroy can make
+>     panthor_kernel_bo_create() hit its drm_WARN_ON(!vm). That doesn't touch
+>     freed memory and is left for a separate patch.
+> 
+>  drivers/gpu/drm/panthor/panthor_heap.c | 44 +++++++++++++++++++-------
+>  1 file changed, 33 insertions(+), 11 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/panthor/panthor_heap.c b/drivers/gpu/drm/panthor/panthor_heap.c
+> index 99311abdf1..e55f7e648d 100644
+> --- a/drivers/gpu/drm/panthor/panthor_heap.c
+> +++ b/drivers/gpu/drm/panthor/panthor_heap.c
+> @@ -90,7 +90,7 @@ struct panthor_heap_pool {
+>  	/** @vm: VM this pool is bound to. */
+>  	struct panthor_vm *vm;
+>  
+> -	/** @lock: Lock protecting access to @xa. */
+> +	/** @lock: Lock protecting access to @xa, @vm and @gpu_contexts. */
+>  	struct rw_semaphore lock;
+>  
+>  	/** @xa: Array storing panthor_heap objects. */
+> @@ -371,16 +371,27 @@ int panthor_heap_return_chunk(struct panthor_heap_pool *pool,
+>  			      u64 heap_gpu_va,
+>  			      u64 chunk_gpu_va)
+>  {
+> -	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+> -	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+>  	struct panthor_heap_chunk *chunk, *tmp, *removed = NULL;
+>  	struct panthor_heap *heap;
+> +	u32 heap_id;
+> +	u64 offset;
+>  	int ret;
+>  
+> -	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+> -		return -EINVAL;
+> -
+>  	down_read(&pool->lock);
+> +
+> +	/* The heap contexts are gone if the pool has been destroyed. */
+> +	if (!pool->vm) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+> +	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+> +	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+>  	heap = xa_load(&pool->xa, heap_id);
+>  	if (!heap) {
+>  		ret = -EINVAL;
+> @@ -435,16 +446,27 @@ int panthor_heap_grow(struct panthor_heap_pool *pool,
+>  		      u32 pending_frag_count,
+>  		      u64 *new_chunk_gpu_va)
+>  {
+> -	u64 offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+> -	u32 heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+>  	struct panthor_heap_chunk *chunk;
+>  	struct panthor_heap *heap;
+> +	u32 heap_id;
+> +	u64 offset;
+>  	int ret;
+>  
+> -	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL)
+> -		return -EINVAL;
+> -
+>  	down_read(&pool->lock);
+> +
+> +	/* The heap contexts are gone if the pool has been destroyed. */
+> +	if (!pool->vm) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+> +	offset = heap_gpu_va - panthor_kernel_bo_gpuva(pool->gpu_contexts);
+> +	heap_id = (u32)offset / panthor_heap_ctx_stride(pool->ptdev);
+> +	if (offset > U32_MAX || heap_id >= MAX_HEAPS_PER_POOL) {
+> +		ret = -EINVAL;
+> +		goto out_unlock;
+> +	}
+> +
+>  	heap = xa_load(&pool->xa, heap_id);
+>  	if (!heap) {
+>  		ret = -EINVAL;
+> 
+> base-commit: bafda823590ddf7031ecb765d673572fae7ab44a
 
