@@ -2,79 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B502606A31C
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C06606A326
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=KfKnyK9c
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=XuFVFQdE
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 88E4210E5A4;
-	Sat, 28 Nov 2026 09:41:13 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 61F6010EB17
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 23:41:57 +0000 (UTC)
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-4bb69f5b161so56882015e9.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:41:57 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795822916; x=1796427716; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=NQVMeYk3238ZN7qJr+WJxeI68VVfmiTTOo9wXCm9I/o=;
- b=KfKnyK9c16fAn8YS/6akkdadDjaYKLS4QQMPyV5ROdytwPk2aomE0CCwgGdTmqDGIw
- lLuWI0qnwBuA+ea28U/mDr8X9xGhe7MrxeJsjTQcnGTS5qxiO/RPs75bL2IBWyZh7juX
- eyFdP9dUq94XARQIOI3dI4vJ8fhBE4VjBCQ6YqnGcQtD63YSfyj7bzg+aO//ZL84s+N7
- LM5RGPRLISCVQgN/CmWdPbYOq718fecKc0RjouwSafc5LDM0F5Lb8L8w+Eq/iUXR6w1f
- z+2XZ+7BKwhTt2wIXn2lVmHyps5fMRqs8WkCHIQBp5xID1wtCbsUR2nk1r7Gxo6YvoCB
- 788A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795822916; x=1796427716;
- h=content-transfer-encoding:content-type:mime-version:message-id:date
- :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=NQVMeYk3238ZN7qJr+WJxeI68VVfmiTTOo9wXCm9I/o=;
- b=QarxddwdzwXZMRGIQwd9GyhvcRAxY+XB86fWORS3p60yO0wwIAkl7hC4ZSYnVSrG/p
- 65L/Irx0qgmeze5Zqgf5XiKVzafFujEmmIo4dtuOHDQwXaw2ofWPKwhEKeUxgeCQf+ez
- QWZYajfJY6VY08IdGkomobjaI54CATFLxm91lTbWzVS6NOeL4bpk3ECDbxHx9yaoGqYB
- XRSKKy2OLDQnCwhd+5qk0gphEgy4R8d3GvEtSaa1ZE5S6OpRLv0tiLndP+fImkpjZAzo
- 521G1zkJws86tikIlG3ziLOFqMMadBleNvZaESBfPdbr15VUkOOnzHgBiVfF3fN2zziq
- X36g==
-X-Forwarded-Encrypted: i=1;
- AL+hErEwx9rvw528rbfaMZMbOB03BEok0057sJ7b1AWnMYyGC5pmvooMokjuZkC7HkRL+HTe3ZldJWNlKSE=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/a7etq5UtSVx/VW/8FarAJdiFwP2Zu1KlLyPscpLXI3JpmZ2Ni
- kvMA2Yo+gNMug8cFOjW8q7NWz+/6ore36KXsRlJXVk+40kQJd5l88iMR
-X-Gm-Gg: AZFdTZfIxUqQSKaSW/NWXf8/YjwgoQZ3aS+piKFQiVVhg7EvJIBY4WhGXP8xtV/uNA8
- jzVJtarBWuz8kpjxyaetiquofDanIlRltzq0uLHK9iO8HRIU6CtfwHD6XpKMnwmrxMXNcjTntKb
- OymXSI9EnZAm/JObxPBW/rUNH4L4rSdig2Qhxk6r6bg4qD1RdkzcazBWujJSCXHIRgkHTg8OC1L
- 4q9KV1Y170+EyomyLUkdu6fpay0efB1Yq8yqDUzXRo6YS2bqfMsEomXN2ZcmZpVmYmLhssV3V+4
- YuATNgvmf2jQygeaKml8to7Nx6kL8hiOh/ZFHsea8ylxmpd0PyzpiXXEt5rx6N+uRr4G9KQQF5y
- V2VBRPdj1NrFRJowfnnA6R3FTHBDWdh8oSGaBDD/l/zJ8h426Gu+CK6N92oDiGyJTSc52PtevRU
- BLbxvt7Iskv8mOu6Jk2JN8CZ6GfA58fFBWagBHdPEqwS1pGIyl2kZJ7Be7AMYhnJQzIgVpxhiCs
- VZi5z8zvA91LWkg4JlDSnhF3W01vwnLoBtmHCnD1ITs/PYiVilckf1aJf/BmJlrsw88uICQSSMZ
- 2mk9gWKLCHzDzzVxffwciYgnX808bxWXA7etxcJBmswX1U3YKOi+DKb03IHWlnsc48rjeZcxOzi
- 4e3Cx
-X-Received: by 2002:a05:600c:5308:b0:4bb:76d6:1f5d with SMTP id
- 5b1f17b1804b1-4bb887ca192mr532417645e9.2.1795822915457; 
- Fri, 27 Nov 2026 15:41:55 -0800 (PST)
-Received: from utux ([86.49.161.202]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb853b216esm789171825e9.12.2026.11.27.15.41.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 15:41:53 -0800 (PST)
-From: =?UTF-8?q?Lud=C4=9Bk=20Habarta?= <habarta.ludek@gmail.com>
-To: lyude@redhat.com,
-	dakr@kernel.org
-Cc: airlied@redhat.com, nouveau@lists.freedesktop.org,
- dri-devel@lists.freedesktop.org, stable@vger.kernel.org,
- =?UTF-8?q?Lud=C4=9Bk=20Habarta?= <habarta.ludek@gmail.com>
-Subject: [PATCH] drm/nouveau: fix 64-bit divisor truncation in DP SST
- calculation
-Date: Sat, 28 Nov 2026 00:41:26 +0100
-Message-ID: <20261127234126.4539-1-habarta.ludek@gmail.com>
-X-Mailer: git-send-email 2.56.1
+	by gabe.freedesktop.org (Postfix) with ESMTP id A216A10E5B7;
+	Sat, 28 Nov 2026 09:41:23 +0000 (UTC)
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B2FE510E045;
+ Fri, 27 Nov 2026 11:30:22 +0000 (UTC)
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTPS id 653A520DC832;
+ Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTP id 3FF9320DC64F;
+ Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 3FF9320DC64F
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+ s=573E3878-7916-11F1-BF4B-F68474317960; t=1795779021;
+ bh=K5Swrz1cA4/FZhj9LgmmqfX1toxT4yNd5HBltxE7hfU=;
+ h=From:To:Date:Message-ID:MIME-Version;
+ b=XuFVFQdETYRurfvSIC5qxXpI0J3JWM1KxGu6CKVm8B24p0OzAIO4CdmfHuEo2cG47
+ pCzshr0OSXqA1ZyiJ2sxQN1Vd993ZrcSox0RH+ktSSqS4lfOKn8XTqhb6n/O2zbCbu
+ Vgd9fUCz84SrmPBgFRL8aX0roGhygn/xqFbaD7xyspPEJhhqnSJIV2hM9uODeGWQ/L
+ OWVimU2+Ind7OPjyHfRXvbXcDNHT2uzfiih0s3HVgotlNNbwik5btXfaxNNT0jVrAi
+ /EBFv5rGEPJH5L9k1t4E/tPtzUFAbXZWNii2EHrO4WzpUSCZxJ5VfnXszCufLc9AFl
+ krk5ytvI4MSyA==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id Fz9y9CjViu0B; Fri, 27 Nov 2026 12:30:21 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
+ [78.196.243.100])
+ by retz.cirad.fr (Postfix) with ESMTPSA id D751920DC832;
+ Fri, 27 Nov 2026 12:30:20 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>,
+ =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>,
+ stable@vger.kernel.org
+Subject: [PATCH v2] drm/nouveau/fifo/gf100-: reset the faulting engine even if
+ it switched channels
+Date: Fri, 27 Nov 2026 12:30:05 +0100
+Message-ID: <20261127113005.981725-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 28 Nov 2026 09:41:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -87,55 +64,207 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The DP SST watermark calculation uses div_u64() to divide ratioF
-by the total link bandwidth. However, div_u64() takes a 32-bit
-divisor, while the calculated bandwidth can exceed U32_MAX.
+When an engine reports an MMU fault, recovery flags the faulting
+channel group and nvkm_runl_rc() resets only the engines whose current
+context (cxid) belongs to a flagged group.  On Fermi the fault can be
+reported after GR has started switching to another channel: the engine
+status then reads e.g. 0x01140003 (not busy, chid 3) while channel 4
+faulted, so GR is not reset, stays stalled on the fault, and the
+runlist update never completes:
 
-For a four-lane HBR3 link, the divisor is 25920000000, which
-is truncated to 150196224. This results in ratioF exceeding
-PrecisionFactor and causes nv50_sor_dp_watermark_sst() to
-return prematurely without configuring the DP SST stream.
+  fifo: fault 01 [WRITE] at 0 engine 00 [PGRAPH] client 0f [GPC0/PROP] re=
+ason 02 [PAGE_NOT_PRESENT] on channel 4
+  object-namespac[1768]: channel 4 killed!
+  fifo:000000:00[      gr]: 01140003: busy 0 save 1 unk0 0 unk1 0 chid 3
+  fifo:000000:00[      gr]: cxid not valid
+  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/nv50.c:228 at nv50_ru=
+nl_wait+0xe8/0x100 [nouveau]
+  fifo: SCHED_ERROR 0d []
+  WARNING: drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c:251 at nvkm_ru=
+nl_preempt_wait+0xf7/0x110 [nouveau]
 
-This was observed on an NVIDIA GA102 (GeForce RTX 3080) with
-GSP firmware 570.144 and a Dell AW5520QF connected via
-DisplayPort. Video output worked, but audio remained silent
-despite valid ELD data and successful ALSA playback.
+After that no channel makes progress: the whole GPU is dead until a
+reboot, and processes using it hang in D state.
 
-Use div64_u64() to preserve the full 64-bit divisor, restoring
-the original arithmetic semantics before the conversion to
-kernel division helpers.
+Record in the channel group which engines reported a fault for it.  The
+recovery pass that takes the group from pending to running collects
+that mask, and resets those engines regardless of what their status
+says.  Resetting GR may discard the context being switched in, but that
+is far better than losing the GPU.
 
-Tested on GA102 with Linux 7.3.6. DisplayPort audio works
-after the fix at 3840x2160 and 120 Hz.
+Faults reported for a group whose recovery is already running are
+recorded but never acted on: as before, such a group is not recovered
+again, and keeping the mask with the group means a later recovery of
+another group cannot reset an engine on its behalf.
 
-Fixes: 7e6bd6409b66 ("nouveau/disp: fix post-gsp build on 32-bit arm.")
+Tested on a Quadro 600 (GF108): a program that faults (piglit
+"object-namespace-pollution glClearTexSubImage texture") while three
+other processes keep GR busy hangs the GPU within one to three faults
+without this patch.  With it, 20 of 20 faults recovered (17 of them hit
+the state above), with no runlist timeouts, and the GPU kept working.
+On an NVS 315 (GF119) the same test hangs the GPU at the first fault
+without this patch; with it, 20 of 20 rounds completed, every fault was
+recovered, and the GPU kept working.
+
+Written with help from Claude (Anthropic); reviewed and tested on hardwar=
+e.
+
+Fixes: 4d60100a23ec ("drm/nouveau/fifo: add common channel recovery")
 Cc: stable@vger.kernel.org
-Signed-off-by: Luděk Habarta <habarta.ludek@gmail.com>
+Signed-off-by: Fr=C3=A9d=C3=A9ric Mah=C3=A9 <frederic.mahe@cirad.fr>
 ---
- drivers/gpu/drm/nouveau/dispnv50/disp.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v2: keep the faulting engines in the channel group (cgrp->rc_engm)
+instead of a per-engine flag, and consume them only in the recovery
+pass that takes that group into recovery.  v1 could leave the flag set
+when a second fault arrived for a group already in recovery, so that a
+later recovery of another group would reset the engine; it could also
+let a pass already in progress reset an engine for a group whose
+channels it had not removed yet.  Both reported by the Sashiko review of
+v1.  rc_engm is initialised explicitly, as nvkm_cgrp_new() uses kmalloc.
+v2 was tested again on the Quadro 600 (GF108): the piglit test above
+recovered 20 of 20 faults (17 in the state above); "nv-mmu-fault -e
+noctx" (below) recovered 60 of 60 runs, plus 20 of 20 with fifo debug
+output, where GR was reset every time through the new mask (its status
+held no valid context); "-e gr" under load recovered 2 x 40 of 40.  No
+runlist timeouts.  The NVS 315 numbers are from v1.
+v1: https://lore.kernel.org/nouveau/20261126175531.916097-1-frederic.mahe=
+@cirad.fr/
 
-diff --git a/drivers/gpu/drm/nouveau/dispnv50/disp.c b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-index e91130f93db6..7634147c01ac 100644
---- a/drivers/gpu/drm/nouveau/dispnv50/disp.c
-+++ b/drivers/gpu/drm/nouveau/dispnv50/disp.c
-@@ -1661,7 +1661,7 @@ nv50_sor_dp_watermark_sst(struct nouveau_encoder *outp,
- 	//
- 	ratioF = div_u64((u64)pixelClockHz * depth * PrecisionFactor, DSC_FACTOR);
- 
--	ratioF = div_u64(ratioF, 8 * (u64) minRate * outp->dp.link_nr);
-+	ratioF = div64_u64(ratioF, 8 * minRate * outp->dp.link_nr);
- 
- 	if (PrecisionFactor < ratioF) // Assert if we will end up with a negative number in below
- 		return false;
--- 
-2.56.1
+Tested on GF108 and GF119 only. gf100_fifo_mmu_fault_recover() is also us=
+ed by
+gk104, gm107, gv100 and tu102 (non-GSP), so the change applies to those
+too; feedback from such hardware is welcome.
+
+A small libdrm program reproduces this without Mesa or piglit
+(nv-mmu-fault.c, available on request):
+
+  nv-mmu-fault -e noctx
+
+sends one graphics method on a channel that has no graphics object.
+PGRAPH's context-switch unit then faults (READ at 0, HUB/CTXCTL)
+while the engine status no longer names the channel. On an NVS 315
+(GF119), without this patch the GPU is dead after the first run;
+with it, 60 of 60 runs recovered. "nv-mmu-fault -e gr" in a loop
+with three processes keeping PGRAPH busy gives the WRITE fault of
+the log above: dead at the 4th fault without the patch, 40 of 40
+recovered with it.
+
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c  |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h  |  1 +
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c | 11 +++++++++--
+ drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c  | 15 ++++++++++++---
+ 4 files changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/cgrp.c
+index 7e2d5711a..93b79bcaf 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.c
+@@ -241,6 +241,7 @@ nvkm_cgrp_new(struct nvkm_runl *runl, const char *nam=
+e, struct nvkm_vmm *vmm, bo
+ 	INIT_LIST_HEAD(&cgrp->vctxs);
+ 	mutex_init(&cgrp->mutex);
+ 	atomic_set(&cgrp->rc, NVKM_CGRP_RC_NONE);
++	atomic_set(&cgrp->rc_engm, 0);
+=20
+ 	if (runl->cgid) {
+ 		cgrp->id =3D nvkm_chid_get(runl->cgid, cgrp);
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/cgrp.h
+index 5f6abd59a..e7e6abe9e 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/cgrp.h
+@@ -50,6 +50,7 @@ struct nvkm_cgrp {
+ #define NVKM_CGRP_RC_PENDING 1
+ #define NVKM_CGRP_RC_RUNNING 2
+ 	atomic_t rc;
++	atomic_t rc_engm; /* engines that faulted on the group, reset during it=
+s RC */
+=20
+ 	struct list_head head;
+ };
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c b/drivers/g=
+pu/drm/nouveau/nvkm/engine/fifo/gf100.c
+index e4a4fad2e..b12f7d396 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/gf100.c
+@@ -597,9 +597,16 @@ gf100_fifo_mmu_fault_recover(struct nvkm_fifo *fifo,=
+ struct nvkm_fault_data *inf
+ 		   info->reason, er ? er->name : "",
+ 		   chan ? chan->id : -1, info->inst, chan ? chan->name : "unknown");
+=20
+-	/* Handle host/engine faults. */
+-	if (chan)
++	/* Handle host/engine faults.  The engine that reported the fault must
++	 * be reset even if it has already switched to another channel (its
++	 * status then no longer points at the faulting channel), otherwise it
++	 * stays stalled and the runlist update never completes.
++	 */
++	if (chan) {
++		if (engine && engn->runl =3D=3D chan->cgrp->runl && !WARN_ON(engn->id =
+>=3D 32))
++			atomic_or(BIT(engn->id), &chan->cgrp->rc_engm);
+ 		nvkm_runl_rc_cgrp(chan->cgrp);
++	}
+=20
+ 	nvkm_chan_put(&chan, flags);
+ }
+diff --git a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c b/drivers/gp=
+u/drm/nouveau/nvkm/engine/fifo/runl.c
+index 209252105..daddc2080 100644
+--- a/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
++++ b/drivers/gpu/drm/nouveau/nvkm/engine/fifo/runl.c
+@@ -63,6 +63,7 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+ 	struct nvkm_engn *engn;
+ 	unsigned long flags;
+ 	int rc, state, i;
++	u32 engm =3D 0;
+ 	bool reset;
+=20
+ 	/* Runlist is blocked before scheduling recovery - fetch count. */
+@@ -75,6 +76,9 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+ 	nvkm_runl_foreach_cgrp_safe(cgrp, gtmp, runl) {
+ 		state =3D atomic_cmpxchg(&cgrp->rc, NVKM_CGRP_RC_PENDING, NVKM_CGRP_RC=
+_RUNNING);
+ 		if (state =3D=3D NVKM_CGRP_RC_PENDING) {
++			/* Collect the engines that reported a fault for the group. */
++			engm |=3D atomic_xchg(&cgrp->rc_engm, 0);
++
+ 			/* Disable all channels in them, and remove from runlist. */
+ 			nvkm_cgrp_foreach_chan_safe(chan, ctmp, cgrp) {
+ 				nvkm_chan_error(chan, false);
+@@ -99,14 +103,19 @@ nvkm_runl_rc(struct nvkm_runl *runl)
+=20
+ 	/* Look for engines that are still on flagged channel groups - reset th=
+em. */
+ 	nvkm_runl_foreach_engn_cond(engn, runl, engn->func->cxid) {
++		bool faulted =3D engn->id < 32 && (engm & BIT(engn->id));
++
+ 		cgrp =3D nvkm_engn_cgrp_get(engn, &flags);
+-		if (!cgrp) {
++		if (!cgrp && !faulted) {
+ 			ENGN_DEBUG(engn, "cxid not valid");
+ 			continue;
+ 		}
+=20
+-		reset =3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
+-		nvkm_cgrp_put(&cgrp, flags);
++		reset =3D faulted;
++		if (cgrp) {
++			reset |=3D atomic_read(&cgrp->rc) =3D=3D NVKM_CGRP_RC_RUNNING;
++			nvkm_cgrp_put(&cgrp, flags);
++		}
+ 		if (!reset) {
+ 			ENGN_DEBUG(engn, "cxid not in recovery");
+ 			continue;
+--=20
+2.53.0
 
