@@ -2,65 +2,65 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2074B606A31C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97747606A31C
 	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 02:08:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=aoREaC6V
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=r86VxOHK
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DC591124B8;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 93551112799;
 	Fri, 27 Nov 2026 02:08:39 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B4DED112799
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:08:22 +0000 (UTC)
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-4a5177d78c7so76697385e9.2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:08:22 -0800 (PST)
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com
+ [209.85.221.53])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E3D371124B8
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:08:21 +0000 (UTC)
+Received: by mail-wr1-f53.google.com with SMTP id
+ ffacd0b85a97d-49412eb1474so4975542f8f.3
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 18:08:21 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795745301; x=1796350101; darn=lists.freedesktop.org;
+ d=gmail.com; s=20260707; t=1795745300; x=1796350100; darn=lists.freedesktop.org;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:from:to:cc:subject:date
  :message-id:reply-to:content-type;
- bh=XhodWS1aWkSeFvJLIKsGNbnaDQgoaSu4UhdyHeAK+6E=;
- b=aoREaC6VYpWm5hdvkrE0GZ+Y80vzwef7HHqNOEanNuYQ0vouATCcL27pqfUWiOaxPu
- rNDcfcAlSdzz9o86Lztn5z6D0kGcR95XoCOBbOiDgrH6YYr5xoZkreNJcIkj+i/p1U1W
- Es2ukThxHvnHBIMM3uA1A/tSWR4+7hutOJ8dVhPo2TZrlFymilnczJveFN0163rn+PWK
- 6HZA614+Uwmo2Aqvpb1a75XrdIXVxZ30kqwNxhrDtjVSXCqGPzrc49kVeGKVVQ/baJ3c
- xHCQKaTRKRRHnNJgRh91ynxnpOh3maJ/8CP9SON5A6Iwu742v4SqFqzmGgErMITeId7e
- JUnQ==
+ bh=Zyy33FAdfBAAQH0MmIGIDDo6N5QoH0VVbaF8njRBWYU=;
+ b=r86VxOHKefVdIqMLn1OL/cNT4VcDNL9ZNdYbyBy/TKnv/IhI2ykoOJM8mspx0R632y
+ rS8AtdwIZIMBjYNRkDYbPmp4+sIR669CI9rE2MxBj6rnr+BaLoJ2gRAhzoVZSjxzj4iN
+ Io5ThySK8lZ5k0EydyPhPrmQy3X+BFgXFBZH5EOqF5X1xeJcLiIwHzVg/yHRDPGpcq8C
+ tOxt6I+BjO5QQnZlBUdN3m/rsS0KJdjfA5l09DHlQcLw9nZSrA/EtSSF21RD543NKD2v
+ TzIAT9+awtCDe77/Uca5mnCwi+9wW6gepkQN+zZ7MA+Jh+lt24XEM9Is2ekLnwXGkmHm
+ OQ8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795745301; x=1796350101;
+ d=1e100.net; s=20260707; t=1795745300; x=1796350100;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
  :to:cc:subject:date:message-id:reply-to:content-type;
- bh=XhodWS1aWkSeFvJLIKsGNbnaDQgoaSu4UhdyHeAK+6E=;
- b=Ly6QXBfBOvIjmJRLLorjFY4c3py4+Z9mBgwd8C8P3a+5buGjLUwKtNXkL9InXp63rb
- +74759DOl119QhdI5dCtc46RXELWAqR4BAiik41Vzh8YKdn6i4MkTadqsU49To5FpST3
- uRHgg3ClaH0/eJ+sHiyOyAcjjiQXIwPVGh+pLRHkTrNIWdNt8obpZ7s2Zd+Uxgd4Thz+
- YTUK+LGdtOrBJG3C2EOk2SBaY+JZkXjEw7JY5wYcQLLrXyHW1gdbQJGtC6ASfGjr4Cgh
- B250eB2+bVETqN6hP2z53p36rwSin333K0O/pydKCQ6doKkhP0Jakc+MqvyOAR3pBnaq
- s9EQ==
+ bh=Zyy33FAdfBAAQH0MmIGIDDo6N5QoH0VVbaF8njRBWYU=;
+ b=DSr3O4/13V6531yJt7+CRJHxtKayBfK/DdyRNvGwqCvw3Ar9zlcroh5OXqkny6v1+X
+ nKHTRNShEUHpnY1ZmegUELpOTzNlf1R/hejeiYHXitfI9QEFLafh8/MQUVyw8wkLB3pV
+ fWgEheugOiZaMhV1zsY2gYx7bUsI9/f8FL4O5qrZABQvJf/w0cakz/27PTrxWnac8n8W
+ crLuLga7i4ktX40ZskyedFInsX9sqlAKPmiSAFHCx1mXSYLYpb0D1UReZw3oB6SGSOpx
+ LlglpTOPpD9184RiOzH9nf7sk8mnRNBA0JYNXFiCb2+ZHpYcC8biyezNLZjW/932Gsai
+ kaFA==
 X-Forwarded-Encrypted: i=1;
- AL+hErHI6eT/QtOPn5aT65xmqe3dc6cshZtDVrdsuNx+dXHMJMvBSetim7uVRupcJuEsdNZMIRkPMPlKuQg=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9zGiIMSmJZo+w3ZpT5xx8Uu8bz75adjsKP+nAtv/1VDT2wmX4W
- 7JfnapwUjkbAQsrwdMBlklSeyKe55fhFFXaLW7j9j/6q7AI+YUe8TUYv
-X-Gm-Gg: AZFdTZezfnGQmuDg+zTgRAyhwtu/cqVeRCxTy6euj5aOkBti2WJhsfMWav1OldnfpvE
- yKabQtY+ySYv6PDyIJiEhU1sY+o0es45kfeBjeiwiAnNDLh+IstJT41IcUQ/llUhLwo0ksTbWE6
- QtcJnCtZV3J81ooGVW0OMQebkJbcDpmUIv6DQ//OK+hMuMXrxzI0ca3Ham0mTPQxl+bTGtsCZRy
- 1gxm5Bqxx19Xp1g/Jwo/vOLTi6bsaIfuJCizOtlfNURx24zZO1W15SzVCHI2Osw7b7VKDASq7UX
- EZdRYwp/IcLS5tzPT8Aj94RtqlZF1bWUGUx/4j32K0GHdJhec3Px6z6Sa08RhhCY5iMKT4tjN18
- VHB03b7IqXbv/ny17UoGUaSRc+6iAf0IbnQe+C0xrY5dSGnvj0s3vN77TFYUF3Msac8kPBEObsQ
- eKuOw2izwcNgm6L4qKNW/st6/ERJOZ6idaclMgymJG1gOD0kgZB665rQlhymdyvIh3oTm8/nAWF
- fAtvQEY7MDsqxDjHBgK3xeJa9PK8YKlXneEyr1UZcno+ADVj1r1tOi4+YC1JuW+0uSYzfJYyMZw
- 6j8R9nHNYdcrnUifMh/h3OZqRvnH428IFb3I3ikpWoMVxdcKHeC6AO7gVsYC7hrJvNXU3WOtw1V
- koj/P/LX/7TdHeWH45SpKrWUcyQw2O+9uq035+ZtuIryDRmMGgKTbaUw5K+NBLw6ZrRc=
-X-Received: by 2002:a05:600d:8449:b0:4bb:8e95:8ce1 with SMTP id
- 5b1f17b1804b1-4bb8e958ce4mr325490295e9.23.1795745300965; 
+ AL+hErG1x/sZUEcJGV7favyGvEM4qeWkIozzbdAYHT8smK0XPWq+8j1LF0LgWG2itjWcRBJjvP8vicgRHkI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8JGRioWw9SELpGjvAAZKIshqRRxkHJr16FwB1gShhTOyr+aLpY
+ rF2SVqq6uybEY3Igyo1AGBw2tB+BlCmGk7LWVruqK4vNus2OFTJfD9ezRRI9mps49Yo=
+X-Gm-Gg: AZFdTZeNCbxZwHxtCPuzEov/BHznxOsnRuiNJeqSoJKY6zDvhbFVJHD7YT8b/T3C3Jq
+ axXktj/cz8AzvEtOuvvF3989J7fAsMb5dYvZguKV7YJ+20IQoAbAWUnumSQ6PAM/AB6EzpgMDyl
+ SnqHAEK5SZdFZVTtAYzafBga2xKNMvMyfKCnLu2VunQQErZD2FHK4UoUM9UYrnMyofNUuSAqAdu
+ qBZg5dTgvniAtsUsVeCYfrFa1+xjxhDrdDWkJqgZKFsZm2WLXVRcjjYHW8cN6x83a8fB5KnlYVB
+ rPagbJcNuljTwX6uxtnbJjPWNoyXIN199KUOHpJvGK/BX4Qggqu4e/pNFPfJyOpGTSKPDz4xom/
+ wN0d1lpJybHvT7CCsmtOEWNi8tmTZVit69ohgqo/LMKinDVd+0KQvoj2wkiep3WIaRIRsuO3O7/
+ llHEahwc/p0ggYESNKyU8aLoLhgCitEfmJEJTsfuS47lfm5bbAsao+uIL95OvGvhHgP4QXPZfRz
+ BppuviY5IHF1kMLPbHmKqk5m+HgV4D6oRpuQjHYTEjicVUXUVQKlafhvw0VOFPLpdbWbg93MDon
+ 7WVbLd9bcocC1cxNJJW4YBj5bdkz8dX/No5In2etN0T3kSuc8RgugppO/BN496fv0h12Jm9T/1o
+ O/xecuX/xODqVro7CiqMFL/wGgiLPvlmAztkoDbSo2qK1BA==
+X-Received: by 2002:a05:6000:40ca:b0:4a3:976e:27a2 with SMTP id
+ ffacd0b85a97d-4abb5146238mr44410235f8f.34.1795745300251; 
  Thu, 26 Nov 2026 18:08:20 -0800 (PST)
 Received: from romain-ThinkPad-P14s-Gen-5-AMD.tail433d9c.ts.net
  ([2001:861:39c2:e340:1432:1241:93b7:7b4b])
  by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6baa3882sm43390844f8f.49.2026.11.26.18.08.20
+ ffacd0b85a97d-4ab6baa3882sm43390844f8f.49.2026.11.26.18.08.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
  Thu, 26 Nov 2026 18:08:20 -0800 (PST)
 From: Romain TISSERAND <romain.tisserand@gmail.com>
@@ -75,9 +75,10 @@ Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  sashiko-reviews@lists.linux.dev
-Subject: [PATCH 4/4] drm/panel: st7701: add the Miyoo A30 panel
-Date: Fri, 27 Nov 2026 03:08:15 +0100
-Message-ID: <20261127020815.1621790-5-romain.tisserand@gmail.com>
+Subject: [PATCH 3/4] drm/panel: st7701: let a panel provide its own init
+ sequence and DSI flags
+Date: Fri, 27 Nov 2026 03:08:14 +0100
+Message-ID: <20261127020815.1621790-4-romain.tisserand@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261127020815.1621790-1-romain.tisserand@gmail.com>
 References: <20261127020815.1621790-1-romain.tisserand@gmail.com>
@@ -103,139 +104,78 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The Miyoo A30 handheld (Allwinner A33) has a 480x640 2-lane MIPI-DSI
-panel driven by a Sitronix ST7701S.
+Every DSI panel handled by the driver gets its init sequence from
+st7701_init_sequence(), which encodes the Command2 BK0/BK1 settings from
+the panel timings and descriptor fields, followed by a panel specific
+GIP sequence. All of them also run in burst video mode.
 
-Its init table, taken from the stock kernel, doesn't fit the encoding of
-st7701_init_sequence(): byte 0 of C2 (INVSEL) lacks the 0x30 bits and
-RTNI is not derived from htotal. Send it as-is through the new
-init_sequence hook.
+Some vendor init tables don't fit that encoding, and some panels don't
+work in burst mode. Add two optional descriptor fields:
 
-The stock configuration runs the panel in non-burst video mode with
-sync pulses and without EoT packets; in burst mode the picture is
-unstable and the colours are wrong.
+- init_sequence: sent instead of the generic sequence and the GIP
+  sequence;
+- mode_flags: DSI mode flags to use instead of the default ones.
 
-Timings and size are from the stock configuration: 23 MHz pixel clock,
-htotal 560, vtotal 684, 43x57 mm.
+No change for the existing panels, which set neither.
 
 Signed-off-by: Romain TISSERAND <romain.tisserand@gmail.com>
 ---
- drivers/gpu/drm/panel/panel-sitronix-st7701.c | 88 +++++++++++++++++++
- 1 file changed, 88 insertions(+)
+ drivers/gpu/drm/panel/panel-sitronix-st7701.c | 27 +++++++++++++++----
+ 1 file changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7701.c b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-index f288c8c8aab8..a87da36dc60a 100644
+index 31c56eadda12..f288c8c8aab8 100644
 --- a/drivers/gpu/drm/panel/panel-sitronix-st7701.c
 +++ b/drivers/gpu/drm/panel/panel-sitronix-st7701.c
-@@ -421,6 +421,64 @@ static void dmt028vghmcmi_1a_gip_sequence(struct st7701 *st7701)
- 	ST7701_WRITE(st7701, 0x3A, 0x70);
- }
+@@ -128,6 +128,16 @@ struct st7701_panel_desc {
  
-+static void miyoo_a30_init_sequence(struct st7701 *st7701)
-+{
-+	/* Vendor table, from the Miyoo A30 stock kernel (default_panel). */
-+	msleep(200);
+ 	/* GIP sequence, fully custom and undocumented. */
+ 	void		(*gip_sequence)(struct st7701 *st7701);
 +
-+	st7701_switch_cmd_bkx(st7701, true, 3);
-+	ST7701_WRITE(st7701, 0xEF, 0x08);
++	/*
++	 * Complete vendor init sequence, sent instead of the generic one and
++	 * the GIP sequence, for panels whose vendor table does not fit the
++	 * generic encoding.
++	 */
++	void		(*init_sequence)(struct st7701 *st7701);
 +
-+	st7701_switch_cmd_bkx(st7701, true, 0);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK0_LNESET, 0x4F, 0x00);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK0_PORCTRL, 0x10, 0x0C);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK0_INVSEL, 0x01, 0x14);
-+	ST7701_WRITE(st7701, 0xCC, 0x10);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK0_PVGAMCTRL,
-+		   0x0A, 0x18, 0x1E, 0x12, 0x16, 0x0C, 0x0E, 0x0D,
-+		   0x0C, 0x29, 0x06, 0x14, 0x13, 0x29, 0x33, 0x1C);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK0_NVGAMCTRL,
-+		   0x0A, 0x19, 0x21, 0x0A, 0x0C, 0x00, 0x0C, 0x03,
-+		   0x03, 0x23, 0x01, 0x0E, 0x0C, 0x27, 0x2B, 0x1C);
-+
-+	st7701_switch_cmd_bkx(st7701, true, 1);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_VRHS, 0x5D);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_VCOM, 0x71);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_VGHSS, 0x8A);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_TESTCMD, 0x80);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_VGLS, 0x4D);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_PWCTLR1, 0x85);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_PWCTLR2, 0x20);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_SPD1, 0x78);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_SPD2, 0x78);
-+	ST7701_WRITE(st7701, ST7701_CMD2_BK1_MIPISET1, 0x88);
-+
-+	ST7701_WRITE(st7701, 0xE0, 0x00, 0x00, 0x02);
-+	ST7701_WRITE(st7701, 0xE1, 0x06, 0xA0, 0x08, 0xA0, 0x05, 0xA0, 0x07,
-+		   0xA0, 0x00, 0x44, 0x44);
-+	ST7701_WRITE(st7701, 0xE2, 0x20, 0x20, 0x44, 0x44, 0x96, 0xA0, 0x00,
-+		   0x00, 0x96, 0xA0, 0x00, 0x00);
-+	ST7701_WRITE(st7701, 0xE3, 0x00, 0x00, 0x22, 0x22);
-+	ST7701_WRITE(st7701, 0xE4, 0x44, 0x44);
-+	ST7701_WRITE(st7701, 0xE5, 0x0D, 0x91, 0x0A, 0xA0, 0x0F, 0x93, 0x0A,
-+		   0xA0, 0x09, 0x8D, 0x0A, 0xA0, 0x0B, 0x8F, 0x0A, 0xA0);
-+	ST7701_WRITE(st7701, 0xE6, 0x00, 0x00, 0x22, 0x22);
-+	ST7701_WRITE(st7701, 0xE7, 0x44, 0x44);
-+	ST7701_WRITE(st7701, 0xE8, 0x0C, 0x90, 0x0A, 0xA0, 0x0E, 0x92, 0x0A,
-+		   0xA0, 0x08, 0x8C, 0x0A, 0xA0, 0x0A, 0x8E, 0x0A, 0xA0);
-+	ST7701_WRITE(st7701, 0xE9, 0x36, 0x00);
-+	ST7701_WRITE(st7701, 0xEB, 0x00, 0x01, 0xE4, 0xE4, 0x44, 0x88, 0x40);
-+	ST7701_WRITE(st7701, 0xED, 0xFF, 0x45, 0x67, 0xFA, 0x01, 0x2B, 0xCF,
-+		   0xFF, 0xFF, 0xFC, 0xB2, 0x10, 0xAF, 0x76, 0x54, 0xFF);
-+	ST7701_WRITE(st7701, 0xEF, 0x10, 0x0D, 0x04, 0x08, 0x3F, 0x1F);
-+
-+	ST7701_WRITE(st7701, MIPI_DCS_EXIT_SLEEP_MODE);
-+	msleep(200);
-+
-+	ST7701_WRITE(st7701, MIPI_DCS_SET_TEAR_ON, 0x00);
-+	ST7701_WRITE(st7701, MIPI_DCS_SET_PIXEL_FORMAT, 0x77);
-+}
-+
- static void kd50t048a_gip_sequence(struct st7701 *st7701)
- {
- 	/**
-@@ -874,6 +932,35 @@ static const struct st7701_panel_desc dmt028vghmcmi_1a_desc = {
- 	.gip_sequence = dmt028vghmcmi_1a_gip_sequence,
++	/* DSI mode flags, when the default burst mode does not suit the panel */
++	unsigned long	mode_flags;
  };
  
-+static const struct drm_display_mode miyoo_a30_mode = {
-+	.clock		= 23000,
-+
-+	.hdisplay	= 480,
-+	.hsync_start	= 480 + 48,
-+	.hsync_end	= 480 + 48 + 10,
-+	.htotal		= 480 + 48 + 10 + 22,
-+
-+	.vdisplay	= 640,
-+	.vsync_start	= 640 + 26,
-+	.vsync_end	= 640 + 26 + 4,
-+	.vtotal		= 640 + 26 + 4 + 14,
-+
-+	.width_mm	= 43,
-+	.height_mm	= 57,
-+
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static const struct st7701_panel_desc miyoo_a30_desc = {
-+	.mode = &miyoo_a30_mode,
-+	.lanes = 2,
-+	.format = MIPI_DSI_FMT_RGB888,
-+	.init_sequence = miyoo_a30_init_sequence,
-+	/* stock sys_config: lcd_dsi_if = 0 (non-burst video), lcd_dsi_eotp = 0 */
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_MODE_NO_EOT_PACKET,
-+};
-+
- static const struct drm_display_mode kd50t048a_mode = {
- 	.clock          = 27500,
+ struct st7701 {
+@@ -559,10 +569,14 @@ static int st7701_prepare(struct drm_panel *panel)
+ 	gpiod_set_value(st7701->reset, 1);
+ 	msleep(150);
  
-@@ -1401,6 +1488,7 @@ static const struct of_device_id st7701_dsi_of_match[] = {
- 	{ .compatible = "anbernic,rg-arc-panel", .data = &rg_arc_desc },
- 	{ .compatible = "densitron,dmt028vghmcmi-1a", .data = &dmt028vghmcmi_1a_desc },
- 	{ .compatible = "elida,kd50t048a", .data = &kd50t048a_desc },
-+	{ .compatible = "miyoo,a30-panel", .data = &miyoo_a30_desc },
- 	{ .compatible = "techstar,ts8550b", .data = &ts8550b_desc },
- 	{ .compatible = "winstar,wf40eswaa6mnn0", .data = &wf40eswaa6mnn0_desc },
- 	{ }
+-	st7701_init_sequence(st7701);
++	if (st7701->desc->init_sequence) {
++		st7701->desc->init_sequence(st7701);
++	} else {
++		st7701_init_sequence(st7701);
+ 
+-	if (st7701->desc->gip_sequence)
+-		st7701->desc->gip_sequence(st7701);
++		if (st7701->desc->gip_sequence)
++			st7701->desc->gip_sequence(st7701);
++	}
+ 
+ 	/* Disable Command2 */
+ 	st7701_switch_cmd_bkx(st7701, false, 0);
+@@ -1343,8 +1357,11 @@ static int st7701_dsi_probe(struct mipi_dsi_device *dsi)
+ 	if (!st7701->desc->lanes)
+ 		return dev_err_probe(&dsi->dev, -EINVAL, "This panel is not for MIPI DSI\n");
+ 
+-	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
+-			  MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS;
++	if (st7701->desc->mode_flags)
++		dsi->mode_flags = st7701->desc->mode_flags;
++	else
++		dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_BURST |
++				  MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS;
+ 	dsi->format = st7701->desc->format;
+ 	dsi->lanes = st7701->desc->lanes;
+ 
 -- 
 2.43.0
 
