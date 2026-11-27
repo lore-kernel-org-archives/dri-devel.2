@@ -2,63 +2,148 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC3A606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:09:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2FB606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:18:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=L1HG4gJm
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=OXkhxPqX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id EA984112CDB;
-	Fri, 27 Nov 2026 18:09:05 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 495F710E33D;
- Fri, 27 Nov 2026 18:08:59 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E6AC210EADA;
+	Fri, 27 Nov 2026 18:18:10 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 09738112CCF;
+ Fri, 27 Nov 2026 18:18:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795802940; x=1827338940;
- h=from:to:cc:subject:in-reply-to:references:date:
- message-id:mime-version:content-transfer-encoding;
- bh=SKXB85rFIf2IKsDhjQyt7z8ztEO0t7lCzQx9JgdShRA=;
- b=L1HG4gJmKo1eJT414VUOK6jIN8N7Hd99fvMX1XggfHXjI5M6ZP2/M3RF
- Uj63cPt5W0gdqY6WIFx1kMxA2v9+r8UVPHxCtpaBeT2gX2hbuSJ1ceklG
- NsNtsG3g3TjcnrlcUnMEligkhYOGMSydzZ/jTMwbnN2eOVQN5N7WGj1xZ
- ZKKwcdCrD3VfxMtn7MKoPZSSZt4a3VyganuTnSR7S0GZsgXp0CbHl2cbD
- qeTchul4se6KoskAZm0Sr8jX4Q9PPB+a4oWfVRAyFJ0ChI/YCsi+85iQ3
- LPRO33G+EC6Os8d0vHYMyZ59BH2ya24pJng7P8Mhn4SuxaBgtrkiiW7zl g==;
-X-CSE-ConnectionGUID: +1P5wQmATmaVPfNu4MLubw==
-X-CSE-MsgGUID: hNSZvvVJQAWdHado4gIrsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4623760"
+ t=1795803485; x=1827339485;
+ h=from:to:cc:subject:date:message-id:in-reply-to:
+ references:content-transfer-encoding:mime-version;
+ bh=u/pv9YNuopxeTVXxUbHjNlRAVSG8aaGqZtdwOYDXWME=;
+ b=OXkhxPqX/tpZqHK4mZg5Aa3s+nlDSbiZKsmbNHrPP4r7pmHJaUw8EdMH
+ OjnXcErvOK2FADFSqa5ZiOUQQ8h8JCIDgPGucmI/cNpCH1CsC0BeZales
+ JQPVWp0hVhqPuW0ybaC42Yar+QRKu3P0O00D1sZYSd/OkxVlvRQhE2n5H
+ xJjcgy+YnvQOTfARsBALMeo7umaZDASEdyAoRK//d+so0LJsLrW0z1Ei8
+ gWqTgQ8jPCEAKHzA0A31/MDXgpFAku4A37RLl14Sjtvb+Z2E+6CQyB8yV
+ LVi/L0wzfeMDX/5GOSafWtHlngzK7UNxAJqyHrAPhv3K4FEhUHERUSlZr w==;
+X-CSE-ConnectionGUID: TFZdbzKsR9CCRP2D6of4lQ==
+X-CSE-MsgGUID: 7LAxFCB5SSCEH89U9GC9yg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4611440"
 X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
-   d="scan'208";a="4623760"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
- by orvoesa105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 10:09:00 -0800
-X-CSE-ConnectionGUID: 8uYK6rK2SaGiq9zM9ArWnQ==
-X-CSE-MsgGUID: 43EXHnHuRViCqjpNBL7K+w==
+   d="scan'208";a="4611440"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 10:18:04 -0800
+X-CSE-ConnectionGUID: UcR85XIIQB612SR7lXm+4Q==
+X-CSE-MsgGUID: 4RiJjyqiS3SH6vD6evv0nw==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12795267"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
- ([10.245.245.90])
- by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 27 Nov 2026 10:08:58 -0800
-From: Jani Nikula <jani.nikula@linux.intel.com>
-To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>
-Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
- intel-xe@lists.freedesktop.org
-Subject: Re: [PATCH 2/2] drm/i915/bios: Attempt to match the VBT PnP ID
- against DisplayID first
-In-Reply-To: <awm2FlsQeZpjZNBU@intel.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
- 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
-References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
- <20261124224621.6506-3-ville.syrjala@linux.intel.com>
- <76c590b4a6156485f96ba751b2683851871842be@intel.com>
- <awm2FlsQeZpjZNBU@intel.com>
-Date: Fri, 27 Nov 2026 20:08:55 +0200
-Message-ID: <32ff6cca90355d34d5cfb59b6dd22a07cd456c29@intel.com>
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12600299"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+ by orviesa001.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 10:18:04 -0800
+Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Fri, 27 Nov 2026 10:18:04 -0800
+Received: from fmsedg902.ED.cps.intel.com (10.1.192.144) by
+ FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57 via Frontend Transport; Fri, 27 Nov 2026 10:18:04 -0800
+Received: from CH4PR04CU002.outbound.protection.outlook.com (40.107.201.19) by
+ edgegateway.intel.com (192.55.55.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.57; Fri, 27 Nov 2026 10:18:03 -0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eFwimgQUefOtGzGiAruhLsYt2Xxqk+0XCKQ1TBPl0FjV1Qah06R2mtzxmd9vwvDQ+Pmz2GKmmAbMal1G5eGcyYWBykZcGF0js/FVivK5saPfmBJS3htf4PJXYvefzPk9TFDEvImGffhZdoLMRu+YqodzI1ld2JTbjUxlzz9MoOoh0rRCAWKvasSLhEBS1/tcZLQtFvF0h80do1zXYvO9uOr8T5OLxy/Sxm+hIYeSSZ8Z8SmvEN8wK+I1uv6adF2OjjJRbJi4y+U/nJWpzxjTdA7vSaHR2Iua7u1DXmx8C+sjJGskSA5JmWwXpxXOBhXVjTbC15/hnIB78ekiMK19KQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z1V1o6xezc4lLafEMzxrjQenPayyT6t1gUZQkEm49r8=;
+ b=QlOJ0lElYOJwca8p/pGaHaxveRsm/j9wvWt9DGIW4BwbI/YvDDaSYMLA6Xc4hYqpqfbuIqJ3aaD+pdyj7jJHHu2A4A01ZTlUslEcYUXmmzeB+B4diYCJ/tVXPS09AnaM67833ZiN4FRTBK9W/8TW15xBZr+fL2pixJnhsKQ7A4zBtpZNKRnagK5ikR91FYusfqlMLqUCYuoaVF77cg+PDXMsLOhcnfftfTeWsk0zUZT2OgX6HCVBhvoB9u2zPxzJS/Cqji3/mopLtlOGWWX/SINqRuyzA4btcejLNrKhnM8EEydZwQJEFRiGMSnB0Xxs6Qc0Gk7OmnBHSEgcmenTew==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DS7PR11MB5990.namprd11.prod.outlook.com (2603:10b6:8:71::5) by
+ DS0PR11MB8717.namprd11.prod.outlook.com (2603:10b6:8:1ab::20) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.662.9; Fri, 27 Nov 2026 18:17:58 +0000
+Received: from DS7PR11MB5990.namprd11.prod.outlook.com
+ ([fe80::133c:5eed:3aec:b899]) by DS7PR11MB5990.namprd11.prod.outlook.com
+ ([fe80::133c:5eed:3aec:b899%3]) with mapi id 15.21.0639.011; Fri, 27 Nov 2026
+ 18:17:58 +0000
+From: Rodrigo Vivi <rodrigo.vivi@intel.com>
+To: <dri-devel@lists.freedesktop.org>
+CC: <intel-xe@lists.freedesktop.org>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ Riana Tauro <riana.tauro@intel.com>, Zack McKevitt
+ <zachary.mckevitt@oss.qualcomm.com>
+Subject: [PATCH v6 1/3] drm/ras: Check the node type in node lookups
+Date: Fri, 27 Nov 2026 13:17:52 -0500
+Message-ID: <20261127181750.806528-6-rodrigo.vivi@intel.com>
+X-Mailer: git-send-email 2.56.0
+In-Reply-To: <20261127181750.806528-5-rodrigo.vivi@intel.com>
+References: <20261127181750.806528-5-rodrigo.vivi@intel.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SJ0PR03CA0003.namprd03.prod.outlook.com
+ (2603:10b6:a03:33a::8) To DS7PR11MB5990.namprd11.prod.outlook.com
+ (2603:10b6:8:71::5)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS7PR11MB5990:EE_|DS0PR11MB8717:EE_
+X-MS-Office365-Filtering-Correlation-Id: 78cfc1e4-9bb9-4a96-f56a-08df4cb2c406
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|1800799024|23010399003|376014|366016|56012099006|10067099003|261022105027099003|261028144727099003|261026140227099003|261102123227099003|261026121527099003|261021123027099003|261022075727099003|261021121427099003|261009220027099003|261009223027099003|261009221227099003|261009221727099003|261009223327099003|18002099003|22082099003|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info: cLScOz/al6RW/cmRWZse9WlbctJH+OdsjlLK9Q6S9mZ+9c4CKQihUMBlwEy2HWRdjQ2mAS65A4yJwFYdlUpwblJDv2HdUvmMsuA8Lqh/ti7tIzYmUovMr++BMFiiThO2iuzgijNMfwfmjZVNmd2xEtagdboi/IzdY7AR1tPq79N77sNzlwd8OLyBSiwPiIsPop0QztH3J1oiOrAzYt3a3SENq3KzQY/eG7lU+jehI4yjyqVs0YqkSr+V6t11WkguGSrrV3Vdi0B/MwAL4LR9Obr5dwv5/h6Nd6dYFT5AEfGAinCzGLJYuduHKbQRtaQFl6agZdBsq2eXyCD7LPAuE6MnsKegQSfe9NC9p6F87glOCT8iyyPf+ueER2GJzxlYsAZNVcQmObkT852ypL2ByWkFNmKJOLKhJwkdBW5bsODdzswnuZsH7fYdp6HDanohDENdDSmo6hELCa7fuwLbJeZkBOI29Vy93z9I30sgfXYK3s5cHJyynbuejYH8OirfQpBgPLFE0McyMXnNCSSOjozfLZ0ae7cRkIsq1T580h+zkV9NpMF8KRT4bflJv3J0G0GO9zA2kIPRoI7i4gxwTrCA8gmE7ilSaZgQZA9xkawOnjhviZ7TWAw8FwUq3YYtDo/OxlXE0EHDH8TILebQp69oDAtnOz0snQS+3niZRxk=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:DS7PR11MB5990.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(1800799024)(23010399003)(376014)(366016)(56012099006)(10067099003)(261022105027099003)(261028144727099003)(261026140227099003)(261102123227099003)(261026121527099003)(261021123027099003)(261022075727099003)(261021121427099003)(261009220027099003)(261009223027099003)(261009221227099003)(261009221727099003)(261009223327099003)(18002099003)(22082099003)(11063799006)(6133799003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?U5vvtcHZrNSV2FPZsGGXKEbmriVl5v3ACH3hKXZ/ZHvTEsUPiqCQlNZquf1J?=
+ =?us-ascii?Q?Z1PWdjTq7s5ySazvy0OvMQKiD8JW4oifg7lYBddun4RidPJ9EMzz9eRTiUyg?=
+ =?us-ascii?Q?/DIj53k3o1AFoXU4nPMUVRKchEIHDwAesuV7Tr9GlwwRLsMPbAphFzFwmfrR?=
+ =?us-ascii?Q?QvT3O5zqm5Lzm5waUD5E8gZP/Sm9AglmU+NOsF9D0imwcDDfJAr8x2KAB7UH?=
+ =?us-ascii?Q?exkOhcXI1DsolReSGBqT1ZsJpSgCr3SChF2WFPH6BFAF1YnE0mvfLJzz1qEa?=
+ =?us-ascii?Q?BNzmeQaqmZnajF1yGVz2t8ddjiDTL72345nH7CAod8FzvCwg3L1h/Bjsp3lh?=
+ =?us-ascii?Q?897GO3//+9BInG5hhncU+lLxkpky/YbconSKU4jOTIAMNMhOgDYyU8leRyvr?=
+ =?us-ascii?Q?NFPtHH6rEAeexj0NKgx28ms0ObSd0BNsEsop9cQ4AreBDVUMV6DNacWyemCo?=
+ =?us-ascii?Q?er8teh2lC5RH7a/lCCEr0urTT2Po7AVr0TnyhbiyPW9JpkuOrycMM4qFhL14?=
+ =?us-ascii?Q?ObDpMIY1pg1iowANIbFPOlDwcEdLRYOr0NReWtK8UH+T7ldEQ1jye9HNin4S?=
+ =?us-ascii?Q?d5KBuryVHgHqeoVkmzPU7xVn/A5QSYYMWBsU9UisBagOUviwQkezujQX1GcI?=
+ =?us-ascii?Q?hPo+AdpimKOUuDfrUqubEgPKvHDfTzvQQ1jhZKyNIOZLTWxfFzwrB+N1DeFQ?=
+ =?us-ascii?Q?xjF0TafmnAqqou4joh9p312zRMgMY3Lezve9CsxGWTS4E1uIaGRjlPoee3WP?=
+ =?us-ascii?Q?t5BpuGlcm29BkuSGmrgd4AOB8b53s4ZVxg/UjFelL4EUpWBmqGRCu5cjWq3F?=
+ =?us-ascii?Q?XCBbhc7btMB2gSecF+eRpjSF40BdHdp4VJ07SsogPZ8bEyKAQZIK76p0v5em?=
+ =?us-ascii?Q?0HX5FyLM99GvTDu+2M2R7d8UUsdxQfxPUCzQVi/4Hma3NBHHmzhkUCpy/apm?=
+ =?us-ascii?Q?nonbfmTSwj7Xg8dhGzodY5AzalMnVagUhzsUHzvDNJmHLuh5ex0fov56WzaY?=
+ =?us-ascii?Q?ishE07E7iFG0opVoliQN1QFypiIBu4hRF2qTcqH+kVnq1EBvWVm9JW20dYl2?=
+ =?us-ascii?Q?B1mDzh7TTVaOvY8VtPyPenfyq2CoBCraaIDzR6TPFdnIzaSDGrlcUQWtcukA?=
+ =?us-ascii?Q?5zztKVjSWounD42mLTQx5CgBLevpNvojdoPrGZZC2vVEsHkIF7KWQgVya+Pt?=
+ =?us-ascii?Q?JL9CE8RGLDV2LbZgXL7HeGEGA8iQwrVofI1x+DQq5Xb9SRArtqYKJcxSwKQ6?=
+ =?us-ascii?Q?IHoftEz/zm53GEUym4YhOKgTgFYi3htbhs/S/soEQnifGiwMS7oCNiq2sl4j?=
+ =?us-ascii?Q?mDYotqGTv7Lcfr03L0Oh3E8k/pbC1SpT7wJyOQg4SvFisQgApZzzK4fJbvzI?=
+ =?us-ascii?Q?m5KxWFgAroqEE/0yG/O1zQ3VBLL6Pb74PaglkHKJ9iGqYB9Slgo/e98/upCc?=
+ =?us-ascii?Q?1Lvm+dALNk3L58Xw9ylBvQgnhyNR8LwaX+vweZ0z1YSNRrwoQsO9ewvA5/3v?=
+ =?us-ascii?Q?IVdzCjBNusjj1sVqBmNW12xu03zyq4U5D80UREqbbFloXPhh/A8zMhvbbvxW?=
+ =?us-ascii?Q?3xQIoQQxz4c4mXurz2AGEwB7R6PvBnw2Czufqyyttvx8iojdF+jSzrAHpXcK?=
+ =?us-ascii?Q?af47XF0kyk5bvgmB8FNyKfqS6vWQqqtqOC5KMHgRlHByUJhCu/oreu47Dp/N?=
+ =?us-ascii?Q?O4R9RowbLDcjW0XQOugtDtjeOqd4qM7onp/Szpdw1j6ZufwEVVgNGD5HZbOQ?=
+ =?us-ascii?Q?gWgIpNcLtw=3D=3D?=
+X-Exchange-RoutingPolicyChecked: YP13Wy0tzyBKpRbJdHy3wE5uhxmlR5SJh7wygdO+/SVpnsatccJONHDPwreMXG9SlpzjFWu70ysfgdkmoKXbeQvjys/oyUZnuIPuQut/vnFNjp+xOqK6zz9DssYp6xmFn6CtMPrh3e0ZNMgwY/RMpwaVXxprJ0Tl9cEAu+E0ncvwNiyeGIcbN8M2cLfZhBwQguiQhUMIueiOBrKPOduyFjEjY5Kp6L2BsEbcsNXTccjLQ5R3Z8XU8DMY12IMA2JXBBhZ0UmSP5AUKOKuVeZHMT35bHMjaByit7dPdFwN640Wl95yZJuqs5xRpRCTmKkUO9LoWxS2nDOWH9lyvyDnyg==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 78cfc1e4-9bb9-4a96-f56a-08df4cb2c406
+X-MS-Exchange-CrossTenant-AuthSource: DS7PR11MB5990.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 18:17:58.8355 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2FXM2+ZhOxB5u9s2eKErvTqmZJM8XwC2iWNU4aAcbfVXMVTCUcNmGlX1iAGV/duS6szVDKpKYICztKYlXmoiEQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR11MB8717
+X-OriginatorOrg: intel.com
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,247 +155,134 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, 27 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
-> wrote:
-> On Fri, Nov 27, 2026 at 06:29:00PM +0200, Jani Nikula wrote:
->> On Wed, 25 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
->> > From: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> >
->> > The Windows driver policy appears to be now to first match the
->> > VBT PnP ID against the DisplayID product ID block, and only if
->> > there is no match (not even a partial one) then attempt to
->> > match the against the EDID base block vendor/product ID.
->> > Implement the same policy.
->> >
->> > We also need to implement the same weird scheme of just smashing
->> > the first two bytes of the DisplayID three byte OUI into the
->> > old EISA/PNPID field of the EDID defined structure. That is
->> > then matched against the similar old EDID style structures in
->> > the VBT.
->> >
->> > Smoke tested with a firmware override of EDID and VBT:
->> >  [drm:get_panel_type [xe]] Panel type (VBT): 255
->> >  [drm:pnpid_get_panel_type [xe]] DisplayID manufacturer name: NRA, pro=
-duct code: 16826, serial number: 0, year of manufacture: 2014
->> >  [drm:pnpid_get_panel_type [xe]] DisplayID raw product id: ba 41 ba 41=
- 00 00 00 00 00 18
->> >  [drm:get_panel_type [xe]] Panel type (PNPID DisplayID): 3
->> >  [drm:pnpid_get_panel_type [xe]] EDID manufacturer name: SDC, product =
-code: 16826, serial number: 65441, year of manufacture: 2024
->> >  [drm:pnpid_get_panel_type [xe]] EDID raw product id: 4c 83 ba 41 a1 f=
-f 00 00 00 22
->> >  [drm:get_panel_type [xe]] Panel type (fallback): 0
->> >  [drm:get_panel_type [xe]] Selected panel type (PNPID DisplayID): 3
->> >
->> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8969
->> > Signed-off-by: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
->> > ---
->> >  drivers/gpu/drm/i915/display/intel_bios.c | 81 ++++++++++++++++++-----
->> >  1 file changed, 63 insertions(+), 18 deletions(-)
->> >
->> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/d=
-rm/i915/display/intel_bios.c
->> > index b77d1599482a..5b0fc87e7673 100644
->> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
->> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
->> > @@ -684,27 +684,22 @@ static int vbt_get_panel_type(struct intel_displ=
-ay *display,
->> >  }
->> >=20=20
->> >  static int pnpid_get_panel_type(struct intel_display *display,
->> > -				const struct intel_bios_encoder_data *devdata,
->> > -				const struct drm_edid *drm_edid, bool use_fallback)
->> > +				const struct drm_edid_product_id *product_id,
->> > +				const char *source)
->> >  {
->> >  	const struct bdb_lfp_data *data;
->> >  	const struct bdb_lfp_data_ptrs *ptrs;
->> > -	struct drm_edid_product_id product_id, product_id_nodate;
->> > +	struct drm_edid_product_id product_id_nodate;
->> >  	struct drm_printer p;
->> >  	int i, best =3D -1;
->> >=20=20
->> > -	if (!drm_edid)
->> > -		return -1;
->> > +	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, source);
->> > +	drm_edid_print_product_id(&p, product_id, true);
->>=20
->> This will now print the wrong year for DisplayID, off by 10 years.
->
-> I think in this case we actually want to print the bogus year
-> as is because that's also what's in the VBT. All we care about
-> is whether this matches something in the VBT, not whether it's
-> in any way correct data otherwise. The mangled OUI is also
-> complete nonsense outside of the VBT context.
+drm_ras_node_get() returns a node of any type. The telemetry handlers
+check the type themselves, but the error-counter ones do not, so an
+error-counter operation on a telemetry node fails with -EOPNOTSUPP or
+walks its empty counter range, instead of reporting -ENOENT.
 
-Fair enough. Maybe copy-paste that into the commit message? Or add a
-note about it in a comment before someone goes and changes the printing.
+Pass the expected type to drm_ras_node_get(), so a node of another
+type is not found, and drop the type checks of the telemetry handlers.
 
-BR,
-Jani.
+Suggested-by: Riana Tauro <riana.tauro@intel.com>
+Acked-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+---
+ drivers/gpu/drm/drm_ras.c | 30 ++++++++++++++++--------------
+ 1 file changed, 16 insertions(+), 14 deletions(-)
 
->
->>=20
->> [Unprintable words about not learning anything from Y2K.]
->>=20
->> I'm beginning to think we should have a separate struct that's not
->> __packed or serialized, which can be initialized from either EDID or
->> DisplayID. And have drm_edid_print_product_id() operate on that. But
->> maybe it's a bit too much for this now.
->>=20
->> The EDID spec says the year is mandatory. The DisplayID spec says 0x00
->> is a reserved value, but also contradicts itself by saying, "If the Year
->> of Manufacture/Model Year field is not used, the byte would be cleared
->> to all 0s."
->>=20
->> One approach is to make drm_edid_print_product_id() treat zero week and
->> year as "not specified", basically incorrectly reporting displays
->> manufactured in the year 1990. And then printing product_id_nodate
->> here. Possibly an acceptable compromise?
->>=20
->> I don't know. It's a mess.
->>=20
->> >=20=20
->> > -	drm_edid_get_product_id(drm_edid, &product_id);
->> > -
->> > -	product_id_nodate =3D product_id;
->> > +	product_id_nodate =3D *product_id;
->> >  	product_id_nodate.week_of_manufacture =3D 0;
->> >  	product_id_nodate.year_of_manufacture =3D 0;
->> >=20=20
->> > -	p =3D drm_dbg_printer(display->drm, DRM_UT_KMS, "EDID");
->> > -	drm_edid_print_product_id(&p, &product_id, true);
->> > -
->> >  	ptrs =3D bdb_find_section(display, BDB_LFP_DATA_PTRS);
->> >  	if (!ptrs)
->> >  		return -1;
->> > @@ -718,7 +713,7 @@ static int pnpid_get_panel_type(struct intel_displ=
-ay *display,
->> >  			get_lfp_pnp_id(data, ptrs, i);
->> >=20=20
->> >  		/* full match? */
->> > -		if (!memcmp(vbt_id, &product_id, sizeof(*vbt_id)))
->> > +		if (!memcmp(vbt_id, product_id, sizeof(*vbt_id)))
->> >  			return i;
->> >=20=20
->> >  		/*
->> > @@ -733,6 +728,48 @@ static int pnpid_get_panel_type(struct intel_disp=
-lay *display,
->> >  	return best;
->> >  }
->> >=20=20
->> > +static int pnpid_edid_get_panel_type(struct intel_display *display,
->> > +				     const struct intel_bios_encoder_data *devdata,
->> > +				     const struct drm_edid *drm_edid, bool use_fallback)
->> > +{
->> > +	struct drm_edid_product_id product_id;
->> > +
->> > +	if (!drm_edid)
->> > +		return -1;
->> > +
->> > +	drm_edid_get_product_id(drm_edid, &product_id);
->> > +
->> > +	return pnpid_get_panel_type(display, &product_id, "EDID");
->> > +}
->> > +
->> > +static int pnpid_displayid_get_panel_type(struct intel_display *displ=
-ay,
->> > +					  const struct intel_bios_encoder_data *devdata,
->> > +					  const struct drm_edid *drm_edid, bool use_fallback)
->> > +{
->> > +	struct drm_displayid_product_id displayid_id;
->> > +	struct drm_edid_product_id product_id;
->> > +
->> > +	if (!drm_edid)
->> > +		return -1;
->> > +
->> > +	drm_displayid_get_product_id(drm_edid, &displayid_id);
->>=20
->> Having this return a value based on whether the product id was found or
->> not would indeed be useful.
->>=20
->> > +
->> > +	/*
->> > +	 * Only the first two bytes of the OUI get
->> > +	 * smashed into the old EISA/PNPID field, and
->> > +	 * that gets matched against what's in the VBT.
->> > +	 */
->> > +	product_id.manufacturer_name =3D
->> > +		cpu_to_be16((displayid_id.vendor_id[0] << 8) |
->> > +			    displayid_id.vendor_id[1]);
->>=20
->> I'll take your word for this.
->>=20
->> Apart from the comments, everything else looks good,
->>=20
->> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
->>=20
->> > +	product_id.product_code =3D displayid_id.product_code;
->> > +	product_id.serial_number =3D displayid_id.serial_number;
->> > +	product_id.week_of_manufacture =3D displayid_id.week_of_manufacture;
->> > +	product_id.year_of_manufacture =3D displayid_id.year_of_manufacture;
->> > +
->> > +	return pnpid_get_panel_type(display, &product_id, "DisplayID");
->> > +}
->> > +
->> >  static int fallback_get_panel_type(struct intel_display *display,
->> >  				   const struct intel_bios_encoder_data *devdata,
->> >  				   const struct drm_edid *drm_edid, bool use_fallback)
->> > @@ -743,7 +780,8 @@ static int fallback_get_panel_type(struct intel_di=
-splay *display,
->> >  enum panel_type {
->> >  	PANEL_TYPE_OPREGION,
->> >  	PANEL_TYPE_VBT,
->> > -	PANEL_TYPE_PNPID,
->> > +	PANEL_TYPE_PNPID_DISPLAYID,
->> > +	PANEL_TYPE_PNPID_EDID,
->> >  	PANEL_TYPE_FALLBACK,
->> >  };
->> >=20=20
->> > @@ -766,9 +804,13 @@ static int get_panel_type(struct intel_display *d=
-isplay,
->> >  			.name =3D "VBT",
->> >  			.get_panel_type =3D vbt_get_panel_type,
->> >  		},
->> > -		[PANEL_TYPE_PNPID] =3D {
->> > -			.name =3D "PNPID",
->> > -			.get_panel_type =3D pnpid_get_panel_type,
->> > +		[PANEL_TYPE_PNPID_DISPLAYID] =3D {
->> > +			.name =3D "PNPID DisplayID",
->> > +			.get_panel_type =3D pnpid_displayid_get_panel_type,
->> > +		},
->> > +		[PANEL_TYPE_PNPID_EDID] =3D {
->> > +			.name =3D "PNPID EDID",
->> > +			.get_panel_type =3D pnpid_edid_get_panel_type,
->> >  		},
->> >  		[PANEL_TYPE_FALLBACK] =3D {
->> >  			.name =3D "fallback",
->> > @@ -792,8 +834,11 @@ static int get_panel_type(struct intel_display *d=
-isplay,
->> >  	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
->> >  		i =3D PANEL_TYPE_OPREGION;
->> >  	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
->> > -		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
->> > -		i =3D PANEL_TYPE_PNPID;
->> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_DISPLAYID].panel_=
-type))
->> > +		i =3D PANEL_TYPE_PNPID_DISPLAYID;
->> > +	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
->> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_EDID].panel_type))
->> > +		i =3D PANEL_TYPE_PNPID_EDID;
->> >  	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
->> >  		i =3D PANEL_TYPE_VBT;
->> >  	else
->>=20
->> --=20
->> Jani Nikula, Intel
+diff --git a/drivers/gpu/drm/drm_ras.c b/drivers/gpu/drm/drm_ras.c
+index 82fcc766b84b..5ae6d0a3b751 100644
+--- a/drivers/gpu/drm/drm_ras.c
++++ b/drivers/gpu/drm/drm_ras.c
+@@ -169,6 +169,7 @@ static_assert(sizeof(struct drm_ras_ctx) <= NETLINK_CTX_SIZE);
+ /**
+  * drm_ras_node_get() - Look up a RAS node by ID and take a reference
+  * @node_id: ID of the node to look up
++ * @type: Expected type of the node
+  *
+  * Looks the node up in the global xarray and, if found, takes a reference to
+  * it so that it cannot be freed while the caller is using it. The lookup and
+@@ -179,16 +180,19 @@ static_assert(sizeof(struct drm_ras_ctx) <= NETLINK_CTX_SIZE);
+  *
+  * The caller must drop the returned reference with drm_ras_node_put().
+  *
+- * Return: the referenced node, or NULL if no node with @node_id is registered.
++ * Return: the referenced node, or NULL if no node of @type with @node_id is
++ * registered.
+  */
+-static struct drm_ras_node *drm_ras_node_get(u32 node_id)
++static struct drm_ras_node *drm_ras_node_get(u32 node_id, enum drm_ras_node_type type)
+ {
+ 	struct drm_ras_node *node;
+ 
+ 	xa_lock(&drm_ras_xa);
+ 	node = xa_load(&drm_ras_xa, node_id);
+-	if (node)
++	if (node && node->type == type)
+ 		refcount_inc(&node->ref);
++	else
++		node = NULL;
+ 	xa_unlock(&drm_ras_xa);
+ 
+ 	return node;
+@@ -412,7 +416,7 @@ static int doit_reply_value(struct genl_info *info, u32 node_id,
+ 	u32 value;
+ 	int ret;
+ 
+-	node = drm_ras_node_get(node_id);
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_ERROR_COUNTER);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -461,7 +465,7 @@ static int doit_reply_threshold(struct genl_info *info, u32 node_id, u32 error_i
+ 	u32 threshold;
+ 	int ret;
+ 
+-	node = drm_ras_node_get(node_id);
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_ERROR_COUNTER);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -603,7 +607,7 @@ int drm_ras_nl_get_error_counter_dumpit(struct sk_buff *skb,
+ 
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+ 
+-	node = drm_ras_node_get(node_id);
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_ERROR_COUNTER);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -699,7 +703,7 @@ int drm_ras_nl_clear_error_counter_doit(struct sk_buff *skb,
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_NODE_ID]);
+ 	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
+ 
+-	node = drm_ras_node_get(node_id);
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_ERROR_COUNTER);
+ 	if (!node || !node->clear_error_counter) {
+ 		drm_ras_node_put(node);
+ 		return -ENOENT;
+@@ -770,7 +774,7 @@ int drm_ras_nl_set_error_threshold_doit(struct sk_buff *skb, struct genl_info *i
+ 	error_id = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_ID]);
+ 	threshold = nla_get_u32(info->attrs[DRM_RAS_A_ERROR_COUNTER_ATTRS_ERROR_THRESHOLD]);
+ 
+-	node = drm_ras_node_get(node_id);
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_ERROR_COUNTER);
+ 	if (!node)
+ 		return -ENOENT;
+ 
+@@ -808,10 +812,9 @@ int drm_ras_nl_pre_telemetry(const struct genl_split_ops *ops, struct sk_buff *s
+ 		return -EINVAL;
+ 
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+-	node = drm_ras_node_get(node_id);
+-	if (!node || node->type != DRM_RAS_NODE_TYPE_TELEMETRY) {
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_TELEMETRY);
++	if (!node) {
+ 		NL_SET_BAD_ATTR(info->extack, info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+-		drm_ras_node_put(node);
+ 		return -ENOENT;
+ 	}
+ 
+@@ -892,10 +895,9 @@ int drm_ras_nl_telemetry_list_fields_dumpit(struct sk_buff *skb, struct netlink_
+ 
+ 	node_id = nla_get_u32(info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+ 
+-	node = drm_ras_node_get(node_id);
+-	if (!node || node->type != DRM_RAS_NODE_TYPE_TELEMETRY) {
++	node = drm_ras_node_get(node_id, DRM_RAS_NODE_TYPE_TELEMETRY);
++	if (!node) {
+ 		NL_SET_BAD_ATTR(info->extack, info->attrs[DRM_RAS_A_TELEMETRY_ATTRS_NODE_ID]);
+-		drm_ras_node_put(node);
+ 		return -ENOENT;
+ 	}
+ 
+-- 
+2.56.0
 
---=20
-Jani Nikula, Intel
