@@ -2,55 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08B06606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:53:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F7F606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 16:56:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=arm.com header.i=@arm.com header.a=rsa-sha256 header.s=foss header.b=ERtCaBg3
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=KYhhBhIn
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 22C01112C40;
-	Fri, 27 Nov 2026 16:53:53 +0000 (UTC)
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
- by gabe.freedesktop.org (Postfix) with ESMTP id 31AFA112C25
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 16:53:46 +0000 (UTC)
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
- by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id E7DFF1575;
- Fri, 27 Nov 2026 08:53:42 -0800 (PST)
-Received: from [10.0.129.128] (e122027.cambridge.arm.com [10.0.129.128])
- by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 6F9D43F632;
- Fri, 27 Nov 2026 08:53:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
- t=1795798425; bh=kE61tij3lKwCRxNXlUK+a8Xg+n3YF3HXcvIJXjVVL2s=;
- h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
- b=ERtCaBg3JRfaK2IUHWNlS38I4DsQ4EX7XHsdTnvExuWssFMcp6Dgr2YgLXZ9Gc3Q/
- Y1UFXtwAG/Oe6O0KgEBFjW2HuHe7dh3G+jqMBuJKLcIRgZ3ddmLe16sE/d+aH2Ub5A
- C5tBM99o6JclrHOsi0JmGFJBbF7yp1Y6r/IqbTaw=
-Message-ID: <cb8d7520-ead2-446a-ac02-974024f59ec2@arm.com>
-Date: Fri, 27 Nov 2026 16:53:39 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 47212112C3F;
+	Fri, 27 Nov 2026 16:56:07 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 785DE112C25;
+ Fri, 27 Nov 2026 16:55:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795798556; x=1827334556;
+ h=date:from:to:cc:subject:message-id:references:
+ mime-version:content-transfer-encoding:in-reply-to;
+ bh=HxP47Q/4l18MLX+FXiUnCCUy1o0eCQlI9UohTEgEELo=;
+ b=KYhhBhInFyqO2HAk8lLrWONMLvhEhVGPkX7gsH+uKf2aQnqx661Rvi0L
+ YqiWrpPbRgXTrheBqOpqUSADFOjkXsBvFEliJwISjE3Nii8vLu3cpXT3d
+ P0GnxbwasQc0mrwYUAZtIppBbybNWLPNkx2dq5gnRfZmn6xLtwBtFFPf1
+ BqrerH16U5S8jFTu4Jc6kgdKWFd+7sXpmgfZxUBIkrLeDl+bybQCU8Q84
+ JFPUYUkUjKsF5QillYrN31RsrUhvmHJy3q7uUJ+hd/tgZp5x/tirHwKCe
+ ZXfKY9QWaGGNFQTfbmhA3T/OWQrgi6BU9HGAwjv3amePQnKjC69LdVNnn w==;
+X-CSE-ConnectionGUID: hHv5oGcaQrOiljYGQLaqpg==
+X-CSE-MsgGUID: MJIk2LinRXak7P9dNqQeXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4732737"
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
+   d="scan'208";a="4732737"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+ by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 08:55:55 -0800
+X-CSE-ConnectionGUID: KNe7pR8HRnqqguo/ebnlRA==
+X-CSE-MsgGUID: pSTJtUyVQTST6UVOqxGlhw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12669283"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.172])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 08:55:54 -0800
+Date: Fri, 27 Nov 2026 18:55:50 +0200
+From: Ville =?iso-8859-1?Q?Syrj=E4l=E4?= <ville.syrjala@linux.intel.com>
+To: Jani Nikula <jani.nikula@linux.intel.com>
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 2/2] drm/i915/bios: Attempt to match the VBT PnP ID
+ against DisplayID first
+Message-ID: <awm2FlsQeZpjZNBU@intel.com>
+References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
+ <20261124224621.6506-3-ville.syrjala@linux.intel.com>
+ <76c590b4a6156485f96ba751b2683851871842be@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 03/13] drm/panthor: Pass drm_file instead of
- panthor_file
-To: Ketil Johnsen <ketil.johnsen@arm.com>,
- Boris Brezillon <boris.brezillon@collabora.com>,
- Liviu Dudau <liviu.dudau@arm.com>, Akash Goel <akash.goel@arm.com>,
- Karunika Choo <karunika.choo@arm.com>,
- Lukas Zapolskas <lukas.zapolskas@arm.com>,
- Chris Diamand <chris.diamand@arm.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Daniel Almeida <daniel.almeida@collabora.com>,
- Alice Ryhl <aliceryhl@google.com>
-Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- rust-for-linux@vger.kernel.org
-References: <20261116112601.3483649-1-ketil.johnsen@arm.com>
- <20261116112601.3483649-4-ketil.johnsen@arm.com>
-From: Steven Price <steven.price@arm.com>
-Content-Language: en-GB
-In-Reply-To: <20261116112601.3483649-4-ketil.johnsen@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <76c590b4a6156485f96ba751b2683851871842be@intel.com>
+X-Patchwork-Hint: comment
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -62,473 +71,226 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.1 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 16/11/2026 11:25, Ketil Johnsen wrote:
-> From: Boris Brezillon <boris.brezillon@collabora.com>
+On Fri, Nov 27, 2026 at 06:29:00PM +0200, Jani Nikula wrote:
+> On Wed, 25 Nov 2026, Ville Syrjala <ville.syrjala@linux.intel.com> wrote:
+> > From: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> >
+> > The Windows driver policy appears to be now to first match the
+> > VBT PnP ID against the DisplayID product ID block, and only if
+> > there is no match (not even a partial one) then attempt to
+> > match the against the EDID base block vendor/product ID.
+> > Implement the same policy.
+> >
+> > We also need to implement the same weird scheme of just smashing
+> > the first two bytes of the DisplayID three byte OUI into the
+> > old EISA/PNPID field of the EDID defined structure. That is
+> > then matched against the similar old EDID style structures in
+> > the VBT.
+> >
+> > Smoke tested with a firmware override of EDID and VBT:
+> >  [drm:get_panel_type [xe]] Panel type (VBT): 255
+> >  [drm:pnpid_get_panel_type [xe]] DisplayID manufacturer name: NRA, product code: 16826, serial number: 0, year of manufacture: 2014
+> >  [drm:pnpid_get_panel_type [xe]] DisplayID raw product id: ba 41 ba 41 00 00 00 00 00 18
+> >  [drm:get_panel_type [xe]] Panel type (PNPID DisplayID): 3
+> >  [drm:pnpid_get_panel_type [xe]] EDID manufacturer name: SDC, product code: 16826, serial number: 65441, year of manufacture: 2024
+> >  [drm:pnpid_get_panel_type [xe]] EDID raw product id: 4c 83 ba 41 a1 ff 00 00 00 22
+> >  [drm:get_panel_type [xe]] Panel type (fallback): 0
+> >  [drm:get_panel_type [xe]] Selected panel type (PNPID DisplayID): 3
+> >
+> > Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8969
+> > Signed-off-by: Ville Syrjälä <ville.syrjala@linux.intel.com>
+> > ---
+> >  drivers/gpu/drm/i915/display/intel_bios.c | 81 ++++++++++++++++++-----
+> >  1 file changed, 63 insertions(+), 18 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/i915/display/intel_bios.c b/drivers/gpu/drm/i915/display/intel_bios.c
+> > index b77d1599482a..5b0fc87e7673 100644
+> > --- a/drivers/gpu/drm/i915/display/intel_bios.c
+> > +++ b/drivers/gpu/drm/i915/display/intel_bios.c
+> > @@ -684,27 +684,22 @@ static int vbt_get_panel_type(struct intel_display *display,
+> >  }
+> >  
+> >  static int pnpid_get_panel_type(struct intel_display *display,
+> > -				const struct intel_bios_encoder_data *devdata,
+> > -				const struct drm_edid *drm_edid, bool use_fallback)
+> > +				const struct drm_edid_product_id *product_id,
+> > +				const char *source)
+> >  {
+> >  	const struct bdb_lfp_data *data;
+> >  	const struct bdb_lfp_data_ptrs *ptrs;
+> > -	struct drm_edid_product_id product_id, product_id_nodate;
+> > +	struct drm_edid_product_id product_id_nodate;
+> >  	struct drm_printer p;
+> >  	int i, best = -1;
+> >  
+> > -	if (!drm_edid)
+> > -		return -1;
+> > +	p = drm_dbg_printer(display->drm, DRM_UT_KMS, source);
+> > +	drm_edid_print_product_id(&p, product_id, true);
 > 
-> Some sched helpers need info that are part of drm_file, and we will
-> soon need to call drm_gem_object_lookup() from panthor_group_create().
-> Let's prepare for that by passing a drm_file instead of panthor_file to
-> all current helpers taking a panthor_file, so we keep things consistent.
-> 
-> Signed-off-by: Boris Brezillon <boris.brezillon@collabora.com>
-> Co-developed-by: Ketil Johnsen <ketil.johnsen@arm.com>
-> Signed-off-by: Ketil Johnsen <ketil.johnsen@arm.com>
+> This will now print the wrong year for DisplayID, off by 10 years.
 
-Reviewed-by: Steven Price <steven.price@arm.com>
+I think in this case we actually want to print the bogus year
+as is because that's also what's in the VBT. All we care about
+is whether this matches something in the VBT, not whether it's
+in any way correct data otherwise. The mangled OUI is also
+complete nonsense outside of the VBT context.
 
 > 
-> ---
+> [Unprintable words about not learning anything from Y2K.]
 > 
-> v5:
-> - Updated kernel doc
+> I'm beginning to think we should have a separate struct that's not
+> __packed or serialized, which can be initialized from either EDID or
+> DisplayID. And have drm_edid_print_product_id() operate on that. But
+> maybe it's a bit too much for this now.
 > 
-> v4:
-> - No change
+> The EDID spec says the year is mandatory. The DisplayID spec says 0x00
+> is a reserved value, but also contradicts itself by saying, "If the Year
+> of Manufacture/Model Year field is not used, the byte would be cleared
+> to all 0s."
 > 
-> v3:
-> - Fixed incorrect parameter passed to panthor_gpu_show_fdinfo()
+> One approach is to make drm_edid_print_product_id() treat zero week and
+> year as "not specified", basically incorrectly reporting displays
+> manufactured in the year 1990. And then printing product_id_nodate
+> here. Possibly an acceptable compromise?
 > 
-> v2:
-> - First introduction of this patch in this patch set
-> ---
->  drivers/gpu/drm/panthor/panthor_drv.c   | 38 +++++++++++-------------
->  drivers/gpu/drm/panthor/panthor_mmu.c   | 17 ++++++-----
->  drivers/gpu/drm/panthor/panthor_mmu.h   |  6 ++--
->  drivers/gpu/drm/panthor/panthor_sched.c | 39 +++++++++++++++----------
->  drivers/gpu/drm/panthor/panthor_sched.h | 23 +++++++--------
->  5 files changed, 63 insertions(+), 60 deletions(-)
+> I don't know. It's a mess.
 > 
-> diff --git a/drivers/gpu/drm/panthor/panthor_drv.c b/drivers/gpu/drm/panthor/panthor_drv.c
-> index dc8d0191aef42..7edb8d329a705 100644
-> --- a/drivers/gpu/drm/panthor/panthor_drv.c
-> +++ b/drivers/gpu/drm/panthor/panthor_drv.c
-> @@ -1106,7 +1106,6 @@ static int panthor_ioctl_bo_mmap_offset(struct drm_device *ddev, void *data,
->  static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
->  				      struct drm_file *file)
->  {
-> -	struct panthor_file *pfile = file->driver_priv;
->  	struct drm_panthor_group_submit *args = data;
->  	struct drm_panthor_queue_submit *jobs_args;
->  	struct panthor_submit_ctx ctx;
-> @@ -1131,8 +1130,7 @@ static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
->  		const struct drm_panthor_queue_submit *qsubmit = &jobs_args[i];
->  		struct drm_sched_job *job;
->  
-> -		job = panthor_job_create(pfile, args->group_handle, qsubmit,
-> -					 file->client_id);
-> +		job = panthor_job_create(file, args->group_handle, qsubmit);
->  		if (IS_ERR(job)) {
->  			ret = PTR_ERR(job);
->  			goto out_cleanup_submit_ctx;
-> @@ -1212,19 +1210,17 @@ static int panthor_ioctl_group_submit(struct drm_device *ddev, void *data,
->  static int panthor_ioctl_group_destroy(struct drm_device *ddev, void *data,
->  				       struct drm_file *file)
->  {
-> -	struct panthor_file *pfile = file->driver_priv;
->  	struct drm_panthor_group_destroy *args = data;
->  
->  	if (args->pad)
->  		return -EINVAL;
->  
-> -	return panthor_group_destroy(pfile, args->group_handle);
-> +	return panthor_group_destroy(file, args->group_handle);
->  }
->  
->  static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
->  				      struct drm_file *file)
->  {
-> -	struct panthor_file *pfile = file->driver_priv;
->  	struct drm_panthor_group_create *args = data;
->  	struct drm_panthor_queue_create *queue_args;
->  	int ret;
-> @@ -1240,7 +1236,7 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
->  	if (ret)
->  		goto out;
->  
-> -	ret = panthor_group_create(pfile, args, queue_args, file->client_id);
-> +	ret = panthor_group_create(file, args, queue_args);
->  	if (ret < 0)
->  		goto out;
->  	args->group_handle = ret;
-> @@ -1254,10 +1250,9 @@ static int panthor_ioctl_group_create(struct drm_device *ddev, void *data,
->  static int panthor_ioctl_group_get_state(struct drm_device *ddev, void *data,
->  					 struct drm_file *file)
->  {
-> -	struct panthor_file *pfile = file->driver_priv;
->  	struct drm_panthor_group_get_state *args = data;
->  
-> -	return panthor_group_get_state(pfile, args);
-> +	return panthor_group_get_state(file, args);
->  }
->  
->  static int panthor_ioctl_tiler_heap_create(struct drm_device *ddev, void *data,
-> @@ -1600,6 +1595,7 @@ panthor_open(struct drm_device *ddev, struct drm_file *file)
->  	if (!pfile)
->  		return -ENOMEM;
->  
-> +	file->driver_priv = pfile;
->  	pfile->ptdev = ptdev;
->  	pfile->user_mmio.offset = DRM_PANTHOR_USER_MMIO_OFFSET;
->  
-> @@ -1614,19 +1610,18 @@ panthor_open(struct drm_device *ddev, struct drm_file *file)
->  #endif
->  
->  
-> -	ret = panthor_vm_pool_create(pfile);
-> +	ret = panthor_vm_pool_create(file);
->  	if (ret)
->  		goto err_free_file;
->  
-> -	ret = panthor_group_pool_create(pfile);
-> +	ret = panthor_group_pool_create(file);
->  	if (ret)
->  		goto err_destroy_vm_pool;
->  
-> -	file->driver_priv = pfile;
->  	return 0;
->  
->  err_destroy_vm_pool:
-> -	panthor_vm_pool_destroy(pfile);
-> +	panthor_vm_pool_destroy(file);
->  
->  err_free_file:
->  	kfree(pfile);
-> @@ -1638,8 +1633,8 @@ panthor_postclose(struct drm_device *ddev, struct drm_file *file)
->  {
->  	struct panthor_file *pfile = file->driver_priv;
->  
-> -	panthor_group_pool_destroy(pfile);
-> -	panthor_vm_pool_destroy(pfile);
-> +	panthor_group_pool_destroy(file);
-> +	panthor_vm_pool_destroy(file);
->  
->  	kfree(pfile);
->  }
-> @@ -1699,11 +1694,13 @@ static int panthor_mmap(struct file *filp, struct vm_area_struct *vma)
->  }
->  
->  static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
-> -				    struct panthor_file *pfile,
-> +				    struct drm_file *file,
->  				    struct drm_printer *p)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
-> +
->  	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_ALL)
-> -		panthor_fdinfo_gather_group_samples(pfile);
-> +		panthor_fdinfo_gather_group_samples(file);
->  
->  	if (ptdev->profile_mask & PANTHOR_DEVICE_PROFILING_TIMESTAMP) {
->  #ifdef CONFIG_ARM_ARCH_TIMER
-> @@ -1723,11 +1720,10 @@ static void panthor_gpu_show_fdinfo(struct panthor_device *ptdev,
->  static void panthor_show_internal_memory_stats(struct drm_printer *p, struct drm_file *file)
->  {
->  	char *drv_name = file->minor->dev->driver->name;
-> -	struct panthor_file *pfile = file->driver_priv;
->  	struct drm_memory_stats stats = {0};
->  
-> -	panthor_fdinfo_gather_group_mem_info(pfile, &stats);
-> -	panthor_vm_heaps_sizes(pfile, &stats);
-> +	panthor_fdinfo_gather_group_mem_info(file, &stats);
-> +	panthor_vm_heaps_sizes(file, &stats);
->  
->  	drm_fdinfo_print_size(p, drv_name, "resident", "memory", stats.resident);
->  	drm_fdinfo_print_size(p, drv_name, "active", "memory", stats.active);
-> @@ -1738,7 +1734,7 @@ static void panthor_show_fdinfo(struct drm_printer *p, struct drm_file *file)
->  	struct drm_device *dev = file->minor->dev;
->  	struct panthor_device *ptdev = container_of(dev, struct panthor_device, base);
->  
-> -	panthor_gpu_show_fdinfo(ptdev, file->driver_priv, p);
-> +	panthor_gpu_show_fdinfo(ptdev, file, p);
->  	panthor_show_internal_memory_stats(p, file);
->  
->  	drm_show_memory_stats(p, file);
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.c b/drivers/gpu/drm/panthor/panthor_mmu.c
-> index d1c29eec46f21..838753db95151 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.c
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.c
-> @@ -1676,15 +1676,16 @@ panthor_vm_pool_get_vm(struct panthor_vm_pool *pool, u32 handle)
->  
->  /**
->   * panthor_vm_pool_destroy() - Destroy a VM pool.
-> - * @pfile: File.
-> + * @file: DRM file.
->   *
->   * Destroy all VMs in the pool, and release the pool resources.
->   *
->   * Note that VMs can outlive the pool they were created from if other
->   * objects hold a reference to there VMs.
->   */
-> -void panthor_vm_pool_destroy(struct panthor_file *pfile)
-> +void panthor_vm_pool_destroy(struct drm_file *file)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_vm *vm;
->  	unsigned long i;
->  
-> @@ -1702,12 +1703,13 @@ void panthor_vm_pool_destroy(struct panthor_file *pfile)
->  
->  /**
->   * panthor_vm_pool_create() - Create a VM pool
-> - * @pfile: File.
-> + * @file: DRM file.
->   *
->   * Return: 0 on success, a negative error code otherwise.
->   */
-> -int panthor_vm_pool_create(struct panthor_file *pfile)
-> +int panthor_vm_pool_create(struct drm_file *file)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_gem_object *dummy;
->  	int ret;
->  
-> @@ -1728,7 +1730,7 @@ int panthor_vm_pool_create(struct panthor_file *pfile)
->  	return 0;
->  
->  err_destroy_vm_pool:
-> -	panthor_vm_pool_destroy(pfile);
-> +	panthor_vm_pool_destroy(file);
->  	return ret;
->  }
->  
-> @@ -2141,14 +2143,15 @@ struct panthor_heap_pool *panthor_vm_get_heap_pool(struct panthor_vm *vm, bool c
->  /**
->   * panthor_vm_heaps_sizes() - Calculate size of all heap chunks across all
->   * heaps over all the heap pools in a VM
-> - * @pfile: File.
-> + * @file: DRM file.
->   * @stats: Memory stats to be updated.
->   *
->   * Calculate all heap chunk sizes in all heap pools bound to a VM. If the VM
->   * is active, record the size as active as well.
->   */
-> -void panthor_vm_heaps_sizes(struct panthor_file *pfile, struct drm_memory_stats *stats)
-> +void panthor_vm_heaps_sizes(struct drm_file *file, struct drm_memory_stats *stats)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_vm *vm;
->  	unsigned long i;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_mmu.h b/drivers/gpu/drm/panthor/panthor_mmu.h
-> index abc36e7204be0..e262fe2303f6c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_mmu.h
-> +++ b/drivers/gpu/drm/panthor/panthor_mmu.h
-> @@ -38,7 +38,7 @@ int panthor_vm_as(struct panthor_vm *vm);
->  struct panthor_heap_pool *
->  panthor_vm_get_heap_pool(struct panthor_vm *vm, bool create);
->  
-> -void panthor_vm_heaps_sizes(struct panthor_file *pfile, struct drm_memory_stats *stats);
-> +void panthor_vm_heaps_sizes(struct drm_file *file, struct drm_memory_stats *stats);
->  
->  struct panthor_vm *panthor_vm_get(struct panthor_vm *vm);
->  void panthor_vm_put(struct panthor_vm *vm);
-> @@ -64,8 +64,8 @@ void panthor_vm_add_job_fence_to_bos_resvs(struct panthor_vm *vm,
->  struct dma_resv *panthor_vm_resv(struct panthor_vm *vm);
->  struct drm_gem_object *panthor_vm_root_gem(struct panthor_vm *vm);
->  
-> -void panthor_vm_pool_destroy(struct panthor_file *pfile);
-> -int panthor_vm_pool_create(struct panthor_file *pfile);
-> +void panthor_vm_pool_destroy(struct drm_file *file);
-> +int panthor_vm_pool_create(struct drm_file *file);
->  int panthor_vm_pool_create_vm(struct panthor_device *ptdev,
->  			      struct panthor_vm_pool *pool,
->  			      struct drm_panthor_vm_create *args);
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.c b/drivers/gpu/drm/panthor/panthor_sched.c
-> index d632fe1bf4db8..c75be18d24274 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.c
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.c
-> @@ -3117,8 +3117,9 @@ void panthor_sched_post_reset(struct panthor_device *ptdev, bool reset_failed)
->  	}
->  }
->  
-> -void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile)
-> +void panthor_fdinfo_gather_group_samples(struct drm_file *file)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_group *group;
->  	unsigned long i;
-> @@ -3654,11 +3655,11 @@ static void add_group_kbo_sizes(struct panthor_device *ptdev,
->  
->  #define MAX_GROUPS_PER_POOL		128
->  
-> -int panthor_group_create(struct panthor_file *pfile,
-> +int panthor_group_create(struct drm_file *file,
->  			 const struct drm_panthor_group_create *group_args,
-> -			 const struct drm_panthor_queue_create *queue_args,
-> -			 u64 drm_client_id)
-> +			 const struct drm_panthor_queue_create *queue_args)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> @@ -3756,7 +3757,8 @@ int panthor_group_create(struct panthor_file *pfile,
->  		goto err_put_group;
->  
->  	for (i = 0; i < group_args->queues.count; i++) {
-> -		group->queues[i] = group_create_queue(group, &queue_args[i], drm_client_id, gid, i);
-> +		group->queues[i] = group_create_queue(group, &queue_args[i],
-> +						      file->client_id, gid, i);
->  		if (IS_ERR(group->queues[i])) {
->  			ret = PTR_ERR(group->queues[i]);
->  			group->queues[i] = NULL;
-> @@ -3796,8 +3798,9 @@ int panthor_group_create(struct panthor_file *pfile,
->  	return ret;
->  }
->  
-> -int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle)
-> +int panthor_group_destroy(struct drm_file *file, u32 group_handle)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> @@ -3848,9 +3851,10 @@ static struct panthor_group *group_from_handle(struct panthor_group_pool *pool,
->  	return group;
->  }
->  
-> -int panthor_group_get_state(struct panthor_file *pfile,
-> +int panthor_group_get_state(struct drm_file *file,
->  			    struct drm_panthor_group_get_state *get_state)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_device *ptdev = pfile->ptdev;
->  	struct panthor_scheduler *sched = ptdev->scheduler;
-> @@ -3881,8 +3885,9 @@ int panthor_group_get_state(struct panthor_file *pfile,
->  	return 0;
->  }
->  
-> -int panthor_group_pool_create(struct panthor_file *pfile)
-> +int panthor_group_pool_create(struct drm_file *file)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool;
->  
->  	gpool = kzalloc_obj(*gpool);
-> @@ -3894,8 +3899,9 @@ int panthor_group_pool_create(struct panthor_file *pfile)
->  	return 0;
->  }
->  
-> -void panthor_group_pool_destroy(struct panthor_file *pfile)
-> +void panthor_group_pool_destroy(struct drm_file *file)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_group *group;
->  	unsigned long i;
-> @@ -3904,7 +3910,7 @@ void panthor_group_pool_destroy(struct panthor_file *pfile)
->  		return;
->  
->  	xa_for_each(&gpool->xa, i, group)
-> -		panthor_group_destroy(pfile, i);
-> +		panthor_group_destroy(file, i);
->  
->  	xa_destroy(&gpool->xa);
->  	kfree(gpool);
-> @@ -3914,14 +3920,15 @@ void panthor_group_pool_destroy(struct panthor_file *pfile)
->  /**
->   * panthor_fdinfo_gather_group_mem_info() - Retrieve aggregate size of all private kernel BO's
->   * belonging to all the groups owned by an open Panthor file
-> - * @pfile: File.
-> + * @file: DRM file.
->   * @stats: Memory statistics to be updated.
->   *
->   */
->  void
-> -panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
-> +panthor_fdinfo_gather_group_mem_info(struct drm_file *file,
->  				     struct drm_memory_stats *stats)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_group *group;
->  	unsigned long i;
-> @@ -3984,11 +3991,11 @@ struct panthor_vm *panthor_job_vm(struct drm_sched_job *sched_job)
->  }
->  
->  struct drm_sched_job *
-> -panthor_job_create(struct panthor_file *pfile,
-> +panthor_job_create(struct drm_file *file,
->  		   u16 group_handle,
-> -		   const struct drm_panthor_queue_submit *qsubmit,
-> -		   u64 drm_client_id)
-> +		   const struct drm_panthor_queue_submit *qsubmit)
->  {
-> +	struct panthor_file *pfile = file->driver_priv;
->  	struct panthor_group_pool *gpool = pfile->groups;
->  	struct panthor_job *job;
->  	u32 credits;
-> @@ -4059,7 +4066,7 @@ panthor_job_create(struct panthor_file *pfile,
->  
->  	ret = drm_sched_job_init(&job->base,
->  				 &job->group->queues[job->queue_idx]->entity,
-> -				 credits, job->group, drm_client_id);
-> +				 credits, job->group, file->client_id);
->  	if (ret)
->  		goto err_put_job;
->  
-> diff --git a/drivers/gpu/drm/panthor/panthor_sched.h b/drivers/gpu/drm/panthor/panthor_sched.h
-> index d87cbdba4d40b..c509fcb5a0c9c 100644
-> --- a/drivers/gpu/drm/panthor/panthor_sched.h
-> +++ b/drivers/gpu/drm/panthor/panthor_sched.h
-> @@ -16,31 +16,28 @@ struct drm_panthor_queue_create;
->  struct drm_panthor_group_get_state;
->  struct drm_panthor_queue_submit;
->  struct panthor_device;
-> -struct panthor_file;
->  struct panthor_group_pool;
->  struct panthor_job;
->  
-> -int panthor_group_create(struct panthor_file *pfile,
-> +int panthor_group_create(struct drm_file *file,
->  			 const struct drm_panthor_group_create *group_args,
-> -			 const struct drm_panthor_queue_create *queue_args,
-> -			 u64 drm_client_id);
-> -int panthor_group_destroy(struct panthor_file *pfile, u32 group_handle);
-> -int panthor_group_get_state(struct panthor_file *pfile,
-> +			 const struct drm_panthor_queue_create *queue_args);
-> +int panthor_group_destroy(struct drm_file *file, u32 group_handle);
-> +int panthor_group_get_state(struct drm_file *file,
->  			    struct drm_panthor_group_get_state *get_state);
->  
->  struct drm_sched_job *
-> -panthor_job_create(struct panthor_file *pfile,
-> +panthor_job_create(struct drm_file *file,
->  		   u16 group_handle,
-> -		   const struct drm_panthor_queue_submit *qsubmit,
-> -		   u64 drm_client_id);
-> +		   const struct drm_panthor_queue_submit *qsubmit);
->  struct drm_sched_job *panthor_job_get(struct drm_sched_job *job);
->  struct panthor_vm *panthor_job_vm(struct drm_sched_job *sched_job);
->  void panthor_job_put(struct drm_sched_job *job);
->  void panthor_job_update_resvs(struct drm_exec *exec, struct drm_sched_job *job);
->  
-> -int panthor_group_pool_create(struct panthor_file *pfile);
-> -void panthor_group_pool_destroy(struct panthor_file *pfile);
-> -void panthor_fdinfo_gather_group_mem_info(struct panthor_file *pfile,
-> +int panthor_group_pool_create(struct drm_file *file);
-> +void panthor_group_pool_destroy(struct drm_file *file);
-> +void panthor_fdinfo_gather_group_mem_info(struct drm_file *pfile,
->  					  struct drm_memory_stats *stats);
->  
->  int panthor_sched_init(struct panthor_device *ptdev);
-> @@ -54,7 +51,7 @@ void panthor_sched_report_mmu_fault(struct panthor_device *ptdev);
->  void panthor_sched_prepare_for_vm_destruction(struct panthor_device *ptdev);
->  void panthor_sched_report_fw_events(struct panthor_device *ptdev, u32 events);
->  
-> -void panthor_fdinfo_gather_group_samples(struct panthor_file *pfile);
-> +void panthor_fdinfo_gather_group_samples(struct drm_file *file);
->  
->  #ifdef CONFIG_DEBUG_FS
->  void panthor_sched_debugfs_init(struct drm_minor *minor);
+> >  
+> > -	drm_edid_get_product_id(drm_edid, &product_id);
+> > -
+> > -	product_id_nodate = product_id;
+> > +	product_id_nodate = *product_id;
+> >  	product_id_nodate.week_of_manufacture = 0;
+> >  	product_id_nodate.year_of_manufacture = 0;
+> >  
+> > -	p = drm_dbg_printer(display->drm, DRM_UT_KMS, "EDID");
+> > -	drm_edid_print_product_id(&p, &product_id, true);
+> > -
+> >  	ptrs = bdb_find_section(display, BDB_LFP_DATA_PTRS);
+> >  	if (!ptrs)
+> >  		return -1;
+> > @@ -718,7 +713,7 @@ static int pnpid_get_panel_type(struct intel_display *display,
+> >  			get_lfp_pnp_id(data, ptrs, i);
+> >  
+> >  		/* full match? */
+> > -		if (!memcmp(vbt_id, &product_id, sizeof(*vbt_id)))
+> > +		if (!memcmp(vbt_id, product_id, sizeof(*vbt_id)))
+> >  			return i;
+> >  
+> >  		/*
+> > @@ -733,6 +728,48 @@ static int pnpid_get_panel_type(struct intel_display *display,
+> >  	return best;
+> >  }
+> >  
+> > +static int pnpid_edid_get_panel_type(struct intel_display *display,
+> > +				     const struct intel_bios_encoder_data *devdata,
+> > +				     const struct drm_edid *drm_edid, bool use_fallback)
+> > +{
+> > +	struct drm_edid_product_id product_id;
+> > +
+> > +	if (!drm_edid)
+> > +		return -1;
+> > +
+> > +	drm_edid_get_product_id(drm_edid, &product_id);
+> > +
+> > +	return pnpid_get_panel_type(display, &product_id, "EDID");
+> > +}
+> > +
+> > +static int pnpid_displayid_get_panel_type(struct intel_display *display,
+> > +					  const struct intel_bios_encoder_data *devdata,
+> > +					  const struct drm_edid *drm_edid, bool use_fallback)
+> > +{
+> > +	struct drm_displayid_product_id displayid_id;
+> > +	struct drm_edid_product_id product_id;
+> > +
+> > +	if (!drm_edid)
+> > +		return -1;
+> > +
+> > +	drm_displayid_get_product_id(drm_edid, &displayid_id);
+> 
+> Having this return a value based on whether the product id was found or
+> not would indeed be useful.
+> 
+> > +
+> > +	/*
+> > +	 * Only the first two bytes of the OUI get
+> > +	 * smashed into the old EISA/PNPID field, and
+> > +	 * that gets matched against what's in the VBT.
+> > +	 */
+> > +	product_id.manufacturer_name =
+> > +		cpu_to_be16((displayid_id.vendor_id[0] << 8) |
+> > +			    displayid_id.vendor_id[1]);
+> 
+> I'll take your word for this.
+> 
+> Apart from the comments, everything else looks good,
+> 
+> Reviewed-by: Jani Nikula <jani.nikula@intel.com>
+> 
+> > +	product_id.product_code = displayid_id.product_code;
+> > +	product_id.serial_number = displayid_id.serial_number;
+> > +	product_id.week_of_manufacture = displayid_id.week_of_manufacture;
+> > +	product_id.year_of_manufacture = displayid_id.year_of_manufacture;
+> > +
+> > +	return pnpid_get_panel_type(display, &product_id, "DisplayID");
+> > +}
+> > +
+> >  static int fallback_get_panel_type(struct intel_display *display,
+> >  				   const struct intel_bios_encoder_data *devdata,
+> >  				   const struct drm_edid *drm_edid, bool use_fallback)
+> > @@ -743,7 +780,8 @@ static int fallback_get_panel_type(struct intel_display *display,
+> >  enum panel_type {
+> >  	PANEL_TYPE_OPREGION,
+> >  	PANEL_TYPE_VBT,
+> > -	PANEL_TYPE_PNPID,
+> > +	PANEL_TYPE_PNPID_DISPLAYID,
+> > +	PANEL_TYPE_PNPID_EDID,
+> >  	PANEL_TYPE_FALLBACK,
+> >  };
+> >  
+> > @@ -766,9 +804,13 @@ static int get_panel_type(struct intel_display *display,
+> >  			.name = "VBT",
+> >  			.get_panel_type = vbt_get_panel_type,
+> >  		},
+> > -		[PANEL_TYPE_PNPID] = {
+> > -			.name = "PNPID",
+> > -			.get_panel_type = pnpid_get_panel_type,
+> > +		[PANEL_TYPE_PNPID_DISPLAYID] = {
+> > +			.name = "PNPID DisplayID",
+> > +			.get_panel_type = pnpid_displayid_get_panel_type,
+> > +		},
+> > +		[PANEL_TYPE_PNPID_EDID] = {
+> > +			.name = "PNPID EDID",
+> > +			.get_panel_type = pnpid_edid_get_panel_type,
+> >  		},
+> >  		[PANEL_TYPE_FALLBACK] = {
+> >  			.name = "fallback",
+> > @@ -792,8 +834,11 @@ static int get_panel_type(struct intel_display *display,
+> >  	if (is_panel_type_valid(panel_types[PANEL_TYPE_OPREGION].panel_type))
+> >  		i = PANEL_TYPE_OPREGION;
+> >  	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
+> > -		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID].panel_type))
+> > -		i = PANEL_TYPE_PNPID;
+> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_DISPLAYID].panel_type))
+> > +		i = PANEL_TYPE_PNPID_DISPLAYID;
+> > +	else if (is_panel_type_pnp(panel_types[PANEL_TYPE_VBT].panel_type) &&
+> > +		 is_panel_type_valid(panel_types[PANEL_TYPE_PNPID_EDID].panel_type))
+> > +		i = PANEL_TYPE_PNPID_EDID;
+> >  	else if (is_panel_type_valid(panel_types[PANEL_TYPE_VBT].panel_type))
+> >  		i = PANEL_TYPE_VBT;
+> >  	else
+> 
+> -- 
+> Jani Nikula, Intel
 
+-- 
+Ville Syrjälä
+Intel
