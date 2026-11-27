@@ -2,125 +2,152 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C2C606A32F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 13:41:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D406F606A32F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 13:45:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=DrZ3zxSo
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=ztVaFm3U
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id E2FAE10E59A;
-	Fri, 27 Nov 2026 13:41:47 +0000 (UTC)
-Received: from DU2PR03CU002.outbound.protection.outlook.com
- (mail-northeuropeazon11011058.outbound.protection.outlook.com [52.101.65.58])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 530E210EABC
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 13:41:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A70210E576;
+	Fri, 27 Nov 2026 13:45:08 +0000 (UTC)
+Received: from SJ2PR03CU001.outbound.protection.outlook.com
+ (mail-westusazon11012056.outbound.protection.outlook.com [52.101.43.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 0B1AE10E576;
+ Fri, 27 Nov 2026 13:45:02 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=r9RCcBEY6Nt3kNmSqu/EcnKAqU2RbigAUoaPMP1XF0KpsBmfz0f/saQWy77NEy4uufs6KpBYh9uFAmW4pqpf3BLt7bPcpO2m//debqCoSGlPCUs+3oJAjCKnTOg+kckJ8H6KSl5Zx8V7mjHcYXTMzOQGWijQENPmkQECpbHzgWZc0ZsF4V8Zs4KByx41e89V/CZZAG1IaZk5hx5nXaP9EAZXnZS7c08RA4ckfBsMJpLcWURsxsmuHTnhMWi9ojY9GTK7uhd3SFz4mKKpPeFO9CVr5r5AB8CSMAn6+NXOntb6beOerjaXHngYrG60KfmV68I8N3cAgQAvlTcZ7Rlpow==
+ b=F5g7mDTe9Q54VJo9cUP8Yz2gIiEMpJxMGERhAPybf6ZtD3Lu38eC31UoKXyjwE75neWcajmk1lmW1UKYizPfK8UJx6XEvqCp02CTFQpmutE5UvaNxQ/YzdrPnBA07hL92erKT1SmaC1SbXALRoDu/bQw4Tcfil8W8F/VDPeMJbYOvF4egJWadMHNB1LRN7M9c3RaKCZEb2Ep7C6U/WhNAm8hdL0sI4Q1WGYQAOTl5YqL5grljvo/7ObOYq4AxyPVPaB8Uc+8gExBmsbMG7yR1YEkGLDINbND8XE7UkZzFUFkpdjEBQskPNaZtystDr68ItFjto5/oDH0CcOUc/NaxA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BnhqSPfzsIh3GPAcl5sjGp4l/2hA/Vww3b3dS5m3YDE=;
- b=MVzfSf1rGePr3yfj06VH1nPMJj5Ubsn2fXP2SSdV7+xn4l8lElLfOkuBd5FbBdg+lwnH7yVhIQKCJX3c9wXexwMU520GfZu8WuxDP4fHHrebBfiYzmFfRaEo/e+zhQCkrxXxBuUBoB6pZnPZ4ZSm5fSKcfjqOqdPNRRztEFtg8GIBJsM4zV0fbFQEJUrk5JNxO7nW55bfsPdjyhP96CVQbe1UniUHNyildeFeqQ50joLOcAWWWlgSwdv7IbEX831OQ5km6XSzFbgzpxMjDgHUHFn/XTizymeNpyKSN1jPs0j/vhxUK5KBeBHD2X71GWfFuVDHtkYlRUAez7JxJ7H6w==
+ bh=InFw9UrHf154I8sJn+zyovCN+8fZW/KRWPL9D90xIcg=;
+ b=CHAxM4coZ+ldsQ9Y7D7FbCgYZkP0MwXcqqr5iTWaXeqhJ1rMl1P4ri9CrvhfsHFNip0jUM1rTzfl707x4Nw5yeNqRgJdCAsEenroh0nqN+ConMKu0Ge2ec47+aEnXIwhRwbwOOIz7HhkP7y7W0OsLNcUbP6gPhGz0fvj79WfN6Xmvc6RVG7k8Hnq97qr9s0rB/4D4vTPHq/V8fypXTxB1gE1T4ftP6w0DN9KkDbiWoETno3v8Oi5AQuW9kj0u55ztcSwMCSn0nUc1PszF7FJu8Z4hGeefHCMh+LLmsefyLMQX96Z9FAdbINfs5pVyAbPJRxBpQcNSAp2d8PznZ4pVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
- s=selector1-NXP1-onmicrosoft-com;
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BnhqSPfzsIh3GPAcl5sjGp4l/2hA/Vww3b3dS5m3YDE=;
- b=DrZ3zxSo6VzNqJjfQECzEOgmxCgHYwyGzV+3FAzWajvA9bZTmoNgCb+TjCDkfk5pnkZRL6jci24floqgY1MEa/euVdSrBKL69Q6VMzXKysFdhMWnTT3sqNGzAvR+rjJBA9H9ka/Ote3ENYbb8pYtIrCFCASF1adUGJKyXwUwXXWHgEhEeDYmf0GtdCujq8X68zM0jWQ3ysyDlPaPI1Vk3+BHwF2QK5yzH65Tn3EfxUh4S2Tfjd74+G3nenKNRaCP9PqoQ7ka2Hj0QEz4NXAFiuN1XZ2ygUdxZXwCh8npyF0muGc6qVpSsD749UrRG+RscWhG4jsn79sJ9evg1kR+UQ==
+ bh=InFw9UrHf154I8sJn+zyovCN+8fZW/KRWPL9D90xIcg=;
+ b=ztVaFm3UcgLwMuPXRkQjeejIDdXDxQwsPqf1sQ0jf4OZweV+nrBnfa2qgstHZLwbg2Fg1nuO2k/k8/kMOS7fCvpYKntmN5cOTQgrWeInzs7aoa5j1kEqihbS+geeqC3H+hVTQL0i5s9tAeEi/Xl1klzH8YoTifEVCIacxsYAk9M=
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19) by PAXPR04MB8351.eurprd04.prod.outlook.com
- (2603:10a6:102:1c4::14) with Microsoft SMTP Server (version=TLS1_2,
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22)
+ by MW4PR12MB5625.namprd12.prod.outlook.com (2603:10b6:303:168::6)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
- 2026 13:41:36 +0000
-Received: from GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa]) by GV2PR04MB12318.eurprd04.prod.outlook.com
- ([fe80::a498:2b5a:cbdb:d6fa%3]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 13:41:36 +0000
-Date: Fri, 27 Nov 2026 15:41:31 +0200
-From: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-To: Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: linux-clk@vger.kernel.org, imx@lists.linux.dev, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v13 0/5] Add support for i.MX94 DCIF
-Message-ID: <awmGCp4e2pgtxsqr@vm>
-References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
-X-ClientProxiedBy: AS4P250CA0002.EURP250.PROD.OUTLOOK.COM
- (2603:10a6:20b:5df::20) To GV2PR04MB12318.eurprd04.prod.outlook.com
- (2603:10a6:150:32b::19)
+ 2026 13:44:57 +0000
+Received: from PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c]) by PH7PR12MB5685.namprd12.prod.outlook.com
+ ([fe80::ce69:cfae:774d:a65c%3]) with mapi id 15.21.0662.007; Fri, 27 Nov 2026
+ 13:44:56 +0000
+Message-ID: <eae24bcc-5d49-4f7a-a66b-164e8ff73bdd@amd.com>
+Date: Fri, 27 Nov 2026 14:44:46 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/24] dma-buf: Add the SGT DMA mapping type
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: Dave Airlie <airlied@gmail.com>, Alistair Popple <apopple@nvidia.com>,
+ Sumit Semwal <sumit.semwal@linaro.org>,
+ =?UTF-8?Q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Simona Vetter <simona.vetter@ffwll.ch>,
+ Matthew Brost <matthew.brost@intel.com>,
+ Vivek Kasireddy <vivek.kasireddy@intel.com>,
+ Dongwon Kim <dongwon.kim@intel.com>, Kevin Tian <kevin.tian@intel.com>,
+ Xu Yilun <yilun.xu@linux.intel.com>,
+ Karl Mehltretter <kmehltretter@gmail.com>,
+ Baolu Lu <baolu.lu@linux.intel.com>, Felix Kuehling
+ <felix.kuehling@amd.com>, Alex Deucher <alexander.deucher@amd.com>,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+ linux-media@vger.kernel.org, linaro-mm-sig@lists.linaro.org,
+ linux-rdma@vger.kernel.org, iommu@lists.linux.dev,
+ Keith Busch <kbusch@kernel.org>, Jens Axboe <axboe@kernel.dk>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-nvme@lists.infradead.org, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>,
+ Mina Almasry <almasrymina@google.com>, netdev@vger.kernel.org,
+ Alexey Kardashevskiy <aik@amd.com>, zhipingz@meta.com, treding@nvidia.com,
+ jhubbard@nvidia.com, chaitanyak@nvidia.com, Leon Romanovsky <leon@kernel.org>
+References: <20261120-dma_mapping_type_v4-v3-0-c0183a409bdf@nvidia.com>
+ <20261120-dma_mapping_type_v4-v3-3-c0183a409bdf@nvidia.com>
+ <ad46d60a-189d-4dd5-9ad8-ecfd3c90f9d9@amd.com>
+ <20261123165716.GM179082@ziepe.ca>
+ <7ac7edd0-5c38-440a-b26a-21bcbb6f4702@amd.com>
+ <awT8prWsj11TBdmP@nvdebian.thelocal>
+ <63eb7b6e-e0a8-4443-a434-0301ed59beae@amd.com>
+ <CAPM=9txheaE3=fp7=n4fYh-xshxOm+Tv=eQn9wvHVAc-b1JKDQ@mail.gmail.com>
+ <79d62f9a-cea8-4149-a673-7ef86942410d@amd.com>
+ <20261127125753.GS246011@ziepe.ca>
+Content-Language: en-US
+From: =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>
+In-Reply-To: <20261127125753.GS246011@ziepe.ca>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: BLAP220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:208:32c::16) To PH7PR12MB5685.namprd12.prod.outlook.com
+ (2603:10b6:510:13c::22)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12318:EE_|PAXPR04MB8351:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88bf5f08-d03f-4b4d-8794-08df4c8c2810
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
+X-MS-TrafficTypeDiagnostic: PH7PR12MB5685:EE_|MW4PR12MB5625:EE_
+X-MS-Office365-Filtering-Correlation-Id: d92c2e9f-b456-41b3-176c-08df4c8c9f98
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|1800799024|7416014|23010399003|19092799006|921020|10067099003|56012099006|261026121527099003|261026140227099003|261028144727099003|261022105027099003|261022113327099003|261022075727099003|261021123027099003|261021121427099003|261102123227099003|261009223027099003|22082099003|18002099003|11063799006|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info: J0jwZfhDLG93xM2pY/mAGWixKTRcm7Mln0YkA+9H+a4PmXldcH+YtWXt3VyagsblAbiotiNkbEoIOkXObBleob5bZ/wY2dKsd3zAityy1LbPoe4SByh4tyO4ds/2R4Ow7YHFMw0smT4kdP2xkOs55YoWSnW5YJLxxIi2t7Ady62CgsHvvR03Xru0u9In+2lvwHGVblKZiI1Ijvlhx/IdZeZ7rjx3XBT0/XbryzbPNxDG6QN0Sz4jSKwQ/l46mOqDwiK8uyMBHS4ANptGMCg5EE6PnpIn96xiO5WWa4XR24zzuCmtYSyKjwVZxwQI7dz48ObBQv9tCKdacYyR7KpyKgnPDpYP/PRUttmgFwcHUX5HRKUO9ESV9rA+pmUq41UskIXtK0Zph7umKJdVFURqDxePnEewSOoqPuSEDgMipjPmKITRRlDcbsun5gunLJPqeSn8qDhkDKG21ZsTWawsx5SFwlNLc8AbcK3begSN0K2wjQ3TaeABra+bwujAbSpgzUk4qKl0ZghojM83Bj/TivMS7EZEEDZOg89SRXpyJgnK5Wa+bKcRCQkAB29p7V4yva5GRZQeZtXsaJr39zUVXvAJGDn2SJZ5txyWKm1xSyqlxSi7L5dQEtPOCqK8xLstTGo63Flz1Ael9VP37caRZpCF/1cv82+Rd/DFbgrwyvU=
+ ARA:13230040|23010399003|1800799024|366016|376014|7416014|261028144727099003|261102130727099003|261102123227099003|261021135927099003|261021121427099003|261026121527099003|261026140227099003|261022105027099003|261022075727099003|4143699003|11063799006|56012099006|10067099003|22082099003|18002099003|261009223027099003|3023799007;
+X-Microsoft-Antispam-Message-Info: sMwH5oCGXSW3jaJccl+mWHwagaSg6j3HRWx1ppqY575jg57WtkUlFU77KU5YDPUqyWKL9+de30JlvPNRouRjxH3cBiDjnMeoesCidVo9VOgYHkHUOwI81q4exRcIyB1nKBBYYspPhGTqgKThTzcQnBIuos5lKTq2OjLEQEaxsQiXhh3dZvYjGNYFaWuEtFFJ+ExZVEHTakfvi9fZ7+LdmLM2x4+/1yXqx1e9Pd54n+ZnN5IBEZY2OCuxKr8oWatR1+8423C6WbKa6I63xpXzTYcUCSNa3DhD6jnvFvUcic0hDdzXXSgRmiMV8v4KQYV40f4mtZBRf/vXVNbDrVrZ0I8W/xIikhOHpoCtNLvXE5IitdUovYpzM/6qpbUEVPBHondpBNsnR2PxlLhcgcMbQC+md+SYS1lJvSKJNVho7mmbVr8fks5wmtf9F4CwIQ9f5ksLf1vqWOlJWs2WgB9Rw6JNYsSqCUAFvFDi/i2bfNkJcSqYKvw2nZQpo8erq1GJcG2+nFN76clmJ23PvCmX5EqzQbisOuJnDXu3dDT3NX/DAte5Y6gNmXeTlE/G2IsfI9JBDORjPaNdetJ3RYva+7PG1yiIZqfytdDDhPWg6h0bWkk9sJCo0a2Gf/B9elZ48x44t/wJ/YO1okfgevL5Ov0lp5dWT9xP/4cdrLfSOSM=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:GV2PR04MB12318.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(1800799024)(7416014)(23010399003)(19092799006)(921020)(10067099003)(56012099006)(261026121527099003)(261026140227099003)(261028144727099003)(261022105027099003)(261022113327099003)(261022075727099003)(261021123027099003)(261021121427099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(11063799006)(6133799003)(3023799007);
+ IPV:NLI; SFV:NSPM; H:PH7PR12MB5685.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(23010399003)(1800799024)(366016)(376014)(7416014)(261028144727099003)(261102130727099003)(261102123227099003)(261021135927099003)(261021121427099003)(261026121527099003)(261026140227099003)(261022105027099003)(261022075727099003)(4143699003)(11063799006)(56012099006)(10067099003)(22082099003)(18002099003)(261009223027099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?h7HsB4GwfRlNei9elrBtdJfT1l33n4jG0mzlp4iu/tfqNoVDDqz0bSbZeL30?=
- =?us-ascii?Q?VxtIUgCk5iFOK79zL9Cp258FukNBeXhOF2/gq3FZMC8wHGAxvNvxxZBNcGzs?=
- =?us-ascii?Q?SBmsWX06lVFSBRqjK8Ic8FpS2t9BBRutMaMR0BE6k7v6opfkph/H5GaHiAGl?=
- =?us-ascii?Q?EUSWaU/9AmIhq/lTeohO0Z4N/6BtIE34sQUg5B31pQGdAWGo5aPHtIKyg6FW?=
- =?us-ascii?Q?gM4w58hcij1wtiFL0lzwoGuQcmrKmY+OMntTpyn+eyascmySWTKxxcjgxXqJ?=
- =?us-ascii?Q?HF1Q1JJVSqmR3z67kdy383/8H0KaqWLoTUZyVg25vp1mBZPKIeGD/YV+oU2w?=
- =?us-ascii?Q?g7PkHgN8RstAwBoRtLx9cjskTDMy6Xhlpm9Eb8ZNKgZnuXWsNzfEBKy1rtq3?=
- =?us-ascii?Q?L7Sv/DygvJ1/oSWIP5SFzA0bmRHGjeMc5VYpddP2aG6i7RVOfSYVD4TBubu5?=
- =?us-ascii?Q?hXxdUeQiDjyFZPmlFG9r0nKkkrnbkK+IB4fC1hYIh/jk2u9n7CKj2WqBIDez?=
- =?us-ascii?Q?5BGVWoPHdogzLtQI8w3I+WxqDUDA1tIkgjmqPVjJ7JfKbdlrSHUAl2iL+K0j?=
- =?us-ascii?Q?8GRFyGAF+1ye/PLcgFDPhJoi3jhE7V7ht3R1kDd7lJyPfvvohrX83mW2F5yj?=
- =?us-ascii?Q?OKKhzSmxBGeOP12kW/dzomJwscpXUzedOVWkysuu3031Ew+8t0NWiVsjxCij?=
- =?us-ascii?Q?X+w6ffAiiPh1ARWiQ5aVxwIHP8ViFwLsEvUc+3YknbsOxOPikT8kkPv1Dz0G?=
- =?us-ascii?Q?asiPtfziTySdNmKNROHKCrbsFAlW0frNtNs38p6TBeuaO+CEbh/myC76sEVQ?=
- =?us-ascii?Q?10/POzWYLTfbzI/JHixOORXTyWIfwu7qJDiE8mIsk+6zgH/VKC9UWw4f6yEM?=
- =?us-ascii?Q?2LTi2MRHoAzNrMrUN92cKSEn0P28Y09+4QSozg8xSKhdoSO8MZVTGEUm60xR?=
- =?us-ascii?Q?mBLVeTCCDgjX2GVZTYfQEx0r6dWfeasOej3ixDBIHHs6ZN2o+y+mnJ1TPEC6?=
- =?us-ascii?Q?+GvJp8NmT+xA02KNLkNTNogQAUiRyi3I8EE3DXtgQ3jvqxh5Ci+7Ctx5P27w?=
- =?us-ascii?Q?9mwf5Wrx0WoqMsxqc9A/saGzlwtFxQzmkD32bup+1RoyAtfdAAZq+e6EsBSj?=
- =?us-ascii?Q?GjMBLtUnzhZ4F9amsOOpHlzGYsiugTPSgFhTn7ee3SXx0X9026WyFaTLAuXg?=
- =?us-ascii?Q?xmSfUKPZH+3DLVHj/rX3fZ9gS4dxhZlzfE6tZLSVG2Rueu8y9LfxDhEGus1N?=
- =?us-ascii?Q?yxMWNLinpzMiV2EZY6wyqCDG3o9Wf/uLxrAEh/nxNxV3o2HrwtjtI6B9/JOK?=
- =?us-ascii?Q?3X9h/5m3vAYho3i4JAr9ShK8QAPl57qVcstB72TP1wkxnCN/n0nKw1HVCI7z?=
- =?us-ascii?Q?V0dP+Ikfx7XTsy7yVvGmqRUM4WEBLCZYqLR8JOGtYHc8GcVeuHZGtiPuLUAk?=
- =?us-ascii?Q?ws75Y/KqXKYs464Tjd4Govk5Bl4OoULz6xHH05jM5Hhv9ZixPXyAhyrh4bGw?=
- =?us-ascii?Q?dJ4lg1ulIgx/R278HG9gpFc3Fk452cR+g/UznD0oZsYd9hnkgIOb0L/1aSxr?=
- =?us-ascii?Q?9PLkgFhkLbts7XVPoDOrCJUDasYf06AC389Ft65lQxLdYCvXQYi8/WTjwJae?=
- =?us-ascii?Q?OFLv8r1YwRNvlkIJnPaGIAIPMO0T+/pwERtd6ZwSzGhjZSzupFaSUgXuIGRa?=
- =?us-ascii?Q?6SCH95QFwtzJ7HRje6bzu4iyCfd6YAs8esWloPpOR1tSV/qklX/mWdErvZ/j?=
- =?us-ascii?Q?QAy4xz3WkmY4Jr3ZIymBwXtbsuQqo+4=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88bf5f08-d03f-4b4d-8794-08df4c8c2810
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12318.eurprd04.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NnZTQ0plZ1hVcHNIM3Q4bXplUS9jNGdFYjA4WjZKVUluS29LVXpmVHIrd08x?=
+ =?utf-8?B?d0Q1cGtrVFQ3ZVFYRW9hZzJwL1hkZGlUdHd4MDRkbHEzaDlpMTIzVEVOM2Zs?=
+ =?utf-8?B?c1YzbVUrd2R3R2NGUXJoSm8xMHVHMFJPa0E1aU5yQkFOejQybFF1VWJJa29t?=
+ =?utf-8?B?dkNqNFZ6cnlPT2t4NGl5R3l0Qks0ZCtzZ1lBc2ZMQ1dESlorYjByaWhleWdM?=
+ =?utf-8?B?M2phV0tiZUs3aFZaVEtPRytwUFRhU2dBd2RNblQ4RDNKL1lHSHpDZUJpUTE1?=
+ =?utf-8?B?S1BseWFIKzMzcVRMbVhic2J3UXNRaExqV2J6WStUb1NvSjQzVGlCK2tTc3Er?=
+ =?utf-8?B?T1NzazJTbDEwUUhlQVhpR2JmV29HZHQvMEFoWHZoaEMwdU52M0tocDVYeXlq?=
+ =?utf-8?B?SGlsRVlPS1hSWmY4MnVQZ3VzNmVldS9uMzNzK2xvZVdOeUs5emI0cnBOVmRP?=
+ =?utf-8?B?NFhhdndKUlpBQnVGYWZ4bGFzU0xyWHJydHZla053MExWbGJvQnBpTUNQU2k1?=
+ =?utf-8?B?NWdkc1R2b3MzcU1hOHUzZTdnMmNNYk9jcEZUdVpvdGRHbmxtN2QwMGkxay8w?=
+ =?utf-8?B?NVNiYUo3QVhDTnRuRnVBZXdja3RxSFF3WFB6UzFaRU80YSsvaEdoZXV5Umtp?=
+ =?utf-8?B?V3dyL1owUU1yRjd1MHlHdTF4ZTlqZDIwUmFOdzk3ZGhHUmlES2QvRDcxNUVj?=
+ =?utf-8?B?bmlqL21lazhFaWxWZ2JDQnh6SXJIUkhIR3R1djhoKzUzcVRYaUh6ckp5MW5o?=
+ =?utf-8?B?S3NZS1g2Rm9sNFJlaGtIcEEyT0ZVRFBjVlhZVDVHamU1SzhQSHhBa2NKamtj?=
+ =?utf-8?B?L3NiRk5IK2txdnA3K0N3cm5zN0lOeXNiWXlGbytQS1VYa2draGlqZ010RWE0?=
+ =?utf-8?B?VVpJK3dqNEdCVGJKK2h6MG9iRE5taXNsWFN3WkFFTDVJOGJZUHhDblZnR1lX?=
+ =?utf-8?B?bEh6Mzc3M2hmbnFPT0F3TytsWEw4a0YrUEdoUVJNUVNNOFhkZS9VSHdPL2M5?=
+ =?utf-8?B?RzNlMVBXQ0htSkNEQi82QWUwMGhpcXFqc3Jxb0poTFBOdytUQjBHd2JDaktE?=
+ =?utf-8?B?M0I5TUFIM1BFTjdnajN4NmNsamhNWUsyQ0dKSzgwblF4bGU5dmYzOHJUU1ZI?=
+ =?utf-8?B?aTFUc09heExubUNYOVpjbnFIQlpoTnVpTTVWZUxFQ2ZkNFE2TVI3czFjZ1BR?=
+ =?utf-8?B?eGtUN2g0RHZ2bTQrUkZWUHpXRVZFeHpFNytGK2Zwb0s4UjdzVTIwNWpqd3pQ?=
+ =?utf-8?B?NXJxTWlCWm90M01JVTdiOUQxbmdEL3BmeXBFSDZib2luWFo1OGIxQTZoaGph?=
+ =?utf-8?B?T0Z0MDFzSTRvL0p3Uy9YeHFubUFEWGhTWWR4eVlycHJ4c09XNTh1RWt6ZVlq?=
+ =?utf-8?B?TnNkMGk3bUFsbVBjcXg5VHlHdkVYZEZ5OXJNVmpNRlBBZEZMckpEWVlVeTNt?=
+ =?utf-8?B?dU9BNmp5RExGVnNYQ01VODl0K2RpR3pGWjl2N3VmbnBydkVJeW8xTVpYK0xu?=
+ =?utf-8?B?Z2RFU1M3VWhPTWlsS2wydDFwTTMvVDFsbm5WSXdoeXVIZ1h1eTRlNUxoTE8v?=
+ =?utf-8?B?ZnJEUUMwdVBrQkdkSmlJcTlEd1ZkM2s1c3BvTkgrdzFHVk9WVG1XWE41cXZ3?=
+ =?utf-8?B?eld5S2pSQnlhaG1JNzg3K1pEbGJFS0JuWHMyY3UvQjNVZnRXTFVTaXN4UHZJ?=
+ =?utf-8?B?YlV4bEJKQ21CVzZ2ekNQQ01rMXR6d3lSSzdkR013TGljWDZxekJlWUlWSzlo?=
+ =?utf-8?B?OFBTSS8rVVFzeGZaeS9KeHo3Z1BIY2VOMlNSczNHZE81Y2doZG5IUkllZHk1?=
+ =?utf-8?B?TmMzalFBN2F1L0ZtamIrSFljVC9mc3FGaGpyWHFwSnBPdDBoNWlFWWpFbWVi?=
+ =?utf-8?B?NDFHallqb2VRclUwLzU3RkNBcXJOT1VPWDdsSVpyaXBGdDI5ZnF1ZDYwdWRV?=
+ =?utf-8?B?ODlJMHN5djZYeGE5M3g2K1hmZ0ZEK25aQWx6dnk4L3hBeDRsRDFHTzZiZFZi?=
+ =?utf-8?B?RWZjeUNCWnNXcEluOEFxbXpXTU1vdTJ3SDBLMXNLN0M4Rlh4U0k5Z2RKaHlp?=
+ =?utf-8?B?aHpLVk01L2lPU0ExMWR3V0xZMlAvcURQbW5JYXE3WnpHSFE2RytzUWEyeWZ5?=
+ =?utf-8?B?ZHcyZ1ZKYUZmVVdxSUJjWGVnRnRaNFBkYUFlN1hBbVdua1pLcHpiVndMeUc1?=
+ =?utf-8?B?eGMvNnRtM0YwSktra1NELzV5UXEvZmtFK3owRVQrMXpvcE5DT01JTUNobEUy?=
+ =?utf-8?B?azBVQTdIczlCYjhLb09ieFdWZjRvSTBHaWJ1N2VtejJNTk5UeHJ4ck5XbS9W?=
+ =?utf-8?Q?FJvK3QUoumGB56BX9J?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: d92c2e9f-b456-41b3-176c-08df4c8c9f98
+X-MS-Exchange-CrossTenant-AuthSource: PH7PR12MB5685.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 13:41:36.4015 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 13:44:56.8183 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wtbq+E0D5niIVdlInUgpnUX1Gwwc15cVp/QW3Clgt77KNIeMf+4urVbuj1XcDKsGFa618E3BX1vX97HEHt7HPA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8351
+X-MS-Exchange-CrossTenant-UserPrincipalName: dkYgQ+qjs3pQ1PKzW4whenm0xDv0qTAbMYkK2G0k91C83ME/axC1+i8IY5tTnSzZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB5625
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -132,269 +159,99 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-Hi Luca, Frank,
+On 11/27/26 13:57, Jason Gunthorpe wrote:
+> On Fri, Nov 27, 2026 at 09:04:15AM +0100, Christian König wrote:
+> 
+>> If we somehow prevent the CPU physical address from being casted to
+>> a struct page and/or used with vmf_insert_pfn/page/dma_map_page
+>> etc.. then there is not much of a problem with passing around
+>> physical addresses.
+> 
+> I already offered that in v1 of the series using limits on
+> EXPORT_SYMBOL and you NAK'd it too.
 
-All patches in v13 now have review tags. Since we are approaching -rc6,
-would it be possible to pick this up for 7.5?
+Yes, because I think that this is not sufficient to prevent importers from doing nasty things.
 
-Luca: could you apply 1/5 and 2/5 to drm-misc-next?
-Frank: could 3/5-5/5 go through i.MX tree?
+>>> If we need to shared object backings and have clearly typed and
+>>> negotiated on what the backing contains then we should allow it.
+>>> However I mostly agree on the mapping thing, I'd want drivers to
+>>> negotiate and natively support whatever backings they can rather than
+>>> having an intermediate trying to handle the conversions Not saying the
+>>
+>> Yes, exactly that's my concern as well. We need to avoid this middle
+>> layer trap.
+> 
+> You avoid middle layers by having reasonable subsystem helpers for
+> things to use to build their stuff, especially to encapsulate common
+> patterns. These helpers are part of the subsystem, or in a related
+> subysstem helper library.
+> 
+> In Linux terms middle layer almost always means something wrapping a
+> function pointer callback into a driver and enforcing specific actions
+> on top of that. The recommended counter is to have the driver perform
+> the actions with helpers and not wrapper the ops. It particularly came
+> from the block world where they stuck something like SCSI after the
+> block ops but before the driver.
+> 
+> It is hard to see that DMABUF is anywhere close to a middle layer.
+> 
+> This is also why we don't understand your remarks about
+> dma_buf_phys_vec_to_sgt(). Of course it belongs in dmabuf, it produces
+> the dmabuf spec'd mangled scatterlist that only dmabuf uses. Where
+> else would you put this code?
 
-Thanks,
-Laurentiu
+No, that doesn't even remotely belong to DMA-buf.
 
-On Fri, Nov 20, 2026 at 12:50:35PM +0000, Laurentiu Palcu wrote:
-> Hi,
-> 
-> This patch-set adds support for the i.MX94 Display Control Interface.
-> 
-> Thanks,
-> Laurentiu
-> 
-> ---
-> Changes in v13:
-> - Rebased to latest linux-next (next-20261119);
-> - 1/5: No change;
-> - 2/5: When disabling the CRC, also clear CRC_TRIG and set
->   CRC_SHADOW_LOAD_EN. CRC_EN is shadowed, so the disable was never
->   latched, and CRC_TRIG is not self-clearing in continuous mode, so a
->   later re-enable did not write the register (Sashiko). Sashiko's
->   comments about register access and unbalanced clock disable when
->   runtime PM resume fails were not addressed: the only failure point
->   is clk_bulk_prepare_enable() and the clocks are managed by the SCMI
->   firmware, so extra checks would only add noise. See:
->   https://lore.kernel.org/r/awAgaVs4LLwqVA57@vm
-> - 3/5: No change;
-> - 4/5: No change;
-> - 5/5: No change;
-> - Link to v12: https://patch.msgid.link/20261118-dcif-upstreaming-v12-0-29b35e27a1cc@oss.nxp.com
-> 
-> Changes in v12:
-> - Rebased to latest linux-next (next-20261116);
-> - Dropped the fsl-ldb patches (v11 1/7 and 2/7) since they were applied
->   to drm-misc-next by Luca and are now in linux-next;
-> - 1/5: No change;
-> - 2/5: Take a vblank reference while the CRC is enabled, otherwise the
->   VS_BLANK interrupt gets masked on a static screen and reads from the
->   debugfs crc/data file block forever; always stop the CRC when the CRTC
->   is disabled (Sashiko); in the IRQ handler, only handle the status bits
->   that are enabled in IE0/IE1 and return IRQ_NONE when none is pending
->   (Sashiko); reject negative ROI coordinates in the CRC source parser
->   (Sashiko); propagate runtime PM resume failures from
->   dcif_hw_probe_init() and call it after KMS init, so the hardware is
->   not touched before the bridge lookup can defer and before the
->   supplier device links are created (Sashiko); reject framebuffers whose
->   pitch does not fit in the 16-bit CTRLDESC3 pitch field (Sashiko); use
->   of_drm_get_bridge_by_endpoint() instead of the deprecated
->   devm_drm_of_get_bridge(), and drop the DRM_PANEL_BRIDGE select and the
->   unused drm_panel.h include (Luca); declare and initialize the __free()
->   bridge pointers in one statement (Luca, Sashiko); allow COMPILE_TEST;
->   update the copyright year to 2026 (Luca);
-> - 3/5: Collected Rob's r-b tag;
-> - 4/5: No change;
-> - 5/5: No change;
-> - Link to v11: https://patch.msgid.link/20261110-dcif-upstreaming-v11-0-9e13c85ae0d8@oss.nxp.com
-> 
-> Changes in v11:
-> - Rebased to latest linux-next (next-20261109);
-> - Dropped "drm/bridge: fsl-ldb: Get the next non-panel bridge" since the
->   driver already gets the next bridge after upstream commit 802372cf316a
->   ("drm/bridge: fsl-ldb: don't create a panel_bridge") (Luca). The
->   remaining cleanups suggested by Luca were sent as a separate patch,
->   not needed by this series:
->   https://lore.kernel.org/r/20261030163254.3175671-1-laurentiu.palcu@oss.nxp.com
-> - Dropped the standalone MAINTAINERS patch. The entry is now added
->   together with the DCIF binding (3/7) and the driver (4/7) to make
->   checkpatch happy;
-> - 1/7: No change;
-> - 2/7: Collected Luca's r-b tag;
-> - 3/7: Add the MAINTAINERS entry;
-> - 4/7: Program the plane registers (format, size, pitch, base address,
->   layer enable) only from the plane update path, no longer from CRTC
->   enable; arm the vblank event with drm_crtc_arm_vblank_event() in
->   atomic_flush and drop the driver-private event caching, which fixes
->   the vblank refcount and early-event issues; on probe, mask and ack the
->   interrupts left enabled by the bootloader, and request the IRQ only
->   after KMS init to avoid a NULL CRTC dereference; dropped the unneeded
->   mod_devicetable.h and drm_fb_dma_helper.h includes; style fixes in
->   the of_device_id table and platform_driver initializer (Uwe); follow
->   the reference manual software reset sequence: wait for the DPI to go
->   idle after clearing DISP_ON and hold the AXI fetches (AXI_RD_HOLD)
->   until the pending reads are done before pulsing SW_RST; stop the
->   controller at probe if the bootloader left it running; add device
->   links to the display CSR and the LDB to enforce the suspend/resume
->   ordering, which fixes a vblank timeout after system resume; include
->   <linux/bitfield.h> in dcif-reg.h; in mode_valid, reject modes larger
->   than the mode_config max_width/max_height and modes whose porches or
->   sync widths overflow the 12-bit DPI timing fields;
-> - 5/7: Renamed the 'ldb' child node to the generic 'bridge' node name
->   (Conor);
-> - 6/7: Renamed the ldb@4 node to bridge@4 accordingly;
-> - 7/7: No change;
-> - Link to v10: https://patch.msgid.link/20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com
-> 
-> Changes in v10:
-> - Rebased to latest linux-next (next-20261005);
-> - 1/9: No functional change;
-> - 2/9: Switch to using of_drm_get_bridge_by_endpoint() helper for
->   fetching the next bridge;
-> - 3/9: No functional change;
-> - 4/9: No functional change;
-> - 5/9: Fixed a pixel-clock unit mismatch bug, ROI now derived from mode
->   at program time, CRC reprogrammed on ROI/source change, bus-format
->   validated with a whitelist, forced modeset on CRTC activation
->   (dcif_atomic_check), vblank event flushed on disable to avoid hangs,
->   dropped PREMULTI blend support since PREMULTI is not mandatory anymore
->   and the display controller does not support it, probe error paths
->   checked, shared dcif_set_csc()/dcif_plane_disable_layer() helpers
->   introduced;
-> - 6/9: restructured to reuse the existing conditional schema pattern for
->   the new nxp,imx94-lvds-csr compatible, instead of unconditional
->   properties. Dropped Krzysztof r-b tag as it needs reviewed;
-> - 7/9: No functional change (context shift);
-> - 8/9: regulator nodes relocated/renamed (reg_1v8_ext/reg_3v3_ext ->
->   reg_1p8v_ext/reg_3p3v_ext) to match existing naming convention;
-> - 9/9: No functional change (context shift);
-> - Link to v9: https://patch.msgid.link/20260612-dcif-upstreaming-v9-0-8d0ff89aa3c5@oss.nxp.com
-> 
-> Changes in v9:
-> - Rebased to latest linux-next (next-20260611);
-> - 2/9: Reworked to store the next bridge in fsl_ldb->bridge.next_bridge
->   (taking a reference with drm_bridge_get()) instead of adding a new
->   dedicated field. Removed the r-b tags for this patch since it needs a
->   fresh review;
-> - 3/9: Fixed the i.MX94 LDB max_clk_khz limit (165 MHz -> 148.5 MHz) to
->   match the actual hardware limit. Removed the r-b tags for this patch
->   since it needs a fresh review;
-> - 4/9: Added a 'required:' properties list to the binding. Removed
->   Krzysztof's r-b tag for this patch since it needs a fresh review;
-> - 5/9: Renamed the CRC source helpers (dcif_crc_source_*) and made them
->   unconditionally available, dropping the CONFIG_DEBUG_FS stubs;
->   improved CRC source parsing (auto ROI for the full-frame source,
->   unsigned params, safer string handling); rebased onto the
->   drm_atomic_state -> drm_atomic_commit rename in linux-next; reworked
->   CRC/modeset gating with new has_crc and crtc_pm_enabled flags and
->   proper PM error handling; switched event_lock to spinlock_irq; removed
->   a redundant connector-attach call and fixed an error format string;
->   added new pixel formats and full alpha/blend-mode support;
-> - 6/9: YAML quoting style fix only, no functional change;
-> - 7/9: Combined the former "arm64: dts: imx943: Add LVDS/DISPLAY CSR
->   nodes" prerequisite and the "arm64: dts: imx943: Add display pipeline
->   nodes" patch into a single new patch targeting the shared imx94.dtsi
->   instead of imx943.dtsi, removing the dependency on Peng Fan's
->   not-yet-merged patch;
-> - 8/9: Renamed the IT6263 bridge node to 'hdmi@4c' and fixed its
->   reset-gpios polarity to GPIO_ACTIVE_LOW;
-> - Link to v8: https://lore.kernel.org/r/20260304-dcif-upstreaming-v8-0-bec5c047edd4@oss.nxp.com
-> 
-> Changes in v8:
-> - Rebased to latest linux-next (next-20260303). Patch 2/9 had a minor
->   conflict bacause of a patch introduced recently;
-> - 8/9: Fixed CHECK_DTBS errors reported by Rob's bot due to missing
->   regulators. Removed the r-b tag for this patch because it needs a
->   fresh review;
-> - Link to v7: https://lore.kernel.org/r/20260122-dcif-upstreaming-v7-0-19ea17eb046f@oss.nxp.com
-> 
-> Changes in v7:
-> - Rebased to latest linux-next;
-> - Addressed some new checkpatch warnings: kzalloc -> kzalloc_obj;
-> - Fixed a couple of static check warnings in probe();
-> - Added Luca's r-b tag for bridge refcounting;
-> - Link to v6: https://lore.kernel.org/r/20251103-dcif-upstreaming-v6-0-76fcecfda919@oss.nxp.com
-> 
-> Changes in v6:
-> - 2/9: Collected r-b tag from Francesco;
-> - 3/9: Removed ch_max_clk_khz variable as suggested by Luca and added
->   his r-b tag;
-> - 4/9: Collected r-b tag;
-> - 5/9: Call drm_bridge_put() automatically in
->   dcif_crtc_query_output_bus_format() by using a cleanup action (Luca);
-> - 6/9: Moved allOf: block after required: block (Krzysztof). Collected
->   r-b tag;
-> - Link to v5: https://lore.kernel.org/r/20250911-dcif-upstreaming-v5-0-a1e8dab8ae40@oss.nxp.com
-> 
-> Changes in v5:
-> - 4/9: Removed "bindings for" from the title, changed the port
->   definition and simplified the example;
-> - 6/9: Fixed the way 'ldb' child node is declared: declare the
->   'ldb' child node out of if:then: block and set the property
->   to false for compatibles other than nxp,imx94-lvds-csr;
-> - Link to v4: https://lore.kernel.org/r/20250903123332.2569241-1-laurentiu.palcu@oss.nxp.com
-> 
-> Changes in v4:
-> - Addressed remaining DCIF driver comments from Frank;
-> - Limit the 'ldb' child node only to CSRs compatible with 'nxp,imx94-lvds-csr'
->   in the binding file. Since LVDS CSRs are a minority, I chose to
->   use the if:then: construct instead of if:not:then:;
-> - Remove the '#address-cells' and '#size-cells' from the ldb node, in
->   imx94.dtsi, as they're not needed;
-> - Link to v3: https://lore.kernel.org/r/20250806150521.2174797-1-laurentiu.palcu@oss.nxp.com
-> 
-> Changes in v3:
-> - Removed the BLK CTL patches and created a separate patch set [2] for them;
-> - Collected r-b tags for 1/9, 2/9, 3/9 and 9/9;
-> - Removed the DCIF QoS functionality until I find a better way to
->   implement it through syscon. QoS functionality will be added in
->   subsequent patches. Also, used devm_clk_bulk_get_all() and used
->   dev_err_probe() as suggested;
-> - Addressed Frank's and Krzysztof's comments on the DCIF bindings;
-> - Addressed Frank's comments on dtsi and dts files;
-> - Added a new binding patch, 6/9, for adding 'ldb' optional property to
->   nxp,imx95-blk-ctl.yaml;
-> - Link to v2: https://lore.kernel.org/r/20250716081519.3400158-1-laurentiu.palcu@oss.nxp.com
-> 
-> Changes in v2:
-> - reworked the BLK_CTL patch and split in 2 to make it easier for
->   review;
-> - split the dts and dtsi patch in 2 separate ones;
-> - addressed Frank's comments in DCIF driver;
-> - addressed Rob's comments for the bindings files;
-> - addressed a couple of checkpatch issues;
-> - Link to v1: https://lore.kernel.org/r/20250709122332.2874632-1-laurentiu.palcu@oss.nxp.com
-> 
-> ---
-> Laurentiu Palcu (4):
->       dt-bindings: display: imx: Add i.MX94 DCIF
->       dt-bindings: clock: nxp,imx95-blk-ctl: Add LDB bridge child node
->       arm64: dts: imx94: Add display pipeline nodes
->       arm64: dts: imx943-evk: Add display support using IT6263
-> 
-> Sandor Yu (1):
->       drm/imx: Add support for i.MX94 DCIF
-> 
->  .../bindings/clock/nxp,imx95-blk-ctl.yaml          |  24 +-
->  .../bindings/display/imx/nxp,imx94-dcif.yaml       |  90 +++
->  MAINTAINERS                                        |   9 +
->  arch/arm64/boot/dts/freescale/imx94.dtsi           |  82 +++
->  arch/arm64/boot/dts/freescale/imx943-evk.dts       |  86 +++
->  drivers/gpu/drm/imx/Kconfig                        |   1 +
->  drivers/gpu/drm/imx/Makefile                       |   1 +
->  drivers/gpu/drm/imx/dcif/Kconfig                   |  15 +
->  drivers/gpu/drm/imx/dcif/Makefile                  |   5 +
->  drivers/gpu/drm/imx/dcif/dcif-crc.c                | 238 +++++++
->  drivers/gpu/drm/imx/dcif/dcif-crc.h                |  54 ++
->  drivers/gpu/drm/imx/dcif/dcif-crtc.c               | 710 +++++++++++++++++++++
->  drivers/gpu/drm/imx/dcif/dcif-drv.c                | 250 ++++++++
->  drivers/gpu/drm/imx/dcif/dcif-drv.h                |  90 +++
->  drivers/gpu/drm/imx/dcif/dcif-kms.c                | 181 ++++++
->  drivers/gpu/drm/imx/dcif/dcif-plane.c              | 300 +++++++++
->  drivers/gpu/drm/imx/dcif/dcif-reg.h                | 270 ++++++++
->  17 files changed, 2405 insertions(+), 1 deletion(-)
-> ---
-> base-commit: d785d132202e8e8e93335ebf74ad5b29fca0951f
-> change-id: 20260602-dcif-upstreaming-fb177f3c9351
-> 
-> Best regards,
-> --  
-> Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
+What could be done inside DMA-buf is converting dma-addr[] and SGT. Because we need that for backward compatibility.
 
--- 
-Thanks,
-Laurentiu
+But creating the DMA addresses from the physical addresses is low level DMA API and is not a task the DMA-buf framework should fulfill.
+
+Again: DMA-buf is just the utility which allows importers and exporters to exchange information how to access a buffer.
+
+>>> code doing the conversions can't be a helper, bit it shouldn't ever be
+>>> autoamtic or outside driver control.
+> 
+> I think you do want it automatic, if an exporter is new and makes,
+> say, a dma_addr_t[] and the importer is old and wants a sgt, why
+> should we be open coding anything in every driver to deal with this?
+
+We shouldn't. That is not what I'm suggesting.
+
+> You can argue if it is automatic because the driver called a very
+> general helper or automatic because the helper is wrapping a callback,
+> but that should be a fairly minor quibble not a huge thread full of
+> NAKs.
+> 
+> Ultimately DMABUF has a fairly simple flow:
+>  1) Allow importer/exporter to negotiate what kind of interconnect
+>     they want to use (PCI, ualink, etc)
+>  2) Give the exporter enough information about the interconect path to
+>     make a placement decision
+>  3) Describe the exporter's buffer so any mappings/translation/etc can
+>     be setup for the importer
+>  4) Program the importers HW.
+> 
+> Many of these have very common patterns, like PCI GPUs always make the
+> same kind of VRAM placement decision in #2 based on P2P support.
+
+
+> This should all be in helpers under the dmabuf umbrella and not open coded.
+
+Well I completely agree that this shouldn't be open coded in drivers, but it also doesn't belong into DMA-buf.
+
+DMA-buf is just the utility which allows you to communicate the parameters and the result of the mapping/translation back and forth between importer and exporter.
+
+DMA-buf is not and should not be involved in creating the actually mapping, that is the job of a low level DMA API.
+
+Christian.
+
+> 
+> Jason
+
