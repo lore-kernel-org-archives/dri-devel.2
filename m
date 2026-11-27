@@ -2,97 +2,153 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C79606B199
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 14:27:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A800A606C2D8
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 14:27:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YacuCz0C
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=cIi3g66+;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=DqhldR9V
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 70E7D112AF7;
-	Fri, 27 Nov 2026 14:27:25 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 1AF34112AF7;
- Fri, 27 Nov 2026 14:27:19 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id E069444DEC;
- Fri, 27 Nov 2026 14:27:18 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795789638;
- b=UVCLGf1sCmVT5bRVJ3uhD2JpCAn+XR2Bt5QuhUFzT8jzKdurui6dZkDqEAzQTbLB6yW1
- ZyvSN4Wcz3F2sYOtu0itE/BMY/UFf3uvU0aerlGJ0L61BKsF7HszVlS7adtXUvoMAwhFu
- qFBRby1N5IVA0Q8IkWrd7FMVO07HRtrslXdeuvj+znnrMSaM4RN1hU9WA6ofd1BQiC/LV
- C35++lRvSBbgeuUOVR6K+lB9AgjMDbqxs2wVeCYOQA+M/tHHRLpoV9rR0mmidXdW0oHsU
- P20iQRgmln9X4/yH/7BBZsoDyZYyx9FsuiTuEZz6lFxkcRI1PE0l8jEPwSePkM/Drkw==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795789638;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:X-B4-Tracking:X-Change-ID:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=8T2WrUhD5VMaLDjgW6RdRPsPFa7clOAjaLGtAnotNlw=;
- b=aIvvxEJEhWouNdyNlUVPU8Eg8zGnlq/RV2XKsRlVaV5cvcS1jBCRYa7wHALFDbncAb3q
- Bee/+BZ1gFQH1EF1K2LiuZxHwwlHHMrvLAlPHu+/45NsTubLEL8eBp7qiJVDllSBTojCa
- F9xnPV4rS12er+js9IOjRH+UfYBFxuT03xHFWUoiT7Glq2rxEk8VpG6sRb3kJN/Oop0o5
- VRQ01DmQ/V3674lZIeP00yq+hKkbSFX+eosoGXMh1m97sznly3y0XJPaVk3qUTEMLoO20
- dHFBCB16MD/BhMLCwXLpAu2jSZ22MLHRSya5lTNvnEjsyJL/cO/F1r7rnmp3zYl2TjQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id 550FF1F0089F;
- Fri, 27 Nov 2026 14:27:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795789638;
- bh=8T2WrUhD5VMaLDjgW6RdRPsPFa7clOAjaLGtAnotNlw=;
- h=From:Date:Subject:To:Cc:Reply-To;
- b=YacuCz0CoBToebx+Y05qKUYKO4znll6REOsi8cn66Hw8WE8WKnhtAqydGCbcjZzy9
- 92Z1K6ruEkZISyjGcYUpnDSpVih+pYhKnj5iku7GMZv9JyZ7fdSv7odYOYCEhgvlFg
- nrbmXC8oKPDIZDrMDb9CJMNJTfNnm4r29r8UWRCVlT3dqJtW3DRmAgKR7grEbxg+4Y
- ypZI8SdY5VGi0GaaQidTf53RPOm4SfeCh3DWkJdTElZ6sBDtReGfu/xjilTOp0LqH1
- HtwbjGF+N0FMsXXnBV5javKmj5eYaVxb1rD9UUnryg8pOLqPE15/xBjRc0kTddDsbr
- zjVRwXivL5JwQ==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id CA9A74B83A;
- Fri, 27 Nov 2026 14:27:05 +0000 (UTC)
-From: Robert Ijtsma via B4 Relay <devnull+robertijtsma.gmail.com@kernel.org>
-Date: Fri, 27 Nov 2026 15:27:06 +0100
-Subject: [PATCH v3] drm/msm/dp: clear AUX_TRANS_CTRL on reset and enable
- HPD_REFTIMER
+	by gabe.freedesktop.org (Postfix) with ESMTP id 152DD112B17;
+	Fri, 27 Nov 2026 14:27:42 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 091F1112B17
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 14:27:31 +0000 (UTC)
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ARE1FCU2683822
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 14:27:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ 7a5Q8MPtSCCW+xwsPzibCdKb+02lsoWhVNp9a3EuJKg=; b=cIi3g66+bwoqhM3F
+ 3d2o0zwCGyXUmNTuYG44OuMAi4OppCOxYlvs7WgYEJ6xLR0NzuKf3xnL7sbjUUbi
+ GXDcIiP+oarqZwB3pZuohtrlPrCuU8EyckNJqhfxMC9rbuipKjSBupceyb7Achdz
+ 7kkvpn7uirLfIksWSR7kizv6Meh2jNt99OdkYn/IJpDYwwA4pFiIuE23KGB/VqQr
+ VF+bX6l4Mglp3nDwwp5ieFFBXDBJpoaG39hvbY4N6Rqp5lkSEZ8r2OjkPLRFzepA
+ GGmqMi9ZJw1bYOnC+pAQkcyEnlfn4MJOl0j2BpWQUSMfWQZ+BtZW64kTjVHThVzW
+ dS3+Lw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j73uhj165-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 14:27:30 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id
+ af79cd13be357-93f3960dca5so71891385a.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 06:27:30 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1795789649; x=1796394449;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=7a5Q8MPtSCCW+xwsPzibCdKb+02lsoWhVNp9a3EuJKg=;
+ b=DqhldR9V+piYQzJBBeaJvaDBPefAIaG4D3pqMn87UD3KefvciWd58r/slhrL04W6qO
+ 6nAgT4kXIZs6oWG+QPkBf4hHQW+QGHji6FdZGVlDlsfA8PqzJb0IZAysH1vdIW2LupTw
+ esb/o5cGNCSeDsD/Yo2uDnGGUt8hGC03RYcdUUYZaNMeXtA9fXPmIZXO2iGbaMfabyPI
+ EYVuUtYLEBRU45lEIT3q/vdqXXp1f+HlC4WgGbXUrosjthIyTMpmt67iclJxfj6eNEb4
+ FwqWL1/A5eAjfphYTdJaCe/foOF5F7j7BdMd5VpkiB73dLrF0V1lhv2A52MbkwD1CLiy
+ sZhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795789649; x=1796394449;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=7a5Q8MPtSCCW+xwsPzibCdKb+02lsoWhVNp9a3EuJKg=;
+ b=fFAsG0lOT9rkT6d+1jCc9OoYxukx5dKHfNn7G1dfkSpR+B6Gmoh1/nHE04KDAki+et
+ MYZwoTHP4fmXIITsu5qG0wEXnNc+RJeeqUI/UEHY1dUjJ7k3+XtfSt/x1C4D9OHATq9M
+ h7H5SJkmgq/N1xfDlvlZiwvgxP3kh2EhE7ewWz13VuaBw10vPPWvNLnID8POjeBlKmzM
+ 925auUBT60W6pR51SwWfF35kq2Qmw8Mk83/F18awLsJlsziLlkFu8mB28WLl9I5VBLV0
+ 6JqOyU5vuBihS9HYiHPSCG9ox+ARfu2NR23SJX4vL1E8bzd1z5QZCuc5eLCcRSXYWDXd
+ VFBg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErFJ5NYyDPCDQ9Obf5e4DyGSyEskRBLrdjM0BoPWeCkKkSQX0L9hZ7zrRBeDP2GNxBqMvFUCvZM61Kg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+ItwndaDWJ470z7mYg18fagpNnViA6RtI2acYV6DqpXLw0mNCY
+ xdRMHKe4Sid2DtqGq1imzM0VIJuIPyTNTGrHnUlYexilysa/4Db5SO5QLKLQxCKLpHHYxl58hdN
+ RKMl21iusr+v7BzMKBlD/mDkaWRytGR9MfeMr1A42qF/w33l4ccwk0KwqkA6jKhPIfON1f00=
+X-Gm-Gg: AZFdTZe+0kW3h7gBDdiVz+KJZX1vP2BFR0+BnyLVXg1EXUSlFK2MipxGdtYILDQwRJE
+ bXzLSo8xLCxDHn2kT7CqF1dr934iHde2uguBb4SXjep5lXe5XKwcp5y02zQ0X2CZ+smzHy6+PcG
+ sxtjBy2VVxfOOl029AzguAmGYS56Ld8d5deOjb3mAJLnzqEN9WQDrm61i5RMEArFjR1Lz0hDEKm
+ kjHithr3Aq55xbMkYLbJKCVGHp8+1tCILhsBqSvvd/KT5qbof6xUFfGTWSHUZntVZasBr6wyuA+
+ YKuB4stQtIm5IRqI080++fuU+4oG7km/t7fNK+UL0XylX5N8lMi7xPR7AtWEPJfO70jpTSPsPDH
+ yjc/mpXyVUtL11V1AnG43ErnXL1qfwbYcsv37tP/xJG/mzK036NJ851wFo0+AIMtGxKKXcfc=
+X-Received: by 2002:a05:620a:219b:b0:949:aa1b:1243 with SMTP id
+ af79cd13be357-949bab2c992mr4628948585a.5.1795789649472; 
+ Fri, 27 Nov 2026 06:27:29 -0800 (PST)
+X-Received: by 2002:a05:620a:219b:b0:949:aa1b:1243 with SMTP id
+ af79cd13be357-949bab2c992mr4628942185a.5.1795789648977; 
+ Fri, 27 Nov 2026 06:27:28 -0800 (PST)
+Received: from [192.168.226.72] ([178.235.128.140])
+ by smtp.gmail.com with ESMTPSA id
+ 4fb4d7f45d1cf-6ba7b9570e9sm9285824a12.36.2026.11.27.06.27.25
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Nov 2026 06:27:28 -0800 (PST)
+Message-ID: <0a37b7e2-2489-4d9e-9ba0-f5545f962ab1@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 15:27:24 +0100
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-drm-msm-dp-aux-resume-v3-1-2db151decaab@gmail.com>
-X-B4-Tracking: v=1; b=H4sIADmTCWsC/4XNwQ6DIAyA4VcxnNcFqsLYae+x7ACCSjKmgUlcj
- O8+9ORlWXr6m/TrQqINzkZyLRYSbHLRDa8c5akgTa9enQVnchOkyBnDGkzw4KMHM4KaZgg2Tt6
- CvMhWo5bC8Jrk2zHY1s27e3/k7l18D+Gzv0ls2/4TE4M8oq1VRbVUnN06r9zz3AyebGLCo8J/K
- ZiVssSqQqq5EPSorOv6BYK0QgwAAQAA
-X-Change-ID: 20261125-drm-msm-dp-aux-resume-989fb2b97d65
-To: Rob Clark <robin.clark@oss.qualcomm.com>, 
- Dmitry Baryshkov <lumag@kernel.org>, 
- Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
- Marijn Suijten <marijn.suijten@somainline.org>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Stephen Boyd <swboyd@chromium.org>, Vara Reddy <quic_varar@quicinc.com>, 
- Guenter Roeck <groeck@chromium.org>, Tanmay Shah <tanmay@codeaurora.org>
-Cc: Chandan Uddaraju <chandanu@codeaurora.org>, 
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- freedreno@lists.freedesktop.org, Kuogee Hsieh <quic_khsieh@quicinc.com>, 
- Robert Ijtsma <robertijtsma@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1795789625; l=5862;
- i=robertijtsma@gmail.com; s=20261122; h=from:subject:message-id;
- bh=sRsGGoT4oc+ruJceG2OpF//eZLcBXDogIygLd/WOPls=;
- b=QSL/XC4Fic9RnpIvrlxQ1tx4uuaRTwphqscP7yWjbJhesa0eBK73i6suw88rAqY3Kfqo3yPtS
- ydZgXAMInXIC8/gbHPCLKOEbOo23KXN10e57aEe4DzqbdlOVIUdt72b
-X-Developer-Key: i=robertijtsma@gmail.com; a=ed25519;
- pk=qiDyKVqFicxFIR5sB5m+p9SWPKL2/+mMoiQnUx0C9P0=
-X-Endpoint-Received: by B4 Relay for robertijtsma@gmail.com/20261122 with
- auth_id=1604
-X-Original-From: Robert Ijtsma <robertijtsma@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] arm64: dts: qcom: msm8916: Disable disconnected DSI
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Rob Clark
+ <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krishna Manikandan <quic_mkrishn@quicinc.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Del Regno <angelogioacchino.delregno@somainline.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ Mahadevan <quic_mahap@quicinc.com>, Richard Acayan
+ <mailingradian@gmail.com>, Danila Tikhonov <danila@mainlining.org>,
+ Robert Foss <rfoss@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org
+References: <20261111-display-msm-of-graph-v2-0-fdf8fd97f49d@oss.qualcomm.com>
+ <20261111-display-msm-of-graph-v2-1-fdf8fd97f49d@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20261111-display-msm-of-graph-v2-1-fdf8fd97f49d@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA1NyBTYWx0ZWRfXw/FVY+X3SQVz
+ vh3O1sFUNycMyI/7k4V0ufkOrdN/o9luuP9MPUFX/vogR5R8SK0aee2+pphfJj1MfcHUZnQjSIs
+ ZpHEqopJl6S58aN02MrtoKbjga4rDYI=
+X-Proofpoint-ORIG-GUID: 8t1P11c0vccwn42Lkcd88IrHY6oKWX6a
+X-Proofpoint-GUID: 8t1P11c0vccwn42Lkcd88IrHY6oKWX6a
+X-Authority-Analysis: v=2.4 cv=BbBNQbt2 c=1 sm=1 tr=0 ts=6b099352 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=EUspDBNiAAAA:8 a=BO6MpYfuLILTTXtsdh8A:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA1NyBTYWx0ZWRfX4mhQhunj8lDX
+ jjsuZvuefOFaXbtOK4U+L2t2nXawMO6jyJt+SgaUp4tUd6RZpi+4aF2Bxqlh6ud/2GhU48+9GTz
+ TwHIkORngzfCgPCETA/i4Eb+wMD74IKnVmnshHDpWG5Qm7pmACDgdyavBjqEYfO3SwOHoPfygPu
+ tOwtptX4ioDw8c5KaDoIrq/RKjhyKQUgD3t/iazO730/+LXe3K8ZSZOFlb3/Edxy/BUKQerAwfu
+ iqP6FNvd2mUNZVPRCx7dFp3x21s/7tkQBpSFF06Yfq8Te8Pro02K60w8FTZl27yOC2fAgfZ7deJ
+ KAdfRMstrSiTRoo/4uPgsnyHF8nePauerEls20zSfde5+VKBK7rl/UyLo6ncHEyd41KG2Ia5zRm
+ Tv4YG1jCTBpEC1us0BV5kcsY5h9oipFG9oo4HT0Zgmu+eV7Az/tm24tHJ+aoqJkgLuJUKKw+CJh
+ aUfnxYPDOMF/RK4l3kQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_02,2026-11-27_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270057
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,162 +159,25 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: robertijtsma@gmail.com
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-12.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Robert Ijtsma <robertijtsma@gmail.com>
+On 11/11/26 6:45 PM, Krzysztof Kozlowski wrote:
+> MDSS DSI and DSI PHY is useless, when nothing is attached (no panel
+> description in DTS), thus should be disabled in DTS.  Linux MSM DRM
+> drivers will also fail the probe.
+> 
+> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
 
-On boards using an external HPD bridge (such as Microsoft Surface Pro X /
-SC8180X), internal HPD_CTRL is never enabled via msm_dp_aux_hpd_enable().
-Across runtime PM or s2idle suspend/resume power collapse, several AUX
-controller issues prevent reliable link re-training:
+It's not useless in the way that the hardware could still be cleanly
+shut down (which the driver could be made to do), since even a device
+without a display may have the bootloader initializing parts of mdss
 
-1. msm_dp_aux_reset() does not clear REG_DP_AUX_TRANS_CTRL before
-   pulsing DP_AUX_CTRL_RESET, which can leave a stale transaction bit
-   latched across reset.
-2. msm_dp_aux_enable() relies on msm_dp_aux_hpd_enable() to set
-   DP_DP_HPD_REFTIMER_ENABLE; when internal HPD is unused, AUX timeouts
-   can stall after power collapse because the 1us reference timer is off.
-   Move DP_DP_HPD_REFTIMER_ENABLE teardown symmetrically from
-   msm_dp_aux_hpd_disable() to msm_dp_aux_disable() so disabling HPD
-   polling during suspend does not stop the timer while AUX is active.
-3. msm_dp_aux_transfer() gates msm_dp_aux_reset() on
-   msm_dp_aux_is_link_connected(), which reads internal HPD status and
-   always returns 0 when internal HPD_CTRL is disabled, and also skips
-   resetting AUX on hardware DP_AUX_ERR_TOUT timeouts.
-
-Clear REG_DP_AUX_TRANS_CTRL in msm_dp_aux_reset(), manage
-DP_DP_HPD_REFTIMER_ENABLE across msm_dp_aux_enable()/disable(), and
-reset AUX on both transfer errors and DP_AUX_ERR_TOUT timeouts when the
-link is connected or transfers are enabled with internal HPD disabled.
-
-Tested on Microsoft Surface Pro X SQ2 (SC8180X) across s2idle suspend
-and resume.
-
-Fixes: c943b4948b58 ("drm/msm/dp: add displayPort driver support")
-Signed-off-by: Robert Ijtsma <robertijtsma@gmail.com>
----
-Ensure AUX reset clears REG_DP_AUX_TRANS_CTRL and msm_dp_aux_enable()
-enables the 1us HPD reference timer even when internal HPD is unused.
----
-Changes in v3:
-- Check aux->is_edp before DP_DP_HPD_CTRL_HPD_EN in msm_dp_aux_should_reset()
-  so eDP boards without internal HPD wired still reset AUX on errors.
-- Route hardware DP_AUX_ERR_TOUT timeouts through the ret < 0 retry and
-  phy_calibrate() path alongside msm_dp_aux_reset().
-- Link to v2: https://lore.kernel.org/r/20261126-drm-msm-dp-aux-resume-v2-1-3324420b6770@gmail.com
-
-Changes in v2:
-- Move DP_DP_HPD_REFTIMER_ENABLE teardown from msm_dp_aux_hpd_disable() to
-  msm_dp_aux_disable() so HPD teardown during suspend does not disable the
-  1us timer while AUX transfers are still active.
-- Reset the AUX controller on both transfer failures and DP_AUX_ERR_TOUT
-  timeouts, falling back to aux->is_edp || aux->enable_xfers when internal
-  HPD_CTRL is disabled.
-- Link to v1: https://lore.kernel.org/r/20261125-drm-msm-dp-aux-resume-v1-1-17f5a40b9a61@gmail.com
----
- drivers/gpu/drm/msm/dp/dp_aux.c | 36 ++++++++++++++++++++++++++++--------
- 1 file changed, 28 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/gpu/drm/msm/dp/dp_aux.c b/drivers/gpu/drm/msm/dp/dp_aux.c
-index b52393dcc067049529a51a9885990e5da663d802..2513f788fb0900311869de987cd00ace62a76984 100644
---- a/drivers/gpu/drm/msm/dp/dp_aux.c
-+++ b/drivers/gpu/drm/msm/dp/dp_aux.c
-@@ -76,6 +76,8 @@ static void msm_dp_aux_reset(struct msm_dp_aux_private *aux)
- {
- 	u32 aux_ctrl;
- 
-+	msm_dp_write_aux(aux, REG_DP_AUX_TRANS_CTRL, 0);
-+
- 	aux_ctrl = msm_dp_read_aux(aux, REG_DP_AUX_CTRL);
- 
- 	aux_ctrl |= DP_AUX_CTRL_RESET;
-@@ -88,7 +90,12 @@ static void msm_dp_aux_reset(struct msm_dp_aux_private *aux)
- 
- static void msm_dp_aux_enable(struct msm_dp_aux_private *aux)
- {
--	u32 aux_ctrl;
-+	u32 aux_ctrl, reftimer;
-+
-+	/* Keep the 1us AUX/HPD reference timer running without internal HPD. */
-+	reftimer = msm_dp_read_aux(aux, REG_DP_DP_HPD_REFTIMER);
-+	reftimer |= DP_DP_HPD_REFTIMER_ENABLE;
-+	msm_dp_write_aux(aux, REG_DP_DP_HPD_REFTIMER, reftimer);
- 
- 	aux_ctrl = msm_dp_read_aux(aux, REG_DP_AUX_CTRL);
- 
-@@ -101,11 +108,26 @@ static void msm_dp_aux_enable(struct msm_dp_aux_private *aux)
- 
- static void msm_dp_aux_disable(struct msm_dp_aux_private *aux)
- {
--	u32 aux_ctrl;
-+	u32 aux_ctrl, reftimer;
- 
- 	aux_ctrl = msm_dp_read_aux(aux, REG_DP_AUX_CTRL);
- 	aux_ctrl &= ~DP_AUX_CTRL_ENABLE;
- 	msm_dp_write_aux(aux, REG_DP_AUX_CTRL, aux_ctrl);
-+
-+	reftimer = msm_dp_read_aux(aux, REG_DP_DP_HPD_REFTIMER);
-+	reftimer &= ~DP_DP_HPD_REFTIMER_ENABLE;
-+	msm_dp_write_aux(aux, REG_DP_DP_HPD_REFTIMER, reftimer);
-+}
-+
-+static bool msm_dp_aux_should_reset(struct msm_dp_aux_private *aux)
-+{
-+	if (aux->is_edp)
-+		return true;
-+
-+	if (msm_dp_read_aux(aux, REG_DP_DP_HPD_CTRL) & DP_DP_HPD_CTRL_HPD_EN)
-+		return msm_dp_aux_is_link_connected(&aux->msm_dp_aux);
-+
-+	return aux->enable_xfers;
- }
- 
- static int msm_dp_aux_wait_for_hpd_connect_state(struct msm_dp_aux_private *aux,
-@@ -405,6 +427,9 @@ static ssize_t msm_dp_aux_transfer(struct drm_dp_aux *msm_dp_aux,
- 	}
- 
- 	ret = msm_dp_aux_cmd_fifo_tx(aux, msg);
-+	if (ret >= 0 && aux->aux_error_num == DP_AUX_ERR_TOUT)
-+		ret = -ETIMEDOUT;
-+
- 	if (ret < 0) {
- 		if (aux->native) {
- 			aux->retry_cnt++;
-@@ -412,7 +437,7 @@ static ssize_t msm_dp_aux_transfer(struct drm_dp_aux *msm_dp_aux,
- 				phy_calibrate(aux->phy);
- 		}
- 		/* reset aux if link is in connected state */
--		if (msm_dp_aux_is_link_connected(msm_dp_aux))
-+		if (msm_dp_aux_should_reset(aux))
- 			msm_dp_aux_reset(aux);
- 	} else {
- 		aux->retry_cnt = 0;
-@@ -612,11 +637,6 @@ void msm_dp_aux_hpd_disable(struct drm_dp_aux *msm_dp_aux)
- {
- 	struct msm_dp_aux_private *aux =
- 		container_of(msm_dp_aux, struct msm_dp_aux_private, msm_dp_aux);
--	u32 reg;
--
--	reg = msm_dp_read_aux(aux, REG_DP_DP_HPD_REFTIMER);
--	reg &= ~DP_DP_HPD_REFTIMER_ENABLE;
--	msm_dp_write_aux(aux, REG_DP_DP_HPD_REFTIMER, reg);
- 
- 	msm_dp_write_aux(aux, REG_DP_DP_HPD_CTRL, 0);
- }
-
----
-base-commit: 4dce97c6c265544342e716e62fd24bbb232590c5
-change-id: 20261125-drm-msm-dp-aux-resume-989fb2b97d65
-
-Best regards,
--- 
-Robert Ijtsma <robertijtsma@gmail.com>
-
-
+Konrad
