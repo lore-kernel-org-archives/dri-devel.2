@@ -2,43 +2,57 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 649C0606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:33:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8321606A326
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:34:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ku1oyNGj
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJOdUt8f
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BEBC810EA05;
-	Fri, 27 Nov 2026 11:32:57 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 08B9E1128B6;
+	Fri, 27 Nov 2026 11:34:41 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3AFBB10EA05
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:32:51 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB111128B6;
+ Fri, 27 Nov 2026 11:34:35 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id B52584335B;
- Fri, 27 Nov 2026 11:32:50 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 793831F0089A;
- Fri, 27 Nov 2026 11:32:50 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 3D45641669;
+ Fri, 27 Nov 2026 11:34:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E0D1F00899;
+ Fri, 27 Nov 2026 11:34:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795779170;
- bh=bdCnr/yR8+V2PGjFgkRC7xw13Bgy7S5gFmsBywMnDrg=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ku1oyNGjp+pfBRX2w3UCO0ViM994xniCS06HZU1DvGuj2F0+lQJBpsaxMNieQiB1a
- Brsi+bbO/vAUDkBG+zHCfrRSIkVTZTw4AgA3sY+zJPaeCG3B4iRIjnYsKB3KydD/gp
- pK9nKza6/IjdrFtKNKAAC/kSgUpc7xua5UUhb85+qnOICStnJB/hVGMJhTFDn4ADqm
- I1F+Cdy1QEIWUhmEWAlasD4MAEu22zR6nxLZZBR7LIR4Q+hemXT1fcClVnLySq2q6u
- iXF1cYhPrZY1RUIoKq+eAFkFuuGJ33V0lPSnHeD1Td+tCp5QDsTE3GntTil0O9bzND
- Q+9fKMXsKp0dw==
-Message-ID: <sashiko-outbox-237241@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/4] drm/bridge: ite-it66121: make successful probe
- quiet
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127-drm-ite-it66121-log-probe-errors-v2-4-dbe9b5a3c5df@bootlin.com>
-References: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
- <20261127-drm-ite-it66121-log-probe-errors-v2-4-dbe9b5a3c5df@bootlin.com>
-Content-Type: text/plain; charset=utf-8
+ s=k20260515; t=1795779274;
+ bh=+TtWQm0Jbb5pA7zQRAqTD0mcWKi7bUWXYCnzVEumBoQ=;
+ h=Date:Subject:Cc:To:From:References:In-Reply-To;
+ b=RJOdUt8fsxedUj1n7Y8VN2eISd2hcoyKKn9lbvemBW7cFtbJ6GNosOj4rVAh0xYwB
+ ni66oMVmp7kWjavz3k4GsoTZ/z7Ocf2rvdVTKdQoVqIEi/0H7jpIsrMxQJcUGr3e8Z
+ D9v6+sjWR7WddwPfmc7n7qDOQCpYl1WzgwsCLz2JmJMO+RRQlAUmVnhUh+qVXvW0k3
+ ULADG47FUAlhOGp7pTieQyBsq+hKcDoZ1Nat6uEYf9d3+j7co5BxA/1fA1Bsw9HSGh
+ Tle8wYM4s4TIN4kJe/gDKJHVKRZ1bSnB7/92fao2BoK4UziqVa2GTLQhrDijVXrV71
+ wNjdUY1JOImew==
+X-Archived-By: <archiver.kernel.org>
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 11:32:49 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Fri, 27 Nov 2026 12:34:29 +0100
+Message-Id: <DN5YMFCMLL2E.3LMY2Z5ZQAYFG@kernel.org>
+Subject: Re: [PATCH 0/3] dma-fence: Properly order timestamps
+Cc: "Sumit Semwal" <sumit.semwal@linaro.org>,
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Alex Deucher"
+ <alexander.deucher@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona
+ Vetter" <simona@ffwll.ch>, "Matthew Brost" <matthew.brost@intel.com>,
+ "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
+ <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Tvrtko
+ Ursulin" <tvrtko.ursulin@igalia.com>, "Mario Limonciello (AMD)"
+ <superm1@kernel.org>, "Aurabindo Pillai" <aurabindo.pillai@amd.com>,
+ "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, "Gustavo
+ Padovan" <gustavo.padovan@collabora.com>, "Chris Wilson"
+ <chris@chris-wilson.co.uk>, "Luben Tuikov" <ltuikov89@gmail.com>, "Shashank
+ Sharma" <shashank.sharma@amd.com>, "Paul E . McKenney"
+ <paulmck@kernel.org>, "Gary Guo" <gary@garyguo.net>,
+ <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
+ <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
+To: "Philipp Stanner" <phasta@kernel.org>
+From: "Danilo Krummrich" <dakr@kernel.org>
+References: <20261126172046.2473303-2-phasta@kernel.org>
+In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,78 +63,32 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issues to consider:
-- [High] drm/bridge: ite-it66121: missing linux/unaligned.h include in
-  it66121_probe()
-- [Low] drm/bridge: ite-it66121: duplicate chip ID dev_dbg() in
-  it66121_probe()
---
+On Thu Nov 26, 2026 at 6:20 PM CET, Philipp Stanner wrote:
+> I propose stuffing these hotfixes into the stable kernel / misc-fixes
+> while we move on on misc-next with a more proper solution. I'll post a
+> series for that soonish, too.
 
-commit 46732f4e982566f4573478b485add2d91b24ff1a
-Author: Luca Ceresoli <luca.ceresoli@bootlin.com>
+"Hotfix" kind of implies that it causes serious issues for "live" users.
 
-drm/bridge: ite-it66121: make successful probe quiet
+One of the patches says "fence timestamps can be written and read without a=
+ny
+memory ordering since, presumably, forever."
 
-This commit converts the final probe message in it66121_probe() from
-dev_info() to dev_dbg() and includes vendor_id and device_id in the log
-string.
+What has changed that this now became an issue that needs a hotfix? Do we h=
+ave
+broken users?
 
-> diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridg=
-e/ite-it66121.c
-> index 48f320df8fe77..04e84def2d1b3 100644
-> --- a/drivers/gpu/drm/bridge/ite-it66121.c
-> +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-> @@ -1695,7 +1695,8 @@ static int it66121_probe(struct i2c_client *client)
-> =20
->  	drm_bridge_add(&ctx->bridge);
-> =20
-> -	dev_info(ctx->dev, "IT66121 revision %d probed\n", revision_id);
-> +	dev_dbg(ctx->dev, "IT66121 vendor %04x device %04x revision %d probed\n=
-",
-> +		vendor_id, device_id, revision_id);
-> =20
->  	return 0;
->  }
+If so, it would be good link a report if there's one publicly available.
+Otherwise, I'd suggest to just go ahead with the proper solution you work o=
+n.
 
-[Severity: High]
-Does drivers/gpu/drm/bridge/ite-it66121.c need to include linux/unaligned.h
-for the get_unaligned_le16() calls computing vendor_id and device_id (added
-earlier in the series by commit "drm/bridge: ite-it66121: simplify getting
-the chip IDs")?
-
-On architectures such as x86_64 and arm64 where asm/uaccess.h does not pull
-in linux/unaligned.h transitively, building this driver fails with an
-implicit declaration of get_unaligned_le16().
-
-[Severity: Low]
-Does this dev_dbg() duplicate the chip ID debug message added earlier in
-it66121_probe() by commit "drm/bridge: ite-it66121: simplify getting the
-chip IDs"?
-
-drivers/gpu/drm/bridge/ite-it66121.c:it66121_probe() {
-    ...
-	vendor_id =3D get_unaligned_le16(&chip_id_regs[0]);
-	device_id =3D get_unaligned_le16(&chip_id_regs[2]);
-	dev_dbg(dev, "vendor %04x device %04x (rev %01x)\n", vendor_id, device_id,=
- revision_id);
-    ...
-}
-
-When dynamic debug is enabled, every successful probe prints both messages
-with the same IDs, formatting revision_id in hex (%01x) in the first and in
-decimal (%d) in the second.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-drm-ite-it=
-66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com?part=3D4
+Thanks,
+Danilo
