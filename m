@@ -2,43 +2,108 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA2C606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:40:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 535C4606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 08:42:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=caEZdiSH
+	dkim=pass (1024-bit key, unprotected) header.d=amd.com header.i=@amd.com header.a=rsa-sha256 header.s=selector1 header.b=sj/SNJc6
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 184A510E4C5;
-	Fri, 27 Nov 2026 08:40:31 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CBCBB10E4C5
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 08:40:25 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A45BD429F2;
- Fri, 27 Nov 2026 08:40:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F48B1F00923;
- Fri, 27 Nov 2026 08:40:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795768825;
- bh=LvslhYrVq8yaV+sPzoSiLAVAMgv8DnIJoGtTdeu8phk=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=caEZdiSHLq2cgPiqPj0rTmYt6zMUQCWpVYc/HwGWks2tlBcpYEhMCxTwMl7f9bHxv
- I8I9Rs2poADMAZ5BuCScI2/CoC66ABS/idFKLnvjwGw82IE0RGDEGgXN1CxSkjjASI
- WLjv+Y0Y8qfgD2e0lXws4hl1tvpKK/HbUpnzdBSeeehZKjRpvOUJQl9ySuyLUTGqJa
- gMqzMzanyFOvtredEOwmVQyv0S45rb0B4ZFOWWuahXk/GFC7jzasxn/Bn1JYCQOPki
- T/2oQvmaf7y3twAqqB6+qc9M4Q17mosMOD3Mfed/adeQMVEJ9Du4tCv2IeLSJgJoo4
- O3lT7vpWgxVmg==
-Message-ID: <sashiko-outbox-236891@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] drm/connector: Check DP subconnector property
- before attaching it
-To: "Alex Kazinsky" <a.kazinsky@ideco.ru>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261126081602.2901498-2-a.kazinsky@ideco.ru>
-References: <20261126081602.2901498-1-a.kazinsky@ideco.ru>
- <20261126081602.2901498-2-a.kazinsky@ideco.ru>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 08:40:24 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id A76A410E22E;
+	Fri, 27 Nov 2026 08:42:06 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013008.outbound.protection.outlook.com
+ [40.107.201.8])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id DF4ED10E22E;
+ Fri, 27 Nov 2026 08:41:59 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XHf+LRwVhRvdClBSGNSFOVLdHNNudWujyD+rbQQVk6JU/T8A/e9DxaHWhdliu7Vlk0ugo6mNer0l2C0VMafTrVIjzcwyNjMqepRPyMKKbSIYGX0R0BDSMXLEZcjJ4cHUNgJAxCqHZKuvQzzgzgsaNwmMS3pG5aHye46eKDcfxdZnPayToxnwSLDHwfL5W2sAf/qzXPDAv8u2ofi7QbSHDEmjWzFEcOIXhSNvQlwacd+2c/zx2MZm/3+lIAGxlCfU7fJeD2iQc39oDqg8lD2WJMdRcx0PA706EyP6NDkULee6IiuR77Hyh0OOaxBjjxvfb9JOCnxbSxAodkgIylSqjA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=RvxSeJGvxZr7yOTNzg3UZKZm5Wc51fYMbykbetQnfig=;
+ b=tzNqING0fxbgKVC+X5jHhIMciIfVG90yz3IxXhaq8cFkm/mhuuuY59cN0YTLkTYzXmRqc+s21Wyqr1ZtKPB/jctXxy4ljnY6LxZ5cW8SFyBHp8jS8/m7VnIkuC7Lvd6gVR76KZaqxD19RDyWq176mvWW3NGCMxBp89LhlT4MxISPwY/MGLuTLBLarzC0HtNHCKTtoFInSQW1TS7cLvQzA+x5m2z30SdFewaX8T2DndwmuCS2em3oFgbdpkA1GVv53c0w8hpmUcY5iUycHLZBcyi4i/poPiZppKlUjEEbxVDlAf8wTG0rx6dpq3nYvJH75o5OuL/p2QrMULaEt3X5oQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=ffwll.ch smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1; 
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=RvxSeJGvxZr7yOTNzg3UZKZm5Wc51fYMbykbetQnfig=;
+ b=sj/SNJc62FL5H6x+dOGR0z2jZIEzWdlQQCtP8OivNLR4XXW2AyXYZIwQiAgJVaeuwd/peVUOcMkmlUvWfJtju1o2E4VcF7AVWvcc/GDH1Q+HDn7fP6JV1LOWXVM99XCe9vcXPf1Z9CbowRX0kGjO7+c43PO50B7tBVGoABUXFlg=
+Received: from CH0PR03CA0384.namprd03.prod.outlook.com (2603:10b6:610:119::26)
+ by SJ2PR12MB9139.namprd12.prod.outlook.com (2603:10b6:a03:564::6)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
+ 2026 08:41:51 +0000
+Received: from CH2PEPF000166BB.namprd04.prod.outlook.com
+ (2603:10b6:610:119:cafe::28) by CH0PR03CA0384.outlook.office365.com
+ (2603:10b6:610:119::26) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.7 via Frontend Transport; Fri, 27
+ Nov 2026 08:41:50 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com;
+ dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ CH2PEPF000166BB.mail.protection.outlook.com (10.167.252.5) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.688.5 via Frontend Transport; Fri, 27 Nov 2026 08:41:50 +0000
+Received: from hr-amd.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 02:41:45 -0600
+From: Huang Rui <ray.huang@amd.com>
+To: =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>, Philip Yang
+ <Philip.Yang@amd.com>, Alex Deucher <alexander.deucher@amd.com>, "Felix
+ Kuehling" <felix.kuehling@amd.com>, Simona Vetter <simona@ffwll.ch>, "Matthew
+ Brost" <matthew.brost@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>,
+ =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+ Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Aveline Noir <jm5905938@gmail.com>, <amd-gfx@lists.freedesktop.org>,
+ <dri-devel@lists.freedesktop.org>
+CC: Xiaogang Chen <xiaogang.chen@amd.com>, Oak Zeng <Oak.Zeng@amd.com>, "Jenny
+ Liu" <Jenny-Jing.Liu@amd.com>, Zhu Lingshan <lingshan.zhu@amd.com>,
+ "Honglei
+ Huang" <honglei1.huang@amd.com>, Junhua Shen <Junhua.Shen@amd.com>, Yiru Ma
+ <yiru.ma@amd.com>, Huang Rui <ray.huang@amd.com>
+Subject: [PATCH v11 00/22] drm/amdgpu: AMDGPU SVM support based on DRM (Phase
+ 1: single GPU, XNACK on)
+Date: Fri, 27 Nov 2026 16:41:23 +0800
+Message-ID: <20261127084149.925625-1-ray.huang@amd.com>
+X-Mailer: git-send-email 2.53.0
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF000166BB:EE_|SJ2PR12MB9139:EE_
+X-MS-Office365-Filtering-Correlation-Id: c0a03c5e-f85d-47e3-ea63-08df4c6247d3
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|36860700016|376014|23010399003|82310400026|1800799024|921020|10067099003|11063799006|56012099006|261021123027099003|261009221227099003|261102123227099003|261009223027099003|261021121427099003|261022113327099003|261022075727099003|261026140227099003|261022105027099003|261026121527099003|261028144727099003|18002099003|6133799003|13003099007;
+X-Microsoft-Antispam-Message-Info: GqBL+rQPUnYJh3DoByL9q2ZJimePv/Nx+SFHeF49EDaDc9q7fLBx9/XsNRFkRBmIeZeucy1O5UbV3gftHQN4Nq7hLEAmzK7qh1F8mcQdA40Ut4O+OQuK4JrvqRK2swg4xqgZ9MI/wXoobcLRQNSW3O4lJxf4G2rrQWrGp+qOZX3lzBaHbR8mK0H8OlDw9tpNqGXidyOPEGoEwm+TXo55pYPKDNhSiwltOMyDdNoBQ6EsxU6uegzEyQcHUhPY0a9nTkriaKZadl2/drhNf9I323lrSAX6rRXOs9vHkgwrzqk0FMoo+/OUEMJbtGla2j0FEoSCsQsnyNxyYo6c0yXvz/VleCay2gkWfqEoJfCeRBQVP2n1XWZrtMmAg7A73Lp4RTJAB3E3LIvXnV3DBO1ZbJPYTlI/DNx9FeX8eC779B+xcRS2IRi9Kt9CiXehiQ8tG3ouNXr5arVf6CCgQPGlH6KfbPb+mIBl6o3OjBMb5NxUhTZPg2C4P3DnrMjDCnuvY0YNdeH0BVtzW9VsUMsFzSk54Qg7Pi5zrPeNBy7rurgcHvQos6Zl9nOd06pE814nFbF+WyERtTrEoRgx52cLNgTElqF6IRJA2DTNLTqANN+AGnw8yM367HgUmcWJKR19+RaUORhC+2JFf1lI5npfa1KWuXwzw8Y65kNsfNOU4/NT581Xz1S+odNUUDkrXq5skTzNkjgWuqueWX8ZMvezJg==
+X-Forefront-Antispam-Report: CIP:165.204.84.17; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:satlexmb07.amd.com; PTR:InfoDomainNonexistent; CAT:NONE;
+ SFS:(13230040)(36860700016)(376014)(23010399003)(82310400026)(1800799024)(921020)(10067099003)(11063799006)(56012099006)(261021123027099003)(261009221227099003)(261102123227099003)(261009223027099003)(261021121427099003)(261022113327099003)(261022075727099003)(261026140227099003)(261022105027099003)(261026121527099003)(261028144727099003)(18002099003)(6133799003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: xBqTzFK7zv70+pUbKffpY4dm2nNjIlAfzBstBspZSxg9pcWF0sC0mTy+xOzc7kn9/5Jb3j3a5/d3Fzo3G2U9OgJdlhLFqVUybbnG/+okRpWzMyct3q9elDM1MdNjsdwBIjBAoppSsf2rWoQgPXQCH20C2evrYh4mk4NX5fhQS5fHSsAjVWrZz3lNkICzs+7PzT3g6j7q0+bmAeWf/ONHrUISp5d7TYdQovvionip9AYdUpRBMKnJ3nmGaM6wcElWR0Nn7GPBayfOGjUz0IG/PQXXfpWP2KVWk6DaTSdLKevzDNwmJNm3/qSVzeGcNmePJNRwSmQ8zWSPW8yirQ7AnEC1B0wpicMKie+cZRyOOJngv/S7idJUCqGuw/5ElTw1SheWc+FJ05h3mXSr5aOyuL+YsvksU1KReSbp7f6XOHeuo+rcbBEsck04K9+SuFlf
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 08:41:50.4921 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c0a03c5e-f85d-47e3-ea63-08df4c6247d3
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d; Ip=[165.204.84.17];
+ Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH2PEPF000166BB.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ2PR12MB9139
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,71 +114,357 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_PATCH,MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/connector: NULL deref in
-  drm_dp_set_subconnector_property() on alloc fail
---
+Hi Christian, Philip, Alex, Felix, and all,
 
-commit 8421b6289fec4b66a03cb7c78bad44b087056f4f
-Author: Alex Kazinsky <a.kazinsky@ideco.ru>
+These series introduce a new Shared Virtual Memory (SVM) implementation for
+amdgpu that is built directly on top of the common DRM GPUSVM / drm_pagemap
+core (drivers/gpu/drm/drm_gpusvm.c, drm_pagemap.c) rather than on the
+existing KFD-private SVM code in amdkfd/kfd_svm.c.
 
-drm/connector: Check DP subconnector property before attaching it
+The goal is to provide HMM-based unified memory through the same shared
+infrastructure that the Xe driver already uses, so that amdgpu and xe
+converge on one well-reviewed SVM/page-migration core instead of
+maintaining a separate amdgpu-specific stack.
 
-This commit checks that mode_config->dp_subconnector_property is non-NULL
-before passing it to drm_object_attach_property() in
-drm_connector_attach_dp_subconnector_property().
+Dependencies
+============
 
-> diff --git a/drivers/gpu/drm/drm_connector.c b/drivers/gpu/drm/drm_connec=
-tor.c
-> index 893716a9e4895..41cbd76e0b1cc 100644
-> --- a/drivers/gpu/drm/drm_connector.c
-> +++ b/drivers/gpu/drm/drm_connector.c
-> @@ -2106,9 +2106,10 @@ void drm_connector_attach_dp_subconnector_property=
-(struct drm_connector *connect
->  				drm_dp_subconnector_enum_list,
->  				ARRAY_SIZE(drm_dp_subconnector_enum_list));
-> =20
-> -	drm_object_attach_property(&connector->base,
-> -				   mode_config->dp_subconnector_property,
-> -				   DRM_MODE_SUBCONNECTOR_Unknown);
-> +	if (mode_config->dp_subconnector_property)
-> +		drm_object_attach_property(&connector->base,
-> +					   mode_config->dp_subconnector_property,
-> +					   DRM_MODE_SUBCONNECTOR_Unknown);
->  }
->  EXPORT_SYMBOL(drm_connector_attach_dp_subconnector_property);
+This series is rebased on top of Christian's amdgpu VM rework series and
+depends on it. The SVM locking work in patches 13-15 builds directly on the
+eviction-lock critical section and the amdgpu_vm_update_range() split
+introduced there, so this series does not apply or build without it:
 
-[Severity: Medium]
-If drm_property_create_enum() fails here, does skipping
-drm_object_attach_property() just defer the NULL pointer dereference to
-connector detection?
+  https://lore.kernel.org/amd-gfx/20260928151041.1857-1-christian.koenig@amd.com/
 
-DP connector initialization still succeeds with
-mode_config.dp_subconnector_property left as NULL.  On the next detect or
-hotplug event, drm_dp_set_subconnector_property() (and amdgpu's
-update_subconnector_property()) passes that NULL pointer directly to
-drm_object_property_set_value(), which unconditionally dereferences
-property->dev:
+Phased plan
+===========
 
-drivers/gpu/drm/display/drm_dp_helper.c:drm_dp_set_subconnector_property() {
-	if (status =3D=3D connector_status_connected)
-		subconnector =3D drm_dp_subconnector_type(dpcd, port_cap);
-	drm_object_property_set_value(&connector->base,
-			connector->dev->mode_config.dp_subconnector_property,
-			subconnector);
-}
+This work is being upstreamed in phases to keep each submission reviewable:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261126081602.2901=
-498-1-a.kazinsky@ideco.ru?part=3D1
+  * Phase 1 (this series): single GPU, XNACK on (retry faults).
+     - v9 https://lore.kernel.org/amd-gfx/20260804075417.1234567-1-ray.huang@amd.com/
+
+  * Phase 2 (in progress): single GPU, XNACK off (no-retry / eager mapping).
+     - https://lore.kernel.org/amd-gfx/20260529054928.596825-1-honglei1.huang@amd.com/
+     - https://lore.kernel.org/amd-gfx/20260605075340.20199-1-Junhua.Shen@amd.com/
+
+  * Phase 3 (in progress): multiple GPUs (XGMI mapping, P2P device-to-device migration).
+     - https://lore.kernel.org/amd-gfx/20260603065620.2555316-1-honglei1.huang@amd.com
+
+Accordingly, this first submission targets the simplest useful configuration:
+
+ * Single GPU with local VRAM migration: transparent RAM <-> VRAM page
+   migration on one GPU via SDMA, with TTM-based eviction for overcommit.
+ * XNACK on (retry faults): GPU page faults are retried after the driver
+   lazily populates PTEs on demand. The XNACK-off/eager-mapping path is
+   deferred to Phase 2.
+ * Compute VMs only (amdgpu_vm_make_compute()), matching the KFD SVM
+   use case.
+
+Everything is gated behind a new, default-n Kconfig option
+(CONFIG_DRM_AMDGPU_SVM) and is therefore opt-in and isolated from existing
+users until the feature matures.
+
+UAPI
+====
+
+A new render-node ioctl, DRM_IOCTL_AMDGPU_GEM_SVM, lets userspace describe SVM
+attributes over a CPU virtual-address interval (patch 1):
+
+  - operations: SET_ATTR / GET_ATTR / RESET_ATTR
+  - access modes: INACCESSIBLE / IN_PLACE / ALLOW_MIGRATE
+  - location hints: SYSMEM / UNDEFINED / LOCAL / HIVE (preferred_loc,
+    prefetch_loc). The location is a fixed enum rather than a device file
+    descriptor on purpose: a descriptor has no stable meaning across a
+    checkpoint/restore cycle.
+  - per-range flags: HOST_ACCESS, COHERENT, EXT_COHERENT, GPU_RO, GPU_EXEC,
+    GPU_READ_MOSTLY, plus a granularity hint
+
+GET_ATTR additionally returns, in @size, the length of the contiguous range
+starting at @start_addr over which the queried attributes are constant, so
+user space (e.g. CRIU) can walk the whole address space without knowing the
+range boundaries in advance.
+
+Attributes are stored in a per-VM interval tree; the GPU page tables are
+populated lazily on demand by retry faults, or eagerly on a prefetch request.
+
+User Space Work
+===============
+
+  - libdrm exposes the new SVM ioctl:
+    https://gitlab.freedesktop.org/mesa/libdrm/-/merge_requests/485
+
+  - ROCm runtime adaptation for the new amdgpu DRM SVM API:
+    https://github.com/ROCm/rocm-systems/pull/8318
+
+Design Overview
+===============
+
+The implementation is split into clearly layered modules:
+
+  amdgpu_svm.c            Core context (struct amdgpu_svm embeds
+                          struct drm_gpusvm), kref lifecycle, PASID lookup,
+                          drm_gpusvm_ops, the GEM_SVM ioctl entry point, and
+                          the GC workqueue.
+  amdgpu_svm_attr.c       The attribute interval tree: validation, gap/overlap
+                          split-merge, SET/GET/RESET, and change-trigger
+                          classification that decides whether an attribute
+                          change needs PTE invalidation or a remap.
+  amdgpu_svm_range.c      Per-range GPU mapping: PTE-flag computation per GC IP
+                          version, DMA-segment coalescing, MMU-notifier
+                          begin/end handling, PTE zapping, and the garbage
+                          collector.
+  amdgpu_svm_fault.c      The retry-fault entry point amdgpu_svm_handle_fault()
+                          and the fault_map_range() pipeline.
+  amdgpu_migrate.c        drm_pagemap / ZONE_DEVICE VRAM migration backend.
+  amdgpu_svm_range_migrate.c  Per-range RAM<->VRAM migration helpers.
+
+Fault path (XNACK on):
+amdgpu_vm_handle_fault() routes a compute-VM retry fault to
+amdgpu_svm_handle_fault() when the VM has an SVM context. After PASID lookup
+and a checkpoint-timestamp filter that drops stale retry faults left over from
+a recent unmap, it looks up (or synthesizes a default) attribute range and runs
+fault_map_range(): garbage-collect -> VMA permission check -> find/insert range
+-> short-circuit if recently validated or already valid -> drm_gpusvm get_pages
+(HMM) -> program GPU PTEs under the notifier lock with a notifier-sequence
+re-check.
+
+Locking (patches 13-15):
+Following the v9 review, amdgpu_vm's eviction lock is now a selectable
+read/write semaphore (struct rw_semaphore *eviction_lock) instead of a
+private mutex. On an SVM VM it is pointed at the drm_gpusvm notifier lock,
+so page-table updates, MMU-notifier invalidation and TTM eviction all
+serialize on one lock rather than on separate, unordered ones. Updates made
+with the root PD reserved take the read side; updates without it, and
+eviction, take the write side. Because page-table allocation can enter
+reclaim - and reclaim re-enters the MMU notifier that wants the same lock -
+the lock is dropped around amdgpu_vm_pt_create() and the range sequence
+number is rechecked on reacquire, returning -EAGAIN if it moved. Plain
+graphics VMs keep their own default lock and are unaffected.
+
+Invalidation / GC:
+MMU-notifier callbacks zap the affected PTEs (batched, single heavyweight TLB
+flush) and, for unmap events, queue the range to a high-priority GC workqueue
+that removes it via drm_gpusvm_range_remove() outside notifier context.
+
+VRAM migration (patches 16-22):
+A drm_pagemap is registered over the GPU's VRAM as a ZONE_DEVICE region at
+device-init / reset-restore time. struct amdgpu_bo_svm (a new BO subtype)
+backs migrated ranges, with SDMA-based copy_to_devmem / copy_to_ram callbacks
+using a GART window. TTM eviction of SVM BOs synchronously migrates pages back
+to system memory, which keeps VRAM overcommit working. The fault and prefetch
+paths call amdgpu_svm_range_migrate_to_vram() before mapping when migration is
+requested, with a single -EBUSY retry that evicts conflicting pages first.
+
+Patch 16 ("drm/pagemap: fix page undercount for compound src entries") is a
+prerequisite fix in the shared drm_pagemap core, found while enabling THP
+migration on amdgpu. It is independent of this series and can be applied on
+its own.
+
+Test Results
+============
+
+Tested on gfx943 (MI300X) and gfx906 (MI60) with XNACK on:
+ - KFD test: 95%+ passed.
+ - ROCR test: all passed.
+ - HIP catch test: gfx943 (MI300X): 99% passed. gfx906 (MI60): 99% passed.
+
+These numbers come from running the existing KFD and ROCR test suites over
+the new DRM SVM path, which is enabled by:
+
+  https://github.com/ROCm/rocm-systems/pull/13719
+
+IGT test suites covering amdgpu DRM SVM directly will follow.
+
+Changes from Old Version
+========================
+
+In previous V8 version, we had consolidated all implementations for the
+single-GPU XNACK-on mode. This approach followed Christian's suggestion to
+make the code review process more straightforward.
+
+Previously, the XNACK-on implementation was split into two parts:
+
+ - Basic V7
+   https://lore.kernel.org/amd-gfx/20260529054804.596214-1-honglei1.huang@amd.com/
+ - Migration V5
+   https://lore.kernel.org/amd-gfx/20260605075340.20199-1-Junhua.Shen@amd.com/
+
+Above two parts are no longer needed to be reviewed separately, please
+focus on this series.
+
+Changes from V10 to V11:
+ - Add patch 01 to decouple PTE encoding from buffer objects. The per-IP
+   get_svm_pte_flags callback is removed; SVM reuses get_vm_pte().
+ - Notifier invalidation zaps the whole range. Surviving ranges with
+   changed attributes drop their cached DMA mappings.
+ - Remove the IH timestamp checkpoint and the stale retry-fault drain.
+ - Fix fault filter removal to use the byte address the insert path uses.
+ - Drop the static VMA precheck from SET_ATTR and GET_ATTR. VMA checks now
+   run only on the fault path.
+ - Enforce access modes: INACCESSIBLE fails with -EPERM, and only
+   ALLOW_MIGRATE ranges migrate to VRAM. A fault with no VMA fails with
+   -EFAULT.
+ - Implement SYSMEM prefetch by evicting device pages.
+ - Validate ioctl VA ranges against the SVM window (-EINVAL).
+ - Internal cleanups and API adaptations in patches 13-21; other patches
+   keep V10 order.
+
+Changes from V9 to V10:
+ - Rebased on top of Christian's amdgpu VM rework series (see Dependencies
+   above), which this series now requires. The GEM_SVM ioctl number moved
+   from 0x1B to 0x1C.
+ - eviction_lock: the V9 limitation is resolved by three new patches
+   (13-15). amdgpu_vm's eviction lock becomes a selectable rwsem aliased
+   to the drm_gpusvm notifier lock on an SVM VM, so page table updates,
+   MMU notifier invalidation and eviction serialize on one lock. It is
+   dropped around amdgpu_vm_pt_create() to avoid the reclaim/notifier
+   recursion, with an -EAGAIN recheck on reacquire.
+ - Added "drm/pagemap: fix page undercount for compound src entries" as a
+   prerequisite, and made the SDMA copy path folio aware, so THP-backed
+   ranges migrate correctly.
+ - UAPI: the location enum gained LOCAL/HIVE and UNDEFINED changed from
+   0xffffffffU to 1, replacing the AMDGPU_SVM_ATTR_HIVE_LOCAL flag.
+   GET_ATTR now returns in @size the length of the range over which the
+   queried attributes are constant, so CRIU can walk the address space.
+ - Review fixes: the GEM_SVM ioctl no longer creates the SVM context
+   lazily, the missing root BO reservation around context create/destroy
+   was added, the mapping publication moved inside the notifier lock, two
+   range-queueing bugs were fixed, and several error paths now report
+   failure (-EPERM on a write to a read-only range, -EFAULT on a missing
+   VMA, unknown attribute values, TLB flush failures) instead of being
+   silently ignored.
+ - Cleanups: dropped the private log wrappers in favour of pr_debug() and
+   pr_err_ratelimited(), partition-scoped TLB flushing, kzalloc_obj(), and
+   removed the leftover clean-svm Makefile target.
+
+Changes from V8 to V9:
+ - This series has been rebased on top of the amdgpu vm fix.
+   - https://lore.kernel.org/amd-gfx/20260529114031.3714-1-christian.koenig@amd.com/
+ - amdgpu_svm.h: dropped the AMDGPU_SVM_KMEM_CACHE_* macros; SVM ranges use
+   plain kzalloc()/kfree().
+ - amdgpu_svm.h: dropped the flush_tlb callback; amdgpu_svm_flush_tlb() is
+   called directly.
+ - amdgpu_svm_attr.h: added kerneldoc for the interval tree and list.
+ - amdgpu_svm_attr.c: dropped the attr slab cache; uses kzalloc()/kfree().
+ - amdgpu_svm_attr.c: squashed the types header into its implementation patch
+ - amdgpu_svm_attr.c: renamed the local "flags" to "unsupported_vm_flags".
+ - amdgpu_svm_attr.c: dropped amdgpu_svm_attr_validate_range_vma() from the
+   fault path; hmm_range_fault() covers it. A lighter sync check is kept
+   only at the set/get attr ioctl entry for fix regression.
+ - amdgpu_svm_range.h: AMDGPU_SVM_RANGE_DEBUG removed, replaced by a tracepoint.
+ - amdgpu_svm_range.h: dropped the UNMAP_WORK macro.
+ - amdgpu_svm_range.c: the fast range valid check is now lock free.
+ - amdgpu_svm_range.c: zap_ptes always drains the fence regardless of the
+   update return value.
+ - per IP PTE flags: moved the switch out of the SVM core
+   into gmc_v9_0.c/gmc_v12_0.c behind a new gmc_funcs->get_svm_pte_flags()
+   callback.
+ - eviction_lock: drm_gpusvm framwork's limitation blocks using the
+   eviction_lock kept as is.
+ - SVM/BO overlap: dropped the scan-based amdgpu_svm_attr_check_vm_bo() helper.
+ - Added drm_pagemap refcount-based deferred destroy for amdgpu_pagemap:
+   the ZONE_DEVICE mapping is torn down from a destroy worker
+   (amdgpu_pagemap_destroy_work) once the drm_pagemap refcount reaches zero,
+   using drm_dev_enter()/exit() to guard against device teardown
+ - Added pre_migrate_fence handling in the SDMA copy callbacks: wait for
+   outstanding async VRAM operations (DMA_RESV_USAGE_KERNEL) to complete
+
+Thanks,
+Ray/Honglei/Junhua
+
+Honglei Huang (15):
+  drm/amdgpu: decouple PTE encoding from buffer objects
+  drm/amdgpu: add SVM ioctl UAPI definitions
+  drm/amdgpu: add SVM core header and VM integration
+  drm/amdgpu: implement SVM attribute tree and helper functions
+  drm/amdgpu: implement SVM attribute set/get/clear operations
+  drm/amdgpu: add SVM range types and work queue interface
+  drm/amdgpu: implement SVM range GPU mapping core
+  drm/amdgpu: implement SVM range notifier and GC helpers
+  drm/amdgpu: add SVM notifier invalidate callback
+  drm/amdgpu: implement SVM initialization and lifecycle
+  drm/amdgpu: add SVM ioctl entry and fault handler module
+  drm/amdgpu: integrate SVM into build system and VM fault path
+  drm/amdgpu: make VM eviction lock read/write to match notifier lock
+  drm/amdgpu: recheck range validity after page table allocation
+  drm/amdgpu: use drm_gpusvm notifier lock for VM eviction
+
+Junhua Shen (7):
+  drm/pagemap: fix page undercount for compound src entries
+  drm/amdgpu: add VRAM migration infrastructure for drm_pagemap
+  drm/amdgpu: implement drm_pagemap SDMA migration callbacks
+  drm/amdgpu: implement synchronous TTM eviction for SVM BOs
+  drm/amdgpu: hook up ZONE_DEVICE registration in device init and reset
+  drm/amdgpu: add SVM range migration helpers for drm_pagemap
+  drm/amdgpu: integrate VRAM migration into SVM fault and prefetch paths
+
+ drivers/gpu/drm/amd/amdgpu/Kconfig            |  10 +
+ drivers/gpu/drm/amd/amdgpu/Makefile           |   4 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu.h           |   8 +
+ .../gpu/drm/amd/amdgpu/amdgpu_amdkfd_gpuvm.c  |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_cs.c        |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_device.c    |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c       |   6 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gem.c       |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.c       |  34 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_gmc.h       |  24 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c   | 900 ++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h   | 107 ++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |   4 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_reset.c     |   2 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c       | 817 +++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h       | 176 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c  | 958 ++++++++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h  | 180 ++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c | 433 ++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h |  38 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c | 708 +++++++++++++
+ drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h | 167 +++
+ .../drm/amd/amdgpu/amdgpu_svm_range_migrate.c | 120 +++
+ .../drm/amd/amdgpu/amdgpu_svm_range_migrate.h |  35 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_trace.h     |  28 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       |  20 +
+ drivers/gpu/drm/amd/amdgpu/amdgpu_ualink.c    |  36 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_userq.c     |   2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.c        | 115 ++-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm.h        |  19 +-
+ .../gpu/drm/amd/amdgpu/amdgpu_vm_internal.h   |  31 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_vm_pt.c     |  31 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v10_0.c        |   8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v11_0.c        |   8 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_0.c        |   6 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v12_1.c        |  31 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v6_0.c         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v7_0.c         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v8_0.c         |   2 +-
+ drivers/gpu/drm/amd/amdgpu/gmc_v9_0.c         |  25 +-
+ drivers/gpu/drm/amd/amdkfd/kfd_svm.c          |  10 +-
+ drivers/gpu/drm/drm_pagemap.c                 |  60 +-
+ include/uapi/drm/amdgpu_drm.h                 | 127 +++
+ 43 files changed, 5162 insertions(+), 140 deletions(-)
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_migrate.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_attr.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_fault.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range.h
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.c
+ create mode 100644 drivers/gpu/drm/amd/amdgpu/amdgpu_svm_range_migrate.h
+
+-- 
+2.53.0
+
