@@ -2,43 +2,52 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A4B5606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:31:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CF6A606A326
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:34:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=o3kUgJoh
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PQMPExpF
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C3B1D112A14;
-	Fri, 27 Nov 2026 10:31:42 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6779D1129EB;
+	Fri, 27 Nov 2026 10:34:24 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A27D5112A15
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:31:36 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D4F1510E9DD
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:34:17 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 6D86A43989;
- Fri, 27 Nov 2026 10:31:36 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3931F00899;
- Fri, 27 Nov 2026 10:31:36 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 92A4443A2D;
+ Fri, 27 Nov 2026 10:34:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10E01F00897;
+ Fri, 27 Nov 2026 10:34:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795775496;
- bh=avk5cytN+L/J7/Lh48gtpu2LdPZ+kZWamSRmpSDap3g=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=o3kUgJohCk3yx6ekC7x0KWBwdq5puZyL7lEgHc6FSghysF8as+cIHwVnCvIpo3gaM
- RntJ/pJaIYpsDjB2iaQ7ZOCkELy385mp8SOuIuTT0U3MeJfuYI8gsWyja+BDcq2sxL
- T6OrEzh26so8b4mYETlKwIbsRRhTwitfM2Cxmt2SUpVSVZhBvnbOzNgNm/rr+FLVrK
- SvkFTms9yEumfsfMVdS3S3EP9/TC2ejFD2XhgbsC1WKK+a+MLGDYOx61VBhXTz8ajS
- jjhjMT3zKZpedxW431+ybk+DD/fyuxytuYXuzs9qZZWBxN3aj+RFoA1wvwkFcBJtCj
- Wr3rGEoV0diCw==
-Message-ID: <sashiko-outbox-237137@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/10] drm/msm/dp: reinit video_comp and guard stream
- state on link maintenance
-To: "Gianfranco Mariotti" <gianfranco.mariotti94@gmail.com>
-Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127101417.24303-5-gianfranco.mariotti94@gmail.com>
-References: <20261127101417.24303-1-gianfranco.mariotti94@gmail.com>
- <20261127101417.24303-5-gianfranco.mariotti94@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:31:35 +0000
+ s=k20260515; t=1795775657;
+ bh=12R8+MxmoCMK3Pvk1lqEg5lov8oGmq9pon4JJH+fMUM=;
+ h=From:To:Cc:Subject:Date;
+ b=PQMPExpFdlMdxmUO2KahNRNrA+Kixwz2/YhcsQut2hC3NR78H8DXxKij/GC5ktnSm
+ MHuVRqFEPvJDZjgKZnzomlFp0Qu9twn8LVj3Pz9jNNQBdnmGDkhAfbBT2niz456lqb
+ 9IpIcqBAb9hP8d5KB5cs58ZAQ5cird5Bd9J6MTRCiSCyoSfu1AbACzi4OYZhci+BNf
+ VsLpTBpDnGyB3hSXfve+iXTnycEiuOdCT8o/1gNtXyGFrFzKrXKz12u5okV3/pXZtc
+ A8Jt3SfYNUwWKZUto4GoebTdisCTlZXSBtw6oxLpe4g5+s7W8CTKYnwpB8aIbK1TKv
+ gL3zn+ywg5kzw==
+From: Thorsten Blum <blum@kernel.org>
+To: Junjie Cao <junjie.cao@linux.dev>, Lee Jones <lee@kernel.org>,
+ Daniel Thompson <danielt@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Helge Deller <deller@gmx.de>, Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Thorsten Blum <blum@kernel.org>, Junjie Cao <caojunjie650@gmail.com>,
+ dri-devel@lists.freedesktop.org, linux-fbdev@vger.kernel.org
+Subject: [PATCH v2] backlight: aw99706: Clamp negative brightness values
+Date: Fri, 27 Nov 2026 11:33:42 +0100
+Message-ID: <20261127103341.663905-3-blum@kernel.org>
+X-Mailer: git-send-email 2.56.1
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2115; i=blum@kernel.org;
+ h=from:subject; bh=rU3L8+ljDsDEvOv0FEVg6DJCO+bDkPX4OtCb3WNCsdA=;
+ b=owGbwMvMwCUWt7pQ4caZUj3G02pJDNmcMa2yW3Re+UsqXr+275Hjg6b5ixYaiZ/eUbXIMHMNl
+ /yr4wnnOkpZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAi8v8Z/ievXCh6+N+fvNSl
+ HVEPDOync/A1qrr94j/ome/m3Fhw+jsjw/Ov712yrig3nDyXkaxny9bhPuPOsj2nHIQljjy1m7n
+ rLwcA
+X-Developer-Key: i=blum@kernel.org; a=openpgp;
+ fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,93 +58,61 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=ham
-	autolearn_force=no version=4.0.1
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/msm/dp: race on stream_clks_on and video_comp in link
-  maintenance
---
+device_property_read_u32() reads both the "default-brightness" and the
+"max-brightness" properties directly into signed int fields. Therefore,
+values larger than INT_MAX are interpreted as negative and pass the
+upper-bound checks.
 
-commit 74fb6ec8be236f906bc006dd2cc6f05e8c05939a
-Author: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
+Read both properties into a temporary u32 and clamp the values before
+assigning them to the signed backlight properties.
 
-drm/msm/dp: reinit video_comp and guard stream state on link maintenance
+Fixes: 147b38a5ad06 ("backlight: aw99706: Add support for Awinic AW99706 backlight")
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+Changes in v2:
+- Also clamp the default brightness (Junjie)
+- Clamp both values before assigning them to bl_props (Junjie)
+- Update patch subject and description
+- v1: https://lore.kernel.org/r/20261127021423.656745-2-blum@kernel.org/
 
-This commit reinitializes ctrl->video_comp in
-msm_dp_ctrl_link_maintenance() and guards msm_dp_ctrl_push_idle() and
-the post-training steps on ctrl->stream_clks_on[panel->stream_id].
+ drivers/video/backlight/aw99706.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
-> diff --git a/drivers/gpu/drm/msm/dp/dp_ctrl.c b/drivers/gpu/drm/msm/dp/dp=
-_ctrl.c
-> index 779f743f94189..7201b7b513a32 100644
-> --- a/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> +++ b/drivers/gpu/drm/msm/dp/dp_ctrl.c
-> @@ -2089,13 +2089,16 @@ static int msm_dp_ctrl_link_maintenance(struct ms=
-m_dp_ctrl_private *ctrl,
->  	int ret =3D 0;
->  	int training_step =3D DP_TRAINING_NONE;
-> =20
-> -	msm_dp_ctrl_push_idle(&ctrl->msm_dp_ctrl);
-> +	if (ctrl->stream_clks_on[panel->stream_id])
-> +		msm_dp_ctrl_push_idle(&ctrl->msm_dp_ctrl);
-> =20
->  	ctrl->link->phy_params.p_level =3D 0;
->  	ctrl->link->phy_params.v_level =3D 0;
-> =20
-> +	reinit_completion(&ctrl->video_comp);
-> +
->  	ret =3D msm_dp_ctrl_setup_main_link(ctrl, panel, &training_step);
-> -	if (ret)
-> +	if (ret || !ctrl->stream_clks_on[panel->stream_id])
->  		goto end;
-> =20
->  	msm_dp_ctrl_clear_training_pattern(ctrl, panel, DP_PHY_DPRX);
-
-[Severity: Medium]
-Can msm_dp_ctrl_link_maintenance() race with msm_dp_ctrl_on_stream() on
-ctrl->stream_clks_on[panel->stream_id] and ctrl->video_comp?
-
-In msm_dp_display_atomic_enable(), msm_dp_display_prepare_link() is
-followed immediately by msm_dp_display_enable() ->
-msm_dp_ctrl_on_stream() on the atomic commit thread without holding
-dp->plugged_lock.  Because msm_dp_ctrl_setup_main_link() sleeps across
-AUX transactions and fsleep() delays, the stream state can change mid-way
-through link maintenance:
-
-CPU0 (HPD IRQ thread)                  CPU1 (atomic commit)
-msm_dp_irq_hpd_handle()                msm_dp_display_atomic_enable()
-  msm_dp_ctrl_link_maintenance()         msm_dp_display_prepare_link()
-    stream_clks_on[...] is false
-    reinit_completion(&video_comp)
-    msm_dp_ctrl_setup_main_link()
-      ... (sleeps in AUX / fsleep)       msm_dp_display_enable()
-                                           msm_dp_ctrl_on_stream()
-                                             msm_dp_ctrl_on_pixel_clk()
-                                               stream_clks_on[...] =3D true
-                                             reinit_completion(&video_comp)
-                                             write DP_STATE_CTRL_SEND_VIDEO
-                                             msm_dp_ctrl_wait4video_ready()
-    !stream_clks_on[...] is now false
-    msm_dp_ctrl_clear_training_pattern()
-    write DP_STATE_CTRL_SEND_VIDEO
-    msm_dp_ctrl_wait4video_ready()     <-- both wait on single video_comp
-
-Conversely, if msm_dp_ctrl_link_maintenance() runs
-reinit_completion(&ctrl->video_comp) while msm_dp_ctrl_on_stream() is
-already waiting in msm_dp_ctrl_wait4video_ready() (or just after
-msm_dp_ctrl_isr() completes video_comp), video_comp.done is reset to 0,
-causing msm_dp_ctrl_wait4video_ready() to time out with -ETIMEDOUT and
-fail display bring-up.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101417.2430=
-3-1-gianfranco.mariotti94@gmail.com?part=3D4
+diff --git a/drivers/video/backlight/aw99706.c b/drivers/video/backlight/aw99706.c
+index 43f82c83f91a..1ea5d0d2146d 100644
+--- a/drivers/video/backlight/aw99706.c
++++ b/drivers/video/backlight/aw99706.c
+@@ -265,18 +265,13 @@ static void aw99706_dt_parse(struct aw99706_device *aw,
+ 		aw->init_tbl[i].val = val << __ffs(prop->mask);
+ 	}
+ 
+-	bl_props->brightness = AW99706_MAX_BRT_LVL >> 1;
+-	bl_props->max_brightness = AW99706_MAX_BRT_LVL;
+-	device_property_read_u32(aw->dev, "default-brightness",
+-				 &bl_props->brightness);
+-	device_property_read_u32(aw->dev, "max-brightness",
+-				 &bl_props->max_brightness);
+-
+-	if (bl_props->max_brightness > AW99706_MAX_BRT_LVL)
+-		bl_props->max_brightness = AW99706_MAX_BRT_LVL;
+-
+-	if (bl_props->brightness > bl_props->max_brightness)
+-		bl_props->brightness = bl_props->max_brightness;
++	dt_val = AW99706_MAX_BRT_LVL;
++	device_property_read_u32(aw->dev, "max-brightness", &dt_val);
++	bl_props->max_brightness = min(dt_val, AW99706_MAX_BRT_LVL);
++
++	dt_val = AW99706_MAX_BRT_LVL >> 1;
++	device_property_read_u32(aw->dev, "default-brightness", &dt_val);
++	bl_props->brightness = min_t(u32, dt_val, bl_props->max_brightness);
+ }
+ 
+ static int aw99706_hw_init(struct aw99706_device *aw)
