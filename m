@@ -2,49 +2,47 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D308606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:31:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 334F2606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:31:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IMeccm7S
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=A44NmbwD
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6F4112CB1;
-	Fri, 27 Nov 2026 18:31:10 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 8B654112CF2;
+	Fri, 27 Nov 2026 18:31:21 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 272A1112CB1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 18:31:04 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795804251; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 3D319112CDE
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 18:31:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795804259; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=GcMqO73PEdVaLiJBu5duohgpHn3k4/qNb5TYimDlaV7tEq8HCBTBrLkBwDrFjHZVYvw5q1VMjaK0WEu0wbXWZG50wFJRbxGsfwci766tf7Dx7hcBVfOQWlDo9xxUE/3oI8a4TKSXY48VzD+4G/n8s1ybxPk2VRCHJnNS/TS7jv8=
+ b=cwpj7eAt1TcEP6Cl9neCjZiFf+UfUtb61w3x/XCZMvKdaPnrQ2paKX3rgy1ZiNe2aSE3wJ9l08SuwD7LBNZ03st39RNr1kwR7p4R+XK56pV6mEmRsjjHcjdHCYdp0YlwfecehSPZ+q/k0y632Ce4l6vzuDms/e52J/tjNv5XxQU=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795804251;
- h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=; 
- b=eOC3d2C58YVoUypwyQbfyw0Xogzt/MEb7FB3Cg64fBb0pOgbR0HQXaEznSrDhWCnMk11XRiHrhuhmkhiwMerA/kLAkr7nr4ybSumscDiJc8W2y91FPWCAJAfBcEX4TSCrAYl2LVgk1CMerJeVPkglbk2h3v6XeuBqb0X06URSH0=
+ s=zohoarc; t=1795804259;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=bhmBavxBDu7oBvEaPUxGwfDqUyaXtuf03Km8pH8uDSA=; 
+ b=Ga+BVaHevH5wXtQpJ2u79J7dTjqYZ6Q0ZSczLEy+3QphgzCEyuv/pZ7/Vb5s1uRdoA7gAVC/ITj3YUAUiSDx749es/dr0GKh7m1lmJo9g9HJUOHnXb0yuLZhqJObM0zQfU9nCm9cYParE7xv5Hxz/b88+0/y3ETw3KCy/XhWUnY=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=IMeccm7SE7CGdiT7iDATyEoRNrVcxDsaK4EX+P0Qn2XLbAN59Ozz1WTZnmFYnP+mxBtNXseY7i8gAw6sRfUu6cSDwH6CPNVa2oP7fNUCtt+Y9iGUVO6eBHZu2D5w5CTjq2zd+KgxJ1KupcHhtQE0PvRqo91/+BsVAGPMtcGA6Io=;
+ b=A44NmbwDn61EUeS8XE/ZYmrckPVuocb3GpD8pCXQMgRO0p9xddP0Gfk+v4z2+RNZEk5iFBtbAB249fJdZLZWJli5nkutGWg/BcByzeO1WfdM9UVuFgjrRyJHn5CFZ/L2X5eMwBcCWy2f/eAvE5tdgQGxHhPLgE8H6hMdTRFqj78=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=;
+ bh=bhmBavxBDu7oBvEaPUxGwfDqUyaXtuf03Km8pH8uDSA=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795804248352169.23768707491956; 
- Fri, 27 Nov 2026 10:30:48 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795804258302402.81084280671587; 
+ Fri, 27 Nov 2026 10:30:58 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Subject: [PATCH 0/2] rust: dma_buf: add dma-fence signalling sections
-Date: Fri, 27 Nov 2026 15:30:36 -0300
-Message-Id: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
+Date: Fri, 27 Nov 2026 15:30:38 -0300
+Subject: [PATCH 2/2] rust: dma_buf: dma_fence: require a SignallingSection
+ in signal()
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NWw6CMBQFt0Lut02gLVDYiuGjj1u8Boq2YEwIe
- 7eKn5PMmbNDwkiYoC92iPiiREvIUF0KsDcdRmTkMgMveVNVvGVu1sxjsMgSjUFPE4WRWY3Coe+
- 07lrI00dET+9f9jqcnDZzR7t+W38j4nPLf+upgdEJmV3mmda+0MabRpaGi1Yibxwq71XlpFJWd
- E7xWjpTC4UwHMcHskWnM8QAAAA=
-X-Change-ID: 20261127-dma-fence-signalling-cae3def9aa97
+Message-Id: <20261127-dma-fence-signalling-v1-2-c44e8f4910ca@collabora.com>
+References: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
+In-Reply-To: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
 To: Sumit Semwal <sumit.semwal@linaro.org>, 
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
  Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
@@ -73,48 +71,61 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
-	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
-code that the completion of a dma-fence depends on, so that lockdep can
-check it against the dma-fence rules. However, up until now, it was not
-possible to use the signalling tokens from Rust. Thus, add support for
-it.
+DriverFence::signal() is where a fence's signalling path ends. The
+dma-fence rules require the whole path, from the point where the fence
+becomes visible to other threads up to the signal, to run in a
+signalling section. A caller of signal() has most likely been running
+on that path before the call.
 
-Patch 1 adds SignallingSection, a guard that begins a section when it
-is created and ends it when it is dropped. Patch 2 makes
-DriverFence::signal() take a &SignallingSection, so that its callers
-have to be in one.
+Make DriverFence::signal() take a &SignallingSection, so that callers
+have to open a section. This does not ensure that the section covers
+the whole signalling path, as drivers can simply do:
 
-Patch 5 of the JobQueue series [1] changes the same signature to
-signal(&self, res). I will rebase on top of it once it lands and add
-the section to its callers then.
+    fence.signal(res, &SignallingSection::begin());
 
-A follow-up series adds a workqueue whose work items run in a
-signalling section. Tyr will use both.
+But at least it nudges drivers in the right direction and forces them
+to consider signalling sections instead of ignoring them.
 
-This is based on drm-rust-next.
+Update the DriverFence example accordingly.
 
-[1] https://lore.kernel.org/r/20261124122951.878199-2-phasta@kernel.org
-
+Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
-Daniel Almeida (2):
-      rust: dma_buf: dma_fence: add SignallingSection
-      rust: dma_buf: dma_fence: require a SignallingSection in signal()
+ rust/kernel/dma_buf/dma_fence.rs | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
- rust/kernel/dma_buf/dma_fence.rs | 77 ++++++++++++++++++++++++++++++++++++++--
- rust/kernel/dma_buf/mod.rs       |  3 +-
- 2 files changed, 76 insertions(+), 4 deletions(-)
----
-base-commit: abfb640b2374e26de8ff81d488c39d8254db538e
-change-id: 20261127-dma-fence-signalling-cae3def9aa97
+diff --git a/rust/kernel/dma_buf/dma_fence.rs b/rust/kernel/dma_buf/dma_fence.rs
+index 7ee87935d3be..39f9bb9d1be3 100644
+--- a/rust/kernel/dma_buf/dma_fence.rs
++++ b/rust/kernel/dma_buf/dma_fence.rs
+@@ -773,7 +773,7 @@ struct DriverFenceData<'a, T: Send + Sync + FenceContextOps> {
+ ///
+ /// let section = SignallingSection::begin();
+ /// assert_eq!(waiting_fence.is_signaled(), false);
+-/// fence.signal(Ok(()));
++/// fence.signal(Ok(()), &section);
+ /// drop(section);
+ /// assert_eq!(waiting_fence.is_signaled(), true);
+ ///
+@@ -873,7 +873,10 @@ pub fn as_fence(&self) -> &Fence {
+     }
+ 
+     /// Signal the fence. This will invoke all registered callbacks.
+-    pub fn signal(self, res: Result) {
++    ///
++    /// Takes a [`SignallingSection`] because all code needed to signal the
++    /// fence must run in one.
++    pub fn signal(self, res: Result, _section: &SignallingSection) {
+         let fence = self.as_fence().lock();
+ 
+         // SAFETY: `fence` is valid because `self` is valid. The lock must be
 
-Best regards,
---  
-Daniel Almeida <daniel.almeida@collabora.com>
+-- 
+2.56.0
 
