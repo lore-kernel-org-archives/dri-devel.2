@@ -2,121 +2,46 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA204606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 15:35:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D27606A332
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 15:38:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.a=rsa-sha256 header.s=google header.b=Zi4+xlfP
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=f8+0R5Of
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 1BDB8112BBE;
-	Fri, 27 Nov 2026 15:35:46 +0000 (UTC)
-Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
- [209.85.221.49])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 44F3B112BBE
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:35:40 +0000 (UTC)
-Received: by mail-wr1-f49.google.com with SMTP id
- ffacd0b85a97d-4a358881793so4369041f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:35:40 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=linaro.org; s=google; t=1795793739; x=1796398539; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/leW6zs7HC40lM5Yv1F7Yi0moI4pxhI/mUly1W4apXs=;
- b=Zi4+xlfP0ZshTuMVBlQUmb/nFq7pNUSZNtPccPsHHG+FHTmY2VKk06ko5P6ifm981+
- GNcUHmFQzHkHu9A90sC6DRMFiIl8RkDMuue8LYhu3frRMwjHddU8H0HtvqRrBOYqW9GE
- vAo8YrAxDfa7jfCC5MkHzbkKF/qkwfOZVcdBCnmCz+XVQB4kP+nzLvUm81GORuzmpykj
- 4hnBMwd0E3wYSEMbwqMBWwNA9R7jk3VOPpGo0gUUFTdciR26GnipqlaIt8zJfUOQ3ws5
- N5+nnJjUPTqoQcUbfqzlk71GjVDceTIrChTAagI4RwI+OpmRnJJtqVWUAsxZP+pffKEM
- jCbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795793739; x=1796398539;
- h=content-transfer-encoding:content-type:in-reply-to:organization
- :autocrypt:content-language:references:cc:to:subject:reply-to:from
- :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=/leW6zs7HC40lM5Yv1F7Yi0moI4pxhI/mUly1W4apXs=;
- b=CaAfTw8ms1pYttsJs5ZjBhSmlTOqsDsRaxqAgCe9Ipgdg7f5R/baHC9X90b+YKzuv0
- eh7a0gqaRqHTG0whSfoHmEdK/Asl0QZb0EemLiK4324Jn526iB04Ds5GcV4kuTPKmBPK
- mBhKFgS7ed+6nw4HYE5cFyVhQZiHZr/jiS/tUmI+PjZNz40Rs587FhbQcJiCppd/AGKx
- L/YAZrKMb3LibSJ+OkIbQDsPYuoPlZD0bZmg3AusKTBzcdmxJch7IQaseNLaCK8yF6iK
- yVFzb+NduiVknAlicFSzqoAQhbBBQQpkvYMINbFlnLlCQsE3FHpnVTTUxPbmkwzykpkO
- yJag==
-X-Forwarded-Encrypted: i=1;
- AL+hErEG3yJNYBPQA+xepe5+f5lM2ntwMos5xFkAkIkGJqkM4DClGHhzPOn1Z+U3VSghdK6+wKSMb1vqJUM=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9inlqSMwRal7r1WD/jGW6NdNIpN2+n7MLwJsljoro7PDyAvPP3
- LexljMcgj0Z38MPI8LK25M6AthM2b1bfWNMarLWkR33uqUYB23sPmV2Euz0G2XKqUQU=
-X-Gm-Gg: AZFdTZd2+luZYDNBf/ne7OFxMPOdewTJqOnzBHw8ao5PWaNrEYs04kDVGZ49Qjp6Aad
- tFgMXzGQ8Rn9DANc3uW9QYGk/G781UZjqsUBw79mAENS0iUq/K7G8YQOSKCYNTUVwNmOu/koESa
- igWD+om6zbPSVBZk7ZtrzAi/DcjQpiPK0HA2Ini5DjKoD4xshFS1ay5sKMWzwmnf5V5Hj8smgOW
- TaYmHGHV5WAH+EdYjf1j1gE+LgunDTjQoEY7MJi3KcmePRvg4y8V6z6LU2D/eGabGB6L4dtkgDy
- SbAMdTG4sfgFtG0ZdGVRvzLT3YE2NieenQ5ffMCGsD9VIKGCAXGifOcDaU5WFxMdwg4VG5AJTLh
- buwWnUncBeJ59dEwCPjBELiR6/dZZ1vEJGe3YdRKmlf05NUYwvH9J5dBTXFMiRB2FHhn3I2THAJ
- Gt7UlLJR6LCaI/VqnRHkGpYVVo2g5DA4Mm+y88Uw0wWOiNVitdKjXXc/7pu1XAqzctQ0IdiiW/3
- /Xh41Fdkj23h/zLqoy1JaGWwUsOzvIT0Lb1bItyr08FtN/JLggo3wKcWYOH/IgIYvIRxIfhyXhN
- sAyrma4e3UJyRSs7kNw4tu01kK9vtEcTKzUbbtRw2vTVHM1ngr2eKm/eM+3ZVG6nGss7gbhaSTe
- 44BVJCJv2/OTLV6WDA/5O1DkZO1FUIA==
-X-Received: by 2002:a05:6000:2997:10b0:4a8:12d3:c0b2 with SMTP id
- ffacd0b85a97d-4abb47b2244mr36965476f8f.23.1795793738453; 
- Fri, 27 Nov 2026 07:35:38 -0800 (PST)
-Received: from ?IPV6:2a01:e0a:106d:1080:c897:5d9b:d0a4:e684?
- ([2a01:e0a:106d:1080:c897:5d9b:d0a4:e684])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6b10b1ebsm48927658f8f.33.2026.11.27.07.35.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Nov 2026 07:35:38 -0800 (PST)
-Message-ID: <446fa440-1537-4b30-8429-4d72bb70029d@linaro.org>
-Date: Fri, 27 Nov 2026 16:35:37 +0100
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 00/12] phy/drm: amlogic: Extract Meson HDMI TX PHY into
- a dedicated driver
-To: linux-kernel-dev@aliel.fr, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C13710E4E7;
+	Fri, 27 Nov 2026 15:38:07 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 51B4A10E4E7
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:38:01 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by sea.source.kernel.org (Postfix) with ESMTP id 0767541A64;
+ Fri, 27 Nov 2026 15:38:01 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 088651F0089C;
+ Fri, 27 Nov 2026 15:37:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+ s=k20260515; t=1795793880;
+ bh=+WLLtnN2R5M/5/EnMLDzbwynr8R1odsEdwLSn/mSjI8=;
+ h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+ b=f8+0R5OfsFjO33opKrRKuW1ZOsc/GpwUnegecgpgPETJ1eAQbi4bMEmdO6CCD5DuY
+ WI+fpib9/uytV2K/6bysheAhgizkX7WWbIOzQN9lsBQU4HKTcDXwyRdaAO46OEavs2
+ pLzFHiwK+0CvNgWjraziYFUrxdvPMhr3tx8xWQWeCfGQzbBi2KM6xfbp+f+xE9FWmw
+ 0bAL1aHQTQ+tKEAwyQIUdNyyUjxQkkZX9KwVKAlnjb/1m9/P9AUsPfSAZT1uyNXOAy
+ Vc20eKYwh5nTmm7urcZ0oDZ0RLjKtFHReVZm7Srid/M8mSg37GMAcodm6wzFh8jD8G
+ psMS6DLs9aqpA==
+Message-ID: <sashiko-outbox-237759@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 01/12] dt-bindings: soc: amlogic:
+ meson-gx-hhi-sysctrl: Fix compatible matching in conditionals
+To: "Ronald Claveau" <linux-kernel-dev@aliel.fr>
+Cc: devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
  linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org
+ robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org,
+ vkoul@kernel.org, olteanv@gmail.com
+In-Reply-To: <20261127-meson-drm-create-hdmitx-phy-v5-1-88c43eb95468@aliel.fr>
 References: <20261127-meson-drm-create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261127-meson-drm-create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+ <20261127-meson-drm-create-hdmitx-phy-v5-1-88c43eb95468@aliel.fr>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 27 Nov 2026 15:37:59 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,164 +52,63 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+	autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
+X-Archived-By: <archiver.kernel.org>
 
-On 11/27/26 16:27, Ronald Claveau via B4 Relay wrote:
-> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
-> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
-> dedicated generic PHY driver.
-> 
-> Until now, meson_dw_hdmi directly manipulated the HHI system controller
-> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
-> resets, and manage power states, as well as manually ungating HDMI
-> clocks and power domains already described in the DT.
-> 
-> By extracting this logic into a standalone PHY driver under
-> drivers/phy/amlogic/:
-> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
->    as a child node of the HHI syscon referenced via standard "phys"
->    properties.
-> - The DRM bridge driver relies on the standard generic PHY API
->    (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
->    touching syscon registers directly.
-> - Legacy DTs lacking the "phys" property remain supported via a
->    temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
->    backward compatibility to be removed on next phase of component
->    removal.
-> 
-> Overview of the series:
-> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
->    add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
->    "hdmi-phy" child node under the HHI syscon.
-> - Patch 4: Rename the Meson8 HDMI TX PHY driver to be more SoC generic.
-> - Patch 5: Add GXBB, GXL, GXM and G12A SoCs to the Meson HDMI TX PHY
->    driver, implementing the HDMI PHY configuration ops, along with the
->    temporary legacy creation helper.
-> - Patch 6: Document the optional "phys" and properties in the
->    amlogic,meson-dw-hdmi binding.
-> - Patch 7: Make meson-ee-pwrc power up the domain memories when the
->    domain is already on at probe time, as this is a prerequisite for
->    dropping the explicit write from meson_dw_hdmi
-> - Patches 8-9: Clean up manual HHI clock/power-domain writes in
->    meson_dw_hdmi (relying on runtime PM instead) and convert the driver
->    to use the generic PHY framework.
-> - Patches 10-12: Add the "hdmi-phy" child node and wire up the "phys"
->    phandle for G12, GXBB, and GXL Device Trees.
-> 
-> Tested on:
-> - Khadas VIM1 (GXL)
-> - dtbs_check and dt_binding_check run cleanly with no new warnings.
-> 
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue to consider:
+- [Low] dt-bindings: soc: amlogic: missing Fixes trailers for
+  conditional matching fix
+--
+
+commit 3a6f82497ac8b3eb518b14c0bffeec3b4447c0f9
+Author: Ronald Claveau <linux-kernel-dev@aliel.fr>
+
+> dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible matching =
+in conditionals
+>
+> The conditional schemas select on "compatible" with a bare enum. On a
+> list such as:
+>
+>   compatible =3D "amlogic,meson-gx-hhi-sysctrl", "syscon", "simple-mfd";
+>
+> an enum applied to the whole array only matches single-entry lists, so
+> the if: blocks never match as intended and the per-variant constraints
+> are not applied reliably.
+>
+> Wrap the enums in "contains" so that the conditions match on any entry
+> of the compatible list.
+>
+> Doing so exposes the "phy" child node of "amlogic,meson-gx-hhi-sysctrl":
+> it was forbidden (phy: false), but some DT legitimately describe an
+> "amlogic,g12a-mipi-dphy-analog" PHY node under this system controller,
+> which resulted in dtbs_check warnings such as:
+>
+>   system-controller@0 (amlogic,meson-gx-hhi-sysctrl): False schema does
+>   not allow {'compatible': ['amlogic,g12a-mipi-dphy-analog'],
+>   '#phy-cells': 0, ...}
+>
+> Allow the phy child node for amlogic,meson-gx-hhi-sysctrl by referencing
+> the amlogic,g12a-mipi-dphy-analog binding instead of rejecting it.
+>
 > Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
-> Changes in v5:
-> - Add Patch 4: Rename Meson8 HDMI TX driver to prepare other SoCs
->                 integration. Martin's review.
-> - Patch 5: Adapt the GXBB, GXL, GXM and G12A SoCs code to Patch 4.
-> - Link to v4: https://patch.msgid.link/20261123-meson-drm-create-hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr
-> 
-> Changes in v4:
-> - Patch 2: Change commit title. Sashiko and Neil review.
-> - Patch 4: Change the phy min_rate to 15.9 MHz mathematical limit.
->             Thanks to Sashiko's review.
-> - Patch 8: Drop introduced double free with phy_destroy.
->             Add missing device_link_remove()
->             Change the device_link order and use prepare/complete in the
->             VPU drv for drm_mode_config_helper. Sashiko's review.
-> - Link to v3: https://patch.msgid.link/20261121-meson-drm-create-hdmitx-phy-v3-0-f8f471788076@aliel.fr
-> 
-> Changes in v3:
-> - Patch 6: reuse meson_ee_pwrc_mem_power_up() in meson_ee_pwrc_on()
->    function.
-> - Patch 8: revert the code to v1 and add a device link to solve
->    suspend/resume order in dpm_list.
-> - Link to v2: https://patch.msgid.link/20261120-meson-drm-create-hdmitx-phy-v2-0-93d622d9bb07@aliel.fr
-> 
-> Changes in v2:
-> - Patches 5,9-11: Remove unecessary "phy-names" for uniq phy.
->                    Thanks to Neil's feedback.
-> - Add Patch 6: Power up the memories when the domain is already on.
->                 From Sashiko's feedback.
-> - Patch 4: Add a 600MHz max_rate and a 25Mhz min_rate check and
->             exclude PHY_HDMI_MODE_FRL for phy_validate. Thx Sashiko.
-> - Patch 8: Move phy_init in dw_hdmi_phy_init and phy_exit
->             in dw_hdmi_phy_disable. From Sashiko review.
-> - Link to v1: https://patch.msgid.link/20261117-meson-drm-create-hdmitx-phy-v1-0-9e0ac931381c@aliel.fr
-> 
-> To: Rob Herring <robh@kernel.org>
-> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> To: Conor Dooley <conor+dt@kernel.org>
-> To: Neil Armstrong <neil.armstrong@linaro.org>
-> To: Kevin Hilman <khilman@baylibre.com>
-> To: Jerome Brunet <jbrunet@baylibre.com>
-> To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-> To: Vinod Koul <vkoul@kernel.org>
-> To: Manivannan Sadhasivam <mani@kernel.org>
-> To: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> To: David Airlie <airlied@gmail.com>
-> To: Simona Vetter <simona@ffwll.ch>
-> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
-> To: Maxime Ripard <mripard@kernel.org>
-> To: Thomas Zimmermann <tzimmermann@suse.de>
-> To: Ulf Hansson <ulfh@kernel.org>
-> Cc: devicetree@vger.kernel.org
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-amlogic@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-phy@lists.infradead.org
-> Cc: dri-devel@lists.freedesktop.org
-> Cc: linux-pm@vger.kernel.org
-> 
-> ---
-> Ronald Claveau (12):
->        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible matching in conditionals
->        dt-bindings: phy: amlogic: document the Amlogic Meson HDMI TX PHY
->        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy child node
->        phy: amlogic: rename Meson8 HDMI TX PHY driver to be SoC-generic
->        phy: amlogic: meson-hdmi-tx: Add GXBB, GXL, GXM and G12A support
->        dt-bindings: display: amlogic,meson-dw-hdmi: Add phys
->        pmdomain: amlogic: meson-ee-pwrc: power up memories for boot-enabled domains
->        drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
->        drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI TX PHY
->        arm64: dts: amlogic: Add HDMI TX PHY node for G12
->        arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
->        arm64: dts: amlogic: Add HDMI TX PHY node for GXL
-> 
->   .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   4 +
->   .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 ++
->   .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
->   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   6 +
->   arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   6 +
->   arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   6 +
->   drivers/gpu/drm/meson/Kconfig                      |   2 +
->   drivers/gpu/drm/meson/meson_drv.c                  |  16 +-
->   drivers/gpu/drm/meson/meson_dw_hdmi.c              | 223 +++++-------
->   drivers/phy/amlogic/Kconfig                        |   9 +-
->   drivers/phy/amlogic/Makefile                       |   2 +-
->   drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 391 +++++++++++++++++++++
->   drivers/phy/amlogic/phy-meson8-hdmi-tx.c           | 160 ---------
->   drivers/pmdomain/amlogic/meson-ee-pwrc.c           |  19 +-
->   include/linux/phy/phy-meson-hdmi-tx.h              |  19 +
->   15 files changed, 627 insertions(+), 312 deletions(-)
-> ---
-> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
-> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
-> 
-> Best regards,
-> --
-> Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-We need to get the bindings reviewed first, then PHY drivers can be merged.
+[Severity: Low]
+Since this fixes the bare compatible enum conditionals and the
+phy: false constraint, should it include:
 
-Afterwards I'll merge the DRM patch on the next cycle, then finally the DT.
+  Fixes: 4d023beb3998 ("dt-bindings: soc: amlogic: document System Control =
+registers")
+  Fixes: 960a4140ade8 ("dt-bindings: soc: amlogic,meson-gx-hhi-sysctrl: Doc=
+ument the System Control registers found on early Meson SoC")
 
-Neil
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-meson-drm-=
+create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr?part=3D1
