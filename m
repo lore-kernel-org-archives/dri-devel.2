@@ -2,53 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A9A3606A339
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:48:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B4DB606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:48:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nkgiRWvC
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=nIop1Dyl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id ACE1910E9DF;
-	Fri, 27 Nov 2026 11:48:45 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0D5521127BC;
+	Fri, 27 Nov 2026 11:48:53 +0000 (UTC)
 Received: from CY3PR05CU001.outbound.protection.outlook.com
  (mail-westcentralusazon11013000.outbound.protection.outlook.com
  [40.93.201.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 2FD9110E9DF
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:48:37 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 559221127BC
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:48:42 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I4V8+JwvaowHZtsTTTo+Beh4QnonNLek4qyZ2GHb5cCpE7OkC+bVvNe5kRX9AqCXdSLqxdixhVpk9VOSpUknoHG4GL0qY1fbkpMevC53smiVZEhkxY0IPwV0Cfb9PRgen/aAcJ3wbLKcMzC9wQC+XM0xnRRrvCIK9/5FQ5Sb5KWP8rCH4cuaipXjAk1lisZPJnTeLou82wetI6Td6o5kfRskTINr1Tr3EeTMlLRJ2TKq4uNYEb4W3DFadkiKOQ1SvEFYUUbXEGh69VuzPhl/kNoGfQgz/bXvlRaEXK19AX6EaBZWWpbl0AmDnGKzU1Pd0Ji48PHVBMtivSTbUTBYpw==
+ b=qLGblmfmz2LE37Fftk2f1r0QPw0lRAhHEGvl02aEqYKZnqqpgPd6XOl3LJ1T6z3SzkolX0w3fULUUvyNnoBLb7zMgzZiO3T176sF7qAijZ42Dp5UI69q2+5BnncnMO6XkWEdBEyDZK5v1tN6obAIGJJKRBKiGMJ1gdMh/QDQLG7p7xuVy8GV6Bsaix4g2yLdS+1hGsSc/gKG8fPwXhWcAglo6aVA75k7WKFFXfvozZE0+apJer33ICmiFYzM7v0dt0wxV3caX9u8PKlPJ7A/0hJsgwuUG70R1Q4DrabXowi0bjMlwB0QJZ2iWss24Zeh00orNtyQcqmrxYIEwrU6iQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G0nxFSZ3lB8HwdfWNOyN1hzvIuBuLxsi9SdD2Rg0I4I=;
- b=M5Vd5GojrkVft37t8WlpWx1RKpCauvEC5EdeN8bxRiTULgEB6l+WEffHE48C58i63LwmhrxaDEUWEqA6t0bn5nNk0xrlebUX/a8X5Lld0yAmTRwRfjKSbcrjZBQNsPHusPT5WkNt9KnByN+mb+jfJ8hG4gQQwyZkgF3iLvgsG+O/PyfUNS5iNzHUKsVZuD2+FmTWcvN9Ip/29DUWWvOvHLyKf2CDYEUteC5tsgNBxFSMYDDBDfHmo8dZURvj59mLplV03T4zUz5UmxQISE0xycnMqir2/qmCq3hA/T7Xka/9bfJpAtMZknPOuvwiWAm8j2tXHIcFDOTJSjU0DFOFOQ==
+ bh=/ULIELLMq+slXU/sG9438UO3G5HL8Kylb05qqaO1XdM=;
+ b=gsDwc1Jk+GC08ythdZMisfcLxhNkaOXqWwgFhmwTKnqkMiHomTGcejDy1dSo92b5YgIdEVUgC2neji2AS/hA1iEIZ3pgvFv4wyFx+WNvj4GSsNWyUJbFe1atknYleqpvf8o1UX1dCST4fSpjEWgoiMVXl6tiUpiUBdadWrGZ7fO2M5bo2bGoCTzRejTwdofAOd9uhSv7T3mJ0SoFhEMVj4Uxilq7sqVa6XZmhvVuVFVggv+yU6yIPIEZNIuPPDdd0R6R6lVGziFLlwkUa5wtDAoPnMO1dWTc31a1gPg58eIfBTQCSKQ4zjrJj2wc+JEq/WLF3bYn2uIioWo12NfYVQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=G0nxFSZ3lB8HwdfWNOyN1hzvIuBuLxsi9SdD2Rg0I4I=;
- b=nkgiRWvCfiMLJqA7p5t6+OTv9bLwmJWI1SSQnO0ke2keRe7xGjND8KjyZOkJ01v6SJ6y6FslM9iEAcrRbSwhJl1SrScmNm7XVIAOBny6j2HVocxBmsjC/iCr/3gHjkmYuCdKOzs4jLswHwcOE0F0sFw1ytV4swVfWCOksLc2SzjmcHdUDCF+kGPhtiqoCD7bZkkdJDIh1csoLj2XZzTGinp/kebPi8WQBLXPMRUV4zRasLkfDeHnO9pqSswmIZj3xlYffqmGubEUanvly1FLO3eSYYkYwxWs03VYkG7npI8QfYz8Uy5z1/EVYYH7oQYcZqFFdUEUTr96MuPzGfvirA==
+ bh=/ULIELLMq+slXU/sG9438UO3G5HL8Kylb05qqaO1XdM=;
+ b=nIop1DylusnsibO69k43E/yMCoW89mpox0BpVDowTnY+1RWNxKe9JVsGYilCQejNBTMr55jTh+gsnqr0PX82iQ5395yKbP7LKlcXTxwPQshBL9CSvP3lbjSMzAa99bhjJZvejivLq9QVnn6VfDLitAuRyKe92qjXTtbJRtcYmQBkcMdzjgqJiGXnH/3jt2k5Iqky9+YfhHe+TxpNGxBx3ff4x5maAAqX8zLZeEUE+KZ//voJfD9d44VMCZApSyYb/XnZRpGEHxvx3UD15SMYTrZk25FawMtseuKHMxa0T5O6sJb5CCiKn/3JLiHcnsKKAH68pbRLQ+uicC9Ls2OhDg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
  by SJ0PR12MB5633.namprd12.prod.outlook.com (2603:10b6:a03:428::8)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
- 2026 11:46:32 +0000
+ 2026 11:46:21 +0000
 Received: from MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
  ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0662.001; Fri, 27 Nov 2026
- 11:46:31 +0000
+ 11:46:21 +0000
 From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Fri, 27 Nov 2026 20:46:18 +0900
-Subject: [PATCH 3/3] gpu: nova-core: gsp: send the PCI domain, bus and
- device to GSP-RM
+Subject: [PATCH 0/3] gpu: nova-core: gsp: fix the PCI location sent to GSP-RM
+Date: Fri, 27 Nov 2026 20:46:15 +0900
+Message-Id: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-nova-gsp-dbd-v1-3-0fb5f7c2ce63@nvidia.com>
-References: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
-In-Reply-To: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrE2iJf6uIhaqg7Eo6SAScXfF8
+ lu8d4GQZxKoows8HSy8uAAVR9BPnRsJ2QaDTnSulC7QLUeHo6xojcVsSK3ODVVlQhCS1dPA57d
+ r2t+ym5n67X3AfT/0xypKcAAAAA==
+X-Change-ID: 20261127-nova-gsp-dbd-4f3d26be980e
 To: Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
  Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
  =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
@@ -68,74 +69,74 @@ Cc: John Hubbard <jhubbard@nvidia.com>, Timur Tabi <ttabi@nvidia.com>,
  nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
  linux-pci@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
 X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TYWP286CA0002.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:178::17) To MW4PR12MB6873.namprd12.prod.outlook.com
+X-ClientProxiedBy: TY4P301CA0030.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:2be::9) To MW4PR12MB6873.namprd12.prod.outlook.com
  (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ0PR12MB5633:EE_
-X-MS-Office365-Filtering-Correlation-Id: 56e5901d-f5a1-4ee8-55f6-08df4c7c14af
+X-MS-Office365-Filtering-Correlation-Id: 1dc5bab4-1de7-48e2-25dd-08df4c7c0e56
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|921020|10067099003|56012099006|11063799006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info: HAtmQqHD/qTOL+kSr8gndaHgCqeTgKv1eSvzlwILK+PJABA124sy4tgWCKzaWf0DHtDTkyznhB1j/4rugHsPD6qaB2cbwaRuX5y+PYFbCxwp8deVQMT11ad0m3dR+sABIeeH6AQhqU5HQaWeH463YgxrQnI1eKW2XuSZ/wbXSTcBN5spRTCsXAoPFoJoT2o/AGYYT7l7V7DBfjSp8t3ozdHGV5Wfc/0ckDYRNW3cIQOW1OGjVz1TxID6t/R1qaiiI26/t7IOX0BIn4f3GB9hRvrnWJ5prX8B2iaI/kEMQebcJButc7K0/00GMOO4fZxl+p4CHwuvDhkw1/WROITFCbzJ5FZRkzlkbcBkK42g4EURtbxXX8Gm+lTfc0cce1wS6RYI6k1XKHuItWAc2Kn0AQfY3emKwYWp93gaLe4NtYMUrX71aGfD98NgFSH/73TNTrvxgrO914jmvmTRJRijTh9Y5yBgaGgH0JI/ek8PsGgWP76cxujEbTTeNif0k4B4iw6EImT9SjgCbsxK2lPtzOWYFE1aA/MOD1Cmr4naTahjggTMWoSfCQu6GyXC+oHrtqJdQ9T1KRygmSx0OVUvS4FJM4xZpSHYqdDPJV3kFyMG6T6A3FIa++wibJSRdZvz1fPv4l4+fpPSYuDCvyyxVj8C2rDGh9bnuXu1lr00T4Q0vn1iACHlBdl5SoEFPu75DIP0RzlJLcwPapVL7yUSlw==
+ ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|921020|10067099003|56012099006|11063799006|261021121427099003|261021123027099003|261022105027099003|261009223027099003|261028144727099003|261026121527099003|261026140227099003|261102123227099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info: zvaSAHO72AautjtMM9/143pkxt9/jqXI7kmHBZUMw2fPZ/got4wyYgMslFodryZGd9lUoEk61JAk5L6UXUeHbT1rkv/nz3Qtj0ReMGnU+Y4jSAmWQvuohkdC374f2C7PRAvwcyvXbXV68RW+wr7DeiZzTd31AlUnQ0J7Otq5/RplzK+LQ0dWeiAjoGws5yvvossOzZuIpHt34adK09mnpy2vlQ5Bjicigs0lSGjAGLKM0WcHbM4noIxJK+s+cC4XU/NKuK4z99IpsbMQM2IsGJkjZ6UKKUiS8lSK4XFJUMG+gIJVgLctKFB5+MH0cIuPWsG+Wy70CiKR+aT4ySGVfIoOJHJHETUdqP/0+JQXtaCRIq+QyouWkdRwZNWgkgwRxYGT/suFz+ENynpBpn+HkA7NSmFiwwUn9/2kvU2uJ7vzgIRV5AzXUMZ5e+X1pM2nxzLyJSftUrgzuzXUsHLkBwoLIlNH2cHA3eaDZrIo/XnM341ryGoXC/gSYg7pq/FFg2WOmdDPFpWtpmd+JXMfwqqWXeRrxE1yjvRB7VQG6rLWZ/xLXgC2Y9aVHqLLZwVMHIM5EK74ob8NQM1ClNSdzk5mUiazkd479iP0EO3o3tLZDcf0fKJ27E2Yi3H1kEosGwgSng/5aVpYQ2osp5JhKE0/gGM/IBkcnXGZm8RK6VFbyiDLXGCJGcZRaR1E0Gxy6htYV/zM483bEm7/0HU46w==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(921020)(10067099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(22082099003)(18002099003)(3023799007);
+ SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(921020)(10067099003)(56012099006)(11063799006)(261021121427099003)(261021123027099003)(261022105027099003)(261009223027099003)(261028144727099003)(261026121527099003)(261026140227099003)(261102123227099003)(18002099003)(6133799003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?cnpLcllCTENhUjNGMjF3Ty9KUGF5TXlxVjQ0WVFoQnFlTE1ZNHkxbDZWT2My?=
- =?utf-8?B?OGhybnNEVUx4S0dmYmNONndnUUptTDd5dlUra1llR0QyYmREUzVIb2F2d25Q?=
- =?utf-8?B?a1hqSUI3ZU5JbTJWSFFWbXltbnBySktBOWsyWWNETlVzd2hCanJxdDVlY09r?=
- =?utf-8?B?YVEweXd6d1hmNUhLazRnQzFRMGVZVVYrNFdWa0xEdjZyeXJ4bkg1RCt3aFJs?=
- =?utf-8?B?WWFOSHl0UTZ6dFI1cG9oUVZjTmc0aWZoV2M5QWxCVTNsLzhXTWxKUFZwelYv?=
- =?utf-8?B?b3cvNHhkQkFsVlh0ZEl6QU50ekhtdTNsMFBjSTVkKzRiYWRxNjQwR2VOSVJh?=
- =?utf-8?B?cy8xNW9XQ0NyTEtHOGVzcUZUZTEwaFU1dFJrWEFSY3B5eXh0Q244bXkwaFAx?=
- =?utf-8?B?alh5bFI5UlZOUkpTREtPd2ptVE5oaGJzblV3Z05Cbm80Vlc0eFMzWHVQSFcy?=
- =?utf-8?B?RzUrM2k4SVJBenhmTUdOQkovWXgxUElKd2FUY2FndjJ6L0cyRVBjSGxsSUx2?=
- =?utf-8?B?ZkRqbmI1ek1VcEIwL0YzU0F6c0w0QkkvWUhmVmxIMTB6Ym83dXU5UGJrbWxX?=
- =?utf-8?B?UG84bk5QYk1KSnQ1K1AxRk9oMHpRTjhrMVJvTG1UZUdSMWc3RW1pajRsODll?=
- =?utf-8?B?ZUY5aVBjR2ZoWS8weXZjK1RSU3VRMHN6OTNTV2o3UFFhOXllNUFBTHJpMyts?=
- =?utf-8?B?NHE1aGwySlhHeUZRTVNPRFU3RlJqb1lrN1hNUy9BRGw2ZWxQQzU4ZThjRitN?=
- =?utf-8?B?dXJzYXUrUzZGTDY3dTJIZFV1VndHUkd6Q05DM21tbU1uVndCT3JsSzc1WTBD?=
- =?utf-8?B?dERCRnE1RUt4ZW45cExMeW1YY2NZWDlpZXVUa3FmLzBDUXY4ZTBYNjdHc3ZM?=
- =?utf-8?B?RU00S2J4bmxxTlAybkw0UkZVQm5HaXExUjQwOXhqNUw4dEVNeldWMkp6YVdQ?=
- =?utf-8?B?ek56MlBROXRwakJZQ0cwb2hQYTVYMm5seDZVc09mc1VwZlhrU1dHMGROYVh1?=
- =?utf-8?B?WkNmTzAzejdVbkJJUUNxR2h5NnN1NmdVSHpjempHeXpCWUwrcWhMTURXTkhw?=
- =?utf-8?B?NEdicjlWTUlGTFV3Nys5T01VUjJLV2Y2WE9SVVgwOTZvNCt5RkozSGtaeUFw?=
- =?utf-8?B?ZmQwd21lOFhpcVpVa1draU1jVjRCaGVscml3R09yeUQ4dGJJSFIySEgxcEIz?=
- =?utf-8?B?L1FZWlpvZVRZdUZ4YnlRYXRYSGl3ZlRITkpwZm52aWRzeEtMKy9OdjlVSU8x?=
- =?utf-8?B?VFVHS1hOQ0ttdDNBUkdNYjVvTHRCM3hzT1BVRUhYYkpxeEJUcCtyLzc1WFJP?=
- =?utf-8?B?cVorQmFQMGJiWDQ5VFE5OGZCczdiRGhaYVVDNFdCd29saElBd3ZSSlFYK3NG?=
- =?utf-8?B?Zko1NWtWNjVpVlF1WjJwRk9KL050V3hGeGpZSjFVQkYzVFJUbjBhYU5wa0JS?=
- =?utf-8?B?dlM4T2FRNnpHSjBXMGZEaG9ZcitaK1luNkVCWDh3RXJMN1d2VnJndUZ0QVhy?=
- =?utf-8?B?NHZsZEJhK2tTTjAyNXZRaGNIT05xbHowR0oweUJMdUZ0VVZ2K2tYVmk0UXlq?=
- =?utf-8?B?ZXhqTysxekpvNTZhRjNieE4yWGluUkFsMy9SQU0wMHhvSUFpWjBKZWd5N2Vh?=
- =?utf-8?B?YW4wRGhJYlo0ck9ROE9VcnBVdE5mT3YxSU9qcld3dU94K0EvRlllYWplU2Zr?=
- =?utf-8?B?RXVqVVU2NGY5SEdQRGJ1Rmxxd1hVeXR2MVRFdGZkeFpiRHpveVNSU2pKdUh1?=
- =?utf-8?B?VXF6WUFvNlZJcDk0blpJVFRRQ2ZwT2RQZjdEZjc0S1JJNkNKSUU3d3FmOUVi?=
- =?utf-8?B?T0tJbDlvcm1UdU1tZzF2Y29CZ1pQSitPNm5qSjBWaU55Yk13UWpNYzZOS2li?=
- =?utf-8?B?OWVOSzQzQlFJdGZWa0VJbVc3Vnd2V2RNQmtaR0NYbHNXWTV6TEtVQ0IrUDVl?=
- =?utf-8?B?TDNyVkdEaU0rL1ptOTgza1RlYkNmbWlsWUkvQ1NjaDdCWmhONEJiMlpXRWNR?=
- =?utf-8?B?RkdtcW03WVhKMkpjcDJYRkk3TUNZcDNKeVIxTmhGRjYyekVWRVZuVHNvQ0FR?=
- =?utf-8?B?aGVVdVl5N0MzSURTZ2NFV2tPR3JuUnl6N0VoTlI5QVJoMWZNdGpvWE1wNHRS?=
- =?utf-8?B?emdyYjdXbEs1aC9PU3pFeTRvQ25vcmkzNUQrcTlrU2Z1eW9XSUpVV1FiWExr?=
- =?utf-8?B?MWZkem8xMVAxaVFqMFVPdW16VEg1Z2lvL3VKdTJXbkY4Y0QwMjNtVDVjbExS?=
- =?utf-8?B?elZXb1Qxc1Q0dTRlOGpMUWpkMFV5TnRsZHFEWm1oY1d5T3BadEFLNHUxY0xj?=
- =?utf-8?B?c2lORmRJa1hvaG5jdUE0UXV6NHppR2lPbWpjSG9kMVhCRkdwRkpSRnh5Z1Vj?=
- =?utf-8?Q?TYk/lYkK7sktYmhHvu2tOrFe21kx3m3FzpP8bN33obEbn?=
-X-MS-Exchange-AntiSpam-MessageData-1: u5sj1+7d7vfhhg==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?MUpjWnF6UEltaytFWE5EMEo0bzlRTmNwTGVROVZqamZQK2h4b2ZvVm1WQ0FC?=
+ =?utf-8?B?T1M5Vkd5eDQ1ZUY0Q05PN2hjNEppTHZlOVZTMVZXZTlxYkpRSFlPRjJSVzRE?=
+ =?utf-8?B?ejVlT1cxK3l1VUxZM2R6eUU3M2pmOEx0WDV1L0xIRi9iM1ZsdTZYMUtLUDZN?=
+ =?utf-8?B?c1NBTE9xWFRsTitQNzVCWXZ2S1g1UDJjemhWaHQ4OTFpVDA3dy9Yc0Q0a3o5?=
+ =?utf-8?B?RmxTdXdrOWRVOElacS9aQ3h1MGlxQlVJcU1KTDZLUUJYR3ArUUgzdDRMRnRo?=
+ =?utf-8?B?TFZEb1NCVXVUS2k3RWhFdXFIVjNzUE1BM1ViK3NnaDZ5VDB6NkVXWUN5b0s1?=
+ =?utf-8?B?U2sraE9ZbUo3Y0gzODUzNHVhRGQ0ZnE1QW1oTk1zNmI3SGlycUJGaTltNDNw?=
+ =?utf-8?B?N2RNbnhYNWdNRTVBN0Q2algvL0Rkbkp5aDNXY1V0SmVoaTVpQTBZZ05USVVJ?=
+ =?utf-8?B?cDZITjVUSnV0d2x2MjVMcktFR3hZT2JIZnh4eWV5cC9SRzI2R3V3YlB1RGtp?=
+ =?utf-8?B?akRBTE0zK3RKM0ZrZ2tlRXB3TU9kdXN3eU5wa0Y3OUlLMTVBTG9hdTBESUdJ?=
+ =?utf-8?B?T1NLblBGQWJPTTFDcWc2a3NmVThEWW5TaXNCN2t5M1Y4aUp2bUdBVzI0TzBJ?=
+ =?utf-8?B?M1FKaWhXa1JUaGxPby8xemtadnA4UkszVGVJTDRPa1g5Y3VIejRVTTU4UW5Q?=
+ =?utf-8?B?K0ZFUlZvU291dlZFVHkxY2pud0ZvbC9id29IcTFLYjI1SEpzTkx1Y1FFSGhQ?=
+ =?utf-8?B?bjF6VStkOGkvZGRpVmYzVHVlcHlUVUtvSjN3bk0ycXAxck1SNm1WZkh0ZENm?=
+ =?utf-8?B?NFJhdTlqQlJ6eUdueG8yTXRBdldDbjBBME54YjRRRjFwcVN5aFYwWXBuSDNU?=
+ =?utf-8?B?TC9sRmZSS0VkU2JqVnhjS2NQSTZyNzVldHh2MHUwOXBJSnBHR0FOamdyaGk5?=
+ =?utf-8?B?VXJKUTBMTTNFdHpqVFZUR1BGMHpjZkJtS0JhdDFNNEJSN2FzNktiY3RSTGJl?=
+ =?utf-8?B?MXFFWVpmVHgxU01wV1JaYzdibUhJZGZ3RnZjc1dxbVd1SkIzWjhRTzhyRFBU?=
+ =?utf-8?B?dTg5UUhVRGxQSi9WNk5kd1pnS0IwS3h6WUhzYmJmUy9PVVpTcmw2UU9ObzdD?=
+ =?utf-8?B?YUF0TFkzejl5L2ZEUkZTR2J0TGM0azJxcStYM1VhQ2pwc1BTV3pja1oxcDB3?=
+ =?utf-8?B?aFhrSlgxRU9tWWFNRlNqRk9hZTM2VGwxdmYxdGFVTCtQRTJCL0YrNmJTVERG?=
+ =?utf-8?B?UUtpS25hckxsZVYwajBPVWN2MlVieGJmQmhDemI5b011N0NDT3RMUXZEL0Z0?=
+ =?utf-8?B?aSt6NFoyZlZDbjdJVkYzSVk1SlN1eXdKTiswdFE3TEo5c2h3bWFWbnorU09m?=
+ =?utf-8?B?S3ZBUWltU0M3bmtwQnN0V0RFay9FbzExNkt6RkRkckVYcGVDTjZpWmhsdFNW?=
+ =?utf-8?B?VExrR1AzMXRCekFKdkhwRjE2bitFVi9HeUNEbHFFbVBrbXZITERyQmQ2endH?=
+ =?utf-8?B?dVdJdHVjWjlQNUlBL3ZXSkZvVWNNL01BaHJoc012SThMMTlNSnAyYzNya2Q1?=
+ =?utf-8?B?YzJvQ2FERkx4Y1FEUFhXcHVqclRJekozaFQ3TGFmbUdvYlR5N2RyVW5zUUti?=
+ =?utf-8?B?RU9WNHl5WWg2TUwza1ZJRXpyK3Z4YmFEaUlSQUJQRFV1dHJxbnRvV1Z5dCtz?=
+ =?utf-8?B?Z2M3enZIQzNob1ZRZEJ1dlIxVXI4cWFUWWVFcml0UWZ5YzZjV0M2NE5lZWs1?=
+ =?utf-8?B?N0M5aFB0L1JScG4zN09lUVNRSDhmNXE1L080Uk9vdlBVZzJkUlg2RlFZamVo?=
+ =?utf-8?B?bUxNMzJNMXNZT0JZRGZ5bjVlOUxJUThKY05ZZ3kxeVE0eFh1amRLZWttT09U?=
+ =?utf-8?B?ZnBKT2ZjZEdicjVTd3RZRVA1Vkx5MnJEQjIwUm1TZVpobDF3MnNYMkVuSktG?=
+ =?utf-8?B?TW1HZ21ZdTlDNEk2enFlNTlmZGF2VnRTekxFY2NGMHhBQXJaVzk1Z3NqVXND?=
+ =?utf-8?B?Nk5rdmNjak45T2FrTkhxNWwvVEFTK25ZNWFQUFJ5K3JrNXhMblJHNS9xOVU2?=
+ =?utf-8?B?dEFma3NPbHhqUWNpQzBJNWd3UVdKMExZRE04QTVuNXRpelRwdmtsLzBrYk5a?=
+ =?utf-8?B?KzQ3Y3l5N2F4TGg4VHIvNHdlOGx6blpQdG56RG1hZTJZVlV1U0g0K3kwUERl?=
+ =?utf-8?B?WUFoaDRrbzg4T3BmRVJtb2c0bVJpUXI5RlpaNnRWeGlYaGhQRW41alVIQTE5?=
+ =?utf-8?B?UUVRNkhFT3lXR0tSR2d1QlZvVm00NTNxejNEbHlHTWEzY1NiZ1RMa1prbGZX?=
+ =?utf-8?B?cTNqVVRGTGVJWDJHRGMvTDVBZi9kOXhKaVNHS1F2TERUK1dKdW03VW0ycDI5?=
+ =?utf-8?Q?KBX8srK0S81KU0cvAlVmmRysOEm7HBQmWYyihBSx0wvgs?=
+X-MS-Exchange-AntiSpam-MessageData-1: M/vhbHO7ly0owA==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 56e5901d-f5a1-4ee8-55f6-08df4c7c14af
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dc5bab4-1de7-48e2-25dd-08df4c7c0e56
 X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 11:46:31.8967 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 11:46:21.3336 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: boSfofGp97+tPaaz7/r90ECpU6nXsYYGKI6WTLCLi/6hxJQWiDpX8PP8OcyarGLr3GDdjaHbPyqejuf9a5POLw==
+X-MS-Exchange-CrossTenant-UserPrincipalName: t4CSJdq7LywANsQe8MgNTzUX0UOK+uHRLbLkc/mEVFZgB/beePyI/CbhP8FGMXgyEhdM64Rt9TzD3MU7Jv66Dw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5633
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -156,78 +157,41 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: John Hubbard <jhubbard@nvidia.com>
+nova-core sends the PCI device ID of the GPU (bus, device, function)
+where GSP-RM expects the layout built by OpenRM's
+gpuEncodeDomainBusDevice() (domain, bus, device). Both only match for a
+GPU at device 0, function 0 of domain 0. Patch 3 fixes this.
 
-Open RM sends the PCI location of the GPU to GSP-RM as one word, which
-gpuEncodeDomainBusDevice() builds: the domain in bits 63:32, the bus
-number in bits 15:8 and the device number in bits 7:0.
+Doing so requires extracting the bus and device numbers from the value
+returned by `pci::Device::dev_id`. Rather than doing this in the driver
+(and in every other driver that needs that information), patch 2 adds a
+`Bdf` bitfield to the PCI abstractions and makes `dev_id` return it.
 
-Nova-core's system-info command sends the PCI device ID in that word
-instead: the bus number, the device number and the function number, with
-no domain. The two words are equal only for a GPU at device 0, function
-0 of domain 0, so GSP-RM receives a wrong location for a GPU anywhere
-else.
+Patch 1 documents the constants that `bitfield!` generates for each
+field, which otherwise trigger the `missing_docs` lint on public
+bitfields like `Bdf`.
 
-Send the domain, the bus number and the device number instead, in the
-layout that Open RM uses.
+This series is based on drm-rust-next.
 
-Fixes: edcb134264f7 ("gpu: nova-core: gsp: Add SetSystemInfo command")
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Co-developed-by: Alexandre Courbot <acourbot@nvidia.com>
 Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
 ---
- drivers/gpu/nova-core/gsp/fw/commands.rs | 30 +++++++++++++++++++++++++++++-
- 1 file changed, 29 insertions(+), 1 deletion(-)
+Alexandre Courbot (2):
+      rust: bitfield: add missing doccomments for associated constants
+      rust: pci: return a bitfield type for dev_id
 
-diff --git a/drivers/gpu/nova-core/gsp/fw/commands.rs b/drivers/gpu/nova-core/gsp/fw/commands.rs
-index 37b89e62387f..a1a5e0d5569e 100644
---- a/drivers/gpu/nova-core/gsp/fw/commands.rs
-+++ b/drivers/gpu/nova-core/gsp/fw/commands.rs
-@@ -88,7 +88,7 @@ pub(crate) fn init<'a>(
-             gpuPhysAddr: dev.resource_start(0)?,
-             gpuPhysFbAddr: dev.resource_start(1)?,
-             gpuPhysInstAddr: dev.resource_start(3)?,
--            nvDomainBusDeviceFunc: u64::from(dev.dev_id().into_raw()),
-+            nvDomainBusDeviceFunc: u64::from(DomainBusDevice::new(dev)),
- 
-             // Using TASK_SIZE in r535_gsp_rpc_set_system_info() seems wrong because
-             // TASK_SIZE is per-task. That's probably a design issue in GSP-RM though.
-@@ -377,6 +377,34 @@ struct GspInitRequest {
-     }
- }
- 
-+bitfield! {
-+    /// A GPU's PCI location as GSP-RM reads it: the domain, the bus number and the device number.
-+    ///
-+    /// The function is omitted on purpose.
-+    struct DomainBusDevice(u64) {
-+        /// PCI domain number.
-+        63:32 domain;
-+        /// PCI bus number.
-+        15:8 bus;
-+        /// PCI device number.
-+        ///
-+        /// Note: this field is larger than the equivalent one in [`pci::Bdf`]. This follows OpenRM.
-+        7:0 device;
-+    }
-+}
-+
-+impl DomainBusDevice {
-+    /// Returns the PCI location of `dev`.
-+    fn new(dev: &pci::Device<device::Bound>) -> Self {
-+        let dev_id = dev.dev_id();
-+
-+        Self::zeroed()
-+            .with_domain(dev.domain_nr())
-+            .with_bus(u8::from(dev_id.bus()))
-+            .with_device(u8::from(dev_id.device()))
-+    }
-+}
-+
- // Decode:
- 
- // Should decode with UnknownKeyPolicy::Ignore.
+John Hubbard (1):
+      gpu: nova-core: gsp: send the PCI domain, bus and device to GSP-RM
 
--- 
-2.56.1
+ drivers/gpu/nova-core/gsp/fw/commands.rs | 30 ++++++++++++++++++++++++++++-
+ rust/kernel/bitfield.rs                  |  3 +++
+ rust/kernel/pci.rs                       | 33 ++++++++++++++++++++++++++++++--
+ samples/rust/rust_driver_sriov/pf.rs     |  2 +-
+ 4 files changed, 64 insertions(+), 4 deletions(-)
+---
+base-commit: abfb640b2374e26de8ff81d488c39d8254db538e
+change-id: 20261127-nova-gsp-dbd-4f3d26be980e
+
+Best regards,
+--  
+Alexandre Courbot <acourbot@nvidia.com>
 
