@@ -2,42 +2,66 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05216606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:24:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D308606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 18:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=YVKGg/cB
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=IMeccm7S
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 60BA410E0E5;
-	Fri, 27 Nov 2026 18:24:53 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A22BC10E0E5;
- Fri, 27 Nov 2026 18:24:47 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 4849843DE5;
- Fri, 27 Nov 2026 18:24:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE351F0089F;
- Fri, 27 Nov 2026 18:24:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795803887;
- bh=vmpHK1QD6YoMGBBIMHoP6V75eU9mOZsKKoltFILjgVA=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=YVKGg/cBkrFGblrm7KK9N62aXsOd/JBgke0Vc+PesYlp+jJkx0nQ9MV+PQ434WNQR
- mRs28VLk88MFD7ZwHaGzGKn/MFvGEJpxYDi5/1Lw1XfFe2x3HXe+0DJFclyeRvu1Fz
- ZNbUNRZYUQ50LJ9xwmHlJEo6z3sKdnCiZdUv0ookfFAK08j1VTcWlGJVn9PSgtRyoe
- fjr0WpKdYBq3IAMI4SsIPopuQ6Rc882W/XDq5WmRYrz/p2TKGu5xpelzkKFAs2IBDR
- zlADJuYm17z5BWpHYpbksq6pzTgGVlCMISpV1d7wugRCn2QbzxM+spWc0czCMVdIym
- FZYRkO6ZrGGpg==
-Message-ID: <sashiko-outbox-238067@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/3] drm/ras: Check the node type in node lookups
-To: "Rodrigo Vivi" <rodrigo.vivi@intel.com>, dri-devel@lists.freedesktop.org
-Cc: intel-xe@lists.freedesktop.org
-In-Reply-To: <20261127181750.806528-6-rodrigo.vivi@intel.com>
-References: <20261127181750.806528-5-rodrigo.vivi@intel.com>
- <20261127181750.806528-6-rodrigo.vivi@intel.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 18:24:46 +0000
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7B6F4112CB1;
+	Fri, 27 Nov 2026 18:31:10 +0000 (UTC)
+Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
+ [165.173.180.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 272A1112CB1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 18:31:04 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795804251; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=GcMqO73PEdVaLiJBu5duohgpHn3k4/qNb5TYimDlaV7tEq8HCBTBrLkBwDrFjHZVYvw5q1VMjaK0WEu0wbXWZG50wFJRbxGsfwci766tf7Dx7hcBVfOQWlDo9xxUE/3oI8a4TKSXY48VzD+4G/n8s1ybxPk2VRCHJnNS/TS7jv8=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795804251;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=; 
+ b=eOC3d2C58YVoUypwyQbfyw0Xogzt/MEb7FB3Cg64fBb0pOgbR0HQXaEznSrDhWCnMk11XRiHrhuhmkhiwMerA/kLAkr7nr4ybSumscDiJc8W2y91FPWCAJAfBcEX4TSCrAYl2LVgk1CMerJeVPkglbk2h3v6XeuBqb0X06URSH0=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
+ dmarc=pass header.from=<daniel.almeida@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=IMeccm7SE7CGdiT7iDATyEoRNrVcxDsaK4EX+P0Qn2XLbAN59Ozz1WTZnmFYnP+mxBtNXseY7i8gAw6sRfUu6cSDwH6CPNVa2oP7fNUCtt+Y9iGUVO6eBHZu2D5w5CTjq2zd+KgxJ1KupcHhtQE0PvRqo91/+BsVAGPMtcGA6Io=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=u0bfrnFDiXtdQaXbtRRFrG1L6zn8mx0JhpG3f4x8zTk=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795804248352169.23768707491956; 
+ Fri, 27 Nov 2026 10:30:48 -0800 (PST)
+From: Daniel Almeida <daniel.almeida@collabora.com>
+Subject: [PATCH 0/2] rust: dma_buf: add dma-fence signalling sections
+Date: Fri, 27 Nov 2026 15:30:36 -0300
+Message-Id: <20261127-dma-fence-signalling-v1-0-c44e8f4910ca@collabora.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/y2NWw6CMBQFt0Lut02gLVDYiuGjj1u8Boq2YEwIe
+ 7eKn5PMmbNDwkiYoC92iPiiREvIUF0KsDcdRmTkMgMveVNVvGVu1sxjsMgSjUFPE4WRWY3Coe+
+ 07lrI00dET+9f9jqcnDZzR7t+W38j4nPLf+upgdEJmV3mmda+0MabRpaGi1Yibxwq71XlpFJWd
+ E7xWjpTC4UwHMcHskWnM8QAAAA=
+X-Change-ID: 20261127-dma-fence-signalling-cae3def9aa97
+To: Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Philipp Stanner <phasta@kernel.org>, Danilo Krummrich <dakr@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Trevor Gross <tmgross@umich.edu>, 
+ Daniel Almeida <daniel.almeida@collabora.com>, 
+ Tamir Duberstein <tamird@kernel.org>, 
+ Alexandre Courbot <acourbot@nvidia.com>, 
+ =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>
+Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linaro-mm-sig@lists.linaro.org, rust-for-linux@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-ZohoMailClient: External
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -48,48 +72,49 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Low] drm/ras: missing Fixes trailer for node type check in
-  drm_ras_node_get()
---
+dma_fence_begin_signalling() and dma_fence_end_signalling() mark the
+code that the completion of a dma-fence depends on, so that lockdep can
+check it against the dma-fence rules. However, up until now, it was not
+possible to use the signalling tokens from Rust. Thus, add support for
+it.
 
-commit 9258f81bad25ef1d7e2f5db2a77f4c65a38c081f
-Author: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Patch 1 adds SignallingSection, a guard that begins a section when it
+is created and ends it when it is dropped. Patch 2 makes
+DriverFence::signal() take a &SignallingSection, so that its callers
+have to be in one.
 
-> drm/ras: Check the node type in node lookups
->
-> drm_ras_node_get() returns a node of any type. The telemetry handlers
-> check the type themselves, but the error-counter ones do not, so an
-> error-counter operation on a telemetry node fails with -EOPNOTSUPP or
-> walks its empty counter range, instead of reporting -ENOENT.
->
-> Pass the expected type to drm_ras_node_get(), so a node of another
-> type is not found, and drop the type checks of the telemetry handlers.
->
-> Suggested-by: Riana Tauro <riana.tauro@intel.com>
-> Acked-by: Zack McKevitt <zachary.mckevitt@oss.qualcomm.com>
-> Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Patch 5 of the JobQueue series [1] changes the same signature to
+signal(&self, res). I will rebase on top of it once it lands and add
+the section to its callers then.
 
-[Severity: Low]
-Since commit c95c93b6e26c ("drm/drm_ras: Extend DRM RAS interface to
-include telemetry nodes") allowed telemetry nodes in drm_ras_xa without
-checking node->type in the error-counter handlers, should this include a
-Fixes tag?
+A follow-up series adds a workqueue whose work items run in a
+signalling section. Tyr will use both.
 
-  Fixes: c95c93b6e26c ("drm/drm_ras: Extend DRM RAS interface to include te=
-lemetry nodes")
+This is based on drm-rust-next.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127181750.8065=
-28-5-rodrigo.vivi@intel.com?part=3D1
+[1] https://lore.kernel.org/r/20261124122951.878199-2-phasta@kernel.org
+
+---
+Daniel Almeida (2):
+      rust: dma_buf: dma_fence: add SignallingSection
+      rust: dma_buf: dma_fence: require a SignallingSection in signal()
+
+ rust/kernel/dma_buf/dma_fence.rs | 77 ++++++++++++++++++++++++++++++++++++++--
+ rust/kernel/dma_buf/mod.rs       |  3 +-
+ 2 files changed, 76 insertions(+), 4 deletions(-)
+---
+base-commit: abfb640b2374e26de8ff81d488c39d8254db538e
+change-id: 20261127-dma-fence-signalling-cae3def9aa97
+
+Best regards,
+--  
+Daniel Almeida <daniel.almeida@collabora.com>
+
