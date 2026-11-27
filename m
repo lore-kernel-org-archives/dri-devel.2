@@ -2,94 +2,78 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A005D606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:29:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D53E606A333
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:30:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=MzIfJ1em
+	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.a=rsa-sha256 header.s=20260414 header.b=eBvx5eI3
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 02328112A06;
-	Fri, 27 Nov 2026 10:29:03 +0000 (UTC)
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com
- [209.85.221.50])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 4DC91112993
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:14:31 +0000 (UTC)
-Received: by mail-wr1-f50.google.com with SMTP id
- ffacd0b85a97d-492f0a1b685so5630814f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:14:31 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795774470; x=1796379270; darn=lists.freedesktop.org;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=fJUOBB8U95qqxwIcvt8j09z1Ro30l4rqtcLjgd7Ggo0=;
- b=MzIfJ1emp0m47+/dAFS14/7/GusnUCPUiPQ9Xi+VHDb5ZGsDwBe7yrowtJCGJ2h6Ke
- TQAMuBiG1aeRXcH2T5GOLMpxSIz0LIylDaI8V/3ModIDz5sG3d1ItJbYHw2orRMl6SxT
- /7dvoZ7xcybHA4f/wLBJuYYKk2y7Euyl1yxfvS4HayESZIKy/pFkZjRpv43RRZsK3HdE
- hn9Rqf3FibVe4pdSWWov0CJNsKUL1ZsW1c19wCp2Y8y1tmuDMe3080cIe39YfXOCurEd
- 1qD7z6zL1OYiietGEJjoedSKzvG11bA8+zYbo1oNtmAzlW8edFsm6n8F2VXQ47enXQm/
- E0NA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795774470; x=1796379270;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=fJUOBB8U95qqxwIcvt8j09z1Ro30l4rqtcLjgd7Ggo0=;
- b=h/qz9wVjg6JCg2lSgNLpfWETseuxNEYxzOQ1R8DamCJ/4xT7cgQaptOz/29UP+6Iu/
- dKamozEnPfLHjbLWItclO9swo8z3fTplQNFh05/PE0rT19iBwiKTxWg/17HYPssqxDBG
- DZYRmGvLumdLB64C5bLnEiraDrgm+6cy/VrRccEk8fyMkjZKxPNpzt/quvQ+Pi7eta2a
- wXpK8BR8ZlnVvsLJ0KAVeKiP3K6TJLqcO0rXN8aqxxIOQYhkOIQWK/EDkXRmPG46NSGz
- SKZXaVu4Gv8zL4yq3dDe2U7SBuxMkz2oMh3eMZ/503GYAQMx9TKeoyqdxm7JMD4sQoqW
- bXvw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGyCBX63PbfMjZ7pRfPbBBFPSZNyjbHvesGHyp3NXj6e2hQOuBPslD4x26t3bMuokblb5df0IizGL4=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/5RPCPpm0MYlrIesf3LUlxbYCHO62KcGLbxl2HW5sZ3eWGKLIX
- PDZFi0pgDfqZ6TdDvmPDm5i4hVA7hAohSUQWGgKru9IjGI35ZMkyYYI=
-X-Gm-Gg: AZFdTZd7yEjDR9iVBvAJKdXpLcwFSZTQLutWi5XyID6w8bBNXU75+rB2lYv6qSjvkQK
- UHb7unWL2SUoTknKNmmGNq8oNGkYUL/DFqO0qSXXHvfp5gk83F2DtgFWVLiA+zYkiQPR3fl2ZPy
- KYGqZffEoWP04uzTzLrdo0GHTexx1z0Ys0ahcCPo5okp71uwMLKYhx+r2yoAMAY14oAWVxcB86K
- zM7cAt+eK+J6KTanR1Upiu/W31x56o7h0Rh8gX+eFlzl9B3jCl3YnkpA5f6dYXeDZ7GStaRe1ue
- aPH2QM0YNR3Y3MDFrNGL1VUgWL0/zlq165F9GZg7Bv2IcbRRrIIOhp3MZqwGR/22XfVf9rgiS6n
- NUAbY12YruLESd+idch+b4Rx0WrtRTxtL85F8ALoYSfULllNp45phRwj7bLsq+K8RlnJ9qqY+dk
- h9bH/Bx2gVQNMfnBNz68COX7aIVQ213t0p6Lh0LK+xNa/yBFOmxSQdDGxOFZJa1V67da2SLclh7
- Wx7Ydis6NCC8hUt0mryBXvGS8i9ZO8/sR0AkM8iAkAMcIpluDzIrnfZJIpWE09rHahlMobZIvfc
- uj8s/vVWDrGrN1F3bpju73kNwrwAcA0cnZZxY+BklImx58sq0LccpE1D7rtfn9SuzL5Dl2h7/cN
- yjauyvglwV8ecTivhIgqOuH2ZZHlAkSJaWOfFlxgTNXYBs4657iJiQkUSsCnlVnvInZ5H5YyHkZ
- QOqguboQ==
-X-Received: by 2002:a05:6000:4812:b0:490:88e5:92d6 with SMTP id
- ffacd0b85a97d-4abb57f6e95mr45513944f8f.49.1795774469450; 
- Fri, 27 Nov 2026 02:14:29 -0800 (PST)
-Received: from localhost.localdomain
- (host-94-89-17-99.business.telecomitalia.it. [94.89.17.99])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6a67fec7sm43651234f8f.26.2026.11.27.02.14.28
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 02:14:29 -0800 (PST)
-From: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-To: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jessica.zhang@oss.qualcomm.com>,
- Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-Cc: Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
- Xiangxu Yin <xiangxu.yin@oss.qualcomm.com>,
- Dale Whinham <daleyo@gmail.com>, Stephen Boyd <swboyd@chromium.org>,
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org,
- Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
-Subject: [PATCH v2 05/10] drm/msm/dp: avoid synchronous runtime PM put from
- HPD IRQ thread
-Date: Fri, 27 Nov 2026 11:14:12 +0100
-Message-Id: <20261127101417.24303-6-gianfranco.mariotti94@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261127101417.24303-1-gianfranco.mariotti94@gmail.com>
-References: <20261127101417.24303-1-gianfranco.mariotti94@gmail.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id BD9D2112A12;
+	Fri, 27 Nov 2026 10:30:39 +0000 (UTC)
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de
+ [185.203.200.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id ABCE21129FC
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:30:32 +0000 (UTC)
+Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de
+ [IPv6:2a0a:edc0:0:900:1d::4e])
+ (Authenticated sender: pza@pengutronix.de)
+ by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5FCB22004F2;
+ Fri, 27 Nov 2026 11:30:30 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
+ s=20260414; t=1795775430;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dSZToOiD6uZCJhRrIbPKshRSin+75Q2E1ulnxklEjAI=;
+ b=eBvx5eI3tL0u6m3G+lvrvBg/I+a3tQ7LrPzs1ucf2NhV/Gr3nOUAe0xgoe7QXJ/qJyx4i7
+ Aa/JOmiTn1KaengHZgis0bbHfyRNZqNwESfhYdYoMaROOTai+30AZ6QRdm8QnAs0jIuoV5
+ glT7t59QkuD2TZkmwr+HW3P4GIUKcejBJPVjW0IuoVti/onahOsprAuXzA/Y/D9/sel9rk
+ L8K1C7AwjBN7WbAcOcEXgjW339Mv7O281EBvyRodTKDb1F7iftOIYVdNpNfkZSpAOoqnaB
+ 0VZvSmh2RGN/tQtHc5yzy5Dca4x1J054fvLBpPzBDNaL0aJhRdRwbKmJNcOrBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de; 
+ s=20260414; t=1795775430;
+ h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+ to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+ content-transfer-encoding:content-transfer-encoding:
+ in-reply-to:in-reply-to:references:references;
+ bh=dSZToOiD6uZCJhRrIbPKshRSin+75Q2E1ulnxklEjAI=;
+ b=Y+LiFsES+b88A9tX6daTqFwfByrHwg/Aa6f/5xUmy/i9A5G0Z3Cy1KP8C6qooJgg8Ggmfg
+ evYphSXrXRA481j0jmR8b9eYufd+Kq3nAFTTL8CQQvXq/XTfozHmi7gpvYsZEVBbKXR31T
+ SaU3WYriRzpeq91iuRShAdnLfpR7pujYxT31LRLmDTkRgvuH4S/GYpJLtNAUlcb9v7Kg9p
+ LHn8WwOiNjhJUz/KewgHmnzQi8FfucZwwFhlzal2r25Zb+BYVh4MP8kEOFJKDKuTxOlz00
+ BrRRq4JMOnN+IjH97lGq5CSmMhTm0p9DQbmZ5GFaxoQOVx0aSRfoxglv0LQ30w==
+ARC-Authentication-Results: i=1; ORIGINATING;
+ auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
+ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1795775430; a=rsa-sha256;
+ cv=none;
+ b=QxeEJ28BfhRNSkNTL4dnOLAjPMjtODf9EQh1B5+QtqGrUTtrGvpRLIHFrkTBCDdunxD9Js
+ M3Q/28eEX9r0Bbc0zCwmHAsT8iZwrn6uuY0Wv4XLuQoLhr1+UG48VWZQeRrI/kX9f5vxld
+ VjtMRp9l3nP8lPKZntsOeA7g6qA66YwOjaMMalOMXO//NyKyoB/EnWERoXso63HrwM8MPi
+ sjZ/7E4Pg7zSARKC1sLxmsJ+0ZoDONfxS+6AgP7oDhRB07Lgy2N+zV9FKthG51QGci3n/k
+ PS8aJHobE8Dd5WVyu1h9DC9yS9vW5/fSOM1e6dQtWfBYF4yMsJF1VPdaualobQ==
+Message-ID: <67eac3cfcf9a40ebd901512270390d73c96af1c5.camel@pengutronix.de>
+Subject: Re: [PATCH 0/7] rust: reset: add reset control abstractions
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Daniel Almeida <daniel.almeida@collabora.com>, Miguel Ojeda	
+ <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo
+ <gary@garyguo.net>,  =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron	
+ <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
+ Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
+ Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
+ Tamir Duberstein	 <tamird@kernel.org>, Alexandre Courbot
+ <acourbot@nvidia.com>, Onur =?ISO-8859-1?Q?=D6zkan?=	 <work@onurozkan.dev>
+Cc: linux-kernel@vger.kernel.org, rust-for-linux@vger.kernel.org, 
+ dri-devel@lists.freedesktop.org, Detlev Casanova
+ <detlev.casanova@collabora.com>,  Nicolas Dufresne
+ <nicolas.dufresne@collabora.com>
+Date: Fri, 27 Nov 2026 11:30:30 +0100
+In-Reply-To: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
+References: <20261126-b4-rust-reset-v1-0-9c4c3d029080@collabora.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Mailman-Approved-At: Fri, 27 Nov 2026 10:27:44 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,53 +85,93 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
-	autolearn=unavailable autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-msm_dp_pm_runtime_suspend() calls disable_irq(dp->irq). When
-msm_dp_hpd_unplug_handle() or msm_dp_bridge_hpd_notify() executes from
-msm_dp_display_irq_thread() (i.e. inside dp->irq's own threaded IRQ
-handler) and drops the last runtime PM reference via
-pm_runtime_put_sync(), runtime suspend runs synchronously on the IRQ
-thread and deadlocks in disable_irq(dp->irq) waiting for the currently
-executing IRQ thread to finish.
+Hi Daniel,
 
-Use asynchronous pm_runtime_put() in msm_dp_hpd_unplug_handle() and
-msm_dp_bridge_hpd_notify().
+On Do, 2026-11-26 at 13:04 -0300, Daniel Almeida wrote:
+> This series adds a Rust abstraction for the consumer side of the reset
+> controller API.
 
-Fixes: 3ea2d1c3d154 ("drm/msm/dp: turn link_ready into plugged")
-Fixes: 5043357e75ba ("drm/msm/dp: rework HPD handling")
-Tested-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz> # x1p42100-lenovo-ideacentre-mini
-Signed-off-by: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+I've been looking forward to this for a while. I'll need some time to
+digest this, but let's start with some vague thoughts.
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index b8373740275b..3c15f984b29e 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -495,7 +495,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_display_private *dp)
- 			dp->link->sink_count);
- 
- 	if (dp->plugged) {
--		pm_runtime_put_sync(&pdev->dev);
-+		pm_runtime_put(&pdev->dev);
- 		dp->plugged = false;
- 	}
- 
-@@ -1627,5 +1627,5 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
- 		msm_dp_hpd_unplug_handle(dp);
- 	}
- 
--	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
-+	pm_runtime_put(&msm_dp_display->pdev->dev);
- }
--- 
-2.25.1
+I hope we can use this opportunity to improve the somewhat fuzzy C API
+as well.
 
+There's exclusive vs shared reset controls, self-clearing resets that
+pulse under firmware or hardware control vs direct assert/deassert
+level control, and as I recently discovered, sleeping vs non-sleeping
+use cases, all mixed into the same API. I'd like to make this more
+explicit in the C API, but have to weigh against potential driver
+churn.
+
+And then there's device_reset(), which can also divert to ACPI _RST...
+
+> A driver can get the reset lines of its device, as an
+> exclusive or a shared reset control, and assert and deassert them.
+
+I like using the type system to separate exclusive and shared reset
+controls.
+
+> This will be used by the upcoming rkvenc driver that my colleagues
+> Detlev Casanova, Nicolas Dufresne and I are working on, to recover a
+> hung core of the encoder without stopping the other one. More details on
+> this driver can be found by watching Nicolas Dufresne's talk at LPC 2026
+> [0]. Samsung's Rust UFS RFC [1] also uses reset lines, through an
+> abstraction that it has not posted.
+
+Could you point me to an example that shows how your bindings are used?
+
+> The abstraction follows the regulator abstraction and the clk series
+> [2], with the reset state as a type parameter.
+>=20
+> Patch 1 adds the C helpers that patch 2 needs.
+>=20
+> Patch 2 adds ExclusiveResetControl, with the Unknown, Asserted and
+> Deasserted states.
+
+When a reset_control_assert/deassert() fails, does the state go back to
+Unknown?
+
+> Patch 3 adds ExclusiveResetControl::get_array() and
+> get_array_optional(), which get all the reset lines of a device as one
+> control.
+
+Do you have any users for this?
+
+> Patch 4 adds AssertedGuard, which asserts the line of an exclusive
+> control in the Unknown state and deasserts it when dropped, as a
+> convenience for drivers.
+
+Same question, I'd like to see how this is used.
+
+> Patch 5 adds SharedResetControl, with the Unknown and Deasserted states
+> only, and patch 6 adds its array getters.
+
+And this.
+
+> Patch 7 adds ExclusiveResetControl::devm_deassert() and
+> devm_deassert_optional(), for drivers that only need their line
+> deasserted while they are bound.
+
+This seems like a straightforward equivalent to
+Regulator::devm_enable()?
+
+> reset_control_reset(), the bulk API and the shared devm getters are not
+> covered,
+
+Why did you decide to leave those out specifically?
+
+I think the _reset() vs _assert/deassert() APIs could be wrapped in a
+TriggeredResetControl vs LevelResetControl (or ResetTrigger/ResetPulse
+vs ResetControl?) to separate the two APIs.
+
+
+regards
+Philipp
