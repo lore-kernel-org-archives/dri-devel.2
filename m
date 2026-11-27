@@ -2,128 +2,155 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1D6D606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 05:46:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB119606A327
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 05:46:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=l9fEWqg0;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=YN7Q0Doa
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=QX8AIqDw;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=eQuS03iw
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 3572010E351;
-	Fri, 27 Nov 2026 05:45:57 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 31F2F10E351
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:45:45 +0000 (UTC)
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by gabe.freedesktop.org (Postfix) with ESMTP id 26F4810E3BA;
+	Fri, 27 Nov 2026 05:46:21 +0000 (UTC)
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
+ [205.220.168.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D7F3E10E36F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:46:09 +0000 (UTC)
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQJwkC4162579
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:45:44 GMT
+ 6AQJwBGA2573900
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:46:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:in-reply-to:message-id
- :mime-version:references:subject:to; s=qcppdkim1; bh=hJdEygyyrDZ
- KJGb3ntvQ0LztTs/6r0XSlN9gAYA5XxE=; b=l9fEWqg0QdnD1tAWX42PLnHSY2i
- yFTCfIUsuD6P7I9ypbRcnFPAFNC7KCaK6u4B/pk+g/r58I2UHeKnUf7Hl3zEr/+r
- SfIMH7+2AFypRsxAFi4lc/agBayNRpJk0z1FIeRIghJSR2GXwf3RaHmh73VBMot/
- MeoFLPGy8PsQyWKOloHJK2mavUn9j2B27P4CY5xrd0MfLWyhMyiYzCrBILBDDWGP
- M57hp8mpfhx2d14JggeOQpbpRXzN1U6pW0GcKOJ22Hi1EG1bPsc90/8/GRyD9dVI
- iLllkB92uGQyWPuKm9ONTT47DFkMX/4ZwNQ+1MUyQa1rhP6pgfSYU9aukKQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com
- [209.85.216.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6h7gbkxd-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ iDlK9GKcjYEMxaF0sfeGvjQcAHw+mwddDsieVONEUbI=; b=QX8AIqDw9EUpdayh
+ pMtKkspjplitviDn8nRK8PEpDaxbZmLwQuGe3WeBYgQmmeWJrHvzb4oogJ9jRxuc
+ 74ySR1joHvzYxkrrzgq7dVBL6VLB5q00rAK5TZmOeb9ez6PRKJY3Z+PRWzTtBBp+
+ Tp2OcWmgpN7+XpMMbwD3eN6F2c4t8QsD23zyXd8gZKDsJsrgpprtLHnxZ1LAx0t0
+ K4KunrpuzT97TaWDaRR0XZ51x41UjrL9hYWDdOSHUTHuLOmQfHic9Bq4IsrOgyMb
+ PoVbLnS+Vx+1aDeSc65PchQB6P+m6rb7WkI2G/G22yEKv/Ryc2W9r24+lKSXu7Ps
+ 5w8Pkw==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com
+ [74.125.82.197])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6u499dym-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:45:44 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id
- 98e67ed59e1d1-3b3f3e256e8so7242238a91.2
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:45:44 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:46:08 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id
+ 5a478bee46e88-30bcb065bfdso7833880eec.0
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 21:46:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795758343; x=1796363143;
+ d=oss.qualcomm.com; s=google; t=1795758368; x=1796363168;
  darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=hJdEygyyrDZKJGb3ntvQ0LztTs/6r0XSlN9gAYA5XxE=;
- b=YN7Q0DoaC0TOEBTLxA6s3oASrZWVvzzHWgkh6Z2HVsdhVuxOiPpfZzBUpYpwgyGOZD
- ghYY0IYMFwBY0D8/jN2zCZ9sNJL+rOqhvpmBI4flgOKgEMCkqImyo+MEABbVBsugb37L
- Q8FPVFdYlXk5FcwvBjjN94a/Xfc2lwrYIUAUoOJ0auKwkh4whT4g8AahhnSqnkaN8kZM
- k5Q8UIdvTIqsYVidARwPRTfQx+zlNlEW/bveI90s8WLkrs8d3KObT7B2jF5BxHUgJFpR
- w6b0SMWCFzEGBMgUWrF40CYEKHQ0cnPRlySJGWExAtwfxE3XKyQoMc3xCyGoZpzub5Ef
- s+ZQ==
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=iDlK9GKcjYEMxaF0sfeGvjQcAHw+mwddDsieVONEUbI=;
+ b=eQuS03iw5qvxMCaEvq9nnDlNqQTIomEgN0SJI0x8UDDfAySWbGiTCPw2q2tv35lPQq
+ DVLgeH7b45sn3KtaGqhym7IWQKqOsxfOMGKRlN5uViwBroJTVQes/Sdh0FMWk/HcoIz8
+ ooVGAc40v70edaMbTkvd/idvODYztIgvzSqo6Z6kumJ6megA1hTHTB+FxiYy0mXQtnQF
+ 9PCFPnbrg4Kn2T+58daqpkzuHeft3jA64VMJhiXLC/PcPyo1+SD3D3bSRHb/eFWTkL/D
+ ZYB2kVBkLZsKsbCvLRGuhk4b80QsRcYU1zb/FHUQuUNMTGgKeIGdTjPL1JZBiiFfUQkx
+ Qj3Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795758343; x=1796363143;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to:content-type;
- bh=hJdEygyyrDZKJGb3ntvQ0LztTs/6r0XSlN9gAYA5XxE=;
- b=YVqWaKoPFSfl5mw2Lj5bgGyWSFIjJjVLGSmEOHKgRQEX0ooAoWKGSb6fF+G76NZ8wF
- Sodm2IEWiM+xAAljd6BqIUtdPNWYX7U8oxv8V17Sd/fWi0tAbQQobY8d6qKrrzAjLSRW
- 1XaXevtn94dqXkREQhwVBvPA5Y3xU2TqTWQkY+5pp9TAjcaD8IJm3767+Rnk9QhHoqYu
- n9Dbqkfj4WvcU6Y/AlkqqUBRLK/F4FdaXHp8ubPSHD7uQBldDsAKz1f4N0Joe4WhXHVx
- dbddC2eyEz5tIZXQQlFAShlUdUREHdRZOH72puFA2GA+mwhlfhFAZTDLj2AcEnVc5QqU
- nNsA==
+ d=1e100.net; s=20260707; t=1795758368; x=1796363168;
+ h=content-transfer-encoding:content-type:in-reply-to:from
+ :content-language:references:cc:to:subject:user-agent:mime-version
+ :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=iDlK9GKcjYEMxaF0sfeGvjQcAHw+mwddDsieVONEUbI=;
+ b=dse/+xUA3w8ZD12LH/pqkXTdfjWNrYOP7pC9b2zoy1eFAFaf3CyCEn9VljmSDXwkMX
+ cNySo+bDzZQ9Nr7Lw3I+9PFqT+xngIpevvjvCG4juOptdc8O2jBghQGpl3aoykDeX15O
+ sk7IyLMP7RQKYqSv4/aIhd+BiGMnEtrvZQQQQ6z9ufDq2w9vQqf3InaFpz4/GuURPe+3
+ 0rdJLb3XaEVTi3lsQXd/B7i17X66QOizdRQ+izorE/OTpdmYQcOdRYWDbjVPv2F0jCMB
+ 8gzPYeeuJ3a5awBiSY9JvEW+YpSeKLaCLP1JAlxQiSetZ0KL+iVyblVez/UosevzsSBE
+ uJWw==
 X-Forwarded-Encrypted: i=1;
- AL+hErGQloUCre4vB5X9xTM5xNf0ixcIdF+nPZXpOAw3AUTIl2rbzafpnf7g3rfzN40+fH9URLeGafdVqi0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/P3qefFWSJEG9s+BjKja6a/19EUD92FdXEYbHmmLFt5ieKxQYB
- aMKEhEyz7SoiqA7xb4q5C0n6ZiBvA7Wwsk8MnMT/2sNivyqMbzZ1x0iQcgVaHzmGy6u6Wu+HJj3
- eDpBjeHr94VadkKUfeKzEEh7anwhRcpj+fqV+WnRB98zIKUWWoxh8aLYMbJAhjNg4RdiGh1E=
-X-Gm-Gg: AZFdTZdb7Glolah1nHAiph17+uLGhTwPSLbTHyT/+60HogMz7JFl50spRWkF6RnET8z
- fDY/POaju6nMo/Xr7E6IsWR+rvXjT8D8oB5/htTUx5Xxq331LQz3gQf3WJs2Ulta03VztTvdMkv
- fcFeL926syVwwM27vHIsJKWT7z0nqBz1c+tRiSExge678POnE4kVuJRQ1R06l0ZSDr7P4Qc4s+9
- YhxA+/weUmQiWCQ7jczxH6m+wsbN9P5WaucYLJA8f6nS3LVHjAE/Nn5BYuiD69lfOG9l7smgC2Y
- v/W6sNu5r/LusyeHM39IlWec3LbhhjScKQQcZPjvKA2K2IIpRXsfjX7NVRakarw1sNvV6wLaxoJ
- tr42Uu5oJBn5jqgPsU1JFFBWO00Q+oIrXFM8uZ5Id10FoENjLZNLmJE3GsaJSjCi/qDoBY0A=
-X-Received: by 2002:a17:90b:5287:b0:3b4:402:b3fa with SMTP id
- 98e67ed59e1d1-3b41c8fe1edmr22183514a91.18.1795758343109; 
- Thu, 26 Nov 2026 21:45:43 -0800 (PST)
-X-Received: by 2002:a17:90b:5287:b0:3b4:402:b3fa with SMTP id
- 98e67ed59e1d1-3b41c8fe1edmr22183485a91.18.1795758342617; 
- Thu, 26 Nov 2026 21:45:42 -0800 (PST)
-Received: from hu-anane-hyd.qualcomm.com ([202.46.23.25])
+ AL+hErGeVTo2WzI+7Oz98/19QE0swPsI6rq91+wYAnCUs6g+lA0SyNds6L6/ZhVUaZwPa9QzIwqsLXc/Z2A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8vjGQQTFFGk/XUnman3g6vZLfopcmuqflUUecb/x/A15PjQHmw
+ htryU7chWynAT/QqVLXHjIAy5XXwfVRQgFMdGAGr51rOQBdkV3o6D3gxaFWoEqrSr8rrh+/mmZY
+ 46eFrRPSQWMJLiU3q0M8kRtgou6nAo7LvY94otfPUViicxLbTQZxd3uLxTdsqtgYJjAWRC10=
+X-Gm-Gg: AZFdTZfPI8uyhKrlZ9Sk7VXIpkwpdKKrpzLmRdHIxSW3w63eJNiZwLA8uXOUpUplWf2
+ qwi6I5iq1xeuLEl3cPsxMmEi/4YFTmBJploZa9nmi7bYPczs/VLSbHK4v8F0kv1cbBx4vmOOFbB
+ AhiigK3vWjjwgVw3LD6z5BjY05nIYNtGZaKFjiGrXVe1wOtqLyS4JjQ9lPXXvmIys6u4cfBgFGI
+ eqXwW/gcmsKYvrPSnM9DQhiIPLmPwEBEtLoBZveVDgUqqC9h9kPwDU3spexsuji1Wt0r32buvR/
+ gysOOUPUaUMT53rUybrC7uXIhZOXxttbalu0sP8Xr6pU+5jcF9tkhVMCDtPs1maJlzTRxoHKSqW
+ 5ucNgVJ3/1Po+ZBJ9AKCuEtfSExrk/TGyWguQ5mAbEATYsKXSfvii8lQKfui+JlxpgcPrcRoJwp
+ itHGs5
+X-Received: by 2002:a05:7301:c089:b0:372:14fb:2573 with SMTP id
+ 5a478bee46e88-3856fd5bf76mr22911656eec.20.1795758368025; 
+ Thu, 26 Nov 2026 21:46:08 -0800 (PST)
+X-Received: by 2002:a05:7301:c089:b0:372:14fb:2573 with SMTP id
+ 5a478bee46e88-3856fd5bf76mr22911611eec.20.1795758367484; 
+ Thu, 26 Nov 2026 21:46:07 -0800 (PST)
+Received: from [10.204.100.41] ([202.46.23.25])
  by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b41adcfe23sm36124198a91.15.2026.11.26.21.45.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2026 21:45:42 -0800 (PST)
-From: Anandu Krishnan E <anandu.e@oss.qualcomm.com>
-To: Srinivas Kandagatla <srini@kernel.org>,
- Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, quic_bkumar@quicinc.com,
- quic_chennak@quicinc.com, dmitry.baryshkov@oss.qualcomm.com
-Subject: Re: [PATCH 0/4] misc: fastrpc: add HPASS domain support
-Date: Fri, 27 Nov 2026 11:15:36 +0530
-Message-Id: <20261127054536.646943-1-anandu.e@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261125-fastrpc-hpass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com>
-References: <20261125-fastrpc-hpass-support-v1-0-cb1d46b29e3b@oss.qualcomm.com>
+ 5a478bee46e88-385d2b93dd9sm77109128eec.24.2026.11.26.21.45.57
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 26 Nov 2026 21:46:07 -0800 (PST)
+Message-ID: <f7c526c5-78ae-5369-ab22-2d6f93f9bec4@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 11:15:55 +0530
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: pkW7Bbihp1T4kA0uZIkWvXmqalxqjvVi
-X-Proofpoint-GUID: pkW7Bbihp1T4kA0uZIkWvXmqalxqjvVi
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAyMiBTYWx0ZWRfXyDog9+xNYc9X
- 3RBHALAW5TxMc4zhr6M66nF4nLt7V0X1eVuVP0VQBykoT/hRDfOG9OnTHOVVzWa4vz46so4jy+E
- c2anhdSAmbgrBsvjaOiGUvp+eh27SqxIXhxzSS4+QnnQab1Aurpt16e73C54CGR/av7A+U+MobG
- B7lkj5VNvnMglf4Ayg2yy9l0uozEipNbxD9djpJTJr/LM1FwqWLwGEaDXJkiImjYSepSEJtuP/3
- 4Nd0l3ijrQHez7bWrMp8TRIHOQKllAYHSgIkAhEwnG4EDMOQ12IN+0Vvs0KqhM7mqaGVeYW3tzy
- RO7zZTtXKD49LV2D/nF/pCvVMrI81ZLkiPOfN8RSFET7R+yq43tru7F5T5TGIfVNwI75BMvNA6R
- tC/nmWAXTzN2yrOy1RlE+OXC2pEceSD+yPkxRY/NZc47RyESZgoNXT1NTKGG8xtGV+pqJgwH2N9
- fdB8XZY/zlmr4iY/dig==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAyMiBTYWx0ZWRfXz+Y2xzcaWf78
- Ljrwifq/RyYFe8C+uf2VzgibwxBEivxJjpoJwbsE6Ig4THClGVdUCOFMOyMLYM7oSQO2Z4hlS6g
- 6WQW/bEgxdCVGJ1K5k+7xPUefInRslA=
-X-Authority-Analysis: v=2.4 cv=L4GI0OT8 c=1 sm=1 tr=0 ts=6b091908 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=HMxxIxWglf0TOBfGhZcA:9
- a=rl5im9kqc5Lf4LNbBjHf:22
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3 4/9] media: iris: migrate firmware loading to
+ qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
+To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
+ <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
+ <mchehab@kernel.org>,
+ Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
+ Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-media@vger.kernel.org, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
+ linux-remoteproc@vger.kernel.org
+References: <20261116162148.2864501-1-mukesh.ojha@oss.qualcomm.com>
+ <20261116162148.2864501-5-mukesh.ojha@oss.qualcomm.com>
+Content-Language: en-US
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <20261116162148.2864501-5-mukesh.ojha@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 7KVM-bhrGyLrUvllEm1SURnJ6ib9qofi
+X-Proofpoint-ORIG-GUID: 7KVM-bhrGyLrUvllEm1SURnJ6ib9qofi
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAyMiBTYWx0ZWRfXxRyIuwqq4Dtm
+ mFLj4nO86pNa18WLpVmGg+3tvtUHTUSiRB3+QFIdZ+76slu2EmFXABoqwGuVM9h094graKqQdRJ
+ JYQ7QG5a9Sw9ksEfSEru10tNG/Dkk4I=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAyMiBTYWx0ZWRfX2lIAvLKhNwO4
+ 05xeAKO18kMrVxgDTUy5PD0OoO0wiOa0Dv5OLsGnnBw1JkAspb38jJ3pNYz/VTwF+Bx+XRRwrya
+ U8a7NU6EdwFpXMbwJuBqYIXrhTvSA2VCm3G9tyWG5ullZUE5mfkN1BMmgkiyX8MeZ331SbZ7+Cx
+ wcgH/gvYRQlf3Ji1F544wdZuaixGoRnKk1ie3UGZr/NMupNWxFdMqsc8pJeYxcvb/5fddmJ3ZS4
+ 8hsh9h4Ms11Ks9PTsvyYP4Q0sjUo56OCGHhYmc90MYGVQBDv+BRVZgBclsB8hOp0+b+s42tDR4v
+ XNXefk/ArcKTrRln2jyCqL7tcyT0OUz/vlOh6g5fz5UDBGBjHIAksTIK/ksxjnCPTJHs9bLaHLO
+ P0w0R8mvCqQzIj33OVIbWmARKZtwSjSA+Y08a00OoVWjq+YWr/JUHVrwm+VzxQW7I0lnXPHYG/5
+ JbSkK09FzGwv/V/OhjA==
+X-Authority-Analysis: v=2.4 cv=A875rKWG c=1 sm=1 tr=0 ts=6b091920 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Px1Cg1egfbfzpgs1NNIA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-26_05,2026-11-26_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- clxscore=1015 spamscore=0 impostorscore=0 phishscore=0 priorityscore=1501
+ phishscore=0 spamscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
+ priorityscore=1501 adultscore=0 clxscore=1011 suspectscore=0 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270022
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -137,15 +164,116 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-19.0 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,NICE_REPLY_A,
+	SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable
 	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-I'm dropping this series for now, will revisit later. Please disregard.
-Thanks for the review.
 
-Regards,
-Anandu
+On 11/16/2026 9:51 PM, Mukesh Ojha wrote:
+> iris_load_fw_to_memory() calls qcom_mdt_load(), which bundles
+> metadata initialization, memory setup, and segment loading into a
+> single API that does not expose a PAS context.  iris_fw_load()
+> calls qcom_pas_auth_and_reset() for TrustZone authentication,
+> which is the intended behaviour. However, a new
+> qcom_mdt_pas_load() has recently been introduced that works with
+> a PAS context and can handle everything qcom_mdt_load() provides,
+> along with additional functionality such as shmbridge creation
+> and retrieving memory from the shmbridge buffer when the same
+> remote processor needs to run while Linux runs at EL2.
+>
+> Embed a struct qcom_pas_context directly in struct iris_core and
+> initialize it with qcom_pas_context_init() inside
+> iris_load_fw_to_memory() on each call.  Replace qcom_mdt_load()
+> with qcom_mdt_pas_load() and replace qcom_pas_auth_and_reset()
+> with qcom_pas_prepare_and_auth_reset().  The
+> iris_detect_firmware() scan retains a separate memremap window
+> after qcom_mdt_pas_load() completes, since it needs to read back
+> the loaded image data.
+>
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  drivers/media/platform/qcom/iris/iris_core.h  |  2 ++
+>  .../media/platform/qcom/iris/iris_firmware.c  | 27 +++++++++----------
+>  2 files changed, 15 insertions(+), 14 deletions(-)
+>
+> diff --git a/drivers/media/platform/qcom/iris/iris_core.h b/drivers/media/platform/qcom/iris/iris_core.h
+> index 3e4cf652bf39..ac73bda072f8 100644
+> --- a/drivers/media/platform/qcom/iris/iris_core.h
+> +++ b/drivers/media/platform/qcom/iris/iris_core.h
+> @@ -9,6 +9,7 @@
+>  #include <linux/types.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/pm_domain.h>
+> +#include <linux/firmware/qcom/qcom_pas.h>
+>  #include <media/v4l2-device.h>
+>  
+>  #include "iris_hfi_common.h"
+> @@ -129,6 +130,7 @@ struct iris_core {
+>  	struct platform_inst_fw_cap		inst_fw_caps_dec[INST_FW_CAP_MAX];
+>  	struct platform_inst_fw_cap		inst_fw_caps_enc[INST_FW_CAP_MAX];
+>  	struct dma_iova_state			*iova_state;
+> +	struct qcom_pas_context			pas_ctx;
+>  };
+>  
+>  int iris_core_init(struct iris_core *core);
+> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/media/platform/qcom/iris/iris_firmware.c
+> index 21f57d37da18..b701a7f43514 100644
+> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
+> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
+> @@ -201,21 +201,20 @@ static int iris_load_fw_to_memory(struct iris_core *core)
+>  		goto err_release_fw;
+>  	}
+>  
+> -	mem_virt = memremap(mem_phys, res_size, MEMREMAP_WC);
+> -	if (!mem_virt) {
+> -		ret = -ENOMEM;
+> -		goto err_release_fw;
+> -	}
+> -
+> -	memset(mem_virt, 0, res_size);
+> -
+> -	ret = qcom_mdt_load(dev, firmware, fw_name,
+> -			    IRIS_PAS_ID, mem_virt, mem_phys, res_size, NULL);
+> +	qcom_pas_context_init(&core->pas_ctx, dev, IRIS_PAS_ID, mem_phys,
+> +			      res_size);
+> +
+> +	ret = qcom_mdt_pas_load(&core->pas_ctx, firmware, fw_name, NULL);
+> +	if (!ret) {
+> +		mem_virt = memremap(mem_phys, res_size, MEMREMAP_WC);
+> +		if (!mem_virt) {
+> +			ret = -ENOMEM;
+> +			goto err_release_fw;
+> +		}
+>  
+> -	if (!ret)
+>  		iris_detect_firmware(core, fw_name, mem_virt, res_size, desc);
+> -
+> -	memunmap(mem_virt);
+> +		memunmap(mem_virt);
+> +	}
+>  err_release_fw:
+>  	release_firmware(firmware);
+>  
+> @@ -233,7 +232,7 @@ int iris_fw_load(struct iris_core *core)
+>  		return ret;
+>  	}
+>  
+> -	ret = qcom_pas_auth_and_reset(IRIS_PAS_ID);
+> +	ret = qcom_pas_prepare_and_auth_reset(&core->pas_ctx);
+>  	if (ret)  {
+>  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
+>  		return ret;
+
+Please address sashiko comments in the next revision, as they are only minor.
+With that,
+
+Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+
+JFYI, depending on which series lands first, either I'll rebase accordingly,
+or this series can be rebased on top of:
+https://lore.kernel.org/all/20261125-glymur-v12-2-5c34dfd73fc2@oss.qualcomm.com
+
