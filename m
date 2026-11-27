@@ -2,72 +2,72 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14E7D606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 20:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16019606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 20:03:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=iargXrBa
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.a=rsa-sha256 header.s=google header.b=R/Fspw60
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 73659112D65;
-	Fri, 27 Nov 2026 20:03:12 +0000 (UTC)
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
- [209.85.208.47])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7DE88112D65
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:03:06 +0000 (UTC)
-Received: by mail-ed1-f47.google.com with SMTP id
- 4fb4d7f45d1cf-6b86fcbd647so12943904a12.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:03:06 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 78E73112D67;
+	Fri, 27 Nov 2026 20:03:24 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+ [209.85.218.49])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 634E8112D67
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:03:08 +0000 (UTC)
+Received: by mail-ej1-f49.google.com with SMTP id
+ a640c23a62f3a-c5127c7abd5so1292661366b.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:03:08 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=baylibre.com; s=google; t=1795809785; x=1796414585;
+ d=baylibre.com; s=google; t=1795809787; x=1796414587;
  darn=lists.freedesktop.org; 
  h=message-id:date:references:in-reply-to:cc:to:from:subject
  :content-transfer-encoding:content-type:mime-version:from:to:cc
  :subject:date:message-id:reply-to:content-type;
- bh=L/E3JJyk32BLVSmJPSu88QD4Xx3KecbTtSFMtKZvIaA=;
- b=iargXrBaSwph/CTaXfpaioaYSipv+PC/wjAWualfnvGo1IdnbmwC31oKkJs1uqgmCD
- DWJn9aU8kA7ErJEwULqSczUaAfQ2du3TGVgETtcWfqJ65T9P2HEL31GNdJX0u+J1JeZb
- ym5pLsf69xSUq7B746fJHgbyez6V2SSZn8wmlZH0eZ3vJufyv4hQtjJBZubV4jvV5N7p
- ttBu6o/YcxhVFfNaJ9kPuY0erK+GRHI3cwkPCThG5iZWGrqOtogMTepyehuaYj5zQPJV
- Ncm/fqpi/8gPxeXVIpU/Xdx2kyg1Rj/BTVLb3zEty7vBwdFCbBLNu7/J7sLFzL+JjGiG
- StWw==
+ bh=wtusPwl7oTxkglScGF7WcIoLENdcCkcXrxudV6XyW/M=;
+ b=R/Fspw60SjHgBD9xFzV/8mkFSI15EmrkbT/0dFfZrRxasDPLn6jJcG9bKkwJn3WPOT
+ /C3lU+J6+x6sluuU4Ksm1zYFShG2r9n6mgpq7r9Ud0cUp/hHsTZs8JNlffCQALcyk32I
+ Wv5IR5HY0PCN4rPWC8ln4vwogEUTdf1brneR3yWBPc6GB3T9j/etYxvnXosE/lQ3oHJT
+ Kwd9wSTwNzXBPAPobejJg+afwCrK6FAwf63bvy7bSx6VoP6m8PfzkPui6JzHJ+uljAWE
+ n6cWV039WCeSwz6lKqyC94Ul/w8Wwcelm1jgJc4h5fj+748nH025GKRjTplBMGtNrchi
+ QwoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795809785; x=1796414585;
+ d=1e100.net; s=20260707; t=1795809787; x=1796414587;
  h=message-id:date:references:in-reply-to:cc:to:from:subject
  :content-transfer-encoding:content-type:mime-version:x-gm-gg
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
  :content-type;
- bh=L/E3JJyk32BLVSmJPSu88QD4Xx3KecbTtSFMtKZvIaA=;
- b=T0OdoFRh6Rz3xrNNI0alhJMaA91EcvpLKRnd1ar7iUQ+6I4VsXoI7f0XKWqLJSbozk
- T4xr6A9774kVlNo+4rQnTxRkA/zlFdBKq2tuEDjlTq7NlW7aou2A5oiKm74cZ/swJ4mD
- Se2IzTPVIC4o0lk/GosSOogQIiFgBCJpdY9Xvik1lYQkJ4HrVTND4Eq7uFlmmpn/3RYf
- XxqwCJLFU7fBWMHwbn1VA2qhtgUdwilathE6STant/IOejXmW6ik8KRlj5Ctn9RDZTkd
- APjKfCV+rES1tSrgvlP5pdoBZuOCuOBlDPT1dh+o1VxjzRwfcoUU/yHG2+da6I4faT4d
- 8aiw==
+ bh=wtusPwl7oTxkglScGF7WcIoLENdcCkcXrxudV6XyW/M=;
+ b=WLWuhew0P5LFqAQCcfIryjrPVVrGd/5Gk5fKj/fNpcNfOPDWuIn+JTBmJR6McemaY/
+ Ii7MlIhRxlmay5pmSD37VPxx/8fShXSIn1gc946c4v5CzuIYkduapydWcGeW6wnyLI4j
+ 1x/Gl3uDWd/rCcikRwlO1yUpsKcYs6NH4NfsMERsP3SjNydpJ5/e4GwgrAlu9J73KREd
+ fHVyhNfheoCf97tjcaphEkHdlNBwPIuaqG660EmpbezAA/3awq1tY8m8ZkX/kX1IcXG2
+ 1MxPb4gAKRaTHA7914L+KVClI9RnvRA++NgHLB3pSLkYYPZJ95vIn3ClFlAfKoRLu8zR
+ FnMQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErEmqrwwDkoKoMA7rgEz3UogmhSN7ba/xgZFEpvArW9A9VhC8nQRhedfc2pp7TbtRKvmASXpqHt6opc=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/c0wtPiZ2eMVJcraeShrKKFbvHivs77P9D+JxllT+KzcNOAwq2
- TAgqHevZ/cXB2ZWM/TZVYHPMEK5ZvOEtwtJ3DWkv1c0n6JAliPlMdh87D0LHQ2ULfFw=
-X-Gm-Gg: AZFdTZckAaarsFQf4pbvwtaYv94osdFMasGXhgJ3kLBird3vHodn95nZmg0wSlk8Pe8
- XrS0Wo8NGpL84LRl1IWhtSOCfc/Eb5z6gYww/rvOYwLIDKOJ3LKwH9KkZRUq+ukfVMbnPiSvr4H
- PHKE/d6239kjeydAha3MElKF9pOsmt6H1s5KW7rWcBs1swL/3D70u3alrlP4xMDe78Mw3xQhpr2
- rqHN+7jPp3EI5r7/nj+7+k5sQqp8ymNqLCS8Vwv+0jzcFyHx5L9sBImRwVMUBJiSwaEkOLflZb/
- PVdltv5j/tv3MauzV+6igU7O68yrum1nDIoz0+xgbIAozvN8jliPzbT7vMoEr84zTAy7yq+LwkS
- /bD4ZFzodulPdQwubXmNJd9a/HFAtFDiVkM6kZ+k9qJkuPK2k0wHUiAQOrG5d7iHpx0047skSDV
- xF4T93H2EGlCKxFAFFg31WjSqUYBXKRC8iWGl9Heem32alpuxlnCUV1tCIoL2fTmE0mMF+ck5nR
- kxp3ocE6DC1CBsE33z2G2G08weap1x9oEsCmACfnV9rjytWsRr0+iEz9CJxe0NdeMPXVUjmxtmU
- 7iBeSC/9RhVqYQmiVJYOzjAAN04itL0NKt4yY/DnDmEd/WPx
-X-Received: by 2002:aa7:d402:0:b0:6a9:8863:ada4 with SMTP id
- 4fb4d7f45d1cf-6ba1fae103fmr14763271a12.3.1795809784883; 
- Fri, 27 Nov 2026 12:03:04 -0800 (PST)
+ AL+hErEXGrQW4K5ywWNgOBHbWY30eEKNpQL8NmBudof0pRmNTiKNMPuAyR1M/g6B6mevONgiSfRhgdS2gow=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+4EdzCOztOufpvigk7WeYwEXPQ+m9o3uVi0e6zlBT2V9dkp5uM
+ 5wdPpBW0MO/9KiYakfGB+2bQCLWOjcaLvFRsxFIL86c/HEBZKjxgZ6bGW24d/bzKLds=
+X-Gm-Gg: AZFdTZcvI70nsG8Ges4xTllyjSDCDtcRTRxaO2N4m+FptfphWfpjEkC+VuRvg0ZqBqg
+ UxOHqh0Tv5VYkaNdNacRIe6D0jXrYVIccLh4ebCPJXSzeRyaVRkO6WOwrEvaMq5H1N/lxeFmrCu
+ u6N8Q/iSBb82zklKcZMSCGyJMGVwfrQoJV2cCs9SDusR61yYOs1Up4MPeZcsTr288F0MH3iIG1q
+ Ug/4hQpbTPIlzbh0swrVL+BdyQZOkx2NuD9dZs1puZEJRjiylwSdwio2lRTg8EVv7eJpRQFCzzu
+ jwtCxhSma8z/QB+JQ670DuM5e0UfKvm5zb8OeULJwKdHXMHX5Wvw5K/eW+N0GlgbctwF5arcaDu
+ MOl1nmh6uC8LJhE2uVYa3YsrXeIqWXA3grxKso6nz/BKNmk6JbKKw96rxkg4ng00xhd0L1SxlWR
+ eCs02dibgIIDDL100M37MxPZOAwE7khLS5Jdxmiy91kfht4JTVi2++9BH0cAp30zMg2ABwHxlDe
+ pu6BEckHBb4dvV6ebbwwl6TD57IIEpGpVClPiJgvOvc8F4DIAIZBTKsX59yjr5fhUkjgIuT715X
+ kmLd17bv4hCUJE1aR5EEdOL9aGRaeMglQ9Ix35OGDpjM4C5I
+X-Received: by 2002:a17:906:5908:b0:c3f:d8f2:f08e with SMTP id
+ a640c23a62f3a-c513aad1aa7mr1591096666b.44.1795809786817; 
+ Fri, 27 Nov 2026 12:03:06 -0800 (PST)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
  by smtp.gmail.com with ESMTPSA id
- 4fb4d7f45d1cf-6ba6f8fa5b9sm9906969a12.37.2026.11.27.12.03.02
+ a640c23a62f3a-c513ae661b3sm897861366b.16.2026.11.27.12.03.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 12:03:03 -0800 (PST)
+ Fri, 27 Nov 2026 12:03:06 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 1/6] clk: Remove unused clk.dev
+Subject: Re: [PATCH 2/6] clk: Add dev_clk_get_from_provider()
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>
 Cc: Aaro Koskinen <aaro.koskinen@iki.fi>, 
@@ -82,18 +82,18 @@ Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
  linux-rockchip@lists.infradead.org, linux-omap@vger.kernel.org, 
  linux-arm-kernel@lists.infradead.org, dri-devel@lists.freedesktop.org, 
  linux-pm@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>
-In-Reply-To: <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
+In-Reply-To: <7155949aea78042fd399da5ad23a72765b2b6cc7.1795094688.git.geert+renesas@glider.be>
 References: <cover.1795094688.git.geert+renesas@glider.be>
- <a896e5bdb29c7c6de39df9b28b11d55614f2ec2d.1795094688.git.geert+renesas@glider.be>
+ <7155949aea78042fd399da5ad23a72765b2b6cc7.1795094688.git.geert+renesas@glider.be>
 Date: Fri, 27 Nov 2026 21:02:59 +0100
-Message-Id: <179580977968.3028968.220600254133838233.b4-review@b4>
+Message-Id: <179580977969.3028968.47907747276860033.b4-review@b4>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=438; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=1x7I9OxtWjxbS+wEVDFGimHZA2zKBIWqfRJtzMCbXkE=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNmcD7/5dtokM+ZkaTF6K2ZGVttk1rMrH2fK8un5tvb9D
- fstDRc7SlkYxLgYZMUUWWq4q8XfSWp9mTVd5zbMHFYmkCEMXJwCMJH4Q4wMmxfdaay4eymZS6GK
- Z55007ypBev3ur2PCN636eTcxxoMGYwMv2pstwfXV9w7/0GsKypkd/dKC/bAd4cr1ViY1xxhVqj
- nAgA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=576; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=w+BoHiPo+P6YGPZSkRwTWt/kGI08hfYqlVrPoLWDzrs=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDNmcD781zBdazCsg9lL/zber23mznz9vt33xqqNRSyql5
+ 9/lP4XqHaUsDGJcDLJiiiw13NXi7yS1vsyarnMbZg4rE8gQBi5OAZjIejtGhnPrDj/t/PYpMF4p
+ 5/BazfN3D21QT/A6eNT9yBfJZ1dZop8wMpzYzS/A8uDOTLmdR+uChb9oSs6TL/Rb7JC9947joo3
+ LLnMBAA==
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -114,13 +114,15 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 19 Nov 2026 14:40:34 +0100, Geert Uytterhoeven <geert+renesas@glider.be> wrote:
-> This basically reverts commit efa850487a6b6742 ("clk: Inform the core
-> about consumer devices").
+On Thu, 19 Nov 2026 14:40:35 +0100, Geert Uytterhoeven <geert+renesas@glider.be> wrote:
+> Clocks obtained through of_clk_get_from_provider() show up as
+> "deviceless" in the consumer column of the clk_summary file in debugfs.
+> Add a new variant dev_clk_get_from_provider() that also takes a consumer
+> device, so callers can provide it, and consumer's name will be shown in
+> the clk_summary output.
 > 
-> This commit added a struct device pointer member to struct clk and a
-> parameter to clk_hw_create_clk(), but the new member was never used
-> beyond setting.
+> Reimplement of_clk_get_from_provider() on top of
+> dev_clk_get_from_provider().
 > 
 > [...]
 
