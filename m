@@ -2,102 +2,81 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 003DA606A321
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEAA4606A31C
 	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Ecfe/3SR
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=FVIvLnGs
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 64A8010E55B;
-	Sat, 28 Nov 2026 09:41:02 +0000 (UTC)
-Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
- [209.85.210.181])
- by gabe.freedesktop.org (Postfix) with ESMTPS id D254410E11E
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 03:27:16 +0000 (UTC)
-Received: by mail-pf1-f181.google.com with SMTP id
- d2e1a72fcca58-8b67f25e6e1so4269853b3a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:27:16 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795836436; cv=none;
- d=google.com; s=arc-20260327;
- b=BV1g+/tVeIUAk4kXreZ0JI0lN1VByi5tgrsO3WDYYiI8b7xXTTEZzka/p47nKQWIyp
- DQNRR7uDZHo9FfKQgOc/ECW6SBalOdX++2RR54rsMmSY8IgfQZKcioWZFeeHzLuA76QT
- zhcG/x0R0FbKss2cmxNLcuqKOorTpshitIuQwm4WP4tz5VdOb2ctsFPKvmlpl6Qyunqo
- 38mLnxa1/PXQU45ovyx1sn8OZ1tkm708dUQ0EfpiuELCct5XpIr9DG6ea/5TJbIexgoQ
- RC9zrKTQxHu9mN0M9KDzCg/c03k1xehNVP/X/vRAxlKg4T33nXeKfLZs9vrMTQ0ESYxG
- EqTg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=vBHWdp137VAn7lA9+DpI0GObYR6F1NE7+wrNWZtHzuM=;
- fh=rzWVVC5eWIydkilLa4gJVEsC+cjFXSi5TuN6j91B14A=;
- b=HeqmjIowp3krcgLj7q/gj0WN5m457X+c6Q3ECGs9U6GW/6XfR4AC0hGVVgTcd7Rxw5
- xfFDM9ARD1B01zTghS6nL5DQTtQTuJXKH80Fg68blHybjafftgBRkpqM6oRJ6SCaCm2u
- NgaP2rIVOVlyBSD9x43mBRtWwsNUWQuiIuvgokkFKDZw49po/lEDcdOZRcAPU8lqP7Z9
- dNlOTQnXIbXMe4McOniiX/+ban7tcydoqZ33GdNusp3arENYkaFV866fJ1IHB/OJ8Igs
- XiCBV6d8s58DuVyg6USLzOPObuuZKLaQ55vvbosRRcZuPLgsDnEgDRjUviOWWHFfhLrN
- XOEQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	by gabe.freedesktop.org (Postfix) with ESMTP id E8C1310E574;
+	Sat, 28 Nov 2026 09:41:07 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C734F10E59A
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 13:39:45 +0000 (UTC)
+Received: by mail-pg1-f175.google.com with SMTP id
+ 41be03b00d2f7-cdadf7e248aso3491803a12.3
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:39:45 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795836436; x=1796441236; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=vBHWdp137VAn7lA9+DpI0GObYR6F1NE7+wrNWZtHzuM=;
- b=Ecfe/3SRcfuEbNkx0YvOAu/7kT5n5O3asQfOCGzPzTZhiw/m+I8/m7PYPW/AeHKAfC
- ucg/BiBaI0AriQtz2g3uP4P9ftbUQwZDNVWl9/vzb7X3+5KGvI1AGTtJE152QoVV8uQ1
- Aqjthz/hznF/pmT6oAfcuKQLpRpqAZwkRjKHZS9naFi4jzURulDN/inF26WsfDRkP/fr
- egSyOCQaSktYjN78O0BSYmFnk8kuvT40R8+REcDyvA3pJ7My2zOqaTkGYdFGPf2Jo+ug
- qbkn6CdK9RpdEGX2yz/XdXTwYgVkQSo+3dEHVvPAprmEtCNifd3eRyvoAXjC93zSYQ/I
- n3mQ==
+ d=gmail.com; s=20260707; t=1795786785; x=1796391585; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=jsEuJpvlZZyQMdgxCFdQUwfLifMTW9CXYX26w+Rx/vg=;
+ b=FVIvLnGsnQ6FtjhafIngnPdat0OYhaBs/KGoLQQfv+Xm3n87SVEsAPL0ClZ3Neholz
+ 6myxdBwy5ceLAnXBOroiZmUrBYGDUSRS30VmEb6bLPWPVIeefJ2tYX2g25Ridlf1Rd0e
+ BRRDI7M0SFVq9WgKYfnxRKkaUq+gc+wWqrMSR0dCAO01imEOOmLh8UljpATcz6VgKrTu
+ Cqik/Kk6/YVNZyjxj7IFJ9qGd3/s8MPUCr3WLBCnVPpooN9rQCQ/qE0fOMw6hPz1zRlp
+ hQg+CEPvw8ehnPPXYNB/CEmzFXNKaBb0TyLv4X/VNwvAZ3DMQFtgtifmm3cF2BWv1BHW
+ F2mg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795836436; x=1796441236;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=vBHWdp137VAn7lA9+DpI0GObYR6F1NE7+wrNWZtHzuM=;
- b=VEbcW+G9wtg9j0yDDOczDfXkM0+PEKpsdYCsOoSPxOzhECqUxAOn4qhhiVsREkGQ71
- rSfuVpwASgh75aaJPGnptuMdmIxnkx2w7AORi0NQokG2F8NwXX+zyQshiBvsYy0yZdkk
- q/uqMPKBnMt78AZlRJY7uilUTb8r4Pfqq3PNCIhfBzsBOSU/fupbJRNY0D97u6eY1rn3
- Jdlfxh8fBYJXg/Vi5JyqcxEpaZn+ZRfA/i8guUuanfrCbRtFXd+vYwQg4G06V9eejezP
- lGlsOf8yi4TZzpBL799T5AYQewQUF3Ypjt767MTgJXgA5wUAcEx5RDi49F9M05c1AoPZ
- 6SSw==
+ d=1e100.net; s=20260707; t=1795786785; x=1796391585;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=jsEuJpvlZZyQMdgxCFdQUwfLifMTW9CXYX26w+Rx/vg=;
+ b=RzEyx5EnD7XSfE+n+rRQvuZZ1oTQt1otgurQDhSP3x19jImc94TzuzyP6wIaiDLqhC
+ ZqtVNJEK1hU3FPA+MNstFMukDitnlpiMBS7CTozVEm5WA/W5e4ThARAQiXP3MM2VUo/O
+ uMk/gZsWSaBIeG8QlAAOFfAdehy8kx8NAwppsk5lMXxAS5iFtG30sAJxQVHNpMiY2jvw
+ ixdgBJPzN9NKumema3uLvXpXrUVqb49eHEIQGGtXOxiMlJl7GvrLN0EK+ozsY1291cXD
+ UoWsgqjB79Xqpiz3nGR0fWstpngfMahl78JN4UVQLVpQqEcrS3SQwSlS7AgQKbhPLBtW
+ CWdg==
 X-Forwarded-Encrypted: i=1;
- AL+hErF14GvCJQ8bbhyihOJ0pPcmvFeQUjtk5kclUMC4xcTDjEDabI6VoIjmh1G/K3nkc8AgL8y7p2QFjnA=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/MqbZn/2SbqJUACfsX7GCN6bNI9lrRTVyJYQgShFEXYNKY9Ysn
- Cv5DHWofbI2uRJ2ALLMC5CFx7Zf0aTpIPay7b9UPhy15HmiIXFaBJ2YioRXentKIb/4t462FKrk
- hmGB9SnF86HNaCZ4/8JuApDurS0GbJVU=
-X-Gm-Gg: AZFdTZe2KOHvxhgLTzAQlG0UxEQnPvcMQO/MZNmaFLr6Pk2cITRx3abOlslgZcrwBQi
- kNnM0MOZqR5Sq3Cvk1OhjGONqEPBLYxW3P4Iw58FOc7Jo7UzYPPHrGpVfI4/XpRt9eDaX0JMjWF
- 6qhEzd1Gm/jx6/MdhM6l7qxb6B9Ql1MIKHmDR4P0Jxy9h+4BXsj/Rt1z016UuOlkRNg/mO2QO9Q
- T8b5fpQKq+i8oaxXsPn/7Wp6wO8ysGVgL9a3hcgz8BuTBydQcAe5jo6FSnBlnyqV/RnMKnJA3+B
- ZNASCyxBxP/e0SLqsdcLEAd5GejI2jzQ57ThECNqeNS5OMqcKYZ61LZl6cxqDJWbggU/aNtn1P9
- WYspcOs7vrx/SAL+wesGd6Say+BxT6g39z9qazO2WEbVNPW0mhdjGeiT5/SZF6FWoPOtKnOhGmu
- ke2KOnWWMkOzH28WS7xwyVFzFH1tso1PxfDCiImZtcJQkOsFbXimdAlMUfj2AU8sxa4tuSN2g4
-X-Received: by 2002:a05:6a21:3b8d:b0:3e2:13e9:fbdf with SMTP id
- adf61e73a8af0-4014d4587ddmr27430610637.35.1795836436206; Fri, 27 Nov 2026
- 19:27:16 -0800 (PST)
+ AL+hErG2v0Kdah5enWp4yVFumU44UfqTLrm3no/wSilIqE5ALM+XEAdLEZ10fDT6+cfq5uBoJX4HS7Qj2Fs=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8e3DoBqbMPAynmJEshxNtOY9jyMMQgT5OXk2BTAWiivbQ9IElm
+ m7NOlf6RK7dE/cWwX0t/DTEQO7wyTvM0eZbomkDf3IVuOfUv1D9pm5v3
+X-Gm-Gg: AZFdTZc9nBaNeI0yGC4T34T62XR085EN5UpQXNZH21bMJj2maz4hMCVhOEevWcrrh2A
+ zGSyf68BQK/9F85gDrqYJydsQHHanVuQT19ULlnoFKPtKmmr8RdkASlj4wgrzmQMCpuMxsTkUoZ
+ 567488o8J11nhv/xBd46JkM7jcODanHFTwT6jMWqpIDWWKX1a5IvydnvveG2J6XGTx9rF2a70ml
+ P/M1CFXq8SO8V6mllL1w52OV3cqomQUzZGMaVlDmFdexgz97eydRPoAfynrEnrvx7+NQrWV12Gw
+ VPvLllKwFybcr94HwGPxHr6QmzF4wWsHOUSh9X4wSv6Oxlsz/yN8IYl9LaRWzuxoLeYZ48AEz4v
+ AC2b60CjXsYrDlaSx8bDUHcBSePgfY9p/AurvdyUFijrn922kK4pAMSWFRc/uVu0dJ28SfRxE0x
+ HA8Psjn1X3IAN20CKQ6XXNKsVug0IhzUTq56PaWaq3hcFWY3Ya/sAduV119suU1a/lQvw9peczL
+ pIiOLT95mrkwe9qlkRYR5DZsE/HDggEKtMiRNxMS1YNp9iLlQyQqTZfF5gYYE5syAK2ZVMK/BOo
+ hudj1/55MwBxN9I2lvQt+C+W9oXBBIbC6Z3OM+rV6GzfgUK/PcSoCaF7U8h/PE8pn+z0PoEzjL4
+ 32eLwtA6FxG/nLvUEx1j32nlsI6iayTAZhW4hPf8IT0Ww1fyEJP8PRCcjXRGWDuZGnggAMFs6AZ
+ 3BrXyqAbOYRC8hiYo+pcuK7ybQ8ExkNhzQ4iIGamA=
+X-Received: by 2002:a17:90b:3f0f:b0:3a0:b312:1fbe with SMTP id
+ 98e67ed59e1d1-3b41c9006d4mr33788171a91.23.1795786785058; 
+ Fri, 27 Nov 2026 05:39:45 -0800 (PST)
+Received: from LAPTOP-3B99V33A
+ (ec2-18-138-229-8.ap-southeast-1.compute.amazonaws.com. [18.138.229.8])
+ by smtp.gmail.com with ESMTPSA id
+ 98e67ed59e1d1-3b41aab4729sm37846270a91.0.2026.11.27.05.39.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2026 05:39:44 -0800 (PST)
+From: "Bin Luo (University of Electronic Science and Technology of China)"
+ <luob87709@gmail.com>
+To: jani.nikula@linux.intel.com,
+	rodrigo.vivi@intel.com
+Cc: intel-gfx@lists.freedesktop.org, intel-xe@lists.freedesktop.org,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Subject: [PATCH v2] drm/i915/display: hold frontbuffer ref across dirtyfb
+ fence callback
+Date: Fri, 27 Nov 2026 21:39:35 +0800
+Message-ID: <20261127133935.1461-1-luob87709@gmail.com>
+X-Mailer: git-send-email 2.51.0.windows.1
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20260707093004.987846-1-phucduc.bui@gmail.com>
- <avRbEGoPh3bqR93f@ninjato>
-In-Reply-To: <avRbEGoPh3bqR93f@ninjato>
-From: Bui Duc Phuc <phucduc.bui@gmail.com>
-Date: Sat, 28 Nov 2026 10:27:05 +0700
-X-Gm-Features: Aa3M54p5j-n2pabLvPLN9nW_rTRNPtSo4v-MXvotIWyiblkPP7zdfuetqXMVZyQ
-Message-ID: <CAABR9nFt8LDyupBiri3PxDTERAQM0qs+cRcM41TRo1gQVAu+fg@mail.gmail.com>
-Subject: Re: [PATCH v4] drm: shmobile: Fix white screen after resume when LCDC
- is stopped
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
- Geert Uytterhoeven <geert+renesas@glider.be>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, Simona Vetter <simona@ffwll.ch>,
- dri-devel@lists.freedesktop.org, 
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 X-Mailman-Approved-At: Sat, 28 Nov 2026 09:41:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -110,55 +89,111 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Wed, Nov 11, 2026 at 7:09=E2=80=AFPM Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
->
-> On Tue, Jul 07, 2026 at 04:30:04PM +0700, phucduc.bui@gmail.com wrote:
-> > From: bui duc phuc <phucduc.bui@gmail.com>
-> >
-> > The LCDC on R8A7740 may show a completely white screen after resuming
-> > from suspend (s2idle or s2ram).
-> >
-> > After resume, both Set A and Set B registers are reset to 0. As the
-> > Frame End interrupt is not generated while the controller is stopped
-> > (DO=3D0), the hardware register switching mechanism is not triggered.
-> > Consequently, Set A remains at 0x00000000 even though a valid Start
-> > Address is written to Set B, resulting in a white screen.
-> >
-> > This is a timing-dependent race condition. In some configurations,
-> > debug options slow down the resume path enough for a Frame End
-> > interrupt to occur, which can mask the issue.
-> >
-> > Fix this by priming both register sets with the Start Address while the
-> > controller is stopped, ensuring a valid base address is available
-> > immediately after resume.
-> >
-> > Tested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> > ---
-> >
-> > Note:
-> > It was originally posted in March and has already received both
-> > Reviewed-by and Tested-by tags. I'm resending it to bring it back
-> > to attention in case it was overlooked.
-> >
-> > Changes in v4:
-> >  - No functional changes.
-> >  - Resend.
->
-> Still not upstream? Who is the person to pick this up? This is a
-> valuable fix we surely want to have.
->
+intel_user_framebuffer_dirty() stores the raw intel_frontbuffer pointer
+in frontbuffer_fence_cb without taking a frontbuffer reference. If the
+framebuffer is destroyed and its owner frontbuffer reference is dropped
+before the reservation dma_fence signals,
+intel_user_framebuffer_fence_wake() passes a freed intel_frontbuffer
+pointer to intel_frontbuffer_queue_flush(), causing a use-after-free.
 
-This issue had been around for over 10 years, and it took me two
-weeks to track it down and fix it. It's also been about eight months
-since I sent the v1 patch in March.
-Hopefully, the relevant maintainer will consider picking it up.
+Take a frontbuffer reference via intel_parent_frontbuffer_ref() before
+registering the fence callback, and embed a work_struct in
+frontbuffer_fence_cb so intel_user_framebuffer_fence_wake() only
+schedules the work item and drops the fence reference in atomic
+dma_fence signaling context. Perform intel_frontbuffer_flush(), release
+the frontbuffer reference with intel_parent_frontbuffer_put(), and free
+cb from process context in intel_user_framebuffer_fence_work(). This
+avoids calling intel_parent_frontbuffer_put() in atomic context, where
+dropping the final reference can sleep on xe or deadlock on non-irqsafe
+locks in i915.
+
+Found by static code audit.
+
+Fixes: 1bb2af547a4b ("drm/i915: Handle dma fences in dirtyfb callback")
+Signed-off-by: Bin Luo (University of Electronic Science and Technology of China) <luob87709@gmail.com>
+---
+Changes in v2:
+- Embed struct work_struct in frontbuffer_fence_cb and move
+  intel_frontbuffer_flush(), intel_parent_frontbuffer_put(), and kfree(cb)
+  into intel_user_framebuffer_fence_work() so intel_parent_frontbuffer_put()
+  is never invoked from atomic dma_fence signaling context (fixing the
+  sleeping-in-atomic/deadlock issue flagged on v1).
+
+Testing note:
+Compile-tested on x86_64 with W=1 and KASAN for both i915
+(drivers/gpu/drm/i915/display/intel_fb.o) and xe
+(drivers/gpu/drm/xe/i915-display/intel_fb.o); not runtime-tested on
+Intel display hardware.
+
+ drivers/gpu/drm/i915/display/intel_fb.c | 18 ++++++++++++++++--
+ 1 file changed, 16 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_fb.c b/drivers/gpu/drm/i915/display/intel_fb.c
+index 9d71f59..ee0665c 100644
+--- a/drivers/gpu/drm/i915/display/intel_fb.c
++++ b/drivers/gpu/drm/i915/display/intel_fb.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/dma-fence.h>
+ #include <linux/dma-resv.h>
++#include <linux/workqueue.h>
+ 
+ #include <drm/drm_blend.h>
+ #include <drm/drm_gem.h>
+@@ -2141,16 +2142,26 @@ static int intel_user_framebuffer_create_handle(struct drm_framebuffer *fb,
+ 
+ struct frontbuffer_fence_cb {
+ 	struct dma_fence_cb base;
++	struct work_struct work;
+ 	struct intel_frontbuffer *front;
+ };
+ 
++static void intel_user_framebuffer_fence_work(struct work_struct *work)
++{
++	struct frontbuffer_fence_cb *cb = container_of(work, typeof(*cb), work);
++	struct intel_frontbuffer *front = cb->front;
++
++	intel_frontbuffer_flush(front, ORIGIN_DIRTYFB);
++	intel_parent_frontbuffer_put(front->display, front);
++	kfree(cb);
++}
++
+ static void intel_user_framebuffer_fence_wake(struct dma_fence *dma,
+ 					      struct dma_fence_cb *data)
+ {
+ 	struct frontbuffer_fence_cb *cb = container_of(data, typeof(*cb), base);
+ 
+-	intel_frontbuffer_queue_flush(cb->front);
+-	kfree(cb);
++	schedule_work(&cb->work);
+ 	dma_fence_put(dma);
+ }
+ 
+@@ -2160,6 +2171,7 @@ static int intel_user_framebuffer_dirty(struct drm_framebuffer *fb,
+ 					struct drm_clip_rect *clips,
+ 					unsigned int num_clips)
+ {
++	struct intel_display *display = to_intel_display(fb->dev);
+ 	struct drm_gem_object *obj = intel_fb_bo(fb);
+ 	struct intel_frontbuffer *front = to_intel_frontbuffer(fb);
+ 	struct dma_fence *fence;
+@@ -2185,6 +2197,8 @@ static int intel_user_framebuffer_dirty(struct drm_framebuffer *fb,
+ 	}
+ 
+ 	cb->front = front;
++	INIT_WORK(&cb->work, intel_user_framebuffer_fence_work);
++	intel_parent_frontbuffer_ref(display, front);
+ 
+ 	intel_frontbuffer_invalidate(front, ORIGIN_DIRTYFB);
+ 
+-- 
+2.51.0.windows.1
+
