@@ -2,51 +2,63 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 091BC606A326
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 15:54:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DE3606A687
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 15:55:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=aliel.fr header.i=@aliel.fr header.a=rsa-sha256 header.s=courrier-s1 header.b=RN6aIDdV
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=WWue3Yvh
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6A67D10E259;
-	Fri, 27 Nov 2026 15:54:30 +0000 (UTC)
-Received: from courrier.aliel.fr (courrier.aliel.fr [65.21.61.41])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 857D810E259
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:54:23 +0000 (UTC)
-Message-ID: <0b4f724f-eabd-4c31-ad1a-25ab5ad886ab@aliel.fr>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aliel.fr;
- s=courrier-s1; t=1795794861;
- bh=eq4MYrvq/ToRLquDKmYljBez1teYhq+T2UM45Ird1cI=;
- h=Date:From:Subject:To:Cc:References:In-Reply-To;
- b=RN6aIDdVUfsldjem/lBvO/YuGuppMEFMxBRI0FeZ8SbYPX/pTt73fyqnMcZJArL2g
- KQslF9ndJoXso9eghBaP9QV8QPyC8gzkjBdyHlgchm2pvZQ0F2Pi+cRZ88Wi8gZYCt
- rPdTTfHc+EI81PeJZorcfeYoPofseHnJ7uv0A2rI=
-Date: Fri, 27 Nov 2026 16:53:49 +0100
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0A894112BC8;
+	Fri, 27 Nov 2026 15:55:31 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 34BAC10E5D0;
+ Fri, 27 Nov 2026 15:55:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+ d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+ t=1795794926; x=1827330926;
+ h=from:to:cc:subject:in-reply-to:references:date:
+ message-id:mime-version:content-transfer-encoding;
+ bh=x/nBAYYlqHg1Y+E5T3yXCdXotBzPEciD8XHisBmdYLI=;
+ b=WWue3YvhelBkZziYCT/APjwHS9g/UrEeBPjwu5i2CSegj3gcBm+6ysUO
+ Yt6AkayywzH/AMY26y4oxhMJIic//7tiJuR4ltwYzyyOtiE2kaBmevYIT
+ BPdMToFCyL6nk2C141wrUGou38hkMezm+C4oPitKvmpHNpgKqjIdy7mQb
+ kAbbbp4pITBCRoyAPaGScvggaWQpGCoOuszXAeSVZTx0TYs3Y2W3ZTNDu
+ TnDdClf7PRutB6ZkHdtYLmtMKXfc88hyVReiXqW8go6IO9MlfjLsCHYFE
+ Dca94zSnPtz7jNP0Trjy6f5GDYStAqL21P8Cy2cthsN0XNGztl6F4YnoL w==;
+X-CSE-ConnectionGUID: xGoaqEFsRA6mfwJ97WgzgQ==
+X-CSE-MsgGUID: ifyZnpmdTninQLvgMHi1uQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11979"; a="4601905"
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; 
+   d="scan'208";a="4601905"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+ by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 07:55:25 -0800
+X-CSE-ConnectionGUID: 1irKUW0fSEe2yHzlQ5NAcg==
+X-CSE-MsgGUID: LDvnlgoYT1KijHedTyR+hA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,237,1787036400"; d="scan'208";a="12416015"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO localhost)
+ ([10.245.245.90])
+ by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 27 Nov 2026 07:55:23 -0800
+From: Jani Nikula <jani.nikula@linux.intel.com>
+To: Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ sashiko-reviews@lists.linux.dev
+Cc: dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org,
+ intel-xe@lists.freedesktop.org
+Subject: Re: [PATCH 1/2] drm/edid: Introduce
+ drm_edid_get_displayid_product_id()
+In-Reply-To: <awYXhjvZvrw3gWea@intel.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park,
+ 6 krs Bertel Jungin Aukio 5, 02600 Espoo, Finland
+References: <20261124224621.6506-1-ville.syrjala@linux.intel.com>
+ <20261124224621.6506-2-ville.syrjala@linux.intel.com>
+ <sashiko-outbox-232161@kernel.org> <awYXhjvZvrw3gWea@intel.com>
+Date: Fri, 27 Nov 2026 17:55:20 +0200
+Message-ID: <b7f3b3e4a8eb866368cedf88c383bf14834077fc@intel.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Subject: Re: [PATCH v5 00/12] phy/drm: amlogic: Extract Meson HDMI TX PHY into
- a dedicated driver
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org,
- linux-pm@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Ulf Hansson <ulfh@kernel.org>
-References: <20261127-meson-drm-create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr>
- <446fa440-1537-4b30-8429-4d72bb70029d@linaro.org>
-Content-Language: en-US
-In-Reply-To: <446fa440-1537-4b30-8429-4d72bb70029d@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -58,177 +70,89 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=unavailable
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 11/27/26 16:35, Neil Armstrong wrote:
-> On 11/27/26 16:27, Ronald Claveau via B4 Relay wrote:
->> This series moves the Amlogic Meson HDMI TX PHY handling (covering GXBB,
->> GXL, GXM, and G12A SoCs) out of the meson_dw_hdmi DRM driver and into a
->> dedicated generic PHY driver.
->>
->> Until now, meson_dw_hdmi directly manipulated the HHI system controller
->> registers (HHI_HDMI_PHY_CNTL0..5) to configure analog parameters, toggle
->> resets, and manage power states, as well as manually ungating HDMI
->> clocks and power domains already described in the DT.
->>
->> By extracting this logic into a standalone PHY driver under
->> drivers/phy/amlogic/:
->> - Hardware representation in the DT is cleaner, modeling the HDMI TX PHY
->>    as a child node of the HHI syscon referenced via standard "phys"
->>    properties.
->> - The DRM bridge driver relies on the standard generic PHY API
->>    (phy_init, phy_configure, phy_power_on/off, phy_exit) rather than
->>    touching syscon registers directly.
->> - Legacy DTs lacking the "phys" property remain supported via a
->>    temporary fallback helper (meson_hdmi_phy_create_legacy) to preserve
->>    backward compatibility to be removed on next phase of component
->>    removal.
->>
->> Overview of the series:
->> - Patches 1-3: Fix compatible matching in meson-gx-hhi-sysctrl bindings,
->>    add the new amlogic,meson-hdmi-tx-phy DT schema, and allow the
->>    "hdmi-phy" child node under the HHI syscon.
->> - Patch 4: Rename the Meson8 HDMI TX PHY driver to be more SoC generic.
->> - Patch 5: Add GXBB, GXL, GXM and G12A SoCs to the Meson HDMI TX PHY
->>    driver, implementing the HDMI PHY configuration ops, along with the
->>    temporary legacy creation helper.
->> - Patch 6: Document the optional "phys" and properties in the
->>    amlogic,meson-dw-hdmi binding.
->> - Patch 7: Make meson-ee-pwrc power up the domain memories when the
->>    domain is already on at probe time, as this is a prerequisite for
->>    dropping the explicit write from meson_dw_hdmi
->> - Patches 8-9: Clean up manual HHI clock/power-domain writes in
->>    meson_dw_hdmi (relying on runtime PM instead) and convert the driver
->>    to use the generic PHY framework.
->> - Patches 10-12: Add the "hdmi-phy" child node and wire up the "phys"
->>    phandle for G12, GXBB, and GXL Device Trees.
->>
->> Tested on:
->> - Khadas VIM1 (GXL)
->> - dtbs_check and dt_binding_check run cleanly with no new warnings.
->>
->> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> ---
->> Changes in v5:
->> - Add Patch 4: Rename Meson8 HDMI TX driver to prepare other SoCs
->>                 integration. Martin's review.
->> - Patch 5: Adapt the GXBB, GXL, GXM and G12A SoCs code to Patch 4.
->> - Link to v4: https://patch.msgid.link/20261123-meson-drm-create-
->> hdmitx-phy-v4-0-3fb94f5534ca@aliel.fr
->>
->> Changes in v4:
->> - Patch 2: Change commit title. Sashiko and Neil review.
->> - Patch 4: Change the phy min_rate to 15.9 MHz mathematical limit.
->>             Thanks to Sashiko's review.
->> - Patch 8: Drop introduced double free with phy_destroy.
->>             Add missing device_link_remove()
->>             Change the device_link order and use prepare/complete in the
->>             VPU drv for drm_mode_config_helper. Sashiko's review.
->> - Link to v3: https://patch.msgid.link/20261121-meson-drm-create-
->> hdmitx-phy-v3-0-f8f471788076@aliel.fr
->>
->> Changes in v3:
->> - Patch 6: reuse meson_ee_pwrc_mem_power_up() in meson_ee_pwrc_on()
->>    function.
->> - Patch 8: revert the code to v1 and add a device link to solve
->>    suspend/resume order in dpm_list.
->> - Link to v2: https://patch.msgid.link/20261120-meson-drm-create-
->> hdmitx-phy-v2-0-93d622d9bb07@aliel.fr
->>
->> Changes in v2:
->> - Patches 5,9-11: Remove unecessary "phy-names" for uniq phy.
->>                    Thanks to Neil's feedback.
->> - Add Patch 6: Power up the memories when the domain is already on.
->>                 From Sashiko's feedback.
->> - Patch 4: Add a 600MHz max_rate and a 25Mhz min_rate check and
->>             exclude PHY_HDMI_MODE_FRL for phy_validate. Thx Sashiko.
->> - Patch 8: Move phy_init in dw_hdmi_phy_init and phy_exit
->>             in dw_hdmi_phy_disable. From Sashiko review.
->> - Link to v1: https://patch.msgid.link/20261117-meson-drm-create-
->> hdmitx-phy-v1-0-9e0ac931381c@aliel.fr
->>
->> To: Rob Herring <robh@kernel.org>
->> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
->> To: Conor Dooley <conor+dt@kernel.org>
->> To: Neil Armstrong <neil.armstrong@linaro.org>
->> To: Kevin Hilman <khilman@baylibre.com>
->> To: Jerome Brunet <jbrunet@baylibre.com>
->> To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
->> To: Vinod Koul <vkoul@kernel.org>
->> To: Manivannan Sadhasivam <mani@kernel.org>
->> To: Ronald Claveau <linux-kernel-dev@aliel.fr>
->> To: David Airlie <airlied@gmail.com>
->> To: Simona Vetter <simona@ffwll.ch>
->> To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
->> To: Maxime Ripard <mripard@kernel.org>
->> To: Thomas Zimmermann <tzimmermann@suse.de>
->> To: Ulf Hansson <ulfh@kernel.org>
->> Cc: devicetree@vger.kernel.org
->> Cc: linux-arm-kernel@lists.infradead.org
->> Cc: linux-amlogic@lists.infradead.org
->> Cc: linux-kernel@vger.kernel.org
->> Cc: linux-phy@lists.infradead.org
->> Cc: dri-devel@lists.freedesktop.org
->> Cc: linux-pm@vger.kernel.org
->>
->> ---
->> Ronald Claveau (12):
->>        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Fix compatible
->> matching in conditionals
->>        dt-bindings: phy: amlogic: document the Amlogic Meson HDMI TX PHY
->>        dt-bindings: soc: amlogic: meson-gx-hhi-sysctrl: Add hdmi-phy
->> child node
->>        phy: amlogic: rename Meson8 HDMI TX PHY driver to be SoC-generic
->>        phy: amlogic: meson-hdmi-tx: Add GXBB, GXL, GXM and G12A support
->>        dt-bindings: display: amlogic,meson-dw-hdmi: Add phys
->>        pmdomain: amlogic: meson-ee-pwrc: power up memories for boot-
->> enabled domains
->>        drm/meson: dw-hdmi: Drop manual HHI clock and memory PD setup
->>        drm/meson: dw-hdmi: Use the generic PHY framework for the HDMI
->> TX PHY
->>        arm64: dts: amlogic: Add HDMI TX PHY node for G12
->>        arm64: dts: amlogic: Add HDMI TX PHY node for GXBB
->>        arm64: dts: amlogic: Add HDMI TX PHY node for GXL
->>
->>   .../bindings/display/amlogic,meson-dw-hdmi.yaml    |   4 +
->>   .../bindings/phy/amlogic,meson-hdmi-tx-phy.yaml    |  33 ++
->>   .../soc/amlogic/amlogic,meson-gx-hhi-sysctrl.yaml  |  43 ++-
->>   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi  |   6 +
->>   arch/arm64/boot/dts/amlogic/meson-gxbb.dtsi        |   6 +
->>   arch/arm64/boot/dts/amlogic/meson-gxl.dtsi         |   6 +
->>   drivers/gpu/drm/meson/Kconfig                      |   2 +
->>   drivers/gpu/drm/meson/meson_drv.c                  |  16 +-
->>   drivers/gpu/drm/meson/meson_dw_hdmi.c              | 223 +++++-------
->>   drivers/phy/amlogic/Kconfig                        |   9 +-
->>   drivers/phy/amlogic/Makefile                       |   2 +-
->>   drivers/phy/amlogic/phy-meson-hdmi-tx.c            | 391 +++++++++++
->> ++++++++++
->>   drivers/phy/amlogic/phy-meson8-hdmi-tx.c           | 160 ---------
->>   drivers/pmdomain/amlogic/meson-ee-pwrc.c           |  19 +-
->>   include/linux/phy/phy-meson-hdmi-tx.h              |  19 +
->>   15 files changed, 627 insertions(+), 312 deletions(-)
->> ---
->> base-commit: 6d582d78fad9d828e575ca0cdcff8ea47a77220b
->> change-id: 20261115-meson-drm-create-hdmitx-phy-4ac40a654d09
->>
->> Best regards,
->> -- 
->> Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> We need to get the bindings reviewed first, then PHY drivers can be merged.
-> 
-> Afterwards I'll merge the DRM patch on the next cycle, then finally the DT.
-> 
-> Neil
+On Wed, 25 Nov 2026, Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com=
+> wrote:
+> On Tue, Nov 24, 2026 at 10:51:24PM +0000, sashiko-bot@kernel.org wrote:
+>> Thank you for your contribution! Sashiko AI review found 1 potential
+>> issue to consider:
+>> - [Low] drm/edid: commit subject mismatches
+>>   drm_displayid_get_product_id()
+>> --
+>>=20
+>> commit 4452aea3cbb2a5afd7ef8a119931282a44feb4c3
+>> Author: Ville Syrj=C3=A4l=C3=A4 <ville.syrjala@linux.intel.com>
+>>=20
+>> drm/edid: Introduce drm_edid_get_displayid_product_id()
+>>=20
+>> This commit adds drm_displayid_get_product_id() to extract vendor and
+>> product identification from a DisplayID Product ID block.
+>>=20
+>> > diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
+>> > index a2617aa34edfc..b44c26d422171 100644
+>> > --- a/include/drm/drm_edid.h
+>> > +++ b/include/drm/drm_edid.h
+>>=20
+>> [ ... ]
+>>=20
+>> > @@ -484,6 +492,8 @@ int drm_edid_connector_add_modes(struct drm_connec=
+tor *connector);
+>> >  bool drm_edid_is_digital(const struct drm_edid *drm_edid);
+>> >  void drm_edid_get_product_id(const struct drm_edid *drm_edid,
+>> >  			     struct drm_edid_product_id *id);
+>> > +void drm_displayid_get_product_id(const struct drm_edid *drm_edid,
+>> > +				  struct drm_displayid_product_id *id);
+>>=20
+>> [Severity: Low]
+>> The commit subject names this function drm_edid_get_displayid_product_id=
+(),
+>> while the commit message body and code define drm_displayid_get_product_=
+id().
+>> Also, this declaration is placed in the "Interface based on struct drm_e=
+did"
+>> section of include/drm/drm_edid.h, where all other functions taking a
+>> const struct drm_edid * use the drm_edid_ prefix.  Should the commit sub=
+ject
+>> and exported function name be aligned?
+>
+> I was going back and forth with the name and being dissatisfied
+> with all of them. If anyone has an opinion how we should name
+> these things I'm all ears.
 
-Thanks for laying out the timeline, that works great for me.
+Not really sure either.
 
--- 
-Best regards,
-Ronald
+Maybe I'm ever so slightly leaning towards drm_edid_ prefixed naming,
+and only because in my mind we'll be able to use struct drm_edid as the
+abstract type for all these cases:
+
+- plain old EDID with no DisplayID blocks
+- EDID with DisplayID blocks in EDID extensions
+- native DisplayID only
+- combined native DisplayID *and* EDID with/without DisplayID blocks
+
+I.e. it's "struct drm_edid" even when it's native DisplayID inside,
+i.e. just use drm_edid naming for it all.
+
+In that context, drm_edid_get_displayid_product_id() makes sense. Get
+the displayid product id from this opaque blob.
+
+Digressing a bit, native DisplayID will still be a PITA to implement,
+but I'm hoping mostly due to the userland ABI promises and having to
+break the VESA spec about reading *both* EDID and native DisplayID DDC
+addresses, even if native DisplayID is there. But I think the opaque
+struct drm_edid and the hidden-from-drivers drm_displayid abstractions
+can handle it.
+
+
+BR,
+Jani.
+
+
+--=20
+Jani Nikula, Intel
