@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BBFF60A263B
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94ABD606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:15:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=dUCfIr7H
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=DzGR4jyR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FCE510E47D;
-	Fri, 27 Nov 2026 10:13:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0167D10E47D
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:13:29 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0253011299A;
+	Fri, 27 Nov 2026 10:15:33 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A12DC11213B
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:26 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 1684461267
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:13:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541E31F00925;
- Fri, 27 Nov 2026 10:13:28 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 5031740BA7
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:15:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FB4A1F00893;
+ Fri, 27 Nov 2026 10:15:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795774408;
- bh=gJZfc+BhTmfMGhKcQmEe3AaO+IVYmGcsv/mohd4flZM=;
+ s=k20260515; t=1795774526;
+ bh=zEdqG83gtizEbOAFRCRmxqAFxiDRJhq9C6eJPh2/Jos=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=dUCfIr7HBFnkz8awF0OOxs+MDD0GAK7OgP8+W6YML5qZtCy/BRHq5e1utw4o5XGoE
- dcrJUn/yWpEChrIchI9ZrEf1rC5U1qxnYvql7cN98BQBT4R4ZMvph9Y7awocufESfL
- laYqkf8wY3HgMSq6KH/VSZN33DSo/gsteGJPT3O2NhB/YysQ2yWyjYgYtGaW7FHnTe
- hOQ/hxCy2mpEJP0utr6QrKjh8FgYfecrnaY/FqccljCzE6gGumtBUc1+SbYgGuOcxA
- tdnIoVeHhojvdY+uEpDG6kBtsalGS4USRa1G2rXQgx96hdha3R2ZMAaVChUk/xDMvw
- SPHr5xbmQULJg==
-Message-ID: <sashiko-outbox-237067@kernel.org>
+ b=DzGR4jyRnOYYkP/9/Um4fyefGtuK2j5ukplg8Cb1G2eb2aS0WEXpTzq5bWagXgLyg
+ tQvyxPeYrOE8xGzIS7ZtIVesP3v7MkxNnCWT1boDi6nkBC8ndJNqafQ+3qhCxQ9ioH
+ WZMSAk0Mfj3Ui0Xh/PdZnJHS5lHYNCW+akjhjHSShibUhx048LAFy2KAwhqNDY0yju
+ dVjJI80f9+DhStW3aGsjtacosUnHJe5d1e2B48eEZ1balHOk5gzvv5MsnhijXf9JGM
+ rg2f0XfJFJJgILoQ6+bkE+ulkpx5Edzm9vNJmG1em/A40J4dItDbAYuTRzXtu9ffOA
+ 2PfIkKy5ko+ew==
+Message-ID: <sashiko-outbox-237072@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 26/36] drm/tidss: dispc: Add hardware state readout
- helpers
+Subject: Re: [PATCH v10 27/36] drm/tidss: crtc: Implement hardware state
+ readout
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127-drm-state-readout-v10-26-0259582d45a8@kernel.org>
+In-Reply-To: <20261127-drm-state-readout-v10-27-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
- <20261127-drm-state-readout-v10-26-0259582d45a8@kernel.org>
+ <20261127-drm-state-readout-v10-27-0259582d45a8@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:13:27 +0000
+Date: Fri, 27 Nov 2026 10:15:24 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,82 +61,58 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/tidss: bus_flags readout mismatch in
-  dispc_vp_get_bus_flags()
+- [Medium] drm/tidss: unchecked tidss_runtime_get() in
+  tidss_crtc_readout_state()
 --
 
-commit 975b444202a6ec88f77002c0d3c2a5c2918b276b
+commit 27f832761d364d1ee42dec3bb9847c031048e245
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/tidss: dispc: Add hardware state readout helpers
+drm/tidss: crtc: Implement hardware state readout
 
-This commit adds DISPC register readout helpers for video ports, overlay
-routing, and planes so the driver can reconstruct KMS state from hardware.
+This commit implements the CRTC atomic state readout, installation, and
+comparison callbacks for tidss so that video ports left running by
+firmware can be adopted at probe time.
 
-> diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/=
-tidss_dispc.c
-> index e186c63ba5fb9..15395e06f3f83 100644
-> --- a/drivers/gpu/drm/tidss/tidss_dispc.c
-> +++ b/drivers/gpu/drm/tidss/tidss_dispc.c
+> diff --git a/drivers/gpu/drm/tidss/tidss_crtc.c b/drivers/gpu/drm/tidss/t=
+idss_crtc.c
+> index d2664bda53a99..c72194e93bde1 100644
+> --- a/drivers/gpu/drm/tidss/tidss_crtc.c
+> +++ b/drivers/gpu/drm/tidss/tidss_crtc.c
 [ ... ]
-> @@ -1401,6 +1408,151 @@ int dispc_vp_set_clk_rate(struct dispc_device *di=
-spc, u32 hw_videoport,
-[ ... ]
-> +u32 dispc_vp_get_bus_flags(struct dispc_device *dispc, u32 hw_videoport)
+> @@ -372,6 +376,131 @@ static struct drm_crtc_state *tidss_crtc_create_sta=
+te(struct drm_crtc *crtc)
+>  	return &tstate->base;
+>  }
+> =20
+> +static int tidss_crtc_readout_state(struct drm_crtc *crtc,
+> +				    struct drm_atomic_sro_state *state,
+> +				    struct drm_crtc_state *crtc_state)
 > +{
-> +	u32 flags =3D 0;
-> +	u32 val;
+> +	struct drm_device *ddev =3D crtc->dev;
+> +	struct tidss_device *tidss =3D to_tidss(ddev);
+> +	struct dispc_device *dispc =3D tidss->dispc;
+> +	struct tidss_crtc_state *tstate =3D to_tidss_crtc_state(crtc_state);
+> +	struct tidss_crtc *tcrtc =3D
+> +		to_tidss_crtc(crtc);
+> +	struct drm_display_mode mode =3D {};
+> +	int ret;
 > +
-> +	val =3D dispc_vp_read(dispc, hw_videoport, DISPC_VP_POL_FREQ);
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_IPC_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_PIXDATA_DRIVE_POSEDGE;
+> +	tidss_runtime_get(tidss);
 > +
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_IEO_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_DE_LOW;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_DE_HIGH;
-> +
-> +	if (FIELD_GET(DISPC_VP_POL_FREQ_RF_MASK, val))
-> +		flags |=3D DRM_BUS_FLAG_SYNC_DRIVE_POSEDGE;
-> +	else
-> +		flags |=3D DRM_BUS_FLAG_SYNC_DRIVE_NEGEDGE;
-> +
-> +	return flags;
-> +}
+> +	if (!dispc_vp_is_enabled(dispc, tcrtc->hw_videoport))
+> +		goto out;
 
 [Severity: Medium]
-Can dispc_vp_get_bus_flags() return bus_flags that mismatch the committed
-CRTC and encoder bridge states?
+Should tidss_crtc_readout_state() check the return value of
+tidss_runtime_get(tidss), as tidss_crtc_install_state() does below?
 
-tidss_bridge_atomic_check() stores next_bridge_state->input_bus_cfg.flags
-(or connector->display_info.bus_flags) directly into
-tcrtc_state->bus_flags without normalizing unset polarity flags or
-stripping non-polarity flags, while dispc_vp_prepare() programs
-DISPC_VP_POL_FREQ by defaulting unset polarity bits to 0:
-
-drivers/gpu/drm/tidss/tidss_dispc.c:dispc_vp_prepare() {
-    ...
-	ieo =3D !!(tstate->bus_flags & DRM_BUS_FLAG_DE_LOW);
-
-	ipc =3D !!(tstate->bus_flags & DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE);
-
-	/* always use the 'rf' setting */
-	onoff =3D true;
-
-	rf =3D !!(tstate->bus_flags & DRM_BUS_FLAG_SYNC_DRIVE_POSEDGE);
-    ...
-}
-
-Because dispc_vp_get_bus_flags() unconditionally sets all three polarity
-flags and cannot recover non-polarity flags (such as
-DRM_BUS_FLAG_DATA_MSB_TO_LSB from panel-lvds, or an omitted polarity flag
-on panels like rocktech,rk101ii01d-ct), post-commit state readout
-verification in tidss_crtc_compare_state() and
-drm_atomic_helper_bridge_compare_state() will report a bus_flags mismatch
-on every commit for those pipelines.
+tidss_runtime_get() wraps pm_runtime_resume_and_get(), which drops the
+runtime PM reference when it returns a negative error code.  If resume
+fails, continuing will read DISPC registers while the device is suspended
+and then unconditionally call tidss_runtime_put(tidss) on exit,
+underflowing the runtime PM usage counter.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-drm-state-=
-readout-v10-0-0259582d45a8@kernel.org?part=3D26
+readout-v10-0-0259582d45a8@kernel.org?part=3D27
