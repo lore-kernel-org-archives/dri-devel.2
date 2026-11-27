@@ -2,43 +2,43 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C2C606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:59:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA9B1606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:01:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=ceHnuKyn
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Vg5fqktp
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 8C0B111284A;
-	Fri, 27 Nov 2026 10:59:24 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id DEEC9112A1B;
+	Fri, 27 Nov 2026 11:01:34 +0000 (UTC)
 Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C906111284A
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:59:18 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B615E112A1B
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:01:28 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 80A8B40846;
- Fri, 27 Nov 2026 10:59:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDEFC1F000C1;
- Fri, 27 Nov 2026 10:59:17 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 72AF145156;
+ Fri, 27 Nov 2026 11:01:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3CDB1F00893;
+ Fri, 27 Nov 2026 11:01:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795777158;
- bh=rjfHqJlYTe0ioCy7egr/57Kmw5/Ei4oflfwEw7r+Zi0=;
+ s=k20260515; t=1795777287;
+ bh=ls+mD37Fvz8kUkk2nVrOCb7VfeFHNrWvnBgF4D55lcg=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=ceHnuKyn6qJBY8guf7U2epp0A+9zbXn3n2G4GBOA6jjrIIBwj3/bMCBaMC+/5BiEz
- hlNcoE1yY2vNfXFoqlPSMjUHVqkHh65r5SP1GDXFyNV6VLmX4+/rFheXeU9uivamw8
- Kw3hPU0GnvrWEvMfzbjpdFuUnNM/p1SoSFV5A+MzGIPnCZvIkeBZpEXQMjxOEh+xqe
- ay1lOHHbFb4vT8st+cWfj4yXurDenB0G/Kx+cJv1BfBK8ShsBShx8cYfzkeP7GaOOc
- fHLZ5xb7C8SpmtL04/xt1IhFPDhGni0eenGdHygMkX7Ayyh8LMLzMWPTbDDaWkvRqm
- ZvNUt3XfJi/ew==
-Message-ID: <sashiko-outbox-237194@kernel.org>
+ b=Vg5fqktp1Z31CMthKaGZlcDLb+3P0HRRKNgGUv6H6ijzF8zowTTFsNL6jxHAJBScI
+ OuXWpZ5Yg+CV2k94tyitljTNRQuYWfJXTAT1fyBFQ3hZX8039nCBsJ/WSiLBuDGkrJ
+ ghY0iXtpHkTbAOFYdtKdyOEdl8tmDTUJ4YRKAhlb3d96HJMyyWGlMyHxMlGLepO/5H
+ QJOYVfBMfhpQ/H9KRNaz3xqkMmcsuzl4fiY3DnFnO+v6L0sniy1tIfaJWMgPTRrrKN
+ XTlFvrohv6bi7bddEfCqEKDXe2YjQtPc2zrfc4WnFeyac1ZJLuXFsGjxXXMIzwSg65
+ GCqZIRheaLp0w==
+Message-ID: <sashiko-outbox-237202@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/10] drm/msm/dp: fix HPD plugged, AUX gate, and
- runtime PM tracking
+Subject: Re: [PATCH v2 08/10] drm/msm/dp: keep PHY initialized while plugged
+ across link unprepare
 To: "Gianfranco Mariotti" <gianfranco.mariotti94@gmail.com>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127101417.24303-8-gianfranco.mariotti94@gmail.com>
+In-Reply-To: <20261127101417.24303-9-gianfranco.mariotti94@gmail.com>
 References: <20261127101417.24303-1-gianfranco.mariotti94@gmail.com>
- <20261127101417.24303-8-gianfranco.mariotti94@gmail.com>
+ <20261127101417.24303-9-gianfranco.mariotti94@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:59:17 +0000
+Date: Fri, 27 Nov 2026 11:01:27 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,151 +61,125 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential
 issues to consider:
-- [High] drm/msm/dp: early return in msm_dp_hpd_plug_handle() skips
-  branch sink init
-- [Medium] drm/msm/dp: stale sink_count in
-  msm_dp_display_is_dongle_plugged() on unplug
+- [High] drm/msm/dp: unbalanced link and PHY teardown when atomic_enable
+  fails
+- [High] drm/msm/dp: race on power_on in msm_dp_hpd_unplug_handle()
+  exits powered PHY
 --
 
-commit f7be63be5e39d6eb47128f66765be92b0a077052
+commit 0a488765100dee43f3575efbfcd59d2d2be4bb48
 Author: Gianfranco Mariotti <gianfranco.mariotti94@gmail.com>
 
-drm/msm/dp: fix HPD plugged, AUX gate, and runtime PM tracking
+drm/msm/dp: keep PHY initialized while plugged across link unprepare
 
-This commit updates hotplug, connector detection, and link preparation in t=
-he
-MSM DP driver to balance dp->plugged state, AUX transfer enablement, and
-runtime PM reference counting.
+This commit keeps the DP PHY initialized across link unprepare while a sink
+remains plugged in, exits the PHY on unplug when power_on is false, and
+balances PHY exit and init across runtime PM suspend and resume.
 
 > diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp=
 /dp_display.c
-> index 7831dd13b0674..a48f42a173657 100644
+> index a48f42a173657..d3f4b5a9e723f 100644
 > --- a/drivers/gpu/drm/msm/dp/dp_display.c
 > +++ b/drivers/gpu/drm/msm/dp/dp_display.c
-> @@ -408,8 +408,9 @@ static int msm_dp_display_handle_irq_hpd(struct msm_d=
-p_display_private *dp)
+> @@ -483,8 +483,7 @@ static int msm_dp_hpd_unplug_handle(struct msm_dp_dis=
+play_private *dp)
+>  	if (!dp->msm_dp_display.is_edp)
+>  		drm_edid_connector_update(dp->msm_dp_display.connector, NULL);
 > =20
->  static int msm_dp_hpd_plug_handle(struct msm_dp_display_private *dp)
->  {
-> -	int ret;
->  	struct platform_device *pdev =3D dp->msm_dp_display.pdev;
-> +	bool phy_deinit;
-> +	int ret;
+> -	/* triggered by irq_hdp with sink_count =3D 0 */
+> -	if (dp->link->sink_count =3D=3D 0)
+> +	if (!dp->msm_dp_display.power_on)
+>  		msm_dp_display_host_phy_exit(dp);
 > =20
->  	drm_dbg_dp(dp->drm_dev, "Before, type=3D%d sink_count=3D%d\n",
->  			dp->msm_dp_display.connector_type,
-> @@ -417,6 +418,9 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
-ay_private *dp)
-> =20
->  	guard(mutex)(&dp->plugged_lock);
-> =20
-> +	if (dp->plugged)
-> +		return 0;
-> +
->  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
->  	if (ret) {
->  		DRM_ERROR("failed to pm_runtime_resume\n");
-> @@ -425,9 +429,16 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_disp=
-lay_private *dp)
-> =20
->  	msm_dp_aux_enable_xfers(dp->aux, true);
-> =20
-> -	msm_dp_display_host_phy_init(dp);
-> +	phy_deinit =3D msm_dp_display_host_phy_init(dp);
-> =20
->  	ret =3D msm_dp_display_process_hpd_high(dp);
-> +	if (ret && ret !=3D -ENOTCONN) {
-> +		msm_dp_aux_enable_xfers(dp->aux, false);
-> +		if (phy_deinit)
-> +			msm_dp_display_host_phy_exit(dp);
-> +		pm_runtime_put(&pdev->dev);
-> +		return ret;
-> +	}
-> =20
->  	drm_dbg_dp(dp->drm_dev, "After, type=3D%d sink_count=3D%d\n",
->  			dp->msm_dp_display.connector_type,
-> @@ -435,8 +446,8 @@ static int msm_dp_hpd_plug_handle(struct msm_dp_displ=
-ay_private *dp)
-> =20
->  	dp->plugged =3D true;
-> =20
-> -	return ret;
-> -};
-> +	return 0;
-> +}
+>  	dp->link->has_sink_count =3D false;
 
 [Severity: High]
-Does the early return when dp->plugged is true skip downstream sink
-initialization when a monitor is later plugged into an already-attached emp=
-ty
-branch device?
+Can an unplug during modeset enable cause msm_dp_hpd_unplug_handle() to exit
+the PHY while it is powered on and msm_dp_ctrl_on_stream() is running?
 
-When an empty branch dongle is connected first, msm_dp_panel_read_link_caps=
-()
-sets dp->link->sink_count =3D 0 and returns -ENOTCONN before reading EDID, =
-and
-msm_dp_hpd_plug_handle() sets dp->plugged =3D true.  When a downstream moni=
-tor
-is connected afterward and msm_dp_bridge_hpd_notify() calls
-msm_dp_hpd_plug_handle() (for example on external Type-C HPD where
-hpd_link_status is ISR_DISCONNECTED, or via drm_bridge_connector_detect()),
-msm_dp_hpd_plug_handle() returns early without running
-msm_dp_display_process_hpd_high().  Because msm_dp_bridge_detect() only rea=
-ds
-DP_SINK_COUNT into a local variable, dp->link->sink_count stays 0, EDID is
-never read, and msm_dp_display_prepare_link() fails with -ENOTCONN.
+msm_dp_display_prepare_link() powers on the PHY and enables link clocks
+under dp->plugged_lock, then drops the lock while msm_dp_display->power_on
+is still false.  msm_dp_display_enable() then runs msm_dp_ctrl_on_stream()
+and sets power_on =3D true without holding dp->plugged_lock:
+
+CPU0                                  CPU1
+msm_dp_display_atomic_enable()
+  msm_dp_display_prepare_link()
+    lock(&dp->plugged_lock)
+    msm_dp_ctrl_on_link()
+      phy_power_on(phy)
+    unlock(&dp->plugged_lock)
+                                      msm_dp_hpd_unplug_handle()
+                                        lock(&dp->plugged_lock)
+                                        if (!dp->msm_dp_display.power_on)
+                                          msm_dp_display_host_phy_exit(dp)
+                                            ...
+                                            phy_exit(phy)  <-- PHY is power=
+ed on
+  msm_dp_display_enable()
+    msm_dp_ctrl_on_stream()
+    msm_dp_display->power_on =3D true
+
+This resets the PHY/PLL and calls phy_exit() while phy->power_count is 1 and
+msm_dp_ctrl_on_stream() is accessing link and stream registers clocked by
+the PHY PLL.
 
 [ ... ]
 
-> @@ -1598,6 +1603,22 @@ void msm_dp_bridge_hpd_disable(struct drm_bridge *=
-bridge)
->  	pm_runtime_put_sync(&msm_dp_display->pdev->dev);
->  }
+> @@ -1533,19 +1534,21 @@ static void msm_dp_display_unprepare(struct msm_d=
+p_display_private *dp)
+>  {
+>  	struct msm_dp *msm_dp_display =3D &dp->msm_dp_display;
 > =20
-> +static bool msm_dp_display_is_dongle_plugged(struct msm_dp_display_priva=
-te *dp,
-> +					     u32 hpd_link_status)
-> +{
-> +	u8 rev;
-> +
-> +	guard(mutex)(&dp->plugged_lock);
-> +
-> +	if (!dp->plugged || !dp->link->has_sink_count || dp->link->sink_count)
-> +		return false;
-> +
-> +	if (hpd_link_status !=3D ISR_DISCONNECTED)
-> +		return true;
-> +
-> +	return !drm_dp_dpcd_read_byte(dp->aux, DP_DPCD_REV, &rev);
-> +}
-> +
->  void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
->  			      struct drm_connector *connector,
->  			      enum drm_connector_status status)
-> @@ -1626,7 +1647,7 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *br=
-idge,
->  		} else {
->  			msm_dp_hpd_plug_handle(dp);
->  		}
-> -	} else {
-> +	} else if (!msm_dp_display_is_dongle_plugged(dp, hpd_link_status)) {
->  		msm_dp_hpd_unplug_handle(dp);
->  	}
+> -	/* dongle is still connected but sinks are disconnected */
+> -	if (dp->link->sink_count =3D=3D 0)
+> -		msm_dp_link_psm_config(dp->link, &dp->panel->link_info, true);
+> +	scoped_guard(mutex, &dp->plugged_lock) {
+> +		/* dongle is still connected but sinks are disconnected */
+> +		if (dp->link->sink_count =3D=3D 0 && dp->plugged)
+> +			msm_dp_link_psm_config(dp->link, &dp->panel->link_info,
+> +					       true);
+> =20
+> -	msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
+> +		msm_dp_ctrl_off_link(dp->ctrl, dp->panel);
+> =20
+> -	if (dp->link->sink_count =3D=3D 0)
+> -		/* re-init the PHY so that we can listen to Dongle disconnect */
+> -		msm_dp_ctrl_reinit_phy(dp->ctrl);
+> -	else
+> +		/* Keep PHY initialized for AUX and IRQ_HPD while a sink remains plugg=
+ed */
+>  		msm_dp_display_host_phy_exit(dp);
+> +		if (dp->plugged)
+> +			msm_dp_display_host_phy_init(dp);
+> =20
+> -	msm_dp_display->power_on =3D false;
+> +		msm_dp_display->power_on =3D false;
+> +	}
 
-[Severity: Medium]
-Can msm_dp_display_is_dongle_plugged() see a stale non-zero
-dp->link->sink_count when a downstream monitor is unplugged from an attached
-branch dongle?
+[Severity: High]
+What happens in msm_dp_display_atomic_post_disable() when an earlier
+msm_dp_display_atomic_enable() failed and left msm_dp_display->power_on
+false?
 
-When a downstream monitor is disconnected and detection runs through
-drm_bridge_connector_detect() -> msm_dp_bridge_detect() without a prior
-native IRQ_HPD pulse updating dp->link->sink_count, msm_dp_bridge_detect()
-reads DP_SINK_COUNT =3D=3D 0 into a local variable and returns
-connector_status_disconnected while dp->link->sink_count remains >=3D 1.
-msm_dp_display_is_dongle_plugged() then returns false and
-msm_dp_bridge_hpd_notify() calls msm_dp_hpd_unplug_handle(), tearing down
-dp->plugged, AUX transfers, and runtime PM for the still-attached dongle.
+If msm_dp_display_prepare_link() fails (returning -ENOTCONN or failing link
+training in msm_dp_ctrl_on_link(), where msm_dp_ctrl_deinitialize_mainlink()
+already disables link clocks and calls phy_power_off()), a later
+msm_dp_display_atomic_post_disable() still calls msm_dp_display_unprepare()
+unconditionally.  Because msm_dp_display_unprepare() does not check
+power_on, msm_dp_ctrl_off_link() accesses REG_DP_MAINLINK_CTRL with link
+clocks off, calls clk_bulk_disable_unprepare() on already-disabled link
+clocks, and calls phy_power_off() when phy->power_count is already 0
+(decrementing it to -1 so subsequent phy_power_on() calls never invoke
+phy->ops->power_on()).
+
+Conversely, if msm_dp_display_prepare_link() succeeds (leaving the PHY
+powered on) and msm_dp_display_enable() fails in msm_dp_ctrl_on_stream(),
+power_on is also false, so an unplug or the eDP msm_dp_hpd_unplug_handle()
+call at the start of msm_dp_display_atomic_post_disable() now sees
+!dp->msm_dp_display.power_on and calls msm_dp_display_host_phy_exit() ->
+phy_exit() before msm_dp_display_unprepare() calls phy_power_off().
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101417.2430=
-3-1-gianfranco.mariotti94@gmail.com?part=3D7
+3-1-gianfranco.mariotti94@gmail.com?part=3D8
