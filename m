@@ -2,43 +2,100 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66633606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:35:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB1D1606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=IYpKPjKD
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=WH5RzY1j
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 83C4810E3EA;
-	Fri, 27 Nov 2026 10:35:36 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 0473010E3EA;
- Fri, 27 Nov 2026 10:35:30 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 29DBC61B56;
- Fri, 27 Nov 2026 10:35:29 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 263DA1F000C1;
- Fri, 27 Nov 2026 10:35:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795775728;
- bh=0xja+0GKMmRheGErI9HJTUJPSU5i3DYem3CYHf5b/qQ=;
- h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=IYpKPjKDKJI9XAL8rtN0IjCUggUyK+NGi9SjVUQEze8iUjyRzKgJmlV8bJZBD3pd9
- CWOsOWfkBXCrwXkEAm1MmCWJrDiqysULB5rN79kVyzZiBwcrv+QgJiXJt2vQzSmIVN
- mGz2GpvbUmt6EAN9f0j8/9Imta+Ygt5JE0P33yCAFXLCXo4+O3UVwkg3THV4GTXlbA
- rFtgz4X+kIsK3cXXWuj0s02gLEC2ZkbHP2abHejnuqabYZM9kPfpmyYXG+zGDaG6hi
- x5TyDZDMKnycSybENb576GSyBrdLz3gsa2u+E5m78vpIfDgUeLPwBG/ky6j92wb6Da
- DC2kxqJwy3qoA==
-Message-ID: <sashiko-outbox-237143@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [RFC PATCH 7/8] drm/i915: Remove TIMESTAMP bit
-To: "Philipp Stanner" <phasta@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org, media-ci@linuxtv.org
-In-Reply-To: <20261127101812.2706432-9-phasta@kernel.org>
-References: <20261127101812.2706432-2-phasta@kernel.org>
- <20261127101812.2706432-9-phasta@kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 1236410E9F5;
+	Fri, 27 Nov 2026 10:36:28 +0000 (UTC)
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
+ [209.85.128.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id EBC3910E9F5
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:36:21 +0000 (UTC)
+Received: by mail-wm1-f47.google.com with SMTP id
+ 5b1f17b1804b1-4ac95761c85so61658325e9.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 02:36:21 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795775780; x=1796380580; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=iCTbyzZob8FXKeEZRFMgEo/F2TymOMg6sLKTzhBxgFI=;
+ b=WH5RzY1jUkmWeHxnoMlR06YE2Z4gYmS2gqXxHXAzY9r2SeV6hYEaAtEQ4NuzwcOZQJ
+ gAVi+j/FM+85o1dL3AqI+wslvvZkjXVNmCLAvDiEW0Pnmdk83C/aAUNhKUnrvla3AaWw
+ 8wDzJGVA4uccGbp7c4AwubUKSBIFuysgKJIe/odEhQnUkBuk5wV60C1PiL9SPoIPyxmW
+ lt7KqhxxA2w4lngFtxcVokjr2CPbh2xun5Blfq0KE65ZN7MHSB8px4Yih6I5y+CJa5WS
+ mGWRSt82ia+GeKeZngNGXMyIfgvyxkD3IHgjvr4X47mNN3diykSWeYJN4/VmEmW4U02e
+ jnsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795775780; x=1796380580;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=iCTbyzZob8FXKeEZRFMgEo/F2TymOMg6sLKTzhBxgFI=;
+ b=K4cw+Ir2gLsANJNU3yJoJ1k/U+1F2y+NSwg1wutbDtGqV/yfLBR/3pkJD9ogkBO35x
+ epjZ+hRjlLxVWoYbJ3y+FDA3Qdavo1OITRdZY29OUZe5QveO6AnYGJd+R0LRPsqwCGVF
+ 8X3j5qh8l536nz/WYARnApm8R/E2FkKhw/s8jYIR9yc+351JgEsMaLvz0r4jGTOqFVet
+ 5NITBfWiqTp6xnBe53srxYMg8fBpX5oV998pxj4UL/cydLAW5/63uX5E239QBcEYflPp
+ cCT0mBMuIfgqUL6O6gSwVzv4x4vVv36dqliv4kv+dOVefIa1ud6czTP4TnIPdQGje5+R
+ pRog==
+X-Forwarded-Encrypted: i=1;
+ AL+hErG2Jz3RLj8mkMPKhjdvvtxoR0wSLYLHRHCdjjBY8iA2alc/zJbHM4hbLOWwBnWDbMy0xwHOBt/oVjk=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z85K1cCRBiuBYFHk6M/RQSW79Ruw2acXkM5er1qv3ey6huGW/av
+ X7WCHZj6PPKcwObBCP0AOeJSo/GGCodJPVcg145ZJe6ifN4UARn+6Q77
+X-Gm-Gg: AZFdTZc3DMAAVl0uxP6cQtuhP3fPNh5J8gnIZTzBTr9uAPu0Q96AtLe8KToWvfMqsw6
+ YXruyPVC5TVWwxiaP4cJRL9FZOTdvczehdAeqRiPh7Dx+M4gXnqdNZohdGY0oSt+kkxpX3Ty/vs
+ W35Wudzt1q0nPm4JdvZx5MSQYWrhv6X2+3Ced/p0drX6xAKKnRdwF/oxSM1Q9wW6ypIn66AEKaZ
+ EDq0jT1tFMFLKIA3JE5orfyQnrS3QSY99S7vFG0AIWt8pPGiiPxtpnCVLhMWgKXTcm/5mgjhNf5
+ DLQx3lxNcrXjWOz1PyMWZqws+HHx/qnMKTYj3d51D3zzvJ1LYYnjmbgd8AQ/kxGRyVgD7D6/dSg
+ JBVSv0TTZKLmm/BuFHT+1dkcm0XC3rzTKXsVs8HyET7Jp96WxGTcucnhaL2aUpxNcM6ArMT5NR6
+ zRr7XsQQw2fN1oFkfCkScVqI7RcUs9JohdPN0M9c7Gz3biTm/nFkHMOcr/K9O9HpV1cd/0CAGQc
+ x03ftyCx2IfXAP17NSCekGNTrAt5/Q8EdfsVGPACOrNF9TlxCZOyp1IsbBhThqNd27eMQBEoiYU
+ 2AGbItpR2+fNqvXp3MHUcl8xnx6Rw14=
+X-Received: by 2002:a05:600c:8b76:b0:4bb:b796:66f8 with SMTP id
+ 5b1f17b1804b1-4bbb7966874mr14558915e9.21.1795775780152; 
+ Fri, 27 Nov 2026 02:36:20 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb884a3a3dsm670160975e9.10.2026.11.27.02.36.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2026 02:36:19 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 13/43] drm/vkms: Add error handling in plane config
+ creation
+Date: Fri, 27 Nov 2026 11:36:00 +0100
+Message-ID: <awldBcp6Ci4FoQX5@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126-vkms-all-config-v7-13-21194cda2468@bootlin.com>
+References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+ <20261126-vkms-all-config-v7-13-21194cda2468@bootlin.com>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:35:27 +0000
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -49,77 +106,75 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: sashiko-reviews@lists.linux.dev
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue to consider:
-- [Medium] drm/i915: race in __dma_fence_signal__timestamp() leaks
-  cb_list as timestamp
---
-
-commit 2eef29a2b337dc954527ca9b1dc02ace1dc68145
-Author: Philipp Stanner <phasta@kernel.org>
-
-drm/i915: Remove TIMESTAMP bit
-
-This commit removes the set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags)
-call from __dma_fence_signal__timestamp() in the i915 breadcrumb signaler.
-
-> diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/dr=
-m/i915/gt/intel_breadcrumbs.c
-> index c10ac0ab3bfa8..a43d774ba7793 100644
-> --- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> +++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-> @@ -138,7 +138,6 @@ static void
->  __dma_fence_signal__timestamp(struct dma_fence *fence, ktime_t timestamp)
->  {
->  	fence->timestamp =3D timestamp;
-> -	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
->  	trace_dma_fence_signaled(fence);
+On Thu, Nov 26, 2026 at 12:28:56PM +0100, Louis Chauvet wrote:
+> Properly route the error path of vkms_config_create_plane() through a
+> fail label to simplify future work.
+> 
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/vkms/vkms_config.c | 12 +++++++++---
+>  drivers/gpu/drm/vkms/vkms_config.h |  2 +-
+>  2 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+> index 8cd4fe6551fb..c5d90f7e934a 100644
+> --- a/drivers/gpu/drm/vkms/vkms_config.c
+> +++ b/drivers/gpu/drm/vkms/vkms_config.c
+> @@ -421,13 +421,16 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device)
+>  			      ARRAY_SIZE(vkms_config_debugfs_list));
 >  }
+>  
+> -struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
+> +struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config)
+>  {
+>  	struct vkms_config_plane *plane_cfg;
+> +	int ret;
+>  
+>  	plane_cfg = kzalloc_obj(*plane_cfg);
+> -	if (!plane_cfg)
+> -		return ERR_PTR(-ENOMEM);
+> +	if (!plane_cfg) {
+> +		ret = -ENOMEM;
+> +		goto fail;
+> +	}
+>  
+>  	plane_cfg->config = config;
+>  	plane_cfg->default_pipeline = false;
+> @@ -437,6 +440,9 @@ struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config)
+>  	list_add_tail_rcu(&plane_cfg->link, &config->planes);
+>  
+>  	return plane_cfg;
+> +
+> +fail:
+> +	return ERR_PTR(ret);
+>  }
+>  EXPORT_SYMBOL_IF_KUNIT(vkms_config_create_plane);
+>  
+> diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+> index 95e5c3694742..8f038562afd4 100644
+> --- a/drivers/gpu/drm/vkms/vkms_config.h
+> +++ b/drivers/gpu/drm/vkms/vkms_config.h
+> @@ -314,7 +314,7 @@ void vkms_config_register_debugfs(struct vkms_device *vkms_device);
+>   * The new plane configuration or an error. Call vkms_config_destroy_plane() to
+>   * free the returned plane configuration.
+>   */
+> -struct vkms_config_plane *vkms_config_create_plane(struct vkms_config *config);
+> +struct vkms_config_plane __must_check *vkms_config_create_plane(struct vkms_config *config);
+>  
+>  /**
+>   * vkms_config_destroy_plane() - Remove and free a plane configuration
+> 
+> -- 
+> 2.56.0
+> 
 
-[Severity: Medium]
-Can removing DMA_FENCE_FLAG_TIMESTAMP_BIT let dma_fence_timestamp() read
-rq->fence.cb_list.next as the timestamp while the fence is being signaled?
-
-In struct dma_fence, cb_list and timestamp share an anonymous union.
-Unlike dma_fence_signal_timestamp_locked(), i915 splits signaling across an
-unlocked window: __dma_fence_signal() sets DMA_FENCE_FLAG_SIGNALED_BIT
-without holding rq->lock, and signal_irq_work() only takes rq->lock later
-to detach cb_list and write fence->timestamp:
-
-CPU0                                  CPU1
-irq_signal_request()
-  __dma_fence_signal(&rq->fence)
-    test_and_set_bit(SIGNALED_BIT)
-  irq_work_queue(&b->irq_work)
-                                      sync_file_ioctl(SYNC_IOC_FILE_INFO)
-                                        ...
-                                          dma_fence_timestamp(&rq->fence)
-                                            spin_lock(&rq->lock)
-                                            test_bit(SIGNALED_BIT) -> true
-                                            *ts =3D fence->timestamp
-                                              <-- reads cb_list.next
-                                            spin_unlock(&rq->lock)
-signal_irq_work()
-  spin_lock(&rq->lock)
-  list_replace(&rq->fence.cb_list, ...)
-  __dma_fence_signal__timestamp()
-    fence->timestamp =3D timestamp
-  spin_unlock(&rq->lock)
-
-Waiters polling an i915 out-fence with SYNC_IOC_FILE_INFO or merging fences
-during that window will receive a raw kernel pointer from cb_list.next as
-the timestamp instead of waiting or getting a valid ktime_t.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127101812.2706=
-432-2-phasta@kernel.org?part=3D7
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
