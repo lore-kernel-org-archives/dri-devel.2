@@ -2,70 +2,69 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECACB606A31F
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 17:15:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12561606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 17:24:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.a=rsa-sha256 header.s=20260707 header.b=XNr/JylU
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=W870dAHW
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0FE4C112C57;
-	Fri, 27 Nov 2026 17:15:42 +0000 (UTC)
-Received: from mail-wm1-f69.google.com (mail-wm1-f69.google.com
- [209.85.128.69])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E63A112C57
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 17:15:35 +0000 (UTC)
-Received: by mail-wm1-f69.google.com with SMTP id
- 5b1f17b1804b1-4ad3d35e899so68170885e9.1
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:15:35 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=google.com; s=20260707; t=1795799733; x=1796404533;
- darn=lists.freedesktop.org; 
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=/UfmuLP06BAHAycCguSoDWMAlj8HmLnc5qWwAUzsshs=;
- b=XNr/JylUap7XfLOAUHAGGLSn6HUZ2hSLNU7/YRzjCyw6bUePaLOvt5sFQAUOUlg/uu
- mCTq/7SDAl9mkCX7UXvQnZkex6jQoB6f/E2NwhNRol1lhabpe8LhhYriCEOztaMPcpNz
- glxizYInOZnxRqlVdfuaZ9eYqbpUs9xsSy93RIsjAdkSgZc/InP/XIuzG/RbqprhEi3m
- mtn4ZhzZl1kpYna70FpiGBQk+moCxtR2HIvvgZlbGKYXkm8RabWsCEQqnfPGC34vbr4D
- 7G4QOQ4CkD+SqLlT2fiddxeWSmdL/2ViSBFNIHnDBXrDn1brjVvMSwNcD/lzW+7V5oeD
- wQlA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795799733; x=1796404533;
- h=content-type:cc:to:from:subject:message-id:references:mime-version
- :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=/UfmuLP06BAHAycCguSoDWMAlj8HmLnc5qWwAUzsshs=;
- b=DGHXFbM1FOAagxSGOwnNYNM9BruTSYpfpEgnXE2k9ZRVoFBm5Ik3KvpuPgZfgIq/qT
- bkk2UZGSrCdR7oDpx6rkHXZyPEh30J+K5xhAVq45iK4+VQCe/VAquqpAnMKZqWujZLcp
- i1NyGPivLHde9qFFIPucPqW0TS8h2C5/XtdW/8ms0ZpKI+Z2yqHLwNjv0P9KucAmF/Om
- Jg7bLNvm8UiZD/EMchBWT3/d+rYYAKpLayz4VHULkkvTgjXKq9znjLNk3cSaA3h7YCLD
- Y3bKfPmGUtHr8tYCjLGBM4xx8yBn/1jtf/cXXLZKaMJ4UiNBWWi8t7Y0b5Q28Entky/3
- +kYw==
-X-Forwarded-Encrypted: i=1;
- AL+hErHtDLZdCSzzjl1e0hHojFxndhw7Ng0wLv+YOOIdFhYPu4GqdOvyXk3eBN00WpENYrYuywrkux/Q6ok=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/q3VHbhZJRjoEU5RR3Ayg3+NEl2jSQZ9tODlan/QjqpjqnJVBg
- VBOoHEgmabJX0RLDF+OWXM8iielMekMVlwts5nICiyF1P1iT4BIFndCZjxRX+NO8ntL2HNGC9Qt
- CL6DEcGST+RSAgDjA/Q==
-X-Received: from wmaw11.prod.google.com ([2002:a05:600c:6d4b:b0:4ae:7292:22a7])
- (user=aliceryhl job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:600d:18:b0:4bb:abe2:bbce with SMTP id
- 5b1f17b1804b1-4bbabe2bcc5mr96165705e9.29.1795799733462; 
- Fri, 27 Nov 2026 09:15:33 -0800 (PST)
-Date: Fri, 27 Nov 2026 17:15:32 +0000
-In-Reply-To: <20261127124107.1782-1-AeeSec@126.com>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6178D112C4C;
+	Fri, 27 Nov 2026 17:24:30 +0000 (UTC)
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 69020112C61
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 17:24:24 +0000 (UTC)
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+ by smtpout-02.galae.net (Postfix) with ESMTPS id 63D5B1A0645;
+ Fri, 27 Nov 2026 17:24:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+ by smtpout-01.galae.net (Postfix) with ESMTPS id 29E426049C;
+ Fri, 27 Nov 2026 17:24:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
+ with ESMTPSA id 3689511E90CD5; Fri, 27 Nov 2026 18:24:02 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+ t=1795800256; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ content-transfer-encoding:in-reply-to:references;
+ bh=RHZ/QH5LnoISU6GeZCjgA0RZWJvhgjCLYDlmnSC1S/U=;
+ b=W870dAHWC1yqL23kPODML9ob6EDrRfjB9CimjwkTP5dHp4PtRekPhyK3ttr37+zDzNKg+M
+ vDDlszyZx0N0fcPAaMPMEV4Imq+XA/QDRN8TrjRErNoE/ED9NkIhqn2TmEbHCY5Gr+DBpL
+ gRHQUxHOAAylmTCifAgJETn819LYv2pu8e1X4JeKR2ExhNiM8H0RJiUSv4s3TJdEl0HkqU
+ uTciaRI8m9sNFZ/IRJ8ml/pDxq2d8e/Q6TSmZpvS6hjTyyc6kpgicB9VVS52apbDT2OT3+
+ StsObVSr+ANdF+V2zV+I0z1Tnfvj3zZKS5WuMiR32y+jTVFIq+M8sOU7Mf62+Q==
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-References: <20261127124107.1782-1-AeeSec@126.com>
-X-Mailer: git-send-email 2.56.1.839.g22a8290db9-goog
-Message-ID: <20261127171532.2097157-1-aliceryhl@google.com>
-Subject: Re: [PATCH] drm/tyr: fw: fix integer overflow and inverted range
- check in Cursor
-From: Alice Ryhl <aliceryhl@google.com>
-To: Bilal Hashim <AeeSec@126.com>
-Cc: Alice Ryhl <aliceryhl@google.com>,
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Danilo Krummrich <dakr@kernel.org>, dri-devel@lists.freedesktop.org, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 1/2] drm/bridge: nwl-dsi: Move DSI host disablement to
+ ->atomic_post_disable()
+From: Luca Ceresoli <luca.ceresoli@bootlin.com>
+To: Stefan Ghetu <stefan.ghetu@nxp.com>
+Cc: dri-devel@lists.freedesktop.org, linux-arm-kernel@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+ devicetree@vger.kernel.org, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+ Andrzej Hajda <andrzej.hajda@intel.com>, Conor Dooley <conor+dt@kernel.org>, 
+ David Airlie <airlied@gmail.com>, Fabio Estevam <festevam@gmail.com>, 
+ =?utf-8?q?Guido_G=C3=BCnther?= <agx@sigxcpu.org>, 
+ Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, Jonas Karlman <jonas@kwiboo.se>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+ Maxime Ripard <mripard@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Philippe Cornu <philippe.cornu@foss.st.com>, 
+ Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>, 
+ Robert Chiras <robert.chiras@nxp.com>, Robert Foss <rfoss@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Sam Ravnborg <sam@ravnborg.org>, 
+ Simona Vetter <simona@ffwll.ch>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ Yannick Fertre <yannick.fertre@foss.st.com>, Liu Ying <victor.liu@nxp.com>
+In-Reply-To: <20261125075455.772826-2-stefan.ghetu@nxp.com>
+References: <20261125075455.772826-1-stefan.ghetu@nxp.com>
+ <20261125075455.772826-2-stefan.ghetu@nxp.com>
+Date: Fri, 27 Nov 2026 18:23:58 +0100
+Message-Id: <179580023804.1981164.5694161848427155266.b4-review@b4>
+X-Mailer: b4 0.16.0
+X-Last-TLS-Session-Version: TLSv1.3
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,44 +76,70 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-21.3 required=3.0 tests=BAYES_00,DKIMWL_WL_MED,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT,USER_IN_DEF_DKIM_WL autolearn=unavailable
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
+	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Fri, Nov 27, 2026 at 08:41:07PM +0800, Bilal Hashim wrote:
-> In drivers/gpu/drm/tyr/fw/parser.rs, the firmware binary parser `Cursor`
-> has two bounds-checking bugs that can panic the kernel on malformed
-> firmware images:
+Hello Stefan,
 
-Note that neither of these can actually trigger a panic on malformed firmware
-images today. `Cursor` is private to `parser.rs`, and its callers already
-guarantee these conditions:
+> Some MIPI DSI panels, like the Raydium RM68200, send DCS commands such
+> as MIPI_DCS_SET_DISPLAY_OFF and MIPI_DCS_ENTER_SLEEP_MODE from their
+> drm_panel_funcs::unprepare() callback. For those commands to reach the
+> panel, the DSI host controller and its PHY must still be running.
+>
+> The panel bridge calls drm_panel_unprepare() from its post_disable
+> hook, while nwl-dsi currently shuts down the controller, the PHY and
+> the clocks from ->atomic_disable(). Since all ->atomic_disable() hooks
+> in a bridge chain run before any ->atomic_post_disable() hook, the DSI
+> link is already down by the time the panel tries to talk to it.
+>
+> Move the disablement to ->atomic_post_disable(), so that a downstream
+> panel bridge that sets pre_enable_prev_first gets a chance to send its
+> shutdown commands first. The enable side is unaffected: the controller
+> is brought out of reset in ->mode_set(), which runs before any
+> pre_enable hook.
+>
+> Fixes: 44cfc6233447 ("drm/bridge: Add NWL MIPI DSI host controller support")
+> Signed-off-by: Liu Ying <victor.liu@nxp.com>
+> Signed-off-by: Stefan Ghetu <stefan.ghetu@nxp.com>
+>
+> diff --git a/drivers/gpu/drm/bridge/nwl-dsi.c b/drivers/gpu/drm/bridge/nwl-dsi.c
+> index 1aab46e1a168..2b1af6d1d58b 100644
+> --- a/drivers/gpu/drm/bridge/nwl-dsi.c
+> +++ b/drivers/gpu/drm/bridge/nwl-dsi.c
+> @@ -738,8 +738,8 @@ static int nwl_dsi_disable(struct nwl_dsi *dsi)
+>  	return 0;
+>  }
+>
+> -static void nwl_dsi_bridge_atomic_disable(struct drm_bridge *bridge,
+> -					  struct drm_atomic_commit *state)
+> +static void nwl_dsi_bridge_atomic_post_disable(struct drm_bridge *bridge,
+> +					       struct drm_atomic_commit *state)
+>  {
+>  	struct nwl_dsi *dsi = bridge_to_dsi(bridge);
+>  	int ret;
+> @@ -968,7 +968,7 @@ static const struct drm_bridge_funcs nwl_dsi_bridge_funcs = {
+>  	.atomic_create_state		= drm_atomic_helper_bridge_create_state,
+>  	.atomic_check		= nwl_dsi_bridge_atomic_check,
+>  	.atomic_enable		= nwl_dsi_bridge_atomic_enable,
+> -	.atomic_disable		= nwl_dsi_bridge_atomic_disable,
+> +	.atomic_post_disable	= nwl_dsi_bridge_atomic_post_disable,
 
-- `view()` is only called in `parse_entry()`, which already checks
-  `entry_size >= size_of::<EntryHeader>()` and computes
-  `entry_end = entry_start.checked_add(entry_size)?`, so
-  `self.cursor.pos() <= entry_end` always holds.
-- `read()` is only called with `nbytes` in `{1, 2, 4}`, and `advance()` is
-  only called with `section_hdr_size <= 248` (since `EntryHeader::size()` is
-  an 8-bit field). Because `self.pos <= self.data.len() <= isize::MAX as
-  usize`, `self.pos + nbytes` cannot overflow `usize` even on 32-bit systems.
+Looks OK to me, and I don't think it's going to break.
 
-Hardening `Cursor` so its bounds checks are self-contained is still nice to
-have, so please reword the commit message to describe this as defensive
-hardening rather than fixing a reachable kernel panic (and no `Fixes:` tag
-is needed).
+However it would be good to have testing on other platforms, so I'd wait a
+moment before applying, in case someone has a change to test.
 
-> @@ -144,7 +144,7 @@ impl<'a> Cursor<'a> {
->      ///
->      /// Returns an error if the advance would exceed the data bounds.
->      fn advance(&mut self, nbytes: usize) -> Result {
-> -        if self.pos + nbytes > self.data.len() {
-> +        let Some(end) = self.pos.checked_add(nbytes).filter(|&e| e <= self.data.len()) else {
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-This line fails `rustfmt --check` (please run `make LLVM=1 rustfmt`).
+Luca
 
-Alice
+-- 
+Luca Ceresoli, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
