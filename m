@@ -2,144 +2,135 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D239606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 04:59:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53EFA606A33A
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 05:02:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=BUEnskkz;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=h2MU32qw
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=jAzOV/4B
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0ED8910E348;
-	Fri, 27 Nov 2026 04:58:50 +0000 (UTC)
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
- [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 90A0110E348
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:58:38 +0000 (UTC)
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AQJw8km781864
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:58:37 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- 4JR4pQFfNiYIOOdiiGpAjc21yV4RSSVFN7iI72ZS3r8=; b=BUEnskkzvBDazavk
- 7KHeSowFViWKLUZ5dgeOI3qjqhHp8oLy+qrLkAS6B1MktiA1VanIDymJKU2lyEnf
- +eGIkXnDokyqAvO4OIHWxJhbBwh0ktJodqpPAseFJa6OA+GVpOdEgq0g1we39VGu
- z8o6OwHp2k+7CORCauydVhlISrPzg1ZGunzcusmjX1A5tyjtu01+95tmMGsJy7oc
- k0iae/EpdP+XD50qw57AlnDPUeh40OL5GYNTEc2ypKPoyUsF7+BsvpJ9UbGbE2m0
- FPrThvu8JAHr1FoCvN3jl2EQ/fZyHUJRVU8AUatCRQI/fYRh01GmM0tIM2Dt5uE8
- obGZsQ==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6hm83bex-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:58:37 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id
- a92af1059eb24-1b56c696405so11538434c88.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 20:58:37 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795755516; x=1796360316;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=4JR4pQFfNiYIOOdiiGpAjc21yV4RSSVFN7iI72ZS3r8=;
- b=h2MU32qwqky9XdihvLEgLFh4VCQlvude6UeBQFk5HwhxPfvFpFkhNpqeuf8P+9e3Vc
- zQUK/3UmoqxX1huFnfMdj0TmjQL4ymtn3QDPWjbOT8M+470VOt+g/QbDjStFnA7HilUM
- 0C71ZTa9PL2NbhmtAU9tfCusBfZWoXD1VyMfb5msVGtwfkKZk4mSpQCMFlvyv+388Lx4
- HJyKPRL12TmZ+xvnrORqCkqkgzOTt8HisjSdQenf8hB23oKaZtviTpXD5WS0MC87LoQh
- h3EfVUv9K7pgd2GZs4zHpwzlOvG2J7i2ORZ5AGfvMhyTkLQuFqd31kkdO0n8ojbeaBlq
- 4B0g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795755516; x=1796360316;
- h=content-transfer-encoding:content-type:in-reply-to:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=4JR4pQFfNiYIOOdiiGpAjc21yV4RSSVFN7iI72ZS3r8=;
- b=pWIs+77Yb6Q6XiUEjgGRmspyDYyQabqAE93NdAwYFVoG1Cg3J6OzUS2PqaoLxOC5Oa
- VIgfDZtWaepcAMPz0UZmYC511DWpwqLmE5yu2hFy58EMFcoTCzEBQZmrh+FbVXaEwZz8
- NGKMwytPrE9fzbtGBePlkGxvlfR4pO5Da1cDPZu+BXZT6sfn7UajpDICoWPY9j7zIEjX
- LVYlXFKRCsBdnRPbR7pz1sEioABXCQ7AMOoayKCPPotDSaoWjcOuKNx/sBV6+zIsScb5
- OsyFlXlD/b+4H3CCDJgtStieAIh926bTrxJ2ilk6j+AJmYl7MzacmOhwQgyhGdlGmxJp
- vQ8g==
-X-Gm-Message-State: APuU4Z8evncTy7zfL9cEGuTZsLquob8PBRMSESCK1jzMJ0tRoPCjRIxR
- kTJssgqv/X4wJpU2f/nkXraiSB8nBnRsIaz+7QctvgyeBzOz4T+yClGrPzFitwNP0uSrpgkWwR/
- 1G+Z+e/5VbNxdLg2YpGxGcTEAdlOh/OYPXFYPkDbi5T7o6pkWVpAhCW62mA1VwulSJfUVgcU=
-X-Gm-Gg: AZFdTZf5tCmmtaWCsDad2qDgAq1rnb5kLFTWXifo8CctiVP0VGhMrOHOYHwzZVqUZMs
- 7S9HeNgMnHdJZEugPEKpoGlYxhkRW7yF2SrGmIGb+GNLa9cf4cEKnyJA7N7R2TtR64zkqUg3GC4
- csjKFyqIeeVhnRbdXyMp5tBQHyn9qm3MzmA+wDOPgp5yVk3CB3PUCDH3Kny6DsFUVeUc4f4CN7M
- wGJUIA256BkNafsspo173QhgjhJOQnR6qE3vzNfrQ69AsY97dw0DqqRWuhBva8fhjYcQ+Aqgxw7
- R05JngiFWcYxopwUwg/Gnq5sNzH1tqjTL77sHEP6Di1dZegbyIntsYPTlzdPDaiKRo5cf/FiOeE
- Tb3awapIZvASU5LtPNAarV0hArteHWKig0vqJ6a80qreNzTbCjdSSUcOx3dds72mPnX8sNpw3J2
- BuTRNmesE=
-X-Received: by 2002:a05:701b:450d:20b0:1b2:4378:3545 with SMTP id
- a92af1059eb24-1b5568e825emr25219028c88.21.1795755516400; 
- Thu, 26 Nov 2026 20:58:36 -0800 (PST)
-X-Received: by 2002:a05:701b:450d:20b0:1b2:4378:3545 with SMTP id
- a92af1059eb24-1b5568e825emr25219009c88.21.1795755515892; 
- Thu, 26 Nov 2026 20:58:35 -0800 (PST)
-Received: from [192.168.1.42] ([183.82.131.33])
- by smtp.gmail.com with ESMTPSA id
- a92af1059eb24-1b5567ff27bsm60891790c88.6.2026.11.26.20.58.30
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 26 Nov 2026 20:58:35 -0800 (PST)
-From: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
-X-Google-Original-From: Jayant Shekhar <jshekhar.shekhar@oss.qualcomm.com>
-Message-ID: <1e6971ec-41a1-4195-a46c-d267e1ced071@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 10:28:28 +0530
-X-Archived-By: <archiver.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: panel: Add Novatek NT37802
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>,
- Thomas Zimmermann <tzimmermann@suse.de>,
+	by gabe.freedesktop.org (Postfix) with ESMTP id B52A110E1D9;
+	Fri, 27 Nov 2026 05:01:56 +0000 (UTC)
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010056.outbound.protection.outlook.com [52.101.56.56])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 64CA910E1D9
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 05:01:50 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xSWSjwKUk3sP8F8irgIw+wJk1Y7LhmE9oCPRC883pzOc3QMqf1pppmbo7XC2lIXEVGKCHuz2tnp+/VX4rhmYuiOzA8W5GIoIZiGKj+vexEwYESZanpUIlhop+46JkZ9IRFCXluM9UdL3gzKGKn8Fj2iNFRU6g+ctauQKrQCKAqSL3ltQoBWyNDeRHLhYTr8kz5f9UqOrDwI9alH3VY9d2UIFceJQSuthwoNoBAs7P+3560ZFrBnmJI4/xXCAXdaZoJgb8D0ghsNGqp0YtRXewC+A6jmmBLOOsrZy63RldFdchXDk2OyLDiYS/uyXOacvNC7BYLBORrEOpChC4dLLQw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o/boAQSUqApmk/GkfVOs3gP+uZfLp1k59AqBna71dfY=;
+ b=Ks4FD8KHTkgsOrZuxMI+2ji480HwTcRCTkYeatlpu+WVdDoS2ZuObfUQcOzjYNi4gS7RLDWNKGboM+bnRqUgXktXk5T3ZBjUqC1kpdc3GpAmwlL/ikX0CzK9y5zPAwb3CE6HyviVx+WnMVGuFxvmnkgmN2sLBUzWoCKZvJTyfwKiyQOUsB465blLI6fwd4dCgUaYa5YGFZnwSNLm9ln0nuiRspABwr3PQERhTVd+nyv59Qdc8xKT662odJp1Xy5UW1gPdijANTGq0ZK3kciFFxId2IjMHQmL1DmhgzT0GVisXziDW7X9+63tqGk6kxrqw5oGjwE6E0zMwYo8faJ69g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
+ dkim=pass header.d=nvidia.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o/boAQSUqApmk/GkfVOs3gP+uZfLp1k59AqBna71dfY=;
+ b=jAzOV/4BH3ZG7W/auvSGNBNSL+mhItFX8f0czEIwyd36u53PEPrldZUmZhSR8RnvhxlKLULajfe4USr4B4cXlDBxaM2vmc8O5zH35960Lti7j2/JhnceFPLq2RPGr4KtF8gBtiSAXrxeLLcU9HRSCgjhfVGi3q3/GV7HHX+owKgFiZHNOp3Pf/FOrlj/GXe2JgMjL8YOmQafSEaP0E/hnioKQ6/395vvJT5yxUlbClwF2mCVsLJUeAkMTfJuDHoX1rB53hmr6tyEI8Y499hbNKTEVddAaXTVJ7+81vf+DAWtFEVHBBtmidhORG8hQpBm82Nd6erQfUyNveUdbwNbGA==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nvidia.com;
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
+ by PH0PR12MB8098.namprd12.prod.outlook.com (2603:10b6:510:29a::17)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Fri, 27 Nov
+ 2026 05:01:45 +0000
+Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
+ ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 05:01:45 +0000
+From: Mikko Perttunen <mperttunen@nvidia.com>
+To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
  David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>,
- Jayant Shekhar <jshekhar@oss.qualcomm.com>
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>,
+ Svyatoslav Ryhel <clamor95@gmail.com>, devicetree@vger.kernel.org
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261109-jshekhar-nt37802-v2-0-a8e9efdcabd7@oss.qualcomm.com>
- <20261109-jshekhar-nt37802-v2-1-a8e9efdcabd7@oss.qualcomm.com>
- <9b05fd08-7bfc-462b-81b8-a560350f4235@kernel.org>
- <c19f662d-8d04-47c9-a458-838e46521f2d@oss.qualcomm.com>
- <6f256993-24e5-457e-bcba-7bad2defc9ee@kernel.org>
-Content-Language: en-US
-In-Reply-To: <6f256993-24e5-457e-bcba-7bad2defc9ee@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: clFIFV0vLtnN0GNNC7ClpImIWYvH9lXM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAxOSBTYWx0ZWRfX5Jq8zafYOwK0
- SZm1weYcElw6hasHS+xjZrnN/xvEfUYbMfzOQb6p5RlIYgLYZLLUFOogzi1Nx6LM2v9yqhXuyWE
- +MBHWmQoe2XH7bJGkd6meDJZaubBBW8=
-X-Proofpoint-GUID: clFIFV0vLtnN0GNNC7ClpImIWYvH9lXM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAxOSBTYWx0ZWRfX4rgnW4X30iui
- WEXhn7OXB5+hkiny6D4rtoADAdVLWNb0zBzoxXlyDu168REwEFCusaSiBTPtyXkW4JKzcfvy5Xs
- m4dX/hEM+23pvkKvpHuTDEiKO6T7bsaVxRps9T1rqcVmzNYZxLGM41nWfEtaL3c3jwlrFWRGCo7
- IOKCvDaJuJQZetrcJb8vTuaQVxQb5uBmcg7GLP6O5j824trrgv7H60HKJY8Zc3nB2U37jxcMbhS
- +OLfcZYj+M/LuUvv7dDVfPT7eSRk9zYqbDAReFUYUlo0LHItM2h4OsKZQpESgqB+gJGccygFXy0
- OF0W5fysyQGNXlfQodXUKfkknr1jG0hTN08ryXdbLqpTGJGGQqIz/RVnbgoySEMVKqxVO27i+yP
- Dtn+SUkybk3Sp7RWEiH2fC/aoB4ilxjXthhhaLWtYUB/5GZR9Oid1vl4o6RQPH22ZDhSfpCdn8B
- dVaZQW+/CdadgXJPGnA==
-X-Authority-Analysis: v=2.4 cv=O/usLx9W c=1 sm=1 tr=0 ts=6b090dfd cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=i7XPzsavtsL+s9i5bvvXzg==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=iiqVWuNAnhh-rcyhhn8A:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=vr4QvYf-bLy2KjpDp97w:22
- a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-26_05,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 bulkscore=0 adultscore=0 clxscore=1015
- impostorscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270019
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: Re: [PATCH v8 08/12] drm/tegra: output: Make panel parsing
+ configurable
+Date: Fri, 27 Nov 2026 14:01:41 +0900
+Message-ID: <YNjEIJ2qT8OQf1jrgwTBHw@nvidia.com>
+In-Reply-To: <20261122081820.53199-9-clamor95@gmail.com>
+References: <20261122081820.53199-1-clamor95@gmail.com>
+ <20261122081820.53199-9-clamor95@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-ClientProxiedBy: TYCP286CA0199.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:385::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
+ (2603:10b6:a03:566::20)
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH0PR12MB8098:EE_
+X-MS-Office365-Filtering-Correlation-Id: 51c6c8f5-777a-47cb-0675-08df4c4388bc
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|366016|23010399003|7416014|10070799003|376014|1800799024|10067099003|4143699003|261026121527099003|56012099006|921020|11063799006|261009223027099003|261021121427099003|261022075727099003|261028144727099003|261022105027099003|261021123027099003|261102123227099003|261026140227099003|18002099003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: J8Ps3Wdrj9iV7tk8kTaKFpZ8fsFfVv7jkpcTpRJt6D1rT3i3ox68eZGUXR7ziwZE5fhTrKBvu6xmV3czziM6fzYXszXkAoBwSGco+OnZx1R3HRj/+XpwKD/TTe4D0cG7MZPUQmpCGIXKXPacYQqXl+3KtcMTBGbFSYrzdIVcHXab7UFB1vqa9cIKCHjZCw8ZgH256Ah9+6MJZbHuptvMaU0WGhpHz2f1eMUmhYA4rwFt8y4o4fwWFfnD7GLqdkgsNzBCEOD9VKIFKlNy0gGSj1AtUv0KBmQrKEeJzfZboXuIH24JpVzmAkQyQfH2C2wXJGqQ/Q6y0tebYFnJOMN0UlMPMgws0TBIU5UYH9DICSRcxlje+EZ+JXHooFipk8zrPpkdZvpxDP5JMiA4NnEptGmoQInXHtlr/zo4sSYjqMQ6dtHpAoW4iXuHgArDYN7ZhdOOaONt2B47SPiBZaJt+tp0cXBk0GJFmR3AItE643Pf9J1+2SNEfc0zZt/HWhptUke+WLr9H98HfL7YJx1gPYPS6mM18ArLXb1/KBpHbJLri8aOgBw/sqE8qy887cU00bKgwQoFDy2P6rlUXLpywUWI68IpPLit5mqR5t3lyWl4Iw6tG7/UmvxR7igTwFVE7wPGPg78F9Ck/o5gQtVcUk9YNR9Btkfc+oEHP/MUhqcyZhMa9MnafJchjlFgluSxR7I4WPKc5YrHTB8z8qFDRg==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(366016)(23010399003)(7416014)(10070799003)(376014)(1800799024)(10067099003)(4143699003)(261026121527099003)(56012099006)(921020)(11063799006)(261009223027099003)(261021121427099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021123027099003)(261102123227099003)(261026140227099003)(18002099003)(22082099003)(3023799007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K3Q1Sy9uOCtmbXdvVFhPRnppS1RZYWJuNm5mSjBGYkdJN1pzUm92MGl2am9p?=
+ =?utf-8?B?eXhqRmpUa0N2aFJlSzNENUZIaUcwVDBwcXVxVTJtdk9URFZMRWdXNFJvbHIx?=
+ =?utf-8?B?TENoc1FyYnROM1JaV2UzdGRXcU05czRJVlJRVUNWczJuMC9yUlhBR0pwMUJh?=
+ =?utf-8?B?Q0FuNllmaHJZSlk0N081ZDIrZXBOa2NrZVlwNmh1RGJ1MnBWeGFUbGpESGR6?=
+ =?utf-8?B?WGRRdFNYNVd3QXdhdjRST3h6Sk4reWtKMWZKY0pmUEFZcUtlYU1LdkE0YitM?=
+ =?utf-8?B?V3pTb1ZOUlVYRGhZaVM3bFRhcnhNNExqSHZpdlN5KzBpSi9FU3pWeTd5TWM0?=
+ =?utf-8?B?cGxTMmtoRnpEL09RZUlwTGVLQnNBL0czVHFMclY0SkdNZUpGcTIrM050WXhs?=
+ =?utf-8?B?TWJTMUhIQWNoVW1wS2IvWnlxc25URExBQnlzOW5HUlBXOC9SeEgzSXU2VFdv?=
+ =?utf-8?B?ejlMR0JyQ2U2ODFteld5K1ZZK2d2TmxXUGxNSjBsbCtJZWd3ZUp4ek5ucXg4?=
+ =?utf-8?B?QW1ZWURmMzBESnBCejBqZHpiZkd4Z2h4TDdWa3JkSERKUXdXcVlFd1dtV3c0?=
+ =?utf-8?B?Y29RMnhvd0ozKzhPYTAzNHJQTFF6cjN6YklGNjF0QjRaNE9yYy9lT09qa25J?=
+ =?utf-8?B?bmVEOHJFTjRiNG5SVHI2VGsxaHNiWTdNdzFpYkVLNmZUYkRjUzl5SG9DMHJt?=
+ =?utf-8?B?WXhyMktaUFhoSUJkNlFSR2tWSFZCbit3bHhza3p0Z0hYakdkZDlpK0pxRjFs?=
+ =?utf-8?B?WTlhcnhaZ1dBdGpTS0RHU1VSNGVINTk0VzBMWjIvdXNvOVphVFNPR1kyYm5I?=
+ =?utf-8?B?OVRnL2d3OXFudEt6Z3EvbVQxU0V3a24wNDZwZ1JxR1RMNTFGUlFSczN6endk?=
+ =?utf-8?B?UFFNRVd4VzVDQ1E2T2dIN0psKzUweVUxMGkrZGJpdnVscWFkWGNTQzlWU3VX?=
+ =?utf-8?B?OE9TN3ZhekZ6MmRFZjVPWWdvcWJXS05PSXhsa1AyZmkvT0xPczk1dGdFMzRP?=
+ =?utf-8?B?QU5qVUduMCswZUd2NG1PZTJ4NDBITmh1RlhyNUhxaFVSQ2J1NWtZNjNsRThY?=
+ =?utf-8?B?TEo3TEUyVXFpUDVjNm5ydi9nUUhLSnVpT3lnNGJtWlJ1QXdSVGZlTkJUMUha?=
+ =?utf-8?B?dklYSjFUSVhBcGU5RnFKWFFhU3UwZnFPWGxVdHl1S1hmeEpCSUp4M3N6cHlT?=
+ =?utf-8?B?cXVONjFiQ2NkVThNOXZwdFpCakJaZGhRaWlsMkN0MnE3alNDb3IyL2Z2SS9I?=
+ =?utf-8?B?R2N2VmdVUDZ2RjJYZHprQ0R0aUxMWEJuTkhJZE1tUWdGTnArd1NqaEZZZ29C?=
+ =?utf-8?B?cWwvU0QwS0FmamRPRURUSFBMWWFvNTdjMlF0eGxJTUFLdDA0cHBsTUQ2Wkw5?=
+ =?utf-8?B?L3l5ajNuWFhzVE5LVVo4RXplV1ljVFRiVUMyd3Z4N1JuVTFyYmNFKzNRSHpx?=
+ =?utf-8?B?aG5UbUNXdkdyY2ppWmF3K3VBRDBSMFY2LzBXTmJiQ3VGcVFkM01CWlFLK2lu?=
+ =?utf-8?B?OWZQajFJZXpFVEhSYm1vSUhtcXg3UTBtZmMvNXkzSFNWTm1scUJJdU9KYjRu?=
+ =?utf-8?B?YkZRdXZ2RkJ4aHVYMGJSd2xLU29OS2FqYWhlaURLbkZSZHcyeWNhNExKVUFC?=
+ =?utf-8?B?Zmd1THBmWTBtZy9ETDI5Z3dLaXBiSGxaYjFqcmt4dG00WnFiWUtrdXI3VFIr?=
+ =?utf-8?B?RmpmWnVzU0I4T0E4aXJQSVlKUHdSNDlYb2Y3UktlbG55SFNweGtWby9KVWhY?=
+ =?utf-8?B?eXUyMWFvUlVqTzZib3hlZTAwcXQyQkx2L0lzeDBMRTRGT0dOdlZJNVlyWHJW?=
+ =?utf-8?B?NkNYdUdlc3o4Q2xMZHB4TFFKWldCeGJzejAvMzF5a0xtV1pNK1pyMjJQYXJs?=
+ =?utf-8?B?QkJqYW16eHdPVUU4byt5NWNjVHdnYW1PcnRyV0dROWoyTGpGcHNGRkVwNnEr?=
+ =?utf-8?B?NVdxNlV0Y0VuaXYxdmVzNjVkakxwc0psbDEvRnNtUXYrL2loOThFQzZHVmhS?=
+ =?utf-8?B?MTc5RTN4bWd6ZVYxZHR4b1NkbDBwN2VYdm1pM05lb0tmb0NwOG5NaVk4UVBh?=
+ =?utf-8?B?WURvQmtJMmtRdzk0MGRyOVN6UkZmOFhXOWVIYUlxME41ZE9BTGt1a2x2ZG5J?=
+ =?utf-8?B?YUMvSUI2RFhWdllsWU90NVl1TmhaK1pYNTZQaGRCT1UzMFZOTUQ2Q3lORjRz?=
+ =?utf-8?B?UldwWXRJTWoya21YN2htNHdSOWI0SnBLcnA2SnVTSXUxTXc5OWY4SzNNSW1E?=
+ =?utf-8?B?TFppcVRBSVpQRDNicGlwalNWcC9RdWNIVmwzSndHSmRheGdLRlErZmdMK1pD?=
+ =?utf-8?B?L3NDb3Y5VnI0RWZVaGh5YkYwOVZhVS9YVXp1ZE8wQ0FWOCs3N2htTFUxSnQ5?=
+ =?utf-8?Q?yyNBoHZgjeaEEwF9zQVAWDkxkjk6UBS0tQjvA910jF9IY?=
+X-MS-Exchange-AntiSpam-MessageData-1: i/xonhDTyYCocg==
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 51c6c8f5-777a-47cb-0675-08df4c4388bc
+X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 05:01:45.2632 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: MRwvYqLtdGImr4pXLwHWjTA+jIMF7DrKb8PWN07faDhZugy/jV4T9GEbELdRYqGq9ya3JEUmZXCpQwOeBUliNA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8098
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -151,70 +142,184 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
+> The tegra_output_probe() function performs panel parsing unconditionally,
+> even for devices that do not require it or that handle panel parsing on
+> their own (like DSI).
+>=20
+> This causes devices with dual DSI panels to fail, because they rely on th=
+e
+> OF graph to find the secondary DSI controller, whereas
+> tegra_output_probe() treats this port as a direct connection to the panel=
+.
+> An example of such a device is the Xiaomi Mi Pad. Make panel parsing
+> configurable.
+>=20
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/gpu/drm/tegra/drm.h    |  2 +-
+>  drivers/gpu/drm/tegra/dsi.c    |  2 +-
+>  drivers/gpu/drm/tegra/hdmi.c   |  2 +-
+>  drivers/gpu/drm/tegra/output.c | 52 ++++++++++++++++++----------------
+>  drivers/gpu/drm/tegra/rgb.c    |  2 +-
+>  drivers/gpu/drm/tegra/sor.c    |  2 +-
+>  6 files changed, 32 insertions(+), 30 deletions(-)
+>=20
+> diff --git a/drivers/gpu/drm/tegra/drm.h b/drivers/gpu/drm/tegra/drm.h
+> index bc720ae8d95e1..e53fe68161cb8 100644
+> --- a/drivers/gpu/drm/tegra/drm.h
+> +++ b/drivers/gpu/drm/tegra/drm.h
+> @@ -156,7 +156,7 @@ static inline struct tegra_output *connector_to_outpu=
+t(struct drm_connector *c)
+>  }
+> =20
+>  /* from output.c */
+> -int tegra_output_probe(struct tegra_output *output);
+> +int tegra_output_probe(struct tegra_output *output, bool get_panel);
+>  void tegra_output_remove(struct tegra_output *output);
+>  int tegra_output_init(struct drm_device *drm, struct tegra_output *outpu=
+t);
+>  void tegra_output_exit(struct tegra_output *output);
+> diff --git a/drivers/gpu/drm/tegra/dsi.c b/drivers/gpu/drm/tegra/dsi.c
+> index b5806a53e75ac..6d6adc485e51e 100644
+> --- a/drivers/gpu/drm/tegra/dsi.c
+> +++ b/drivers/gpu/drm/tegra/dsi.c
+> @@ -1617,7 +1617,7 @@ static int tegra_dsi_probe(struct platform_device *=
+pdev)
+>  	if (err < 0)
+>  		return err;
+> =20
+> -	err =3D tegra_output_probe(&dsi->output);
+> +	err =3D tegra_output_probe(&dsi->output, false);
+>  	if (err < 0)
+>  		return err;
+> =20
+> diff --git a/drivers/gpu/drm/tegra/hdmi.c b/drivers/gpu/drm/tegra/hdmi.c
+> index 3a94968bd983a..e8c4347f09e69 100644
+> --- a/drivers/gpu/drm/tegra/hdmi.c
+> +++ b/drivers/gpu/drm/tegra/hdmi.c
+> @@ -1855,7 +1855,7 @@ static int tegra_hdmi_probe(struct platform_device =
+*pdev)
+> =20
+>  	hdmi->output.dev =3D &pdev->dev;
+> =20
+> -	err =3D tegra_output_probe(&hdmi->output);
+> +	err =3D tegra_output_probe(&hdmi->output, true);
+>  	if (err < 0)
+>  		return err;
+> =20
+> diff --git a/drivers/gpu/drm/tegra/output.c b/drivers/gpu/drm/tegra/outpu=
+t.c
+> index eebf0ec0eea0a..d7d7f6ce0a8c3 100644
+> --- a/drivers/gpu/drm/tegra/output.c
+> +++ b/drivers/gpu/drm/tegra/output.c
+> @@ -93,7 +93,7 @@ static irqreturn_t hpd_irq(int irq, void *data)
+>  	return IRQ_HANDLED;
+>  }
+> =20
+> -int tegra_output_probe(struct tegra_output *output)
+> +int tegra_output_probe(struct tegra_output *output, bool get_panel)
+>  {
+>  	struct device_node *ddc, *panel;
+>  	const void *edid;
+> @@ -103,31 +103,33 @@ int tegra_output_probe(struct tegra_output *output)
+>  	if (!output->of_node)
+>  		output->of_node =3D output->dev->of_node;
+> =20
+> -	err =3D drm_of_find_panel_or_bridge(output->of_node, -1, -1,
+> -					  &output->panel, &output->bridge);
+> -	if (err && err !=3D -ENODEV)
+> -		return err;
+> -
+> -	panel =3D of_parse_phandle(output->of_node, "nvidia,panel", 0);
+> -	if (panel) {
+> -		/*
+> -		 * Don't mix nvidia,panel phandle with the graph in a
+> -		 * device-tree.
+> -		 */
+> -		WARN_ON(output->panel || output->bridge);
+> -
+> -		if (output->panel) {
+> -			drm_panel_put(output->panel);
+> -			output->panel =3D NULL;
+> -		}
+> -
+> -		output->panel =3D of_drm_find_panel(panel);
+> -		of_node_put(panel);
+> -
+> -		if (IS_ERR(output->panel)) {
+> -			err =3D PTR_ERR(output->panel);
+> -			output->panel =3D NULL;
+> +	if (get_panel) {
+> +		err =3D drm_of_find_panel_or_bridge(output->of_node, -1, -1,
+> +						  &output->panel, &output->bridge);
+> +		if (err && err !=3D -ENODEV)
+>  			return err;
+> +
+> +		panel =3D of_parse_phandle(output->of_node, "nvidia,panel", 0);
+> +		if (panel) {
+> +			/*
+> +			 * Don't mix nvidia,panel phandle with the graph in a
+> +			 * device-tree.
+> +			 */
+> +			WARN_ON(output->panel || output->bridge);
+> +
+> +			if (output->panel) {
+> +				drm_panel_put(output->panel);
+> +				output->panel =3D NULL;
+> +			}
+> +
+> +			output->panel =3D of_drm_find_panel(panel);
+> +			of_node_put(panel);
+> +
+> +			if (IS_ERR(output->panel)) {
+> +				err =3D PTR_ERR(output->panel);
+> +				output->panel =3D NULL;
+> +				return err;
+> +			}
+>  		}
+>  	}
+> =20
+> diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/rgb.c
+> index 40a02cf5939aa..227a178f761bd 100644
+> --- a/drivers/gpu/drm/tegra/rgb.c
+> +++ b/drivers/gpu/drm/tegra/rgb.c
+> @@ -236,7 +236,7 @@ int tegra_dc_rgb_probe(struct tegra_dc *dc)
+>  	rgb->output.of_node =3D np;
+>  	rgb->dc =3D dc;
+> =20
+> -	err =3D tegra_output_probe(&rgb->output);
+> +	err =3D tegra_output_probe(&rgb->output, true);
+>  	if (err < 0)
+>  		return err;
+> =20
+> diff --git a/drivers/gpu/drm/tegra/sor.c b/drivers/gpu/drm/tegra/sor.c
+> index 061c5dbb738be..ebac9068b670f 100644
+> --- a/drivers/gpu/drm/tegra/sor.c
+> +++ b/drivers/gpu/drm/tegra/sor.c
+> @@ -3803,7 +3803,7 @@ static int tegra_sor_probe(struct platform_device *=
+pdev)
+>  	if (err < 0)
+>  		goto put_aux;
+> =20
+> -	err =3D tegra_output_probe(&sor->output);
+> +	err =3D tegra_output_probe(&sor->output, true);
+>  	if (err < 0) {
+>  		dev_err_probe(&pdev->dev, err, "failed to probe output\n");
+>  		goto put_aux;
+> --=20
+> 2.53.0
+>=20
+>=20
 
-On 13-11-2026 13:19, Krzysztof Kozlowski wrote:
-> On 12/11/2026 10:37, Jayant Shekhar wrote:
->> On 09-11-2026 18:48, Krzysztof Kozlowski wrote:
->>> On 09/11/2026 07:27, Jayant Shekhar wrote:
->>>> Document the Novatek NT37802 AMOLED DSI command-mode panel.
->>>>
->>>> Signed-off-by: Jayant Shekhar <jayant.shekhar@oss.qualcomm.com>
->>>> ---
->>>>    .../bindings/display/panel/novatek,nt37801.yaml    | 49 ++++++++++++++++++++--
->>>>    1 file changed, 45 insertions(+), 4 deletions(-)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
->>>> index 1b38c1d0af68..be318cc84d52 100644
->>>> --- a/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
->>>> +++ b/Documentation/devicetree/bindings/display/panel/novatek,nt37801.yaml
->>>> @@ -4,26 +4,30 @@
->>>>    $id: http://devicetree.org/schemas/display/panel/novatek,nt37801.yaml#
->>>>    $schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>    
->>>> -title: Novatek NT37801 AMOLED DSI Panel
->>>> +title: Novatek NT37801 and NT37802 AMOLED DSI Panels
->>>>    
->>>>    maintainers:
->>>>      - Krzysztof Kozlowski <krzk@kernel.org>
->>>>    
->>>>    description:
->>>> -  Naming is inconclusive and different sources claim this is either Novatek
->>>> -  NT37801 or NT37810 AMOLED DSI Panel.
->>>> +  Naming is inconclusive and different sources claim the NT37801 panel is
->>>> +  either Novatek NT37801 or NT37810. The NT37802 panel uses the same common
->>>> +  DSI interface and regulator supplies, and additionally requires EXVDD.
->>> What is EXVDD supply? The example DTS suggests it is something fake.
->>
->> Its not fake, it would be something like below:
-> OK, how is the pin named on NT37802 side?
->
->>       display_panel_vdd: regulator-display-panel-vdd {
->>           compatible = "regulator-fixed";
->>           regulator-name = "display-panel-vdd";
->>           regulator-min-microvolt = <1100000>;
->>           regulator-max-microvolt = <1100000>;
->>           startup-delay-us = <233>;
->>           gpio = <&pmd8028_e1_gpios 2 GPIO_ACTIVE_HIGH>;
->>           enable-active-high;
->>           regulator-boot-on;
->>           pinctrl-0 = <&sde_disp0_vdd_active>;
->>           pinctrl-names = "default";
-> Looks like something for backlight honestly.
+Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
 
-  This is a panel power connection, not a backlight supply.
 
-  Its purpose is to let the panel use a system-provided DVDD rail.
-
-
->
-> Best regards,
-> Krzysztof
