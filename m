@@ -2,139 +2,160 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83A61606A321
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 20:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02408606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 20:31:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=o6sfJyHs;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=P20TuERi
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=kNdXS4/7;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=BCr5DeCl
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D452F112DA0;
-	Fri, 27 Nov 2026 20:29:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6A9BE112D9D;
+	Fri, 27 Nov 2026 20:30:53 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 12DB9112DA0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:29:45 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id E4625112D9D
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:30:41 +0000 (UTC)
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ARJUOET527308
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:29:44 GMT
+ 6ARJBguO2763103
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:30:41 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
  cc:content-type:date:from:in-reply-to:message-id:mime-version
- :references:subject:to; s=qcppdkim1; bh=wlqOV5YIfDiR1Zs66Hocz3ER
- IUaPwVEuthfmaePx5NA=; b=o6sfJyHsUXzPNj8k0G7YJDSh/yHCDiEnq9pEq27F
- gvyEkhwMhUcHevOiTjjfLD+DiV+sAEdX5LL/B+p4giIun9d8sC8pK/8hU66Z7J8s
- Fn2WHWnhZoXepu3nitkHDdiysJYdd1aV3Pg3xEceHOLCIrFSZsDe/262O8p0pNSX
- 37FXPV9rtskzKdyifrLKkDLe+KwYdCdXpHJoZHCxSUOYis1gWdLvA6siF2ROCR11
- Z9OpsAWZwdXoLtX/nyGI6Rfq+aAC76BG//whLkZ7xebL0NqtZdB/aG2xfxSHtZwt
- ZbPlXhtmlpIYhjUx2Q7oPCUeiBXbeXLcapGUTp0v5AsnOA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j7g2dr3xt-1
+ :references:subject:to; s=qcppdkim1; bh=Hphn3ZfKORUo3yr9W6IsBbo3
+ W049JwCJrXs91ZHeeMA=; b=kNdXS4/7/27Bmjheg0WPfQA0MdTG89+3TYQIrMtP
+ KPX1JUzQQodVcJqU8ZuOVICrLCwbfVGxY0KtiAcPltWSjhCKumY4cq0hP/d73q0k
+ cAaDuMqGtkCDpD9q+2XFu3dArsBdBFA7IQPBbS8Q5N4es80BriYOYy+nF0xvpSRU
+ qJct5pbmkoRU61yfmFWKyHBkw9IKirVLWipywZK7r8utenuJBSa2EG4p6jBJHIK3
+ myQwJmE1hSIGngZxKB7kPMV7ZOXPSC5tRhJPSCRfWLM1oQOVwMV2iG7apDEB6TXo
+ sRdUM6onL8HQN5XYj9uOEWhDjIhpFS+Nxd2P6Mqr7EzCPA==
+Received: from mail-yx1-f72.google.com (mail-yx1-f72.google.com
+ [74.125.224.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j756kaqf0-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:29:43 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id
- af79cd13be357-9495af07676so1247452785a.2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:29:43 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 20:30:40 +0000 (GMT)
+Received: by mail-yx1-f72.google.com with SMTP id
+ 956f58d0204a3-67dc4e966b5so7924178d50.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:30:40 -0800 (PST)
+ARC-Seal: i=1; a=rsa-sha256; t=1795811440; cv=none;
+ d=google.com; s=arc-20260327;
+ b=DLnv9CaiTEP2yB4YUQyFZLLAPBAuJe2E4k+PGKcBNAsOkBe+BJZXeT2PAvhcNl22Dp
+ 1uMvRO+4kWhaSsPrsZctcQRKsSKe+JtEd/0hetWtQKjyK7RqJPt4N/R8/zZ24EXRYAe6
+ i41Ks1Cyq4SNblR+9JzwFv2uuQ9La2d96hADQjDHQXCKxiY55gHW0MWJxjRa4GXNMdGy
+ xBuGj4PrtYUzXZ+nEOBz2nsmDabXRt0B56R4Yfb1fxBSSOu094GD8Dy0Uy2H7y7PRwG+
+ IddQ3lNUvugYlRguXEqmxS2V4kHbsaI+XnTHBi4xBnj05NodXsU1fYbbwJ6nC2dcYZuN
+ bBng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
+ s=arc-20260327; 
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:dkim-signature;
+ bh=Hphn3ZfKORUo3yr9W6IsBbo3W049JwCJrXs91ZHeeMA=;
+ fh=EEfWNnFsaNUuMZ4ZkW+gRJwtxF1yymfM6CXnvrA0DsU=;
+ b=Y+rhduTx+AwGmYA9asGC10e/WrNWKQsOwD966JXF2Av4l0174bzIiPj/LK/f0fYcqh
+ 4fnfNYuOjiWI8hYxNJO3q0PxxrV0y5BO0Rq/5+rRRxWYU+OocQ/fFyygFs5tOMSjsQvu
+ /fvc16JnP1v8n+o9AW0pTJ7GT0colbcL943UjVddI5pzc6M+7aZWmZZ/JnLVWCoo6c4b
+ ET0iD05OppfnycdkP1GuPu+aE/3dZyKZUQLCdQp5IMEOmwzL70LPJUpEkzHFXJs9tI6p
+ D4qlQcDC20jZv9pBjh/mZSV35wzRN0OjGxZA05Ey+vHg/BamLgDV3akL20/p4Lq1umdp
+ Yaxg==; darn=lists.freedesktop.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795811383; x=1796416183;
+ d=oss.qualcomm.com; s=google; t=1795811440; x=1796416240;
  darn=lists.freedesktop.org; 
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=wlqOV5YIfDiR1Zs66Hocz3ERIUaPwVEuthfmaePx5NA=;
- b=P20TuERiw3B2AejfRJUO3o7a5ITsEK+W3H3rmim2pDGoABGxFe+7WuhSpC0ee3WJpB
- hlUYPQOKREUbxVdhUndTQWG0NeIlRAoG16xaBm3WtuLurmSWfwi9l5CuVQJYHAIkQ6Bd
- ctH/f1V7Xczfq3+cAiYMRILJTBq4mp980T7Oyn1ce7K6ZNITV9qJXUOcFKLu8CZpP/gD
- yEgy3gn+NMVlv44LS8RtGHNIlVM9d3YM+nkTqlbCWrOeKhLkOvyyh0fOaji0gvqZTJk7
- 9GYjV2tU+KIqIWvdifYrWtUo7klU4RA7QrLkNfTBw8Vi4YpAPOoukIRWaQb/0R3SaH/s
- jJHA==
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+ :content-type; bh=Hphn3ZfKORUo3yr9W6IsBbo3W049JwCJrXs91ZHeeMA=;
+ b=BCr5DeClxmWRlyGuJCIA70gnxyhHmvqBPFquc3Zou2fpTgXXkzdH/N+jeQMUn8tpsl
+ /mNR+Qz9Lj/rO8JGiiIp4lwZvyA7AZb8St5lEmQ8aFpZQFLvmNFfo4qVAP51LWFbPtZN
+ dXMz7YBymByMIrZrCoUUOZeKYWfDB3+0KWXc9k2o233UX2X7F2Peb0iFZowJD3as9+J2
+ iBXpirU5TtifZ6b8xwZ9eA46XEMYTUlPZZ39HDR7gps/rrwU3kIiLo+Fz21VnLFqVIWH
+ w2TzpxbjEegLSfFBBCr/6muc2fEQQ0VtdASAOVYQk9aur3/hGiqlG7uBnIskaL6+FNt2
+ H12g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795811383; x=1796416183;
- h=in-reply-to:content-disposition:content-type:mime-version
- :references:message-id:subject:cc:to:from:date:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=wlqOV5YIfDiR1Zs66Hocz3ERIUaPwVEuthfmaePx5NA=;
- b=bjKR5FgOcg3/dCbXhc+RXG/OCKMhJ6N9plGFj0mRrzDo5UFulDyIoQIgZImku4tUXQ
- ANVg3cJ72rNEonwGq4w0J4ajTgufl3Iv85bgpgGTdPAkc+jtmEPqmPSJCbfdxZ43wOve
- gpclMOnwUZSWOGjb0dsNcWLSILH5QTwhcQS6JzdFD9Mt5ksXEyVYfUDWGjzJfXLe1XHL
- 5/QPPWcFBUgBkK+w1iRxg6YPF7i5mEIiGlg2LL1AVoa9OCG9qlLVYr5NsIKTYuxlU7uV
- E1vXHfl2iI/HLq+9Nm/q0s13dlGY9VZ9Mppy3DtO5tSl9U9OsyvHQqxUxyQ+8Qlf1wFj
- 0qbw==
+ d=1e100.net; s=20260707; t=1795811440; x=1796416240;
+ h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+ :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to:content-type;
+ bh=Hphn3ZfKORUo3yr9W6IsBbo3W049JwCJrXs91ZHeeMA=;
+ b=bC+bDFFXRdftRK2YwUQfsGF4sOuvcymEcDs3dBmpwZ3Kqnb9VgcgSdIs2d9h0CwlYO
+ IKMdYdwHfjpaDZnzW3BNfDZ0pMW/iHaP6QYsyZZ9tXXr/n7rTUh0qbnlXICjhA/C3RjE
+ BTRI9BCMEznZeeRUb5+iGvU3ajYvcOu9+dj5LzPMdfusnFufiNMgfqOkM3geUBGjhDSN
+ gjbGtUNRSxbhlE7S3MmDllbyf3QyHXRa5eA2dpqe41CbKoh1q9Vzb7+Ks4CgWYwDLWTY
+ RMTcCd7uiTR0psjR7AaVrdr4A9jHg4y+T2KBsJGcYfOhlYey5Z/B9tn4mz28FjZTNyfC
+ nJdg==
 X-Forwarded-Encrypted: i=1;
- AL+hErFkgGx8AE5lBYhM9iFRDxfxztPXgkVtO0Kn0xGrgR/O8iRdSRI74VInOXntTd2EAkvFw2NqwgwVb7Y=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/8UsII09NHFTuEIC4eOkyDB3I9EMUHv/5EB/SAe1FsDvQzM4JX
- 2P4qbYjfEK4Jln0w0LquTBNGFLruqkPxxJIgaiUN1FH/WflxspDCK0ua0F20XvPwKZ2cVSlaq12
- iqw63JxuLAYaOKNBEG4x1SU3npbgbG6YKTa1qUrghg485+HsAH2TlyCM0pQ76x5wRehsGrHg=
-X-Gm-Gg: AZFdTZfexA5Ed+M34ggvSCAt9w4epjJMT9XdTAgBEGG5fHm00GpfHTGYUlrofNTCXiX
- PVP0sbNbT7uA324Rnxqx36/eA0Ew77ssu2U2WObrzyrz+PZTtFBo5GZ7R1utXpLeQX6JU1RfUk+
- KOi4W65sMIDnJOH4Rff3RpuMrciWvcpB2aujdsVtunHmKR7ebnHyKfVM87U/0MC2BwYil2wBSmC
- mLSdqySsvo4hDpFzOAnqGZjJRXby8hbrpV6HmNRMBRPnpBGvnFuZofg3a4nsbjuS3WmtQnfOFoo
- tjV0xI9C1kWFXVzy77TlHiH/hRW8YQVgGjN7famJxojheTdP5X0d1U1YgKUtwPhD6ejnTfen1T5
- uQsHG87Rn94CzSmyKm2HnwZPuADZdRbaJhsL69RbwwqVw6hQwIQlxaCXGtmNvgm7n4t2bk0wunr
- hMJ26yD11smxSgaOTSaco4sV3P6I0pWjPQElkFbbl4A0PMYQJj2pOQoDoxe8wzyQ==
-X-Received: by 2002:a05:620a:4404:b0:93f:19fe:e6ca with SMTP id
- af79cd13be357-949ba9aedf8mr4771516885a.43.1795811383278; 
- Fri, 27 Nov 2026 12:29:43 -0800 (PST)
-X-Received: by 2002:a05:620a:4404:b0:93f:19fe:e6ca with SMTP id
- af79cd13be357-949ba9aedf8mr4771511885a.43.1795811382791; 
- Fri, 27 Nov 2026 12:29:42 -0800 (PST)
-Received: from umbar.lan
- (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
- [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
- by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae80537021sm59515951fa.28.2026.11.27.12.29.41
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 12:29:41 -0800 (PST)
-Date: Fri, 27 Nov 2026 22:29:40 +0200
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Vladimir Zapolskiy <vz@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Pengyu Luo <mitltlatltl@gmail.com>, Alexander Koskovich <akoskovich@pm.me>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Kavan Smith <kavansmith82@gmail.com>, Jonathan Marek <jonathan@marek.ca>,
- Jordan Crouse <jordan@cosmicpenguin.net>,
- linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
- freedreno@lists.freedesktop.org
-Subject: Re: [PATCH] drm/msm/dsi: Fix TX buffer pin leak on command transfers
-Message-ID: <as6giojrugjm3mftrurba767waiclzbdyc2rhnnpaqzlkimwa5@kkod74wmdmwv>
-References: <20261126141942.335280-1-vz@kernel.org>
+ AL+hErHQBgE0G/dFW2dbqaZJEYvj+Ey3v+UVgy6DiYprviDNYgNlRgFIwi+DSeZVyLMuHd0HPPQgmlsCrZ8=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9Ghibp5xlXLxlEd14Qerlv3rYFYT9rmpvYU0XZ99Ys+u1izHFI
+ y4d4GLuEC4eYCW4b7HNtjKMYVXTr+GiXcsdUAX5V8l6t5WRnHnPRfk93pwQcmkvWYaXlKxA9f8k
+ Fe8JwB28FvoMMW+YVUiRvJ/+NjzGY7cLMSCeodQwwGZX/OpnZSA/mYaQoGl4JTNN4sSEt6JqwLw
+ N1rDZEB0YXZh9ifWmlBVqMVycKcedYlGk9ghyQcjdeiObuMA==
+X-Gm-Gg: AZFdTZdx+1KI2GT0sEfucPcaoQFAeZtH2eB/UxEmUeALhVoZPCbXWKJZhmSBhjvLUUl
+ P0UFGvZJAs+B5F4fcDe/hSjlYdqkzZPd8PexhuiSXFRvrCKaOORAh2MKnn9ur4VUf2spf0bDVpD
+ +7MrjYmoIZYiGE1qyqXIAYGi1L/u0FwrtnrHmzG2fOi75pyK9SntRS5Bm/b37rZBPrM6HMjZgjB
+ zOuKIFxknznjo0YwA==
+X-Received: by 2002:a05:690e:440d:b0:67b:ec5a:2075 with SMTP id
+ 956f58d0204a3-67df4446b92mr7114671d50.78.1795811439912; 
+ Fri, 27 Nov 2026 12:30:39 -0800 (PST)
+X-Received: by 2002:a05:690e:440d:b0:67b:ec5a:2075 with SMTP id
+ 956f58d0204a3-67df4446b92mr7114661d50.78.1795811439276; Fri, 27 Nov 2026
+ 12:30:39 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261126141942.335280-1-vz@kernel.org>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfXyx7WSHhRolsf
- 4Adf9AobRBViU6FBbIzUhMy8/+JH2pdAWGGafq6IYtr1axKX+EGsHQLTkoM74WrYgv8dPhJGZJJ
- nUsEhUn/ZJnf+9dfJsKQVBH8g68PlefmnBGgp4nNaaJTfPod5LrEOqlcfwps1LYFMltvM6en+Ed
- WFhj1FQih6/8LLmlGM1/wAzIKw/YafvgbAyoX2LLuNdYlGIoRXoPuGxS9u05gARiHLveCf4d1hz
- dRfOW7F+rs4dK4JLeKeVTAmUaEPaXZHvgz39pHPdzRU/sA39EZypef4FHYRTtz+Gn0unIB9KgnE
- gVNoTr82YMv00rURYjbOmpWVCPw0+OF2JY+8Sa+YtyaFYckIPQ44YJetBCPCu7jl2ihEiAyq9+p
- kcqApJPr+ELAA9HyJGpHZF2CuXEiKRAeiELov4InPyKr2mRg2dS3wCmuslD8UmrXcxDfs9MwTHx
- TDdszmeU62t9YM7Qz5A==
-X-Proofpoint-GUID: VNhiYyKGKf5V7UEGfnirikBJzQ3c8RMS
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfX+evlhNuN80P8
- nY1oSBMompXe8RLNE1VUGPl+ojBeNKS1QoRVtLJSdc7yDCkqvlDoB2z6RC8SQSTWCBGEYyoNkCy
- KwSLDo4Xi9BflR3Yw5/MN1h7kEAPuMQ=
-X-Authority-Analysis: v=2.4 cv=dJEzC+Zb c=1 sm=1 tr=0 ts=6b09e838 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=3kaI0MaazNZqiMSrzYAA:9 a=CjuIK1q_8ugA:10
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-ORIG-GUID: VNhiYyKGKf5V7UEGfnirikBJzQ3c8RMS
+References: <20261029-q8b-dts-v4-0-e8e7438f5545@radxa.com>
+ <CAPnEM6aAK8hwJ3EfhzS=gdMPTf+bhVgS-=JAoM+axcHzBQ1CGg@mail.gmail.com>
+ <FE7B564926118C33+50565d89-ad83-441b-b85c-cafba0df5546@radxa.com>
+In-Reply-To: <FE7B564926118C33+50565d89-ad83-441b-b85c-cafba0df5546@radxa.com>
+From: Chris Obbard <chris.obbard@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 20:30:28 +0000
+X-Gm-Features: Aa3M54rOA0nGZYSsdhumtFBM_XfbHqu3BlAs81Bv2P-Z0wUA71uwNq6De_uad1M
+Message-ID: <CAPnEM6YXXVJ==OXinyZyGBfKS4iX=N+eMJRGZframsnfAeTtjA@mail.gmail.com>
+Subject: Re: [PATCH v4 0/4] arm64: dts: qcom: Add support for Radxa Dragon Q8B
+To: sophon@radxa.com
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Linus Walleij <linusw@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+Content-Type: text/plain; charset="UTF-8"
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfX7iObzwpplA5K
+ ZW0AxJ99u5yIw8KZXUp58aVq8+aWedHVrSIYn11FQ/ca8uFq3tFkoideGaAAXCpagFoZjWDeDKr
+ UAyapeljlTn7DCwZ/jgPtJqiyKqqgdWvpCDaBkZrhL34DNeU68VLn5/p8XSrcl/urBpyxS/JxyQ
+ cC2ACanvqK9eZGBQIm+TlfU8kiN07qpohE77BNNgXceP8+ACHjvHpLUmNM4SwW+tAQ/pjywnmB3
+ f3z6huc786NwRO8OJdDE3DDFslYDBol+tlwZ9ISZYpJ7nGotcnIW1m2tgv8ikb+hH7e97YTPfs7
+ TXf9MdsOPYQ66zZgbco5kHQ5kL8NakJubSI0bCA0IDIQYNIU39Vsejbi3cd4uLYIk9Do8y30GOG
+ 3RfDysrD9VIVJYqok8AHRLJaOptUMONJpabDPLIsSYCBLFnUtQfDGDkLg3NRJ8xQLQQfMLk2vZp
+ lqM8/Mp7X3nQu0UZhRg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA4MSBTYWx0ZWRfX3xnp+BbC1Su6
+ dyjtAOtBZVcCKHn8aesRKy3NJp+BrwFSJBj8yHsiULqpsmsMIGc8Pz1amXNH+YzrM+eFdH0uHjv
+ JRFmFW6ytggu0DtwoVngMCvMbxvoOU4=
+X-Authority-Analysis: v=2.4 cv=ebWo7LEH c=1 sm=1 tr=0 ts=6b09e870 cx=c_pps
+ a=VEzVgl358Dq0xwHDEbsOzA==:117 a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8 a=ksxQWNrZAAAA:8 a=NEAV23lmAAAA:8
+ a=05-C0eYiNmMOl18pgPwA:9 a=QEXdDO2ut3YA:10 a=uujmmnXaIg8lM0-o0HFK:22
+ a=l7WU34MJF0Z5EO9KEJC3:22
+X-Proofpoint-GUID: T0kMQcOkLsR0igX4_rg06_poZI4d8O_F
+X-Proofpoint-ORIG-GUID: T0kMQcOkLsR0igX4_rg06_poZI4d8O_F
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-27_04,2026-11-27_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ suspectscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ lowpriorityscore=0 phishscore=0 adultscore=0 impostorscore=0 bulkscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270081
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -148,49 +169,62 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 26, 2026 at 04:19:42PM +0200, Vladimir Zapolskiy wrote:
-> The DSI 6G TX buffer is allocated by msm_gem_kernel_new(), which pins
-> the buffer object in the KMS address space and returns its IOVA, but the
-> returned IOVA is ignored. Instead dsi_dma_base_get_6g() calls
-> msm_gem_get_and_pin_iova() on every DSI command transfer to get the TX
-> buffer address, and the buffer is never unpinned after the transfer.
-> 
-> As a result the pin count of the TX buffer object grows with every
-> transmitted DSI command, and when the buffer is freed by
-> msm_gem_kernel_put(), which drops only the pin taken on allocation,
-> the object is freed while still pinned:
-> 
->   msm_obj->pin_count
->   WARNING: drivers/gpu/drm/msm/msm_gem.c:173 at update_lru_locked+0x90/0x98
->   Call trace:
->    update_lru_locked+0x90/0x98 (P)
->    put_pages+0x8c/0x104
->    msm_gem_free_object+0x1bc/0x244
->    drm_gem_object_free+0x1c/0x30
->    msm_gem_kernel_put+0xa4/0xb8
->    msm_dsi_tx_buf_free+0x2c/0x64
->    dsi_unbind+0x20/0x40
-> 
-> Save the IOVA returned on the TX buffer allocation and use it as the DMA
-> base of command transfers without pinning the buffer again.
-> 
-> Fixes: 9fe041f6fdfe ("drm/msm: Add msm_gem_get_and_pin_iova()")
-> Signed-off-by: Vladimir Zapolskiy <vz@kernel.org>
-> ---
->  drivers/gpu/drm/msm/dsi/dsi_host.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
+Hey,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Fri, 27 Nov 2026 at 02:43, Xilin Wu <sophon@radxa.com> wrote:
+... snip ...
+
+> Hi Chris,
+>
+> Thanks for testing the series.
+>
+> For issue 1, the Iris init failure and SMMU fault might be related to
+> one or both of these patches missing from the tree you tested: HFI Gen2
+> support for VPU2 4-pipe platforms [1] and the missing Iris IOMMU stream
+> ID on SC8280XP [2].
+
+The two linked patches solve the first issue!
 
 
--- 
-With best wishes
-Dmitry
+> For issue 2, I'm not sure what's causing the hang during the password
+> change.
+
+The second issue was quickly uncovered after adding UART - it was the
+SError you mentioned
+in the cover locking up the device - which of course
+https://lore.kernel.org/linux-arm-msm/20261127-pci-of-disabled-bridges-v1-0-3bedcbe51cda@radxa.com/
+fixes.
+
+
+> For reference, this is the Linux 7.3.x branch we're planning to use in
+> production [3]. It still carries quite a few patches that aren't in
+> mainline yet, both for stability and to fill in missing functionality.
+> It may be useful to compare it with your for-next build.
+
+
+Thanks for the quick advice - you'll see some T-b tags shortly !
+
+
+
+Cheers!
+
+
+Chris
+
+>
+> [1]
+> https://lore.kernel.org/r/20260915-sc8280xp-hfi-gen2-v2-1-c52075bc284a@radxa.com
+> [2]
+> https://lore.kernel.org/r/20261030-sc8280xp-iris-iommu-v1-1-1e3fb8562b3d@radxa.com
+> [3] https://github.com/strongtz/linux-radxa-qcom/tree/linux-7.3.6
+>
+> --
+> Best regards,
+> Xilin Wu <sophon@radxa.com>
