@@ -2,99 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C76606A337
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F35606A6B1
 	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 15:29:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=FLE4iApO
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.a=rsa-sha256 header.s=selector1-NXP1-onmicrosoft-com header.b=fO65uMAa
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id A297010E474;
+	by gabe.freedesktop.org (Postfix) with ESMTP id BFEF5112B97;
 	Fri, 27 Nov 2026 15:29:24 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5C0D110E474
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:28:43 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 440E8402BE;
- Fri, 27 Nov 2026 15:28:43 +0000 (UTC)
-Authentication-Results: smtp.kernel.org; arc=none smtp.remote-ip=100.80.115.77
-ARC-Seal: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256; cv=none;
- t=1795793323;
- b=WdC6IXHk6trPlkrAR2QsR9lj5usy6j2F89t1ZLE3CCKrcK8dgC9ctYZoYWMk6SctCJGF
- doq5+xb7mnjnxCfWYtXXCb9fmTBR+SGuPJEO9gGREvtz7nMERKydJ+Q85K9Sn51rQnK/0
- nzfrsXNZNgv/q1UyxVY5MKcWKWZ6mextmgmnld4A2tx/UEbcNDC0p5VKROsfM6Na002tZ
- 8FlzDK0qwppOrFKveoGTgdVkg/ETSVf9wNurU1p47QEtCZCzPPZubYnMuEqBuztpqK4Td
- AFR+xjRi9HrKhwYgYsKK6T2FOO+z5LBekZD7F0byIbXjb3y7J4DQ9qLc7jxuKhBldvA==
-ARC-Message-Signature: i=1; d=kernel.org; s=arc20260519; a=rsa-sha256;
- c=relaxed/relaxed; t=1795793323;
- h=DKIM-Signature:Received:From:Date:Subject:MIME-Version:Content-Type:
- Message-Id:References:In-Reply-To:To:Cc:X-Mailer:
- X-Developer-Signature:X-Developer-Key:X-Endpoint-Received:
- X-Original-From:Reply-To:Content-Transfer-Encoding;
- bh=R1lgErtkHGkez/v6nABySb2ir4YTlwoSE0mnN6tPgq4=;
- b=IjEv4HDzRWKhXpxasx9MMBmZ7QCl8fCq6Bry2HU7J9qjXe3tkbl66hOHgX3J4Zh3oMjc
- wsCsLHbY61b7qHlptr+5s1keYiHmOluwfyxmbJeLxhqpkbTLt91nfSwH3V/2NVIdabED/
- uetWDrDh/iEih0Cx0m7+Q1DuWpK+4rL0dhJ6wDZ5NRFDzxAcEWA1C6/1zfFMcae28B54S
- JRBze7yVQE+1/l7dMplWSv6By2nNDqP0owBHScFORXgUeZ61y5IYtLX2n/SpZFk/pVkxr
- mqnrPrlR/Hwkrsxiq9SLJQcXVYBxxGQnwhJSa3lZ70zDq/8hK34T3sobdTZOkZZkTxQ==
-ARC-Authentication-Results: i=1; smtp.kernel.org; 
- arc=none smtp.remote-ip=100.80.115.77
-Received: from lkml.kernel.org (nexus.subspace.kernel.org [100.80.115.77])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
- (No client certificate requested)
- by smtp.kernel.org (Postfix) with ESMTPS id CCC661F00930;
- Fri, 27 Nov 2026 15:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795793323;
- bh=R1lgErtkHGkez/v6nABySb2ir4YTlwoSE0mnN6tPgq4=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To;
- b=FLE4iApO5VS4qhNp1J7g7eBku6/UwX3SpdqmIsb0go8XYgyvLxCrHwKWIt3V9PhXk
- PLyBWQN6FiOg25JOWthQX00xE6fq21oS4Fp/01VsnUhmTzRKkJMtDDGotXiitci9Hd
- /lIqaWdSRfqhJoy1x5D8Imd3UKUv1WX1EuOMVeerxFNIkdegq/DGrmdOUyT0tLM/0i
- 7JmEf+15qs1WYOWUm/2SNHdiEuFDaFjXsGY39uH3gp3eS/D+w9Y87MG0vh77deNrCJ
- 5X6jKAC6CIAJ2wP630NSimxF96Cb3kp8sz3+E2t8ZCREf1XUVS46p2OHbd9dlS+IOh
- tiD0ghLGs07IA==
-Received: from nexus.subspace.kernel.org (localhost [IPv6:::1])
- by lkml.kernel.org (Postfix) with ESMTP id 556534DC7C;
- Fri, 27 Nov 2026 15:28:29 +0000 (UTC)
-From: Ronald Claveau via B4 Relay
- <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Fri, 27 Nov 2026 16:27:05 +0100
-Subject: [PATCH v5 04/12] phy: amlogic: rename Meson8 HDMI TX PHY driver to
- be SoC-generic
+Received: from DB3PR0202CU003.outbound.protection.outlook.com
+ (mail-northeuropeazon11010013.outbound.protection.outlook.com [52.101.84.13])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C3ED410E259
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 15:28:56 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ee0BaKGRkzMEoH4FVrXa+MFpSksLPjr/5FdKgKu0/J4YWVS+gXglySKUv+pO2p3RYkG+WLcceZ1Bq6iuJO7Yh43AlDXshOwf80Shr5ZRYla6UrKYih/oKGheElvwXAuGDrRrULEwCUeW8KazsnoI9LbwzEupM7SC76Y2vzpcqGE4F0i4jjCWTy8NP603KfsinAi0qwxQb4r0FxLuAz1sok5l6IjzNRl0I0g0eEpyAZ8IVD4zqzk378Ui/PHBQBQvyRF4nEMR5uXqSOvZF8CTcmmXUY5701xNhqEELEiWDffEEsmWSaQry2cXXHBLDor/PCJ6/reK4laiurJuKF7L9g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e7lJU2yXjKEMQUztoownYxmSUo5xLYjYP3p+fKIDals=;
+ b=Rufz8q9JZZDB0MXhsn1DaGb4+hSIyEvq8hO63WZzOq39iecU4A5hQb4acnYMxIMC4804d0Q18rRrVaqrfK3D9mLieiiKV1NU5qLSYQSRgQ6sbp6aOVYTJzE79GEGRCfCF42QjRwRZEhjtebuERwpFXvkYQViBJql2x/EoVFrtVHmdeojXe+HCbz5JBhDUTppmLb6ZAE3szwFYBWeSrGZPusjUcxCLYu7iDyZNPP7mPkVAwe9Jx8oT33HVaJsetIM/JdU34V/+P1owf8S5klLDeA45VewkIdBefXE7oKvKENlfnfN7UaD5SmFtEiXOq3ZlTbD8OSPH+HHCJt7V1v8SQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com; 
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e7lJU2yXjKEMQUztoownYxmSUo5xLYjYP3p+fKIDals=;
+ b=fO65uMAa/2y2ONOGcPEWjVG2+2zRxXzlVLmeq8RazSAPyXORFC/Fbd9FQKccLSqLxfXFcRDES5b/uXLz8KhRFLpGxQQ2vpUyzEagZPRHlHnhJ5YBBG4aF7lo0NwYb+EmXKSu3YJXbTZwQ7k3EZNvXqEC05KIVrdZyrMyhY5yPj308vhyuKmccwdKk/RKUQNC+nhAHD6pSXV5UDbTKgmBH6nv51LrVFTLaCwqXqQjxeqaXFzNgrXWeOKt068hU1SSTZTlKXU/fno7p0RiwcAcouhWCCWNa5WYORROc3F+krSttDiXswywBwEuuzDJuk7xaNBRCIA2whrVykOZiAR/3w==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com (2603:10a6:290:76::14)
+ by AS8PR04MB7525.eurprd04.prod.outlook.com (2603:10a6:20b:29b::11)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
+ 2026 15:28:52 +0000
+Received: from MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b]) by MI3PR04MB12438.eurprd04.prod.outlook.com
+ ([fe80::c715:c32:8bb1:b70b%4]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 15:28:52 +0000
+Date: Fri, 27 Nov 2026 09:28:36 -0600
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
+ Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ linux-clk@vger.kernel.org, imx@lists.linux.dev,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v13 0/5] Add support for i.MX94 DCIF
+Message-ID: <awmhpFuAOF4BmmEO@SMW015318>
+References: <20261120-dcif-upstreaming-v13-0-966ac248773f@oss.nxp.com>
+ <awmGCp4e2pgtxsqr@vm> <DN63BMGBI07A.1IC73REGZ7NXZ@bootlin.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <DN63BMGBI07A.1IC73REGZ7NXZ@bootlin.com>
+X-ClientProxiedBy: PH5P222CA0003.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::17) To MI3PR04MB12438.eurprd04.prod.outlook.com
+ (2603:10a6:290:76::14)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Message-Id: <20261127-meson-drm-create-hdmitx-phy-v5-4-88c43eb95468@aliel.fr>
-References: <20261127-meson-drm-create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr>
-In-Reply-To: <20261127-meson-drm-create-hdmitx-phy-v5-0-88c43eb95468@aliel.fr>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Vinod Koul <vkoul@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Ulf Hansson <ulfh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- linux-phy@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>, linux-pm@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7248;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=+Sa3VAnyG7mxwHscfV5CH9pZg3lPumtOGpHuVXBmS/s=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQzbnwt5Xj6Wd3k9onfpsRdnRCCPpnnW/HmjKPD90eolYd
- 5uxzR+VjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAiTv8Z/odJNgW9vOv6aJ3G
- 83mrjEsrFwq/6Jkd/vbhwVn7E4+sqlrPyPBk65wnz87aNnB23V2+7uAkueadGtN3qiZ8sEjdmrl
- v9jNWAA==
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PR04MB12438:EE_|AS8PR04MB7525:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7f6837c3-5db3-4af6-c9b9-08df4c9b242e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|19092799006|7416014|376014|23010399003|1800799024|366016|4143699003|18002099003|22082099003|56012099006|11063799006|10067099003;
+X-Microsoft-Antispam-Message-Info: 7JCBMu0Y6YgLM/qt5gLbKNCm094IrCFfVjyVVdAbgzlT1ZHl4IKyQrXc88LfsRv9MDGNnHdgoFDJOCkSPr+B02kkgZM9/U1Cjy5LZ992+B0vjPcGfwb6jOVcvIJoAvT4bwmUqjlkBk7gjCoXikTUt96+vybtWugzBpjSfnhe9AC5BNgjkataveXOghxXegDd51CQMX/xjx3rqhj4yM1MbwzImyz0JrJSYCjd/urX9cQoEs/i+NQ7dppIYduh0J8Ep2dpXFpQ9WRzcry7P7gw2fUAJbUXKz/bGzyRe5unNvrbc3KS9Gc6X1gI8bfeW9xJiiJbSEBybWSiTxL9M/UbQORn2oeCgS1s33aBwLoT8LBTgq9id5Q3yoQzCxTOmA5XGb1DxiR/yDwzw1Fy9cRm1+Wqzhu8TtROPhoqgeogjjkKYwrUfk8OFZ5eJSoVbl/K8iqRasD/abeRzmCeCRFLaw+gdDEY+h3ToPZceJljPBBfrzm69GBUZl90ZxYJJqvqfSzLVDLhl99DraT2eVJUHzlg2VjCWQTYUHiMFYx7rxwP13BaLXybfmqVv4wN8NaNBhjvfUUjpiML8ydsEugLjq04vYtYoDOPLuWuffo6dmo=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MI3PR04MB12438.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(19092799006)(7416014)(376014)(23010399003)(1800799024)(366016)(4143699003)(18002099003)(22082099003)(56012099006)(11063799006)(10067099003);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?9HlGUE4m7Q9D6WFfIL9Ad7+Z1JtyYYLa9XqGrm7Au2fta7FoeTsyPoYf2WMG?=
+ =?us-ascii?Q?kykvCWnI+VHpFbrCuv8swvSkM2LUSBz5xBD8XuzjlKldllhzRaiQzfR6+vc4?=
+ =?us-ascii?Q?LfnrwXSYagtYymcmRRVAEuUIeJnQxBDk90pa7Utv/Fm3Re7s2PSsgYxk6mAX?=
+ =?us-ascii?Q?ehhLv0MCx4XGgjbL68Uy54WlgvzE2u28yHbfnjAa3FCP4xbX7YHms/8mihDy?=
+ =?us-ascii?Q?4dntO7mT+R6wwpp2Rrfw2/BLsOb/8TpXaYz5xtyCSyxW5fmPI3XryNKLIttM?=
+ =?us-ascii?Q?XMvleeGxTHfqr1Izk5npfKELQxVRvwoNNpP0b9wS8VlvKVMCMpBeqTes4F+j?=
+ =?us-ascii?Q?QqSEslu5LCb4gsQpGyLbU6MAQzcqg6cBl0MyMJ8D2ulXQH7wU502wuq2+q48?=
+ =?us-ascii?Q?RRB+dcdvJWe1/+Xfq37XrHUTcMaby62HO0S9XiP/x3eoFwAckrGiPBW9iWjr?=
+ =?us-ascii?Q?ZCdXicz+u/VcTuqqVe1VhtxfAF0ZYgOpGAN3qq63wzGv1Q7vAo7xMYx/I/5u?=
+ =?us-ascii?Q?ZQMhksRJh1ieUJnvo5rJoIz51eZVaD5RwpOMWrESTKne95fqSSI5eFZ4sYOd?=
+ =?us-ascii?Q?hLK0NwaKViz88GaAAjfCterWhnHDQpAPd0Sr04J5w/dBUhv93t0BdGX0qhF2?=
+ =?us-ascii?Q?cTxM69Ih87dK8omSDCJtToTeYCpZeRYrgNt0P4WCR9dhCAR3ZPM6iXP8t4Mf?=
+ =?us-ascii?Q?YSlaIehO5T9CQLQJ+ZFssGedp9YkAcVd2o6C3uy+fhJrQCDNVlMxdVv+GZRp?=
+ =?us-ascii?Q?gr+SFF5DKxSIZPVTO1bz0Mbo3y/IT5TFmH2QEehG3EoY+asrE9L+lNGbinjE?=
+ =?us-ascii?Q?P/jrhFCNjmzc/PL72jlbQpFrU9OnjA5E6AqW5KBDssUj1c1fp0umfnlx7L+u?=
+ =?us-ascii?Q?9Kd/JdnujQFhLQlaVf8syXy1k3Sa8bydzM+nrcrT4AULE7A4ZqO8k1wCVvb6?=
+ =?us-ascii?Q?IsC2yxVbdcZCizL22aG2SzCusxeQB9C2PfwdH1nT8eJPYZmcuRdWWw7p1+st?=
+ =?us-ascii?Q?eKsfybf63DbXUGRQt/8Nhep0ZZ4EmMnjAB9e+la9zI3IyVhBVLRpIMIEwUIM?=
+ =?us-ascii?Q?3mAA9oY2Ou+TPzRkpltsRggeoa6cYrErXcQb3scAy8N4AE0bwDf6IWZPHA9i?=
+ =?us-ascii?Q?MtQ68cPOet22csd+KRLReDe2OILkDgXdumtQOysdzCz3PnXZb3OpObdg/mJC?=
+ =?us-ascii?Q?5VREsaSVYUxINYFXkjYHMVUSoNUh8aJ3YyTGHH0UTC424VJUxd7t+Vxw6tOs?=
+ =?us-ascii?Q?vvpOZAt4NCnOu+07CG7OC0+DOnJSWu78iAd+erbSsRDgulFSfAMhMfNObM+4?=
+ =?us-ascii?Q?LthTtmZZRKw9bICQe0qLhRzqwomMtNbiilMkm3wzXNM1hRUvUOlaBQHXIdy0?=
+ =?us-ascii?Q?GSBu+4TjK1ezTgs/OQ7Wme2wLlauEL9cJ7yq7N0gvlwyitoMhChAABQq7p7M?=
+ =?us-ascii?Q?nDj7hI3aoQl0AujAxfHoLGJ+C2lWcEpnhJQTDR5scACSJdsdftpolMPSySpO?=
+ =?us-ascii?Q?MPkO6ScSMpp/ppxB+FX1qaTuu6niIFwJLetjv6w4LDkknVlWqAqD05JpGayO?=
+ =?us-ascii?Q?cPoCwn7mx/7bLqiKnZq9BV6g6cegorRYZua5K2P/za5zlhgBcTZKOTgG612f?=
+ =?us-ascii?Q?irha38MAUoYEASzwgZUvWvGY9ikwX3ygdgHMpp0ao1wzXKfPQMuvFiV6hSN+?=
+ =?us-ascii?Q?zu0QERwamSJMpR0LetSNnaKPyicuakYwLJSj+1qI2yqljbmweLH3EgQyMw6x?=
+ =?us-ascii?Q?3gSvcTab4HdnfsjNSo4oR860LR/+hCMATHzDSUIY0zNO+vSPWMMu?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7f6837c3-5db3-4af6-c9b9-08df4c9b242e
+X-MS-Exchange-CrossTenant-AuthSource: MI3PR04MB12438.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 15:28:52.2730 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EVLke28aOskgWTQk3ipnbLUPu0/yZRTvqPemsSs1JD4hn15jNiuqwcUq7N2ZCZKavA184irctWLmM6GBI+SiTzbUGg9QEoCnncuWMS0l+3k2gxcz4Px3w3oSEztO2jmQ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7525
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,222 +133,40 @@ List-Post: <mailto:dri-devel@lists.freedesktop.org>
 List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
-Reply-To: linux-kernel-dev@aliel.fr
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-3.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,
+	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+On Fri, Nov 27, 2026 at 04:15:28PM +0100, Luca Ceresoli wrote:
+> On Fri Nov 27, 2026 at 2:41 PM CET, Laurentiu Palcu wrote:
+> > Hi Luca, Frank,
+> >
+> > All patches in v13 now have review tags. Since we are approaching -rc6,
+> > would it be possible to pick this up for 7.5?
+> >
+> > Luca: could you apply 1/5 and 2/5 to drm-misc-next?
+>
+> I plan to apply these next week. I ususally leave at least 1w after a patch
+> is reviewed before applying it, in case someone has objections.
+>
+> > Frank: could 3/5-5/5 go through i.MX tree?
 
-The HDMI TX PHY driver is currently named after the Meson8 family
-(Meson8, Meson8b and Meson8m2), but the same IP block is found, with
-SoC-specific register programming, on the newer GXBB, GXL, GXM and
-G12A SoCs.
+I will pick 4 and 5 after you pick others to avoid conflict with other dts.
 
-In preparation for adding support for these SoCs, make the driver
-generic:
+Abel Vesa:
 
- - rename phy-meson8-hdmi-tx.c to phy-meson-hdmi-tx.c
- - rename the Kconfig symbol PHY_MESON8_HDMI_TX to PHY_MESON_HDMI_TX
-   and update the Makefile accordingly
- - drop the "(ARCH_MESON && ARM)" dependency in favour of
-   "ARCH_MESON", since the driver is no longer ARM32-only, and
-   select GENERIC_PHY
- - rename the phy_meson8_hdmi_tx_* symbols to meson_hdmi_phy_*
- - update the platform driver name, the Kconfig help text and the
-   module description
- - drop the unused <linux/property.h> include
+patch 3, should be picked by Abel Vesa. If he agree, I can also pick it.
 
-No functional change intended: the only supported compatible remains
-"amlogic,meson8-hdmi-tx-phy".
+Frank
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- drivers/phy/amlogic/Kconfig                        |  9 ++--
- drivers/phy/amlogic/Makefile                       |  2 +-
- .../{phy-meson8-hdmi-tx.c => phy-meson-hdmi-tx.c}  | 54 +++++++++++-----------
- 3 files changed, 33 insertions(+), 32 deletions(-)
-
-diff --git a/drivers/phy/amlogic/Kconfig b/drivers/phy/amlogic/Kconfig
-index ce7ba3eb2a8e..294996869e83 100644
---- a/drivers/phy/amlogic/Kconfig
-+++ b/drivers/phy/amlogic/Kconfig
-@@ -2,14 +2,15 @@
- #
- # Phy drivers for Amlogic platforms
- #
--config PHY_MESON8_HDMI_TX
--	tristate "Meson8, Meson8b and Meson8m2 HDMI TX PHY driver"
--	depends on (ARCH_MESON && ARM) || COMPILE_TEST
-+config PHY_MESON_HDMI_TX
-+	tristate "Meson HDMI TX PHY driver"
-+	depends on ARCH_MESON || COMPILE_TEST
- 	depends on OF
-+	select GENERIC_PHY
- 	select MFD_SYSCON
- 	help
- 	  Enable this to support the HDMI TX PHYs found in Meson8,
--	  Meson8b and Meson8m2 SoCs.
-+	  Meson8b, Meson8m2, GXBB, GXL, GXM and G12A SoCs.
- 	  If unsure, say N.
- 
- config PHY_MESON8B_USB2
-diff --git a/drivers/phy/amlogic/Makefile b/drivers/phy/amlogic/Makefile
-index 91e3b9790c03..2611ec8a056d 100644
---- a/drivers/phy/amlogic/Makefile
-+++ b/drivers/phy/amlogic/Makefile
-@@ -1,5 +1,5 @@
- # SPDX-License-Identifier: GPL-2.0-only
--obj-$(CONFIG_PHY_MESON8_HDMI_TX)		+= phy-meson8-hdmi-tx.o
-+obj-$(CONFIG_PHY_MESON_HDMI_TX)			+= phy-meson-hdmi-tx.o
- obj-$(CONFIG_PHY_MESON8B_USB2)			+= phy-meson8b-usb2.o
- obj-$(CONFIG_PHY_MESON_GXL_USB2)		+= phy-meson-gxl-usb2.o
- obj-$(CONFIG_PHY_MESON_G12A_USB2)		+= phy-meson-g12a-usb2.o
-diff --git a/drivers/phy/amlogic/phy-meson8-hdmi-tx.c b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
-similarity index 68%
-rename from drivers/phy/amlogic/phy-meson8-hdmi-tx.c
-rename to drivers/phy/amlogic/phy-meson-hdmi-tx.c
-index f6b5df74a58f..e4e606ab4eef 100644
---- a/drivers/phy/amlogic/phy-meson8-hdmi-tx.c
-+++ b/drivers/phy/amlogic/phy-meson-hdmi-tx.c
-@@ -1,6 +1,7 @@
- // SPDX-License-Identifier: GPL-2.0+
- /*
-- * Meson8, Meson8b and Meson8m2 HDMI TX PHY.
-+ * Amlogic Meson HDMI TX PHY driver
-+ * (Meson8/8b/8m2)
-  *
-  * Copyright (C) 2021 Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-  */
-@@ -13,7 +14,6 @@
- #include <linux/of.h>
- #include <linux/phy/phy.h>
- #include <linux/platform_device.h>
--#include <linux/property.h>
- #include <linux/regmap.h>
- 
- /*
-@@ -32,30 +32,30 @@
- 
- #define HHI_HDMI_PHY_CNTL2				0x3a8
- 
--struct phy_meson8_hdmi_tx_priv {
-+struct meson_hdmi_phy {
- 	struct regmap		*hhi;
- 	struct clk		*tmds_clk;
- };
- 
--static int phy_meson8_hdmi_tx_init(struct phy *phy)
-+static int meson_hdmi_phy_init(struct phy *phy)
- {
--	struct phy_meson8_hdmi_tx_priv *priv = phy_get_drvdata(phy);
-+	struct meson_hdmi_phy *priv = phy_get_drvdata(phy);
- 
- 	return clk_prepare_enable(priv->tmds_clk);
- }
- 
--static int phy_meson8_hdmi_tx_exit(struct phy *phy)
-+static int meson_hdmi_phy_exit(struct phy *phy)
- {
--	struct phy_meson8_hdmi_tx_priv *priv = phy_get_drvdata(phy);
-+	struct meson_hdmi_phy *priv = phy_get_drvdata(phy);
- 
- 	clk_disable_unprepare(priv->tmds_clk);
- 
- 	return 0;
- }
- 
--static int phy_meson8_hdmi_tx_power_on(struct phy *phy)
-+static int meson_hdmi_phy_power_on(struct phy *phy)
- {
--	struct phy_meson8_hdmi_tx_priv *priv = phy_get_drvdata(phy);
-+	struct meson_hdmi_phy *priv = phy_get_drvdata(phy);
- 	unsigned int i;
- 	u16 hdmi_ctl0;
- 
-@@ -85,9 +85,9 @@ static int phy_meson8_hdmi_tx_power_on(struct phy *phy)
- 	return 0;
- }
- 
--static int phy_meson8_hdmi_tx_power_off(struct phy *phy)
-+static int meson_hdmi_phy_power_off(struct phy *phy)
- {
--	struct phy_meson8_hdmi_tx_priv *priv = phy_get_drvdata(phy);
-+	struct meson_hdmi_phy *priv = phy_get_drvdata(phy);
- 
- 	regmap_write(priv->hhi, HHI_HDMI_PHY_CNTL0,
- 		     FIELD_PREP(HHI_HDMI_PHY_CNTL0_HDMI_CTL1, 0x0841) |
-@@ -96,18 +96,18 @@ static int phy_meson8_hdmi_tx_power_off(struct phy *phy)
- 	return 0;
- }
- 
--static const struct phy_ops phy_meson8_hdmi_tx_ops = {
--	.init		= phy_meson8_hdmi_tx_init,
--	.exit		= phy_meson8_hdmi_tx_exit,
--	.power_on	= phy_meson8_hdmi_tx_power_on,
--	.power_off	= phy_meson8_hdmi_tx_power_off,
-+static const struct phy_ops meson_hdmi_phy_ops = {
-+	.init		= meson_hdmi_phy_init,
-+	.exit		= meson_hdmi_phy_exit,
-+	.power_on	= meson_hdmi_phy_power_on,
-+	.power_off	= meson_hdmi_phy_power_off,
- 	.owner		= THIS_MODULE,
- };
- 
--static int phy_meson8_hdmi_tx_probe(struct platform_device *pdev)
-+static int meson_hdmi_phy_probe(struct platform_device *pdev)
- {
- 	struct device_node *np = pdev->dev.of_node;
--	struct phy_meson8_hdmi_tx_priv *priv;
-+	struct meson_hdmi_phy *priv;
- 	struct phy_provider *phy_provider;
- 	struct resource *res;
- 	struct phy *phy;
-@@ -128,7 +128,7 @@ static int phy_meson8_hdmi_tx_probe(struct platform_device *pdev)
- 	if (IS_ERR(priv->tmds_clk))
- 		return PTR_ERR(priv->tmds_clk);
- 
--	phy = devm_phy_create(&pdev->dev, np, &phy_meson8_hdmi_tx_ops);
-+	phy = devm_phy_create(&pdev->dev, np, &meson_hdmi_phy_ops);
- 	if (IS_ERR(phy))
- 		return PTR_ERR(phy);
- 
-@@ -140,21 +140,21 @@ static int phy_meson8_hdmi_tx_probe(struct platform_device *pdev)
- 	return PTR_ERR_OR_ZERO(phy_provider);
- }
- 
--static const struct of_device_id phy_meson8_hdmi_tx_of_match[] = {
-+static const struct of_device_id meson_hdmi_phy_of_match[] = {
- 	{ .compatible = "amlogic,meson8-hdmi-tx-phy" },
- 	{ /* sentinel */ }
- };
--MODULE_DEVICE_TABLE(of, phy_meson8_hdmi_tx_of_match);
-+MODULE_DEVICE_TABLE(of, meson_hdmi_phy_of_match);
- 
--static struct platform_driver phy_meson8_hdmi_tx_driver = {
--	.probe	= phy_meson8_hdmi_tx_probe,
-+static struct platform_driver meson_hdmi_phy_driver = {
-+	.probe	= meson_hdmi_phy_probe,
- 	.driver	= {
--		.name		= "phy-meson8-hdmi-tx",
--		.of_match_table	= phy_meson8_hdmi_tx_of_match,
-+		.name		= "meson-hdmi-tx-phy",
-+		.of_match_table	= meson_hdmi_phy_of_match,
- 	},
- };
--module_platform_driver(phy_meson8_hdmi_tx_driver);
-+module_platform_driver(meson_hdmi_phy_driver);
- 
- MODULE_AUTHOR("Martin Blumenstingl <martin.blumenstingl@googlemail.com>");
--MODULE_DESCRIPTION("Meson8, Meson8b and Meson8m2 HDMI TX PHY driver");
-+MODULE_DESCRIPTION("Amlogic Meson HDMI TX PHY driver");
- MODULE_LICENSE("GPL v2");
-
--- 
-2.56.1
-
-
+>
+> Luca
+>
+> --
+> Luca Ceresoli, Bootlin
+> Embedded Linux and Kernel engineering
+> https://bootlin.com
+>
