@@ -2,42 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 388C8606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:21:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC9EB606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:21:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=cbY3bcGy
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.a=rsa-sha256 header.s=dkim header.b=LEXBSZ1w
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 10325112A19;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 19A86112A46;
 	Fri, 27 Nov 2026 11:21:28 +0000 (UTC)
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7D7CC10E92B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:21:18 +0000 (UTC)
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 803B010E5B8
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:21:15 +0000 (UTC)
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
- by smtpout-02.galae.net (Postfix) with ESMTPS id 4DD661A1833;
- Fri, 27 Nov 2026 11:21:17 +0000 (UTC)
+ by smtpout-03.galae.net (Postfix) with ESMTPS id 21C4E4E417C3;
+ Fri, 27 Nov 2026 11:21:14 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
- by smtpout-01.galae.net (Postfix) with ESMTPS id 1B9D86049C;
- Fri, 27 Nov 2026 11:21:17 +0000 (UTC)
+ by smtpout-01.galae.net (Postfix) with ESMTPS id EAB626049C;
+ Fri, 27 Nov 2026 11:21:13 +0000 (UTC)
 Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon)
- with ESMTPSA id 006EE11E69316; Fri, 27 Nov 2026 12:21:12 +0100 (CET)
+ with ESMTPSA id 1A1B911E6930D; Fri, 27 Nov 2026 12:21:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
- t=1795778475; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+ t=1795778472; h=from:subject:date:message-id:to:cc:mime-version:content-type:
  content-transfer-encoding:in-reply-to:references;
- bh=wyuSxlsNtZdzS2kMPgy+yUGqxcXiLdY+DvJIUECPPNQ=;
- b=cbY3bcGytC6uR/qaoGG2WYulJAKU1kZd2N+BTXLtGwH3o2JIF/vwZ2E9NOwbBQ/bc3AndZ
- N5gXCGPtvV1wEG6JD80jXnidLCDU8qFLIf9K+tuYvzdKVdNW7N823kUZgZsai3saVsK7iZ
- mV2s+sbmCuTW+r/FV7K2Q2/vh5D+G6v2yma0/adHU5dC5dKzel1g02ClP2ela0DfDQdVss
- aOMD25CPOL2ynktKwZH0ojnrZEAMuuvCAcQKK4xeDK70NkqDmI+r23eLAppiYMVyUBK5bw
- 7nVZAPkZI/PNiyX6FWSZ0daHFhJlh0a7Kx/hfVNbfuvPBaA6tsv1rMuw2doAqQ==
+ bh=nOxes14wQRCie7+aKqzYUwuQPRSHdGILYH8KNpmcKRM=;
+ b=LEXBSZ1w9hzu5mqA6pG1zvEQXX3/Z9ZRXXob+dTjKM5UC0O0xW8QlZACuAYzG7x0H6vXEd
+ l3XkU6zla7WMYOtn427eATARnIPUGTCu/z66VsRZo00Ha/M/IcFqrfZxVyTlXQmf9NYmSC
+ +10aWmi80VDWXhXnLyzE+l8vfCY+Er8cZr/V6sQpmcwp0Iv2THdumm4SFE4obBK6yROIuD
+ RTj6XCA4g3hVqnnMyoexUXuPLKolzd09jmOHtD+pipHZAYv9o/FZkd5dRxHuiE8LWEO4Wk
+ Tl1gy0vQxwAcio7eoixbaFcftYbBqP7gRJwsgQKlpB+7qWUijTugY4qGWFLeOw==
 From: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Date: Fri, 27 Nov 2026 12:20:39 +0100
-Subject: [PATCH v2 4/4] drm/bridge: ite-it66121: make successful probe
- quiet
+Date: Fri, 27 Nov 2026 12:20:38 +0100
+Subject: [PATCH v2 3/4] drm/bridge: ite-it66121: log an error if the IDs do
+ not match
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-ite-it66121-log-probe-errors-v2-4-dbe9b5a3c5df@bootlin.com>
+Message-Id: <20261127-drm-ite-it66121-log-probe-errors-v2-3-dbe9b5a3c5df@bootlin.com>
 References: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
 In-Reply-To: <20261127-drm-ite-it66121-log-probe-errors-v2-0-dbe9b5a3c5df@bootlin.com>
 To: Phong LE <ple@baylibre.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
@@ -74,8 +74,10 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When drivers are working properly they should be quiet. Turn the dev_info()
-into a dev_dbg(). While there, also make it more informative.
+If the IDs read from the chip do not match any of the known models,
+it66121_probe() fails silently, making troubleshooting unnecessarily
+difficult. Log an error to clarify the failure reason, showing the IDs read
+from the hardware.
 
 Reviewed-by: Javier Martinez Canillas <javierm@redhat.com>
 Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
@@ -84,19 +86,19 @@ Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/bridge/ite-it66121.c b/drivers/gpu/drm/bridge/ite-it66121.c
-index 596c31f3d5a9..d11f947e33b2 100644
+index 4642a32f1bd0..596c31f3d5a9 100644
 --- a/drivers/gpu/drm/bridge/ite-it66121.c
 +++ b/drivers/gpu/drm/bridge/ite-it66121.c
-@@ -1698,7 +1698,8 @@ static int it66121_probe(struct i2c_client *client)
+@@ -1661,7 +1661,8 @@ static int it66121_probe(struct i2c_client *client)
+ 	}
  
- 	drm_bridge_add(&ctx->bridge);
+ 	if (i == ARRAY_SIZE(it66xx_chip_info))
+-		return -ENODEV;
++		return dev_err_probe(dev, -ENODEV, "Unknown vendor %04x device %04x (rev %01x)\n",
++				     vendor_id, device_id, revision_id);
  
--	dev_info(ctx->dev, "IT66121 revision %d probed\n", revision_id);
-+	dev_dbg(ctx->dev, "IT66121 vendor %04x device %04x revision %d probed\n",
-+		vendor_id, device_id, revision_id);
- 
- 	return 0;
- }
+ 	ctx->bridge.of_node = dev->of_node;
+ 	ctx->bridge.type = DRM_MODE_CONNECTOR_HDMIA;
 
 -- 
 2.56.1
