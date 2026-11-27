@@ -2,54 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 744E9606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 07:53:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5D5A606A321
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 07:53:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=EVFy8hqO
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.a=rsa-sha256 header.s=Intel header.b=fR9O1bvz
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A74F10E417;
-	Fri, 27 Nov 2026 07:53:15 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 225C311249B;
+	Fri, 27 Nov 2026 07:53:27 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id CF5A710E417
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:53:09 +0000 (UTC)
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7DADA11249B
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:53:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
- t=1795765990; x=1827301990;
+ t=1795766002; x=1827302002;
  h=from:to:cc:subject:date:message-id:in-reply-to:
  references:mime-version:content-transfer-encoding;
- bh=CC//b7z1735TYma7APpCEvEt+hwk5NhZ3JvuzBiCLfc=;
- b=EVFy8hqOmD9zZ9hYGwHXgWhqbofX1tcXTEJLWc8sDIDBBvol6wy37cJA
- MH9ga8loHCYvR0iixi85dCGPvghnzNxfCmpwNrBIfjkJJqnirY9FiMlCw
- 0t654bdq0nxSqnCAgYqawcpUY1wJCeTRgv0xQ09IzSkOcsEAHfpdBV/mk
- aF3dlDZA8fbXMsZF52+7sKNEdJK8BUjODlExPJYYkdOIpXTWTiAr0IpCn
- 1KaTD0sThaWlNtGhJ8+XcY5SFxTGaOZCmPcF35+0zQxUyVvm/CmIgtwT9
- wAHzurd4gZM7kIX6Zf1HRKVhefnH1ec4tPKV3KSgL/4bsJWOlT1waTHxV A==;
-X-CSE-ConnectionGUID: IACfYP58Ro2vm95/689D4w==
-X-CSE-MsgGUID: 64+qN9gzRNGrcuKkZTutLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4639642"
+ bh=en9nIFiPHp5NdJ2ji7cpb7Yy8P+oZwMxKLHFGCavy6s=;
+ b=fR9O1bvzYOWWDJ+K2EzA3RrsESR2RxrEpsyl0VleBTKcrUgArO1kUVRj
+ aI5lNc4Qa7hAQSuWgiqTfjOWTjfrAFHFbyTjThHyXOmx7V82kYFR8j/Ms
+ gZWbjXHWkCF7qlY+b1fm9YT/kDs2hG3wjxXHLDQawAf4JB3vNvvvHFUb0
+ Q1PH2fg5SEUF/2GsPCsKhfnARPOA98YRMmgHfwAwUKs1mWOn3EJhuWlNr
+ ZDq6gNkF6Rk1PmeRBWNDB0lcCN9BKnMaSZm496lT7ono6FXzh8Up4AD1b
+ OPLWzrA02ZtjLSaqgiwtZEQZpxCqUfelQap7TiLb4TTzyRVMpObodSufb A==;
+X-CSE-ConnectionGUID: kT+lxMT5Rr+CNVP3pWkwXg==
+X-CSE-MsgGUID: +V+LTaPMSpWDcQh+eGZrUA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11978"; a="4639651"
 X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; 
-   d="scan'208";a="4639642"
+   d="scan'208";a="4639651"
 Received: from fmviesa004.fm.intel.com ([10.60.135.144])
  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 23:53:10 -0800
-X-CSE-ConnectionGUID: tzzQhgL4Rt2xTSN0nAVsww==
-X-CSE-MsgGUID: MurWGw6zT2y4tSGYmKo6bA==
+ 26 Nov 2026 23:53:21 -0800
+X-CSE-ConnectionGUID: MH1cy0DKTe2MQJ5qqagh9g==
+X-CSE-MsgGUID: SbKLa2ZeRkeg4uaVlKMyFQ==
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; d="scan'208";a="12338200"
+X-IronPort-AV: E=Sophos;i="6.27,236,1787036400"; d="scan'208";a="12338229"
 Received: from yufei-super-server.sh.intel.com ([10.239.92.104])
  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Nov 2026 23:53:07 -0800
+ 26 Nov 2026 23:53:19 -0800
 From: Fei Yu <fei.yu@intel.com>
 To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
 Cc: dri-devel@lists.freedesktop.org, kernel-dev@igalia.com,
  =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
  =?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>
-Subject: Re: [PATCH 0/7] DRM syncobj scoped cleanup and fast path
-Date: Fri, 27 Nov 2026 15:58:58 +0800
-Message-ID: <20261127075858.1868896-1-fei.yu@intel.com>
+Subject: Re: [PATCH v2 7/7] drm/syncobj: Add temporary array allocation fast
+ paths
+Date: Fri, 27 Nov 2026 15:59:10 +0800
+Message-ID: <20261127075910.1869135-1-fei.yu@intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
-References: <20261126111117.67342-1-tvrtko.ursulin@igalia.com>
+In-Reply-To: <20261126114945.67886-1-tvrtko.ursulin@igalia.com>
+References: <20261126111117.67342-8-tvrtko.ursulin@igalia.com>
+ <20261126114945.67886-1-tvrtko.ursulin@igalia.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
@@ -72,48 +74,48 @@ X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, Nov 26, 2026 at 11:11:10AM +0000, Tvrtko Ursulin wrote:
-> Syncobj IGT pass, light gaming and light desktop as well, and there are no
-> kmemleak reports. Nevertheless this version is a bit more invasive so if the
-> approach is looking good a careful review will be required.
+On Thu, Nov 26, 2026 at 11:49:45AM +0000, Tvrtko Ursulin wrote:
+> Running the Cyberpunk 2077 benchmark we can observe that waiting on DRM
+> sycobjs (drm_syncobj_array_wait_timeout) is relatively hot, but that the
 
-Tested patches 1-6 plus v2 of 7/7 on v7.4-rc4 (x86_64, KASAN +
-KASAN_STACK, lockdep, kmemleak, failslab/fail_page_alloc/fail_usercopy,
-virtio-gpu in QEMU), base and patched with the same config:
+Nit: "sycobjs" -> "syncobjs".
 
-- IGT syncobj_basic, syncobj_wait, syncobj_timeline: 202/202 on both,
-  identical per subtest, dmesg clean.
-- The targeted test from the previous version, 1..8 handles on all
-  six array ioctls (success, -ENOENT at every position, -EFAULT for
-  bad / partially unmapped handle and point arrays, sw_sync and
-  WAIT_FOR_SUBMIT wake-ups, -ETIME / -EINTR followed by late
-  signalling, 20 s stress), and 1M handles OK / 1M + 1 -EINVAL:
-  all pass on both, no splats, kmemleak clean.
-- Since the error paths are what changed most, I also ran every
-  ioctl with n = 1, 2, 4, 5, 8 under fail-nth, failing each
-  allocation / user copy in turn (~340 injected faults on the
-  patched kernel, among them partial dma_fence_chain_alloc() in
-  timeline_signal and the kvzalloc / vmemdup fallbacks above 4
-  entries), plus blocking WAIT_FOR_SUBMIT waits the same way. Every
-  call returns -ENOMEM / -EFAULT or succeeds, each syncobj can be
-  destroyed exactly once afterwards, no KASAN report, kmemleak
-  clean. Same on base. A NULL handles pointer still gives -EFAULT,
-  and a NULL points pointer behaves the same as before for n = 1..8.
-- Every patch builds with W=1 and sparse clean, i386 too.
+> v2:
+>  * Use fast path in drm_syncobj_array_find itself!
 
-So whatever the outcome of the discussion on 2-5, the scoped
-conversion did not introduce any error path bug in my testing.
+Thanks, that drops the handles allocation from every array ioctl
+(and covers the sashiko comment on v1).
 
-On points when user_points is NULL (2/7 and 4/7): with 7/7 that is
-a memset of at most 32 bytes on the stack for n <= 4, so skipping
-it only matters for the slow path.
+> +#define DRM_SYNCOBJ_INIT_FASTPATH_ARRAY(_name, _src, _count) ({		\
+[...]
+> +	} else {							\
+> +		size_t __size = (_count) * sizeof(*(_name));		\
+> +									\
+> +		_name = _name##_stack;					\
+> +		if (_src) {						\
+> +			if (copy_from_user(_name, (_src), __size))	\
+> +				__ret = -EFAULT;			\
+> +		} else {						\
+> +			memset(_name, 0, __size);			\
+> +		}							\
+> +	}								\
+> +	__ret;								\
+> +})
 
-Stack (KASAN build, so inflated): the wait path goes from 640 to
-1160 bytes (wait_ioctl 184 -> 296, array_wait_timeout 280 -> 688),
-timeline_signal_ioctl 224 -> 472, the other ioctls +104..+112,
-array_find 88 -> 224.
+A NULL _src means "zero-fill" here. That is the right thing for the
+points arrays, but it is also why array_find needs its own check:
 
-Tested-by: Fei Yu <fei.yu@intel.com>
+> +	if (!user_handles)
+> +		return -EFAULT; /* Preserve ABI error code */
+
+A future caller that forgets this check would silently get zeroes
+instead of -EFAULT for a NULL user pointer. Maybe split the init into
+a copy variant and a zero variant (a NULL user pointer then fails in
+copy_from_user() / vmemdup_array_user() as before, and this check can
+go), or at least say in a comment above the macro that NULL means
+zero-fill?
+
+Reviewed-by: Fei Yu <fei.yu@intel.com>
 
 Thanks,
 Fei
