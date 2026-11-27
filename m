@@ -2,57 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8321606A326
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:34:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E049606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:40:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=RJOdUt8f
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=VxVnACFB
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 08B9E1128B6;
-	Fri, 27 Nov 2026 11:34:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5CB111128B6;
- Fri, 27 Nov 2026 11:34:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 3D45641669;
- Fri, 27 Nov 2026 11:34:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72E0D1F00899;
- Fri, 27 Nov 2026 11:34:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795779274;
- bh=+TtWQm0Jbb5pA7zQRAqTD0mcWKi7bUWXYCnzVEumBoQ=;
- h=Date:Subject:Cc:To:From:References:In-Reply-To;
- b=RJOdUt8fsxedUj1n7Y8VN2eISd2hcoyKKn9lbvemBW7cFtbJ6GNosOj4rVAh0xYwB
- ni66oMVmp7kWjavz3k4GsoTZ/z7Ocf2rvdVTKdQoVqIEi/0H7jpIsrMxQJcUGr3e8Z
- D9v6+sjWR7WddwPfmc7n7qDOQCpYl1WzgwsCLz2JmJMO+RRQlAUmVnhUh+qVXvW0k3
- ULADG47FUAlhOGp7pTieQyBsq+hKcDoZ1Nat6uEYf9d3+j7co5BxA/1fA1Bsw9HSGh
- Tle8wYM4s4TIN4kJe/gDKJHVKRZ1bSnB7/92fao2BoK4UziqVa2GTLQhrDijVXrV71
- wNjdUY1JOImew==
+	by gabe.freedesktop.org (Postfix) with ESMTP id 64FC310E1BE;
+	Fri, 27 Nov 2026 11:39:56 +0000 (UTC)
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
+ [209.85.221.47])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id BA759112899
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:39:49 +0000 (UTC)
+Received: by mail-wr1-f47.google.com with SMTP id
+ ffacd0b85a97d-48e47347279so4879733f8f.1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 03:39:49 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795779588; x=1796384388; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=YwGjvP6ctTxZun8XTu6GbbqiRyztei0tj/DC1LKv/lo=;
+ b=VxVnACFBaUJBHhAjndIgABTK3mEruPNvHIwpzc8UnhaEdCw8l6QPi43TnRhNoFlcZ4
+ 1XXKHvwWeyrev9VNq3Z+Q6UO05Jwo239y+zw1F7cW8FMe2vICQVkHns8lTkj3yvvzfry
+ WVtl0PYWZ5djSFOSvGp5lKAJD/8RX3DDZloGt80acBO7P8Z7CkTamhZo5XKYJpPGHmnx
+ s69Fb49uvoP/4hwuidWvrNOf9Fid/cxEGd/gAhqa3Ojh2NOKV8gVe8jAwQ/C3PTXTuyw
+ dODo/X6ykafOepIL3YZ08CWqm5g+jXpswKSnybNoB0JWSmqiyYG1lNPyWA+UxrfdeQa3
+ ODTQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795779588; x=1796384388;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=YwGjvP6ctTxZun8XTu6GbbqiRyztei0tj/DC1LKv/lo=;
+ b=ACc9XtZve8VYNSpLoWMGU/ao3hArO+vvbqEZkWDfrjftSXiZr48A8QxsjwL6EWI+bc
+ k1BNuloJjx9MBl6YKFrrIn1d58up2UGY7l+b/qgocbqFGV4q5wsxrsX3ouwB7N6oDdis
+ yvqf+IRMFzXUpDM7FQ63sltw3YpkGkJhaN+G2d72se6kBN6djIRd2HzQmciPQhlcamJj
+ Yrt3EkpU7bMXEycjWlAGaQxQwxUZHaQGp6ySZlW0lZ2fio0GHUP7AZvzWUEHsQQ6KtoG
+ knu/gU4kp0PgAsR07hth368/ZyV/14TT8Ao/w6/Zz4NBjIHMPrHP9UqwTWU6C9MFcakb
+ MgbQ==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGtpEkelDZwdyKr55K0rHlSoYTpe5TkwgdyAOdBdBsW8IGbIUETGzjrD27g17UpjVl8dpfagwzEWg4=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z9xdI7KizlUDH3HCdHrm1pNIVIYRWN6zv83zRp3/xZ3jkMP+GTA
+ 1JkazQXb+f7PzT89LI0wldISKwd0Rd+oQOM9ZM8/HgcLnbUxPUFHfQEc
+X-Gm-Gg: AZFdTZeMd1VEyIO4Dh0eBKHkkNsbVr3+I6BeME/3BlkX0ADsfl5uVyfN8XBFe58PqnQ
+ t/q+SrX04qych2kQgZ1bSfQWLpmXRqvx1RfNB7XlenY/migOrhsK4YQHYIonPYadUAparPN9SK3
+ pUCADJGXcaLtFb2NaQAs78EC2An3ZcHuRl3L8zYusTPPgFy55RrqidjBwMHQXdKj+lffjz7Meuw
+ lys0bMkN0B5Ws7UvZRgynfi8JZf4MZ52qXD1eKz5liP4ScZdlDC0scNk8wRyF2Z1kUYXCSHg2HD
+ OxhHT7ryqrmf7TsSDdAY8CGqYUCeWMx/QoWOuh/J+H84zQOHrWqZv7J5h6naRXRw4oiYZGPDTUU
+ x1CmcxZqyD3j+oxSzsC/SZorl6vPqlC/WtmjcXw4U3I9MiwPk8GRATluBw4Lamm3lPWaATG3Fh7
+ IkhNf6SQI7r4/OXpnJQVVYzdHVOd03P7EyllfQUiUYNqDQOmBZJ+7ATA4cv+Ro9q9l2ZFH0AE4o
+ QwwTvGWSyGlXa6MoYjwJ2znma7RoTGjUqU03zxGEAaV1LSpyhHPYHCJU/0iJbtsdh+6IGUPy3XG
+ HSN4aTKMaOWKhWdCck5+51QXHXvWtT4=
+X-Received: by 2002:a05:6000:184d:b0:48c:7386:af18 with SMTP id
+ ffacd0b85a97d-4abacfea55cmr51711565f8f.8.1795779587982; 
+ Fri, 27 Nov 2026 03:39:47 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4b34e9c3ffesm31135419f8f.19.2026.11.27.03.39.38
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2026 03:39:47 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 17/43] drm/vkms: Introduce config for plane name
+Date: Fri, 27 Nov 2026 12:39:33 +0100
+Message-ID: <awlqNR4-W6a8w6QN@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126-vkms-all-config-v7-17-21194cda2468@bootlin.com>
+References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+ <20261126-vkms-all-config-v7-17-21194cda2468@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Fri, 27 Nov 2026 12:34:29 +0100
-Message-Id: <DN5YMFCMLL2E.3LMY2Z5ZQAYFG@kernel.org>
-Subject: Re: [PATCH 0/3] dma-fence: Properly order timestamps
-Cc: "Sumit Semwal" <sumit.semwal@linaro.org>,
- =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, "Alex Deucher"
- <alexander.deucher@amd.com>, "David Airlie" <airlied@gmail.com>, "Simona
- Vetter" <simona@ffwll.ch>, "Matthew Brost" <matthew.brost@intel.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "Tvrtko
- Ursulin" <tvrtko.ursulin@igalia.com>, "Mario Limonciello (AMD)"
- <superm1@kernel.org>, "Aurabindo Pillai" <aurabindo.pillai@amd.com>,
- "Pierre-Eric Pelloux-Prayer" <pierre-eric.pelloux-prayer@amd.com>, "Gustavo
- Padovan" <gustavo.padovan@collabora.com>, "Chris Wilson"
- <chris@chris-wilson.co.uk>, "Luben Tuikov" <ltuikov89@gmail.com>, "Shashank
- Sharma" <shashank.sharma@amd.com>, "Paul E . McKenney"
- <paulmck@kernel.org>, "Gary Guo" <gary@garyguo.net>,
- <linux-media@vger.kernel.org>, <dri-devel@lists.freedesktop.org>,
- <linux-kernel@vger.kernel.org>, <amd-gfx@lists.freedesktop.org>
-To: "Philipp Stanner" <phasta@kernel.org>
-From: "Danilo Krummrich" <dakr@kernel.org>
-References: <20261126172046.2473303-2-phasta@kernel.org>
-In-Reply-To: <20261126172046.2473303-2-phasta@kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -64,31 +106,19 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,USER_AGENT_GIT autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu Nov 26, 2026 at 6:20 PM CET, Philipp Stanner wrote:
-> I propose stuffing these hotfixes into the stable kernel / misc-fixes
-> while we move on on misc-next with a more proper solution. I'll post a
-> series for that soonish, too.
+Hello,
 
-"Hotfix" kind of implies that it causes serious issues for "live" users.
+vkms_config_destroy_plane() frees the plane through call_rcu() and
+vkms_config_plane_rcu_free(), which is module text. vkms_exit() has no
+rcu_barrier(), so a queued callback can still run after the module is
+unloaded.
 
-One of the patches says "fence timestamps can be written and read without a=
-ny
-memory ordering since, presumably, forever."
-
-What has changed that this now became an issue that needs a hotfix? Do we h=
-ave
-broken users?
-
-If so, it would be good link a report if there's one publicly available.
-Otherwise, I'd suggest to just go ahead with the proper solution you work o=
-n.
-
-Thanks,
-Danilo
+Thank you,
+Oarora Etimis
