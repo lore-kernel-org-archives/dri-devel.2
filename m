@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211D4606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 04:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFFC606A31E
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 04:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=Q+RpLjco
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=tsYiaz6h
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 68F9110E44A;
-	Fri, 27 Nov 2026 04:41:10 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013066.outbound.protection.outlook.com
- [40.93.201.66])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E5B1F10E44A
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:41:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 65D5010E220;
+	Fri, 27 Nov 2026 04:56:51 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013009.outbound.protection.outlook.com
+ [40.107.201.9])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A886810E289
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:56:45 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oSyqW8y3wi2n8griANs/47ftRqIXp5G3cfobJSMyhwMGiunJaJ1WW+qHju3oWnDplWF0XNatsHHagm1zFfkPLQ9wrKwGfy2JooVBm8f+p3SMb1jxWswLBw/umVK8o8RGbumRod8vgvYGDVuLaDzktxXWvuuHoQ+pBzDc2lj9OLsE3IOozXLKrYrnYOhrwpLCyQQ/J0narifU68lkemcOkBZQMmqWojmeTeuRss/7BI9PHsPhanJYugPexTNKcZyFmrcbcAi/ZbisEDq02KneaqZAkF3UnI8KWIaizEMySj2QNcmQGKKP8KGZ/LUiUhljhWK6T+faM1zmru5DWYsV9g==
+ b=klkNnOZS2tI8j7BcTt/WQ5SJ/3Z2Rln0/hkAZEQBKHbNNTWLOu5RzIzgWdTyWDyRPL7QmY5UtJTqP+JFBCQsXz4+6nQzNL0FbOq89oYLrHECatNozhskxMx97uJrTp8rhZ0nqsIkGmfPYP53ceIHCqMCJ8EvltsyH6ZkJ9QRT1o4WmVQ0i/n/HQfYRcejRU4thFNyTHKp+lRfsxjpec6YeF7mpzu4kvl0e2tD/TAyhM/F3x5++xdOYlPTRCLstRu3svNLqkdcEXpjIUZ8m91lTdQXTpcsJbEH7t8KHAzDeYOBal+kkDg39n7X+nvaatKu4eFn/LJJ6IYX0svrJk3fA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XtuNyt1OkOxP2EtlRDMOUhaLX9j/AEJCOYL0eaCn7x8=;
- b=ugcublTZyAoCHsrQhDm953sZLUIVg6bnYT4ecoU9TSFe4x/8ILmnojSHVabgSsIJIg41JQgO/qUrNElMm9XLDZF1hIaGr4GBn/FQc/ue5cufjHKyPg5jMAA8ss1muUvwTJad6H2oAz05ZpgghWGfnxD8N+uTH6fjBTo2M4Ej7q0o8Laja31XLhXMDS6pYALQZbQzKG0/oqT6lDW/dckfBo+AS3VNvrqUUFQ149d9BlmkYBGTCSH1HPQ8CpAH2FfEwIalORPvpQ31i/wpKp4R8GGNYj4olPAksKjwmv8rnBH/XMjSxdBWVetcn4fSCStCov3yLF9N80YS3Tr/CLe+jA==
+ bh=irGQC7zuBG+4smKYfdjZ2ooZS2o+R8gHo7UswdRdjHA=;
+ b=Q89rFZ8l4o7iE0FQQjrihqs/1TlvADDiTyhes0XAzQAcFEfq36tyds/o1I4eAnW+m8mvAiDCj5atU3w3gtdnORjN/B1o65YYe/0pdc9CVxeK6kTEBmAgUUF8FR9jpHoxBAivVlvVzspTAorc7THcucSpgpAK9jWZuVe5TwJg3g5DIFrFn/YJjd9ItLcqp1bCFRpIF7EULaao/4Z+aMIcb7Ng/EOJ+diiT6931YYf+SnT1pbKmPQ4AQ5qPzrja9Spul8KMt9aJ9qnwV9BbswyxmvRmUuKw2oT9U21xQnNdj/MjltuC685KtnrhhbZ2PyXv17ebXy/6IdGeTnIbCrQ1w==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XtuNyt1OkOxP2EtlRDMOUhaLX9j/AEJCOYL0eaCn7x8=;
- b=Q+RpLjco4rxSQLRJ3yv4CGVOmY+LNUGSkVahMqBm+O7eEWtYtezvBOGYcFyhOFyOrNZhZo8aZseUKr3bk1vpTdf2ZLgv9n1XhSxmLYpTGm3MucL5SSOulX85nnUx9EPMwHYtTC3tuuNuK91EhOp3dTtuEpzjy6szHtVLHGyzKuIjA6vL/xtjyRR7z1Bhztb8B8fK0c6mnKcVAIzf5oUlbFgVKgSqYjRpI9l5b/oKjZoDsi1odeYwBW9L2ZHU3Ny5PvzYFKx9jGpTzKedmzUruFLrDWq6sR9q+bitwvhQ31/uCp71PsmVu2sL8BY5kz2bIO7rhKAM3SzB/HOMDzEG9Q==
+ bh=irGQC7zuBG+4smKYfdjZ2ooZS2o+R8gHo7UswdRdjHA=;
+ b=tsYiaz6h0BsQOClzJWDkZkBKIsTRUBgmioF+A9H1FnoW3rps4oGEdhn6evHtHH5Pux6UqvlUIZIovCufBsrpH6x6/MUG2O35XTd79ciYTCrm7/UJAbIHoHRKCcX/OezwOEnlDHr0XvU1MeplnzFJxPGLTnkCgYeBrjiMU5426da4kVdul6RMjc6TeckTmcEuDZz3knvgXDKhObkOCEysCpCG9LUn/5hoCtdSpNUuBKLXVfLF6mfK4moiuntA2bHXmrRcdQqOnnV8qFiHWNWFa0LHARpY3jtCGSzI6hWSIU9ZkMCPWvqbjE9FiAArFwWdM+o9SJoeSyBUGCyOaeDmJg==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS7PPF539334D8E.namprd12.prod.outlook.com (2603:10b6:f:fc02::945)
+ by PH0PR12MB8098.namprd12.prod.outlook.com (2603:10b6:510:29a::17)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 04:41:01 +0000
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.639.13; Fri, 27 Nov
+ 2026 04:56:41 +0000
 Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
  ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 04:41:01 +0000
+ 04:56:41 +0000
 From: Mikko Perttunen <mperttunen@nvidia.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
@@ -54,84 +54,84 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
  linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
  Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v8 05/12] drm/panel: panel-lg-lh400wv3: Convert to
- mipi_dbi_write_seq_multi()
-Date: Fri, 27 Nov 2026 13:40:57 +0900
-Message-ID: <HQu8082xS7qYmUTkCtc3sA@nvidia.com>
-In-Reply-To: <20261122081820.53199-6-clamor95@gmail.com>
+Subject: Re: [PATCH v8 06/12] drm/tegra: dc: Add elements required by Tegra
+ MIPI DBI
+Date: Fri, 27 Nov 2026 13:56:37 +0900
+Message-ID: <CQmBXmddTJ6v1iTnbDfQLA@nvidia.com>
+In-Reply-To: <20261122081820.53199-7-clamor95@gmail.com>
 References: <20261122081820.53199-1-clamor95@gmail.com>
- <20261122081820.53199-6-clamor95@gmail.com>
+ <20261122081820.53199-7-clamor95@gmail.com>
 Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TY4P286CA0024.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:2b0::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
+X-ClientProxiedBy: TYWPR01CA0018.jpnprd01.prod.outlook.com
+ (2603:1096:400:a9::23) To SJ2PR12MB9161.namprd12.prod.outlook.com
  (2603:10b6:a03:566::20)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS7PPF539334D8E:EE_
-X-MS-Office365-Filtering-Correlation-Id: 16f94d98-26cb-4c1f-4973-08df4c40a2f4
+X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH0PR12MB8098:EE_
+X-MS-Office365-Filtering-Correlation-Id: f977c383-df6c-47bb-5acf-08df4c42d381
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|376014|7416014|1800799024|10070799003|23010399003|366016|4143699003|11063799006|261009223027099003|22082099003|18002099003|921020|10067099003|56012099006|261102123227099003|261026121527099003|261026140227099003|261021123027099003|261028144727099003|261021121427099003|261022105027099003|261022113327099003|261022075727099003;
-X-Microsoft-Antispam-Message-Info: tPCV/+ygbRAgQPYyy2bEJP9ZqUvb69A/4h08lHiWp1elctxR1vXpj58JCbt1IQPve3ExcXAifDEt5jwPBjiQHHTIUvZOb21iJvChxWRV1aFE9ty6itW5sKN4+jYTF36rkWSNjlZJEswMCkCzza0rD+9UIkixfg+ryW+DDoy0arUxgRnEzqG+O/e5BBwj7/VI//BwPa/79ca3GjJVmufokcyElI0vXEjw5sIfIvruWZDhto6D8hJu3q+hmJx+LUpMET/ig/7TSxLHYH/5dx/e7hpcT/fK2Qzw41H1a9a4p/jmpxuATvtzW48GwUUAqGGbk/v34tx9z9s1eoDv84Izu9q5vx3x/oROTUjwZGAacmspEC8/aWrvO9REbVFwwVe8QZcWxv5hy/F4l2zbngqYDWlXpiDjZX+tJvmHsqNKmhG9jTihziK9wDYmxURxnQc1//SlAK6U/c2bBZ/gaVR3lVjpwjDSPUopk06mos0nx/aOG0dHCHPyOg44N0cSf3W2uGl/RUgUTSBkzgrkW5IN98SsvY/fUMX/69zkh53RDAYz6A2oBCvsJ0yuj82CliS8GjyQWYWQcbnH7iTMtoivtE1z9R/9jdFVOOxnJfLjpky4NcBK713bMGXYmS76+ElTa6Ea9GOqn1E2MuiISwKTgfC2D2GgmnrlBem/j5EIFXDbTuCcCYujg2K8Ysm6XKfM7J7KwTZ9UANakAMUsc1+rw==
+ ARA:13230040|366016|23010399003|7416014|10070799003|376014|1800799024|10067099003|4143699003|261026121527099003|56012099006|921020|11063799006|261009223027099003|261021121427099003|261022075727099003|261028144727099003|261022105027099003|261021123027099003|261102123227099003|261026140227099003|18002099003|6133799003|22082099003|3023799007;
+X-Microsoft-Antispam-Message-Info: SW9VDjEmkl7VSL7BYLz/XDrgcb9roIs527kEqeGMDFXXZczd8qIpWEAkXPVBz7meXkNpV0GkR3GhsJa5T9rHywVEdZxiVc7kCtMu+CP2DkTeR6YMa5KOV4+g7YnI3lOBdq4JX2q7Gwu/2FZ9lDmCZi1KDUiBpAKh40PNLSnx216E9u91P01shx7G0ptUoErncnpGaJnUROLUCttiihtQMITM73F3BOQbPcqOefTdGnXvknimaX7Yh5S+CzuQYx07PY76+SLGD5jzwpsx3d9fpmJ7U2iBeLgGUGNr9ybv6dwGMifv4bCtWNoM/K3waPP13ceOTMOHv9mE8JptfQn9ye4pPGGdOR1yjWu6/WY/aHZJ/5iCXh+wdxKiSXB+Wnp2LYuAqw2krwJAJDxAILMtd8yEe4+RBKhijRIVtixMivXh7y3fEE7CQ4OZ0EZ3OH/rqjW6xN2pYD7kkhTQtytj1w0EemDnvX80b/8meUtQvRVDMmsAcqxsV9wvVYW3IWF28rFeIyVwylSx8NL/fhIFZqPDpvUor1cAAiKgUz892Orl5JhPAXbuh8d8TWZISVVFICPP3Q4naEBe7fnUebEA/KqBB/Jn15YNKc+GLLo3JqOuGqp3l2s/wgk65mfhJogWLWJQpmDS06ID3MT2fFHACc58yXPSh/OaHQLsSbFmTyQATXnuWq5t0yQZhLUFkOTbu4ujLcW12u5QQlaaIuiuRg==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(23010399003)(366016)(4143699003)(11063799006)(261009223027099003)(22082099003)(18002099003)(921020)(10067099003)(56012099006)(261102123227099003)(261026121527099003)(261026140227099003)(261021123027099003)(261028144727099003)(261021121427099003)(261022105027099003)(261022113327099003)(261022075727099003);
+ SFS:(13230040)(366016)(23010399003)(7416014)(10070799003)(376014)(1800799024)(10067099003)(4143699003)(261026121527099003)(56012099006)(921020)(11063799006)(261009223027099003)(261021121427099003)(261022075727099003)(261028144727099003)(261022105027099003)(261021123027099003)(261102123227099003)(261026140227099003)(18002099003)(6133799003)(22082099003)(3023799007);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NU9YbVIvelpjQ1ZDSC80RlNxclQ3ZWhLT0pLZWwvbHdpbzVVVi9DeTlxQ2NL?=
- =?utf-8?B?dXNONmszNmc3TTRpeFcySjR3SmhKd0trUjFjQnZwTDZDanVJWU1sdFIvOTkr?=
- =?utf-8?B?M1lGVlVIM0FEYWJ0VTZBQlZYTjZoOTJzeUdZa2hWTzBkaGVuTzlKNFpWUXRt?=
- =?utf-8?B?N28rRndQZWRIU2VVK2pubFpORTlCUTBkYStmOW5qTWthRWl0RHdrZW9EUVBH?=
- =?utf-8?B?ZkJITklTYmpvTUNjeFpPc0N3bzUrcFU2a29WdWtTTXczelZGemMxNVhlWThN?=
- =?utf-8?B?dmRiVWtSM25UcmlmVm51bEVZWTVhdktrRGoyVkR5Z29Fa2tkQ0dJNDE4aHFn?=
- =?utf-8?B?LzV5NE1EYjdFdDZWWVJPa3REWlhmbTNhVTRFVUNpTk9idUxXZnNad1FnOWV4?=
- =?utf-8?B?aFFVcWRHdmNoMXZVM2tKVEozTzZ3MFZObkx4Y1JRZzJSNjg3cFFiS0t4ZnVk?=
- =?utf-8?B?dVFnNTdjbTFBTi9ZdzRoQU85eTFDb3ArRGRCMDJ1NDhoeTBWNDZ1SzJtaFlQ?=
- =?utf-8?B?eUxoNndkNEVWYzZVOFlHZmEvRmpXY1pVNzRYQ0hXOEZoOGlJVDdtMktiRHlH?=
- =?utf-8?B?SzVQOXg3azkwalhJcTlhN1ovVHdLOVpiV3lYWGJ2U3cybys2aGtlR1RKU3VC?=
- =?utf-8?B?c21wZTFYTlVnQzYzWThNTXQ2NE9QOW9TSjNTdzF3MkEzZ0dISUNVTzBLR0x4?=
- =?utf-8?B?bDFvekZoUzE0MkRLaSt0a3BLeFJrQmlQYkFPNncxYXl6STdEM3hlYmJ5eTNr?=
- =?utf-8?B?M21mdFpwa0NLWStId0kwazZ5a3dLTzY2MENoNnVxSUR2YTZMbGx4cHdhNXRs?=
- =?utf-8?B?cmhnbHBnaGdNVzFOWjI4L3FNNG45cTdETDU2L2NNYVA3aFM4YVA0eHhGNll6?=
- =?utf-8?B?Y0k4VUtUYWhsWGUwU2ZyQk83YVFMV1p1Y2k5dCttTk1Na2pqdnpKbnBtVFVl?=
- =?utf-8?B?V1hJeWdTQnc3ejE4blBVN2oweDVRTktZNHdpdkoxQ080Ym0xNjFiWFpIVTFN?=
- =?utf-8?B?MVRzeGsxbVNxbFNLMkpnaVNyNXJYamkvK3IrUGFSWGhlYkFxMEFmbnVBRFFj?=
- =?utf-8?B?UklOckl5YlhzY1NoSG1Db2wvNXJ6WUREaG9MMmRwY1lDRERkazVrNTFoWnZJ?=
- =?utf-8?B?cmJMdll3dlYwMGJhQ2FvQTdMWWxzemNyMTdTL1dsKzQ1RGVwSUVpcjhMczls?=
- =?utf-8?B?WHJOb2F5bGxKZDdGL0pRbE1teVdGMWQ5aTRWT1pweE9oVkpxRTdydHh0cWVG?=
- =?utf-8?B?Vnl1ZnVYM2dZckNSdUdPWXpOS2NYNXJmMU45WXozTGUyRm9lSEVBZFplUFBz?=
- =?utf-8?B?c1RuY0JURkFGbDROVS9kQUYvVnhZT0dpR2RvbVJjdzN4bmNjVllrWGVzcVRa?=
- =?utf-8?B?b2pLQUdjdlVtS2s2N0xXZ0NxZnVFZG9CaU41dXdpSnd6SlRLRUlBTU1KelB0?=
- =?utf-8?B?TmxqbzN1ak5Wbk9sWXZ5VGJyMG1nZGdwb2MvM2FTSVNRY0hhazJPdTZhd3FJ?=
- =?utf-8?B?ZUM3Vnlkd3Z0ZWIxY2c3TGh0QXpjeGNqZkFqM295S3dPaG85bjVFamsxbWJ2?=
- =?utf-8?B?cklqNkZoL1VJd2tLYUhyV3dHbUM2WUR5enEvZHlnN0VSQ2xJN2RVL3VldVlU?=
- =?utf-8?B?RlUrWmVCSnZad0Y4MnMrYzVMYmVkOWtSOHR1STNabGJCc1Qwc2dEUndJTG5n?=
- =?utf-8?B?OU9oNUI1VXJQN2l4cGlmZTgxaFJUQ3QrVHR4WDVsY0ZKeWxDelpOdStiQVh0?=
- =?utf-8?B?VVZtWGN5NW1MalE5MWIzbm5HVmhaRlc3dzdyVkJDS0I1VFBiQUgwQlZiMExK?=
- =?utf-8?B?QUU4TG0vZ0o2cG1LUVVKWGNHb1luY1JNM3NsZzV2OGhsZGhDR3RMSzZudzEy?=
- =?utf-8?B?bTNhL2l2NFFNY2h2YVpuQ2JaSDBMa2xBQSt6MWk2bGVnTnpMKzByRTMyYWxQ?=
- =?utf-8?B?WmFuWG9URHlhV3N6dXA5bzBiQyt5cUxUb25oOWtnRlZxUE5JYWIzeDJVVlk1?=
- =?utf-8?B?UExSZkZhMnp4L1VwcWFXR0VSVFV4VWF4bzdZUzRyMHVZRW9sMUVuRjJLL2pk?=
- =?utf-8?B?YWhyZmd5Zi82TThkS2xCOWFLMWRQY0ppeThnRGVFSkRmVjdiUnl2aHpGZjNB?=
- =?utf-8?B?UXNjQmNoMWM2NGNBZUdIUTFZZU12bi83RFl3bVlURkpscFcrZnNtUXFwQjVl?=
- =?utf-8?B?TUNWZUo5WVRFQ01XLzhHd3RIcEtiMWJ2Q2Njc0pBWGR0YUVuL2kyWHFyQUNQ?=
- =?utf-8?B?VTRldGpzeE9LZHBVZnBXaHcrb2FLNGd4aG5kaEpxVit2Uk9YVjh0OUc5NzdZ?=
- =?utf-8?B?cnRmZnNFZit2aVgzWlZnT3lJU1h4bzBHVEhPVjF2dGM1N240WlY3N3VHRWcz?=
- =?utf-8?Q?5sLYHP+3VhzXljwmpdnqnRWhy+Q8Z6d6WJTh5ywLAsmpV?=
-X-MS-Exchange-AntiSpam-MessageData-1: OTJop/GbwolzqA==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Y1c1TzhjYXRKV1Y4dkZIa0VySkJwYk91KzVneDdUN28vbjAyVnN2YmJSOHpL?=
+ =?utf-8?B?emVBZW5seGRlUzIvY1NWOU1jWElUZ1dTYWNxZ1pyR0pvV2NJeXNMUUdaazZt?=
+ =?utf-8?B?SDZLL2IrUmJhQ1lhR094aCttYzFuOVlSNThLUElicEtCYStGYXNxNkdEOXRJ?=
+ =?utf-8?B?OU5ha3NWaEg2WHIzYVdvRTRhS0FVYXBjNDU5THpSVTRPTGludG5KVzZuZmd6?=
+ =?utf-8?B?YnQ0T3JpcmFGZU5OTFVTYTBQeG94UXdXd1NrOE9yQ3N1L3QvenZYbjRoVDVo?=
+ =?utf-8?B?WTVYeE5QYU4xNFhSckZQV3dka1VmWWgzakQ0ZWtGYW0zZFBSRDNkTkh3cTJ5?=
+ =?utf-8?B?VWFWdEdxSjJtZWQ5NEJKODNnZE5FZHIyeWJzdXU0emh0STgyaGpVekdEV0ZG?=
+ =?utf-8?B?c0FXOG9rSVQvekVYcG05YVNydUFNcXViZldLWmR6QURtREFhYVM0VHEvRnRv?=
+ =?utf-8?B?SGY5Q0plV2lNK29mQzM3VFU2Y0VKcXhZR2NKVzJGSmNMQXA5UlI0ZnQzOEsx?=
+ =?utf-8?B?bkFFSWxlbmZaZHNrVStNS3JrZEgxSmRrOEZCWWJNWkp2eDV0RTBrZWM3UUR1?=
+ =?utf-8?B?NXpsWUNROHEwUGs5LzZmTENVNnZ3L3d2djhXZmJ5dXhDL0pZa3ppTVFWZnMw?=
+ =?utf-8?B?OVNPZVhhR245aXdzNWNRK0V1OUJRUUJZcGQxRzdxM242cHZRRk5TS1ljWFdr?=
+ =?utf-8?B?SVdCUElWM3ZmSHF6KzdiZGJERDRvNEhKbFlvaVBLR3hDTUFZdTVWdCs4VGoz?=
+ =?utf-8?B?NFowRXpkMmZueDdUZTJweStmTUE1YURqamZNakFKak9kZXRWc2xnUzluZG9S?=
+ =?utf-8?B?T3dOajByU0l5eEdIcVNlOFZoVHJjdmg0UUN0dGd1ck1LYWF1a3F2enUzcjlH?=
+ =?utf-8?B?a3poZmhpYklaSE5kaElOYVlPN3kvSHprZFE0ejFUQzZZRmxIM0tRNTZJTndy?=
+ =?utf-8?B?NFp1VkR3TlRzYVREdGJNWmJZa3JlQnYvMnNvUTAzVWZtaG5JTW9XdWhseUVo?=
+ =?utf-8?B?VmhhbzB5aFF1NlcvM1FPTnB2VFRUUGFwRVM3d21PSmxDQ2FJb2pFZkx1dUIv?=
+ =?utf-8?B?RlVKOHdScCthbndCQkZKUjExd0k1TTF1WnlQYi8xajFHRzExWE1SUnM0WkNy?=
+ =?utf-8?B?bUFWSGlJSkRENU1kYm5jZTZtRjhKalQ2TFo5NTBGcmdhbjdKMGNsNis2VjVB?=
+ =?utf-8?B?Rk16U1ZGYjJ3Y3FxNGxCRkwyVzVIVmhwcEdSSWtoaUhKNGpYSWNpUzVoODly?=
+ =?utf-8?B?YkNoSGRiU1FvNU50NmlYNlNaUEdjYlJzQ3M4Q1hnVkRJZjJxSWY3MmIzWG9a?=
+ =?utf-8?B?NFhpZzNsYTFETVY5YlBmZjV6dzNiV1YzZ0dINjUrdFlYQkx5OVJDemVuK3R5?=
+ =?utf-8?B?SVZvU0VVMkpYa1lKOEF3TzV4TzJQT1JvczYvSzFUeUdnMVY1ZGdOS2M3WEJl?=
+ =?utf-8?B?L1FnNVZpSW1ZY01yYXBWMzBoZFBvTlQyajBaMDVLVjViUHdsdmJlekFSUGZK?=
+ =?utf-8?B?ZWpHWkVrSlJVcWptalc3cFJTSjlJT2xNL01wOWRBMC9jMVdHUFpmSTI4OWdC?=
+ =?utf-8?B?L05KR01DRFdReFNnL0ZOcDl3NWQvYzRtV3lsaUxMdUlnbENHamxNTTBkOVpC?=
+ =?utf-8?B?YWl1RDNSK2ptK3pNVHRZMGNRWDVvN21LMWdBbStXNkhiTnhMektxc0hlQnNv?=
+ =?utf-8?B?ZW1KcG9scnB2MUNqMVI0Q2JqcU5XVDlzMW9FMmJZODhpYkw5SWNjV25VYjNV?=
+ =?utf-8?B?aDVzQ1BNQUpZU2NCS3prVVNyQjBnZ2prL0w2UjREcnBwclZPY3hyN0NzbjZ6?=
+ =?utf-8?B?aU16WE1nYVp1VlJGSzZLRWNRUzZnVkt4T1VvOXYrZUxncEhIRTVZNk5LTWxC?=
+ =?utf-8?B?WG12bTNnVTlvWnFzU2hzMlhaNm13aVo3cklMZ2FPeFU0Z3dxb1FHTDYyNTlh?=
+ =?utf-8?B?eExtTmQ4Y0o0YWZsRnp1aVBWM0I1Yld4WDc5dDBNUXV1enZRallTUko1eHMr?=
+ =?utf-8?B?TG10SmZlZ0FzQ1pUT3lnV0tnRDhpcUIvR3hzQ3kwSTAwSm9sMWVPY2EyUWM2?=
+ =?utf-8?B?bDFWeHl1SWhscVc3Rm83ZVFjQ0hEYWRId0N2bnF2aXR1bUswNXI4NThqS1Uv?=
+ =?utf-8?B?U0MvVDBWMk1kUGdNcDBrQjFDSDBxenJBaE81R3l5UFpDNVN1VHdMYUZCY211?=
+ =?utf-8?B?RmhwWW5ab0IzOVE1ckJtUzkycDl1UnhsYkZrdG5mUVlaTjlOUDQvMlJ4dkJn?=
+ =?utf-8?B?ZWxCOVpaMFl1WXBjeWp4UTBLRU1MbC9PdWtoY2lpYnd2aGRtNG5EOHB3UlhY?=
+ =?utf-8?B?eVpVZnh2bENJaDgvZkc1Uk9abEJJRDN1eXBYblpPdWZOM2F2RWhuMldHV1dG?=
+ =?utf-8?Q?ctM9ee1L0wVzgKvhckBkn8FGG6FpI08TfzKiHo6I0VmGJ?=
+X-MS-Exchange-AntiSpam-MessageData-1: 4pEqlRzU9S/mLQ==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 16f94d98-26cb-4c1f-4973-08df4c40a2f4
+X-MS-Exchange-CrossTenant-Network-Message-Id: f977c383-df6c-47bb-5acf-08df4c42d381
 X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 04:41:00.7775 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 04:56:41.1191 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: nGENeU+X9boEFj6WbHvBFF6hbOg5eQvLQrIQV25AVv/YfYNeH4ft1iRf9xGhtNMnkMg7lbJ4x+D6ST/1FkWKag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PPF539334D8E
+X-MS-Exchange-CrossTenant-UserPrincipalName: XVImXkwBfFZMBZeTbN14ae4ZsSPHLzkwq1RaCwzpvCmdtDIMegVXS/YY1cpf2FcAGk0JiLWKVzYEWKQG8Svkfw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8098
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -146,172 +146,283 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS autolearn=ham autolearn_force=no version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
 On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> Switch from the internal panel command-sending macro to a generic one to
-> improve code reuse.
+> Add DC register definitions with additional fields in preparation for
+> adding the 8-bit CPU interface (MIPI DBI).
+
+Maybe also mention that some whitespace cleanup has been done.
+
 >=20
 > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 > ---
->  drivers/gpu/drm/panel/panel-lg-lh400wv3.c | 91 ++++++++++-------------
->  1 file changed, 40 insertions(+), 51 deletions(-)
+>  drivers/gpu/drm/tegra/dc.h | 194 ++++++++++++++++++++++++++++++++++---
+>  1 file changed, 183 insertions(+), 11 deletions(-)
 >=20
-> diff --git a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c b/drivers/gpu/drm/=
-panel/panel-lg-lh400wv3.c
-> index 63efeb434be13..02150330f1735 100644
-> --- a/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-> +++ b/drivers/gpu/drm/panel/panel-lg-lh400wv3.c
-> @@ -37,19 +37,6 @@ static inline struct lg_lh400wv3 *to_lg_lh400wv3(struc=
-t drm_panel *panel)
->  	return container_of(panel, struct lg_lh400wv3, panel);
->  }
-> =20
-> -#define panel_dbi_command(priv, cmd, seq...) \
-> -({ \
-> -	const u8 d[] =3D { seq }; \
-> -	struct drm_panel *panel =3D &(priv)->panel; \
-> -	struct mipi_dbi_device *dbidev =3D (priv)->dbidev; \
-> -	struct device *dev =3D panel->dev; \
-> -	int ret; \
-> -	ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_SIZE(d))=
-; \
-> -	if (ret) \
-> -		dev_err_ratelimited(dev, "error %d when sending command %#02x\n", ret,=
- cmd); \
-> -	ret; \
-> -})
-> -
->  static int lg_lh400wv3_prepare(struct drm_panel *panel)
->  {
->  	struct lg_lh400wv3 *priv =3D to_lg_lh400wv3(panel);
-> @@ -76,57 +63,59 @@ static int lg_lh400wv3_prepare(struct drm_panel *pane=
-l)
->  static int lg_lh400wv3_enable(struct drm_panel *panel)
->  {
->  	struct lg_lh400wv3 *priv =3D to_lg_lh400wv3(panel);
-> -
-> -	panel_dbi_command(priv, MIPI_DCS_EXIT_INVERT_MODE);
-> -	panel_dbi_command(priv, MIPI_DCS_SET_TEAR_ON);
-> -
-> -	panel_dbi_command(priv, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXEL_FMT_2=
-4BIT |
-> -			  MIPI_DCS_PIXEL_FMT_24BIT << 4);
-> -
-> -	panel_dbi_command(priv, 0xb2, 0x00, 0xc8);
-> -	panel_dbi_command(priv, 0xb3, 0x00);
-> -	panel_dbi_command(priv, 0xb4, 0x04);
-> -	panel_dbi_command(priv, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
-> -	panel_dbi_command(priv, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8);
-> -	panel_dbi_command(priv, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
-> -
-> -	panel_dbi_command(priv, 0xc0, 0x01, 0x11);
-> -	panel_dbi_command(priv, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
-> -	panel_dbi_command(priv, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49);
-> -	panel_dbi_command(priv, 0xc5, 0x65);
-> -	panel_dbi_command(priv, 0xc6, 0x41, 0x63);
-> -
-> -	panel_dbi_command(priv, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51,=
- 0x15, 0x04);
-> -	panel_dbi_command(priv, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03, 0x51,=
- 0x15, 0x04);
-> -	panel_dbi_command(priv, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51,=
- 0x15, 0x04);
-> -	panel_dbi_command(priv, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03, 0x51,=
- 0x15, 0x04);
-> -	panel_dbi_command(priv, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51,=
- 0x15, 0x04);
-> -	panel_dbi_command(priv, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03, 0x51,=
- 0x15, 0x04);
-> -
-> -	panel_dbi_command(priv, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00, 0x01, =
-0xdf);
-> -	panel_dbi_command(priv, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0x03, 0x=
-1f);
-> -
-> -	panel_dbi_command(priv, MIPI_DCS_EXIT_SLEEP_MODE);
-> +	struct mipi_dbi_multi_context ctx =3D { .dbidev =3D priv->dbidev };
+> diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+> index 0cb0515968b35..e8913c5530a2d 100644
+> --- a/drivers/gpu/drm/tegra/dc.h
+> +++ b/drivers/gpu/drm/tegra/dc.h
+> @@ -272,14 +272,150 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define  DC_COM_CRC_CONTROL_WAIT (1 << 1)
+>  #define  DC_COM_CRC_CONTROL_ENABLE (1 << 0)
+>  #define DC_COM_CRC_CHECKSUM			0x301
+> -#define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+> -#define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
+> -#define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+> -#define LHS_OUTPUT_POLARITY_LOW (1 << 30)
+> -#define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+> -#define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+> -#define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+> -#define DC_COM_PIN_OUTPUT_SELECT(x) (0x314 + (x))
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_EXIT_INVERT_MODE);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_TEAR_ON);
+> +#define DC_COM_PIN_OUTPUT_ENABLE(x)		(0x302 + (x))
+> +#define DC_COM_PIN_OUTPUT_POLARITY(x)		(0x306 + (x))
+> +#define LVS_OUTPUT_POLARITY_LOW			BIT(28)
+> +#define LHS_OUTPUT_POLARITY_LOW			BIT(30)
+> +#define DC_COM_PIN_OUTPUT_DATA(x)		(0x30a + (x))
+> +/* Pin unmask is 1 bit above position of the pin in the OUTPUT_DATA regi=
+ster */
+> +#define PIN_UNMASK(x)				BIT((x) + 1)
+> +#define DC_COM_PIN_INPUT_ENABLE(x)		(0x30e + (x))
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_PIXEL_FORMAT, MIPI_DCS_PIXE=
-L_FMT_24BIT |
-> +				 MIPI_DCS_PIXEL_FMT_24BIT << 4);
+> +/*
+> + * The definitions below describe pin positions in the DC_COM_PIN_OUTPUT=
+_ENABLE(x),
+> + * DC_COM_PIN_OUTPUT_POLARITY(x), DC_COM_PIN_OUTPUT_DATA(x), and
+> + * DC_COM_PIN_INPUT_ENABLE(x) registers. The comment before each group i=
+ndicates
+> + * the index of the register (the x value).
+> + */
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb2, 0x00, 0xc8);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb3, 0x00);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb4, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb5, 0x42, 0x10, 0x10, 0x00, 0x20);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb6, 0x0b, 0x0f, 0x3c, 0x13, 0x13, 0xe8=
-);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xb7, 0x4c, 0x06, 0x0c, 0x00, 0x00);
+> +/* 0 */
+> +#define PIN_LD0					0
+> +#define PIN_LD1					2
+> +#define PIN_LD2					4
+> +#define PIN_LD3					6
+> +#define PIN_LD4					8
+> +#define PIN_LD5					10
+> +#define PIN_LD6					12
+> +#define PIN_LD7					14
+> +#define PIN_LD8					16
+> +#define PIN_LD9					18
+> +#define PIN_LD10				20
+> +#define PIN_LD11				22
+> +#define PIN_LD12				24
+> +#define PIN_LD13				26
+> +#define PIN_LD14				28
+> +#define PIN_LD15				30
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc0, 0x01, 0x11);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc3, 0x07, 0x03, 0x04, 0x04, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc4, 0x12, 0x24, 0x18, 0x18, 0x02, 0x49=
-);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc5, 0x65);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc6, 0x41, 0x63);
+> +/* 1 */
+> +#define PIN_LD16				0
+> +#define PIN_LD17				2
+> +#define PIN_LPW0				16
+> +#define PIN_LPW1				18
+> +#define PIN_LPW2				20
+> +#define PIN_LSC0				24
+> +#define PIN_LSC1				26
+> +#define PIN_LVS					28
+> +#define PIN_LHS					30
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd0, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03=
-, 0x51, 0x15, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd1, 0x00, 0x46, 0x74, 0x32, 0x1d, 0x03=
-, 0x51, 0x15, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd2, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03=
-, 0x51, 0x15, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd3, 0x00, 0x46, 0x74, 0x32, 0x1f, 0x03=
-, 0x51, 0x15, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd4, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03=
-, 0x51, 0x15, 0x04);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xd5, 0x01, 0x46, 0x74, 0x25, 0x00, 0x03=
-, 0x51, 0x15, 0x04);
+> +/* 2 */
+> +#define PIN_LHP0				0
+> +#define PIN_LHP1				2
+> +#define PIN_LHP2				4
+> +#define PIN_LVP0				8
+> +#define PIN_LVP1				10
+> +#define PIN_LM0					16
+> +#define PIN_LM1					18
+> +#define PIN_LDI					20
+> +#define PIN_LPP					22
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_COLUMN_ADDRESS, 0x00, 0x00,=
- 0x01, 0xdf);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_PAGE_ADDRESS, 0x00, 0x00, 0=
-x03, 0x1f);
+> +/* 3 */
+> +#define PIN_LSCK				0
+> +#define PIN_LSDA				2
+> +#define PIN_LCSN				4
+> +#define PIN_LDC					6
+> +#define PIN_LSPI				8
+> +#define PIN_LSDI				10
 > +
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_EXIT_SLEEP_MODE);
->  	msleep(120);
+> +#define DC_COM_PIN_INPUT_DATA(x)		(0x312 + (x))
+> +
+> +/*
+> + * DC_COM_PIN_OUTPUT_SELECT(x) is a set of 7 registers that allow select=
+ing
+> + * one of 7 functions for each pin using 3 bits. Clearing all bits sets
+> + * the pin to its primary function, while setting them to 1 configures i=
+t
+> + * as a GPIO output. Other functions are unique to each pin. For details=
+,
+> + * check "23.7.17 DC_COM_PIN_OUTPUT_SELECT0_0" in the Tegra30 TRM.
+> + */
+> +#define DC_COM_PIN_OUTPUT_SELECT(x)		(0x314 + (x))
+> +#define PIN_OUTPUT_SELECT_MASK(x)		(0x7 << (x))
+> +#define PIN_OUTPUT_SELECT_PRIM(x)		(0 << (x))
+> +#define PIN_OUTPUT_SELECT_OUT(x)		(1 << (x))
+> +#define PIN_OUTPUT_SELECT_F2(x)			(2 << (x))
+> +#define PIN_OUTPUT_SELECT_F3(x)			(3 << (x))
+> +#define PIN_OUTPUT_SELECT_F4(x)			(4 << (x))
+> +#define PIN_OUTPUT_SELECT_F5(x)			(5 << (x))
+> +#define PIN_OUTPUT_SELECT_F6(x)			(6 << (x))
+> +#define PIN_OUTPUT_SELECT_F7(x)			(7 << (x))
+> +
+> +/*
+> + * The definitions below describe pin offset in the DC_COM_PIN_OUTPUT_SE=
+LECT(x)
+> + * registers. The comment before each group indicates the index of the r=
+egister
+> + * (the x value).
+> + */
+> +
+> +/* 0 */
+> +#define PIN_OUTPUT_SELECT_LD0			0
+> +#define PIN_OUTPUT_SELECT_LD1			4
+> +#define PIN_OUTPUT_SELECT_LD2			8
+> +#define PIN_OUTPUT_SELECT_LD3			12
+> +#define PIN_OUTPUT_SELECT_LD4			16
+> +#define PIN_OUTPUT_SELECT_LD5			20
+> +#define PIN_OUTPUT_SELECT_LD6			24
+> +#define PIN_OUTPUT_SELECT_LD7			28
+> +
+> +/* 1 */
+> +#define PIN_OUTPUT_SELECT_LD8			0
+> +#define PIN_OUTPUT_SELECT_LD9			4
+> +#define PIN_OUTPUT_SELECT_LD10			8
+> +#define PIN_OUTPUT_SELECT_LD11			12
+> +#define PIN_OUTPUT_SELECT_LD12			16
+> +#define PIN_OUTPUT_SELECT_LD13			20
+> +#define PIN_OUTPUT_SELECT_LD14			24
+> +#define PIN_OUTPUT_SELECT_LD15			28
+> +
+> +/* 2 */
+> +#define PIN_OUTPUT_SELECT_LD16			0
+> +#define PIN_OUTPUT_SELECT_LD17			4
+> +
+> +/* 3 */
+> +#define PIN_OUTPUT_SELECT_LPW0			0
+> +#define PIN_OUTPUT_SELECT_LPW1			4
+> +#define PIN_OUTPUT_SELECT_LPW2			8
+> +#define PIN_OUTPUT_SELECT_LSC0			16
+> +#define PIN_OUTPUT_SELECT_LSC1			20
+> +#define PIN_OUTPUT_SELECT_LVS			24
+> +#define PIN_OUTPUT_SELECT_LHS			28
+> +
+> +/* 4 */
+> +#define PIN_OUTPUT_SELECT_LHP0			0
+> +#define PIN_OUTPUT_SELECT_LHP1			4
+> +#define PIN_OUTPUT_SELECT_LHP2			8
+> +#define PIN_OUTPUT_SELECT_LVP0			16
+> +#define PIN_OUTPUT_SELECT_LVP1			20
+> +
+> +/* 5 */
+> +#define PIN_OUTPUT_SELECT_LM0			0
+> +#define PIN_OUTPUT_SELECT_LM1			4
+> +#define PIN_OUTPUT_SELECT_LDI			8
+> +#define PIN_OUTPUT_SELECT_LPP			12
+> +
+> +/* 6 */
+> +#define PIN_OUTPUT_SELECT_LSCK			0
+> +#define PIN_OUTPUT_SELECT_LSDA			4
+> +#define PIN_OUTPUT_SELECT_LCSN			8
+> +#define PIN_OUTPUT_SELECT_LDC			12
+> +#define PIN_OUTPUT_SELECT_LSPI			16
+> +#define PIN_OUTPUT_SELECT_LSDI			20
+
+It becomes apparent here that the PIN_* and PIN_OUTPUT_SELECT_* are kind=20
+of redundant as the pins are in the same order, the stride (and thus=20
+register indexing) is just different. Hence, I think it would be cleaner=20
+to have ..
+
+#define PIN_LD0		0
+#define PIN_LD1		1
+...
+
+and then
+
+#define PIN_REGISTER_INDEX(pin)		((pin) / 16)
+#define PIN_SHIFT(pin)			(((pin) % 16) * 2)
+
+#define PIN_SELECT_REGISTER_INDEX(pin)	((pin) / 8)
+#define PIN_SELECT_SHIFT(pin)		(((pin) % 8) * 4)
+
+This will also simplify the tegra_dbi_idx tables since they can just=20
+store the pin index, and the register index (and shift) can be=20
+calculated based on that.
+
 > =20
-> -	panel_dbi_command(priv, MIPI_DCS_WRITE_MEMORY_START);
-> -	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_ON);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_WRITE_MEMORY_START);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_ON);
+>  #define DC_COM_PIN_MISC_CONTROL			0x31b
+>  #define DC_COM_PIN_PM0_CONTROL			0x31c
+> @@ -303,9 +439,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
 > =20
-> -	return 0;
-> +	return ctx.accum_err;
->  }
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+> -#define H_PULSE0_ENABLE (1 <<  8)
+> -#define H_PULSE1_ENABLE (1 << 10)
+> -#define H_PULSE2_ENABLE (1 << 12)
+> +#define H_PULSE0_ENABLE				BIT(8)
+> +#define H_PULSE1_ENABLE				BIT(10)
+> +#define H_PULSE2_ENABLE				BIT(12)
+> +#define V_PULSE0_ENABLE				BIT(16)
+> +#define V_PULSE1_ENABLE				BIT(18)
+> +#define V_PULSE2_ENABLE				BIT(19)
+> +#define V_PULSE3_ENABLE				BIT(20)
+> +#define M0_ENABLE				BIT(24)
+> +#define M1_ENABLE				BIT(26)
 > =20
->  static int lg_lh400wv3_disable(struct drm_panel *panel)
->  {
->  	struct lg_lh400wv3 *priv =3D to_lg_lh400wv3(panel);
-> +	struct mipi_dbi_multi_context ctx =3D { .dbidev =3D priv->dbidev };
+>  #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
 > =20
-> -	panel_dbi_command(priv, MIPI_DCS_SET_DISPLAY_OFF);
-> -	panel_dbi_command(priv, MIPI_DCS_ENTER_SLEEP_MODE);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_SET_DISPLAY_OFF);
-> +	mipi_dbi_write_seq_multi(&ctx, MIPI_DCS_ENTER_SLEEP_MODE);
->  	msleep(150);
+> @@ -456,6 +598,22 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+>  #define  SC1_H_QUALIFIER_NONE	(1 << 16)
+>  #define  SC0_H_QUALIFIER_NONE	(1 <<  0)
+> +#define  SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
+> +#define  SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
+> +#define  SC_H_QUALIFIER_DISABLE			0
+> +#define  SC_H_QUALIFIER_NONE			1
+> +#define  SC_H_QUALIFIER_HACTIVE			2
+> +#define  SC_H_QUALIFIER_EXT_HACTIVE		3
+> +#define  SC_H_QUALIFIER_HPULSE			4
+> +#define  SC_H_QUALIFIER_EXT_HPULSE		5
+> +#define  SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
+> +#define  SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
+> +#define  SC_V_QUALIFIER_NONE			0
+> +#define  SC_V_QUALIFIER_RSVD			1
+> +#define  SC_V_QUALIFIER_VACTIVE			2
+> +#define  SC_V_QUALIFIER_EXT_VACTIVE		3
+> +#define  SC_V_QUALIFIER_VPULSE			4
+> +#define  SC_V_QUALIFIER_EXT_VPULSE		5
 > =20
-> -	panel_dbi_command(priv, 0xc1, 0x01);
-> +	mipi_dbi_write_seq_multi(&ctx, 0xc1, 0x01);
->  	usleep_range(10000, 11000);
+>  #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
+>  #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+> @@ -493,6 +651,20 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+>  #define DC_DISP_CURSOR_POSITION_NS		0x441
 > =20
-> -	return 0;
-> +	return ctx.accum_err;
->  }
-> =20
->  static int lg_lh400wv3_unprepare(struct drm_panel *panel)
+>  #define DC_DISP_INIT_SEQ_CONTROL		0x442
+> +#define SEND_INIT_SEQUENCE			BIT(0)
+> +#define INIT_SEQUENCE_MODE_SPI			BIT(1)
+> +#define INIT_SEQUENCE_MODE_PLCD			0
+> +#define INIT_SEQ_DC_SIGNAL_SHIFT		4
+> +#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
+> +#define NO_DC_SIGNAL				0
+> +#define DC_SIGNAL_VSYNC				1
+> +#define DC_SIGNAL_VPULSE0			2
+> +#define DC_SIGNAL_VPULSE1			3
+> +#define DC_SIGNAL_VPULSE2			4
+> +#define DC_SIGNAL_VPULSE3			5
+> +#define INIT_SEQ_DC_CONTROL_SHIFT		7
+> +#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
+> +
+>  #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
+>  #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
+>  #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
 > --=20
 > 2.53.0
 >=20
 >=20
 
-Reviewed-by: Mikko Perttunen <mperttunen@nvidia.com>
 
 
 
