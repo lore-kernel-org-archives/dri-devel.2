@@ -2,135 +2,96 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64DF1606A336
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 12:21:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CD6606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 12:26:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=eccrOlce
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.a=rsa-sha256 header.s=google header.b=cxaJTaQt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id C284610E3C0;
-	Fri, 27 Nov 2026 12:20:59 +0000 (UTC)
-Received: from DM1PR04CU001.outbound.protection.outlook.com
- (mail-centralusazon11010055.outbound.protection.outlook.com [52.101.61.55])
- by gabe.freedesktop.org (Postfix) with ESMTPS id A30DD10E598
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:20:49 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=oioaLbKtw8qhsigFOHostIg+WS9vZmP8LKsrHPO3WiMNzLfl7X4xf0nVdpODSdZlPwedYedvHYLmdnrPg0HLSBX79Kt4rgdqYlcSq+ZTps/vXI3ZyvLFCjEvqDfmJTqCSDkRFpQ3thA2M4vfCg7aL8aNNdH5ccI9cHAmKCguML1gBxYPECOqR7mtZBNhK2AGokJf3gXokaBPGQOe1UTljeEpCfOq4xOZvawsMOhsbWoxkEoq1CC5eh+2nVk5O7emrH0SNKC59FOBZuauwv+v7iAKFq2ZBLH0RPkNvAd81j372JTO/BW6njQKLrSgU7oiIEImXnhaWxh+k0KXhvkzbA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iZaJlBxklrKrbntWwCEFd67ugxTK9ihbgeLxzUI1ixw=;
- b=j0WaIGdD48SQFVJ5QWSjv7Bdqv8O368uV4nATak3OONptI3ocgqcIOXJ2HVloj6wVgmMrCfPwsQ3GH8DfVSsPY9KpiwY4YyXZM7Y7f0tUtM2sK73hysDXutbY83cMKrtHPlDBnpe/ogV/p5d8XdLuQ3IKVrWlR8DX0lRnvM2P3wCnSoIijBzlhULs7+4rGE2DotiGKsHP7fmCzF4NOAYAirnNoZWlln2rRjDaCDL0bP0R21pYZs8uWiHnXQfLM6kc+diG7ARl8fHUVL5pZOxER/GrJ2ZHHFtSxSVM4b+f+WTNb1un74rSFDEhiFX38mbu/BOTXw0icsyWlJS2aCpYg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iZaJlBxklrKrbntWwCEFd67ugxTK9ihbgeLxzUI1ixw=;
- b=eccrOlcejzvp6avlY3zp3FgRuGu2EIu8i9/O9NFe6kTUUQ/bIWBKNjn845F7R969NBJqrfv+oG0+uLaabydge/K4fvM+TU5PN6X6goh5yydyFvaHOb7/GW6c95DJ6//cDU9pMcqR8xO+KZq9XX8aTXG+5zmQ+DIHzR/YF4eDCYy+f4NptT7c/LxSJA5iF7GLC7uvBlI7o2cqBTulWZWj7mhFGdlTumXl4x8QwuE2ZwXSYGShcadA7k8cgfPdK7y/qoZpi1FVLjY1L42l2kTWFnYA8Xo7skg17pmtbkeh7gyWNJbswnHuu2wf632EIJmaJumZ6EXhAiTOVCynCQen2g==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS5PPFB8FBD73EA.namprd12.prod.outlook.com (2603:10b6:f:fc00::65e)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.9; Fri, 27 Nov
- 2026 12:20:43 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
- 12:20:42 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: devicetree@vger.kernel.org
-Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, devicetree@vger.kernel.org,
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v8 02/12] drm/panel: panel-hitachi-tx10d07vm0baa: Convert
- to use MIPI DBI bus
-Date: Fri, 27 Nov 2026 21:16:51 +0900
-Message-ID: <uQ14beL2SOumMxaLqMFc4w@nvidia.com>
-In-Reply-To: <CAPVz0n0Qyekm7qUyCVFMTDSuVSw=1my4x-rgiafp3+mQ_sgk3Q@mail.gmail.com>
-References: <20261122081820.53199-1-clamor95@gmail.com>
- <hlO8KiQKSi62yShZAIyhpw@nvidia.com>
- <CAPVz0n0Qyekm7qUyCVFMTDSuVSw=1my4x-rgiafp3+mQ_sgk3Q@mail.gmail.com>
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0247.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:456::18) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	by gabe.freedesktop.org (Postfix) with ESMTP id D978B10E568;
+	Fri, 27 Nov 2026 12:26:34 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 85ADC10E568
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:26:28 +0000 (UTC)
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-8b600fae14dso2936376b3a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:26:28 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=chromium.org; s=google; t=1795782388; x=1796387188;
+ darn=lists.freedesktop.org; 
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=6wJPtmDOKQWl0gKDtiuKlNF32reQWcBhdrSBFhz15UA=;
+ b=cxaJTaQtyJA5TgLOhS7DF837uAFFvc0h79kLErQmyb2w0RenWGZO/LBnq+sKtmWKcI
+ vYFuPcO4MQctcYyvXvj5anlsYlRk0KgvCc1Oc4RaQYkPrXcc3z3lKvznmPZ7EDn6+i9+
+ AopnTBWUJBUKDU+R7MTyujvXHMN9eEtf2oDZc=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795782388; x=1796387188;
+ h=content-transfer-encoding:content-type:cc:to:subject:message-id
+ :date:from:in-reply-to:references:mime-version:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=6wJPtmDOKQWl0gKDtiuKlNF32reQWcBhdrSBFhz15UA=;
+ b=sL/EhZHtOQLqrhO3pRycjiRy3lCTXnJxC1cFU968zz0CqX6iadJXLlAicDDNtnVXGU
+ f8Pbb2Q5htOE7rneyIYxMFmqTOgtsP02d0sDjYySwB5uLKHT8zeyqtTQhYMlsu0U7i02
+ lMO9LztC+ILZrZiHVN6GdVQwSJqC0749kYbLclLBcQuGqulu+JZsCf3LXcMkIB2kb76R
+ 7YBN68PPGW+eW279f7+CHmlQY4IIpqZ7UpjseDELM4fpmLKN2zcLlVvB7HynKxvtAD9x
+ FK+tkFxs4qIU8GldPKeMKM/r8sqK3HaN1k8PzGDYxmvCOv++RrGLHVd7FuRahQs2eYbI
+ Lqwg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErHBib5gQbA9Ivl1RXEyqD1cZS8ChULEMBvcADjELasKhq+xr5kejth9Cv08fM7u6NgyhSau2Y4zKqg=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z/aCfIfOEpML1rsH8c8HKtxBV70kYZLXeaCAZIB/HldVRXjzJfB
+ JIoC0c0agi2QQSNgoE0QqghjRVMNO2dLo7eh/jZkI6Nlur/U6x6c8JNMkMLUu8FdnEoUrSAYcCL
+ 6WvHAhQ==
+X-Gm-Gg: AZFdTZcoO+RTTSp8pyfjNWpC6BKSz2bwN6ZtjjFVV0hP4qvJJjf326zg27tRbV/FPcr
+ kcA9r4/dCrHMZQbMP8Qomaf3kioe1/uAbCRZoDN5dvfT9pTOv8zzEeB7aZrZWDAuGSE+6FWdTFu
+ mqV13OkfOsPi7CjE1Z5/j0bGIzx5TMzi+hDdpk/2xaxvP3oiYJa4jvNp7Y3u619WljToht2LBLc
+ bLbLVd04w/UzN4Y8LCfljdPf8E+K9VDcqKKTf3yV8Ac32Lu2tKzev7giOWaxB37v/shZ8iQsRSu
+ D0VrNjOtgdB/g+nMEBMMFjwUDhyujotgXx7P/bxarLKc+p5epZ0I8yORFxX6YpV9viYjKRw6ghW
+ TbkcdjxJJTvWuUuVGXBhe5D3pfZGmySVJXQeElgSA3AVDCRDTHpmij5S8mFn1IQUS5PN2wXS5o6
+ Lo9hapiT/aA0b41nYBJH3EHe2tNEW9KzLaGVkkOpZ0nLhIDYJKLwEvfNzA30nwvkFo53sHQfeqP
+ E2L3chN7IPTkuiOqlFjYCQEmkLYZ1048JA3Od6XI+DzUwT27nagv6TrLmQNkw87G+O61XYgxjWE
+ lDXlLOd8M/1eZHyHbW251dtEqDE8woxRGTtwzC0Bm+Vw+1Dz1EWgvQIYkguGz3BDHlE=
+X-Received: by 2002:a05:6a20:3ca2:b0:3f8:99b4:bef7 with SMTP id
+ adf61e73a8af0-4014a17aa7emr29605266637.7.1795782387873; 
+ Fri, 27 Nov 2026 04:26:27 -0800 (PST)
+Received: from mail-dy1-f180.google.com (mail-dy1-f180.google.com.
+ [74.125.82.180]) by smtp.gmail.com with ESMTPSA id
+ d2e1a72fcca58-8c87077babfsm12672117b3a.5.2026.11.27.04.26.26
+ for <dri-devel@lists.freedesktop.org>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 27 Nov 2026 04:26:27 -0800 (PST)
+Received: by mail-dy1-f180.google.com with SMTP id
+ 5a478bee46e88-38692f62b22so10827045eec.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:26:26 -0800 (PST)
+X-Forwarded-Encrypted: i=1;
+ AL+hErE+0JyX/J8bdmSW+qhjdPBEtzFFcbKi1kT5Ctw/EGD+u8ljompzLA4KmuMTXlK3IcAHcmuXB78u2dQ=@lists.freedesktop.org
+X-Received: by 2002:a05:7301:4d0c:b0:376:a6d7:8f6f with SMTP id
+ 5a478bee46e88-3856ec3ec8bmr25649718eec.17.1795782385135; Fri, 27 Nov 2026
+ 04:26:25 -0800 (PST)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS5PPFB8FBD73EA:EE_
-X-MS-Office365-Filtering-Correlation-Id: 7da671f5-8676-4cc7-6f57-08df4c80db2c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|23010399003|1800799024|10070799003|7416014|376014|10067099003|56012099006|261022075727099003|261022105027099003|261022113327099003|261028144727099003|261026121527099003|261026140227099003|261021121427099003|261021123027099003|261102123227099003|261009223027099003|22082099003|18002099003|4143699003|11063799006;
-X-Microsoft-Antispam-Message-Info: p66KKkEIejSwtTCtzNc8IoyPqg9jEN/s7EFgQ5VJjxnc+GtnwbuQN9Vk8OfT7fo+PSFHNzGSpTtdQLXooDBhnim2jIvDqnD5IyviDpg6wXd4/KKMBrJtF/cfJhgj2XXU596gW1+/UtIwDQt5uNCeC5i/uBAdL2NrMskqBkfnTB8WipWXm3V7yzI6d7wdMTtNuZY1owY6WtpNq3wZdne6yd5yvcMWl8V2HSSbDYrTehsVOf1SZpkuBqpEpSwEcUm6aXk4qOrU3l28K4+ovDX1YIkXi1UZNU+9xCHvBZGgC/uuZDEuji4OOUamX2KawS5NGNAEnBVAumEAjyrSxtvZ7Xi4QDC/9f08hknXuKTI/l8jCszmRchNQWx1Hl+UkdLgaL+kYp1v2duw8jQc8ZGpL4o5scyS3arrj0JBASrPpGvf0AM0M0UwobE/WRVFEKMUhAnQXM5C8TA4SflNsPXtQUrLtU2KPgnDALzOm1R4AIg32dRou/t+WQodcMsSoOhQnY44mbWmsfQFvXPT7/MnPXwr4yKfSlkGh4uOIljtYBsaXEdjcNc9fN/c9+wilCKKscIzsiqssg80rkqJv44awfICXlQ31RrvMejN7cdPBulm39t7ntII5sjpBcbiPHoX+BOsRmzE5hH/z2i5e8AH173mZsmxqDXtV0rVzxkBIxM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(23010399003)(1800799024)(10070799003)(7416014)(376014)(10067099003)(56012099006)(261022075727099003)(261022105027099003)(261022113327099003)(261028144727099003)(261026121527099003)(261026140227099003)(261021121427099003)(261021123027099003)(261102123227099003)(261009223027099003)(22082099003)(18002099003)(4143699003)(11063799006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SkpNODhTT2hodVNEMDV5NzdRU0ZlMlovY01rcFY3alpvOXRFWmxnYkZQeEtB?=
- =?utf-8?B?SmY5bEN2SEFTWFhBNzg4UFJNQ01kc0ZkVzhzMUgyaGVzdHRtbnpYZVUwTFll?=
- =?utf-8?B?QmduaFliREQvUDIrYjZUQlZ0Q3Q2aGlSQitUM2NFbTIrYzhUQk9NMHFjVysy?=
- =?utf-8?B?MnMvUjEvTHFaempBT3hDa0xqdGhBZk9xZnRZZWFBSjR0NmZLeCt3VnZzZm13?=
- =?utf-8?B?UWY2NXprZHJyQVh0NVFLYmI2RW83bVNyelkvUUF6ZnYwbzJ4bWJHMlNPQ0gz?=
- =?utf-8?B?ZlkyN2xTWHVlN3d5RnlaeWRFK0dZZjRpWVJONFlNODBuOUoyWnFiaDBOc0FJ?=
- =?utf-8?B?elFtUmRDOG5URWNoWDNBaU8vZHJnQ0tROU40bHZRQjZYYlRPTzdZYmVSYXRE?=
- =?utf-8?B?M3l3ZlpyNXFiVmdtM0xQMkdtTVlDM3JWVDN4MUF4cmk5cTlQQ2t2cmJiRWRF?=
- =?utf-8?B?Wm9KYmNzckRpVlFRNjB4djVkRktvYkg2RVV0SzI5bHQvMDRQclR5VXRXL1dD?=
- =?utf-8?B?ZTBjS1B2NU5nYjArTXcvZnhKUm1vVjhZUU5HVWVnL2k0cDFhK1RRR1FETDU1?=
- =?utf-8?B?MkRRUTBEd1BGcCtIb2s4aFFqTmtZWnhNMmJicW5DUjZ0QXNLc3FEcVNGc3hi?=
- =?utf-8?B?ZVJyRkthcitVK1dIblBKOEhmRzZPd0tWNDF6Yk9jMHhhR2lraDVzTUNCK3VC?=
- =?utf-8?B?Z092S3B6MCtTN0NxbUpPbjJJdkhQMDFwUkNDS09CbWZlNnIvNVZFNjZmaUY5?=
- =?utf-8?B?TXJXUmhWVjgzeDhFMWFBSGtiTzlhTmxlQzdvSStkODF4Zmg0ZzQ2OEpaeVpW?=
- =?utf-8?B?aE1rQjBOOE1QUVVmc2QwNFJqR1FLRGpDZyswQ2hEcFZ4MFhWVkx6U1JDNE9w?=
- =?utf-8?B?THhCZk5JazIrOFR2YmdxV01QMHJsbDZWTmh4RU1yNXhkNTZFWUh6ZWRGd1FG?=
- =?utf-8?B?SnVjQTJ5WGdwNHlmd2hVNVNrRmV6R3hTVXNpNjFtbmNIaU5zWklZUHcwTGp3?=
- =?utf-8?B?NXdrTlVjaWlsMTI3NU1rYzY0SXp1TUhWOXJvOTMxTHdzNDFlcnNpNk9GMEdq?=
- =?utf-8?B?aW5kMDVLRjFCNTJ2a21FeWFPc3duODVlQXc1SEtxTnJNR3V2NjFWQnVyUHI1?=
- =?utf-8?B?dVJNOFRKazljUHFGbjZBSzF3M2ZjRFhBN2ExQkxWQ1JkMlYzVTZLaVBlRTRo?=
- =?utf-8?B?T21reXNxcjBKSUpwYTlSMENjQXY4OElueDFyR2phRm1DYThYa0ZMVUYyMzF0?=
- =?utf-8?B?SmpGVWlaemQ5dmxWNjl6VCtuVTBRMFQ2c0N6QzZkbk9YVEFLUk1tQ3pIamxv?=
- =?utf-8?B?UC94bE8wNEVPa3pZdVFGWi91OTNQRWZUaDJMSnpsYUpLTTVsWE43RG51Rnoz?=
- =?utf-8?B?OUxGVkdUbThMN3h1d3VUN3V4WXB3T0pBU2NEeWRWZkJGNFhCZENtNVdPT0xJ?=
- =?utf-8?B?RnF6VDZyclhQNmptRDZObUZ6eGcyT1JmaDVNMTdxRWVLSDljTTlmMnphQ3Fq?=
- =?utf-8?B?VStocXAzRmZKR0lQY2syUHQ1U0g1U3hpVWtrS3dPQUVyUFV5cDJFRmRYdjhI?=
- =?utf-8?B?SnpNVUkwQWU5RE5TL3RFNFlmWEhQbVcrK3kwSXR4Wmxpd1kxdXNQSEdxV3dW?=
- =?utf-8?B?ajJxRmlHOW5aV1Jwb1djTFc2VEFkUktDMnlKRDhiV3VIT3B6Q1ZlQWhsaTlC?=
- =?utf-8?B?Rzd0bStlOCtqYkgyNHVGa0hadCtjc0F1a1BKd3JaTU9CaURGWlNFMVdvcGNP?=
- =?utf-8?B?alUvekhEWnR6WCtjbVJYR3JVTU90Vzd2NVd4RDNLMVd6YUhvemg2OGRUcEx3?=
- =?utf-8?B?NkhZY09HR2FPTmp0QkFVNit6eVZHVEF5UEM3bERLY0NnVzVsa3I4QUtkWE1p?=
- =?utf-8?B?ZjFXc1RpQzhIZGNvaTk0THdncjQ5N0JxQS9HUzFWQjFpNEFsaWpYRVpJM0pr?=
- =?utf-8?B?cEI0bWNCdVJaSWZ4Yks0aHhvYTRsVDJESGxwd3RNTEZudVZKU2grcHl0V0Iz?=
- =?utf-8?B?UVdLNzAxRzBGWXJsLzVReEExSHRrNVp3Wm5EUC9LRzM0Q0FrcFJtcGxmWVhn?=
- =?utf-8?B?ZFdaOEhtZzhLUnplSUVieVRtU0VUcFJCL1d3bStSdVlJTDR2Ri9TTnhGalZq?=
- =?utf-8?B?MTNUTVZxa2NyYTVTZGY2eWR4K1c5VFVXUUFVNGl3TjkzRDhhWHNEZncydXRZ?=
- =?utf-8?B?Y3dMcmRFWU9xRGh6azBIU0NHL0pYK29yT3JGN1JQNTlsem96NnpIdnVZU0lD?=
- =?utf-8?B?MmdmNzVSeFVUWTJTM0xNYXBiMUtZTVAwaUZjRzkxNml4M3g3SW5jU1ZYa1Bl?=
- =?utf-8?B?dDdESHBuR0V4QzVkSGdJeGlLM1NsUmhTTVZoVFE2N3JGV21YRzk4b3g0eHBL?=
- =?utf-8?Q?S3VCsEMNiAG3HfFd84U8EncDbI1bQ7kmeqnUNNctrcdZB?=
-X-MS-Exchange-AntiSpam-MessageData-1: lXw6C31D5OPvYQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 7da671f5-8676-4cc7-6f57-08df4c80db2c
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 12:20:42.8627 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Xo/AerZYIfmVyu155E+PsLvIKvIO8rUsV+IhxdGWQ37sByoBD7qpMQxuqLitPW7lNtllOtcnp1dl6w/HcAOANA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPFB8FBD73EA
+References: <20260714114414.184512-1-angelogioacchino.delregno@collabora.com>
+ <20260714114414.184512-47-angelogioacchino.delregno@collabora.com>
+In-Reply-To: <20260714114414.184512-47-angelogioacchino.delregno@collabora.com>
+From: Fei Shao <fshao@chromium.org>
+Date: Fri, 27 Nov 2026 20:25:42 +0800
+X-Gmail-Original-Message-ID: <CAC=S1nh8TnQeGfW+At1vCs3ie=7EYiG2R9xSTyfZ1A4mW0+CGQ@mail.gmail.com>
+X-Gm-Features: Aa3M54p-uqcPZ0BTjnlZ-C4P_vANwYAAc7cv53pfujMjetYD2ahEumQx7Kd9jG4
+Message-ID: <CAC=S1nh8TnQeGfW+At1vCs3ie=7EYiG2R9xSTyfZ1A4mW0+CGQ@mail.gmail.com>
+Subject: Re: [PATCH v2 46/46] drm/mediatek: mtk_drm_drv: Fail init only if all
+ paths are invalid
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: chunkuang.hu@kernel.org, p.zabel@pengutronix.de, airlied@gmail.com, 
+ simona@ffwll.ch, maarten.lankhorst@linux.intel.com, mripard@kernel.org, 
+ tzimmermann@suse.de, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+ matthias.bgg@gmail.com, dri-devel@lists.freedesktop.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ justin.yeh@mediatek.com, jason-jh.lin@mediatek.com, kernel@collabora.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -149,152 +110,105 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Friday, November 27, 2026 6:10=E2=80=AFPM Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 06=
-:23 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > Switch from a generic platform driver to a dedicated MIPI DBI Type B
-> > > driver.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  .../drm/panel/panel-hitachi-tx10d07vm0baa.c   | 25 +++++++++--------=
---
-> > >  1 file changed, 12 insertions(+), 13 deletions(-)
-> > >
-> > > diff --git a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c b/dr=
-ivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > index 83c2af1be9755..318ece68b7806 100644
-> > > --- a/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > +++ b/drivers/gpu/drm/panel/panel-hitachi-tx10d07vm0baa.c
-> > > @@ -14,6 +14,7 @@
-> > >  #include <video/mipi_display.h>
-> > >
-> > >  #include <drm/drm_mipi_dbi.h>
-> > > +#include <drm/drm_mipi_dbi_bus.h>
-> > >  #include <drm/drm_modes.h>
-> > >  #include <drm/drm_of.h>
-> > >  #include <drm/drm_panel.h>
-> >
-> > You should now be able to get rid of includes of of_platform.h
-> > (replacing with of.h) and platform_device.h. Agent says drm_of.h and
-> > property.h are also unused.
-> >
-> > > @@ -25,7 +26,7 @@ static const struct regulator_bulk_data hitachi_tx1=
-0d07vm0baa_supplies[] =3D {
-> > >
-> > >  struct hitachi_tx10d07vm0baa {
-> > >       struct drm_panel panel;
-> > > -     struct mipi_dbi *dbi;
-> > > +     struct mipi_dbi_device *dbidev;
-> > >
-> > >       struct regulator_bulk_data *supplies;
-> > >       struct gpio_desc *reset_gpio;
-> > > @@ -40,9 +41,10 @@ static inline struct hitachi_tx10d07vm0baa *to_hit=
-achi_tx10d07vm0baa(struct drm_
-> > >  ({ \
-> > >       const u8 d[] =3D { seq }; \
-> > >       struct drm_panel *panel =3D &(priv)->panel; \
-> > > +     struct mipi_dbi_device *dbidev =3D (priv)->dbidev; \
-> > >       struct device *dev =3D panel->dev; \
-> > >       int ret; \
-> > > -     ret =3D mipi_dbi_command_stackbuf((priv)->dbi, cmd, d, ARRAY_SI=
-ZE(d)); \
-> > > +     ret =3D mipi_dbi_command_stackbuf((dbidev)->dbi, cmd, d, ARRAY_=
-SIZE(d)); \
-> > >       if (ret) \
-> > >               dev_err_ratelimited(dev, "error %d when sending command=
- %#02x\n", ret, cmd); \
-> > >       ret; \
-> > > @@ -54,10 +56,6 @@ static int hitachi_tx10d07vm0baa_prepare(struct dr=
-m_panel *panel)
-> > >       struct device *dev =3D panel->dev;
-> > >       int ret;
-> > >
-> > > -     priv->dbi =3D dev_get_drvdata(dev->parent);
-> > > -     if (!priv->dbi)
-> > > -             return -ENODEV;
-> > > -
-> > >       gpiod_set_value_cansleep(priv->reset_gpio, 1);
-> > >
-> > >       ret =3D regulator_bulk_enable(ARRAY_SIZE(hitachi_tx10d07vm0baa_=
-supplies), priv->supplies);
-> > > @@ -243,9 +241,9 @@ static const struct drm_panel_funcs hitachi_tx10d=
-07vm0baa_panel_funcs =3D {
-> > >       .get_modes =3D hitachi_tx10d07vm0baa_get_modes,
-> > >  };
-> >
-> > Unnecessary semicolon here.
-> >
-> > >
-> > > -static int hitachi_tx10d07vm0baa_probe(struct platform_device *pdev)
-> > > +static int hitachi_tx10d07vm0baa_probe(struct mipi_dbi_device *dbide=
-v)
-> > >  {
-> > > -     struct device *dev =3D &pdev->dev;
-> > > +     struct device *dev =3D &dbidev->dev;
-> > >       struct hitachi_tx10d07vm0baa *priv;
-> > >       int ret;
-> > >
-> > > @@ -264,6 +262,9 @@ static int hitachi_tx10d07vm0baa_probe(struct pla=
-tform_device *pdev)
-> > >               return dev_err_probe(dev, PTR_ERR(priv->reset_gpio),
-> > >                                    "Failed to get reset gpio\n");
-> > >
-> > > +     priv->dbidev =3D dbidev;
-> > > +     mipi_dbi_set_drvdata(dbidev, priv);
-> > > +
-> > >       ret =3D drm_panel_of_backlight(&priv->panel);
-> > >       if (ret)
-> > >               return dev_err_probe(dev, ret, "Failed to get backlight=
-\n");
-> > > @@ -272,9 +273,7 @@ static int hitachi_tx10d07vm0baa_probe(struct pla=
-tform_device *pdev)
-> > >       if (ret)
-> > >               return dev_err_probe(dev, ret, "Failed to add panel\n")=
-;
-> > >
-> > > -     platform_set_drvdata(pdev, priv);
-> > > -
-> > > -     return 0;
-> > > +     return devm_mipi_dbi_attach(dev, dbidev);
-> > >  }
-> > >
-> > >  static const struct of_device_id hitachi_tx10d07vm0baa_of_match[] =
-=3D {
-> > > @@ -283,14 +282,14 @@ static const struct of_device_id hitachi_tx10d0=
-7vm0baa_of_match[] =3D {
-> > >  };
-> > >  MODULE_DEVICE_TABLE(of, hitachi_tx10d07vm0baa_of_match);
-> > >
-> > > -static struct platform_driver hitachi_tx10d07vm0baa_driver =3D {
-> > > +static struct mipi_dbi_driver hitachi_tx10d07vm0baa_driver =3D {
-> > >       .driver =3D {
-> > >               .name =3D "panel-hitachi-tx10d07vm0baa",
-> > >               .of_match_table =3D hitachi_tx10d07vm0baa_of_match,
-> > >       },
-> > >       .probe =3D hitachi_tx10d07vm0baa_probe,
-> > >  };
-> > > -module_platform_driver(hitachi_tx10d07vm0baa_driver);
-> > > +module_mipi_dbi_driver(hitachi_tx10d07vm0baa_driver);
-> > >
-> > >  MODULE_AUTHOR("Svyatoslav Ryhel <clamor95@gmail.com>");
-> > >  MODULE_DESCRIPTION("HITACHI TX10D07VM0BAA MIPI DBI Type B panel driv=
-er");
-> > > --
-> > > 2.53.0
-> > >
-> > >
->=20
-> I agree that your suggestions are ok, but they are out of scope of
-> this patch. They would require either dedicated commits or can be sent
-> as followups later on since they do not cause bugs.
+On Tue, Jul 14, 2026 at 7:47=E2=80=AFPM AngeloGioacchino Del Regno
+<angelogioacchino.delregno@collabora.com> wrote:
+>
+> Up until now, if not all display controller paths were valid, the
+> driver would fail probing and refuse to bind components: while
+> that was a good idea before, now that mediatek-drm gained much
+> more flexibility, it is finally possible to gracefully handle
+> this situation and register only the valid paths while leaving
+> the invalid ones unregistered, without any crash.
+>
+> Count how many output paths are found, and then count how many
+> have failed probing: if there is at least one valid path, avoid
+> erroring out, so that at least some outputs will just work.
+>
+> Of course, any path failing is not a clean situation and must be
+> resolved: in this case, function mtk_crtc_create() still prints
+> error messages so, even though some output works, that will not
+> go unnoticed, as a quick check in kmsg will show the errors that
+> made a certain path not to register.
+>
+> Signed-off-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@coll=
+abora.com>
+> ---
+>  drivers/gpu/drm/mediatek/mtk_drm_drv.c | 20 ++++++++++++++++++--
+>  1 file changed, 18 insertions(+), 2 deletions(-)
+>
+> diff --git a/drivers/gpu/drm/mediatek/mtk_drm_drv.c b/drivers/gpu/drm/med=
+iatek/mtk_drm_drv.c
+> index 82d844b6abf7..7c9cb50909c8 100644
+> --- a/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> +++ b/drivers/gpu/drm/mediatek/mtk_drm_drv.c
+> @@ -394,6 +394,8 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+>         struct mtk_drm_private *priv_n;
+>         struct device *dma_dev =3D NULL;
+>         struct drm_crtc *crtc;
+> +       int num_failed =3D 0;
+> +       int num_paths =3D 0;
+>         int ret, i, j;
+>
+>         if (drm_firmware_drivers_only())
+> @@ -460,15 +462,29 @@ static int mtk_drm_kms_init(struct drm_device *drm)
+>                         if (!priv_n->data->output_paths[i].len)
+>                                 continue;
+>
+> +                       num_paths++;
+> +
+> +                       dev_vdbg(drm->dev,
+> +                                "[CTRL%d-CRTC%d] Path Len:%d, Controller=
+ Order:%u\n",
+> +                                j, i, priv_n->data->output_paths[i].len,
+> +                                priv_n->data->output_paths[i].order);
+> +
+>                         ret =3D mtk_crtc_create(drm, i, j,
+>                                               priv_n->data->conn_routes,
+>                                               priv_n->data->num_conn_rout=
+es);
+> +                       if (ret =3D=3D 0)
+> +                               break;
 
-I don't see why the include changes are out of scope. The platform=20
-driver was including platform includes but now it's no longer a platform=20
-driver so it shouldn't include platform driver stuff. The rest are minor=20
-enough that I think they can be included as well.
+Since patch 38/46, mtk_crtc_create() already combines all controllers
+(`order 0..N`) for `output_paths[i]` into one CRTC, so only the leader
+(`order =3D=3D 0`) should call it.
 
+Relying on `if (ret =3D=3D 0) break;` instead of filtering `order =3D=3D 0`=
+ has
+a few issues:
+- If a follower (`order > 0`) appears before the leader in
+  `all_drm_private[]`, `mtk_crtc_create()` gets the follower's `j` as
+  `priv_data_index` (setting `mmsys_dev`, CMDQ, and `conn_routes` from
+  the follower) and breaks before reaching the leader.
+- If `mtk_crtc_create()` fails, the loop retries it on every remaining
+  follower for the same CRTC.
+- Patches 38/46..45/46 don't have this `break;` yet and register
+  duplicate CRTCs for each follower.
 
+Skip `priv_n->data->output_paths[i].order > 0` in the loop (starting
+in patch 38/46) instead of breaking on `ret =3D=3D 0`.
 
+Regards,
+Fei
+
+>
+> -                       if (ret)
+> -                               goto err_component_unbind;
+> +                       num_failed++;
+>                 }
+>         }
+>
+> +       if (num_failed =3D=3D num_paths) {
+> +               dev_err(drm->dev, "No valid Display Controller path! Goin=
+g out.\n");
+> +               ret =3D -ENODEV;
+> +               goto err_component_unbind;
+> +       }
+> +
+>         /* IGT will check if the cursor size is configured */
+>         drm->mode_config.cursor_width =3D 512;
+>         drm->mode_config.cursor_height =3D 512;
+> --
+> 2.54.0
+>
+>
