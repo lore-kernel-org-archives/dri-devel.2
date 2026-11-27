@@ -2,86 +2,168 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03314606A323
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:25:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204CE606A324
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:30:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=Qbb7YUQp
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.a=rsa-sha256 header.s=dk header.b=nEr6J83C;
+	dkim=pass (1024-bit key) header.d=mediateko365.onmicrosoft.com header.i=@mediateko365.onmicrosoft.com header.a=rsa-sha256 header.s=selector2-mediateko365-onmicrosoft-com header.b=LrSZxyAr
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6DCBD1128C8;
-	Fri, 27 Nov 2026 09:25:30 +0000 (UTC)
-Received: from mail-wr2-f9.google.com (mail-wr2-f9.google.com [74.125.225.73])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 678501128D5
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:25:24 +0000 (UTC)
-Received: by mail-wr2-f9.google.com with SMTP id
- ffacd0b85a97d-4912e5f330dso2453965f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 01:25:24 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 7A71410E9D6;
+	Fri, 27 Nov 2026 09:29:58 +0000 (UTC)
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id A888B10E9D6
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:29:46 +0000 (UTC)
+X-UUID: 127aa5a0ea4511f1b9cf3d4034dccee2-20261127
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com;
+ s=dk; 
+ h=MIME-Version:Content-Transfer-Encoding:Content-ID:Content-Type:In-Reply-To:References:Message-ID:Date:Subject:CC:To:From;
+ bh=o6QoRERfcHAdwtcZuoiolqsoLZy1yMakac8xdw8vqa0=; 
+ b=nEr6J83CcyIjdGvkB0hsXP6Knkrjadw6VLI0UFZzXM8nbR17yIehRMXvdywx9ZK/bXQpNvr5Cf2bZw437h4yIp/6v4e4G83Le8VNBvYRNF8MQ867h9DNh8wl5PjhKM4snoq/fh3gHsx0tY3JNPU0HkAsXpMdMI5TrbkC3U+sloE=;
+X-CID-CACHE: Type:Local,Time:202611271729+08,HitQuantity:2
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.21, REQID:5bcbf686-0e1d-4dd5-83ba-f542ceb293e5, IP:0,
+ U
+ RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+ release,TS:0
+X-CID-META: VersionHash:b0318ac, CLOUDID:c2e4231a-ae4c-4a2b-b1c4-72e411efd0c9,
+ B
+ ulkID:nil,BulkQuantity:0,SF:80|81|82|83|102|110|111|136|836|865|888|898,TC
+ :-5,Content:0|15|50|99,EDM:-3|-100,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:
+ nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,AR
+ C:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 127aa5a0ea4511f1b9cf3d4034dccee2-20261127
+Received: from mtkmbs10n1.mediatek.inc [(172.21.101.34)] by
+ mailgw01.mediatek.com (envelope-from <ck.hu@mediatek.com>)
+ (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+ with ESMTP id 845425232; Fri, 27 Nov 2026 17:29:40 +0800
+Received: from mtkmbs10n2.mediatek.inc (172.21.101.183) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.56; Fri, 27 Nov 2026 17:29:39 +0800
+Received: from SI4PR04CU001.outbound.protection.outlook.com (172.21.101.237)
+ by mtkmbs10n2.mediatek.inc (172.21.101.183) with Microsoft SMTP Server id
+ 15.2.2562.56 via Frontend Transport; Fri, 27 Nov 2026 17:29:39 +0800
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EY349JrRs+jHRCMBQaXUXhfLVC4nWrAnlC2sd7OScaoY0kTvbFqq99wwm9hQk6e943Dmz7eDVUBbphPw0pBq0rNFZYzW4xS/tHXj2Hxtc24G9SnZt7LJxMVgLYL2WN8kW1ECZMdQOuAH7ucMpEMEqrQFsasatZZ8wuSCKE6cFSrdQAf4ohRh9gwiWZ3sywvMQXAfPfydz+HmaDTFtBScQMgSMpdgwjyWxSdX0Kx379r7cTCcXQON1Zy8doeNyBJIVzEO6DfuSTVJalaaptvjigCBB+1lbI2bXEyDce9D7m2Wscl/+M1Ar3ULHUy4FJgERWaizpT3QYM4FqXXy3IrAA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=o6QoRERfcHAdwtcZuoiolqsoLZy1yMakac8xdw8vqa0=;
+ b=s/cZvIUIKzsRWU4CSuwkltx/POKsmgbkCZSVNfhVsqafNZ+PCZ1I5MVQtGNBvpb0oag5MZqEPOuiD3JNz/QTIthsk9bivPVDZKinNPKMc4e7gdKioaK8X2DqPhnbJMh+c+FMFLlDKwiUSLrQy0tUuEsPNvZ/unbOEKr3HYqp46AWUAe/B/Rij/SJajf3/DnQn/PL1AvZv2eUof6NZSjQmk8N0ocKgW/alyIuEJgqLezRss63YB+T+FiXaDKbVv24mOiOqb4AYHD1Zk1P9Q/kjBr3cQhRwHXBz924k3dlzTxHChW4ra/5z/KvW+3rh+jZsb3zMd/cbPPjYUGd9hPk0g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=mediatek.com; dmarc=pass action=none header.from=mediatek.com;
+ dkim=pass header.d=mediatek.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795771522; x=1796376322; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=ksU77zdRcGEkDaOL3bOMHybdYo8q9JOlRC2jOXpEIBg=;
- b=Qbb7YUQpAJpoVo0YbAE7gTespMPfWCOrodjNLR9sIUMKlv1PkDm1nR2OKjkhG+12Iq
- hWCJ/AaufaA7YApKYrcWNg7fiSb0dtJuywx+0MGx98igSOi40cNNCZTIoSQ4y/FXKFaZ
- M6lAzCumST3j4oiu7McVnRtxXhkJf1MIfnY1CLSMUZBxRJ2lYmFkR7esUEz5hgiswQAx
- 1ejk9fyMOi8IHIjok/+mnphI1F16bDXOaDRyNPjhZA3Wqh/2FAsOAdJcazzt0h9DPuHj
- UkuzSjN53sJ0AOh8OYKtky8aPJ0utOw3y6NVx7EmR2ZJdqCGHN99C282+TUJAEb+RXnM
- N98Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795771522; x=1796376322;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=ksU77zdRcGEkDaOL3bOMHybdYo8q9JOlRC2jOXpEIBg=;
- b=hQOaMp0xT6YxwSdb6KEc/S03kt04nUZEokJbNwbRvOjJn6fD99gcDryYDjMAcPijb2
- 3P5B4ANTqySpDy9uXIo9rXLRoL6aZxs9o4BL/tqFjiHqJDAjI5UPcySzhSDDZCXHYraw
- NaI8TZ7wHU8MH+uX6ET+Hg6tRo8Jw1SEdRHX5Ffun2XNDBGqVZ5eAmczF2Lzt/WVlwqR
- jPvFj1FI5zZq8XN0V1l6ZoTXK3ylScqkL6G5vcsFgl7bu/hYOARTQFFf4YGXGBRuAiLt
- 2h+2vYLQ4MXikXTKfU4L2w5YIYWcGOeJ3IO4QGh2c1CfUTQY7nSDd7Cnp2vgBjSKgAfn
- DXIA==
-X-Forwarded-Encrypted: i=1;
- AL+hErFGm6tp9nK/ZhOSV4gqda7uCNTIhob2/z5T95tOn0YU5MvLyQY6BIB6nkTmR+Wk3i42BfQHOYv9rSo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9j3uwvK25ep9jVpFUUkG91WiBGcBAvR5J2S52FJhRRlD8pfL92
- Pm2X4jDCmWa9DtTRbbu18Jw6CrM/TidAViQIv5vm4BhLFOO2Ch5TKHIv
-X-Gm-Gg: AZFdTZcPiitAYT0E/v0G8td5n5tUjU0Slk2Lo6MGHxTSrjRqxmp3Eo2It3Ra/GL1XSe
- pqzUqLEz0eElzPdEcG/PAAAp6KRBk11Q4o93/lEfyhRdogpkoeeobxOwc87yNaozAcydgGYdHfN
- /CUx9bHH5nHBLpzIrVqQJdJi2bp6JFEHVefVz39EWJKt/x+22d/hlTRtZEvtu02d8WsfBWJYVCo
- zabPSP7oZCw9bhNqOZNA2jN2VPfTPdtIqKwZmebgsihd7iof24PLs/L9+jJvgyAWeETPvWzBv34
- 5hwVNcEoCExSO9CwWcUj/Eewh3iJ/dcyKxDbnMip3eXWKNNtjoaTjv/S1eGg0t9JomH1FOJNhaq
- opr79nAdLWixO8wHWEEBcVrwSBFAWNviGt8IuplBLsGFc7h2FMu22J7uA4J10FYUP3CgxQPvX4L
- 75aLwEYLwMyxiNw0VrGJptQauGor4JlDnE0lVJOmpmTERu7jxtuwnQS1B+uLtJ/YETNADIVBDPE
- qpI/fKFzl4Ut91gUtaBP8B6ujUOvoB4y4kE8yb9crlUWN0LwxFELeQCLZ5oXSVJlkSyBJzZdu5D
- gs2zo0OVTwajgQqSoq1pN69Mcu7ymvvnTl3kBw==
-X-Received: by 2002:a5d:584f:0:b0:4b9:8ac3:f5fa with SMTP id
- ffacd0b85a97d-4b98ac3f6d5mr16755716f8f.48.1795771522353; 
- Fri, 27 Nov 2026 01:25:22 -0800 (PST)
-Received: from [192.168.1.11] ([31.94.68.154])
- by smtp.gmail.com with ESMTPSA id
- ffacd0b85a97d-4ab6baa397asm46609335f8f.48.2026.11.27.01.25.21
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Nov 2026 01:25:21 -0800 (PST)
-Message-ID: <2e93336e-9983-4d20-96fe-515a6b5009b2@gmail.com>
-Date: Fri, 27 Nov 2026 09:25:20 +0000
+ d=mediateko365.onmicrosoft.com; s=selector2-mediateko365-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=o6QoRERfcHAdwtcZuoiolqsoLZy1yMakac8xdw8vqa0=;
+ b=LrSZxyArb/LhapzojPL9zcNLW8ZwwLa3DHvaly+UQMEQGJsVzfUOzKZYz5WksgLYlqipEI9TjHt8y4NqddrScHpFuGNPk40nzHlUhpSs4aqLOkdeEe7PoDhcA+9FASMtg9bKQz5vWZZxohse+CA6i2cZSc/b5beYg0HC9AEYLa8=
+Received: from KUYPR03MB9902.apcprd03.prod.outlook.com (2603:1096:d10:91::20)
+ by SE3PR03MB10461.apcprd03.prod.outlook.com with HTTP via P2P;
+ Fri, 27 Nov 2026 09:29:37 +0000
+Received: from KUYPR03MB9902.apcprd03.prod.outlook.com
+ ([fe80::9598:2e59:20dd:960b]) by KUYPR03MB9902.apcprd03.prod.outlook.com
+ ([fe80::9598:2e59:20dd:960b%5]) with mapi id 15.21.0662.004; Fri, 27 Nov 2026
+ 09:29:36 +0000
+From: =?utf-8?B?Q0sgSHUgKOiDoeS/iuWFiSk=?= <ck.hu@mediatek.com>
+To: "p.zabel@pengutronix.de" <p.zabel@pengutronix.de>, "iasnezhkov@gmail.com"
+ <iasnezhkov@gmail.com>, "chunkuang.hu@kernel.org" <chunkuang.hu@kernel.org>
+CC: "simona@ffwll.ch" <simona@ffwll.ch>, "dri-devel@lists.freedesktop.org"
+ <dri-devel@lists.freedesktop.org>, AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>, "airlied@gmail.com"
+ <airlied@gmail.com>, "linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>, "matthias.bgg@gmail.com"
+ <matthias.bgg@gmail.com>, "linux-mediatek@lists.infradead.org"
+ <linux-mediatek@lists.infradead.org>
+Subject: Re: [PATCH] drm/mediatek: dsi: return tx_len for write transfers in
+ mtk_dsi_host_transfer()
+Thread-Topic: [PATCH] drm/mediatek: dsi: return tx_len for write transfers in
+ mtk_dsi_host_transfer()
+Thread-Index: AQHdfT3HbPUaYTlYTkSP7frD3qtkO7dBqSWA
+Date: Fri, 27 Nov 2026 09:29:36 +0000
+Message-ID: <b14890fcde4432e9eb81887166f76df65012ab9a.camel@mediatek.com>
+References: <20261126003311.49008-1-iasnezhkov@gmail.com>
+In-Reply-To: <20261126003311.49008-1-iasnezhkov@gmail.com>
+Accept-Language: zh-TW, en-US
+Content-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.52.3-0ubuntu1.1 
+x-ms-traffictypediagnostic: KUYPR03MB9902:EE_|SE3PR03MB10461:EE_
+x-ms-publictraffictype: Email
+client-request-id: c8a13b73-0d14-4c95-b437-cbeb8a28bb2f
+request-id: 0ed3e712-2acd-4814-8e41-08df4c68f444
+x-ld-processed: a7687ede-7a6b-4ef6-bace-642f677fbe31,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;
+ ARA:13230040|42112799006|366016|376014|7416014|1800799024|6133799003|261009223027099003|22082099003|18002099003|10067099003|11063799006|5023799004|56012099006|261102123227099003|261026121527099003|261028144727099003|261026140227099003|261021121427099003|261021123027099003|261022105027099003;
+x-microsoft-antispam-message-info: EpTfJQZiOHMTDz11cxFgITlCPTMjv5gmn6ksI25vmNTFGKi9sqQ3mGLCdlaw7fSxAiLrB8+1uJt+FQcHNY0CNmHfnpFmg7hehno9tAJP1C5Bj4KVOLFJfh4JmFV3lTdnxBnQQZw1Fh4i34lbmduwlFrz5LRdaxt5D+2U+XmVAb8JaQl84m61m+AeWo8csX0aDe3FkMMGJfA8YWQLB49WzzGLY3ywKw7vlUaZC7uyv5yhC8LF4gbCmg41xQXMHxYTakDhHEZafKGBNJG9c6PUaV5WDPO08CNTxkaBIZVxe18b2CwkAcwJZ4gV0B47i01HLoo7u9FUVZdYDIViCtBC2088xO50+WGqH73I8vwsgogFC6kUAQqmE309RPmfp09x6SrenROVfFu4ndjsOBPjmKlCUPwB7k4MMSfRY2tECNpmDy7aWGZilCYtG6LKwm3QIc1ETwMS+hRm8/w5aJ3O7fexMbHZZDuQ8x3PRfCkrH/R6g22VbPBxlGf4ydtenVxI0md7ERkRm6sAJo3mhaLjQXt19P9rvLVMR+1w6QSgFiqdZmQKs/SPlsmzl8DMWmfn2wvSvqB93HfWCtSQgmCHQdeufL7LLulbD3cUZyu9RfO2TCCBpTtI7IU8t1i7yhZU6PU5/B5+IqxTCbAmOFHAqLY6Nf/Vi3Yz316igz0V1g=
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:; PTR:; CAT:NONE;
+ SFS:(13230040)(42112799006)(366016)(376014)(7416014)(1800799024)(6133799003)(261009223027099003)(22082099003)(18002099003)(10067099003)(11063799006)(5023799004)(56012099006)(261102123227099003)(261026121527099003)(261028144727099003)(261026140227099003)(261021121427099003)(261021123027099003)(261022105027099003);
+ DIR:OUT; SFP:1101; 
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?bWtMWThWT2JmUzJKdWdIemkvVEliYnh6VnVZS3RtTHByaXRlSEQyRWEzeFRp?=
+ =?utf-8?B?VnppRHdEb1JNSTQyZjJIdmp2bGQ3RFI1cVF0NUJ1bUdxTUxhVnJxYjY2c3NK?=
+ =?utf-8?B?R2VWcFNlV1g0U3k2b1g5d0Q1UVNjaC83Z0lXZ01CVXMrZUpENmREb3ZkbThO?=
+ =?utf-8?B?c2ZYY2RGWEtXL3FTc2NLNUNYcFFCWTFIaUpJeGltSS9VZFJNZWdXNXYzd21U?=
+ =?utf-8?B?T1dscGJtOXVndi80WDVYaHRtUjF6MS9sN2wzMHdTc21acTUwNWFpREdjWVdI?=
+ =?utf-8?B?d001aWJiM2M1QUhINHJaMVoxS1IwSHJGVDVwUVhCVEM1S296MFE5UFRVM1Bj?=
+ =?utf-8?B?R2pmVVlpd2hjYnpsRDVpWVV5NzdwRmtXem1xWmo1cmxZVFdjODJPa3NoZ0JH?=
+ =?utf-8?B?MzlibEdDcHEvM3huTzZNU3RqRjJCNXVjZCtVRWZBbFV4bGhpT3ppZUZpUndC?=
+ =?utf-8?B?Ni9HUmJwb0EvT1VoWEg0Q1FEc2RDNXExSXo2S1gxZkdGVnhSdnVtYzBVWlBn?=
+ =?utf-8?B?cGc0bmovQWc5VEZKZTF2QlU3b3BYbnh2Q2h1bDh0SnZ6VXlkNENyN09lOXRz?=
+ =?utf-8?B?Z2FyaWxBL1Q2a0ptMTdIZ0IvUjFHUGhPYTF2eVhKY3lacWpTd01SeCtVczh0?=
+ =?utf-8?B?MnJUNWgvR2RnSjdpR0h5SWNGNmkwbS9BRS9ldVpNcTRCVU5lN094Ry9vSUVp?=
+ =?utf-8?B?OWFHTy9RV3RjY3hPZUhWbnZuQ1ovT3o0djJRZTFuQTJ3eThsVW5iaFZFdjRH?=
+ =?utf-8?B?NHZ2aG5aTm1LamxwMEpWRWxJOThvWkh4eVVGNkNLU0Q1SndLVEtaVDYvODZJ?=
+ =?utf-8?B?Umh0UjlvQlFaajUrTnMrQjN0Uk5VTkVTemJZcUI4SmlNZUxzeG4vV0NMWWJ4?=
+ =?utf-8?B?ZGNOOFp3dUx5QUQxUjdGMEQxekNOOHpoazR6VVVXbDA4VVpSeU1ZZDYwNGg1?=
+ =?utf-8?B?WnVwNW5QaG4vdjZST0NpdGFaaGt0OENOdTEwbG9kbzY0WVNkWVhNbGhJUEhi?=
+ =?utf-8?B?NGl3WG9VaGxoZW5ra0pEekp4bll1dk10ek9ndUNFOUordHV2d0h3eE05MUlp?=
+ =?utf-8?B?RnJsQ21UeUpRNFZuT0ZwQnVmV0Y2RHZUSEwwZWl3amhaRUUzaTdQbFNQaFl6?=
+ =?utf-8?B?UHl6L3pTanR5TjJYMUg2bTJiQ1VVa1h0VlVLSjRBTkZ5VzNXSXJDaVM2ZDlw?=
+ =?utf-8?B?T0NzNmNJWEwrMnovVG50cTBpbmdvNUZ5aEFBRGVuZHRXOXgwc0J4MllrVWc3?=
+ =?utf-8?B?ODJ0NXVYakxOTEprcmZQSVh0TUhOWWh1L01oNFRWenlvSzdOL1I2K1pPTGhp?=
+ =?utf-8?B?S0lnZEwvRHR6dGxOQ05FUU9kSVpDQlAycllTTm9zTDY1V1NiWG0xR3NKaWhP?=
+ =?utf-8?B?UEtZcU5PaHA0cmtDanY5V2dJR3RpZnJWY0NDbmZMR3NXVUprWGRJdEMyaWhk?=
+ =?utf-8?B?cEMvanBmUktVNWcxVkZ1YXd6T0RiWUdlcGQ0OVU2UkVxWjYvUitidCtBdFQv?=
+ =?utf-8?B?MWJ0YkN0T21XWmh3N2V5TUVqODA0Z3k0SkVuNGhXU3JzUmxUb05EbDVIenRC?=
+ =?utf-8?B?QlRCSlkydlZJSmRDUUFxR0haWlFtZlFWQ1owa3pqOVc2VlcwRjFTSkJ0QWpn?=
+ =?utf-8?B?cjMweTJDbGtNaEJCN0twWHd3SzAwd2dGZ1VYbnl4eGJKZEZ3elA4ZE56OU5j?=
+ =?utf-8?B?OTdtVFFyTUw0Tk5ra2RxdzkxVy9SNVMrcXR2akovVEZQWE0wdDhLcGZwS0pt?=
+ =?utf-8?B?YksrMlMwdkx4emUyWElhTFE0M0xRTVF0c2xFSzFTS1dKSkYvOHVrUURFbFhv?=
+ =?utf-8?B?ODdDL0UwYWNSQmdzdEdENGxLRlJrYnNtWFpXOFVYbTlkREtTQlZsLzlEUHhG?=
+ =?utf-8?B?MUh3aDg2dHh1VVpoOXJQcHZQcHBjOEhUci9VVlMwV2hsb0hjMkl6dlFucllN?=
+ =?utf-8?B?bjUwQ2ZXSHB2UVYyWE5xTTF2R0JiWmpxVjZjb1FZZGw5dmlVQUYweEJPWnNJ?=
+ =?utf-8?B?M3RkMDgzcFdpNjJ2R2hiWjB1OStnRWJXVlEwd1RmL3luWGhHSXJGK0dycHFx?=
+ =?utf-8?B?eWlsUFZYMXFJMnJwRndvdTA4NFkySE85MTFLUnpsMGI0YUNIc1U5WHlNRThT?=
+ =?utf-8?B?bEYwdEpxRm5WV1VZV3RSeTRHL1ZEZ2VyMWlKcUJsNzF3Z1NyQ1RqcmFxczBt?=
+ =?utf-8?B?L3VGak1KOXVFMzVwVWFCODJIQUJMVGgwZkhaY1RkNjNZZnh2YW52cUx0VjUr?=
+ =?utf-8?B?eExRMDhtMms3MENzeVEzcW40YmFRQTRMamptaWI5VHY1VU00U3FtQ1dFT2JL?=
+ =?utf-8?B?eXNzK1k1K1BFMmRZbTJXRElEYTVHWU0zaHJUODg1WWRZZmNYZ2g2UT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-ID: <85E365AB3029A24E9D3E803A5A9FA1C1@apcprd03.prod.outlook.com>
+Content-Transfer-Encoding: base64
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/amd/display: unlock secondary tile on Apple
- 4K/5K iMac panels
-To: "amd-gfx@lists.freedesktop.org" <amd-gfx@lists.freedesktop.org>
-Cc: Alex Deucher <alexander.deucher@amd.com>,
- =?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Harry Wentland <harry.wentland@amd.com>, Leo Li <sunpeng.li@amd.com>,
- Rodrigo Siqueira <siqueira@igalia.com>,
- Mario Limonciello <mario.limonciello@amd.com>,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-References: <07e54333-2391-4e8f-8819-fa431d981430@gmail.com>
-Content-Language: en-US
-From: Richard Lane <richardlanedev@gmail.com>
-In-Reply-To: <07e54333-2391-4e8f-8819-fa431d981430@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-Exchange-RoutingPolicyChecked: EV/h+LRkLbVem+BwXMn47R2ltu8Lm+7scUDT9IBSNFRCS+Er7TM/qfwpcVL0IkSBsa3TJ9oINf844VZClhxU7dXD/Qo5TGnzOLffIfTo8GFLa0YATN08tttDKMNf22cL9jXvoOHgHquzWBEpcG09KA1lrWkO5uLQ6mf6hAr21vW30mwDEgal6lh/X/1u3Cp94HOSZOQgggFbTP7ynEHTz1VjBWkn0OzMGAUvXmUqPMpbxbLLb2DP0VI0FqOmWcsEn855mxlpwUEajiXMDLKZWL76s+FcaWkydAPGwzZorbAAD5Ij1joZbYxEm0GzBirhbvlHB23xpXTAqoW3iKQPyQ==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: KUYPR03MB9902.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0ed3e712-2acd-4814-8e41-08df4c68f444
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Nov 2026 09:29:36.7499 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: a7687ede-7a6b-4ef6-bace-642f677fbe31
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Z4ACcFGjwrJhRVco0Vvzm4R7SXNg3/gaoEHtVpzBdo/UqwHrqlqMZZkVi4W8J4Tc06SfHaThwGHHUw7OXV7xfQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SE3PR03MB10461
+X-MTK: N
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,206 +175,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.2 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FORGED_GMAIL_RCVD,FREEMAIL_FORGED_FROMDOMAIN,
-	FREEMAIL_FROM,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
-	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
+	SPF_PASS,UNPARSEABLE_RELAY autolearn=unavailable autolearn_force=no
 	version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On 27/11/2026 00:05, Richard Lane wrote:
-> Apple 21.5" 4K (iMac18,2, iMac19,2) and 27" 5K (iMac15,1, iMac17,1,
-> iMac18,3, Polaris-based iMac19,1) Retina iMacs expose their internal
-> panel as a 2x1 tiled display over an eDP root link and a secondary DP
-> link. At boot, the panel TCON operates in single-pipe mode and holds the
-> secondary DP link's HPD line low until unlocked via DPCD registers.
-> 
-> Enable native tiled detection and link training for DCE < 12 Apple 4K/5K
-> Retina iMac panels:
-> - Latch the root eDP link via DPCD 0x4F1 prior to reading its EDID in
->   dm_helpers_read_local_edid() on Apple hardware (DCE < 12) so the
->   TCON exposes its full DisplayID tile properties even when Apple and
->   OpenCore Legacy Patcher (OCLP) EFI folders are absent.
-> - Point the secondary DP dc_link to the root eDP dc_link
->   (apple_tcon_peer) during EDID quirk matching on DCE < 12 iMac15,1
->   (AE01/02), iMac17,1 (AE05/06), iMac18,3 (AE11/12), iMac18,2/19,2
->   (AE19/1A), and Polaris-based iMac19,1 (AE25/26), checking
->   connector_signal since panel IDs can flip across the two links after
->   S3 wake. DCE >= 12 support for Vega-based iMac19,1, iMacPro1,1, and
->   iMac20,x is documented as TODO.
-> - Avoid falling back to DVI and latch the secondary tile via DPCD 0x4F1
->   on the root eDP link when probing the secondary link, allowing the
->   secondary link to read its EDID and populate DRM's DisplayID tile
->   properties (has_tile, tile_group, and tile_is_single_monitor).
-> - Write the 3-byte Boot Camp source table (0x04, 0x1d, 0x03) to DPCD
->   0x310 in dpcd_set_source_specific_data() to unlock the secondary tile.
-> - Unlatch both tiles (0x4F1) and clear DP_SOURCE_TABLE_REVISION (0x310)
->   and DP_EDP_CONFIGURATION_SET (0x10A) in amdgpu_dm_apple_tcon_unlatch()
->   during dm_suspend() so the TCON returns to single-pipe mode for the
->   EFI boot screen across reboots.
-> 
-> Signed-off-by: Richard Lane <richardlanedev@gmail.com>
-> ---
->  .../gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 19 ++++++++++
->  .../amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 35 +++++++++++++++++++
->  drivers/gpu/drm/amd/display/dc/dc.h           |  1 +
->  .../drm/amd/display/dc/link/link_detection.c  |  7 +++-
->  .../dc/link/protocols/link_dp_capability.c    |  4 +++
->  5 files changed, 65 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> index 3d2201285888..6275a585593c 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-> @@ -1610,6 +1610,23 @@ STATIC_IFN_KUNIT void dm_destroy_cached_state(struct amdgpu_device *adev)
->  }
->  EXPORT_IF_KUNIT(dm_destroy_cached_state);
->  
-> +static void amdgpu_dm_apple_imac_unlatch(struct dc *dc)
-> +{
-> +	const u8 zeros[3] = { 0 };
-> +
-> +	for (int i = 0; i < dc->link_count; i++) {
-> +		struct dc_link *link = dc->links[i];
-> +
-> +		if (link->apple_imac_peer) {
-> +			core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION, zeros, 3);
-> +			core_link_write_dpcd(link, DP_EDP_CONFIGURATION_SET, zeros, 1);
-> +			core_link_write_dpcd(link, 0x4F1, zeros, 1);
-> +			core_link_write_dpcd(link->apple_imac_peer, 0x4F1, zeros, 1);
-> +			break;
-> +		}
-> +	}
-> +}
-> +
->  static int dm_suspend(struct amdgpu_ip_block *ip_block)
->  {
->  	struct amdgpu_device *adev = ip_block->adev;
-> @@ -1677,6 +1694,8 @@ static int dm_suspend(struct amdgpu_ip_block *ip_block)
->  
->  	amdgpu_dm_hpd_rx_irq_work_suspend(dm);
->  
-> +	amdgpu_dm_apple_imac_unlatch(dm->dc);
-> +
->  	dc_set_power_state(dm->dc, DC_ACPI_CM_POWER_STATE_D3);
->  
->  	if (dm->dc->caps.ips_support && adev->in_s0ix)
-> diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> index 6192c0f6086d..0863628c9d67 100644
-> --- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> +++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-> @@ -29,6 +29,7 @@
->  #include <linux/string.h>
->  #include <linux/acpi.h>
->  #include <linux/i2c.h>
-> +#include <linux/dmi.h>
->  
->  #include <drm/drm_atomic.h>
->  #include <drm/drm_probe_helper.h>
-> @@ -173,6 +174,31 @@ STATIC_IFN_KUNIT void apply_edid_quirks(struct dc_link *link, struct edid *edid,
->  		drm_dbg_driver(dev, "Force FreeSync min to 60 Hz on panel id %X\n", panel_id);
->  		edid_caps->panel_patch.force_freesync_min_hz = 60;
->  		break;
-> +	/*
-> +	 * Workaround for Apple 21.5" 4K and 27" 5K iMac 2x1 tiled panels
-> +	 * (eDP root + secondary DP). Point secondary->apple_imac_peer to root
-> +	 * so detection/suspend can latch/unlatch the TCON via DPCD; match both
-> +	 * single/tiled IDs and gate on eDP so only root sets the peer.
-> +	 * IDs (Single/Tiled): iMac15,1 (AE01/02), iMac17,1 (AE05/06),
-> +	 * iMac18,3 (AE11/12), iMac18,2/19,2 (AE19/1A), iMac19,1 (AE25/26);
-> +	 * TODO (DCE >= 12): iMac19,1/19,2 Vega, iMacPro1,1 (AE1D/1E),
-> +	 * iMac20,x (AE31/32, AE35/36).
-> +	 */
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE01):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE02):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE05):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE06):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE11):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE12):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE19):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE1A):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE25):
-> +	case drm_edid_encode_panel_id('A', 'P', 'P', 0xAE26):
-> +		if (link->connector_signal == SIGNAL_TYPE_EDP &&
-> +		    link->ctx->dce_version < DCE_VERSION_12_0 &&
-> +		    (link->link_index ^ 1) < link->dc->link_count)
-> +			link->dc->links[link->link_index ^ 1]->apple_imac_peer = link;
-> +		break;
->  	default:
->  		return;
->  	}
-> @@ -1299,6 +1325,15 @@ enum dc_edid_status dm_helpers_read_local_edid(
->  	if (link->dc->hwss.prepare_ddc)
->  		link->dc->hwss.prepare_ddc(link);
->  
-> +	if (link->connector_signal == SIGNAL_TYPE_EDP &&
-> +	    link->ctx->dce_version < DCE_VERSION_12_0 &&
-> +	    dmi_match(DMI_SYS_VENDOR, "Apple Inc.")) {
-> +		const char *product = dmi_get_system_info(DMI_PRODUCT_NAME);
-> +
-> +		if (product && str_has_prefix(product, "iMac"))
-> +			dm_helpers_dp_write_dpcd(ctx, link, 0x4F1, &(const uint8_t){1}, 1);
-> +	}
-> +
->  	dm_helpers_wait_for_edid_ready(link, ddc);
->  
->  	/* some dongles read edid incorrectly the first time,
-> diff --git a/drivers/gpu/drm/amd/display/dc/dc.h b/drivers/gpu/drm/amd/display/dc/dc.h
-> index 8471dcfe24fd..bd3857267331 100644
-> --- a/drivers/gpu/drm/amd/display/dc/dc.h
-> +++ b/drivers/gpu/drm/amd/display/dc/dc.h
-> @@ -2018,6 +2018,7 @@ struct dc_scratch_space {
->  	bool skip_implict_edp_power_control;
->  	bool forced_psr_active;
->  	enum backlight_control_type backlight_control_type;
-> +	struct dc_link *apple_imac_peer;
->  };
->  
->  struct dc {
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/link_detection.c b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> index 5b257f003f13..02c6e5874c16 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/link_detection.c
-> @@ -218,7 +218,7 @@ static enum signal_type link_detect_sink_signal_type(struct dc_link *link,
->  			 * we assume signal is DVI; it could be corrected
->  			 * to HDMI after dongle detection
->  			 */
-> -			if (!dm_helpers_is_dp_sink_present(link))
-> +			if (!link->apple_imac_peer && !dm_helpers_is_dp_sink_present(link))
->  				result = SIGNAL_TYPE_DVI_SINGLE_LINK;
->  		}
->  		break;
-
-I have also discovered that this modification to link_detection.c is not needed.
-
-Richard
-> @@ -1651,6 +1651,11 @@ bool link_detect_connection_type(struct dc_link *link, enum dc_connection_type *
->  		}
->  	}
->  
-> +	if (*type == dc_connection_none && link->apple_imac_peer) {
-> +		core_link_write_dpcd(link->apple_imac_peer, 0x4F1, &(const uint8_t){1}, 1);
-> +		*type = dc_connection_single;
-> +	}
-> +
->  	return true;
->  }
->  
-> diff --git a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> index c487c5b87dfd..74954702c5a9 100644
-> --- a/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> +++ b/drivers/gpu/drm/amd/display/dc/link/protocols/link_dp_capability.c
-> @@ -1496,6 +1496,10 @@ void dpcd_set_source_specific_data(struct dc_link *link)
->  				link->dc->vendor_signature.data.raw,
->  				sizeof(link->dc->vendor_signature.data.raw));
->  	}
-> +
-> +	if (link->apple_imac_peer)
-> +		core_link_write_dpcd(link, DP_SOURCE_TABLE_REVISION,
-> +				     (const uint8_t[]){0x04, 0x1d, 0x03}, 3);
->  }
->  
->  void dpcd_write_cable_id_to_dprx(struct dc_link *link)
-
+T24gVGh1LCAyMDI2LTExLTI2IGF0IDAwOjMzICswMDAwLCBJbGlhIFNuZXpoa292IHZpYSBCNCBS
+ZWxheSB3cm90ZToNCj4gRnJvbTogSWxpYSBTbmV6aGtvdiA8aWFzbmV6aGtvdkBnbWFpbC5jb20+
+DQo+IA0KPiBQZXIgc3RydWN0IG1pcGlfZHNpX2hvc3Rfb3BzIC50cmFuc2ZlcigpIGRvY3VtZW50
+YXRpb24gaW4NCj4gaW5jbHVkZS9kcm0vZHJtX21pcGlfZHNpLmgsIG9uIHN1Y2Nlc3MgLnRyYW5z
+ZmVyKCkgbXVzdCByZXR1cm4gdGhlDQo+IG51bWJlciBvZiBieXRlcyB0cmFuc21pdHRlZCBmb3Ig
+d3JpdGUgcGFja2V0cyBvciB0aGUgbnVtYmVyIG9mIGJ5dGVzDQo+IHJlY2VpdmVkIGZvciByZWFk
+IHBhY2tldHMuDQo+IA0KPiBtdGtfZHNpX2hvc3RfdHJhbnNmZXIoKSBjdXJyZW50bHkgc2V0cyBy
+ZWN2X2NudCA9IDAgZm9yIG5vbi1yZWFkDQo+IG1lc3NhZ2VzLCByZXR1cm5pbmcgMCBpbnN0ZWFk
+IG9mIG1zZy0+dHhfbGVuLiBDYWxsZXJzIGNoZWNraW5nIGZvciBzaG9ydA0KPiB3cml0ZXMgYWdh
+aW5zdCBtc2ctPnR4X2xlbiBvYnNlcnZlIGEgc3B1cmlvdXMgMC1ieXRlIHRyYW5zZmVyLg0KPiAN
+Cj4gUmV0dXJuIG1zZy0+dHhfbGVuIG9uIHN1Y2Nlc3NmdWwgd3JpdGUgdHJhbnNmZXJzLg0KPiAN
+Cj4gRm91bmQgYW5kIGRyYWZ0ZWQgd2l0aCBhbiBBSSBjb2RpbmcgYXNzaXN0YW50Lg0KDQpSZXZp
+ZXdlZC1ieTogQ0sgSHUgPGNrLmh1QG1lZGlhdGVrLmNvbT4NCg0KPiANCj4gRml4ZXM6IDIxODk4
+ODE2ODMxZiAoImRybS9tZWRpYXRlazogYWRkIGRzaSB0cmFuc2ZlciBmdW5jdGlvbiIpDQo+IFNp
+Z25lZC1vZmYtYnk6IElsaWEgU25lemhrb3YgPGlhc25lemhrb3ZAZ21haWwuY29tPg0KPiAtLS0N
+Cj4gIGRyaXZlcnMvZ3B1L2RybS9tZWRpYXRlay9tdGtfZHNpLmMgfCAyICstDQo+ICAxIGZpbGUg
+Y2hhbmdlZCwgMSBpbnNlcnRpb24oKyksIDEgZGVsZXRpb24oLSkNCj4gDQo+IGRpZmYgLS1naXQg
+YS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RzaS5jIGIvZHJpdmVycy9ncHUvZHJtL21l
+ZGlhdGVrL210a19kc2kuYw0KPiBpbmRleCBmODI1MDZlLi5lMjE3OWI0IDEwMDY0NA0KPiAtLS0g
+YS9kcml2ZXJzL2dwdS9kcm0vbWVkaWF0ZWsvbXRrX2RzaS5jDQo+ICsrKyBiL2RyaXZlcnMvZ3B1
+L2RybS9tZWRpYXRlay9tdGtfZHNpLmMNCj4gQEAgLTExNTYsNyArMTE1Niw3IEBAIHN0YXRpYyBz
+c2l6ZV90IG10a19kc2lfaG9zdF90cmFuc2ZlcihzdHJ1Y3QgbWlwaV9kc2lfaG9zdCAqaG9zdCwN
+Cj4gIAkJZ290byByZXN0b3JlX2RzaV9tb2RlOw0KPiAgDQo+ICAJaWYgKCFNVEtfRFNJX0hPU1Rf
+SVNfUkVBRChtc2ctPnR5cGUpKSB7DQo+IC0JCXJlY3ZfY250ID0gMDsNCj4gKwkJcmVjdl9jbnQg
+PSBtc2ctPnR4X2xlbjsNCj4gIAkJZ290byByZXN0b3JlX2RzaV9tb2RlOw0KPiAgCX0NCj4gIA0K
+DQo=
