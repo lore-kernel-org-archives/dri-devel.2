@@ -2,126 +2,99 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09D56606A32A
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 06:57:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1AB6606A324
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 07:15:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=ADm3X3H1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=x9SG0KUH
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 5A65210E3FF;
-	Fri, 27 Nov 2026 06:57:07 +0000 (UTC)
-Received: from BYAPR05CU005.outbound.protection.outlook.com
- (mail-westusazon11010039.outbound.protection.outlook.com [52.101.85.39])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 266A110E400
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 06:57:01 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PIvamcIzGowZ2OXJzF7Qekmyvdmpb4GPdd/NNYjTIwiiCJC0BxaI3+YpUP3VoK9NWWDsN35Sc8DgoDCNDAZgQHslnAGYC1B6bJFUbxykfzOl0jQzRmHf+A0E5JfObKlbDRmmnbinTQHx+KUkKDLJU18mVSYYMHDlDBsNigXKulD4MKVOcMXS9azL8bTV/Msd+sUzdkhMiobQnaYet9INgLxBy36N6TgD3UCUHlspl/LWu55zI9QHsfwL56xc4KGapLBkebeWhM/T7gCcyK4S4BCUjhjA5GAURMzGsGUHJnn4d1KK4WEXqWhk7ThBCKppXBL03zMrglqgtUs5jDXJAA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=x4fHTVWl4dJ9p7O0xHJAFFulkEaP2kpZKe0/PzusFbs=;
- b=o3GoDfA1hMezEIPxD6fA2XFsERwS3Q9kd58DBSotg45CD51iZzYKzsOegyjwh6qa0ffQoso1CDKWSpS+74DomqZDrmErEuQ7WXeWLMO8lycB1FNAJkWaPrBY50Cdk0HftdJMZs0rjrvSRBM7ZK1YvbTWq+uIzYgInxk0NvXakB6xLVS7g8Fo5nCt0YdNYYo+HYXvrqJBYNxCVuGKN+pzWHVw+ZgmLOLq03yy78OLtMfs0BhvfP/GxPMypbWGk7Maawk3hZnSyJ54PyDAMteCYjN8OM5jBUd9goKP7EddJPBah/qb4L12wWcJJtJUnDencVBuMxBoSNw/4E4KRsGzFA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=x4fHTVWl4dJ9p7O0xHJAFFulkEaP2kpZKe0/PzusFbs=;
- b=ADm3X3H1ssLf80hQRZBwzWA1rdCXx6iTg1WSN6n0fdfQAUt89WBgcWw5ZA1uFLgqE2jzQQaN4nP/Wx4RZOE5EMa1CiPFmtqANq7n3MUps5po8C3VFOArIIxYTFmBQIVNT6lBOeUydttH98k2+pCaqKSq3LbqaUO356ryQHJILdGJ8Rwsta27kpTsYGGrbORy4cHBXQZW36qJ/rbYz6CyL7RIdki6z6qND7wKh5wmVaT38WEnn1n6A4chHStWaZMRJAJAEWVja+fo/pmX2Yvhfg/Wptprd21uqb9IqmSVcFNMfhGBNpeXnLdYle5rfNbiSgbWpG1qXxHPz8wjvkdIog==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by CY8PR12MB7170.namprd12.prod.outlook.com (2603:10b6:930:5a::18)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.6; Fri, 27 Nov
- 2026 06:56:58 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0662.001; Fri, 27 Nov 2026
- 06:56:57 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Eliot Courtney <ecourtney@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Alistair Popple <apopple@nvidia.com>,
- Timur Tabi <ttabi@nvidia.com>, nova-gpu@lists.linux.dev,
- dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261126-boot-rework2-v1-0-99a1dc6c7cc4@nvidia.com>
-References: <20261126-boot-rework2-v1-0-99a1dc6c7cc4@nvidia.com>
-Subject: Re: [PATCH 0/7] gpu: nova-core: merge `load` and `boot` for falcons
-Message-Id: <179576241741.1176041.10572955959825926061.b4-ty@b4>
-Date: Fri, 27 Nov 2026 15:53:37 +0900
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: TY4PR01CA0046.jpnprd01.prod.outlook.com
- (2603:1096:405:372::18) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9045810E448;
+	Fri, 27 Nov 2026 07:15:23 +0000 (UTC)
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
+ [209.85.221.51])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CF00C10E448
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:15:17 +0000 (UTC)
+Received: by mail-wr1-f51.google.com with SMTP id
+ ffacd0b85a97d-49465892f7bso5668825f8f.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 23:15:17 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20260707; t=1795763716; x=1796368516; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=wSJgjK+A00lNH/iVraNbWq5SwVJ5+VOU0GV4DugumqU=;
+ b=x9SG0KUH3e1X2IZ3e9grGjmfHjEd9bxTRL17UNXi0Gke6La2Gnxq6Yb0Bvp+Bos/kN
+ 4gAzBKPSQR89SGUQKKL78t1ue/YdpqSb6lU86z3SQ0Y6ULiOv+1QbuLfTx8PQCaBVCZH
+ KiIAPJAJ0gswnvLVvHXdSZ8YuLtxgBimXxnsEnEMOy0rVa3r0YyT/5O27xmVjMVPMS3z
+ Fx4wp1wV5ZhTE+w7WFEEmATGShWD4ie6Lu2YjjiPyo66iJt0o87bB+VjxtvqJZRsGgX7
+ AYp3p1dtkGHBN2OTQ/0uLcnO13AtKL7A5+yY6xsIRsp3dSIxOLCcscumuT2QMgpwXuEC
+ oDbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795763716; x=1796368516;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=wSJgjK+A00lNH/iVraNbWq5SwVJ5+VOU0GV4DugumqU=;
+ b=Di/MmRK8wqfvQ6K+loYBN7mJRvQ0GE7WvzqSuiWYK/uJximWYjjj53dd9+RmueN82u
+ /7nKziYuOps2O34hu5cr3OnwUT4P4KEtsOa+e1JDoUollX14igLKr/iukkxw+almjPgV
+ MwNeCkCZ0JRsaHk+1QMJSAcyc9fDuCXfUsocKuuM5qtzf/BEB81+26q34WZ0j9r47gQi
+ kumucUmxBgyLu8unV5R85CcalZTtsfJVgcQd+FqrJUx9fDxXwt6xrZpEctfSQPIkBHhT
+ ej4JQWP94VVdkLIktB11+CSP/VbVsyB5D5arnpthmR9c/irRfwKFZelZyN8MphYxCEnw
+ B9vw==
+X-Forwarded-Encrypted: i=1;
+ AL+hErE+GVtPua+A67iJeoFPuwEZEtBRhevUmYH6kLLxuyvSiDackNHVcJz1ADecN9//p9POqxLQ0baA91A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+F+0Hn8/1b9MVUTDJBcJCeQwvHbuSUeWpR2Qdb+SawMn7SEC/0
+ ENljjvBKLUjd6F0uquW8DBPwFAZc1wWcqSR1Adh7YcK428DTj0RwC2nH
+X-Gm-Gg: AZFdTZdgBrGueWqgFA+WlZmNdUdHi9HReVfYNE02M+Xe9x9WbtCu3aMWvvGLhkISq+o
+ UJL+YQb8dLrlEFJgeA7Om4TpQRe95CkEC6no119UWOEKGsAcSrUy5jQ/lBAOQA7QNg5Mdd2PNV9
+ wmxJolm4fFQjzBzUn2MzYDF0cMXA6sTs2IdX9jOgQSGs9dKo61ApjunjcOll8Q9v+cgXxD6eRFD
+ +kNfhV7dVxmovR5kGDg+6DYSeHNrxwRJg51D614/jv6eMAy7iqq1Azwi6Wx9jeNbceK5e73fppp
+ hCON+WzUT/zk+hSITchZRJ82EitApyPwSn/SP3T7WaLb3YsqSug/38cBwMFJ/qPn5K4cPVR2+PJ
+ twV/MqqNMsAqccxKdGYFx6wulcpedgLGcz3TGImfDZGA0a+0XkPZuEh1cbxG0qrS2NpYYuG/GeE
+ MFDvMNFHWrbPyJP93RSEhLZgQC9wqYXD9hJuAWRBLxQ7C78I2KS6ZRPeXpuAb8RnLIY8YM0pcB8
+ RhIpZgNZVjMoboLy33OyqViWqdWjuWfHs3dYSfACKB0tMaNwT0aTD9aZdqsHtaJFukfEQIVzoXb
+ hDv+caqPogOXGMxt2wm6c5VQXo9iopM=
+X-Received: by 2002:a05:6000:2506:b0:48d:ba3b:af36 with SMTP id
+ ffacd0b85a97d-4abb47b0f64mr55547662f8f.37.1795763715954; 
+ Thu, 26 Nov 2026 23:15:15 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ ffacd0b85a97d-4ab6b110c50sm44603961f8f.37.2026.11.26.23.15.07
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 26 Nov 2026 23:15:15 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: Louis Chauvet <louis.chauvet@bootlin.com>
+Cc: Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 31/43] drm/vkms: Introduce connector type
+Date: Fri, 27 Nov 2026 08:15:03 +0100
+Message-ID: <awkt6PBpmDa69llM@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126-vkms-all-config-v7-31-21194cda2468@bootlin.com>
+References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+ <20261126-vkms-all-config-v7-31-21194cda2468@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|CY8PR12MB7170:EE_
-X-MS-Office365-Filtering-Correlation-Id: b220a1b7-fa6f-418b-c9e9-08df4c53a0f2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|366016|376014|10070799003|1800799024|23010399003|11063799006|261009223027099003|18002099003|22082099003|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info: Tf05TLYs5B/y1OkT/Up7s6EVpnAgXoUFwIT0ItkduJEIZzm8eRRJEpOMCIq3ZgPsHFeTmCg9tuWCJE5OlTXTKPTcSWvEsAzSoNw9Exa4wo5+7KsmGNpUnDcExd3hpjcT9ljP669C6YkY1IJ3SbjmAfcLN8jbEbsoLQWAteDHIcUsmnMt/zS/ZeE+jaP1CAOSwfCS1wtPFMhjIhGy3+PDMvEKUtXpTKAy18MNdluHOo6MdXvFoKbJZQbqV+ZhdRoS19YuCl8g3h5cWW0eQz0Loq8oYABxr0AsvEEbOnCs22yMSE1piDUlYWewUm2kZGUQaYN0/s9jVZu1Rwllrlm+jH/WEoPHZRn20WM/awfkI0+mf353oUKaqIi+nEypF1qq7uurWGl07nPCOiCGeTwyXKlVsH1kHAUjKzMtChgsAAcWGnf9WUQtWjT8L1Dbho05ZGkaPFKKR+qCUMo/ubZmnvriUlYV7eOnZKUJAZVzgm5paJN9Io8DQXINDwCbQSyfyTy9cKR4nuXOXIaA8z9Ws7gSzNQWXy3xuJQxGrmOYVB+BwkttE2Ge5RSBls5GUHu+e9xVDbiHWRs1ygAur7h2/0kGzK9cTtMDtbxoE9FFGp23V2nruTMFEM3YRoOFTWifCP3WbIWiBdNXbV78PjiDsUcTlP7OvpvcpHgtIJS8ig=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(366016)(376014)(10070799003)(1800799024)(23010399003)(11063799006)(261009223027099003)(18002099003)(22082099003)(10067099003)(56012099006);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?ck5VSHFJajh0cCtMQVU3QUFLd3dnUmw0dkVwNkNYM0g4c2xQbHNGZk91ZlJo?=
- =?utf-8?B?ODZ3M2NoRmhoU0kwdUhUUStJVnZCc0EyTXRrMGU4VVdFWFY2Wm82cFZlVFJN?=
- =?utf-8?B?VjRxK01uYmhHUCtqczRVMTJJZHBjSWpNMHNZR2hoNnM1K3RxczlZK0JWSHdX?=
- =?utf-8?B?VlBrUVZlVUNxdndDd3hRamE3VHR0QUR2dnpBdEhSaVFsYzlQYW5lU3NkKyti?=
- =?utf-8?B?QUc0elNuNDhUK3dhOU1FOHQ2MGV4T1BjeFFqNE1ScmNjdk5kSk5QR1ZESVZq?=
- =?utf-8?B?eEl1QjVOWm9tam5aN3RkUGlIU1IxZE53RnlkeGFhcCtMS05hTzB2MGlET3FH?=
- =?utf-8?B?dUduQUlFRXJZemd0NmN4WHUzN0JqUEJpREh2VUtvOUhuTjR5cFpQN09VeXNr?=
- =?utf-8?B?S0R0UUNIM1JINmxTazBOak9ONks3eVdHOWF6Z3ozS1pSOGNGNFVUZmcvMVUx?=
- =?utf-8?B?aFFHNzZYdkJGYXlNbE5qdC8yZ0R5aTQxclVpNTlYSTdLY3V6VUFteEhueHA3?=
- =?utf-8?B?MjI1MEhxNjRLeGRWbllNcnhuKzlWWlIvc1dadVArVEViL0lEd3doaWJGeVpH?=
- =?utf-8?B?TkRyekNDTVJkbkJDczB0dWQzSS9zUWdPVDJIa3Y2K1dNT2lpRTRON2YzeFZ1?=
- =?utf-8?B?MkFzNk0xbDlHRkwyMnpZbTdDZmgxRkNNbXM1eHo3c3duWUhBaWR1TlhLMDJq?=
- =?utf-8?B?OTRvRVcxS2k0Vy9EZTd6eFREN041QmRBR0toU1ZxUkwwVDE0cEY1empRM0JH?=
- =?utf-8?B?dGtKMEplNHd0N1VuKzd0VlAzcG5WN1Z0OG0vcmNyY1dESEtGU2VDTG5KREls?=
- =?utf-8?B?SmRYRkxDSTV0cXpxTWowbitZcER4bG1ocFZuZXVEdGFjaTgyT2s3T0NrOGts?=
- =?utf-8?B?R0RUN2VpVDkzeXFYSm9vejNkK0p2RDJVVitGMkdYeFNsVkpRcXdidFlrY0c0?=
- =?utf-8?B?UVhvQzJINmV3Ly9XTitNdDh4Wk92Ris0L0M4b3NTS2dLKzUzRFRGQndGdTFR?=
- =?utf-8?B?WFkwcXdKQkgzRDdyUlhUTkhlWnJMemIzRTBYRHJ1MGNCVWYvRUE0dG9BZGVy?=
- =?utf-8?B?a2phN052ekhERTZjekdsUVdjU294ZlZld3YyZUc3SmZOWVdndHUwV2hqY0tj?=
- =?utf-8?B?TWkzQmJLS3lVMGYwZE1MRFFuZ0k3RWZ0aTBPaTE5L2l2cDV6SFNaMGFJTXVo?=
- =?utf-8?B?anlFdjdqWkdnYnlJRWRaamwrN0pWbTBoNW5UMDE3U3JxanVweUpwOWEwVTlj?=
- =?utf-8?B?NkRmZWZBYUMvMXFZN3RsczRaREc3NnF2N2dIemxLQTRueXg4dzlYQjV5aUJZ?=
- =?utf-8?B?VE1MaXg3c3ROc09xTVFTL2hQeVMxQVNCTmViR1B6RmxRbTZlbjNRUnVvY3Ry?=
- =?utf-8?B?SkpmbVFyRlFmNkdoM0RVMFdlQW9OK2FMSC96d3RtMWRUQmZCMGt6YkN3clJ6?=
- =?utf-8?B?clhjVFRhMXZUbGtUNnAzZGtJK1hudXRFUExHdE5JS1pXd0F6S014Q1FWN0Va?=
- =?utf-8?B?c3pOa3F4RXoxSll2QURjOHZxWUVhMDNwVWxBS0E5cDUvZzI5R2dVZ0c4aEJY?=
- =?utf-8?B?TzVvWExkYUVtODhTdEU0S0xqVi9wV3pTZGZJRUt4SlhTb25QdFpkYXk4Z2Vu?=
- =?utf-8?B?VlI3TFNwSWl3SjRuei9sckhKa2xjZ0xMbDViSEFZYjB3OWlCd1N4SkRxampQ?=
- =?utf-8?B?MktEb2J5dWhYVEVBS2ROT0hHME1QM1B5ODVEdnNXU1U0Vm1yVE51Z0xpVnQx?=
- =?utf-8?B?SVJTai9sWVpDQTRzRU5nKzA0RjlwWU9lNFMrbWQ5ZGszNnJhVGJ3cTNCbTJR?=
- =?utf-8?B?V3h3eElSM3dRa0FNYmRiY3k2SnVPRlFIZ3Y1aXkrMWxmMmNzRW1NM3VBUzZF?=
- =?utf-8?B?T1ZIdEQ2bGU0Y2RrMkJSVEZReGNHUkMxVENXT2RrQlkzd1ZKODRraUwySzA2?=
- =?utf-8?B?Y1h1STJJWFlSQVRBcVJ1c0h6YVRoWXdTMmEvR3gxNWlEYVdrcmFFeW9CVjRI?=
- =?utf-8?B?SFlTRmFQamlaWGVEV05peVN1Y0txVkhLRzVXVkd3YkY5Q2xRemhvMWpXNFA1?=
- =?utf-8?B?dFlIYkFiK3R0N05LNnlCSGVTVS9SZkJramtSc1BNTVhRRFkxNGVEampWcUx0?=
- =?utf-8?B?eEQ0SXRkdXd6YVJMTkwyUUlzTGY1NkltQ0hNRjA2VFJtYVlGWHJPUjFwWlVQ?=
- =?utf-8?B?RncrY001L0lyOXpnYno1ZUhoWXBYaUlET0hYV1VHbTc1akFXREZjWlVvdERq?=
- =?utf-8?B?QU0zWUZwNkg2a2JmMjZVaExWWmg3MC9zUFB4L09PaUN5QTIyU2JLNDNCZWk1?=
- =?utf-8?B?bHZvamViTlVET1hBWUtjU0dIOUFDNENjTE5wS0ZkV1EyU1gzbnJZM0diUnJs?=
- =?utf-8?Q?wQpjpjvBw0x2+3PrxFnnMGQA7IA/QrPwwcKtq23yeWloW?=
-X-MS-Exchange-AntiSpam-MessageData-1: hgv9CblloeEx2Q==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b220a1b7-fa6f-418b-c9e9-08df4c53a0f2
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 06:56:57.9040 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: +G3+2DsSJFpRnmdupiZApW928b4NOuCidhAMmkQK84hBTpQ92AKs8gLEt/AaXDuQPlckWzZD1JOlcrDANLImLg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7170
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,28 +106,135 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-5.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS autolearn=no
-	autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Thu, 26 Nov 2026 17:20:09 +0900, Eliot Courtney wrote:
-> Currently, loading the firmware and booting it is split into two
-> separate steps. Load is always called in combination with boot. Rewrite
-> the process to basically look like:
+On Thu, Nov 26, 2026 at 12:29:14PM +0100, Louis Chauvet wrote:
+> In order to emulate connector-specific behavior, add the connector type
+> to the connector configuration.
 > 
-> falcon.boot(<the firmware you want>, ...)
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/vkms/tests/vkms_config_test.c |  5 +++++
+>  drivers/gpu/drm/vkms/vkms_config.c            |  3 +++
+>  drivers/gpu/drm/vkms/vkms_config.h            | 24 ++++++++++++++++++++++++
+>  drivers/gpu/drm/vkms/vkms_connector.c         |  2 +-
+>  4 files changed, 33 insertions(+), 1 deletion(-)
 > 
-> Additionally, add a segment source for firmware already in the
-> framebuffer (this is for HS binaries).
+> diff --git a/drivers/gpu/drm/vkms/tests/vkms_config_test.c b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+> index a43dff511fc3..257ba0342034 100644
+> --- a/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+> +++ b/drivers/gpu/drm/vkms/tests/vkms_config_test.c
+> @@ -137,6 +137,7 @@ static void vkms_config_test_default_config(struct kunit *test)
+>  	struct vkms_config *config;
+>  	struct vkms_config_plane *plane_cfg;
+>  	struct vkms_config_crtc *crtc_cfg;
+> +	struct vkms_config_connector *connector_cfg;
+>  	int n_primaries = 0;
+>  	int n_cursors = 0;
+>  	int n_overlays = 0;
+> @@ -211,6 +212,10 @@ static void vkms_config_test_default_config(struct kunit *test)
+>  
+>  	/* Connectors */
+>  	KUNIT_EXPECT_EQ(test, vkms_config_get_num_connectors(config), 1);
+> +	vkms_config_for_each_connector(config, connector_cfg) {
+> +		KUNIT_EXPECT_EQ(test, vkms_config_connector_get_type(connector_cfg),
+> +				DRM_MODE_CONNECTOR_VIRTUAL);
+> +	}
+>  
+>  	KUNIT_EXPECT_TRUE(test, vkms_config_is_valid(config));
+>  
+> diff --git a/drivers/gpu/drm/vkms/vkms_config.c b/drivers/gpu/drm/vkms/vkms_config.c
+> index 342b844bfc6d..b415d4bf6edb 100644
+> --- a/drivers/gpu/drm/vkms/vkms_config.c
+> +++ b/drivers/gpu/drm/vkms/vkms_config.c
+> @@ -647,6 +647,8 @@ static int vkms_config_show(struct seq_file *m, void *data)
+>  			seq_puts(m, "connector:\n");
+>  			seq_printf(m, "\tstatus=%s\n",
+>  				   drm_get_connector_status_name(vkms_config_connector_get_status(connector_cfg)));
+> +			seq_printf(m, "\ttype=%s\n",
+> +				   drm_get_connector_type_name(vkms_config_connector_get_type(connector_cfg)));
+>  		}
+>  	}
+>  
+> @@ -1005,6 +1007,7 @@ struct vkms_config_connector *vkms_config_create_connector(struct vkms_config *c
+>  
+>  	connector_cfg->config = config;
+>  	connector_cfg->status = connector_status_connected;
+> +	vkms_config_connector_set_type(connector_cfg, DRM_MODE_CONNECTOR_VIRTUAL);
+>  	xa_init_flags(&connector_cfg->possible_encoders, XA_FLAGS_ALLOC);
+>  	/* refcnt starts at 1: this reference is owned by config->connectors */
+>  	kref_init(&connector_cfg->refcnt);
+> diff --git a/drivers/gpu/drm/vkms/vkms_config.h b/drivers/gpu/drm/vkms/vkms_config.h
+> index eb29008e54f0..efebb190ce40 100644
+> --- a/drivers/gpu/drm/vkms/vkms_config.h
+> +++ b/drivers/gpu/drm/vkms/vkms_config.h
+> @@ -150,6 +150,7 @@ struct vkms_config_encoder {
+>   *
+>   * @link: Link to the others connector in vkms_config
+>   * @rcu: RCU head for deferred freeing of this object
+> + * @type: Store the type of connector using DRM_MODE_CONNECTOR_* values
+>   * @config: The vkms_config this connector belongs to
+>   * @status: Status (connected, disconnected...) of the connector
+>   * @possible_encoders: Array of encoders that can be used with this connector
+> @@ -167,6 +168,7 @@ struct vkms_config_connector {
+>  	struct rcu_head rcu;
+>  	struct vkms_config *config;
+>  
+> +	int type;
+>  	enum drm_connector_status status;
+>  	struct xarray possible_encoders;
+>  	bool unlinked;
+> @@ -397,6 +399,28 @@ vkms_config_plane_set_default_pipeline(struct vkms_config_plane *plane_cfg,
+>  }
+>  
+>  /**
+> + * vkms_config_connector_get_type() - Return the connector type
+> + * @connector_cfg: Connector to get the type from
+> + */
+> +static inline int
+> +vkms_config_connector_get_type(const struct vkms_config_connector *connector_cfg)
+> +{
+> +	return connector_cfg->type;
+> +}
+> +
+> +/**
+> + * vkms_config_connector_set_type() - Set the connector type
+> + * @connector_cfg: Connector to set the type to
+> + * @type: New connector type
+> + */
+> +static inline void
+> +vkms_config_connector_set_type(struct vkms_config_connector *connector_cfg,
+> +			       int type)
+> +{
+> +	connector_cfg->type = type;
+> +}
+> +
+> +/*
+>   * vkms_config_plane_get_default_rotation() - Get the default rotation for a plane
+>   * @plane_cfg: Plane to get the default rotation from
+>   *
+> diff --git a/drivers/gpu/drm/vkms/vkms_connector.c b/drivers/gpu/drm/vkms/vkms_connector.c
+> index bb023b5af4e4..84c49915ed44 100644
+> --- a/drivers/gpu/drm/vkms/vkms_connector.c
+> +++ b/drivers/gpu/drm/vkms/vkms_connector.c
+> @@ -89,7 +89,7 @@ struct vkms_connector *vkms_connector_init(struct vkms_device *vkmsdev,
+>  		return ERR_PTR(-ENOMEM);
+>  
+>  	ret = drmm_connector_init(dev, &connector->base, &vkms_connector_funcs,
+> -				  DRM_MODE_CONNECTOR_VIRTUAL, NULL);
+> +				  vkms_config_connector_get_type(connector_cfg), NULL);
+>  	if (ret)
+>  		return ERR_PTR(ret);
+>  
 > 
-> [...]
+> -- 
+> 2.56.0
+> 
 
-1 and 2 applied to drm-rust-next, thanks!
-
-[1/7] gpu: nova-core: falcon: make pfalcon private
-      commit: e91da12099a5536c6a1852c6fb7800ef6460103d
-[2/7] gpu: nova-core: gsp: remove unnecessary start of `gsp_falcon`
-      commit: abfb640b2374e26de8ff81d488c39d8254db538e
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
