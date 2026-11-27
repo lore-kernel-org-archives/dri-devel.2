@@ -2,141 +2,146 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77801606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36FDB606A336
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 11:53:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=kA4lTl+F
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=ZSBRKhgI;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=HcCBiXLt
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D09EF1128FC;
-	Fri, 27 Nov 2026 11:48:53 +0000 (UTC)
-Received: from CY3PR05CU001.outbound.protection.outlook.com
- (mail-westcentralusazon11013000.outbound.protection.outlook.com
- [40.93.201.0])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7A78C1129E2
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:48:47 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hH4I8r349mTtkY6pFyCIJ4oGGqclaeACiEDXgdAX6s3BirElTVGkGn4PDG1RJRvTEaQvkGFEL0d2zB5Sk26CNVpCLbii6k4aRZdV6I3DCJt/PX32+EQDSV6Lus5WZ2MP5Mb8t1CTRA1fpTLssVvjasxIdzNtv3emwfNx9BewGYSmmYtE6i45XG6R/kXNLSaYri5PynUf3cZCPjqVOTqeAX5LYhK2M3fjvtXB0mT7fLgDdwJ7IG68esWTt8kl/o2dzzeKNG6tJTqWCMlgb9QtjOIpu6Vs7GPjD4vdaChZwHvTKSsICPVKeFJRYCMs2CEIAKtYr0WXgeqwMJ5QUrwwaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yEqgGd3/VJRA2mdAMBgBqcAtTSIdVc+0B0AQkzbsaOE=;
- b=NTATqNzj/+YAeVNzqVtby28Xi8AZnoodvu5RC+3IKzgjxDAcARTa+M+63UzaVdNEaYl3+Z/MpyHbWNO8jfFHzIVE+rx8VQGW8mw0Jq8q9PDafAv6ci6nEeCHJc1WtCGS2sVCMFbctRzDv1xxHIKdoc8C9mjDYla+fyuHZXVjDaY0wquaO1lgOsDdQLj/U3f5oUNhPU4qL4p4IA+KHOtFDTmwT38/TeloEdV/1HUFigkpWga4phEi1JcwhdrlhQxpI7auKQDJeMqr4sQUJEvNjebokzElCBKFyfgVcrEGKajizN64SgqO96HXMJVdQl0oAP4NtQ3TFibKGdGtUoSLfw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yEqgGd3/VJRA2mdAMBgBqcAtTSIdVc+0B0AQkzbsaOE=;
- b=kA4lTl+Fs9zAspxPcxPmKyYNvnbmIxV8OcUAO3pgFqulZRVWuWQP9YdAvIa3bkdvE7KsFIS8MdBWSKF0CT0sTRdP1+aZnl9peOsoq0wPSgtWszwcPYou4dt7FTFlbcXse6Lj489U5ynqVX8LIuPBpkMhVxCrRmf7f2KVwYM+l3EcHgpvwJkW0IpD+As0uubdGvQKr2kdwst1lcFY4rNRbcqHI+cB9XaL8xk2rZyoJ105fL6elglOUTvTVy4eNONDtQaiFTtFOTZ6yXBEugszvO2QkrVwWPSsxymQqoaG11q84cmNW0H+BmiLkacFEwrvQNI9oYMjQcMLTmyy6SNVXw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
- by SJ0PR12MB5633.namprd12.prod.outlook.com (2603:10b6:a03:428::8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Fri, 27 Nov
- 2026 11:46:25 +0000
-Received: from MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
- ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0662.001; Fri, 27 Nov 2026
- 11:46:25 +0000
-From: Alexandre Courbot <acourbot@nvidia.com>
-Date: Fri, 27 Nov 2026 20:46:16 +0900
-Subject: [PATCH 1/3] rust: bitfield: add missing doccomments for associated
- constants
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-nova-gsp-dbd-v1-1-0fb5f7c2ce63@nvidia.com>
-References: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
-In-Reply-To: <20261127-nova-gsp-dbd-v1-0-0fb5f7c2ce63@nvidia.com>
-To: Yury Norov <yury.norov@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
- Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
- =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
- Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
- Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
- Danilo Krummrich <dakr@kernel.org>, 
- Daniel Almeida <daniel.almeida@collabora.com>, 
- Tamir Duberstein <tamird@kernel.org>, 
- =?utf-8?q?Onur_=C3=96zkan?= <work@onurozkan.dev>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Bjorn Helgaas <bhelgaas@google.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Alistair Popple <apopple@nvidia.com>
-Cc: John Hubbard <jhubbard@nvidia.com>, Timur Tabi <ttabi@nvidia.com>, 
- Eliot Courtney <ecourtney@nvidia.com>, Zhi Wang <zhiw@nvidia.com>, 
- rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
- nova-gpu@lists.linux.dev, dri-devel@lists.freedesktop.org, 
- linux-pci@vger.kernel.org, Alexandre Courbot <acourbot@nvidia.com>
-X-Mailer: b4 0.15.2
-X-ClientProxiedBy: TY4P286CA0123.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37c::13) To MW4PR12MB6873.namprd12.prod.outlook.com
- (2603:10b6:303:20c::17)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9C6AC11255A;
+	Fri, 27 Nov 2026 11:53:35 +0000 (UTC)
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
+ [205.220.180.131])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9672311255A
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:53:23 +0000 (UTC)
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
+ 6ARAsH8o3609882
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:53:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+ cc:content-type:date:from:in-reply-to:message-id:mime-version
+ :references:subject:to; s=qcppdkim1; bh=NvFCw+bmf8mxbl0IMnWpK6+a
+ hat2YBHhwXRgKcWA70Y=; b=ZSBRKhgItTfJJ5eGZq+gQQci4hJVvlNYV9R5Peih
+ CJ+cWDXcpQtM+zwe9+Fej0v6vNY4MN0/mF9WPnbMVHikU9mTIKbE7uTmf28gfaAu
+ twH1UsP0rhrLzdHWgTjvDYpK+8/2R4FZJRDAtfkwbKyGE6jRGmML+dcC2CQ8lW2M
+ vxp155bdXqRCYgXxBcXPcelss8Id5r1IHuLPkjjRqDZZOqmMCQeV9bORvLC6OHD/
+ eRdsuO8rhM7zwHqpGmCcnHX+Gn8qT88h/ua4JAomxQ6OctC/HjGeUjH4BDdN9Of8
+ brG0i7pBSKvCqOaHHurHjdhrn0+1iPqPWnBS/azfiiH56w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j73dh9g3q-1
+ (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:53:22 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id
+ af79cd13be357-9495c71055bso589650485a.2
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 03:53:22 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oss.qualcomm.com; s=google; t=1795780402; x=1796385202;
+ darn=lists.freedesktop.org; 
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+ :date:message-id:reply-to:content-type;
+ bh=NvFCw+bmf8mxbl0IMnWpK6+ahat2YBHhwXRgKcWA70Y=;
+ b=HcCBiXLtygaPE06ZG/mLi0xwNEsomk3V9JmDQ8hhcSimqquGt9rp1jqHs7ibEQ6u/A
+ K5AoPNuatfJlgJs3AW5svcR1ANXcgzI1vbUYpGQgp06+TCgwpp1BZXKEwQQc9D/kJEpZ
+ fdiJWjN16jRXTojn9js/5xqDWgKkK5LVCjd6CK2H8pCRmy7IrKzlCESsSzctJ3ZfmFfw
+ F+3AU2q+pa5DyghEvBnOEz4+9oP4Jt0JbaIW4yTKB6DGo+9nq1mxN0h/Q3ihu5xu8/Ar
+ r5YPEkdwfAdl0GBWeThv+GIh4AM9xixB9JP96Z5cIdxUQFwXYK85MO9ep4vF9DLjmYya
+ z3zQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20260707; t=1795780402; x=1796385202;
+ h=in-reply-to:content-disposition:content-type:mime-version
+ :references:message-id:subject:cc:to:from:date:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=NvFCw+bmf8mxbl0IMnWpK6+ahat2YBHhwXRgKcWA70Y=;
+ b=lfBpqaXxl69f+fIjabPCwp+ZpeboBZeW5hr3EfFjyfCdfg7x9Pf6LwJSBoldQX/CFb
+ g3L5giSVEp1O/DpfVm492IUmejzDX8V6w9MytyxklmS50ihFDNrysTdymj+B8rve8ovF
+ HoBWADFr69Svh+KG55qVscuG74y+vDjFWwLejmJK4WMobnOAuOTxLs+MXx4uEOnnRzqT
+ kcy7e+3x+7sNzrwKXY2am0WwAKoXuyCk2GpxJH83Ycw295yDr3xOhgpOMbKy4SU9/s+d
+ dryf5ePBVs+VOvAtXHwFol4Uw1BWAruXxxODx6M1nmkV1yxgquczJft/Ygpf+J+/zPne
+ fVRg==
+X-Forwarded-Encrypted: i=1;
+ AL+hErGsSaXtAiVjLl1W6qZdxzDJug9mr76r14EpKcN2Ya4N7A687s7m0Y/IiD/Px+w7fiiWipCMsghnJsI=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8N3uqJ4MJN4grB5n52Z/C+83sCkzoVlLgd9+OA2yktZgMzXafp
+ IqSbIjtrHLcHHEgWWJxkZYrxKKvJO6k8P7c0XfWGXlPeqJMz/c8Sq1zNw3CVLvy+bfX4VnonucV
+ G+m3+6Zsb2kNamQ8RCKc1mzxYezmDy5PFUZANwbgRQMsD5vBGNKFKHjw13oyL3iSIrFhceR4=
+X-Gm-Gg: AZFdTZdAM16znZGjH6uG6PxZfzCgc4vPZoVoOcX7RAC3hrBMpGIRoC0ngaahB5xzP63
+ f5RzYZ+e/NwIiTSrsKy/di4Eyi7jLvH8iZVBeUwyWIa5OMmFYnSBma/3nlh1xBWmVidDgCrytjB
+ 7oqflsf8w3JOCO9zYSjBpZlQdSYXjkv5zYR5AneaSrvHALcbKIpaVDYCUo/EZ05O6DG4nTVam7A
+ YIIQv97r+gGxzIZUYgcvJo9Loo3pknb40m+dTqE0DuHJrDSsU1npSX2uluY7OImYl4goZjFtZZR
+ BxBpLB4DCvWgxxlPFQFmfjVomgGo8bgyiSQURigQ2Pkew1IBgA5YpgZysNIE4aqdrYAiVGgm+Xy
+ Nf5AJznCRVes4clT1/q5ehKPUG33tcM+2ql922RMyw3iEr2bzhLou7thivnnavtLTjOztbPMYRD
+ 1WVk5iNESDMgig9QSjGi95Qw5UbzH3ejO41y9Hn6Frm22m3/Sw8u8FOQmJ3G1yNw==
+X-Received: by 2002:a05:620a:1d05:b0:93f:5445:c661 with SMTP id
+ af79cd13be357-949bab4d2d5mr4286070485a.57.1795780401873; 
+ Fri, 27 Nov 2026 03:53:21 -0800 (PST)
+X-Received: by 2002:a05:620a:1d05:b0:93f:5445:c661 with SMTP id
+ af79cd13be357-949bab4d2d5mr4286064485a.57.1795780401434; 
+ Fri, 27 Nov 2026 03:53:21 -0800 (PST)
+Received: from umbar.lan
+ (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
+ [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+ by smtp.gmail.com with ESMTPSA id
+ 2adb3069b0e04-5c1bd081f29sm5910701e87.84.2026.11.27.03.53.19
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 27 Nov 2026 03:53:20 -0800 (PST)
+Date: Fri, 27 Nov 2026 13:53:18 +0200
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
+Cc: linux-arm-msm@vger.kernel.org, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+ Marijn Suijten <marijn.suijten@somainline.org>,
+ Xilin Wu <sophon@radxa.com>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+ Sumit Garg <sumit.garg@oss.qualcomm.com>, Saim Shujah <saimzst@gmail.com>,
+ Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] drm/msm/dp: don't gate link-training fallback on the
+ controller's HPD block
+Message-ID: <tldbqtuls37jgdkbqpi5ytizqhhxmzejbh3iujjg2coptvxgrh@klt2bt2gstza>
+References: <20261005131432.22840-1-jean-francois.bobier@laposte.net>
+ <20261005131432.22840-2-jean-francois.bobier@laposte.net>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|SJ0PR12MB5633:EE_
-X-MS-Office365-Filtering-Correlation-Id: a5fc58b5-a9be-413a-1830-08df4c7c108c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;
- ARA:13230040|7416014|376014|366016|10070799003|1800799024|23010399003|921020|10067099003|56012099006|11063799006|261021121427099003|261026121527099003|261102123227099003|22082099003|18002099003|6133799003;
-X-Microsoft-Antispam-Message-Info: 52/btgTHagzc5+kkvJ8sLT9YcbnrZ+G5UW9j8WD0B+sB6Kr1athWScnyweaz7bHBJ847LMdcslWVKVdd4J4OU1ycRA4MFbZIbur2k3fdSRhXZnjj0/00c8y4NEy8qwLJmysAEFC+xj/BBCkOjv2RWwEAvvKOTayvITQdAj4MS9pZRSo7th5Ix8P2Ouv8jJT71TSmQvk9KnhORa7LWSL9jpq6M7SbcLQJzC7H0BWNIeJ+MAQeNaV68DxMxfjJdXrlZUg5m8Feb6ZijgUFfFybOTWZOADRZAl9QeMH4G3TpGe0xMb+nuXsAMZZbtoJDc+OxdhlWRoevTjH1LoQ42Ot1i4BpQOweo8Qa4/JJhxKn+zoEHyAz2v22PZ+lrsV4R7SkeRr9HSrLwZBcb0gxiZeTIxYzXO1khs+k0IWJMKnk6gl2L3Ww6x2LBQvwZdmlMnM2QJD9oGxdiV4o8lKN8m7jKHcuBWBR0F+170mWsJ0O5NZAWNlHxhsceKQSJIee2quWrZdiTEvoRKaW/juw5TbfrfTiUI4xuMyxk+6rNZqf8fewUSxka+dr30GMcvWu7ypwNiqH+NUdzRmQR6kmAUpoM7/cilXN7EqxJp1jTUvz/JO5xXFyq/aisauW6jGYlsx/3a0d0HDTMAVmK60fmbz+ycXmmJM/VH2pqsLRhcipsjfGHFLgUtAFXo/Iy3sLW0XZIg8Pr+Vs5Jo73N0Fx8N9Q==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(7416014)(376014)(366016)(10070799003)(1800799024)(23010399003)(921020)(10067099003)(56012099006)(11063799006)(261021121427099003)(261026121527099003)(261102123227099003)(22082099003)(18002099003)(6133799003);
- DIR:OUT; SFP:1101; 
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?VlRsYzF3VU9odTh1K1hNa2ZKdUE4RkVGemtwMkNyQ3N1UUJiKzJHbndjdTlw?=
- =?utf-8?B?YzRYdU5XcWlHVFo2cXp5Q3hheGpXbW5KSzJsdXczZk4zSU9MYjFuQ3ZFK0xj?=
- =?utf-8?B?dzBnSzlEOFhWUUZmVDk4TmFlNWtuQkR6SnVOcTB2aTBVSTN1RUhyWXB0amZu?=
- =?utf-8?B?YjhXemltVzc5eTJFbFlMcEo3Z3drZWp4bHhVa0lJZm0yTDlDbTU5d2tLZDA1?=
- =?utf-8?B?TSthejRqSUZJTmF4RkpqRkwvcVZZVzRZZVo5R1FPbSs1anZyS1p6MGRlcUZa?=
- =?utf-8?B?NmVmQlZxRk1RMGNSWTZhYjlhZnpjdVl4aThYV2JGekJ0R29vUHlRZ3o4TjNK?=
- =?utf-8?B?YjluOEF3YWVicnliYUN2SnYwSVFGcUNBamYyR0JtR3BaTUpvU2lMZ1J4SHU4?=
- =?utf-8?B?M0hWeXhFMXdqMUFSNlgwYUNLWkZGMi9FeVRCQmpzMlc2eEQ1TnhLNUtzYWVw?=
- =?utf-8?B?U3VrVGhEQ3NjaENVNmJSU3hMTHA2dWZ4QXBON1ZhalB0Q09DaDJ0UmR4Miti?=
- =?utf-8?B?NG9MSW5yc2lsS2d5RlNRSEVMSVVPL25rWFhnZ2gyOTM2MHNjeFZnK2JzWmtG?=
- =?utf-8?B?N296Mm9HMXJ2MTEwL0pvMDJpWi81V3RTZTNHV3JJRjFjL3Y4WExXK2J3eTI0?=
- =?utf-8?B?SkdWSkl5cTNyTHZyaVZ1U1dKRUorZVVtbDNXOWdZL295alE5RG4xVkl3WXdW?=
- =?utf-8?B?VjYvWWxKbGlhUG9jS3E3L3MzajVzVEUwRnQxbkdDZDdLK0ZoTlN6bDhnUERC?=
- =?utf-8?B?M0ZTU2pqcWRtQ0UxaUZCVFRIT0Q5REk1aEZBaGNLUGFQZUIyOXJpNUthOUtB?=
- =?utf-8?B?eXQ1a25FSlRUVFZFSUZPR2NkY2RYbkt2RUhoU2p1QVpoZ0kxbGpVWmQrWlls?=
- =?utf-8?B?V3lkUU1GZkUwYThVZ2E3bHhhWlFzNFFVcHhqQlFQOWRxQTMzQ2pnV0NXNUNH?=
- =?utf-8?B?ZlpldVMveElXb1RtN1dxcmtrSnVQMmozVWxpWHFUdFZJNW5vcVIvZHFJTU9l?=
- =?utf-8?B?dVMwd3c3MEIyWGYxVDlnSnpaVU5nSnNONzhPaWwwVnZUMHZjOTRtSUVLYmp0?=
- =?utf-8?B?dlA1R2VlN1lJZ0UvaFpGUk00cnM1S0VSNVBBQ2N2NGw2QWFPbFo1c2FaM2Jy?=
- =?utf-8?B?bUZiTzRxQU43Mm5OQWpuNGJzbFVkQkUySDRmcjloWUVKcFdLYW9iRUMzdFl3?=
- =?utf-8?B?bHpyQkpOUll1N3BLbW5vSjBydGh0RytDNkpqbHhoT2ZTSnh6ZEUvUVlGbEsr?=
- =?utf-8?B?OUoyc3hoU0RHMVFkRXU0SG9hekcyQmJSdUdWTWNNdTF2QzZSV29LKytvblYv?=
- =?utf-8?B?dVJqZml2REVMOXV6OWl6STNuR3Z2ODJqVnhnbGZKTnlPVDUzSzVNQmlJaUQ2?=
- =?utf-8?B?M1pycDBoWE43Ynd4aE5KN2lnZFhneG1LditrS3hOT1p2UVA0OUVYd1lra3VR?=
- =?utf-8?B?NnNvcmczaWg2UHNrbnVFdngzYm1tT0dXUVZKYmhvMjJuTy82aFVpc2UxRHY4?=
- =?utf-8?B?RUVWK1VZampCY2pLb25RZFUrOGZzb2lEcHJrU2lMZmFScmdJVFR0ck42UkQ3?=
- =?utf-8?B?NzArZFBVNnI0WjJKMloxTHdjOENuU1lWWTJxSDBna3RlanpNWGswbFNIV2hh?=
- =?utf-8?B?WHpIUFkvV3JQbHBjS1VNL1lXV1dUd0FDeURzbU9EbS9uMFRQSXRJZjJwbklC?=
- =?utf-8?B?TlI4QzJBNTJ4QUZLa0lHR1BlRkhYdGhONlgxSjFNQTlpYVhENW84NWVpWmk5?=
- =?utf-8?B?TSt0U09XTVhwaGNSTEdKYlJHYjhHcVhTSDVJYlR1ZkZZSGVhVXRiZENqL3Ft?=
- =?utf-8?B?MnN1U3FVcHlENVc3OWluZS9pWnB0YU5KclUxeHFnYmo1U0s0QlN1VWNnWVJH?=
- =?utf-8?B?dWhBaU9zbGZVK1BOK045eFl4QmZYSHpza29aN29VRnZNOU5mSk4xWmQ1M1cz?=
- =?utf-8?B?UDdPaE5UN0lQTXdwcGZVMWpGbmZWbGNPVGJvdGVrV0JMK2l0YWZCeHRmL3JF?=
- =?utf-8?B?dUpiaVVWRU10NGxGdmhBWFd5cTUveEhTOU5Yb2hXQkFJY1JFWDY3dmFUaTZ6?=
- =?utf-8?B?TEExSERWamNwQ2xibGx0WHZtV3c4OG1GTGVjQW9nL1loa0tCak5oTzNwRDkr?=
- =?utf-8?B?U1FvT3NhKzliNkJtdWZMM2tyYVd5Zi9VcThJWTJRSzdzVlRudTR2c3ZyM3ho?=
- =?utf-8?B?c2R1SGwyWjRybVpNRVV0TnQrZ0dZSElnMHJrT1d4cytwVGcxVWo2amZTbkZi?=
- =?utf-8?B?WFRuSWZIdkNBc3dvMWpuOVlIZEROTExkT0lpaVVRMDJNTzBFS0dlMVRNWGIv?=
- =?utf-8?B?S1hCYXVpR01oV2xlYmFhZGlQS2ZyVW5PS3F5ZFZBM0NMakFvei9JTUQ3NStM?=
- =?utf-8?Q?cmGfGUo99Jw6IZefK57xSo/tWAwHePAKt7YczIZQMyu2S?=
-X-MS-Exchange-AntiSpam-MessageData-1: jImj48nadhTRnA==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a5fc58b5-a9be-413a-1830-08df4c7c108c
-X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 11:46:24.8802 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: mWXJ2ik5if8GERzb7YYhxQupTwDcqyP/Fas+LHHUJ4gjLOVkhsYz14mFzkcUBY0ST4oYtBJNOQ8ZHh1b4sdEuQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR12MB5633
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005131432.22840-2-jean-francois.bobier@laposte.net>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA0NyBTYWx0ZWRfX2GGzZ7Dixp8k
+ Dfz/7Z+4k6cq128mJNiWGse9XTm26t1hMDCihpq5GUfJit3dhmJI3582aDV+4/rY18FWNisLDcb
+ eUN00cHmCweewNv+MpaIQqe6PEJ/Wbtx4hGnOgdIyTKW08Lwr9Z1Q7MGJkEv+8RMaQPp6Wn4Yle
+ TCmyy9WTxdBm7IJcWsnKRGgCW4X4CwOq4k5j+FVZuv7c4kZBZD5B+h4SiKnYZDquRFMr0l/kk2S
+ j1KP0+c4I4Qnn1pGkcAfYjq4gyQM9BXu5BPczMdZpgEOs+DW75+lmrEXm6nmMWYKedwSLQ54EHy
+ P2BO4TAouyN0Hr4QgtqUxCZUYUo5sFc3CzpS8SgYnwQ3Mplokr4L3ffvohbATp5QK7DCAfwmfhO
+ 1EdJU4tmZjDaWHHeQueVcdx9JFZklSvSNznspcUz5gJIM46eXpw7w54pjW1g0qsl5GdYvO4ysit
+ fLwFh4dU3VXiIUZlGyg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA0NyBTYWx0ZWRfX5WHvfsiW91ix
+ y50uWhvY1fYryIsyoEtwvU+YvJnJBwDTrP/vy/C5JfV3xyNpHtynsBh20FaQEQaX499ADjjIKY7
+ x2Bl03LrApfzL0gxkbw0gygn4upRyLc=
+X-Authority-Analysis: v=2.4 cv=FfiiV5+6 c=1 sm=1 tr=0 ts=6b096f32 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=AVbMHacnAAAA:8
+ a=EUspDBNiAAAA:8 a=6AKRNlzo6MLLK9Xf-kYA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22 a=Z8w8RPyABVWp4NBWd0ke:22
+X-Proofpoint-GUID: fjkj1z7rxzg7b1ZFngS7Qz_hYZwmERzx
+X-Proofpoint-ORIG-GUID: fjkj1z7rxzg7b1ZFngS7Qz_hYZwmERzx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
+ definitions=2026-11-27_02,2026-11-26_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 priorityscore=1501 suspectscore=0 lowpriorityscore=0
+ clxscore=1015 spamscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2611040001
+ definitions=main-2611270047
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -148,43 +153,79 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+	SPF_PASS autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The associated constants describing the range, mask and shift of each
-field do not carry any doccomment. This triggers the `missing_docs` lint
-on bitfields declared with `pub` visibility.
+On Mon, Oct 05, 2026 at 03:14:30PM +0200, Jean-Francois Bobier wrote:
+> msm_dp_ctrl_setup_main_link()'s retry loop is what implements DP link
 
-Add a simple doccomment to get rid of that warning.
+Nit: msm_dp_ctrl_on_link()
 
-Signed-off-by: Alexandre Courbot <acourbot@nvidia.com>
----
- rust/kernel/bitfield.rs | 3 +++
- 1 file changed, 3 insertions(+)
+> fallback: on a training failure it shifts the link rate down HBR3 -> HBR2
+> -> HBR -> RBR and then, if clock recovery succeeded on at least half the
+> lanes, reduces the lane count. Both failure branches guard that with
+> 
+> 	if (!msm_dp_aux_is_link_connected(ctrl->aux))
+> 		break;
+> 
+> which reads REG_DP_DP_HPD_INT_STATUS, i.e. the DP controller's own HPD
+> block. That is only meaningful when the block is wired to a real HPD
+> signal.
+> 
+> On a USB-C port it is not. HPD arrives out of band: the Type-C port
+> driver owns it and hands it over through a drm_dp_hpd_bridge, and the
+> controller's HPD register reads DISCONNECTED for the entire time a sink
+> is attached. msm_dp_bridge_hpd_notify() already shows this, logging the
+> register beside the bridge's own verdict -- on sm8250 (OnePlus 8T) every
+> attach reports
+> 
+> 	msm_dp_bridge_hpd_notify: type=10 link hpd_link_status=0x0, status=1
+> 
+> So the guard is always true, the loop always breaks on the first failed
+> attempt, and the rate/lane fallback is dead on every Type-C DP board.
+> msm_dp_ctrl_setup_main_link() then returns -ECONNRESET and the mode set
 
-diff --git a/rust/kernel/bitfield.rs b/rust/kernel/bitfield.rs
-index 8d7d78175336..22b1575c177c 100644
---- a/rust/kernel/bitfield.rs
-+++ b/rust/kernel/bitfield.rs
-@@ -386,9 +386,12 @@ impl $name {
-         @private_field_accessors $vis:vis $name:ident $storage:ty : $hi:tt:$lo:tt $field:ident
-     ) => {
-         ::kernel::macros::paste!(
-+        #[doc = concat!("Bit range of the `", stringify!($field), "` field.")]
-         $vis const [<$field:upper _RANGE>]: ::core::ops::RangeInclusive<u8> = $lo..=$hi;
-+        #[doc = concat!("Bit mask of the `", stringify!($field), "` field.")]
-         $vis const [<$field:upper _MASK>]: $storage =
-             ((((1 << $hi) - 1) << 1) + 1) - ((1 << $lo) - 1);
-+        #[doc = concat!("Bit shift of the `", stringify!($field), "` field.")]
-         $vis const [<$field:upper _SHIFT>]: u32 = $lo;
-         );
- 
+Nit: msm_dp_ctrl_on_link()
+
+> fails outright.
+> 
+> The cost is real. With a 4K sink attached directly (4 DP lanes, no USB3),
+> a board that can only carry two DP lanes to the connector trains lanes 0
+> and 1 and never lanes 2 and 3:
+> 
+> 	v_level 3: DPCD 0x202 = 0x11 (lanes 0,1 CR_DONE)
+> 	           DPCD 0x203 = 0x00 (lanes 2,3 nothing)
+> 	link training #1 on phy 0 failed. ret=-11
+> 	Failed link training (rc=-104)
+> 
+> A fallback to two lanes would have trained -- clock recovery was already
+> good on exactly the lanes that remain, so
+> msm_dp_ctrl_clock_recovery_any_ok() would have passed -- but it is never
+> reached. The same sink works through a dock, because the Type-C alternate
+> mode negotiates two DP lanes up front and the first attempt succeeds.
+> 
+> Use the DPCD read the loop already performs as the liveness test instead.
+> It expresses the intent directly -- a sink that has gone away cannot
+> answer AUX -- and it carries no assumption about where HPD comes from.
+> drm_dp_dpcd_read_link_status() returns 0 on success and a negative errno
+> on failure.
+> 
+> Signed-off-by: Jean-Francois Bobier <jean-francois.bobier@laposte.net>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_ctrl.c | 24 ++++++++++++++++--------
+>  1 file changed, 16 insertions(+), 8 deletions(-)
+> 
+
+Fixes: 231a04fcc6cb ("drm/msm/dp: deinitialize mainlink if link training failed")
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+
+
 
 -- 
-2.56.1
-
+With best wishes
+Dmitry
