@@ -2,40 +2,40 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AAD3606A693
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:55:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF941606A681
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:55:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UDDQ3wzw
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=nmxQrgM9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id BFA06112941;
-	Fri, 27 Nov 2026 09:55:33 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8A1F010E56B
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:54:07 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0AC4011293F;
+	Fri, 27 Nov 2026 09:55:39 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 4620810E56B
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:55:23 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 0E4C1611ED;
- Fri, 27 Nov 2026 09:54:07 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C5F01F0089F;
- Fri, 27 Nov 2026 09:54:05 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 2FEFA44E78;
+ Fri, 27 Nov 2026 09:55:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E7901F00926;
+ Fri, 27 Nov 2026 09:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773246;
- bh=v7w7uSjAovGYJNRUO21jQkoxCOHR8xe538FO+KhfmbI=;
+ s=k20260515; t=1795773323;
+ bh=+VvMVWKeyNhX3O9dTL2BiQJfZBJmRoptclpeDRb4IKM=;
  h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=UDDQ3wzwjYUolt7caPJzj15AThnQnv5YxBxyF2jUQefxB9n5rBTkk7TEE567yIF6D
- EVTfVXQVLf9Z//QLonb2ly75Xj6Lar+VtE9TXGPkVk3AJ1cyHr3d0MKEVfBvQdv+cP
- BWESiipqS3okDCbXfxVrON3VmVEA8V7NaQC39epULMKBUH4aRbnwo1YpwXROY+cMvz
- KXlUgIv+LWNvh7oDnzmeviyW3hdW+Ec/nM3OVd4FmFCvwGYV2yQEpe4rmeLz4G58EL
- tXL/pIpzS1pNsQfYLMJZwOPY8xkcqYPwcN8kV6G89neKceEg9QMW21DRFCIrA31zjq
- lyzryHJGNHluw==
+ b=nmxQrgM9swOlAjX0M+EY8+Eq/uIzpSg6+JDABQdZ6QHUzod+HgHzqpy+ngcVbYm3M
+ Fze4s/XC908xo5oi3BpcpUGSg9TuHgWfvPt2ldW3/5UM3PZfeHQtyZlE/V/PKdWZ8I
+ 4PgpvU6FxoCdwZpKGGqZPA+vpGlvz3UJIM2rI/A98ZUU+hx51LjgdEU9sx7SU5jI0p
+ mtoRI8uBqJIsNqADHdgdto9vuDR8l3zd9R85IptdIopfknMQGaSWlyg8Bc+tVLNxTu
+ GWJL3fDGKu+8ojjKS0HvXQBgWmT+JHVPfFQ2ck018ONulILLlHEFmZiLJ+U0BvBhtq
+ EQA8F9AYlAx3w==
 From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 27 Nov 2026 10:52:56 +0100
-Subject: [PATCH v10 14/36] drm/modeset-helper: Add
- drm_mode_config_helper_hw_reset()
+Date: Fri, 27 Nov 2026 10:53:18 +0100
+Subject: [PATCH HACK v10 36/36] drm/panel: Prepare and enable panels read
+ out as active
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-state-readout-v10-14-0259582d45a8@kernel.org>
+Message-Id: <20261127-drm-state-readout-v10-36-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -49,12 +49,12 @@ To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
  Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3575; i=mripard@kernel.org;
- h=from:subject:message-id; bh=HaegtoF4ToUpJO52JB9WFWmWeWxUfa0nm0aoEsaPc5o=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwUwctfO23dY5PGHTq6MdTuuvXqmvyrsUWL91bhf7k
- UtKh6p0OqayMAhzMsiKKbI8kQk7vbx9cZWD/cofMHNYmUCGMHBxCsBEDugx1kr9OeR0Jv9m3IM3
- ++RVTcKsSlPOm7rEFyyT41Wcdu6H8uJVBr5Fv7/+/h5w66GEnKF9OmOdwRYBQ/ud3A5JtusS7hR
- +62lwljQrnWxidvu9VeHzCL+XarIHPldMLpnLL9xqb77T5xsA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3473; i=mripard@kernel.org;
+ h=from:subject:message-id; bh=RoFRDL29OGy99Nzl88A/RNBWdNQJ9Gsy1fc2FhGEMZM=;
+ b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwTxLGtiW37waYmvHsvOXJN+b1s7jW0I010zuKJpcc
+ Ojr+vIrHVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAiC18xNnxffF5DcdqWu/9U
+ qmYUXr7ZqT5PNzCGf36rlpZW893Y9uZpAtKRj9QiLW52bzs1V5tXnbFhgfbiM684viw467t/a8L
+ Ug6nzTxRsrew52n/o24yeX5eeX/lryrBK89YWpjK1mx9PdjhdAAA=
 X-Developer-Key: i=mripard@kernel.org; a=openpgp;
  fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -75,97 +75,87 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-drm_mode_config_create_initial_state() calls
-&drm_mode_config_funcs.hw_reset when the hardware state readout fails,
-to put the hardware in a known-good state before creating pristine
-software state.
+The panel bridge assumes the panel is enabled whenever its pipeline
+was read out as active, since a panel has no state that can be read
+out of the hardware.
 
-Provide drm_mode_config_helper_hw_reset() as a default implementation of
-&drm_mode_config_funcs.hw_reset that resets all the objects requiring
-it.
+However, the drm_panel itself still considers the panel powered down.
+The next commit won't prepare and enable it if it doesn't need a
+modeset, so the panel driver never acquires its supplies, GPIOs or
+backlight, and the next disable of the pipeline skips the panel
+teardown with a warning since the panel was never prepared.
 
-Reviewed-by: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>
+Implement the bridge atomic_sro_install_state hook to call
+drm_panel_prepare() and drm_panel_enable() for those panels, so that
+the drm_panel state matches the hardware state.
+
+This is a hack: drm_panel_prepare() and drm_panel_enable() don't take
+over a running panel, they run the full power up sequence of the panel
+driver on a panel the firmware has already lit. Depending on the
+driver, that can mean toggling the reset GPIO, waiting for the
+power-up delays, or sending the whole DSI initialization sequence
+again, which might blank or glitch the display, and thus defeats the
+purpose of the state readout. It also notifies the panel followers as
+if the panel had just been powered up.
+
+Doing this properly requires a drm_panel operation to take over a panel
+that is already running, acquiring its resources without reprogramming
+it, which doesn't exist yet.
+
 Signed-off-by: Maxime Ripard <mripard@kernel.org>
 ---
- drivers/gpu/drm/drm_modeset_helper.c | 31 +++++++++++++++++++++++++++++++
- include/drm/drm_mode_config.h        |  5 +++++
- include/drm/drm_modeset_helper.h     |  1 +
- 3 files changed, 37 insertions(+)
+ drivers/gpu/drm/drm_panel.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
-diff --git a/drivers/gpu/drm/drm_modeset_helper.c b/drivers/gpu/drm/drm_modeset_helper.c
-index cca623eb23e5..1a49ab8a0e41 100644
---- a/drivers/gpu/drm/drm_modeset_helper.c
-+++ b/drivers/gpu/drm/drm_modeset_helper.c
-@@ -260,5 +260,36 @@ int drm_mode_config_helper_resume(struct drm_device *dev)
- 		drm_kms_helper_poll_enable(dev);
+diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
+index ba5b0b0a8fad..ad521b6894ca 100644
+--- a/drivers/gpu/drm/drm_panel.c
++++ b/drivers/gpu/drm/drm_panel.c
+@@ -343,10 +343,32 @@ panel_bridge_connector_readout(struct drm_bridge *bridge,
+ 	conn_state->best_encoder = encoder;
  
- 	return ret;
+ 	return 0;
  }
- EXPORT_SYMBOL(drm_mode_config_helper_resume);
-+
-+/**
-+ * drm_mode_config_helper_hw_reset - default &drm_mode_config_funcs.hw_reset implementation
-+ * @dev: DRM device
-+ *
-+ * Resets all KMS objects that provide a hardware reset hook to a
-+ * known-good state, without touching the software state.
-+ *
-+ * Drivers can assign this function as their
-+ * &drm_mode_config_funcs.hw_reset implementation.
+ 
++/*
++ * The pipeline was read out as active, so the firmware left the panel
++ * powered up and enabled. Prepare and enable it so that the panel
++ * driver acquires its resources and its state matches the hardware,
++ * since the next commit won't do it if it doesn't need a modeset, and
++ * the next disable of the pipeline will release them.
 + */
-+void drm_mode_config_helper_hw_reset(struct drm_device *dev)
++static void
++panel_bridge_install_state(struct drm_bridge *bridge,
++			   struct drm_bridge_state *bridge_state,
++			   struct drm_crtc_state *crtc_state,
++			   struct drm_connector_state *conn_state)
 +{
-+	struct drm_crtc *crtc;
++	struct drm_panel *panel = drm_bridge_to_panel(bridge);
 +
-+	drm_for_each_crtc(crtc, dev) {
-+		const struct drm_crtc_helper_funcs *helper_funcs =
-+			crtc->helper_private;
++	if (!panel->prepared)
++		drm_panel_prepare(panel);
 +
-+		if (helper_funcs && helper_funcs->hw_reset)
-+			helper_funcs->hw_reset(crtc);
-+	}
-+
-+	/*
-+	 * TODO: Reset encoders once the semantics of
-+	 * encoder->funcs->reset have been clarified. Some drivers
-+	 * (e.g. i915) reset both hardware and software state, while
-+	 * others (e.g. loongson) only reset hardware registers.
-+	 */
++	if (!panel->enabled)
++		drm_panel_enable(panel);
 +}
-+EXPORT_SYMBOL(drm_mode_config_helper_hw_reset);
-diff --git a/include/drm/drm_mode_config.h b/include/drm/drm_mode_config.h
-index 42d37f4aba84..9f8674870248 100644
---- a/include/drm/drm_mode_config.h
-+++ b/include/drm/drm_mode_config.h
-@@ -133,10 +133,15 @@ struct drm_mode_config_funcs {
- 	 * Drivers that implement state readout and need a hardware
- 	 * reset on the fallback path should implement this hook.
- 	 * Drivers that don't implement state readout at all can keep
- 	 * using drm_mode_config_reset() instead.
- 	 *
-+	 * drm_mode_config_helper_hw_reset() resets all the objects
-+	 * that require it, and can be used as the implementation of
-+	 * this hook, or called from it once the device specific reset
-+	 * is done.
-+	 *
- 	 * This hook is optional. If not provided, the fallback path
- 	 * will create software state without resetting the hardware
- 	 * first.
- 	 */
- 	void (*hw_reset)(struct drm_device *dev);
-diff --git a/include/drm/drm_modeset_helper.h b/include/drm/drm_modeset_helper.h
-index 7e3d4c5a7f66..bd4193fbd907 100644
---- a/include/drm/drm_modeset_helper.h
-+++ b/include/drm/drm_modeset_helper.h
-@@ -40,7 +40,8 @@ void drm_helper_mode_fill_fb_struct(struct drm_device *dev,
- int drm_crtc_init(struct drm_device *dev, struct drm_crtc *crtc,
- 		  const struct drm_crtc_funcs *funcs);
++
+ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.attach = panel_bridge_attach,
+ 	.detach = panel_bridge_detach,
+ 	.atomic_pre_enable = panel_bridge_atomic_pre_enable,
+ 	.atomic_enable = panel_bridge_atomic_enable,
+@@ -358,10 +380,11 @@ static const struct drm_bridge_funcs panel_bridge_bridge_funcs = {
+ 	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
+ 	.atomic_get_input_bus_fmts = drm_atomic_helper_bridge_propagate_bus_fmt,
+ 	.debugfs_init = panel_bridge_debugfs_init,
+ 	.atomic_sro_readout_state = panel_bridge_readout_state,
+ 	.atomic_sro_compare_state = drm_atomic_helper_bridge_compare_state,
++	.atomic_sro_install_state = panel_bridge_install_state,
+ 	.atomic_sro_connector_readout = panel_bridge_connector_readout,
+ };
  
- int drm_mode_config_helper_suspend(struct drm_device *dev);
- int drm_mode_config_helper_resume(struct drm_device *dev);
-+void drm_mode_config_helper_hw_reset(struct drm_device *dev);
- 
- #endif
+ /**
+  * drm_bridge_is_panel - Checks if a drm_bridge is a panel_bridge.
 
 -- 
 2.56.1
