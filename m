@@ -2,61 +2,54 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15839606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:56:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66954606A31C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:56:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=gHBD0nqt
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=JWjyXYBZ
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 0399911294C;
-	Fri, 27 Nov 2026 09:56:12 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5EBBF112926
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:55:17 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 0005711294A;
+	Fri, 27 Nov 2026 09:56:11 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 37727112945
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:55:43 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id D75EC6256D;
- Fri, 27 Nov 2026 09:55:16 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 975B31F00897;
- Fri, 27 Nov 2026 09:55:15 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 1AE804519B;
+ Fri, 27 Nov 2026 09:55:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 51D851F0089B;
+ Fri, 27 Nov 2026 09:55:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795773316;
- bh=Cf5zlw1l9n6HfDH4uFzF7HFBp2lDbS35SdnNx3cueGA=;
- h=From:Date:Subject:References:In-Reply-To:To:Cc;
- b=gHBD0nqtLwWo42R6g3cfaYer8BzaqYdv2hX5T6jm+hqPNqjOQibiEepRV7+IRPFhC
- gn/yTHtwbZRQFnO1NpB1sMHwxpJDUzF+/t6ny3YKXzHuiIHgkwYRd5kv4ETPsRVKD2
- cHatBgy3yfgqNZ7nm3fLaY9cntjXklKosYCl1VpGUojd1tWQUy0Qt4keS4AY3B4ezf
- yV5qfGDhvuwdlxHYXSu7P2qi7/sStJwaIN8UibKgf1iZC7ZYwgNT0gokaksjZdaW2g
- 4lRDuKKGpxh6It5f6/BL9D18O8s0lTb8rikCH/jREuVDLwfiGBENWR5XwWNd1LUnwF
- ozF/cuLDVIA2A==
-From: Maxime Ripard <mripard@kernel.org>
-Date: Fri, 27 Nov 2026 10:53:16 +0100
-Subject: [PATCH DO NOT MERGE v10 34/36] fixup! drm/tidss: dispc: Add
- hardware state readout helpers
+ s=k20260515; t=1795773342;
+ bh=ACxoQP1MF+GzFlqiKuoUajC8aDkgrIQRATa/Cgcdw18=;
+ h=From:To:Cc:In-Reply-To:References:Subject:Date;
+ b=JWjyXYBZFLodQ2ukOB716EuV2QW6f1pXKynVGgFfPt5HmZeFFlhyjEvpc43jJVJCm
+ PnOC5fU/YFjpdraX5ojxPK0AGcuV/RVDPp6sR8jbR8kd22rMPVUGXnRbI5jbO2/Cvg
+ tLn9mz3lwbmbI2e64+gjagae3S4BSPuVyWixHq0EBv+tHtyJ5f+Zx+H+3s48TBsDYZ
+ 3Ucfgr63uKDX3zkX0fmckQjYtlC+LcpncyBl8urhMyr5qHZbwbLwbpuLsdOP5jcOrR
+ 6BwmeiCqwEY7aBf2Q5veA7ud9lRorvUBQpllYTR4cRHtxlmB28HhM3An0qHeD00em/
+ A66Ms1ZzG3Mjg==
+From: Srinivas Kandagatla <srini@kernel.org>
+To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>, 
+ Jianping Li <jianping.li@oss.qualcomm.com>
+Cc: Arnd Bergmann <arnd@arndb.de>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Sumit Semwal <sumit.semwal@linaro.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
+ Ling Xu <quic_lxu5@quicinc.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ linaro-mm-sig@lists.linaro.org, quic_chennak@quicinc.com, stable@kernel.org
+In-Reply-To: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+References: <20260914104019.492-1-jianping.li@oss.qualcomm.com>
+Subject: Re: [PATCH v4] misc: fastrpc: avoid duplicate DMA mappings in
+ fastrpc_create_maps()
+Message-Id: <179577334009.9695.7128272976897775662.b4-ty@kernel.org>
+Date: Fri, 27 Nov 2026 09:55:40 +0000
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-drm-state-readout-v10-34-0259582d45a8@kernel.org>
-References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
-In-Reply-To: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Andrzej Hajda <andrzej.hajda@intel.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
- Jyri Sarha <jyri.sarha@iki.fi>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: Devarsh Thakkar <devarsht@ti.com>, dri-devel@lists.freedesktop.org, 
- Maxime Ripard <mripard@kernel.org>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2240; i=mripard@kernel.org;
- h=from:subject:message-id; bh=oNX9pAcT4865cGeGahJBGvGQIvhOnpZxzEJnEv60btw=;
- b=owGbwMvMwCmsHn9OcpHtvjLG02pJDNmcwdy37L9NDpXZ9XQ6708BzWn/GfMvxnXkGWeWTGMNm
- nXk1Jd1HVNZGIQ5GWTFFFmeyISdXt6+uMrBfuUPmDmsTCBDGLg4BWAidRWM9f7dteEss3j6+Wcv
- Kf5Tt+LcQ1P2loOKaS/qe7UeZ+8wP8Wwfodj58YKywjDFAl31pyPjA3zrsS90TRMsrI2XnMyUPh
- mgQzDuTnXP/++f2S38YNPn3nP3vaS67XjfpKrnx3+iC8tdDoA
-X-Developer-Key: i=mripard@kernel.org; a=openpgp;
- fpr=BE5675C37E818C8B5764241C254BCFC56BF6CE8D
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,67 +61,37 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT autolearn=ham
+	autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The state readout of the OLDI transmitters needs to know how the
-firmware configured them, but the dispc helpers only allow to program
-the OLDI configuration register of a video port with
-tidss_configure_oldi() and to clear it with tidss_disable_oldi().
 
-Add tidss_get_oldi_config() to read that register back.
+On Mon, 14 Sep 2026 18:40:19 +0800, Jianping Li wrote:
+> DMA handles passed as invoke arguments (scalars beyond nbufs) may refer
+> to the same dma_buf fd as an input/output buffer argument. Taking an
+> extra reference for such DMA handle maps leads to duplicate mappings and
+> an unbalanced reference count, since DMA handle maps are released
+> separately when the DSP returns the fd through the fdlist.
+> 
+> Fix this by not taking an extra reference for DMA handle arguments
+> (take_ref = false) and tagging them with FASTRPC_MAP_DMA_HANDLE. As
+> these maps are borrowed references, fastrpc_get_args() re-validates the
+> map via fastrpc_map_lookup() before dereferencing it, so it is not used
+> after being freed. fastrpc_put_args() only releases maps flagged as
+> FASTRPC_MAP_DMA_HANDLE and clears the flag to guarantee the map is freed
+> exactly once.
+> 
+> [...]
 
-This is only needed by the OLDI state readout, which hasn't been tested
-yet, and should be folded into the dispc readout helpers if that one
-gets merged.
+Applied, thanks!
 
-Signed-off-by: Maxime Ripard <mripard@kernel.org>
----
- drivers/gpu/drm/tidss/tidss_dispc.c | 5 +++++
- drivers/gpu/drm/tidss/tidss_dispc.h | 1 +
- 2 files changed, 6 insertions(+)
+[1/1] misc: fastrpc: avoid duplicate DMA mappings in fastrpc_create_maps()
+      commit: d943eec5a618cef0e2ba77b799c6ee27fae873dc
 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.c b/drivers/gpu/drm/tidss/tidss_dispc.c
-index 15395e06f3f8..335eea08d70c 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.c
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.c
-@@ -496,10 +496,15 @@ int tidss_configure_oldi(struct tidss_device *tidss, u32 hw_videoport,
- void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport)
- {
- 	dispc_vp_write(tidss->dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG, 0);
- }
- 
-+u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport)
-+{
-+	return dispc_vp_read(tidss->dispc, hw_videoport, DISPC_VP_DSS_OLDI_CFG);
-+}
-+
- /*
-  * TRM gives bitfields as start:end, where start is the higher bit
-  * number. For example 7:0
-  */
- 
-diff --git a/drivers/gpu/drm/tidss/tidss_dispc.h b/drivers/gpu/drm/tidss/tidss_dispc.h
-index ce48c75b19ad..806e0cf749bd 100644
---- a/drivers/gpu/drm/tidss/tidss_dispc.h
-+++ b/drivers/gpu/drm/tidss/tidss_dispc.h
-@@ -100,10 +100,11 @@ extern const struct dispc_features dispc_am65x_feats;
- extern const struct dispc_features dispc_j721e_feats;
- 
- int tidss_configure_oldi(struct tidss_device *tidss, u32 hw_videoport,
- 			 u32 oldi_cfg);
- void tidss_disable_oldi(struct tidss_device *tidss, u32 hw_videoport);
-+u32 tidss_get_oldi_config(struct tidss_device *tidss, u32 hw_videoport);
- unsigned int dispc_pclk_diff(unsigned long rate, unsigned long real_rate);
- 
- void dispc_set_irqenable(struct dispc_device *dispc, dispc_irq_t mask);
- dispc_irq_t dispc_read_and_clear_irqstatus(struct dispc_device *dispc);
- 
-
+Best regards,
 -- 
-2.56.1
+Srinivas Kandagatla <srini@kernel.org>
 
