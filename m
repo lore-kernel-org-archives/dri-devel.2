@@ -2,94 +2,56 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A639606A31F
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2397D606A31C
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 09:41:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=suse.com header.i=@suse.com header.a=rsa-sha256 header.s=google header.b=CVAUuiT3
+	dkim=pass (2048-bit key) header.d=cirad.fr header.i=@cirad.fr header.a=rsa-sha256 header.s=573E3878-7916-11F1-BF4B-F68474317960 header.b=rr2yaJKb
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 556EA10E545;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 6013110E54B;
 	Sat, 28 Nov 2026 09:41:02 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43])
- by gabe.freedesktop.org (Postfix) with ESMTPS id B8B9710E3C0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 12:18:41 +0000 (UTC)
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-4a358881793so4240433f8f.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 04:18:41 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=suse.com; s=google; t=1795781920; x=1796386720; darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=M3+53CL9E7t0kgo4XELs9bJ+0tvf7YuCDNZDOGzql0s=;
- b=CVAUuiT3lKpapneTcEE5YDeP53QT1M+rc1iIpbZSQY0jl8B8qdSwkXPMywabC2zOD3
- sXW6KtJK+lQ9IaSgqKgm5hM2MtFMbAdkaZjykhjcVaFGEHrMawIoAtMxedK7ZOGXidkE
- UABUL1KMKB4npGEV6d1YCYyfKlKN4IrcBoR0z8viuiBVw2E8W6unSjjp+GICMgdNMYad
- WT7F8TKg995hXirEKBbacNZ8Eu2TrXevddKBp+gVEYw4msGo7Nfrb53E1w3qjPxNuGCN
- NKrygTPUDp2yFhZy77qhFBdbvtGa7omgfemi+wZPLmvZVBN/iOsv9dJlKaz1GGzfx7QQ
- lhiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795781920; x=1796386720;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=M3+53CL9E7t0kgo4XELs9bJ+0tvf7YuCDNZDOGzql0s=;
- b=B6QljjuY02CEDFePI3M6tR4BJzs7SdcVh6zyCSLh82k+2FOHL31AjsbGDWQP9KoOav
- P9gHNH9rM9QfkMxFuRjJ+SRZ6gIO5z1Htqyel25ErxB2z9kUQZ0E0B4M2r2bDHUWDF4e
- V+Wnh4ZCU9UMN2y73Llni+S5kB4fKQBLIujlemqQppXK+rp41caLJdUvk9QVPLSC57kW
- nx5Rc9vBoOGOK8Yg0S9kEngyzUrAux2p0JNI5p5Fx9r8bfleO0RD1t++eDK+4WE8TzIV
- mfm7MUxo3x+ev7UN/mV+oclaQDPcawp+O+kgad2Fcd7wEOgUOZKkOsRl9GKYZMCy6yZB
- W/uw==
-X-Forwarded-Encrypted: i=1;
- AL+hErGJ64f6c50GCd6MHUJ4p+O1z0FcPiT7XsS/n8OY2Ubpnk5MvwuzisfaivUy7P2Sd0nzukR3t9m9VP0=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Yci44NlPHnd4U2ULCYmjRhEM31gAmxjLsqbWfHfPDSGiDugBh
- 8x9EFh1OKogwYTXRiJGOrdGHFVtrMXPrGejFT6dTcPvSG90YB4MF67dm1thYWIwjD/I=
-X-Gm-Gg: AZFdTZdVb3a9n/veA6/NGBMni9lJQeaFxwEifHmwUKm5SRqoYB7g+5Hm3GAdgEUq4o8
- iALko3FyKxva5UsgUXllx1AP9GjGGOSnBkLR1L3jjqV6FQ+dxQS/Fj7hvRej1r15f6O6G+SAW00
- MAERffE2/fAY0tz7l1qqMkj00CrNR6GiRdsZlaZB6rYxm4OtglaxESOYpzY4sMnXkbZWWVGbfZ6
- rZ1l654I/30NcFC9U8c20XdSXPHrc/+aqdesHfb4tMBi/4LWefBmukOVhyXNPaafu9BpDfDdjZ0
- KLWCkLz14XISaUcn8DUxAfypdoGCVCjqHIaojju669/8PlObuVLrKdo7HFb7Y0/4YUTP0sNYNdX
- j+hdWNAQtwvcIbiIx+aPXOmS3SW5pwCFT1YThTgYwoAZbM848yyCX1FYYDXoutJpbMf9Oou7MM/
- lDjM8gobVkYlx5BKJqdqdXLZ33abRHuvcu6IssBRWgf7srfEd2hMObAXLfwgSBZ2EiyCx2udK0r
- iUeei1GUx4Kaxv9ru6uWqov+ZO1YBX0sLj1V2OREpuBDQgP0647Es4w/pIYZbAqrpbVmdS0oBW+
- f35cQR1J1TrAOto02yho1+7t/1K3Tq4bry8mjG2cyevinRgbNg==
-X-Received: by 2002:a05:600c:4584:b0:4a7:c366:d791 with SMTP id
- 5b1f17b1804b1-4bb887e266amr473913555e9.1.1795781919627; 
- Fri, 27 Nov 2026 04:18:39 -0800 (PST)
-Received: from localhost ([195.94.148.180]) by smtp.gmail.com with ESMTPSA id
- 5b1f17b1804b1-4bb884a15absm627117115e9.9.2026.11.27.04.18.38
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 04:18:39 -0800 (PST)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>,
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Saenz Julienne <nsaenz@kernel.org>, Stefan Wahren <wahrenst@gmx.net>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- Phil Elwell <phil@raspberrypi.com>, Dom Cobley <popcornmix@gmail.com>,
- Maxime Ripard <mripard@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, David Airlie <airlied@gmail.com>,
- dri-devel@lists.freedesktop.org, Jaroslav Kysela <perex@perex.cz>,
- Liam Girdwood <lgirdwood@gmail.com>, linux-mmc@vger.kernel.org,
- linux-sound@vger.kernel.org, linux-spi@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- =?UTF-8?q?Ma=C3=ADra=20Canal?= <mcanal@igalia.com>,
- Mark Brown <broonie@kernel.org>,
- Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
- Simona Vetter <simona@ffwll.ch>, Takashi Iwai <tiwai@suse.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Ulf Hansson <ulfh@kernel.org>
-Subject: [PATCH v4 00/28] dmaengine: bcm2835: add BCM2711 and BCM2712 40-bit
- DMA support
-Date: Fri, 27 Nov 2026 13:21:50 +0100
-Message-ID: <20261127122236.4976-1-andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
+Received: from retz.cirad.fr (retz.cirad.fr [194.199.235.221])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 7A24210E5A5;
+ Fri, 27 Nov 2026 11:59:44 +0000 (UTC)
+Received: from retz.cirad.fr (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTPS id 2CB5420B9913;
+ Fri, 27 Nov 2026 12:59:43 +0100 (CET)
+Received: from localhost (localhost [127.0.0.1])
+ by retz.cirad.fr (Postfix) with ESMTP id 0ABDC20FB1AE;
+ Fri, 27 Nov 2026 12:59:43 +0100 (CET)
+DKIM-Filter: OpenDKIM Filter v2.10.3 retz.cirad.fr 0ABDC20FB1AE
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirad.fr;
+ s=573E3878-7916-11F1-BF4B-F68474317960; t=1795780783;
+ bh=AnrZ4tj+JnyToCRG8bNK/82xlyPFVtmzzgAWkZzcblE=;
+ h=From:To:Date:Message-ID:MIME-Version;
+ b=rr2yaJKbgl2nz6w67CPjHNWIJxYYen7M7vEgfA9re7wfY+55F+qcja68CyCLdcZi+
+ JuWMe8EtDtduhs18v1hXbKBZk2SNtq+OFsjuDM5VfQvZdxptI2JEMU3xqwaIC5FwCq
+ pDC6ngzaUuABGQmvVTws7Se6SGeBZrjS0Sh7dwPdXdhNR/oaaOMZMksmzT85QaHGil
+ xKDwTKRUlbH041/TcU9/MQRxGBxajh0Hni2+t0gU53re2/B4Eqk/gcHFaiCdMKGtRb
+ FlN+W41/pQI2sd6M6sQjw08RS/N3x6peaQ6QBo1ymXI6aABGgPca/B1BMNLJ5TxTwV
+ FaKKWPU+QhUWg==
+X-Virus-Scanned: amavis at retz.cirad.fr
+Received: from retz.cirad.fr ([127.0.0.1])
+ by localhost (retz.cirad.fr [127.0.0.1]) (amavis, port 10026) with ESMTP
+ id S6fcVkgtnLTT; Fri, 27 Nov 2026 12:59:42 +0100 (CET)
+Received: from localhost.localdomain (78-196-243-100.subs.proxad.net
+ [78.196.243.100])
+ by retz.cirad.fr (Postfix) with ESMTPSA id B442620B9911;
+ Fri, 27 Nov 2026 12:59:42 +0100 (CET)
+From: =?UTF-8?q?Fr=C3=A9d=C3=A9ric=20Mah=C3=A9?= <frederic.mahe@cirad.fr>
+To: nouveau@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, Lyude Paul <lyude@redhat.com>,
+ Danilo Krummrich <dakr@kernel.org>
+Subject: Re: [PATCH v2] drm/nouveau/fifo/gf100-: reset the faulting engine
+ even if it switched channels
+Date: Fri, 27 Nov 2026 12:59:30 +0100
+Message-ID: <20261127115931.984281-1-frederic.mahe@cirad.fr>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261127113005.981725-1-frederic.mahe@cirad.fr>
+References: <20261127113005.981725-1-frederic.mahe@cirad.fr>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 X-Mailman-Approved-At: Sat, 28 Nov 2026 09:41:00 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
@@ -102,248 +64,445 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-13.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_PATCH,
+X-Spam-Status: No, score=-8.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
 	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
 	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The BCM2711 has 4 DMA channels with a 40-bit address range, allowing them
-to access the whole memory of a Pi 4, and the BCM2712 has 6 of them. This
-series adds support for them to the bcm2835-dma driver, on top of the
-platform abstraction from Stefan Wahren and some features from the
-downstream Raspberry Pi kernel.
+A related problem that this patch does not fix, found with the same
+reproducer (nv-mmu-fault.c, below my signature; libdrm only, Fermi
+only).
 
-The main change since v2 is the handling of the slave (peripheral)
-addresses, as requested in the v1/v2 discussions [1][2][3]: instead of
-hardcoding the 0x4_0000_0000 offset of the 40-bit channels and relying on
-clients passing pre-translated VideoCore bus addresses, the clients now
-pass CPU physical addresses and the DMA driver translates them with
-dma_map_resource(). Since the conversion of dma_map_resource() to
-dma_map_phys() with DMA_ATTR_MMIO, the dma-direct implementation honours
-the dma-ranges of the device, which was the open question raised by
-Robin in [1].
+If a channel sends a graphics method while it has no graphics object,
+and no other channel has one either, the GPU is lost: no MMU fault is
+reported, so recovery never starts, the channel cannot be idled, and
+every later client hangs in its teardown. A reboot is needed.
 
-To keep old device trees working (they only describe the RAM in
-dma-ranges), the driver detects at probe time whether the peripheral
-window is described in dma-ranges, by looking up its own registers, and
-otherwise falls back to reverting the translation given by the ranges of
-the parent bus, as suggested by Dave in [3]. Addresses outside of the
-ranges are passed through, so that out of tree clients still providing
-bus addresses keep working with old device trees. The same fallback
-works for the BCM2712 40-bit channels, whose bus maps the peripherals
-1:1, while the BCM2711 40-bit channels see the peripherals 16 GiB above
-their VideoCore bus address, which cannot be derived from the ranges:
-they require dma-ranges, which all the device trees describing them
-(the downstream ones and the one added here) provide.
+  nv-mmu-fault -e noctx-idle
 
-Structure of the series:
+sends one method to subchannel 0 after a SET_OBJECT of class 0x90b5
+without the engine number, which routes it to GR. When another channel
+does have a GR object ("-e noctx"), GR's context-switch unit faults
+(READ at 0, HUB/CTXCTL) and recovery works with this patch.
 
-  1:     coding style
-  2-5:   flags of the DREQ cell (binding and header) and their support
-         from downstream (per-channel flags, wide accesses, bursts)
-  6-7:   generic dma-channel-mask property
-  8-13:  hardware abstraction (Stefan Wahren)
-  14-19: slave address translation with dma_map_resource(), conversion
-         of the clients (spi, mmc, ASoC, vc4 HDMI) and dma-ranges of
-         BCM283x
-  20-23: BCM2711 40-bit channels
-  24-26: BCM2712 40-bit channels
-  27:    DMA flags for the HDMI audio of BCM283x
-  28:    HDMI audio on BCM2712 through the 40-bit channels
+This needs a working copy-engine channel: Ubuntu's 7.0 kernel lacks
+a2b7b707d75e, so its TTM channel uses M2MF on GR, and GR always has an
+object. With a2b7b707d75e (mainline), nothing keeps GR in use while no
+client uses it.
 
-Changes in v4:
-- Drop "dmaengine: bcm2835: Fixes for dma_abort": it brought back the
-  NEXTCONBK/ABORT sequence that commit 9e528c799d17 ("dmaengine: bcm2835:
-  Fix abort of transactions") replaced, and it is not needed for the
-  40-bit channels, which have their own abort sequence (sashiko, Frank).
-- Do not add the peripheral window to the dma-ranges of the BCM2711 soc
-  bus: it would raise the limit computed by of_dma_get_max_cpu_address()
-  and thus the arm64 ZONE_DMA beyond the 1 GiB the legacy DMA masters
-  can reach. The BCM2711 legacy controller keeps using the ranges
-  fallback (sashiko).
-- Map the slave FIFOs with the direction of the accesses of the DMA
-  controller (DMA_TO_DEVICE for the source, DMA_FROM_DEVICE for the
-  destination), they were swapped (sashiko).
-- Keep the slave address translation across device_config() calls when
-  the address does not change, instead of remapping it at every MMC
-  request (sashiko).
-- Clear the dreq of a channel when it is released, so that a later
-  memcpy user does not inherit the DT flags of the previous client
-  (sashiko).
-- Pass the prep flags to bcm2835_dma_prepare_cb_extra() for cyclic
-  transfers in the patch introducing it, which disabled the period
-  interrupts until a later patch (sashiko).
-- Translate the S_IGNORE/D_IGNORE bits into the IGNORE bit of the
-  SRCI/DESTI registers of the 40-bit channels (sashiko).
-- Add include/dt-bindings/dma/brcm,bcm2835-dma.h defining the flags of
-  the DREQ cell and use it in the driver and in the device trees
-  (Frank).
-- Split the binding patch: the flags of the DREQ cell are now documented
-  before the driver patches using them, the generic dma-channel-mask in
-  a separate patch (Stefan).
-- Use FIELD_PREP()/FIELD_GET() for the register fields (Frank).
-- Make need_src_incr()/need_dst_incr() only consider the supported
-  directions (Frank).
-- Reword the deprecation warning of brcm,dma-channel-mask (Frank).
-- Describe all the CS flags in the commit message of the per-channel
-  flags patch, and explain that the specifier flags are never written to
-  the hardware as they are (Frank).
-- Fix the commit message of the first patch, the typo had already been
-  fixed (sashiko).
-- Document the cfg member of struct bcm2835_dmadev in the patch adding
-  it.
+Quadro 600 (GF108), Ubuntu 7.0.0-44 nouveau + a2b7b707d75e, with and
+without this v2 (same result):
 
-Changes in v3:
-- Drop the hardcoded addr_offset, translate slave addresses with
-  dma_map_resource() in device_config() and unmap them on
-  reconfiguration and when freeing the channel.
-- Convert spi-bcm2835, mmc/bcm2835, bcm2835-i2s and vc4_hdmi to provide
-  CPU physical addresses, and describe the peripheral window in the
-  dma-ranges of the BCM283x/BCM2711 soc bus.
-- Put the BCM2711 40-bit controller in its own bus, whose dma-ranges map
-  the peripherals at 0x4_7c000000, instead of the scb bus, to not change
-  the DMA configuration of PCIe and GENET and to avoid refactoring the
-  entire DTS to fit the cell size.
-- Fix the abort sequences, which were swapped between the legacy and the
-  40-bit channels, breaking terminate_all on all the Raspberry Pis.
-- Fix the interrupt acknowledge of the 40-bit channels, which used the
-  INTEN bit of the TI register instead of the INT bit of CS.
-- Make the abort sequence a platform callback, drop the CS/TI masks only
-  used by it.
-- Keep the period handling of bcm2835_dma_create_cb_set_length(), which
-  v2 changed to flag every control block of cyclic transfers.
-- Use the platform cb_append_extra() callback for every control block,
-  and convert every control block address with to_cb_addr().
-- Preserve the width and burst settings of SRCI/DESTI when setting the
-  addresses of slave_sg transfers.
-- Fix the argument order of cb_init() in the patch introducing it, to
-  keep the series bisectable.
-- Fix the free_irq() cookie, which did not match the request_irq() one.
-- Derive the first channel of an instance from the physical register
-  address instead of the ioremap()ed one, initialize all the IRQ array
-  entries, and split this into its own patch.
-- Refuse to probe the 40-bit channels if dma_addr_t is 32-bit wide, and
-  avoid shifting dma_addr_t by 32 bits.
-- Include linux/bitfield.h, fixing COMPILE_TEST builds.
-- Drop the unused bcm2835_dma_count_frames_for_sg(), resurrected by a
-  rebase, and the dead code and duplicated defines of the 40-bit patch.
-- Split out the style changes from the 40-bit patch (Stefan), reword the
-  subject of the first patch (Florian).
-- dt-bindings: sort the compatibles (Krzysztof), document the flags in
-  the DREQ cell (Stefan), allow the generic dma-channel-mask, constrain
-  the interrupts of the new compatibles. The Acked-by of v2 has been
-  dropped because of the additional changes.
-- Use the generic dma-channel-mask in the new nodes (Krzysztof).
-- Use the DMA specifier flags for the HDMI audio channels of BCM283x,
-  so that patches 2-4 have in-tree users (Stefan)
-- Describe in the platform data which channels of the DMA block use its
-  programming model and ignore the others, so that nodes describing
-  channels with another model under the same compatible (as the
-  downstream BCM2712 device tree does) are not driven with the wrong one.
-- Add BCM2712 support.
+- While the channel is alive (40 s), the GR status (0x002640) reads
+  80041002 (chid 2 =3D the channel, bit 31 set), and the FIFO raises no
+  interrupt at all.
+- When the process exits:
 
-Backward compatibility with installed device trees:
-- Upstream device trees without the peripheral window in dma-ranges keep
-  working through the ranges fallback, which yields the same bus
-  addresses the clients used to provide. This includes the BCM2711
-  legacy controller with the new device trees, as its peripheral window
-  is not added to dma-ranges.
-- Downstream Raspberry Pi device trees already describe the peripheral
-  window in dma-ranges (for both the soc and scb buses), and their
-  40-bit controllers are handled through dma_map_resource().
-- The node of the downstream BCM2712 device tree describing channels 0-5
-  is rejected instead of being driven with the wrong programming model.
-- The current upstream device trees do not describe any 40-bit DMA
-  controller, so the new compatibles have no legacy to support. A
-  brcm,bcm2711-dma node without dma-ranges makes the probe fail instead
-  of programming wrong addresses.
-- Older kernels booted with the new device trees are not affected: the
-  extra dma-ranges entries do not change the DMA limits of the existing
-  devices and the new nodes use compatibles unknown to them.
+  nouveau 0000:01:00.0: nv-mmu-fault[16835]: failed to idle channel 2 [nv=
+-mmu-fault[16835]]
+  nouveau 0000:01:00.0: timeout
+  WARNING: nvkm/engine/fifo/runl.c:251 at nvkm_runl_preempt_wait+0xf7/0x1=
+10 [nouveau]
+   nvkm_chan_preempt_locked+0x4a/0x70 [nouveau]
+   nvkm_chan_cctx_bind+0xa7/0x170 [nouveau]
+   ...
+  nouveau 0000:01:00.0: fifo: SCHED_ERROR 0d []
+  (same warning, from nvkm_chan_remove)
+  nouveau 0000:01:00.0: fifo: SCHED_ERROR 0d []
+  WARNING: nvkm/engine/fifo/nv50.c:228 at nv50_runl_wait+0xe8/0x100 [nouv=
+eau]
+  nouveau 0000:01:00.0: fifo: INTR 00000001: 0000000b
 
-Not supported yet: No device tree consumer is converted to the 40-bit
-channels either.
+- A GL client started afterwards (piglit fbo-blit) times out in
+  nv50_runl_wait, and its channel cannot be idled either.
 
-This patchset has been tested on Rpi3/4/5 with both downstream and
-upstream DTBs. The upstream DTBs have been customized to allow for several
-peripherals (SPI, I2S, HDMI audio, mem2mem) to be tested against dma40,
-an example of which can be found in patch 28.
-Future patches will convert said consumer nodes to use the new dma
-controller.
+On an NVS 315 (GF119), with our test tree that also has a working CE
+channel, the FIFO does report it, as SCHED_ERROR 0a [CTXSW_TIMEOUT] every
+4.3 s, with the GR status at 80041002. gf100_fifo_intr_sched_ctxsw()
+then finds no engine to recover: gf100_engn_chsw() only treats the status
+as a switch in progress if bit 28 (busy) is set, so the timeout repeats
+forever.
 
-This version has been prepared with the help of an AI coding assistant
-(Claude Opus 5.5).
+Things I tried on the GF119, as experiments only:
 
-[1] https://lore.kernel.org/linux-arm-kernel/ee19a95d-fe1e-4f3f-bc81-bdef38475469@arm.com/
-[2] https://lore.kernel.org/all/CAPY8ntCcz7ysTq_78Rb8ohLLETTYZeoZ3DXdPFvDLAkPc9jPWw@mail.gmail.com/
-[3] https://lore.kernel.org/all/CAPY8ntByJYzSv0kTAc1kY0Dp=vwrzcA0oWiPpyg7x7_BQwGSnA@mail.gmail.com/
+- Treating bit 31 as "switch in progress" makes the handler trigger a
+  recovery, but by then the status reads 01140002 and
+  nvkm_runl_rc_engn() skips it ("not on channel").
+- Remembering the channel at the timeout, recovering it and resetting
+  GR led to a divide error in gf100_gr_init_zcull(), reached from
+  gf100_gr_reset() -> gf100_gr_init() on a GR that was never
+  initialised (tpc_total =3D=3D 0). nvkm_engine_reset() does not check
+  whether the engine is in use.
+- Doing only nvkm_mc_reset() for an engine that is not in use recovered
+  11 of 11 rounds, and the GPU was fine afterwards. But bit 31 is also
+  set during ordinary context switches, so channel teardown then polled
+  for about a second each time.
 
-Previous versions:
-v3: https://lore.kernel.org/all/20261123145728.29082-1-andrea.porta@suse.com/
-v2: https://lore.kernel.org/all/cover.1710226514.git.andrea.porta@suse.com/
-v1: https://lore.kernel.org/linux-arm-kernel/cover.1706948717.git.andrea.porta@suse.com/
+I don't know what bit 31 of 0x002640 means (envytools has no entry for
+it), so I have no patch to propose. Userspace should not be able to
+take the GPU down this way. So far I have only hit it with the
+reproducer.
 
-Andrea della Porta (25):
-  dmaengine: bcm2835: Fix coding style issues
-  dt-bindings: dma: brcm,bcm2835-dma: Document the flags of the DREQ
-    cell
-  dt-bindings: dma: brcm,bcm2835-dma: Allow the generic dma-channel-mask
-  dmaengine: bcm2835: Support common dma-channel-mask
-  dmaengine: bcm2835: move CB info generation into separate function
-  dmaengine: bcm2835: move CB final extra info generation into function
-  dmaengine: bcm2835: make address increment platform independent
-  dmaengine: bcm2835: drop info parameters
-  dmaengine: bcm2835: pass dma_chan to generic functions
-  dmaengine: bcm2835: introduce multi platform support
-  dmaengine: bcm2835: Use dma_map_resource() to translate slave
-    addresses
-  spi: bcm2835: Pass the CPU physical address of the FIFO to the DMA
-    engine
-  mmc: bcm2835: Pass the CPU physical address of SDDATA to the DMA
-    engine
-  ASoC: bcm2835-i2s: Pass the CPU physical address of the FIFO to the
-    DMA engine
-  drm/vc4: hdmi: Pass the CPU physical address of MAI_DATA to the DMA
-    engine
-  ARM: dts: broadcom: Describe the peripheral window in dma-ranges
-  dmaengine: bcm2835: Support channel subsets in a controller instance
-  dt-bindings: dma: brcm,bcm2835-dma: Add BCM2711 40-bit DMA
-  dmaengine: bcm2835: Add BCM2711 40-bit DMA support
-  ARM: dts: bcm2711: Add the 40-bit DMA controller
-  dt-bindings: dma: brcm,bcm2835-dma: Add BCM2712 40-bit DMA
-  dmaengine: bcm2835: Add BCM2712 40-bit DMA support
-  arm64: dts: broadcom: bcm2712: Add the 40-bit DMA controller
-  ARM: dts: broadcom: Set the DMA flags of the HDMI audio channel on
-    BCM283x
-  arm64: dts: broadcom: bcm2712: Enable HDMI audio
+Testing done with the help of Claude (AI assistant).
 
-Dom Cobley (1):
-  dmaengine: bcm2835: Support dma flags for multi-beat burst
+Fr=C3=A9d=C3=A9ric Mah=C3=A9
 
-Phil Elwell (2):
-  dmaengine: bcm2835: Add support for per-channel flags
-  dmaengine: bcm2835: Add NO_WAIT_RESP, DMA_WIDE_SOURCE and
-    DMA_WIDE_DEST flag
+---8<--- nv-mmu-fault.c ---8<---
+// SPDX-License-Identifier: MIT
+/*
+ * nv-mmu-fault: make a Fermi GPU take an MMU fault on demand, to test
+ * nouveau's FIFO recovery.
+ *
+ * Opens the nouveau render node, creates a channel, and submits one push
+ * buffer that makes an engine access an unmapped GPU virtual address
+ * (0 by default).  The kernel is expected to report the fault, recover
+ * and kill the channel; later submissions on it fail with -ENODEV.
+ * Each round runs in a child process with a fresh channel; the child
+ * exits without libdrm teardown (the kernel frees the channel when the
+ * file is closed).
+ *
+ *   nv-mmu-fault [-e MODE] [-n rounds] [-a addr] [-V] [-w ms] [-r node]
+ *
+ * Modes (-e):
+ *   gr     M2MF (class 0x9039, GR engine) inline write to addr.
+ *   ce     copy engine 0 (class 0x90b5) copy between two unmapped ranges=
+.
+ *   both   ce copy, then gr write, on the same channel (on GF119 only th=
+e
+ *          first fault is ever reported: the channel is stopped at once)=
+.
+ *   noctx  a GR method on a channel that has no GR object, so no GR
+ *          context (SET_OBJECT 0x90b5 without the engine number routes
+ *          the subchannel to GR).  GR's context-switch unit then reads
+ *          a null context: fault READ at 0, client HUB/CTXCTL.  The tool
+ *          keeps a second channel with a GR object open meanwhile, so
+ *          that GR is powered.
+ *   noctx-idle  the same without that second channel: if nothing else
+ *          uses GR (needs a working copy-engine channel, i.e. a kernel
+ *          with a2b7b707d75e), no fault is raised: on GF119 the FIFO
+ *          reports SCHED_ERROR CTXSW_TIMEOUT every 4.3 s, on GF108
+ *          nothing at all until teardown; either way the channel can
+ *          no longer be idled and the GPU is lost.
+ * -V  control run: use a real VRAM buffer; nothing should fault and the
+ *     channel should stay alive.
+ *
+ * Exit status: 0 if every round ended as expected (channel killed, or
+ * alive with -V), 1 otherwise.
+ *
+ * Fermi only (GF1xx): the classes, method offsets and the SET_OBJECT
+ * format (class | engine << 16) are Fermi's.
+ *
+ * Build: gcc -O2 -Wall -o nv-mmu-fault nv-mmu-fault.c \
+ *            $(pkg-config --cflags --libs libdrm_nouveau)
+ *
+ * Written with help from Claude (Anthropic).
+ */
+#include <errno.h>
+#include <fcntl.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/wait.h>
+#include <time.h>
+#include <unistd.h>
+#include <linux/types.h>
+#include <xf86drm.h>
+#include <nouveau_drm.h>
+#include <nouveau.h>
+#include <nvif/class.h>
+#include <nvif/cl0080.h>
 
- .../bindings/dma/brcm,bcm2835-dma.yaml        |   89 +-
- arch/arm/boot/dts/broadcom/bcm2711.dtsi       |   32 +
- .../arm/boot/dts/broadcom/bcm2835-common.dtsi |    5 +-
- arch/arm/boot/dts/broadcom/bcm2835.dtsi       |    3 +-
- arch/arm/boot/dts/broadcom/bcm2836.dtsi       |    3 +-
- arch/arm/boot/dts/broadcom/bcm2837.dtsi       |    3 +-
- .../boot/dts/broadcom/bcm2712-d-rpi-5-b.dts   |   15 +
- arch/arm64/boot/dts/broadcom/bcm2712.dtsi     |   31 +
- drivers/dma/bcm2835-dma.c                     | 1217 ++++++++++++++---
- drivers/gpu/drm/vc4/vc4_hdmi.c                |   16 +-
- drivers/mmc/host/bcm2835.c                    |   20 +-
- drivers/spi/spi-bcm2835.c                     |   27 +-
- include/dt-bindings/dma/brcm,bcm2835-dma.h    |   27 +
- sound/soc/bcm/bcm2835-i2s.c                   |   19 +-
- 14 files changed, 1259 insertions(+), 248 deletions(-)
- create mode 100644 include/dt-bindings/dma/brcm,bcm2835-dma.h
+#define SUBC_M2MF 2
+#define SUBC_CE   4
 
--- 
-2.51.0
+#define M2MF_CLASS 0x9039	/* GR engine (0) */
+#define CE_CLASS   0x90b5	/* copy engine 0: FIFO engine 4 */
+#define CE_ENGINE  4
 
+/* Fermi FIFO packet header: incrementing methods. */
+static uint32_t
+pkhdr(int subc, int mthd, unsigned size)
+{
+	return 0x20000000 | (size << 16) | (subc << 13) | (mthd >> 2);
+}
+
+/* Fermi FIFO packet header: non-incrementing methods. */
+static uint32_t
+pkhdr_ni(int subc, int mthd, unsigned size)
+{
+	return 0x60000000 | (size << 16) | (subc << 13) | (mthd >> 2);
+}
+
+#define OUT(v) (*push->cur++ =3D (v))
+
+static const char *node =3D "/dev/dri/renderD128";
+static uint64_t addr;
+static int use_gr, use_ce, noctx, valid_buf, wait_ms =3D 5000;
+
+static double
+now_ms(void)
+{
+	struct timespec ts;
+
+	clock_gettime(CLOCK_MONOTONIC, &ts);
+	return ts.tv_sec * 1e3 + ts.tv_nsec / 1e6;
+}
+
+static void
+usage(void)
+{
+	fprintf(stderr, "usage: nv-mmu-fault [-e gr|ce|both|noctx|noctx-idle] [-=
+n rounds] "
+		"[-a addr] [-V] [-w max-wait-ms] [-r /dev/dri/renderD128]\n");
+	exit(2);
+}
+
+/* One round, in a child process.  Exit status: 0 channel killed,
+ * 1 channel alive at the end of the wait, 2 setup error.
+ */
+static void
+round_child(int r)
+{
+	struct nv_device_v0 devarg =3D { .device =3D ~0ULL };
+	struct nvc0_fifo fifo =3D { };
+	struct nouveau_object *chan, *obj;
+	struct nouveau_client *client;
+	struct nouveau_pushbuf *push;
+	struct nouveau_device *dev;
+	struct nouveau_drm *drm;
+	double t0, t;
+	int fd, ret;
+
+	fd =3D open(node, O_RDWR | O_CLOEXEC);
+	if (fd < 0) {
+		perror(node);
+		_exit(2);
+	}
+	if (nouveau_drm_new(fd, &drm) ||
+	    nouveau_device_new(&drm->client, NV_DEVICE, &devarg,
+			       sizeof(devarg), &dev)) {
+		fprintf(stderr, "nouveau device open failed\n");
+		_exit(2);
+	}
+	if (dev->chipset < 0xc0 || dev->chipset >=3D 0xe0) {
+		fprintf(stderr, "chipset %02x: this tool is for Fermi (GF1xx) only\n",
+			dev->chipset);
+		_exit(2);
+	}
+	if (nouveau_object_new(&dev->object, 0, NOUVEAU_FIFO_CHANNEL_CLASS,
+			       &fifo, sizeof(fifo), &chan) ||
+	    nouveau_client_new(dev, &client) ||
+	    nouveau_pushbuf_new(client, chan, 4, 32 * 1024, true, &push)) {
+		fprintf(stderr, "round %d: channel setup failed\n", r);
+		_exit(2);
+	}
+	if (use_gr && nouveau_object_new(chan, 0xbeef9039, M2MF_CLASS,
+					 NULL, 0, &obj)) {
+		fprintf(stderr, "M2MF class %04x not available\n", M2MF_CLASS);
+		_exit(2);
+	}
+	if ((use_ce || noctx) && nouveau_object_new(chan, 0xbeef90b5, CE_CLASS,
+						    NULL, 0, &obj)) {
+		fprintf(stderr, "copy class %04x not available\n", CE_CLASS);
+		_exit(2);
+	}
+
+	if (valid_buf) {
+		/* Control run: target a real 4 MiB VRAM buffer instead. */
+		struct nouveau_pushbuf_refn ref;
+		struct nouveau_bo *bo;
+
+		if (nouveau_bo_new(dev, NOUVEAU_BO_VRAM, 0x1000, 4 << 20,
+				   NULL, &bo))
+			_exit(2);
+		ref.bo =3D bo;
+		ref.flags =3D NOUVEAU_BO_VRAM | NOUVEAU_BO_RDWR;
+		if (nouveau_pushbuf_refn(push, &ref, 1))
+			_exit(2);
+		addr =3D bo->offset;
+	}
+
+	if (nouveau_pushbuf_space(push, 64, 0, 0))
+		_exit(2);
+	if (use_gr) {
+		OUT(pkhdr(SUBC_M2MF, 0x0000, 1));	/* SET_OBJECT */
+		OUT(M2MF_CLASS);
+	}
+	if (use_ce) {
+		OUT(pkhdr(SUBC_CE, 0x0000, 1));
+		OUT(CE_CLASS | (CE_ENGINE << 16));
+	}
+	if (noctx) {
+		/* No engine number: the subchannel goes to engine 0 (GR),
+		 * for which this channel has no context.
+		 */
+		OUT(pkhdr(SUBC_CE, 0x0000, 1));
+		OUT(CE_CLASS);
+	}
+	if (use_gr && use_ce) {
+		/* Submit the bindings first, so that GR has switched to this
+		 * channel before the two faulting operations arrive together.
+		 */
+		if (nouveau_pushbuf_kick(push, chan))
+			_exit(2);
+		usleep(20000);
+		if (nouveau_pushbuf_space(push, 64, 0, 0))
+			_exit(2);
+	}
+	if (use_ce) {
+		/* 4 KiB linear copy from addr + 1 MiB to addr + 2 MiB.  Launched
+		 * before the GR write: the copy engine runs on its own while
+		 * the FIFO goes on to the GR methods, so in "both" mode the two
+		 * engines can fault together.
+		 */
+		uint64_t src =3D addr + 0x100000, dst =3D addr + 0x200000;
+
+		OUT(pkhdr(SUBC_CE, 0x030c, 8));	/* src, dst, pitches, size */
+		OUT(src >> 32);
+		OUT((uint32_t)src);
+		OUT(dst >> 32);
+		OUT((uint32_t)dst);
+		OUT(4096);		/* pitch in */
+		OUT(4096);		/* pitch out */
+		OUT(4096);		/* line length */
+		OUT(1);			/* line count */
+		OUT(pkhdr(SUBC_CE, 0x0300, 1));	/* LAUNCH_DMA */
+		OUT(0x00000110);	/* linear in/out */
+	}
+	if (use_gr) {
+		/* Inline M2MF write of 16 dwords to addr. */
+		OUT(pkhdr(SUBC_M2MF, 0x0238, 2));	/* OFFSET_OUT_HIGH */
+		OUT(addr >> 32);
+		OUT((uint32_t)addr);
+		OUT(pkhdr(SUBC_M2MF, 0x031c, 2));	/* LINE_LENGTH_IN */
+		OUT(16 * 4);
+		OUT(1);					/* LINE_COUNT */
+		OUT(pkhdr(SUBC_M2MF, 0x0300, 1));	/* EXEC */
+		OUT(0x00100111);	/* push, linear in/out */
+		OUT(pkhdr_ni(SUBC_M2MF, 0x0304, 16));	/* DATA */
+		for (int i =3D 0; i < 16; i++)
+			OUT(0xdead0000 | i);
+	}
+
+	t0 =3D now_ms();
+	ret =3D nouveau_pushbuf_kick(push, chan);
+	if (ret) {
+		fprintf(stderr, "round %d: first kick failed: %d\n", r, ret);
+		_exit(2);
+	}
+
+	/* Wait for the kernel to kill the channel.  The pushbuf ioctl checks
+	 * chan->killed before anything else, so an empty submission (no
+	 * pushes) is a side-effect-free probe.  (A real second kick would
+	 * hit an assertion in libdrm once the kernel rejects it.)
+	 */
+	for (;;) {
+		struct drm_nouveau_gem_pushbuf req =3D {
+			.channel =3D ((struct nouveau_fifo *)chan->data)->channel,
+		};
+
+		usleep(2000);
+		ret =3D drmCommandWriteRead(drm->fd, DRM_NOUVEAU_GEM_PUSHBUF,
+					  &req, sizeof(req));
+		t =3D now_ms() - t0;
+		if (ret) {
+			printf("round %d: channel killed after %.0f ms (probe: %d)\n",
+			       r, t, ret);
+			fflush(stdout);
+			_exit(0);
+		}
+		if (t > wait_ms) {
+			printf("round %d: channel still alive after %d ms\n",
+			       r, wait_ms);
+			fflush(stdout);
+			_exit(1);
+		}
+	}
+}
+
+/* Keep GR powered for the whole run: nouveau only initialises an engine
+ * while some channel has an object on it.  With GR up, a GR method on a
+ * channel without GR context makes GR's context-switch unit read a null
+ * context (MMU fault, HUB/CTXCTL); with GR down it only stalls the FIFO
+ * (SCHED_ERROR CTXSW_TIMEOUT).
+ */
+static void
+gr_holder(void)
+{
+	struct nv_device_v0 devarg =3D { .device =3D ~0ULL };
+	struct nvc0_fifo fifo =3D { };
+	struct nouveau_object *chan, *obj;
+	struct nouveau_device *dev;
+	struct nouveau_drm *drm;
+	int fd =3D open(node, O_RDWR | O_CLOEXEC);
+
+	if (fd < 0 || nouveau_drm_new(fd, &drm) ||
+	    nouveau_device_new(&drm->client, NV_DEVICE, &devarg,
+			       sizeof(devarg), &dev) ||
+	    nouveau_object_new(&dev->object, 0, NOUVEAU_FIFO_CHANNEL_CLASS,
+			       &fifo, sizeof(fifo), &chan) ||
+	    nouveau_object_new(chan, 0xbeef9039, M2MF_CLASS, NULL, 0, &obj)) {
+		fprintf(stderr, "GR holder channel setup failed\n");
+		exit(2);
+	}
+}
+
+int
+main(int argc, char **argv)
+{
+	const char *eng =3D "gr";
+	int rounds =3D 1, opt, r, killed =3D 0, alive =3D 0, errors =3D 0;
+
+	while ((opt =3D getopt(argc, argv, "e:n:a:w:r:V")) !=3D -1) {
+		switch (opt) {
+		case 'e': eng =3D optarg; break;
+		case 'n': rounds =3D atoi(optarg); break;
+		case 'a': addr =3D strtoull(optarg, NULL, 0); break;
+		case 'w': wait_ms =3D atoi(optarg); break;
+		case 'r': node =3D optarg; break;
+		case 'V': valid_buf =3D 1; break;
+		default: usage();
+		}
+	}
+	use_gr =3D !strcmp(eng, "gr") || !strcmp(eng, "both");
+	use_ce =3D !strcmp(eng, "ce") || !strcmp(eng, "both");
+	noctx =3D !strncmp(eng, "noctx", 5);
+	if (!use_gr && !use_ce && !noctx)
+		usage();
+
+	if (noctx && strcmp(eng, "noctx-idle"))
+		gr_holder();
+
+	for (r =3D 1; r <=3D rounds; r++) {
+		int status;
+		pid_t pid =3D fork();
+
+		if (pid < 0) {
+			perror("fork");
+			return 1;
+		}
+		if (pid =3D=3D 0)
+			round_child(r);
+		if (waitpid(pid, &status, 0) < 0 || !WIFEXITED(status)) {
+			errors++;
+			continue;
+		}
+		switch (WEXITSTATUS(status)) {
+		case 0: killed++; break;
+		case 1: alive++; break;
+		default: errors++; break;
+		}
+		if (WEXITSTATUS(status) =3D=3D 2)
+			break;		/* setup problem: no point going on */
+	}
+
+	printf("nv-mmu-fault: %d rounds, %d channels killed, %d alive, %d errors=
+\n",
+	       rounds, killed, alive, errors);
+	if (errors)
+		return 1;
+	return valid_buf ? (killed !=3D 0) : (alive !=3D 0);
+}
