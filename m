@@ -2,43 +2,42 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF959606A31E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:23:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E526606A32A
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:25:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=Qmfx4HqB
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=PJXIfGae
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 42A0B1129DE;
-	Fri, 27 Nov 2026 10:23:50 +0000 (UTC)
-Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 3EF4A1129E3
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:23:41 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id E7F291129DB;
+	Fri, 27 Nov 2026 10:24:57 +0000 (UTC)
+Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 55A8F1129E1
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:24:51 +0000 (UTC)
 Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by tor.source.kernel.org (Postfix) with ESMTP id 398BD60CD7
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:23:40 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D1F761F000C1;
- Fri, 27 Nov 2026 10:23:39 +0000 (UTC)
+ by sea.source.kernel.org (Postfix) with ESMTP id 0F74D42A6F
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:24:51 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D16091F000C1;
+ Fri, 27 Nov 2026 10:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795775019;
- bh=PUz37hEv51Fhlp/rsxB9UrW82PTHtMArZaXUi7eTzTQ=;
+ s=k20260515; t=1795775090;
+ bh=jB3mFVRpQCjA6DnTiAwzT4xkyV1h4NrOXyWyk9NtN1c=;
  h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
- b=Qmfx4HqB/8S0U8yjwCpBWw6rLECiR8E8SC/85A1Ok699DyQMSR1lG04Y4nJnURUk9
- SuVAaQHpSgprVgGmIPZTerq9AGjNczux9k4R0zUN6XYqrL5BsVHu8JSX17LNDm7kRr
- Afju9Yy8NU5c3euNlPBpUbmtgdolMLAHo+8mmQ9MtUU8rYFVU8RoKmwAm4kwLVP0+Q
- 1ng6tPoo+2kBe2jvguwrsUT2C0oe8McikKVh/wbV6K0jHpy/HW8ALb8fHnnIxhgoRH
- AsXdtILytBD/sie27g4WLQ3+THf1kZfo5ogxcClWy9qBdUInex7cTNIjXpidoqhgMk
- C4IIYCuNbFRew==
-Message-ID: <sashiko-outbox-237117@kernel.org>
+ b=PJXIfGaeMSN/XkYcuxajrXiZBYUGS2GEtrKUi90Vs6iunsvrgTpLOJZxuYwWPM2dJ
+ 3ucXkQp1EVWL+YZhnQn9ExI9W9CBfJEMwjzXjptAq8C+Oh+3CxLCNIoNn1GIm+a1wi
+ TMrkEHqX2383s3VpnhwX/Nwexe/4mWDLhWJyTGkU4GrkMcs+ApjnGm5AwxYiV3t2HJ
+ 0ZzzDCXqgjC5771AvCzF3I8XQPJ0JIOfPupO3H9vO+TnkhDQrJ5HfrunLPHfSBCVX+
+ ygL8/xPYbnw3o5UVEFXzXZFKaRINFO0zplLn5c6VEyQZ7LlFSTOq+HAKF0uyO1fk/u
+ I6KC60NhFPoyA==
+Message-ID: <sashiko-outbox-237123@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 22/36] drm/bridge: display-connector: Implement
- readout support
+Subject: Re: [PATCH v10 32/36] drm/bridge: sii902x: Implement hw state readout
 To: "Maxime Ripard" <mripard@kernel.org>
 Cc: dri-devel@lists.freedesktop.org
-In-Reply-To: <20261127-drm-state-readout-v10-22-0259582d45a8@kernel.org>
+In-Reply-To: <20261127-drm-state-readout-v10-32-0259582d45a8@kernel.org>
 References: <20261127-drm-state-readout-v10-0-0259582d45a8@kernel.org>
- <20261127-drm-state-readout-v10-22-0259582d45a8@kernel.org>
+ <20261127-drm-state-readout-v10-32-0259582d45a8@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 27 Nov 2026 10:23:39 +0000
+Date: Fri, 27 Nov 2026 10:24:50 +0000
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,101 +60,73 @@ X-Archived-By: <archiver.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential
 issue to consider:
-- [Medium] drm/bridge: wrong readout check in
-  display_connector_readout_state()
+- [Medium] drm/bridge: sii902x: unconditional reset in sii902x_init()
+  wipes hw state
 --
 
-commit 39d422e25df5bd318f93970d46127f68b613b515
+commit 1febc97c5f2895a5e2cdde81b1c282f183b07ffd
 Author: Maxime Ripard <mripard@kernel.org>
 
-drm/bridge: display-connector: Implement readout support
+drm/bridge: sii902x: Implement hw state readout
 
-This commit implements the atomic_sro_readout_state hook for the
-display-connector bridge to reconstruct its bus configuration and wires up
-drm_atomic_helper_bridge_compare_state() as its state comparison hook.
+This commit implements atomic hardware state readout callbacks for the
+sii902x bridge and advertises DRM_BRIDGE_OP_CONNECTOR_HW_READOUT.
 
-> diff --git a/drivers/gpu/drm/bridge/display-connector.c b/drivers/gpu/drm=
-/bridge/display-connector.c
-> index eb3412ec30a07..be375f86e0388 100644
-> --- a/drivers/gpu/drm/bridge/display-connector.c
-> +++ b/drivers/gpu/drm/bridge/display-connector.c
+> diff --git a/drivers/gpu/drm/bridge/sii902x.c b/drivers/gpu/drm/bridge/si=
+i902x.c
+> index 6eaf70aeb0e37..4fb639e72c7e7 100644
+> --- a/drivers/gpu/drm/bridge/sii902x.c
+> +++ b/drivers/gpu/drm/bridge/sii902x.c
 [ ... ]
-> @@ -213,6 +216,76 @@ static u32 *display_connector_get_input_bus_fmts(str=
-uct drm_bridge *bridge,
->  							     num_input_fmts);
+> @@ -537,6 +539,128 @@ sii902x_bridge_mode_valid(struct drm_bridge *bridge,
+>  	return MODE_OK;
 >  }
 > =20
-> +/*
-> + * Reconstruct the bridge bus configuration from the previous bridge's
-> + * readout state and the connector's display_info.
-> + *
-[ ... ]
-> + */
 > +static int
-> +display_connector_readout_state(struct drm_bridge *bridge,
-> +				struct drm_atomic_sro_state *state,
-> +				struct drm_bridge_state *bridge_state,
-> +				struct drm_crtc_state *crtc_state,
-> +				struct drm_connector_state *conn_state)
+> +sii902x_bridge_connector_readout(struct drm_bridge *bridge,
+> +				 struct drm_atomic_sro_state *state,
+> +				 struct drm_connector_state *conn_state)
 > +{
-> +	struct drm_display_info *di =3D &conn_state->connector->display_info;
-> +	struct drm_bridge *prev_bridge __free(drm_bridge_put) =3D
-> +		drm_bridge_get_prev_bridge(bridge);
+> +	struct sii902x *sii902x =3D bridge_to_sii902x(bridge);
+> +	struct drm_connector *connector =3D conn_state->connector;
+> +	struct drm_crtc_state *crtc_state;
+> +	struct drm_encoder *encoder;
+> +	struct drm_crtc *crtc;
+> +	int ret;
 > +
-> +	/*
-> +	 * A previous bridge without readout support still gets a
-> +	 * pristine state in the SRO state, which doesn't hold any
-> +	 * meaningful bus configuration. Only use the state of bridges
-> +	 * that were actually read out.
-> +	 */
-> +	if (prev_bridge && prev_bridge->base.funcs->atomic_sro_readout_state) {
-> +		struct drm_private_state *prev_priv_state =3D
-> +			drm_atomic_sro_get_private_obj_state(state,
-> +							     &prev_bridge->base);
+> +	mutex_lock(&sii902x->mutex);
 > +
-> +		if (prev_priv_state) {
-> +			struct drm_bridge_state *prev_bridge_state =3D
-> +				drm_priv_to_bridge_state(prev_priv_state);
-> +
-> +			bridge_state->input_bus_cfg.format =3D
-> +				prev_bridge_state->output_bus_cfg.format;
-> +			bridge_state->input_bus_cfg.flags =3D
-> +				prev_bridge_state->output_bus_cfg.flags;
-> +			goto out_input;
-> +		}
-> +	}
+> +	ret =3D regmap_test_bits(sii902x->regmap, SII902X_SYS_CTRL_DATA, SII902=
+X_SYS_CTRL_PWR_DWN);
+> +	/* I2C error */
+> +	if (ret < 0)
+> +		goto err_mutex_unlock;
+> +	/* Device is powered down, nothing to read out */
+> +	if (ret)
+> +		goto out;
 
 [Severity: Medium]
-Should this check prev_bridge->funcs->atomic_sro_readout_state instead of
-prev_bridge->base.funcs->atomic_sro_readout_state?
+Can SII902X_SYS_CTRL_PWR_DWN ever be clear at readout time when reset_gpio
+is populated?
 
-When readout runs with DRM_ATOMIC_SRO_SKIP_MISSING_READOUT
-(drm.atomic_readout=3D3), drm_bridge_attach() initializes prev_bridge->base
-with drm_bridge_priv_state_funcs_with_sro even if the bridge driver has no
-atomic_sro_readout_state callback:
+During probe, sii902x_init() unconditionally pulses reset_gpio before
+registering the bridge:
 
-drivers/gpu/drm/drm_bridge.c:drm_bridge_attach() {
-    ...
-	if (bridge->funcs &&
-	    (bridge->funcs->atomic_sro_readout_state ||
-	     (drm_atomic_sro_status >=3D DRM_ATOMIC_SRO_SKIP_MISSING_READOUT)) &&
-	    (bridge->funcs->atomic_sro_compare_state ||
-	     (drm_atomic_sro_status >=3D DRM_ATOMIC_SRO_SKIP_MISSING_COMPARE)))
-		ret =3D drm_atomic_private_obj_init(bridge->dev, &bridge->base,
-						  bridge->name,
-						  &drm_bridge_priv_state_funcs_with_sro);
-    ...
+drivers/gpu/drm/bridge/sii902x.c:sii902x_init() {
+	sii902x_reset(sii902x);
+
+	ret =3D regmap_write(sii902x->regmap, SII902X_REG_TPI_RQB, 0x0);
+	...
 }
 
-Because drm_bridge_priv_state_funcs_with_sro always sets
-base.funcs->atomic_sro_readout_state to drm_bridge_atomic_readout_priv_stat=
-e,
-this condition evaluates to true for an unimplemented previous bridge and
-copies zeroed format and flags from its pristine state instead of falling
-back to MEDIA_BUS_FMT_FIXED and di->bus_flags, causing false state comparis=
-on
-mismatches in drm_atomic_helper_bridge_compare_state().
+On boards that define reset-gpios in Device Tree, pulsing reset restores
+the SiI9022 registers to their power-down defaults with
+SII902X_SYS_CTRL_PWR_DWN set.  Both sii902x_bridge_connector_readout() and
+sii902x_bridge_readout_state() will then see the bridge as powered down and
+bail out early, leaving a firmware-enabled CRTC active without linking
+conn_state->crtc or populating crtc_state->encoder_mask and
+crtc_state->connector_mask.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261127-drm-state-=
-readout-v10-0-0259582d45a8@kernel.org?part=3D22
+readout-v10-0-0259582d45a8@kernel.org?part=3D32
