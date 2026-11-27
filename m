@@ -2,31 +2,31 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53AF606A32E
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:20:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38DA7606A338
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:20:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=LUnVub/z
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=MmervoqU
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id DBDAF1129BC;
-	Fri, 27 Nov 2026 10:20:26 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id C09CF1129BC;
- Fri, 27 Nov 2026 10:20:20 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id A108A459B5;
- Fri, 27 Nov 2026 10:20:20 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79191F000C1;
+	by gabe.freedesktop.org (Postfix) with ESMTP id 9551F1129BF;
+	Fri, 27 Nov 2026 10:20:27 +0000 (UTC)
+Received: from tor.source.kernel.org (tor.source.kernel.org [172.105.4.254])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 906AD1129AD;
  Fri, 27 Nov 2026 10:20:14 +0000 (UTC)
+Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
+ by tor.source.kernel.org (Postfix) with ESMTP id 156F1626B9;
+ Fri, 27 Nov 2026 10:20:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275C71F0089C;
+ Fri, 27 Nov 2026 10:20:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795774820;
- bh=G26qrvYEnf3XkTM55Hz4I7jUepmcpg76jzpe7qYVv+8=;
+ s=k20260515; t=1795774813;
+ bh=XI3Ciojegmg/QsrFpxinInDHofGcD7fIKLbZkFqR/PQ=;
  h=From:To:Cc:Subject:Date:In-Reply-To:References;
- b=LUnVub/zJIjk7WOXcRX5o1E4BdvdmyLM5vpiIh5/ter7Tb65pG/l+AV+eDQ2lcZw+
- VP+Zz0UhqUgM7AYzSAyvW9RxL/hplY81ph4uDZayrH+w59EWU//MCs+3Kkc35mxf12
- ooMxv9IVyZciKc+XcSrq5ODhSVpWES1vENRifb/xBefZWOYbql3hDZVJAjlMjkvL3E
- efIO9eYIt5p3sOup71mmUXPyIyecDmeHEiMe2yIyWGbm30ex94ENNJgQOxxtCOo7EE
- s5HIk9OZphLGDJmqcfpYXmwsPXDs3xBNu1TdMRj4OxjvNIpL9GcFqVYEthMNb6yrL5
- vWZJgIgich70g==
+ b=MmervoqUHQk0VUJjxSYhBuuxIjh9jrBirotCelf3jTtksXovAh69mywN9cYOGvUIu
+ xLEh6swQxxHQT0E+PgC5PohVoROJ5pa0JMx3+UDm434gGgNEe53FbZOwNloNccAhu4
+ McRiZRnq/2ZUI8mGGaROetEEh2dCVmuCIof6g0FiWxDwR2+P4AgwyEmhD6/jQCHjqv
+ etFFCrDJNZtQCldlnE3MgINssosYZdOl/y08MBIheHEh191csDK2BJC51jSVKmC4DA
+ awesNlhphz0ISq4+6W/uNHFoL9g9stY+sP3AIohY9wL36Y3bpANgU6UOTl75b0wMXA
+ +TFG56Y2nBSug==
 From: Philipp Stanner <phasta@kernel.org>
 To: Sumit Semwal <sumit.semwal@linaro.org>,
  =?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
@@ -47,11 +47,10 @@ To: Sumit Semwal <sumit.semwal@linaro.org>,
  Chris Wilson <chris@chris-wilson.co.uk>
 Cc: linux-media@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, amd-gfx@lists.freedesktop.org,
- intel-gfx@lists.freedesktop.org
-Subject: [RFC PATCH 3/8] dma-buf: dma-fence: Ensure ordering with locks for
- timestamps
-Date: Fri, 27 Nov 2026 11:18:08 +0100
-Message-ID: <20261127101812.2706432-5-phasta@kernel.org>
+ intel-gfx@lists.freedesktop.org, stable@vger.kernel.org
+Subject: [RFC PATCH 2/8] drm/sched: Hot-fix timestamp misordering
+Date: Fri, 27 Nov 2026 11:18:07 +0100
+Message-ID: <20261127101812.2706432-4-phasta@kernel.org>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261127101812.2706432-2-phasta@kernel.org>
 References: <20261127101812.2706432-2-phasta@kernel.org>
@@ -77,79 +76,43 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The memory ordering in dma_fence_timestamp() is currently being done
-manually with acquire functions. It can be done more elegantly with the
-fence's spinlock. This also allows for removing the TIMESTAMP bit in the
-long run.
+dma_fence timestamps could so far be written and read without any memory
+ordering, a bug that presumably got overlooked because x86 is strongly
+ordered.
 
-Use locking in dma_fence_timestamp().
+Hot-fix the scheduler's manual timestamp evaluation until we found a
+more suitable solution for mainline linux.
 
+Cc: stable@vger.kernel.org
+Fixes: f7fe64ad0f22 ("drm/sched: Split free_job into own work item")
 Signed-off-by: Philipp Stanner <phasta@kernel.org>
 ---
- drivers/dma-buf/dma-fence.c |  9 ---------
- include/linux/dma-fence.h   | 24 ++++++++++++------------
- 2 files changed, 12 insertions(+), 21 deletions(-)
+ drivers/gpu/drm/scheduler/sched_main.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/dma-buf/dma-fence.c b/drivers/dma-buf/dma-fence.c
-index c947aec1bf91..ab02afdb0f18 100644
---- a/drivers/dma-buf/dma-fence.c
-+++ b/drivers/dma-buf/dma-fence.c
-@@ -378,15 +378,6 @@ void dma_fence_signal_timestamp_locked(struct dma_fence *fence,
- 	list_replace(&fence->cb_list, &cb_list);
- 
- 	fence->timestamp = timestamp;
--	/*
--	 * TODO:
--	 * This is a temporary hotfix to prevent misordering until we
--	 * can completely remove the TIMESTAMP bit.
--	 *
--	 * The counterpart of this barrier are the test_bit_acquire()s in
--	 * dma_fence_timestamp().
--	 */
--	smp_mb__before_atomic();
- 	set_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags);
- 
- 	list_for_each_entry_safe(cur, tmp, &cb_list, node) {
-diff --git a/include/linux/dma-fence.h b/include/linux/dma-fence.h
-index 29c4332c8662..1c1aa4c7635a 100644
---- a/include/linux/dma-fence.h
-+++ b/include/linux/dma-fence.h
-@@ -680,23 +680,23 @@ static inline void dma_fence_set_error(struct dma_fence *fence,
-  * dma_fence_timestamp - helper to get the completion timestamp of a fence
-  * @fence: fence to get the timestamp from.
-  *
-- * After a fence is signaled the timestamp is updated with the signaling time,
-- * but setting the timestamp can race with tasks waiting for the signaling. This
-- * helper busy waits for the correct timestamp to appear.
-+ * Return:
-+ * The fence's timestamp if the fence is already signaled, the current time
-+ * otherwise.
-  */
- static inline ktime_t dma_fence_timestamp(struct dma_fence *fence)
- {
--	/*
--	 * The test_bit_acquire() calls order against the
--	 * smp_mb__before_atomic() in dma_fence_signal_timestamp_locked().
--	 */
-+	unsigned long flags;
-+	ktime_t ret;
-+
-+	dma_fence_lock_irqsave(fence, flags);
- 	if (WARN_ON(!test_bit_acquire(DMA_FENCE_FLAG_SIGNALED_BIT, &fence->flags)))
--		return ktime_get();
-+		ret = ktime_get();
-+	else
-+		ret = fence->timestamp;
-+	dma_fence_unlock_irqrestore(fence, flags);
- 
--	while (!test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT, &fence->flags))
--		cpu_relax();
--
--	return fence->timestamp;
-+	return ret;
- }
- 
- signed long dma_fence_wait_timeout(struct dma_fence *,
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 85a49e219837..44553db9b04c 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -928,8 +928,16 @@ drm_sched_get_finished_job(struct drm_gpu_scheduler *sched)
+ 		next = list_first_entry_or_null(&sched->pending_list,
+ 						typeof(*next), list);
+ 		if (next) {
+-			/* make the scheduled timestamp more accurate */
+-			if (test_bit(DMA_FENCE_FLAG_TIMESTAMP_BIT,
++			/* Make the scheduled timestamp more accurate.
++			 *
++			 * TODO
++			 * The test_bit_acquire() is a hotfix against timestamp
++			 * misordering. Replace it with something better.
++			 *
++			 * The counter-part of the barrier is located in
++			 * dma_fence_signal_timestamp_locked().
++			 */
++			if (test_bit_acquire(DMA_FENCE_FLAG_TIMESTAMP_BIT,
+ 				     &next->s_fence->scheduled.flags))
+ 				next->s_fence->scheduled.timestamp =
+ 					dma_fence_timestamp(&job->s_fence->finished);
 -- 
 2.56.0
 
