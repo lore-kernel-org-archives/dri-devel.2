@@ -2,103 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0C6B606A686
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 19:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC05E606A31F
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 19:45:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=fnz7BvFs;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=FsiQnr2j
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=GqWo8qaZ;
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=K9CqLRKX
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F385B112D2D;
-	Fri, 27 Nov 2026 19:45:04 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 23905112D15;
+	Fri, 27 Nov 2026 19:45:13 +0000 (UTC)
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com
  [205.220.180.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 8D6C610E514
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:53 +0000 (UTC)
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id D44CF10E816
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:56 +0000 (UTC)
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
  by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6ARJTQqW524996
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:52 GMT
+ 6ARJB0aL3134356
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:56 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:message-id
- :mime-version:subject:to; s=qcppdkim1; bh=zVbFrdZijJJ17Cd4PBjOYe
- 7BHGSlYdmG1P+3qcPUEfs=; b=fnz7BvFsGxAPE40ps7jpbPRQD2vLhzVMmdMFZ7
- WOXprvraAkxAHAeug0moTlmkCPKBZIkywUzvZI3V9gYvBFEjv/FBHylfDo5MMxFP
- WHSq6BJfSaX+7ALDyfDXc6Q68ry9nI6tKAO1i9tqOPO02qjRsLEsj0aGHj8nFBSv
- Ckvb+3V/0j2UG/v4/iCLRGkB0EJz/gNIAfmuRbcEa/NycAlN+Dy92LU+R1U86q6f
- 2/mj7Rj5A2RChW2VE53b0CxAG5QzDP6uY7LllpzryXj784+OULJVCLc1SRCz1BYP
- /7HBoXsUTWVSyjcpLZtLAmgUJmF8r0NzajhNkC4yQavXKNgw==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
- [209.85.222.199])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j7g2dr110-1
+ cc:content-transfer-encoding:content-type:date:from:in-reply-to
+ :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+ FGme04KE8YTGTv4q91+XAorU6TR68+yXxNUbdjuMex4=; b=GqWo8qaZYfn4yRQA
+ 0SGjzcI3zqE5FZRaIi9toF/tPFki3DTmO0n9y2R9mdUJdIN+/DqK/5i+pbC0bpt1
+ aiYdJC2pHzgvjLn4Ujt9xWiuf5BFtUy0BwO/J9gLKYG00E8secfmx7qXN2ZnFbPh
+ syj1WHCTw7hHlWWAIShpt4X6UmVU09TV6FULTeId8qMzMIG3O0QV8hWJJVcTUzb+
+ A/fxKLTeOHxxtA+fGQu9zovUjCTQ/1vZp0asLlamNPMHl/kd5nsjabrdeJ0pUP9c
+ dnLRCLQ8p1Smkzl4zDbyK6g6FPJLZRU0yc8MpaKG/76vSjt5lRQnHzwvE7C1Et2D
+ e7LllQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com
+ [209.85.219.72])
+ by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j74gatrsp-1
  (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:52 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id
- af79cd13be357-93f6f4fe531so1250189385a.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:44:52 -0800 (PST)
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 19:44:55 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id
+ 6a1803df08f44-9210a12765eso123934576d6.0
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 11:44:55 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795808691; x=1796413491;
+ d=oss.qualcomm.com; s=google; t=1795808695; x=1796413495;
  darn=lists.freedesktop.org; 
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:from:to:cc:subject:date:message-id
- :reply-to:content-type;
- bh=zVbFrdZijJJ17Cd4PBjOYe7BHGSlYdmG1P+3qcPUEfs=;
- b=FsiQnr2jHcmf7W8RCZI/YPiw8sk3nzDQD6IVpH+6qijRm05MfbV1Vs33vcNy2MqVGy
- sazghcRDeP/Qx68V3+onV0eD4pICdlbC2TGxk1Vyx83JbxMR9cmnl0NV1cdTQQdF3Gnt
- U7VZbcSwJc80S5r6b/yeZyk2PflybkwE5Pzk580AaZLnWoFEUaA/WUsPlrCrsqRf/gP/
- XSNE62hwKlJntFQAzaTP5+F9cEPwTRq1+aTvjlVkPfdv72oKE9NyAD7z7RDzw10kONr6
- BVYkbJy19aVFAhz43o/rg5qrMs+FaL64dgMDuQEr+25PMnO7QVaAklSSRnb/ltw7rEmD
- QPvA==
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+ :message-id:reply-to:content-type;
+ bh=FGme04KE8YTGTv4q91+XAorU6TR68+yXxNUbdjuMex4=;
+ b=K9CqLRKXRuxjOnj1Gww+zAvUDlyR/EoafDLJN4tJOyB9m6QMgC8jylCWi8OvKIVJO1
+ VGJqS+vZ4qez1cAnT04f8OcAUhd1sGJfP+tnCWAmObJMgKe272XO5wOy9Dah1ggRC3XP
+ DtBl/haaToOlHWys1fSW1tG61KRk/LAAdaldG+fniXHAOtjwxl6Ev4XT2guofDXR3+xp
+ bmr0Xf+CrFZozMVJKI3hwehrStbbW3wIZU027rkPA5uw3lzdB9/ZqE11zi//JgjomG03
+ WG9z8HQMRaRBk9R0hAndDC9k3gOtd7E8HOhyJjUrDyXECa2BtbP6jTUlYfPCskdhvMuZ
+ EAow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795808691; x=1796413491;
- h=cc:to:content-transfer-encoding:content-type:mime-version
- :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to:content-type;
- bh=zVbFrdZijJJ17Cd4PBjOYe7BHGSlYdmG1P+3qcPUEfs=;
- b=EmM8lAFlM9cxY75DIuXqtr0sHlTI23DN6GxdzhrFPd/5ojhPoiY8fJ9HzvfZs3vkIt
- gQ3StLzo5kih4QU0wDeOY5f6hOUpoL0/Yqm4mewX87NBinC3zLXM1p8IkoovDTqFByL7
- Bqqp4locD4BJAsiXWfsJ7lxrk+n2SWEAfKHMaaJ1ZAdGJdDRW6ig1BoyU9nPBxkS4VUd
- ksDHsAtnUV26DNIhecG6Lsy/z+zq1sYRw/G9u9CkcxhIVb8cySLwAEqHajY3zyhcnsCo
- 0NHkgK3JiAQQDCMcztjaVpzH2FJJJqE1U78BehIG+7tnEBFAuTyr8YegxVFKCZFDKaJX
- x75w==
+ d=1e100.net; s=20260707; t=1795808695; x=1796413495;
+ h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+ :content-type:mime-version:subject:date:from:x-gm-gg
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+ :content-type;
+ bh=FGme04KE8YTGTv4q91+XAorU6TR68+yXxNUbdjuMex4=;
+ b=RwXhN+xonGTmW5ENVI8/Zb42nIPrl4RY15fEPIY70GV5xWOtPdE9VjWdCcYIza03Yu
+ SRA27OXX4SR+WZXTMqwuxw3P9rLylDICqxl+DtUv6X1qjwo+cSaamZMkEHm2InthPiwZ
+ u6lUoD8K+teZA1/jScajQUKIz7jA9gBzU2TuBepFN075mpUlRX11QPLNAIc4//pIMssT
+ lD+NTay8h0rbtCsud+X5uoPiocoS6Gh7VJql2O9LR00huKZQhRvTlyz4asmQ6Bl2An8r
+ tNU3e4Zg4w8Jnxi7U7/7u3AuIZweQdYQYhJP8t1hlqwGxJD/G/GMMAJkecw7alWk1S7G
+ 5wDQ==
 X-Forwarded-Encrypted: i=1;
- AL+hErE1iEpT7T9kCvCNYJ7P9M2bjMpjLXrUa8wc5OxzgSPSMypGuYrPxY76w89QUUmn4Gut90394VPWkZY=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z97NY9U3tOXMWQM94OMV5072wH5tEqQOZ9fnkQrAtD1qMrW2uXF
- C8QcUDLOIX1Y69SEbfnBfGfUdy52tAsJ9d4l4CKxW3a+rusF4bO0JhEMu/IkBKCsIIIq2PYj/+d
- mkmAALR8zYpMEBFbajHvi6bCkuzVf9NBlHRK5J8Af+GC26sqlb4e5EaRJYt7yyqMSbvc0wao=
-X-Gm-Gg: AZFdTZfXtOt2qB8J4CBpJj93su8CuDEPwZHIogLv1ezEfteB/LPVzcwfTk3LBoacBUz
- cc7Fgsd5oUm/FCsOfbStKM1fEhJ5GQXkUfYJ4Ibb19T4P9Pyvbt7N2PEy9RyZi4HvG/gCtvBp/K
- L6vKuAuQhL0DGveyJKsH9/Zy262R1/jCv8s5N76JBRO1b7Rq944dqj/U6KzzWi7FFFmZVedtvoo
- aYX78N9Sjlr9hF01upc7QW4C04mLNo8GYejuYOH+4QDAnVXQy5K03N/xvjRGPqX/9mgwToLEBZd
- Lm/qtyq3jypborgqYxZRIRYyvljQGUjfYIu2hdTmgNyTMHCkS+kjAzOmHGR+tT6NGu5YS1f6567
- OxWoRovPqB07/UsZqah05BHNBLibHeUxeRuBZx0GRTkeoceoR+/ADvTEItiphQJmeNavI3Yw0m7
- t3AXcxspxtvfZcPVp5NIYC2vcodeczHPDqVa1dNvGt+93wIwEiCVfq4mkRuSZz4A==
-X-Received: by 2002:a05:620a:17ab:b0:949:7f50:29d7 with SMTP id
- af79cd13be357-949ba9555cdmr4524737685a.25.1795808691180; 
- Fri, 27 Nov 2026 11:44:51 -0800 (PST)
-X-Received: by 2002:a05:620a:17ab:b0:949:7f50:29d7 with SMTP id
- af79cd13be357-949ba9555cdmr4524731785a.25.1795808690647; 
- Fri, 27 Nov 2026 11:44:50 -0800 (PST)
+ AL+hErGGig5h0dn8JeMzwcpChrIWxXbbcM0T/S+rMgahBWtmDuoKu6rx3T6+vhtm+nXCtgK3r3aYjyCJ25A=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z8Nf9//rAxBChrDPFWHLCGrDXt0XwvIr+T6FcDtBBurV81ZARAe
+ 1sdYGGiYByhEsh7UOtImhmarzncAFXjOvaYKNyN9lL93EsqBUNPSLdon+frYc9rhMSlbUD2j/dw
+ 0jubrWy7t2k04a1Kp87EmXY2inOP8ucWnggaBHxD9kJkC9sTcIVKDCltKUtsGxrh0rS9X0Q4=
+X-Gm-Gg: AZFdTZfQeLnOFUI4LzNv7pv7uPG7+8HN0VP1Q/a6phQCq2O08Rgk+JzosZY1yeZEsNw
+ f60PzBKT1hI4uU84egzfwjXd1vNJ5euqojtF8XaTmokbcy37Qz+XDy0QXL3DwrXZnAHXInlfCXZ
+ eFiPB3e6/9KI2+YiR2dsMptDk+io46ghe+kuaW3FvEfhixKrJXG9qpwpQiGbfAQUs/TikJUVvsb
+ KI1ovMrxQZ+hc0ojazw5GAFSBUyZ42FKnTa3o4Gwk71KmZwGivjO+/PgVQfrthqyWwU4MhjSK9M
+ vW+CYH+EGIVoVacsiN5yA5/s/zaWxpUoLT3OCSQc171qCFVxwDknqUXLs2s28y3e86hCd9HEfLt
+ 3SPa0w7SIXQ5zZDqO4rYYjH6fE3YkaDBKZOlAuONc/gVlBxNyCOZ5OX3ZF8OL8mEOWQqhtb7Ap+
+ hGTrot+rZaqWc0ygqSLTsvl/P+vcUdYpc5RhvokQUp9Kydxz3PDO90H3Za4Wd+ww==
+X-Received: by 2002:a05:6214:b61:b0:921:84c5:8faf with SMTP id
+ 6a1803df08f44-92184c59c32mr147407066d6.12.1795808695148; 
+ Fri, 27 Nov 2026 11:44:55 -0800 (PST)
+X-Received: by 2002:a05:6214:b61:b0:921:84c5:8faf with SMTP id
+ 6a1803df08f44-92184c59c32mr147406666d6.12.1795808694624; 
+ Fri, 27 Nov 2026 11:44:54 -0800 (PST)
 Received: from umbar.lan
  (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi.
  [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
  by smtp.gmail.com with ESMTPSA id
- 38308e7fff4ca-3ae805575b5sm59655571fa.34.2026.11.27.11.44.48
+ 38308e7fff4ca-3ae805575b5sm59655571fa.34.2026.11.27.11.44.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 27 Nov 2026 11:44:48 -0800 (PST)
+ Fri, 27 Nov 2026 11:44:52 -0800 (PST)
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: [PATCH v4 00/14] drm/msm: fix the error handling of the KMS init
-Date: Fri, 27 Nov 2026 21:44:13 +0200
-Message-Id: <20261127-msm-kms-destroy-fixes-v4-0-242b0a3f8e47@oss.qualcomm.com>
+Date: Fri, 27 Nov 2026 21:44:15 +0200
+Subject: [PATCH v4 02/14] drm/msm/mdp5: forget the hardware blocks of a
+ previous bind
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAI3dCWsC/3XNMQ7CMAwF0KugzAQ5TmmAiXsghrRxIUAIxKUCo
- d6dtCwMdLH0Zfv9t2BKnlhsZm+RqPPs4zWHYj4T9dFeDyS9y1kgYAlrDTJwkOfA0hG3Kb5k45/
- EEhooKuX0ulppkX9vicZFft3tv5kf1YnqdsCGi6PnNqbXWNyp4W7sUAB6oqNTEiRBiZVxloxpt
- pF5cX/YSx1DWOQhhqoOfzCcxDBjK23Q1ArRkZnA9C9WTGE6Y2VpNSgEuyT7B+v7/gO+geUFbQE
- AAA==
-X-Change-ID: 20260930-msm-kms-destroy-fixes-0f04b1d39b83
+Message-Id: <20261127-msm-kms-destroy-fixes-v4-2-242b0a3f8e47@oss.qualcomm.com>
+References: <20261127-msm-kms-destroy-fixes-v4-0-242b0a3f8e47@oss.qualcomm.com>
+In-Reply-To: <20261127-msm-kms-destroy-fixes-v4-0-242b0a3f8e47@oss.qualcomm.com>
 To: Rob Clark <robin.clark@oss.qualcomm.com>,
  Dmitry Baryshkov <lumag@kernel.org>,
  Abhinav Kumar <abhinav.kumar@linux.dev>,
@@ -112,46 +111,42 @@ To: Rob Clark <robin.clark@oss.qualcomm.com>,
 Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  freedreno@lists.freedesktop.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6722;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1748;
  i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=HQ6M5C+Vc65ymJthbzS2F9tF7DbwzzWqAh1l6pyd0bs=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBrCd2R/ioR3yjiiZa7aqcgMfq1dnIMzoIo8VVwz
- 9cn3LqYt0SJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCawndkQAKCRCLPIo+Aiko
- 1ZKdB/4g6h+nm/DHyyS66I52Br8hOQdazzkdNt4IG23U9f3snkrloUcl7kaf4fx/FxPwy1rY/Oi
- e/fgklu4CBSjRAwNkJmoq96oKIe6s1ikVqOGX5efON00FVBH0AWamXgteHcA7mDYQssPQTayslX
- REaBHU0DbJ+GJIcRodzNBCBTJSfTaOt/XwsfoiDMhSmPTy1+FrU+dgMgaLqB8e7TaZX1RykDEMm
- arG7Le0pglfL7im9/GUQDf0lVm7hn1laEeRulf4UDweAJdqgF7SniMUpGuRmJQC86VWb8oakhgT
- iL4FiwqWk/NGRLUH7pm2Kk8nCaL3Hxn53qtG1klgnGK8nmZC
+ bh=zt/mVP+EEls9bu9ax6mLMV+QrjhwVDSTay40Fi0xlRU=;
+ b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBrCd2Y+qlOF2bzSiezhCw069vw/eQH7bU0nBtXb
+ AWxGWeVFz+JATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCawndmAAKCRCLPIo+Aiko
+ 1b9UCACQSy/DTtE548PmRXUW+SXe3vPi2keoae+ZS4SBpoX0+8poK9Clb28LyQzXIJar2a4B3uH
+ 82h77UBdOwSvfxROtGqpfdknQ7K9OrpIE4lbaucTHfViwQiUbw3IrYHADdWN/OLxGyYLK4GwjgB
+ VylpcyrCWHJ059utiHpLgwPbIeH4SC/KDqCZKiw5yiC7rzXFNFcrEP2XcuhLQt5RJO6M7aTp/0z
+ JCcLIXc1Wb20zcSUaQ9OmI7192M9HvcsbuVTVixd9RBSTEbEd/K72ASYbYpezLtEGuoX+AL2g3K
+ D53zUDWmXrrMulkvfkV7u6/WQPggz75QGa3c/rOvyD9DmkQC
 X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
  fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA3OCBTYWx0ZWRfX0OHFvlOSNHOA
- 9wWsqEpoqge9d+IRgkVcUMByMvAXdivUOfO8pz8sJiK/vlwRRKAHM1WH12wzItgAdI7evrV2gL4
- Lk6LCDxGZM/wcmhCTpOBsLVlHa7UWQvKl5WlECWIEOMcauBNd7RHZkBDPg76v1HqHJkEZH23i1I
- NzlZljAPIOeC/WfdPxGiylVFut0l/88RcoUI9pKQP2eEeiVyLr6ryu6a5KW1t8OES8+OyGI9SjI
- 2k0RklW0xtDDw7zkmZpBd0LxTxo9TsbhT8yAJGaLJfc2zeNDJvDxh83hsOiKnUObrIvXQHNA99p
- hgPm1xc9o9ZRVxIyje0ca+PDaHUD6a8R7LF65JtvHr+2xhUdCJYGQyWIoAhVwTNvY9HySsYInQ/
- /KPD2e/g7XzkgPUlya7ybYl5tWjBjcZzljC+BBnexSGc4QRJT6EVGisLqwaKxq8Xc+Prd+mW+OQ
- UNy5PozFR6ExxbzNz9A==
-X-Proofpoint-GUID: kUNomh6PkQ7pQPJ9L_ygcklc_cnL7X9T
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA3OCBTYWx0ZWRfX5GOVz/REkLCD
- /p/FZ6bnjqccilCpAbjXXoxLBPnVktnYl/iPlhBzUoDpnR9gdh3D+nLzRgKG3QOmhPVVi53qPNR
- j7NjWQdc8zCIGIJyh1Dgt5oaM3I5x64=
-X-Authority-Analysis: v=2.4 cv=dJEzC+Zb c=1 sm=1 tr=0 ts=6b09ddb4 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+X-Proofpoint-ORIG-GUID: CksDFpE8T_gyG7i0uycGfW-mONGWaPFn
+X-Proofpoint-GUID: CksDFpE8T_gyG7i0uycGfW-mONGWaPFn
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDA3OCBTYWx0ZWRfX84KbUmt0PCRV
+ VMWYYIwakTstg2u2GeF/RdkOKOa2cIQHrKt6XqvnBeP92m/3EFwB3gqB7HLi6zYhD1x7R+fKKBP
+ 2f642roASeC0TvCZxCDVDfukWNvbUuLTSSLRDFfOoVtrd8k+GXOXhTt+YSuMhAjJuzCTvWGWUa3
+ VcFarjcqGkPAx0if+l2LOeBf41WfIM21OoZ40lhOeTkCTR5UFNl4mKP66Nmr9mJqHuK37A3crmt
+ qvN29b5BTz1eA3e4ya2iNNfc4QnIZ/GYeBxbrtsee5PCJNaa8dTIOwLzx81xOZVBFvoC5NrehQ0
+ Rgr0KQ4bGsw7y46V5jIDmtmvRy+/hDi6xJi05OFTqggBTjz34ufxg26hyKcydVYjLp2H5+N+lTA
+ Pp78NAYCd5QzAuATp2KFO2894KkRELA2bWYHyKJVIb9foz1+qsm1o4qxY5I+LoE6Ogb0WalcxQD
+ LMeF+W9Nnp9FIOfWLKQ==
+X-Authority-Analysis: v=2.4 cv=I5bw19gg c=1 sm=1 tr=0 ts=6b09ddb7 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=bC-a23v3AAAA:8
- a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=tVI0ZWmoAAAA:8
- a=LpQP-O61AAAA:8 a=COk6AnOGAAAA:8 a=e5mUnYsNAAAA:8 a=FoPEBnDcYiGibjaZs98A:9
- a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22 a=FO4_E8m0qiDe52t0p3_H:22
- a=-BPWgnxRz2uhmvdm1NTO:22 a=pioyyrs4ZptJ924tMmac:22 a=TjNXssC_j7lpFel5tvFf:22
- a=Vxmtnl_E_bksehYqCbjh:22
-X-Proofpoint-ORIG-GUID: kUNomh6PkQ7pQPJ9L_ygcklc_cnL7X9T
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=X8-H6Saci9yJdrauny8A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDA3OCBTYWx0ZWRfX/vyjAt+8wA3L
+ ZWYHMUeRti5PzuGlwNHRbDvKh0butbrPXrJJE8mEwomJEaHi9mABP8vpLqgHNV5OAdMjpxbAjBn
+ cHdk84z0KMntw7GiDSR1mlMos/uJedo=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
  definitions=2026-11-27_04,2026-11-27_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 impostorscore=0 phishscore=0 malwarescore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 clxscore=1015 suspectscore=0
+ spamscore=0 phishscore=0 suspectscore=0 bulkscore=0 priorityscore=1501
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270078
 X-BeenThere: dri-devel@lists.freedesktop.org
@@ -173,139 +168,47 @@ X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When setting up the KMS fails, msm_drm_kms_init() cleans up by calling
-the ->destroy() callback of the kms driver. That makes ->destroy()
-responsible for tearing down a KMS in any state, from "not initialised at
-all" to "fully initialised", and the drivers get it wrong in several
-ways:
+Binding the MDP5 driver again, after an unbind or after a failed bind,
+corrupts struct mdp5_kms. On DB820c, binding it after a failed bind
+oopses in hwmixer_init():
 
- - dpu_kms_hw_init() and mdp5_init() already clean up after their own
-   failures, and ->destroy() then finalises the global state object a
-   second time;
+  Unable to handle kernel paging request at virtual address ffff0004d411f9d8
+  pc : mdp5_kms_init+0x264/0x7f8
 
- - mdp4_destroy() dereferences mdp4_kms->dev, which isn't set yet when
-   mdp_kms_init() fails;
+Since mdp5_kms is allocated in mdp5_dev_probe(), it outlives the bind,
+but hwpipe_init(), hwmixer_init() and interface_init() still run on
+each bind and append to the hwpipes[], hwmixers[] and intfs[] arrays
+without resetting their counts. The second bind writes past the end of
+hwpipes[] into the fields which follow it.
 
- - msm_kms_init() leaves a NULL workqueue behind when it fails to
-   allocate it, which msm_kms_destroy() passes to destroy_workqueue();
+Reset the counts when the hardware blocks are torn down. The blocks
+themselves are devm-allocated on the MDP5 device on each bind and are
+only freed when it is unbound; that leak is left for a separate change.
 
- - msm_drm_kms_init() hands a half initialised KMS to the full teardown
-   of msm_drm_kms_uninit(), and the snapshot init ignores the failure to
-   create its worker;
-
- - the IOMMU fault handler and the DPU interrupts can queue a display
-   snapshot on its worker after it has been destroyed, or against a KMS
-   which is still being set up;
-
- - the MDP5 driver appends its hardware blocks to the arrays in
-   mdp5_kms on every bind and overflows them on the next bind;
-
- - the DPU never cleans up its self-refresh helpers, whose delayed work
-   then commits to a KMS which has been torn down.
-
-Most of these were pointed out by Sashiko while reviewing the "drm/msm:
-fix SMMU fault dumps" series, which has been carrying the first fixes.
-Rather than teaching ->destroy() about ever more partial states, this
-series switches the KMS init to the usual kernel convention: every init
-function undoes its own steps when it fails, and ->destroy() only ever
-tears down a KMS which was initialised successfully. This reverses the
-approach of commit 93c125e4ea98 ("drm/msm: don't tear down KMS twice when
-KMS init fails"), which moved all of the cleanup into ->destroy().
-
-To keep every step safe and bisectable, the drivers are converted one at
-a time: a temporary flag tells msm_drm_kms_init() that a driver cleans up
-its own failures, and both the flag and ->hw_init(), which gets folded
-into the drivers' kms_init(), are removed once all the drivers have been
-converted. The last patches fix the teardown of the DPU self-refresh
-helpers and follow up on the new rules: they unwind the DPU hardware
-setup step by step, disable the MDP4 vdd regulator on teardown, and drop
-the runtime PM flags which ->destroy() no longer needs.
-
-Tested on DB820c (MSM8996) with both the MDP5 and the DPU drivers, with
-failures injected into the msm_kms_init(), the MDP5 kms_init(), the DPU
-hardware setup and after a successful kms_init(): each of them now fails
-the bind cleanly, without warnings, and a later bind attempt succeeds.
-Unbinding and rebinding the driver works as well, except that with MDP5
-the HDMI output does not come back after a rebind (its extp clock fails
-to enable), which is not affected by this series. MDP4 is build-tested
-only.
-
+Fixes: 1f50db2f3e1e ("drm/msm/mdp5: move resource allocation to the _probe function")
+Assisted-by: LLM
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 ---
-Changes in v4:
-- snapshot init: don't double-destroy dump_mutex (Konrad)
-- tear the snapshot worker down before the KMS on the init error path (Konrad)
-- dropped Konrad's Ack on patch 10 (teardown reordered there)
-- Link to v3: https://patch.msgid.link/20261024-msm-kms-destroy-fixes-v3-0-66a30120a5ea@oss.qualcomm.com
+ drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-Changes in v3:
-- Rebased on msm/msm-next, fixing the conflict.
-- Link to v2: https://patch.msgid.link/20261023-msm-kms-destroy-fixes-v2-0-83727c122de7@oss.qualcomm.com
+diff --git a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+index 3934cd060b27..085c23820f46 100644
+--- a/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
++++ b/drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c
+@@ -570,6 +570,10 @@ static void mdp5_destroy(struct mdp5_kms *mdp5_kms)
+ 		pm_runtime_disable(&mdp5_kms->pdev->dev);
+ 
+ 	drm_atomic_private_obj_fini(&mdp5_kms->glob_state);
++
++	mdp5_kms->num_hwpipes = 0;
++	mdp5_kms->num_hwmixers = 0;
++	mdp5_kms->num_intfs = 0;
+ }
+ 
+ static int construct_pipes(struct mdp5_kms *mdp5_kms, int cnt,
 
-Changes in v2:
-- Added patches which register the KMS fault handler late, reset the
-  MDP5 hardware block counts and clean up the DPU self-refresh helpers
-- The unwind of dpu_kms_hw_init() now clears the drmm-allocated hw block
-  pointers, dpu_kms outlives them into the next bind (Sashiko)
-- kms->vm, kms->wq and the timer workers are cleared on teardown too
-- Moved the MDP5 counts fix to the front, merged the error exits of
-  msm_drm_init(), clarified the fault handler and self-refresh commit
-  messages
-- Link to v1: https://patch.msgid.link/20261003-msm-kms-destroy-fixes-v1-0-e062b7dae77f@oss.qualcomm.com
-
-To: Rob Clark <robin.clark@oss.qualcomm.com>
-To: Dmitry Baryshkov <lumag@kernel.org>
-To: Abhinav Kumar <abhinav.kumar@linux.dev>
-To: Jessica Zhang <jesszhan0024@gmail.com>
-To: Sean Paul <sean@poorly.run>
-To: Marijn Suijten <marijn.suijten@somainline.org>
-To: David Airlie <airlied@gmail.com>
-To: Simona Vetter <simona@ffwll.ch>
-To: Archit Taneja <architt@codeaurora.org>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-To: Kalyan Thota <quic_kalyant@quicinc.com>
-To: Vinod Polimera <quic_vpolimer@quicinc.com>
-Cc: linux-arm-msm@vger.kernel.org
-Cc: dri-devel@lists.freedesktop.org
-Cc: freedreno@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
----
-Dmitry Baryshkov (14):
-      drm/msm: fail the snapshot init when its worker cannot be created
-      drm/msm/mdp5: forget the hardware blocks of a previous bind
-      drm/msm: unwind msm_drm_kms_init() on failure
-      drm/msm: order the display snapshot sources around its worker
-      drm/msm: clean up after a failed msm_kms_init()
-      drm/msm: let the kms drivers clean up a failed kms_init()
-      drm/msm/mdp5: unwind a failed mdp5_kms_init()
-      drm/msm/mdp4: unwind a failed mdp4_kms_init()
-      drm/msm/dpu: don't tear down a failed hw_init twice
-      drm/msm: tear down only a successfully initialised KMS
-      drm/msm/dpu: clean up the self-refresh helpers on teardown
-      drm/msm/dpu: unwind a failed dpu_kms_hw_init() step by step
-      drm/msm/mdp4: disable the vdd regulator on teardown
-      drm/msm: drop the runtime PM flags from the KMS teardown
-
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c      | 73 ++++++++++++++++------------
- drivers/gpu/drm/msm/disp/dpu1/dpu_kms.h      |  1 -
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.c     | 68 ++++++++++++++++----------
- drivers/gpu/drm/msm/disp/mdp4/mdp4_kms.h     |  2 -
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.c     | 52 ++++++++++++--------
- drivers/gpu/drm/msm/disp/mdp5/mdp5_kms.h     |  2 -
- drivers/gpu/drm/msm/disp/msm_disp_snapshot.c | 14 ++++--
- drivers/gpu/drm/msm/msm_atomic.c             |  1 +
- drivers/gpu/drm/msm/msm_drv.c                | 29 +++++++----
- drivers/gpu/drm/msm/msm_kms.c                | 59 ++++++++++++----------
- drivers/gpu/drm/msm/msm_kms.h                | 19 +++++---
- 11 files changed, 193 insertions(+), 127 deletions(-)
----
-base-commit: d024361c631b3f020a26c07d683e5103404b0fbf
-change-id: 20260930-msm-kms-destroy-fixes-0f04b1d39b83
-
-Best regards,
---  
-With best wishes
-Dmitry
+-- 
+2.47.3
 
