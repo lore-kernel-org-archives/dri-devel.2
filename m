@@ -2,129 +2,102 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 521A9606A31C
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 07:21:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAE37606A32C
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 07:21:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=Uxgz6/6p;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=EyyGutlj
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=vUa0DF6o
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6233D1123EE;
-	Fri, 27 Nov 2026 07:21:18 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5A396112341
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:21:06 +0000 (UTC)
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AR7GOOs1779899
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:21:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:date:from:message-id:mime-version
- :subject:to; s=qcppdkim1; bh=N3VLZRTg7atUql7jaIGh5aZOxd3g/n+lT3J
- 7hkQbOcA=; b=Uxgz6/6pnNeKE67TDKi364JDz/B+3zojGUUYDXMGM2XQxJXf6IU
- CMa/C3fHW4w5Qs6peXQMgZP/CbNKI85e1jnpBwx94OCnOGNigvfs/Cqs+2YRlSgH
- e5KPlbXfI/Qaoohu8nygcMOftwiocECvRhc/Fj9DN1Qz0XBz/CvqPiNLliyRUzDd
- wYKlBSj87DMD0M6Z8biq/f0oXISh/n+T+bTpaP91GyGxvJEv7lwKlwkWln8JNEjl
- YDRJx+8SL1FEEdhotWQOcHMOc40TN3xknZlab0mmPGgU3rRIDRtk+bH+pIqyy0T0
- M3ZDQmxrxaEs2rSqVEa54tkBQUDNzTq5ymw==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com
- [209.85.210.200])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j73uhgc1p-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:21:05 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id
- d2e1a72fcca58-8b691cf0eeaso8906986b3a.1
- for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 23:21:05 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 11360112341;
+	Fri, 27 Nov 2026 07:21:54 +0000 (UTC)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com
+ [209.85.128.43])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id CEE41112341
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 07:21:47 +0000 (UTC)
+Received: by mail-wm1-f43.google.com with SMTP id
+ 5b1f17b1804b1-4a207b02a2cso55438695e9.1
+ for <dri-devel@lists.freedesktop.org>; Thu, 26 Nov 2026 23:21:47 -0800 (PST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795764065; x=1796368865;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
- bh=N3VLZRTg7atUql7jaIGh5aZOxd3g/n+lT3J7hkQbOcA=;
- b=EyyGutljY/7WNhhwxVh4OR3nGnkcWGtdi/AtzYmMiFoXXnCFWK3+UDVlG6a1APlwez
- XQBCW60z906QNn9BG4nmH42Yki8dsIls6JdnBK5/s7WbQDwGEgeemvaXgonSBmCUgehz
- 28HxuGx8cvvEwQvn4GCtEKi72nPFDOms7f4v/1enej5iBsX7TRXFgfw7nW/utp4c14i8
- p3B88dw3LePjA5X2BOhXJVlcm2Wy7TZ5TRGZupZitiZ6yC91nxlUDaVomE85cf3NS9ch
- pV60MnXnlrbTXJxWjJ7tmdzfUAdLPukN+/C68ipdghSS77o+yVBjxnHy7PCpMTWg6EX4
- QByw==
+ d=gmail.com; s=20260707; t=1795764106; x=1796368906; darn=lists.freedesktop.org;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+ bh=RFWIIK5B2bXDOJcKTvFKiX1dOLs0oT0s7HmTLBjeOw8=;
+ b=vUa0DF6oQvbpX3AygKYdxAa9BmjsnjD7TlWt55yDmBCIhLzPcCQfXOsw2t6wmhUUMH
+ kDcJmMmOF4vSQc61SV14kkcXz2JMXzkVus5EnAnUHP1XwxAJO9bXiSNg7TXX7N02BQVR
+ 1iDDkw2ITLy0dneoEOzPiJ8LeIJ69c0+FgCe9d/FD1GJMbdz7MPNTS8bm2wwKVVX3dji
+ NAX1kqW60Ty4d/PPzQNcTU95yMT3EG0mUAsqnUw4MSRxd4dj/89cP2C69aYth5H4Qm52
+ vEd6u8ZoC0IW06KYTeIGTb/PnhD+05UEj2pteDWQ3FVYJ8SFIyYcwjPffhEYo+OR4mPs
+ FKsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795764065; x=1796368865;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=N3VLZRTg7atUql7jaIGh5aZOxd3g/n+lT3J7hkQbOcA=;
- b=KrWfispXkglfyoHmGtbMrZRKxMJKkLaHGwinILTUpJodBQHlHo4n2Pc6Yr65llpcty
- 1zExxbvmIbjfUO6ChDI2YnkpyQey+d6j/GHrdTi80vkq+8mEnMmS19Zed/x8U1kA/4I+
- snh77hOE7uTtyHI+nSAvXqae/6d+vyuCXax80GK7mjxC8cCQz1M/tpd6p+8PL4dejIs1
- NYsZDJo4lIuSGTyiMCexC/AlfHE9r+QpBr5Dqd2bCd5DpRiY13zI+tDVCRqpVZu4XdYg
- U88oSrRXizWC5Ix0k0cmViW+X6WI2ATqkqXmc7CQeVFWmKoRvjRwDISwGr2UE7MmppkU
- Zlgw==
+ d=1e100.net; s=20260707; t=1795764106; x=1796368906;
+ h=content-transfer-encoding:content-disposition:content-type
+ :mime-version:references:in-reply-to:message-id:date:subject:cc:to
+ :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to:content-type;
+ bh=RFWIIK5B2bXDOJcKTvFKiX1dOLs0oT0s7HmTLBjeOw8=;
+ b=C0YS2f5r9cWXH0tmT5YN68R9+JnX3ai/ZTqDU4zPCZyzVjsr4pJgfyePnTprwFWug0
+ tI0iK68poGLvUL5TUyw24xNDJFHb961zKmVHW256L+w8e0PHCscvrH3VLFEdwanfmaOQ
+ GsH4ux03oKz4E0IzdhRZIlHsCGlxQR9FlgIm6dh10i2UQ2AxujsGU9ftc+lMkMhtWYsd
+ fTRyzVZ8cdwr6xEDGt2JA54rJbCvBeTSyv5+p3HW6Hi4bQVKr92Z358Sf6IVYpv/eQL8
+ Y9l07Qo5Ot5SaeUEsLA/BgQc6mZ6z/5YLixER7xK4+vG+Z6Zn4KY4LOKerTb2db1cWbF
+ bOlg==
 X-Forwarded-Encrypted: i=1;
- AL+hErHexh762wAXguWvfX3p13apMPBr6cnUhCHrJqYohaSkicbcarmgH2WbUEbqMgWN37sJVxUU73rZ7fw=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z/5CYgm5Dve9YkjXtRWSXOMurBLUBSWHK1+iFRWiuLN6DD6rEa6
- x6AOtQfq4EGmN1+3FMtV/3qMe255KNCQTVASgtmjOo27d5XUmFk7F1IPgzJ3FFpnQ0yk0yIVE7f
- gzH5NpWzr4SMvaNV7KsWrmDXPRQy/IhsNrNqMrMIrl7ncNB0ZLlYTx6+BrSLJOVURE9Kk0qs=
-X-Gm-Gg: AZFdTZek5V4SszFCvDXEOWPH5l7gJK1vT8hzRYf+ak740YDgvEPhnDVCodyNbUloor3
- grU8Ab2xJXGG7GN7KxFS+mrAGDEDMo3aaSrmyIImG0+Lmp7cZqkGUok05wkhm4oIavuOmIRNTNJ
- FqRX08wCrgmLqSrutOH6UKwxBxh2LmivdH54P8g0EHa2qtr+S9WPT+8lmvSS8JIR3rYCN+7aJfP
- +GfFAXKMUac5nvYtAkw9ryv3bqZGPiE1A9mJj367RXocqfCtVQ+WVmlRc2v5WgdM81X57avjxE3
- 4Rn/XpFB63QVa3nVC/3pMgXuHAf3ahbuVZyVJ6UNbWm2aAFWLS5L23KkotBKHzmPfs6Sy1mVnvX
- yjUGrM1DRetm9O6BHgnR/9+TUvzdGaDXedVFfUnH6VLAg6/F1l7TNrXad7oUCBQRGEaVjHcg0rQ
- ==
-X-Received: by 2002:a05:6a00:39a6:b0:89e:f8e9:205f with SMTP id
- d2e1a72fcca58-8c87c76a3d2mr22911775b3a.32.1795764065168; 
- Thu, 26 Nov 2026 23:21:05 -0800 (PST)
-X-Received: by 2002:a05:6a00:39a6:b0:89e:f8e9:205f with SMTP id
- d2e1a72fcca58-8c87c76a3d2mr22911748b3a.32.1795764064687; 
- Thu, 26 Nov 2026 23:21:04 -0800 (PST)
-Received: from hu-vnama-hyd.qualcomm.com ([202.46.22.19])
- by smtp.gmail.com with ESMTPSA id
- d2e1a72fcca58-8c87343f83dsm12028947b3a.39.2026.11.26.23.20.58
+ AL+hErG/cXW2w9Ekgj+J92T3tiLPmh7kMdjxFiK8NNLy3ayVSC+7FWjhtgB9n6f/v/7bgb/rUkhRz5xC9oo=@lists.freedesktop.org
+X-Gm-Message-State: APuU4Z+1BpvLF4U+IjLQh2SqI7oYJCTpjGr17UBUvOkrFcwj/S4OehU5
+ AtKnwscapV6BgL5MLc7tjcBMI+sSnFilF0Gny77S2dlpDkX/FKj14THW
+X-Gm-Gg: AZFdTZfpxYav7J9ekCNJqp+mM+DTv9l3SJOZcGpx5JkE98+QeEiuWZCb3we6X9mamUe
+ q1DxK5XlmFbndvPczqM6Dkvnb4YSSn91kxTtZlPCcDAiPmxm3jo7EQc84ZMJuSHgE6FntwoP0Oo
+ gABacAxQkAOybIwQpBfQmqkJxmCoJFittyr1wB0LhXhlbi/BoLcOt8a5VOXeQ2AtPGCA38pPpIp
+ KRsAqHGxLk54MhiFvDDcf2dxI4G/Zq3Ou9c+2tJaiiMwjy4Sh+QnnMLlfH/RfX6NizUSeMumWpK
+ RyZyanHoyMVaOiiQdVjFN59huNTjJwGZ82zfNJOXASUk2ekgjCBpDy5RJZp5RC/nisGGuD274YU
+ n3XByG7w3TpF251uC+h4DZn0EcBe+X3QdDhnqutIqUIoc3zVzLv0TMdsoZBPCBX7k9mHmLjc2Bn
+ FKiYxajL0y3Z7l1p61EViHJMVCnumvBt87kKm5YaOuFRv+EZXzWQ2ezP6l85EoSKbHT6cdknPFC
+ CDL8Jllj+nrIbKOjl2Mo7Km3njmabaXiNjsJgW6CHfAa8U680Wubq6NQdZhxOHp8587TJbInW6R
+ ybbLQrgnzbUEoWW4wKC+9ghSjyi5bX8=
+X-Received: by 2002:a05:600c:1d09:b0:4bb:73d5:ab33 with SMTP id
+ 5b1f17b1804b1-4bb88816acemr509462955e9.22.1795764106011; 
+ Thu, 26 Nov 2026 23:21:46 -0800 (PST)
+Received: from ArchOarora ([95.179.249.152]) by smtp.gmail.com with ESMTPSA id
+ 5b1f17b1804b1-4bb8526cbd0sm885577375e9.0.2026.11.26.23.21.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 26 Nov 2026 23:21:04 -0800 (PST)
-From: naidu nama <naidu.nama@oss.qualcomm.com>
-To: robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- jesszhan0024@gmail.com, sean@poorly.run, marijn.suijten@somainline.org,
- airlied@gmail.com, simona@ffwll.ch
-Cc: naidu nama <naidu.nama@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, quic_riteshk@quicinc.com,
- quic_vproddut@quicinc.com, quic_mkuntuma@quicinc.com,
- mahadevan.p@oss.qualcomm.com, saurabh.anand@oss.qualcomm.com,
- yongxing.mou@oss.qualcomm.com
-Subject: [PATCH] drm/msm/dp: Skip IRQ_HPD handling when PHY is off
-Date: Fri, 27 Nov 2026 12:50:52 +0530
-Message-ID: <20261127072055.2144407-1-naidu.nama@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+ Thu, 26 Nov 2026 23:21:45 -0800 (PST)
+From: Oarora Etimis <oaroraetimis@gmail.com>
+To: 
+Cc: Oarora Etimis <oaroraetimis@gmail.com>,
+ "To : Louis Chauvet" <louis.chauvet@bootlin.com>,
+ Haneen Mohammed <hamohammed.sa@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Melissa Wen <melissa.srw@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>,
+ Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
+ jose.exposito89@gmail.com, Jonathan Corbet <corbet@lwn.net>,
+ Harry Wentland <harry.wentland@amd.com>,
+ Lucas De Marchi <demarchi@kernel.org>,
+ Ville =?utf-8?B?U3lyasOkbMOk?= <ville.syrjala@linux.intel.com>,
+ Randy Dunlap <rdunlap@infradead.org>,
+ Nick Desaulniers <ndesaulniers@google.com>,
+ Shuah Khan <skhan@linuxfoundation.org>, Miguel Ojeda <ojeda@kernel.org>,
+ Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+ Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Kory Maincent <kory.maincent@bootlin.com>, sebastian.wick@redhat.com,
+ victoria@system76.com, thomas.petazzoni@bootlin.com,
+ dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, llvm@lists.linux.dev
+Subject: Re: [PATCH v7 10/43] drm/vkms: Reset config->dev when the device
+ creation fails
+Date: Fri, 27 Nov 2026 08:21:30 +0100
+Message-ID: <awkvQvRhbFLBKy8q@Oarora>
+X-Mailer: git-send-email 2.56.1
+In-Reply-To: <20261126-vkms-all-config-v7-10-21194cda2468@bootlin.com>
+References: <20261126-vkms-all-config-v7-0-21194cda2468@bootlin.com>
+ <20261126-vkms-all-config-v7-10-21194cda2468@bootlin.com>
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAyOSBTYWx0ZWRfX9y3sfZ05RCvd
- 5UQpb5b+pNm/rrI3OtyiY02J0jLhNSg9GPHnZjW8CJ1Yrl4itss/kCw50cuf/vcBopUbeQHc584
- YnGhwRn7zBvFxwgjuN+niWeKFeXUFBM=
-X-Proofpoint-ORIG-GUID: f_UnWuP1j0TJf1Y88-G1MQKECgdfgllw
-X-Proofpoint-GUID: f_UnWuP1j0TJf1Y88-G1MQKECgdfgllw
-X-Authority-Analysis: v=2.4 cv=BbBNQbt2 c=1 sm=1 tr=0 ts=6b092f61 cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
- a=oFY2QqT7UXJjKgy5amEA:9 a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAyOSBTYWx0ZWRfX0G9jw27OY1oF
- RnmzUtiJrhrETDZeJwC/Ac5vnGa7M+BTXw2c+UoJluW4cAIah9K2hJM/YMb3DQ5jYQkiUaajdQn
- gbFY1BTli7LdOQrMuYfWzLGFJTlX/BwtiLZyeW6Zx1Rcuqrt498gKfnCJcnEWycWW/3oa/9vmyq
- AzJey0cwdvJAf764I6J89BhOfMs4bhE3XgnA7q899FWqvN3BLq1wugQnRoBa1DMMsM+/wjmvPre
- DEhiDOh1i/m9gQEaF5EFJRnzhwk8TcWxv0aLr4CQ+dFe9vAR1scfNfYQ+o2rcDGUlYwg0ViGeyc
- 68BeZWfJXtNeeIRdGD8wD8HhRoZRl9pysisfWTLzflcs1zxvqbPKYWsieTRWte8KPberS2zWymu
- 4iEKj6bP3EFlEcvhwp6e30mnLpiy37J1TFEnTtPkfeRSaeBaZynJ4IF/V41b1k60oLC9Cg2w2VI
- 3Vnoi1ZrLB9jueVx0mg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_01,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 lowpriorityscore=0 bulkscore=0 adultscore=0
- priorityscore=1501 phishscore=0 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270029
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,40 +109,46 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-18.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_GIT autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
+	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
+	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,INCLUDES_PATCH,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-When DP is plugged, IRQ_HPD is delivered when PHY is in uninitialized
-state, In this case avoid runtime-resuming the controller and
-attempting AUX access for an already-plugged, while the
-PHY is uninitialized state.
+From: Oarora Etimis <oaroraetimis@gmail.com>, To:  Louis Chauvet <louis.chauvet@bootlin.com>
 
-Signed-off-by: naidu nama <naidu.nama@oss.qualcomm.com>
----
- drivers/gpu/drm/msm/dp/dp_display.c | 5 +++++
- 1 file changed, 5 insertions(+)
+On Thu, Nov 26, 2026 at 12:28:53PM +0100, Louis Chauvet wrote:
+> vkms_create() stores the vkms_device in config->dev, but the error paths
+> after that point free the device (through devres_release_group()) without
+> clearing the pointer. The configuration then keeps a dangling pointer,
+> which can be dereferenced later (for example by vkms_destroy() or by the
+> configfs disable path) once the device is already gone.
+> 
+> Clear config->dev in the out_devres error path so the configuration stays
+> consistent when the device creation fails.
+> 
+> Signed-off-by: Louis Chauvet <louis.chauvet@bootlin.com>
+> ---
+>  drivers/gpu/drm/vkms/vkms_drv.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/gpu/drm/vkms/vkms_drv.c b/drivers/gpu/drm/vkms/vkms_drv.c
+> index 28b99511f186..4cbb1173fcc6 100644
+> --- a/drivers/gpu/drm/vkms/vkms_drv.c
+> +++ b/drivers/gpu/drm/vkms/vkms_drv.c
+> @@ -215,6 +215,7 @@ int vkms_create(struct vkms_config *config)
+>  
+>  out_devres:
+>  	devres_release_group(&fdev->dev, NULL);
+> +	config->dev = NULL;
+>  out_unregister:
+>  	faux_device_destroy(fdev);
+>  	return ret;
+> 
+> -- 
+> 2.56.0
+> 
 
-diff --git a/drivers/gpu/drm/msm/dp/dp_display.c b/drivers/gpu/drm/msm/dp/dp_display.c
-index c0c150e2c575..79169c1f95a5 100644
---- a/drivers/gpu/drm/msm/dp/dp_display.c
-+++ b/drivers/gpu/drm/msm/dp/dp_display.c
-@@ -1607,6 +1607,11 @@ void msm_dp_bridge_hpd_notify(struct drm_bridge *bridge,
- 	struct msm_dp_display_private *dp = container_of(msm_dp_display, struct msm_dp_display_private, msm_dp_display);
- 	u32 hpd_link_status = 0;
- 
-+	if (dp->plugged && !dp->phy_initialized) {
-+		drm_dbg_dp(dp->drm_dev, "skipping IRQ_HPD in an inactive state\n");
-+		return;
-+	}
-+
- 	if (pm_runtime_resume_and_get(&msm_dp_display->pdev->dev)) {
- 		DRM_ERROR("failed to pm_runtime_resume\n");
- 		return;
--- 
-2.43.0
-
+Reviewed-by: Oarora Etimis <oaroraetimis@gmail.com>
