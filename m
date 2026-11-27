@@ -2,156 +2,123 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFA44606A330
-	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 09:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF93606A334
+	for <dri-devel@archiver.kernel.org>; Fri, 27 Nov 2026 10:02:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.a=rsa-sha256 header.s=qcppdkim1 header.b=FFYXB7KP;
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.a=rsa-sha256 header.s=google header.b=hQj0xSjJ
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=hfGhu9vf
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id F2035112963;
-	Fri, 27 Nov 2026 09:59:03 +0000 (UTC)
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com
- [205.220.168.131])
- by gabe.freedesktop.org (Postfix) with ESMTPS id E89C7112963
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:58:52 +0000 (UTC)
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
- by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id
- 6AR7Gjix2421573
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:58:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
- cc:content-transfer-encoding:content-type:date:from:in-reply-to
- :message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
- sqHlpnv9nCaWc5k/N6xeMuJ92Th9JTg9I+6KoCRS8CE=; b=FFYXB7KP8bTOV2BX
- lHqDSuLFy+ONvVxACTAfcO0CcPvghrqu7cQvU0hJAHg9izRSew5SHNQzgloU1tOt
- 2ejmJYmLrByKMWSeaxUw4wR3RQHQMp7S03a0/34G+21mydxjgBKrsnjX1dMNjNU3
- mqqU1wfcLhX04/++MpJqONfGqLjQ9h0L7MhCyGqQZIxnugM7FEDhjmAhaWKEdsen
- DFNQB62BMjlqxaMO0Twx9+7tQGgx27NVUPqSuPBGfdKWc0BgsVJE7DxEeN0ZgGXE
- rUWTKabL5d9fZLwjmLDdh3lOqu1DZcML+B/hh+ynKod/01PQDsT7K7vVmGntxHzz
- VU42bw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197])
- by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4j6rf92xxf-1
- (version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 09:58:52 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-cdec55db650so578720a12.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 01:58:52 -0800 (PST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=oss.qualcomm.com; s=google; t=1795773532; x=1796378332;
- darn=lists.freedesktop.org; 
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:from:to:cc:subject:date:message-id:reply-to
- :content-type; bh=sqHlpnv9nCaWc5k/N6xeMuJ92Th9JTg9I+6KoCRS8CE=;
- b=hQj0xSjJUK+1V5raY20bOb8Psv1rYkYsGU3eEjY7O+hlPd05IL2OLQP59/rpr8I0WB
- wTJ5ngQ/A4QGeckU/aW7arGKXkHdvmzLo+ch0bs5tqBnZfvxf7uuk3951rBfjvZ4vbte
- a5mfrqdBzWfs4WAJrfpfxY4FYR3DBGgxUHMlqQ/UuEbrC03j1D5K1xoyKVrrqzc6QzTz
- PR6yfIo9jr2pyZPYtA4ckKLj/FX8moct1Dz249Uygc4/1PSfkM75TOPpvPQuqfSrIV8A
- k2YEoW//sHglf9aKS0NeGMlaMvtwCwWLIWsOr/3V9ZYdaQkrJx6Qz6Y0qL8gLdvAp5c0
- UZnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795773532; x=1796378332;
- h=content-transfer-encoding:content-type:in-reply-to:from
- :content-language:references:cc:to:subject:user-agent:mime-version
- :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to:content-type;
- bh=sqHlpnv9nCaWc5k/N6xeMuJ92Th9JTg9I+6KoCRS8CE=;
- b=Koc494rr5l/rmkvQCQ5PKSGmvTkVPvGFyBStttMLxNlvg/M43gqVD+c3AYbvCFmnHa
- ns6rf2Fp1ua48BOPUDCUT/bUQ/BGHSBSfSd/W3CeAmcX+T1Gcwyi1vRCfvKxRUQo/W+U
- lRfHACvMGHUEe23/Pfvit4MTl8rkkeRl1MDNgbrSm7pRH7O5BC0s15vacrzRAVDsrtil
- WeD/TNaopZhNuRDRgKSD9LJZfz0uig1kaBzRdHmLMqK2PkUCz0xVal0bt2avIk210Lrq
- uHXK7MGcScyEl/LyEiG/aFIQh4048EjYtm66wuhHaodDcMrJLUcv76Jr++/Yt7ILeRcM
- 6p5A==
-X-Forwarded-Encrypted: i=1;
- AL+hErG0c528fHgqw1Gh5HD3a8LdJgZJbDOrzfqlPN8lVjSqwsVXpfRtYXEBwqbutBMJ25kudf1uohn6i6o=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z9Mo5asK2n3z5BCIcY9KlgIZTxxOh5ji5kbAB+odA5qUghvvH+D
- AgRhOx6GK9xOFjZzCIFa0Kja8CrbjNdHiTq/uqR+Bth4knaaPTWGhADF9NOZq6xTqIvXYGxGP42
- gZ/+zfZrzHAV1Pm6YJJ0gEVs8jXI9CdaaO6cJ6Mjm55lmfzUULQVcrqjBUHyd/iwKfZWKO4I=
-X-Gm-Gg: AZFdTZcbtu0Jt15+G0ihzIwrAPtPF7ci5BssU9Jp2f7MVu0XT4pdEhOlt8CTVpJ+uFF
- dLSIP+M2Qz2mIp7SrTBlCkcC8/QMncWJbNGL3Dd66H4Bc9buk5ZA8fr6yH6ZIXW0iJYOwDkNkcQ
- 9OBEhcYYXRKRvtPivB8cGdK/UwlKK0lPAZETwGHQtd1i/wDLF/Lk4IU8uz+oSVWVynyyEmWXjOA
- s9rAur8iZ84Lb17KVrwG8SwkyZNrz96i5qaaj3zLRQiEtHrySnbbkt0qiLPzeVowGzPV+z31342
- QQX6+HYgwWc781PY/Jau9aHEJxDGN/n2lG351+krUFibueGviJ2h/BVStctjKLXAgf6maofjHUN
- sMVDtgvPGPBWn4UatHbHckFk1xB9eIlxSK4hgh7Ua8r+k333fI/kUavkKEf5n9ZGCsuFM5TKaKP
- Kzh/Av
-X-Received: by 2002:a17:90a:e7d0:b0:3ab:e588:c275 with SMTP id
- 98e67ed59e1d1-3b41c8d4881mr20897575a91.20.1795773531601; 
- Fri, 27 Nov 2026 01:58:51 -0800 (PST)
-X-Received: by 2002:a17:90a:e7d0:b0:3ab:e588:c275 with SMTP id
- 98e67ed59e1d1-3b41c8d4881mr20897555a91.20.1795773531067; 
- Fri, 27 Nov 2026 01:58:51 -0800 (PST)
-Received: from [10.204.101.118] ([202.46.23.25])
- by smtp.gmail.com with ESMTPSA id
- 98e67ed59e1d1-3b4afeaaa84sm21547994a91.10.2026.11.27.01.58.40
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 27 Nov 2026 01:58:50 -0800 (PST)
-Message-ID: <8ec59e5f-c476-4721-91f7-7fd3fd1018f2@oss.qualcomm.com>
-Date: Fri, 27 Nov 2026 15:28:39 +0530
+	by gabe.freedesktop.org (Postfix) with ESMTP id B17F4112913;
+	Fri, 27 Nov 2026 10:01:59 +0000 (UTC)
+Received: from CY7PR03CU001.outbound.protection.outlook.com
+ (mail-westcentralusazon11010006.outbound.protection.outlook.com
+ [40.93.198.6])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 9535A112913
+ for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 10:01:53 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rIl0Ry0EswVbofiZABrg18/soxaGjsQHWCaMi+GpBBGD3MbihGNfom52vbGdS5oaUt76lDhzW2QDH95wpB3ti+NBgZYtde6JyOoWtRfTU+4tRth/vkMK696Ex8lHeEn5E1jLrxqAIICtIghlfV4FxwnsCS6QNU9BmT/NKbyySDcUSAfIkreupzBLt1V/lqaSbBp8OvSWyQPBnGMDil1aTAAG+q5zpTFI11vCVYPb3FOhwdvjXkKYhUZKs+/3Ipe43UJnESZBUQMXIUNyrH+CVx/dWI5NO0ZOxyq/MqbdJDOyPmJyWHU3Os6VdzIwcrt4PhhfYWCgqpWnuao7JnseOg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l0w7m78Q3t7NafSqffnDLuqKONPoccVan1Yqy46w+7A=;
+ b=HVucWkf9xuY8G+0A0VE3YWFz07/uQ17d7rfDOX6Ke56SOLqgnMolXNaTizZYFuu9ywNrAmYqHAE3Q7Jgru9rQWpWrXVdQbxclBrEXDtzCCCNpiKKl9z/6g1n0Szg6zq9/B6zOceTO7e8xBXrzDYehigu5oHgKF2Db360gzA49UJHAvvUD+vo/nE8dYean4WJJyAErPV8vEidRlMwKVb/xd+UiP2KWdOcuc1hTSzivCyR3PAlx58y7Tip22I6xQw+fwP23aCpLmuAllFf7I/NzRuT2ikYpnt/nnxrEVEJbDmZXsaBlwLrVqm1QhbkpSWSGc9BiXsMFuql1LJlbophxg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=kernel.org smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l0w7m78Q3t7NafSqffnDLuqKONPoccVan1Yqy46w+7A=;
+ b=hfGhu9vfQGbENvcRA5asNK0tSwx66j5AIdq0kkUVOIb1+1c615ull1O2hfEHGY/xm4MBHn03aV5PRHmQ4o3HOcJqFzvOQDEoSLn7+85nli8df6WkIQvcY59rZlXxHybXImtj+XVjtSu5L9ltxAXnuOEVEzRzZcZbh/UTkICEfeM1i9+hzZoYGkvPZoyq965QvbbVQ4c8US0ILZ8DSxNZMprxDf2DwDbYravNxLkkYGEy6PyFM31sh7RsAP51STJnnuGmxLJhkeKjMQijp889EjSxDTLaful1RrK84Y+lP+hOBTyJNgeOyeKpaqY9CGu1Dz7NHMwsBIk44LEzoU5I5Q==
+Received: from CH2PR18CA0038.namprd18.prod.outlook.com (2603:10b6:610:55::18)
+ by DS2PR12MB9590.namprd12.prod.outlook.com (2603:10b6:8:279::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.4; Fri, 27 Nov
+ 2026 10:01:45 +0000
+Received: from CH7PEPF00000017.namprd21.prod.outlook.com
+ (2603:10b6:610:55:cafe::58) by CH2PR18CA0038.outlook.office365.com
+ (2603:10b6:610:55::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.662.10 via Frontend Transport; Fri,
+ 27 Nov 2026 10:01:45 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ CH7PEPF00000017.mail.protection.outlook.com (10.167.244.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.615.2 via Frontend Transport; Fri, 27 Nov 2026 10:01:45 +0000
+Received: from rnnvmail202.nvidia.com (10.129.68.7) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 02:01:28 -0800
+Received: from rnnvmail201.nvidia.com (10.129.68.8) by rnnvmail202.nvidia.com
+ (10.129.68.7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57; Fri, 27 Nov
+ 2026 02:01:28 -0800
+Received: from inno-dell (10.127.8.12) by mail.nvidia.com (10.129.68.8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.57 via Frontend
+ Transport; Fri, 27 Nov 2026 02:01:16 -0800
+Date: Fri, 27 Nov 2026 12:01:14 +0200
+From: Zhi Wang <zhiw@nvidia.com>
+To: Danilo Krummrich <dakr@kernel.org>
+CC: Alok Kumar <alkumar@nvidia.com>, <acourbot@nvidia.com>,
+ <kvm@vger.kernel.org>, <rust-for-linux@vger.kernel.org>,
+ <nova-gpu@lists.linux.dev>, <linux-pci@vger.kernel.org>, <alex@shazbot.org>,
+ <jgg@nvidia.com>, <yishaih@nvidia.com>, <skolothumtho@nvidia.com>,
+ <kevin.tian@intel.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <ojeda@kernel.org>, <alex.gaynor@gmail.com>, <boqun.feng@gmail.com>,
+ <gary@garyguo.net>, <bjorn3_gh@protonmail.com>, <lossin@kernel.org>,
+ <a.hindborg@kernel.org>, <aliceryhl@google.com>, <tmgross@umich.edu>,
+ <markus.probst@posteo.de>, <jhubbard@nvidia.com>, <apopple@nvidia.com>,
+ <joelagnelf@nvidia.com>, <ecourtney@nvidia.com>, <cjia@nvidia.com>,
+ <smitra@nvidia.com>, <kjaju@nvidia.com>, <ankita@nvidia.com>,
+ <aniketa@nvidia.com>, <kwankhede@nvidia.com>, <targupta@nvidia.com>,
+ <linux-kernel@vger.kernel.org>, <zhiw@nvidia.com>, <boqun@kernel.org>,
+ <daniel.almeida@collabora.com>, <tamird@kernel.org>, <work@onurozkan.dev>,
+ <jgg@ziepe.ca>, <bhelgaas@google.com>, <kwilczynski@kernel.org>,
+ <dri-devel@lists.freedesktop.org>, <peter@colberg.org>, <xinmengs@nvidia.com>
+Subject: Re: [PATCH v5 12/35] gpu: nova-core: mm: add VramBlock
+Message-ID: <20261127120106.6f63485d@inno-dell>
+In-Reply-To: <DN5HKLQK65L0.1L9NVW750P85W@kernel.org>
+References: <20261124135937.18583-1-alkumar@nvidia.com>
+ <20261124135937.18583-13-alkumar@nvidia.com>
+ <DN5HKLQK65L0.1L9NVW750P85W@kernel.org>
+X-Mailer: Claws Mail 4.3.1 (GTK 3.24.52; x86_64-pc-linux-gnu)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 5/9] media: venus: migrate firmware loading to
- qcom_mdt_pas_load() and qcom_pas_prepare_and_auth_reset()
-To: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
- Sumit Garg <sumit.garg@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Mauro Carvalho Chehab
- <mchehab@kernel.org>,
- Alex Elder <elder@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Jeff Johnson <jjohnson@kernel.org>,
- Mathieu Poirier <mathieu.poirier@linaro.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Sean Paul <sean@poorly.run>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-media@vger.kernel.org, netdev@vger.kernel.org,
- linux-wireless@vger.kernel.org, ath12k@lists.infradead.org,
- linux-remoteproc@vger.kernel.org
-References: <20261116162148.2864501-1-mukesh.ojha@oss.qualcomm.com>
- <20261116162148.2864501-6-mukesh.ojha@oss.qualcomm.com>
-Content-Language: en-US
-From: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
-In-Reply-To: <20261116162148.2864501-6-mukesh.ojha@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="US-ASCII"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: 0UKa_QR9smoGAdvlUi28031tu_uN8LVJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMTI3MDAzOSBTYWx0ZWRfX6A4nY9I1PWcD
- z02rTzMAPXgt38JaP7qyu8hWA/bqAJw4D034xfUCVxm7yr9A1uddd5wCanE4Zpd1SD2/9/WnK/U
- EXGdvxqr0/H1NK8kZnlOsJogMq5DwdKd3tv46aQPEdZk356OXb/6qANFiHTdEhNpj0eUReqKzYS
- KCTfAiY5+Ac4OKYtI1LvWINXN+DTAfFxOzE4UhMb6ioTTaDbipFf1K4ffyfiIEWNrOl1XqNeo98
- 3HuQkAMxCSNWvB+WVBwzxWeIqm/XiCTnGpOa17tdlgSPF0flVV1VbSdenfRwI6iRDaxAwlArQd1
- RSZVNQQLoAVAp2zkF0ROLqi3Go8EMc5BfoysZJuh2e1Lg4mbC2leAgjNlFuCKf6TgPG+mned43K
- JkLBVh3f/1UajDEiazgQjXB1LfOVbDryPgXBqVrLPs5Dw7LzcMZ7DxCBo2U2iEzY1GcvaoKKh1S
- mzyuEAg6Ri9BnxQ7abQ==
-X-Authority-Analysis: v=2.4 cv=cpkOAF4i c=1 sm=1 tr=0 ts=6b09545c cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=zJRp6_cAMcgA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=qTQABE6tYUUe6KctvrYA:9 a=+jEqtf1s3R9VXZ0wqowq2kgwd+I=:19
- a=QEXdDO2ut3YA:10 a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMTI3MDAzOSBTYWx0ZWRfX7NSdtYRrFcJm
- m5oXX1FMlcPyAFrIkhQ5VasoVp8QDtaO48yhhTSkgg6+ISpAHyl/4IoLcsC2zNTLgOOZWtoS3eJ
- wo/8q5V7ddRWdZ5IqsxzNDcQ+dkXn6Y=
-X-Proofpoint-GUID: 0UKa_QR9smoGAdvlUi28031tu_uN8LVJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.138,FMLib:17.12.100.49
- definitions=2026-11-27_01,2026-11-26_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 priorityscore=1501 spamscore=0 phishscore=0
- suspectscore=0 malwarescore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2611040001 definitions=main-2611270039
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH7PEPF00000017:EE_|DS2PR12MB9590:EE_
+X-MS-Office365-Filtering-Correlation-Id: ea6f90ef-a66d-4e2b-cad1-08df4c6d71b7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;
+ ARA:13230040|23010399003|7416014|376014|36860700016|82310400026|1800799024|10067099003|11063799006|4143699003|261022105027099003|56012099006|261026140227099003|261021121427099003|261102123227099003|261028144727099003|261026121527099003|18002099003|261009223027099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info: RWaKKCeTx/dM1sI3YzWoWaq57o5tUQLXVjioVZwiMiw3ZlBVUE7ZsoHaYB//K/UL3cRTNBTSZiWZmbFBvSeDEmO158vNLNmef3RXgVXkj49fjKq0Tz9jMq7D5uFTucCdni0dr1r+DbeZ3MJ4x9ZWxqYfShZXOCA8imOaPLQATLXa+u2wKezEBYqdpRfxzA9SJfYDZLPt78Z5w2Lvs/4E+2nNKOghUz38+hXOrwFtU0p5V4bcDzPJH0vrxjwD+12jRpYa4tPqgyR6L+q7/ja9MsWCUfr4xCxMYJb6e4KBkHdW1FArfq20oyzQpygFHJMrRGtJj5zyaG8YYCiLWsLXAJoRyxfajCv4N9k8euvBN67Me9yYgngpk/Rk126OTHpsUHhgZpeFFCemRnHTMrpV/Nuoly/qERyDK16qD4jdc87Ypeh+S2U0f/k5N2jyVQDm5EESbxb3eZhhQMaZgOz+YN0cjgWNBlYYtBG+CTGDz3mTTDB+2OBhIR9i2x2LI+ZSxttmCwHcaTTPXC35lAYvg0mDM3l16eSywg8MvVmkgs9N1X4u7tnprB0tBPjjF+/XHx/lUuVfpu0PQqW4bgNfLbPOpJP9YWR4rqnhiJEfpISvfs99jj2iOzAXtgc6y4RUei0sxAfKV2TGMxjmh3nb1pEGrjBrQKufMjR+6Bd8m/ayHOv2Tfe+jy0nnVn/fhtGJf1o9pUwSpVugY3B4K3MGQ==
+X-Forefront-Antispam-Report: CIP:216.228.117.160; CTRY:US; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:mail.nvidia.com; PTR:dc6edge1.nvidia.com; CAT:NONE;
+ SFS:(13230040)(23010399003)(7416014)(376014)(36860700016)(82310400026)(1800799024)(10067099003)(11063799006)(4143699003)(261022105027099003)(56012099006)(261026140227099003)(261021121427099003)(261102123227099003)(261028144727099003)(261026121527099003)(18002099003)(261009223027099003)(22082099003)(13003099007);
+ DIR:OUT; SFP:1101; 
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: tL7ajNcNCeAA+x20392y0qsckveTj5DllMil7v7AqM3cZmBHKx9EQ5dYvQCmNO3J6gzCSFAB5RSN2urRMbQTS+ZhDJEzeWuHhunEOeWhrVXpTCpq13+Tf1MdONYtRTHs43Ya5bzkpaLrEOOwxQSXt0wLTXoza2nU1RLRgQ0nSXN3QcDQsl4/9fpHcuG7Rzm6rHb8kOCc+zkVNqMKfu2/5X+pttsgZW01oUwQ5cACeA8y42V0NstjG9ZO4FnoZjVc1yxuTrm/eTn+bNB9lgzeMv3iAT2ua6ohruGDiI+VwFqQE43s8Ctq5voFdygYk7HlvxBREqdDE0iyeqc1xcRaYGSKPoIwKv7kHBl6n6OF531DSDTozyTtYA/eDVVIfE2CUsku6+EREt6HhW/sZ+3JexhCUBG2k4Xlg0tqKW1iEsd4u3XCxWasdHswEjKiWLw4
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 Nov 2026 10:01:45.1848 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ea6f90ef-a66d-4e2b-cad1-08df4c6d71b7
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a; Ip=[216.228.117.160];
+ Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource: CH7PEPF00000017.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR12MB9590
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,110 +130,130 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-17.3 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	INCLUDES_CR_TRAILER,INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,
-	SPF_PASS,USER_AGENT_SANE_1 autolearn=unavailable autolearn_force=no
-	version=4.0.1
+X-Spam-Status: No, score=-7.3 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
+	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_SANE_2
+	autolearn=no autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
+On Thu, 26 Nov 2026 23:12:47 +0100
+"Danilo Krummrich" <dakr@kernel.org> wrote:
 
-
-On 11/16/2026 9:51 PM, Mukesh Ojha wrote:
-> venus_load_fw() calls qcom_mdt_load(), which bundles metadata
-> initialization, memory setup, and segment loading into a single API that
-> does not expose a PAS context. venus_boot() calls qcom_pas_auth_and_reset()
-> for TrustZone authentication, which is the intended behaviour. However, a
-> new qcom_mdt_pas_load() has recently been introduced that works with a PAS
-> context and can handle everything qcom_mdt_load() provides, along with
-> additional functionality such as shmbridge creation and retrieving memory
-> from the shmbridge buffer when the same remote processor needs to run while
-> Linux runs at EL2.
+> On Tue Nov 24, 2026 at 2:59 PM CET, Alok Kumar wrote:
+> > +/// A physically contiguous VRAM allocation.
+> > +///
+> > +/// # Invariants
+> > +///
+> > +/// `range.start <= range.end`.
+> > +pub(crate) struct VramBlock {
+> > +    _blocks: Pin<KBox<AllocatedBlocks>>,
+> > +    range: Range<u64>,
+> > +}
 > 
-> Embed a struct qcom_pas_context in struct video_firmware and initialize
-> it with qcom_pas_context_init() inside venus_load_fw() on each call.
-> Replace qcom_mdt_load() with qcom_mdt_pas_load() for the TZ path and
-> replace qcom_pas_auth_and_reset() with qcom_pas_prepare_and_auth_reset().
-> The non-TZ path retains its memremap()/qcom_mdt_load_no_init()/memunmap()
-> sequence since qcom_mdt_load_no_init() requires a caller-supplied mapping.
+> This allocation seems unnecessary, VramBlock can itself be
+> constructed as pin initializer...
 > 
-> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/venus/core.h     |  2 ++
->  drivers/media/platform/qcom/venus/firmware.c | 29 ++++++++++----------
->  2 files changed, 17 insertions(+), 14 deletions(-)
+
+make sense.
+
+> > +
+> > +impl VramBlock {
+> > +    /// Returns the range covered by this VRAM block.
+> > +    pub(crate) const fn range(&self) -> &Range<u64> {
+> > +        &self.range
+> > +    }
+> > +}
+
+snip
+
+> > +        Ok(Arc::new(
+> > +            VramBlock {
+> > +                _blocks: blocks,
+> > +                // INVARIANT: `range.start <= range.end` was
+> > checked above, hence
+> > +                // `address <= end`.
+> > +                range: start..end,
+> > +            },
+> > +            GFP_KERNEL,
+> > +        )?)
 > 
-> diff --git a/drivers/media/platform/qcom/venus/core.h b/drivers/media/platform/qcom/venus/core.h
-> index 93fa77f05834..84a0d4a8426c 100644
-> --- a/drivers/media/platform/qcom/venus/core.h
-> +++ b/drivers/media/platform/qcom/venus/core.h
-> @@ -10,6 +10,7 @@
->  #include <linux/bitops.h>
->  #include <linux/dma-mapping.h>
->  #include <linux/list.h>
-> +#include <linux/firmware/qcom/qcom_pas.h>
->  #include <media/videobuf2-v4l2.h>
->  #include <media/v4l2-ctrls.h>
->  #include <media/v4l2-device.h>
-> @@ -228,6 +229,7 @@ struct venus_core {
->  		size_t mapped_mem_size;
->  		phys_addr_t mem_phys;
->  		size_t mem_size;
-> +		struct qcom_pas_context pas_ctx;
->  	} fw;
->  	struct mutex lock;
->  	struct list_head instances;
-> diff --git a/drivers/media/platform/qcom/venus/firmware.c b/drivers/media/platform/qcom/venus/firmware.c
-> index 3a38ff985822..704343e241dc 100644
-> --- a/drivers/media/platform/qcom/venus/firmware.c
-> +++ b/drivers/media/platform/qcom/venus/firmware.c
-> @@ -117,21 +117,22 @@ static int venus_load_fw(struct venus_core *core, const char *fwname,
->  		goto err_release_fw;
->  	}
->  
-> -	mem_va = memremap(*mem_phys, *mem_size, MEMREMAP_WC);
-> -	if (!mem_va) {
-> -		dev_err(dev, "unable to map memory region %pa size %#zx\n", mem_phys, *mem_size);
-> -		ret = -ENOMEM;
-> -		goto err_release_fw;
-> -	}
-> -
-> -	if (core->use_tz)
-> -		ret = qcom_mdt_load(dev, mdt, fwname, VENUS_PAS_ID,
-> -				    mem_va, *mem_phys, *mem_size, NULL);
-> -	else
-> +	if (core->use_tz) {
-> +		qcom_pas_context_init(&core->fw.pas_ctx, dev, VENUS_PAS_ID,
-> +				      *mem_phys, *mem_size);
-> +		ret = qcom_mdt_pas_load(&core->fw.pas_ctx, mdt, fwname, NULL);
-> +	} else {
-> +		mem_va = memremap(*mem_phys, *mem_size, MEMREMAP_WC);
-> +		if (!mem_va) {
-> +			dev_err(dev, "unable to map memory region %pa size %#zx\n",
-> +				mem_phys, *mem_size);
-> +			ret = -ENOMEM;
-> +			goto err_release_fw;
-> +		}
->  		ret = qcom_mdt_load_no_init(dev, mdt, fwname, mem_va,
->  					    *mem_phys, *mem_size, NULL);
-> -
-> -	memunmap(mem_va);
-> +		memunmap(mem_va);
-> +	}
->  err_release_fw:
->  	release_firmware(mdt);
->  	return ret;
-> @@ -237,7 +238,7 @@ int venus_boot(struct venus_core *core)
->  	core->fw.mem_phys = mem_phys;
->  
->  	if (core->use_tz)
-> -		ret = qcom_pas_auth_and_reset(VENUS_PAS_ID);
-> +		ret = qcom_pas_prepare_and_auth_reset(&core->fw.pas_ctx);
->  	else
->  		ret = venus_boot_no_tz(core, mem_phys, mem_size);
->  
+> To me it seems that reference counting is not needed here.
+> 
 
-Thanks for addressing the earlier comments.
+This patch was cooked long time before the VgpuVramSlotPool and mm
+settled. At that time I didn't know how the final ownership view will
+look like among those components. So I just put an Arc to ensure the
+backing allocation stayed alive for as long as any region or BAR
+mapping needed it, without tying those users to a particual owner's
+lifetime at that stage.
 
-Reviewed-by: Gourav Kumar <gourav.kumar@oss.qualcomm.com>
+And you are right, looking at the current ownership view, there
+shouldn't be any user of the backing allocation needs to outlive struct
+VgpuInstances at this time so we can definitely remove the Arc. 
+
+> AFAICS, a VramBlock does not actually have shared ownership, it is
+> owned by the VgpuVramSlotPool of the VgpuInstances.
+> 
+> A VgpuInstance owns a VgpuVramSlot, and a VgpuVramSlot owns a
+> VramRegion. The VramRegion borrows (a range) from the
+> VgpuVramSlotPool's VramBlock.
+> 
+> Finally, a BarMapping (also owned by a VgpuInstance) also borrows
+> from the VgpuVramSlotPool's VramBlock.
+> 
+> Do I miss anything? I tried to double check and asked my clanker to
+> inline all the relevant structures, and it came up with this:
+> 
+> 	struct VgpuInstances {
+> 	    vram_slots: Option<VgpuVramSlotPool {
+> 	        backing: VramBlock {
+> 	            _blocks: Pin<KBox<AllocatedBlocks {
+> 	                buddy: &'mm GpuBuddy,
+> 	                // Allocated buddy blocks.
+> 	            }>>,
+> 	            range: Range<u64>,
+> 	        },
+> 	        layout: VgpuVramLayout,
+> 	        fb_region_size: u64,
+> 	    }>,
+> 	
+> 	    instances: KVec<VgpuInstance {
+> 	        vram_slot: VgpuVramSlot {
+> 	            index: u32,
+> 	            fbmem: VramRegion {
+> 	                backing: &'pool VramBlock,
+> 	                range: Range<u64>,
+> 	            },
+> 	            mgmt_heap: VramRegion {
+> 	                backing: &'pool VramBlock,
+> 	                range: Range<u64>,
+> 	            },
+> 	        },
+> 	
+> 	        plugin_rpc: PluginRpc {
+> 	            comm: CommBufferRegion {
+> 	                map: BarMapping {
+> 	                    region: VramRegion {
+> 	                        backing: &'pool VramBlock,
+> 	                        range: Range<u64>,
+> 	                    },
+> 	                    access: BarUserAccess {
+> 	                        bar_user: &BarUser,
+> 	                        mapped: Option<MappedRange>,
+> 	                    },
+> 	                    mm: &SharedGpuMm,
+> 	                    unmap_error: Option<Error>,
+> 	                },
+> 	            },
+> 	            // Other RPC state omitted.
+> 	        },
+> 	    }>,
+> 	}
+> 
+> (In case you wonder why it says &'a GpuBuddy for AllocatedBlocks, I
+> have [1] applied locally.)
+> 
+> [1]
+> https://lore.kernel.org/nova-gpu/20261126221108.3768637-1-dakr@kernel.org/
+
