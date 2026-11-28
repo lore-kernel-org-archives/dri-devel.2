@@ -2,53 +2,45 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828F4606A31E
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 02:56:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5533E606A31C
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 04:40:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.a=rsa-sha256 header.s=k20260515 header.b=UbwTPt+3
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=linux.dev header.i=@linux.dev header.a=rsa-sha256 header.s=key1 header.b=LtdIVG8b
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 9445210E0AD;
-	Sat, 28 Nov 2026 02:56:41 +0000 (UTC)
-Received: from sea.source.kernel.org (sea.source.kernel.org [172.234.252.31])
- by gabe.freedesktop.org (Postfix) with ESMTPS id AAA2510E0AD
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 02:56:35 +0000 (UTC)
-Received: from smtp.kernel.org (quasi.space.kernel.org [100.103.45.18])
- by sea.source.kernel.org (Postfix) with ESMTP id 1EC4A4515C;
- Sat, 28 Nov 2026 02:56:35 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0244E1F00893;
- Sat, 28 Nov 2026 02:56:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
- s=k20260515; t=1795834595;
- bh=ELNJWFrp6A2ceYEBWbEQ7UunFlfCLSDDrYpDdL891Xs=;
- h=Subject:From:In-Reply-To:References:Date:To:Cc;
- b=UbwTPt+3Q8dmpLPqzt6hFWFIReTZempSpDftH6UvUGlbpoPC1eyhr37C0qqSQA+rr
- W1gFoDO7keuEXUr8ceAtpnErnAU6P6eYUCpLIhxctPggcBeSSiIrCZCWIyQ9m658cv
- cTACXAn+1fX4kNeGh3hxNgXAJw5z8wdqzbKSrjXEg1ae//0mh9qqfwEQankWBv2WL9
- i4hJe9Q59XJoNKlXw1nuLIf7/aT0UXVjWOUxQmv9XhAehUfKinOnseYRnZwXhXf4hs
- EMWBl7jxqgNluo/jRk133LYPp4Dpi/eHm9G8SPJ03507yju1EY6M844atb34mjxOH7
- uCKk3cM+Roz0Q==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
- by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id
- EB9B0392707B; Sat, 28 Nov 2026 02:56:34 +0000 (UTC)
-Subject: Re: [git pull] drm fixes for 7.4-rc5
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <CAPM=9tw3Esbfcq+zcZyg80J9_1FaFLKD1S-83DstzL=WfrRbpA@mail.gmail.com>
-References: <CAPM=9tw3Esbfcq+zcZyg80J9_1FaFLKD1S-83DstzL=WfrRbpA@mail.gmail.com>
-X-PR-Tracked-List-Id: Direct Rendering Infrastructure - Development
- <dri-devel.lists.freedesktop.org>
-X-PR-Tracked-Message-Id: <CAPM=9tw3Esbfcq+zcZyg80J9_1FaFLKD1S-83DstzL=WfrRbpA@mail.gmail.com>
-X-PR-Tracked-Remote: https://gitlab.freedesktop.org/drm/kernel.git
- tags/drm-fixes-2026-11-28
-X-PR-Tracked-Commit-Id: e1dc9c441d4a92a54833c85b44c1ee474afaf57b
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: c639ac6b9cf100b860408a3cf8d7eab268866cd7
-Message-Id: <179583459350.1775590.14559442489230836761.pr-tracker-bot@kernel.org>
-Date: Sat, 28 Nov 2026 02:56:33 +0000
-To: Dave Airlie <airlied@gmail.com>
-Cc: Linus Torvalds <torvalds@linux-foundation.org>, Sima Vetter <sima@ffwll.ch>,
- dri-devel <dri-devel@lists.freedesktop.org>,
- LKML <linux-kernel@vger.kernel.org>
+	by gabe.freedesktop.org (Postfix) with ESMTP id 756FC10E104;
+	Sat, 28 Nov 2026 04:40:00 +0000 (UTC)
+X-Greylist: delayed 85733 seconds by postgrey-1.36 at gabe;
+ Sat, 28 Nov 2026 04:39:54 UTC
+Received: from mta1.migadu.com (out-153.mta1.migadu.com [95.215.58.153])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 1060710E104
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 04:39:53 +0000 (UTC)
+X-Envelope-To: dri-devel@lists.freedesktop.org
+DKIM-Signature: a=rsa-sha256; bh=/KtrdqgSMxLfjdJO9L89s3kUAEIgOvl98/T2RWkfGzI=; 
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1795840791; v=1; x=1796445591;
+ b=LtdIVG8bh0hwGE2YVGQvJhTQgI8w+hmEZqyQ/ex3rGA4qqGlDVXmwOzN0+aozVfNC6KhTmb8
+ 4GCHTmW8W0EoZ5gWibN+PodSv3GUVgaaQd+otbdio5wHzZnle5J2Z0tCH1ig/r+tQVBJ9LyhbHX
+ iNRTYDWB1JuKFERU0IKTH+zs=
+X-Envelope-To: dri-devel@lists.freedesktop.org
+Received: by smtp.migadu.com with ESMTPS id 19db7fbb5df56346;
+ Sat, 28 Nov 2026 04:39:51 +0000
+X-Mizu-Trace-ID: 19db7fbb5df56346
+X-Migadu-Flow: FLOW_OUT
+From: Junjie Cao <junjie.cao@linux.dev>
+To: blum@kernel.org
+Cc: lee@kernel.org, danielt@kernel.org, jingoohan1@gmail.com, deller@gmx.de,
+ mitltlatltl@gmail.com, dri-devel@lists.freedesktop.org,
+ linux-fbdev@vger.kernel.org, junjie.cao@linux.dev
+Subject: Re: [PATCH v2] backlight: aw99706: Clamp negative brightness values
+Date: Fri, 27 Nov 2026 22:39:47 -0600
+Message-ID: <20261128043947.1375645-1-junjie.cao@linux.dev>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261127103341.663905-3-blum@kernel.org>
+References: <20261127103341.663905-3-blum@kernel.org>
+X-Archived-By: <archiver.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -60,23 +52,11 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-10.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
-	DKIM_SIGNED,DKIM_VALID,DKIM_VALID_AU,HEADER_FROM_DIFFERENT_DOMAINS,
-	MAILING_LIST_MULTI,MENTIONS_GIT_HOSTING,SPF_HELO_NONE,SPF_PASS
-	autolearn=ham autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-11.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,USER_AGENT_GIT
+	autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
-X-Archived-By: <archiver.kernel.org>
 
-The pull request you sent on Sat, 28 Nov 2026 09:04:35 +1000:
-
-> https://gitlab.freedesktop.org/drm/kernel.git tags/drm-fixes-2026-11-28
-
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/c639ac6b9cf100b860408a3cf8d7eab268866cd7
-
-Thank you!
-
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+Reviewed-by: Junjie Cao <junjie.cao@linux.dev>
