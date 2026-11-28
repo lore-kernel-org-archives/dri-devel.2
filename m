@@ -2,44 +2,44 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69A92606A69A
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 02:16:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 873C4606A690
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 02:16:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=TCsPX9XZ
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aAw2PTrR
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 6144F112E83;
-	Sat, 28 Nov 2026 02:16:22 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C026610EB25;
+	Sat, 28 Nov 2026 02:16:27 +0000 (UTC)
 Received: from sender6-op-o11.zoho.com (sender6-op-o11.zoho.com
  [165.173.180.11])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 7E126112BF7
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 02:16:03 +0000 (UTC)
-ARC-Seal: i=1; a=rsa-sha256; t=1795832160; cv=none; 
+ by gabe.freedesktop.org (Postfix) with ESMTPS id C66B9112E77
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 02:16:15 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795832174; cv=none; 
  d=zohomail.com; s=zohoarc; 
- b=U9Pj2eFJtICiMDDxxOJXfm6WGMq/1PkP08GnEHKcbFyMiNwoPY7ZmrXgOo/kN/8RKxYunmJdK8Tbuv5QDFUQteQblBszt+Q3mEDV44My91Z3wvHIFXFcwJD3o+flUV+y8fBal90iTdkXekYUXl8nJKa3KID9Q//faDwKZ2vtlvM=
+ b=mP2at//5/FGy9jote8+ecpOKonzuEdX2Lf5H2rxhSkY5Z3OAu+WYq30az92B08yIYDCko72JfVgXw2A7qUBOMEollppzsFbUeD8KnJjIKU4RNGm3Ab+9JT/nvPGgw8s07cBAiw3eqHaJDiIbTuhNmOpO/UliGhDj9HTL96/IlDA=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
- s=zohoarc; t=1795832160;
+ s=zohoarc; t=1795832174;
  h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
- bh=SGS1yjurF129s3EEICocuiqZDqlPa+vzexrsONiPJ5E=; 
- b=F5qGpTm2yPA6gs3lB/msTy1QTwIkHWskjdprzuZ/2WiwLngR6YU3i1f3a4zBXeNTm8jMIdcZvYgQsoYrY2Rbl2REm6ULdsjDOtD4s2UsUxpiUfkjJv1IORRbsG2CoFCoub1ImIVp8tHKSN7EUhD6cEeIq1eb1xEb45D1v+8OAvQ=
+ bh=kA1PAQNXubjiqx5Cvaqa2i6f3lZjlznUI6bg/jd6Fac=; 
+ b=Tc8LJJrMqEhvxNmWCaXVPhPC7lJfWdxpFkFFVRB2tiEsUiOwZqS262/TGLyjsDg/THhhYFnawn6cijXibAzEBNzK3RS1AjJVeA0WI4MN5j1ktoXD7lGQEKY2XO58FEIsbAzzAe+g7E9ymi9i/w1IcznMd9jRWAkJTaoTgLohM+o=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
  dkim=pass  header.i=collabora.com;
  spf=pass  smtp.mailfrom=daniel.almeida@collabora.com;
  dmarc=pass header.from=<daniel.almeida@collabora.com>
 DKIM-Signature: a=rsa-sha256;
- b=TCsPX9XZHywy70OAeYXt/Yao35tC62828iaSwUFv6lGbo7O/xvnQFWvq3uoVaPX1o8by9pQg6QnvHzB1BEgH/sTqcoZYYexqin9P1r2En+gF/F+wz2IgzLhr00GHR6PzOK/LNANbFhFvHI99IvvaLXRVrydJPo2DkS2oR8WOVXE=;
+ b=aAw2PTrRHN0VBSkfgpdXCHbQaqQZ0Ma7NQdfbz1fuBwZL29gNPL1zl7JP3Z4dNiYxWWhru+LsnjNXP7e57+1fJKwzOTiRdKVImENC5Jr8GdrEJTWPgYF/UHHF9ff0XsX5v+J73UcY4I6YrJCRyGbkjEDiCT09tXnAqo4hlamRiY=;
  c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
- bh=SGS1yjurF129s3EEICocuiqZDqlPa+vzexrsONiPJ5E=;
+ bh=kA1PAQNXubjiqx5Cvaqa2i6f3lZjlznUI6bg/jd6Fac=;
  h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
-Received: by smtp.zohomail.com with SMTPS id 1795832158182751.9359826466103;
- Fri, 27 Nov 2026 18:15:58 -0800 (PST)
+Received: by smtp.zohomail.com with SMTPS id 1795832172540715.9887203570161;
+ Fri, 27 Nov 2026 18:16:12 -0800 (PST)
 From: Daniel Almeida <daniel.almeida@collabora.com>
-Date: Fri, 27 Nov 2026 23:15:38 -0300
-Subject: [PATCH 1/9] drm/tyr: request the mmu IRQ
+Date: Fri, 27 Nov 2026 23:15:43 -0300
+Subject: [PATCH 6/9] drm/tyr: do not issue a cache flush while one is pending
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261127-tyr-mmu-irq-v1-1-2fcb9f9465cd@collabora.com>
+Message-Id: <20261127-tyr-mmu-irq-v1-6-2fcb9f9465cd@collabora.com>
 References: <20261127-tyr-mmu-irq-v1-0-2fcb9f9465cd@collabora.com>
 In-Reply-To: <20261127-tyr-mmu-irq-v1-0-2fcb9f9465cd@collabora.com>
 To: Danilo Krummrich <dakr@kernel.org>, Alice Ryhl <aliceryhl@google.com>, 
@@ -65,174 +65,75 @@ Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
 X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
 	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
 	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
-	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
+	USER_AGENT_GIT autolearn=ham autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-The mmu IRQ reports page faults and completed commands for each address
-space. Tyr does not request it, so nothing can report an mmu page fault.
+When a cache flush times out, the next call to flush_caches() issues a
+new FLUSH_CACHES while the first one may still be pending, which has an
+undefined result in the hardware.
 
-Add MmuIrq, a TyrIrqTrait implementation for the MMU_CONTROL IRQ
-registers, and request the "mmu" interrupt in probe before the firmware
-is loaded. Keep the registration in TyrDrmRegistrationData ahead of the
-clocks and regulators, since dropping it writes the IRQ mask through
-MMIO, which needs them enabled.
-
-All interrupt sources stay masked for now. The next patch unmasks and
-reports page faults.
+Track the pending flush and return -EIO until the gpu reports it
+complete, like panthor does since commit 3c0a60195b37 ("drm/panthor:
+Recover from panthor_gpu_flush_caches() failures").
 
 Signed-off-by: Daniel Almeida <daniel.almeida@collabora.com>
 ---
- drivers/gpu/drm/tyr/driver.rs  | 18 +++++++++-
- drivers/gpu/drm/tyr/mmu.rs     |  1 +
- drivers/gpu/drm/tyr/mmu/irq.rs | 77 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 95 insertions(+), 1 deletion(-)
+ drivers/gpu/drm/tyr/mmu/address_space.rs | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
 
-diff --git a/drivers/gpu/drm/tyr/driver.rs b/drivers/gpu/drm/tyr/driver.rs
-index 9aa536b16972..44ff1f522902 100644
---- a/drivers/gpu/drm/tyr/driver.rs
-+++ b/drivers/gpu/drm/tyr/driver.rs
-@@ -34,7 +34,14 @@
-     fw::Firmware,
-     gem::Bo,
-     gpu::GpuInfo,
--    mmu::Mmu,
-+    irq::TyrIrqRegistration,
-+    mmu::{
-+        irq::{
-+            mmu_irq_init,
-+            MmuIrq, //
-+        },
-+        Mmu, //
-+    },
-     regs::gpu_control::*,
-     reset, //
- };
-@@ -73,6 +80,10 @@ pub(crate) struct TyrDrmRegistrationData<'drm> {
-     /// Firmware sections.
-     pub(crate) fw: Firmware<'drm>,
+diff --git a/drivers/gpu/drm/tyr/mmu/address_space.rs b/drivers/gpu/drm/tyr/mmu/address_space.rs
+index d266beec7b40..fc617f282cbe 100644
+--- a/drivers/gpu/drm/tyr/mmu/address_space.rs
++++ b/drivers/gpu/drm/tyr/mmu/address_space.rs
+@@ -167,6 +167,9 @@ pub(crate) struct AddressSpaceManager<'drm> {
  
-+    // `TyrIrqRegistration::drop()` writes to the GPU registers, so keep this
-+    // field before the clocks and regulators.
-+    _mmu_irq: Pin<KBox<TyrIrqRegistration<'drm, MmuIrq>>>,
+     /// Bitmask of present address space slots from GPU_AS_PRESENT register.
+     as_present: u32,
 +
-     #[pin]
-     clks: Mutex<Clocks>,
++    /// Whether a cache flush was issued and its completion has not been seen yet.
++    flush_pending: bool,
+ }
  
-@@ -142,6 +153,10 @@ fn probe<'bound>(
+ impl<'drm> AddressSpaceManager<'drm> {
+@@ -191,6 +194,7 @@ pub(super) fn new(
+             dev,
+             hw,
+             as_present,
++            flush_pending: false,
+         })
+     }
  
-             let mmu = Mmu::new(pdev.as_ref(), hw.clone(), &gpu_info)?;
+@@ -448,13 +452,21 @@ fn as_flush(&mut self, io: &IoMem<'_>, as_nr: usize) -> Result {
+     /// Cleans and invalidates the L2 and load/store caches, and waits until that completes.
+     ///
+     /// Taking `&mut self` keeps calls from overlapping.
++    /// A flush that timed out may still be pending, and issuing another one then has an undefined
++    /// result, so after such a flush the next ones fail with EIO until the GPU reports its
++    /// completion.
+     fn flush_caches(&mut self, io: &IoMem<'_>) -> Result {
++        if self.flush_pending && !io.read(GPU_IRQ_RAWSTAT).clean_caches_completed() {
++            return Err(EIO);
++        }
++
+         io.write_reg(GPU_IRQ_CLEAR::zeroed().with_clean_caches_completed(true));
+         io.write_reg(GPU_COMMAND::flush_caches(
+             FlushMode::CleanInvalidate,
+             FlushMode::CleanInvalidate,
+             FlushMode::None,
+         ));
++        self.flush_pending = true;
  
-+            // SAFETY: The registration ends up in `TyrDrmRegistrationData`, which `_reg`
-+            // drops at unbind, and every error path before that drops it.
-+            let mmu_irq = unsafe { mmu_irq_init(pdev, hw.clone()) }?;
-+
-             let firmware = Firmware::new(
-                 pdev.as_ref(),
-                 hw.clone(),
-@@ -164,6 +179,7 @@ fn probe<'bound>(
-                         // so reset work is drained before borrowed data expires.
-                         reset <- reset::ResetHandle::new(pdev, hw.clone()),
-                         fw: firmware,
-+                        _mmu_irq: mmu_irq,
-                         clks <- new_mutex!(Clocks {
-                             core: core_clk,
-                             stacks: stacks_clk,
-diff --git a/drivers/gpu/drm/tyr/mmu.rs b/drivers/gpu/drm/tyr/mmu.rs
-index adac036744a3..f095c3374e3a 100644
---- a/drivers/gpu/drm/tyr/mmu.rs
-+++ b/drivers/gpu/drm/tyr/mmu.rs
-@@ -42,6 +42,7 @@
- };
+         // The GPU IRQ leaves CLEAN_CACHES_COMPLETED masked, so its handler does
+         // not clear the bit under this poll.
+@@ -466,6 +478,7 @@ fn flush_caches(&mut self, io: &IoMem<'_>) -> Result {
+         )
+         .inspect_err(|_| dev_err!(self.dev, "GPU cache flush timed out\n"))?;
  
- pub(crate) mod address_space;
-+pub(crate) mod irq;
- 
- pub(crate) type AsSlotManager<'drm> = SlotManager<AddressSpaceManager<'drm>, MAX_AS>;
- 
-diff --git a/drivers/gpu/drm/tyr/mmu/irq.rs b/drivers/gpu/drm/tyr/mmu/irq.rs
-new file mode 100644
-index 000000000000..7f8b02613e9e
---- /dev/null
-+++ b/drivers/gpu/drm/tyr/mmu/irq.rs
-@@ -0,0 +1,77 @@
-+// SPDX-License-Identifier: GPL-2.0 or MIT
-+
-+//! IRQ handling for the MMU IRQ.
-+//!
-+//! The MMU IRQ reports page faults and completed commands for each address space.
-+
-+use kernel::{
-+    device::Bound,
-+    io::Io,
-+    platform,
-+    prelude::*,
-+    sync::Arc, //
-+};
-+
-+use crate::{
-+    driver::IoMem,
-+    irq::{
-+        TyrIrqRegistration,
-+        TyrIrqTrait, //
-+    },
-+    regs::mmu_control::{
-+        IRQ_CLEAR,
-+        IRQ_MASK,
-+        IRQ_RAWSTAT,
-+        IRQ_STATUS, //
-+    },
-+    reset::HwGate, //
-+};
-+
-+/// The MMU IRQ, signalling events from the address spaces.
-+pub(crate) struct MmuIrq;
-+
-+/// Requests a threaded IRQ registration for the MMU IRQ.
-+///
-+/// # Safety
-+///
-+/// Callers must not `mem::forget()` the resulting registration or otherwise prevent its
-+/// [`Drop`] implementation from running.
-+pub(crate) unsafe fn mmu_irq_init<'a>(
-+    pdev: &'a platform::Device<Bound>,
-+    hw: Arc<HwGate<'a>>,
-+) -> Result<Pin<KBox<TyrIrqRegistration<'a, MmuIrq>>>> {
-+    let mmu_irq = MmuIrq;
-+    // Ensure interrupt sources are disabled until the handler is registered.
-+    mmu_irq.clear_mask(hw.access().iomem());
-+
-+    // SAFETY: The caller guarantees the resulting registration will not be leaked.
-+    unsafe { TyrIrqRegistration::request(pdev, c"mmu", c"tyr-mmu", mmu_irq, hw) }
-+}
-+
-+impl TyrIrqTrait for MmuIrq {
-+    fn read_status(&self, io: &IoMem<'_>) -> u32 {
-+        io.read(IRQ_STATUS).into_raw()
-+    }
-+
-+    fn clear_mask(&self, io: &IoMem<'_>) {
-+        io.write_reg(IRQ_MASK::zeroed());
-+    }
-+
-+    fn reenable_mask(&self, io: &IoMem<'_>) {
-+        io.write_reg(IRQ_MASK::from_raw(self.mask()));
-+    }
-+
-+    fn read_raw_status(&self, io: &IoMem<'_>) -> u32 {
-+        io.read(IRQ_RAWSTAT).into_raw()
-+    }
-+
-+    fn clear_status(&self, io: &IoMem<'_>, status: u32) {
-+        io.write_reg(IRQ_CLEAR::from_raw(status));
-+    }
-+
-+    fn mask(&self) -> u32 {
-+        IRQ_MASK::zeroed().into_raw()
-+    }
-+
-+    fn handle(&self, _status: u32) {}
-+}
++        self.flush_pending = false;
+         Ok(())
+     }
+ }
 
 -- 
 2.56.0
