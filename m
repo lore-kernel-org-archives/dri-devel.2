@@ -2,110 +2,64 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 130E8606A31C
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 07:55:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BEA2606A31C
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 08:43:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.a=rsa-sha256 header.s=20260707 header.b=ex7dUKSB
+	dkim=fail reason="signature verification failed" (1024-bit key, unprotected) header.d=collabora.com header.i=@collabora.com header.a=rsa-sha256 header.s=zohomail header.b=aOKBJJL9
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id 7B13D10E2E5;
-	Sat, 28 Nov 2026 07:55:47 +0000 (UTC)
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com
- [74.125.82.178])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 24CDE10E2E5
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 07:55:41 +0000 (UTC)
-Received: by mail-dy1-f178.google.com with SMTP id
- 5a478bee46e88-33bf40b0c8bso18922264eec.0
- for <dri-devel@lists.freedesktop.org>; Fri, 27 Nov 2026 23:55:41 -0800 (PST)
-ARC-Seal: i=1; a=rsa-sha256; t=1795852540; cv=none;
- d=google.com; s=arc-20260327;
- b=rSm6Sy//rN+5FRrWSx6mX6A39dMMD173YoX2UFQyZ48fvX1nfETsTuAxJ0W3HtCqRa
- hP0Z6PSiE7h0j9MpmSGxD7a3TzAVCD22RiVxvncHNrvFA9ZNS3RhgvfFE1XZGS6+6Qn3
- l+TCtXdmBPqcBz/2EAQ0aBzQeC4SD/K1gTwkgiwh2ue+qVKh7vuMoAWTi8Rw3Nv6QrsA
- EqX2ZjeYmM7MdcoxvNO8SI+uWEnn+45oAMFC4BEUHWWyNDWoufWg4j71yekRWGsSRBNc
- suir+QN3vO5Ygc0TmJ+EwSrFpl0dEXw6U1DxaLShSFFGCPf/LAR6uy9uYj4oyFepA3fm
- WO2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com;
- s=arc-20260327; 
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:dkim-signature;
- bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
- fh=2udiHUIxc01YnE/9UUr4jy7FhzqWD/U/6ikXngtNgLU=;
- b=lilYyR4hVUlc80uWXUTx3OGsrNG8kxRCp446ofJcPJw2INxkChaOCFLGYDTnRiG+hx
- OL91+3VdVZvPEtGRkw9DUBb2T12dR7sJ9o+eCXU+miEgM7jdrdriJQb7Aml67T5dRKm9
- cmx1VVlFS0EbEkvO12IdFdUpwHvQBR4LQIVABubJiWZx1rqIw5Z6a9tns9UBJmXKlh54
- Bi25xJgSXgAorFJgRHmimEC81LNl8JPCK5bqelpH04Znk6Lyp3LqVvPBvBzCSfhURMvU
- Myt0txvyeJJK7JZaTNfT6ug04JfJQkxQApYtuJoVnrHYAswougzy1px7tXS/2GiGL0tH
- HfzQ==; darn=lists.freedesktop.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20260707; t=1795852540; x=1796457340; darn=lists.freedesktop.org;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:from:to:cc:subject
- :date:message-id:reply-to:content-type;
- bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
- b=ex7dUKSBV0B1gI6l+fjwZzvOhglgNYLjuXM+xO7lxZWmQBZdTNhrf5AFk5EpGyNsmy
- S5ibOKOfpSkr3MtOxfifmJFUyVviPNnZUQObXpcniucbSVgq5/lUDK8rp2hHQe1AskPU
- XvIhvffPMYR86iA9gy3z8txNupVt0LYmr49dYnJzHSkjg7DEJOCBo5e/DunzD9RVuLLC
- raMmwFfzEqosIn4xxM5BRwh6akavqruesmsqvFHK8y9EKgcJ7A5eHXkn1dBxG5kuqkjf
- qa+r2BOxWU69etQ+6Tak7mBeV44fI+yt3vYzqatkWRf8X5oYveZ7A5ynTux1Hr3sATAl
- 1Swg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20260707; t=1795852540; x=1796457340;
- h=content-transfer-encoding:content-type:cc:to:subject:message-id
- :date:from:in-reply-to:references:mime-version:x-gm-gg
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
- :content-type;
- bh=kdXJuxT11f4xHYQZt4NsB8ndiDlb6V/GAbpnGwwxv7A=;
- b=sszErG6l8W7dGVeEBI5UHa43HnmdP1cnbu1sDxlQGQXhzdVololMEePPQ2XyhKU8Kt
- GtX3NwUgESPe5QRtzEE1MNqOyk3qARe6vILQJ85+GbZHevaTn3X0SSVhTlPZd+k15nua
- zOuX3jNhdCBFfe6MKZYA8oONm9eQ4WTzQTydrODFNl5IK1eyMprT1Yk/r3HyOanxKhYR
- cS9wPqbD/alT35gikiz/mh7SwziMobkd0xzH7DiIiBjtwBFJGOTfZUW52bJxgksA2uNH
- RRpnJcS/ZM8j95zIOKllv2qhmKlzio9sou1BLxQX8WiQJ3y3Uf1DnkwChQCPjj+uAIxk
- axSA==
-X-Forwarded-Encrypted: i=1;
- AL+hErGWciavi9+UkReIoMZVE9IRpKiHnxFxmoTOPfveKRILPPI5aXdjiQuWoniEUXKwkvpG056ItZduTgo=@lists.freedesktop.org
-X-Gm-Message-State: APuU4Z+r72+d+n+mnIZsUkiIcTjqXDNVq4ignF3isqgdI0apIDbnMFD1
- 1hiivdVVX+4+lI2dnkWGq79q4FQnKOMtvrtRjDslAvIbqs/uxWZlm8C7JPNmZP9PCI8pHMAaMxf
- JqMi1GrxEG/zKoQMs9ze/e7Z/y6QdmPY=
-X-Gm-Gg: AZFdTZcc8JqeULxaW+J5s2v0owUFYc5oEa0Y3AGi0Swo94/ODsgFMagm4pr0NnbuFim
- uzRL+yMR7xDbcWr69y/PF1CBF4mGVLji82z+HFdmoMyVPIN5+DI+JpaUzOh8s2G11pMVyPgWj23
- BI+jYTRzVQsdlZ22XH/UL3Ck5PBKc1nh3SZ9UDBpp6XF88MJ4N/9QhRo4d8+MR5YErLUkgssjzj
- x1frvP9xEAbO4vsR+5xzWE+QWKQ01A43YXX2WwBdVpRwpAr3QsYjikiWq0iHsEqYHZz3ns/1ou+
- d3I7URMOjGUIFdhpKsSYLtR7xOOKf6LC0Df7tApXvRRmwdfPSflhqviiFfE5lc+O7ODy6ts/CCu
- v1Ym62prOOAVXCRVXT8DXctbTusHa7wbq+5xKR07amELQtA2JZvycKLEBXd/tGp+ckQ2Sbi1yRj
- wFNTrqPxxSsBvax7FamSVbyFt9ib92obh5CoPYCFegssFtxfKZ/q4+
-X-Received: by 2002:a05:7301:c005:b0:386:a0c0:5e59 with SMTP id
- 5a478bee46e88-386a0c0757fmr23973057eec.20.1795852540349; Fri, 27 Nov 2026
- 23:55:40 -0800 (PST)
+	by gabe.freedesktop.org (Postfix) with ESMTP id 73BEC10E0FE;
+	Sat, 28 Nov 2026 08:43:01 +0000 (UTC)
+X-Greylist: delayed 904 seconds by postgrey-1.36 at gabe;
+ Sat, 28 Nov 2026 08:42:55 UTC
+Received: from sender6-pp-f112.zoho.com (sender6-pp-f112.zoho.com
+ [165.173.180.112])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id 26A5510E0FE
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 08:42:55 +0000 (UTC)
+ARC-Seal: i=1; a=rsa-sha256; t=1795854459; cv=none; 
+ d=zohomail.com; s=zohoarc; 
+ b=lge2V1phD4GvM4gQNB8EGK7dF7ynTy2agpPqUcb1/lNKxUXH9y9xNedU/Pfi9zRYJKymsFWsPNkSHuAoFbpfUzWvC+16K7/VeUgdAw6DkglmBZeyegwdhgPtJR1Wh8cPKbaKHEoHmrmGER5YIIXMjJXOQ0ya+R9dgRFlGG5Ibkg=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com;
+ s=zohoarc; t=1795854459;
+ h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To;
+ bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=; 
+ b=dzTEpYfKssUTQtUU2BScP5VlOQwhmEApCQ1RBo4LRSkLQQe2rcAkVuWo2c9mwZeOMGNxnOuYDtpqAkXtHIrJnr40Gd60GTwgEo1WtWKeBroz0nTOpIny+dgTv+K4tgi2NKB3kYuUaseSw0oOV8tHfMiB49DF7AUKHu4LWQct9sU=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+ dkim=pass  header.i=collabora.com;
+ spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
+ dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
+DKIM-Signature: a=rsa-sha256;
+ b=aOKBJJL9WEa0777gV9mFC04irkZOzoLx63WhnmTojZtyJW8wV69m2ULPbupODrLl9+NOLTLTrPyTgHI2xvBmKlzRp4UQyoqJkJ2U/6+KCrlis3VuXdqvrtRbZcS5y9bE2kmrk9ziTnhl3psZwudSY3+iFbqfUoRIDhYN469iZSs=;
+ c=relaxed/relaxed; s=zohomail; d=collabora.com; v=1;
+ bh=eWOtYyvFjAz6pp2c8GfRiAyYtqMIExJFiM1D9vtmH+w=;
+ h=Content-Description:Content-ID:Content-Type:Content-Transfer-Encoding:Cc:Date:From:In-Reply-To:List-Subscribe:List-Post:List-Owner:List-Id:List-Archive:List-Help:List-Unsubscribe:MIME-Version:Message-ID:Resent-Sender:Resent-Cc:Resent-Date:Resent-To:Reply-To:Resent-Message-ID:Resent-From:Sender:Subject:To:Date:From:Message-Id:Reply-To:Subject:To:Cc;
+Received: by smtp.zohomail.com with SMTPS id 1795854456395164.46153556574347; 
+ Sat, 28 Nov 2026 00:27:36 -0800 (PST)
+From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Date: Sat, 28 Nov 2026 09:27:07 +0100
+Subject: [PATCH] drm/sched: Sanitise wqueue_start/wqueue_stop/is_stopped
+ interleavings
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
-References: <20261122081820.53199-1-clamor95@gmail.com>
- <CAPVz0n3YEoq5dg4+sHfd74rT8x_R9DEv1eTzW7UHVKEABGa-BQ@mail.gmail.com>
- <CAPVz0n1xeNP=rv3qDMG06aSWRLTVvCfuo5tFyt9fz7KDTySV0A@mail.gmail.com>
- <kaWzD58LSXePk8E_XcD28g@nvidia.com>
-In-Reply-To: <kaWzD58LSXePk8E_XcD28g@nvidia.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Sat, 28 Nov 2026 09:55:28 +0200
-X-Gm-Features: Aa3M54oteGux7ycBFDqaQLj_8yYFVhcMiRkeiuuEM4I0oXp7dJIyrqrkoXPQNzA
-Message-ID: <CAPVz0n2S=LVqgXdQsFX-A3q92YNpEu-S_NWm5Sf1uYJexEEkhQ@mail.gmail.com>
-Subject: Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based
- on bus flags
-To: Mikko Perttunen <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, 
- Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, 
- dri-devel@lists.freedesktop.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261128-drm-sched-fini-race-v1-1-9803ee8aa8b4@collabora.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWNwQ6CMBBEf4Xs2Y22Jqj8iuHQbhdZk4J2izEh/
+ LtF9DYvmXkzg3ISVmiqGRK/RGUcCphdBdS74cYooTDYg62NsUcMKaJSzwE7GQSTI8YLmWDd2Xt
+ /qqEsH4k7eX+t13ZjnfydKa+qXyPxcyp3eauBd8pIY4ySm2o9iaK0/wfcfO2yfAC6GHh5sgAAA
+ A==
+X-Change-ID: 20261123-drm-sched-fini-race-9c1d2a8bbb76
+To: Boris Brezillon <boris.brezillon@collabora.com>, 
+ Matthew Brost <matthew.brost@intel.com>, Danilo Krummrich <dakr@kernel.org>, 
+ Philipp Stanner <phasta@kernel.org>, 
+ =?utf-8?q?Christian_K=C3=B6nig?= <ckoenig.leichtzumerken@gmail.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Luben Tuikov <luben.tuikov@amd.com>
+Cc: dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, stable@vger.kernel.org, 
+ Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+X-Mailer: b4 0.15.2
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,94 +71,209 @@ List-Help: <mailto:dri-devel-request@lists.freedesktop.org?subject=help>
 List-Subscribe: <https://lists.freedesktop.org/mailman/listinfo/dri-devel>,
  <mailto:dri-devel-request@lists.freedesktop.org?subject=subscribe>
 Sender: "dri-devel" <dri-devel-bounces@lists.freedesktop.org>
-X-Spam-Status: No, score=-7.8 required=3.0 tests=BAYES_00,DKIM_SIGNED,
-	DKIM_VALID,DKIM_VALID_AU,FREEMAIL_FORGED_FROMDOMAIN,FREEMAIL_FROM,
-	HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,MAILING_LIST_MULTI,
-	SPF_HELO_NONE,SPF_PASS autolearn=no autolearn_force=no version=4.0.1
+X-Spam-Status: No, score=-16.6 required=3.0 tests=BAYES_00,DKIM_INVALID,
+	DKIM_SIGNED,HEADER_FROM_DIFFERENT_DOMAINS,INCLUDES_CR_TRAILER,
+	INCLUDES_PATCH,MAILING_LIST_MULTI,SPF_HELO_NONE,SPF_PASS,
+	USER_AGENT_GIT autolearn=unavailable autolearn_force=no version=4.0.1
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-=D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 14:2=
-6 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Friday, November 27, 2026 6:41=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-11:21 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote=
-:
-> > > > > Parameterize configuration based on bus flags passed from the bri=
-dge or
-> > > > > panel. The list of supported flags includes now pixel clock polar=
-ity,
-> > > > > display enable (DE) polarity, and data alignment.
-> > > > >
-> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > ---
-> > ...
-> > > > > +     /* configure DATA order and alignment */
-> > > > > +     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-> > > > > +
-> > > > > +     if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-> > > > > +             value |=3D DISP_ALIGNMENT_LSB;
-> > > > > +     else
-> > > > > +             value &=3D ~DISP_ALIGNMENT_LSB;
-> > > >
-> > > > DRM_BUS_FLAG_DATA_LSB_TO_MSB does not seem the correct thing to che=
-ck
-> > > > here. According to the TRM, DISP_ALIGNMENT doesn't swap between LSB=
-/MSB
-> > > > bit ordering in a classical way, instead:
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 0 (MSB)
-> > > >   LD[23:0] =3D {R[1:0], G[1:0], B[1:0],
-> > > >               R[7:2], G[7:2], B[7:2]};
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 1 (LSB)
-> > > >   LD[23:0] =3D {R[7:0], G[7:0], B[7:0]};
-> > > >
-> > > > I suppose MSB is more natural for 18-bit panels and LSB for 24-bit
-> > > > panels depending on the layout. So the correct value depends on how=
- the
-> > > > panel is wired to the SoC on the board. Hence, I think we should
-> > > > describe this with a new property in device tree under rgb/dbi or
-> > > > endpoint node. Something like 'nvidia,rgb888-wiring' for LSB? And
-> > > > document that this means the above kind of wiring - not all RGB888
-> > > > panels use it.
-> > > >
-> > >
-> > > Ugh, why is this so confusing...
-> > >
-> >
-> > Using 'nvidia,rgb888-wiring' may be confusing since as you mentioned
-> > not all RGB888 panels use it. I can add 'nvidia,data-alignment' to rgb
-> > properties and set 0 to msb (default) and 1 to lsb, or directly set
-> > boolean `nvidia,data-alignment-lsb`. Let me know which is preferred.
->
-> data-alignment is a very ambiguous name if one isn't deeply familiar
-> with the hardware, hence I was thinking something a bit clearer would be
-> better.
->
-> I agree nvidia,rgb888-wiring isn't the best either, but I'm not sure
-> what would be the best choice here, off-hand.
->
+drm_sched_wqueue_stop() will WRITE_ONCE 1 to the sched's pause_submit
+member. This member is checked (with READ_ONCE) in every
+drm_sched_run_job_queue() and drm_sched_run_free_queue() invocation,
+which is how the two work items drm_sched_wqueue_stop() cancels would
+usually get re-armed.
 
-'nvidia,disp-data-alignment' to match exact field name it refers to?
-'nvidia,rgb888-wiring' is too ambiguous as well.
+However, this is of little consequence on SMP systems, where the effect
+of WRITE_ONCE is not guaranteed to be ordered with READ_ONCE calls on
+other CPUs. As a consequence, during drm_sched_fini(), a work item may
+become re-armed after its call to drm_sched_wqueue_stop(), and run into
+a sched->sched_rq that is now NULL, dereferencing a NULL pointer.
 
-> >
-> > > > > +
-> > > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONT=
-ROL);
-> > > > >
-> > > > >       tegra_dc_commit(rgb->dc);
-> > > > > --
-> > > > > 2.53.0
-> > > > >
->
->
->
->
+To fix this, add a pause_lock mutex which prevents queue starts and
+stops from interleaving. This lock also guarantees that the wqueue
+remains stopped during the drm_sched_fini() teardown.
+
+Additionally, use disable_work_sync during wqueue stopping to ensure
+that no previously stopped work item can be re-queued during the process
+of stopping the wqueue. work_tdr in drm_sched_fini() is also disabled
+rather than cancelled, so that no stray work timeouts can trigger
+anything of concern during teardown.
+
+Finally, use the smp stores/loads to set and read the pause_submit
+member, so that drm_sched_is_stopped() will observe the results of a
+start or stop operation in a properly ordered fashion, so that drivers
+which use this function don't need to worry about unexpected
+interleavings.
+
+The drm_sched_run_job_queue() and drm_sched_run_free_queue() functions
+consequently no longer need the (racey) drm_sched_is_stopped() check, as
+the work disabling achieves this in an atomic manner immune to TOCTOU
+bugs.
+
+Fixes: a6149f039369 ("drm/sched: Convert drm scheduler to use a work queue rather than kthread")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+---
+We've been told of a NULL pointer deref stack trace in
+drm_sched_run_job_work() on systems running panthor during teardown of a
+GPU context. The affected customer reported that by disabling the work
+items in drm_sched_fini(), rather than cancelling them through
+drm_sched_wqueue_stop(), the crash would go away. The reason was that a
+job could persist beyond the wqueue_stop, since they can be re-armed by
+one of the other work items being processed on a different CPU.
+
+Upon looking at the code I realised that drm_sched_wqueue_stop() was
+actually broken in several subtle ways that go beyond just changing
+which function of the workqueue APIs should be used.
+
+While I was tempted to get rid of drm_sched_is_stopped(), several
+drivers do use it. I think it's a potential TOCTOU footgun unless the
+driver itself makes sure that no start/stop is issued between the check
+and the code that is subsequently run to act on its result. But now it's
+at least sequentially consistent as well.
+---
+ drivers/gpu/drm/scheduler/sched_main.c | 52 +++++++++++++++++++++++++++-------
+ include/drm/gpu_scheduler.h            |  1 +
+ 2 files changed, 42 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/gpu/drm/scheduler/sched_main.c b/drivers/gpu/drm/scheduler/sched_main.c
+index 99252674e266..4662f024ad88 100644
+--- a/drivers/gpu/drm/scheduler/sched_main.c
++++ b/drivers/gpu/drm/scheduler/sched_main.c
+@@ -138,8 +138,7 @@ bool drm_sched_can_queue(struct drm_gpu_scheduler *sched,
+  */
+ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
+ {
+-	if (!drm_sched_is_stopped(sched))
+-		queue_work(sched->submit_wq, &sched->work_run_job);
++	queue_work(sched->submit_wq, &sched->work_run_job);
+ }
+ 
+ /**
+@@ -148,8 +147,7 @@ static void drm_sched_run_job_queue(struct drm_gpu_scheduler *sched)
+  */
+ static void drm_sched_run_free_queue(struct drm_gpu_scheduler *sched)
+ {
+-	if (!drm_sched_is_stopped(sched))
+-		queue_work(sched->submit_wq, &sched->work_free_job);
++	queue_work(sched->submit_wq, &sched->work_free_job);
+ }
+ 
+ /**
+@@ -1153,6 +1151,7 @@ int drm_sched_init(struct drm_gpu_scheduler *sched, const struct drm_sched_init_
+ 	init_waitqueue_head(&sched->job_scheduled);
+ 	INIT_LIST_HEAD(&sched->pending_list);
+ 	spin_lock_init(&sched->job_list_lock);
++	mutex_init(&sched->pause_lock);
+ 	atomic_set(&sched->credit_count, 0);
+ 	INIT_DELAYED_WORK(&sched->work_tdr, drm_sched_job_timedout);
+ 	INIT_WORK(&sched->work_run_job, drm_sched_run_job_work);
+@@ -1190,6 +1189,20 @@ static void drm_sched_cancel_remaining_jobs(struct drm_gpu_scheduler *sched)
+ 	}
+ }
+ 
++static void drm_sched_wqueue_stop_locked(struct drm_gpu_scheduler *sched)
++{
++	lockdep_assert_held(&sched->pause_lock);
++
++	disable_work_sync(&sched->work_run_job);
++	disable_work_sync(&sched->work_free_job);
++
++	/*
++	 * Anything that observes pause_submit will also want to see the effects
++	 * of any of the previous memory operations.
++	 */
++	smp_store_release(&sched->pause_submit, true);
++}
++
+ /**
+  * drm_sched_fini - Destroy a gpu scheduler
+  *
+@@ -1212,13 +1225,15 @@ void drm_sched_fini(struct drm_gpu_scheduler *sched)
+ {
+ 	int i;
+ 
+-	drm_sched_wqueue_stop(sched);
++	/* Guarantee queue is paused for the entirety of the teardown */
++	guard(mutex)(&sched->pause_lock);
++	drm_sched_wqueue_stop_locked(sched);
+ 
+ 	/* Wakeup everyone stuck in drm_sched_entity_flush for this scheduler */
+ 	wake_up_all(&sched->job_scheduled);
+ 
+ 	/* Confirm no work left behind accessing device structures */
+-	cancel_delayed_work_sync(&sched->work_tdr);
++	disable_delayed_work_sync(&sched->work_tdr);
+ 
+ 	/* Avoid memory leaks if supported by the driver. */
+ 	if (sched->ops->cancel_job)
+@@ -1303,9 +1318,9 @@ EXPORT_SYMBOL(drm_sched_wqueue_ready);
+  */
+ void drm_sched_wqueue_stop(struct drm_gpu_scheduler *sched)
+ {
+-	WRITE_ONCE(sched->pause_submit, true);
+-	cancel_work_sync(&sched->work_run_job);
+-	cancel_work_sync(&sched->work_free_job);
++	guard(mutex)(&sched->pause_lock);
++
++	drm_sched_wqueue_stop_locked(sched);
+ }
+ EXPORT_SYMBOL(drm_sched_wqueue_stop);
+ 
+@@ -1320,9 +1335,19 @@ EXPORT_SYMBOL(drm_sched_wqueue_stop);
+  */
+ void drm_sched_wqueue_start(struct drm_gpu_scheduler *sched)
+ {
+-	WRITE_ONCE(sched->pause_submit, false);
++	guard(mutex)(&sched->pause_lock);
++
++	enable_work(&sched->work_run_job);
++	enable_work(&sched->work_free_job);
++
+ 	queue_work(sched->submit_wq, &sched->work_run_job);
+ 	queue_work(sched->submit_wq, &sched->work_free_job);
++
++	/*
++	 * Anything that observes pause_submit will also want to see the effects
++	 * of any of the previous memory operations.
++	 */
++	smp_store_release(&sched->pause_submit, false);
+ }
+ EXPORT_SYMBOL(drm_sched_wqueue_start);
+ 
+@@ -1334,7 +1359,12 @@ EXPORT_SYMBOL(drm_sched_wqueue_start);
+  */
+ bool drm_sched_is_stopped(struct drm_gpu_scheduler *sched)
+ {
+-	return READ_ONCE(sched->pause_submit);
++	/*
++	 * Ensure drm_sched_wqueue_{stop,start}() && drm_sched_is_stopped()
++	 * gives a consistent view to any observer that ensures no concurrent
++	 * starting or stopping operation is ongoing.
++	 */
++	return smp_load_acquire(&sched->pause_submit);
+ }
+ EXPORT_SYMBOL(drm_sched_is_stopped);
+ 
+diff --git a/include/drm/gpu_scheduler.h b/include/drm/gpu_scheduler.h
+index 3b0978fa8cf0..259960fd584a 100644
+--- a/include/drm/gpu_scheduler.h
++++ b/include/drm/gpu_scheduler.h
+@@ -627,6 +627,7 @@ struct drm_gpu_scheduler {
+ 	bool				free_guilty;
+ 	bool				pause_submit;
+ 	bool				own_submit_wq;
++	struct mutex			pause_lock;
+ 	struct device			*dev;
+ };
+ 
+
+---
+base-commit: bf57105b00e32d37b666c029c8c6b8708391da20
+change-id: 20261123-drm-sched-fini-race-9c1d2a8bbb76
+
+Best regards,
+--  
+Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
