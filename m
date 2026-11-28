@@ -2,136 +2,127 @@ Received: from gabe.freedesktop.org (gabe.freedesktop.org [131.252.210.177])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A20E606A329
-	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 01:29:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AD9C606A31C
+	for <dri-devel@archiver.kernel.org>; Sat, 28 Nov 2026 02:03:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=j999Tdlc
+	dkim=pass (2048-bit key, unprotected) header.d=Nvidia.com header.i=@Nvidia.com header.a=rsa-sha256 header.s=selector2 header.b=EXqvxZ9a
 Received: from gabe.freedesktop.org (localhost [127.0.0.1])
-	by gabe.freedesktop.org (Postfix) with ESMTP id D6B2310EAF8;
-	Sat, 28 Nov 2026 01:29:01 +0000 (UTC)
-Received: from BL0PR03CU003.outbound.protection.outlook.com
- (mail-eastusazon11012013.outbound.protection.outlook.com [52.101.53.13])
- by gabe.freedesktop.org (Postfix) with ESMTPS id 5829010EAF8
- for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 01:28:55 +0000 (UTC)
+	by gabe.freedesktop.org (Postfix) with ESMTP id C06C110E6F1;
+	Sat, 28 Nov 2026 02:03:10 +0000 (UTC)
+Received: from CH4PR04CU002.outbound.protection.outlook.com
+ (mail-northcentralusazon11013045.outbound.protection.outlook.com
+ [40.107.201.45])
+ by gabe.freedesktop.org (Postfix) with ESMTPS id B1BBC10E6F1
+ for <dri-devel@lists.freedesktop.org>; Sat, 28 Nov 2026 02:03:04 +0000 (UTC)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ZZnVRLIX7PZQB5Rf9xj0DEDw2JLAd+c5LxKYvNFWScZNg4x/eQlADCi3o+rDn4PY0Qz76iLpYgWzmz1s8Q/v+IfXIMdBfpI/0GzJqrP/d8HHxVcZP+Mxh1ooUFoNDWMdJN5l1szn9AJiGMTqmqwbk1w8KveTibSH09QbopTaUcEFTdbZG+2CXk9+2LvplAKy4ziYMSaeP1vd4ip9+U0FTlcJRvpHzuSh6PV8OvG5WVnjiiuZdvvt4OrMLowXIxGsLD1pfGR72K5Wj/pjEs+Hfzjn3q31k0uTc16wUj8jwN5ETmcQKt7CMA2pS1yxRCtoTMAP7CO6GWVMxSI5noFn6Q==
+ b=QD3+eJwYhqwFMGIky8aI8ru7AMQjcyova/wQdNEkFR3uFEz8Ir/yXNBZVqjTwUz71I1+dDy/aDWYJillSez8NKS8Fshm2TG1fOEc9qwKBAEnlBgQfa8UP6Q23U1rl0m2jQYvGe+GqAlcETeeB9c++phs1097JFQyot92a9DzfA82hG4URJa9E14ZqgwksC5rrAJmzKGdJvo3e5vKSXh6Yz3aq3gRQCTnmWpiBbFTx+Cbnd8Eb5c87xqAM5GH+e4NbVWSXC0++jWz9RQ7sBfnTgvDM7n6QkR229XC1tRWFpFUblcTNxA5fuAzxqFeef75fR6LEj4ujTSmoyGGCt+tSg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com; 
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=zGOwSFxN0edfQj/G4mEegGtWrcAmhol3Bgb5It8TljE=;
- b=PTYakuKHA49y1Q1Nn56jff9oRgelxRZlOmwAdUzhe/By7crUMTi4i5/BerAXwd0+lazYsAmhcdaevPrT8b0kdeSjEGqo8IJtQ+uKL13b+kEE5wCzludBsuHTH+8cBTfXZtAhYUP7ltL+iypsVSPlMzAI26csNFGCNkH5eTSsCZUtUCiL8JCOEJ0xCymwf9GezwujF0nxTpL6VplMFAqNl7uYEY5KuDA3IWLg1o543GrQsdAr9pS/6dkBLCqelku21RWUnuNzMmRKh+pAuZOeILFj0cqjAzSBbxpUGxPvcnpab/TDwRITNBXTeDA9YRDVxFTbUjY2qNC89HKRO7wkNw==
+ bh=xncD/1oBca53kxNQvi8fza1DPxPIygh6ii/aHI5uA0k=;
+ b=DSqbYB/RSGhE5lI0Y/w84AE7HsMpxZGOTekGOaWITGe4aPuBbuPCh7cykSI86ehE6jxwQGDi7PbJKyHkneYXu6JYItSwiR3FxLLrT2Rk+gwajk/y7UxMOwoBUtk+u+vJsfaqQ3N7V9sr4mhDXrd2BwL1cNXJO6btRCM/k5cJft2NOOG8r4QrSWsLeXJxG3XbYi39YpOoklSVh/d1q6J9Fmi90CV2U+j7eERd8mkQRPbd3F7ikDbXg4uU5lJFzUjcfybMfTalkUHibWmtrXs1GVEdbwLBzBxOvvE25QUYYAdifTFhrnpuNm2ii5+dmjn7Kmtb5D3JJOaDnTNvW7wgsg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
  smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
  dkim=pass header.d=nvidia.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
  s=selector2;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=zGOwSFxN0edfQj/G4mEegGtWrcAmhol3Bgb5It8TljE=;
- b=j999TdlcdpLjU+/Nsh9Re5i8zDJUnO8iqX/GA1fcc9Tb+2KyW4FDNq3kQZWsRvwJetpNl040n3GRuRU6izTMBVpve/ndNTTg6BBEacDC6pZJPP46VACk8pPW2h7ShjbV8pz/LCuVUui6ZDvfYNP1ED6eKT7RoAwMFMimsSl4Ya9j2fz7Sqgw4c6Fh2cnMf4zvnsi1ELcPnMXhsBwCzMMKowWKgfjIlB7F1W29+kjsMieV6eqN9QhsGwV19GWfriC8fJDjWM13Jhi4WtN7yanSqgXvbjtrJgb6Xt40YG5LP/XPiGdDzxVLKmGBPHRE9eRuHHjTp2DBsa84LdlNrs4vw==
+ bh=xncD/1oBca53kxNQvi8fza1DPxPIygh6ii/aHI5uA0k=;
+ b=EXqvxZ9aEsLWp51K4X4Vzx/Bdc2XXe4aE3pCqv+6iVbte/vxwyUzZgDkSson85JvC7GTx3cpxs8MS4HfHsn9hw/uYXUszmS3VcSoEyX+zl4MUyLKw7tU52i3W5ellHbbLWQv34ofdnpFmu0xvx0Q2zbDWf0LWNoYwNTxTxO1XZHIaQ5avBum0rTzvYI7z0H4/r8tBgMx939JJXVl9wN/TnTF75r8hCr/nkY55jN62k9KLnR90PfYtERoqp+X5eV1GiYIXiQM/cwKuiYr7BYGC6WltiR8o1vtsBzl2O3Pw1340tzyXRGMhMgpfnxYBMq1tarU5nMq9dwNbVoIsuNX+A==
 Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
  header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by BL3PR12MB6377.namprd12.prod.outlook.com (2603:10b6:208:3b0::15)
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com (2603:10b6:303:20c::17)
+ by IA0PR12MB7773.namprd12.prod.outlook.com (2603:10b6:208:431::15)
  with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.10; Sat, 28 Nov
- 2026 01:28:50 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0662.004; Sat, 28 Nov 2026
- 01:28:50 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-To: devicetree@vger.kernel.org
-Cc: devicetree@vger.kernel.org,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
- Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: Re: [PATCH v8 10/12] drm/tegra: rgb: Parameterize configuration based
- on bus flags
-Date: Sat, 28 Nov 2026 10:28:46 +0900
-Message-ID: <TYDAsh0fQ52x0yM4_wAp5A@nvidia.com>
-In-Reply-To: <CAPVz0n2xxEG5vR4X_dZeyQfN9TVSCBn+2uW1wY7Z+P3N8BhNqQ@mail.gmail.com>
-References: <20261122081820.53199-1-clamor95@gmail.com>
- <QEeSnm4uTjq24quMQBzlfQ@nvidia.com>
- <CAPVz0n2xxEG5vR4X_dZeyQfN9TVSCBn+2uW1wY7Z+P3N8BhNqQ@mail.gmail.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.662.7; Sat, 28 Nov
+ 2026 02:01:48 +0000
+Received: from MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1]) by MW4PR12MB6873.namprd12.prod.outlook.com
+ ([fe80::a338:bd2c:3a38:ece1%5]) with mapi id 15.21.0662.001; Sat, 28 Nov 2026
+ 02:01:48 +0000
+Content-Type: text/plain; charset=UTF-8
+Date: Sat, 28 Nov 2026 11:01:44 +0900
+Message-Id: <DN6H2GAT9F0Y.2ZZRVU8FZCYZB@nvidia.com>
+Cc: <aliceryhl@google.com>, <airlied@gmail.com>, <simona@ffwll.ch>,
+ <lossin@kernel.org>, <gary@garyguo.net>, <ecourtney@nvidia.com>,
+ <jhubbard@nvidia.com>, <nova-gpu@lists.linux.dev>,
+ <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/4] gpu: nova-core: mm: serialize PRAMIN access
+From: "Alexandre Courbot" <acourbot@nvidia.com>
+To: "Danilo Krummrich" <dakr@kernel.org>
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-ClientProxiedBy: TYCP286CA0028.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:263::15) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+References: <20261126213652.3716162-1-dakr@kernel.org>
+ <20261126213652.3716162-2-dakr@kernel.org>
+In-Reply-To: <20261126213652.3716162-2-dakr@kernel.org>
+X-ClientProxiedBy: TY6P286CA0037.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:3b7::11) To MW4PR12MB6873.namprd12.prod.outlook.com
+ (2603:10b6:303:20c::17)
 X-Archived-By: <archiver.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|BL3PR12MB6377:EE_
-X-MS-Office365-Filtering-Correlation-Id: f54bf2aa-d375-4a42-b428-08df4ceef4c5
+X-MS-TrafficTypeDiagnostic: MW4PR12MB6873:EE_|IA0PR12MB7773:EE_
+X-MS-Office365-Filtering-Correlation-Id: 15c6a659-d1a7-4b95-a220-08df4cf38f82
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0;
- ARA:13230040|23010399003|1800799024|376014|7416014|366016|10070799003|4143699003|6133799003|22082099003|18002099003|3023799007|11063799006|10067099003|56012099006|261026140227099003|261026121527099003|261028144727099003|261021123027099003|261021121427099003|261022105027099003|261022075727099003|261102123227099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info: Cp75Qhlf6dN7cL3b1wxu/njg7estD8hQBz9iffb+pdjJ6MaMxLu8FUt8ALMAdpGdbCe3Kepv3dFLdQ7XJXNeJRNbWXmDl1o3BHmM9gV8DENBDTgjgk3yAKRQdd2kFltrcwzvhUXZy+lESy1SHNXvzTkeKeg6LVV9zd+B/g7422h74A1c0jwxQTznwqboPI4q+LJk8t2RyMavVUdcY5hRoMtnWiMfPfdBgiWUHy0A8K/HK7TnEkYn2qTwzFPrM/VKFF+RZVp9yOnix73e3VrpfuML593opTDvY03oyZgeygLDETzQx5h7YRxx065F0beQsseOFe9Lxspy2pXLc3BMeL9XyEtubPVIJ6ZPbOh0PpyZo++13B5/s3GKeYF5NWRbc5a0/dqr4+FvDJcHfpg5yyM1ON1xPEoG+66+tvOJkQw8OOBIuWsXZa/Il1C/wG4DglQwisriZef3BqvdAtFOWA6bfmKEP7D8xJ+gk+KfLR8p9Vq7zTLdIZkVEueKVOIKCT4nbwu5CpXMIafM8EyybTfNewFHHxm4q72FMC8WJtgUw0fhu1m4IqwVCag/lwrG84id23yCvI94ZXIV6TAGcNGPnwoALF+O1hsEdWzy2KjhnLvHincHdFISb1JR1wXVxj1kV3/dXAU1rv1+fVaPZkw5M1OIn+igE62RYs7i6UU=
+ ARA:13230040|10070799003|23010399003|1800799024|366016|376014|18002099003|22082099003|11063799006|56012099006|4143699003|261026121527099003|261021123027099003|261026140227099003|261021135927099003|261021121427099003|261009223027099003|261022075727099003|261102123227099003|261028144727099003|261022105027099003|10067099003;
+X-Microsoft-Antispam-Message-Info: TinxDzQKh7usHhTiQC1eGkOWFuzZKbQDx99SodSWxCGHQsk+8UXtKvzQlpl4qmr2vZNd4Fn48wRYdb7hmWW0RBstM36A7q3LiPmQI6gzx2D/cdUbvGC0GjB9Z7KGBHxn0MDeDTPIhdxHYVjmZ4uCn4IUmVUcTeSPw/CtLwB3cOTWBWD1EYr4AjNv94xkjfXyH0fmPtzSebRkKDOhwBvH+1xPYq0GJKfW1RKLs+fRstPWxODe85LwDmZjEQnuhSM59YBBxLJQM2Ian+iQ3d4PDZgnIpF+uBTxv6kj8eQ2ukQc3G7VbKmLUXcIRMb1bIBQwxxegyHUjp+4S+jtYamQSMuBFGlkwBLAyYjeBJfLl+o9Zc54ODuojYjiazsxdv+ChBUI+6EFK8dwGavcjS9czn9MVF9CRhxt61z97MyerC3dddXsUolb86kikRNSNj3JOfX9cHa69gnFWKrCKvUD0yKxoAXP29pkAAH3jsVrXfI9xfAe/nKzqzRYGHHAYEaNQ5S8YkNgkBEBgdnvdaaK7EfIzgL5ZQ7pTJGp/B+ub2/SbT51sXw2dJtB1NZrWShLZ7Mq5TAAVj2IInnRk59D0HnSCSH66VH2w0eRhZx0CrXhAGqx/gN45A5Hbhty7VLtp/OnqwZaFA6Br3p5ZDUsFmdWeCIGMjc/ZTpkXqH5Djo=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ2PR12MB9161.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230040)(23010399003)(1800799024)(376014)(7416014)(366016)(10070799003)(4143699003)(6133799003)(22082099003)(18002099003)(3023799007)(11063799006)(10067099003)(56012099006)(261026140227099003)(261026121527099003)(261028144727099003)(261021123027099003)(261021121427099003)(261022105027099003)(261022075727099003)(261102123227099003)(261009223027099003);
+ IPV:NLI; SFV:NSPM; H:MW4PR12MB6873.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230040)(10070799003)(23010399003)(1800799024)(366016)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(4143699003)(261026121527099003)(261021123027099003)(261026140227099003)(261021135927099003)(261021121427099003)(261009223027099003)(261022075727099003)(261102123227099003)(261028144727099003)(261022105027099003)(10067099003);
  DIR:OUT; SFP:1101; 
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?RHAzMWlRZExKbFhna0p3SFVCTU5MRDc0NVNTN2syMzNwbzMwVnpzQVVoNVcw?=
- =?utf-8?B?NkFndVVFQ3cvR293WW1jWGJzZnV6UklSVDZlWTc0K1NqZE5JNkpIMlNnUDdI?=
- =?utf-8?B?aE95Q2t0c3ZaL000TmFyWnZFcGpwdmNaWlJDKzZUKy93L1RCeEdLbUlWbWZl?=
- =?utf-8?B?K2l1TVo1Q0kzdXNKdHV4N2p0UlU2a3BNamNlc2FjdEM1RGdMZzVCUkpFQVY3?=
- =?utf-8?B?VGY5bVRuWFVNcWsrVjhIVllsUSt6ZUVnUWRCSHFYUUk1Q0JDcnpSdW8ycFlX?=
- =?utf-8?B?V1YwclZucjFBekM3R0tDTSt5MU9kNGgxa3NkRGVkM1pZVjJ6bXY4eC8wVG5E?=
- =?utf-8?B?QVAzcHJwandGejJpMk8zNWp0Q0hsYTRFdFFCR0RBUzVSbkJGMEVMYXNhVzVJ?=
- =?utf-8?B?VGZNcVJQNk1oekR1VHJOMGFIUnNhNHJudm5Ec25pOG0zWmpsamtBVWI0YTZz?=
- =?utf-8?B?UlRJRy9hY1lSYndxZGJndVhtNGo0RWpUUlFiWkNVd1dyclJJVUpMWWh6Z2U5?=
- =?utf-8?B?aWVYaGlobSthVy9XNUNVcEE1SlJWdlpWYWhNcXBJS0JCeDk4Wk9vR0pRTnVl?=
- =?utf-8?B?a09BQzZQVHhxU3FpR2pHeXl6VklsaThRZ1ZoOWhVUUd2RGNvOXlaUHNGS0pJ?=
- =?utf-8?B?RTZQNmY4U1IyMXV5NjdTMnlMWVZ0UXYrVWJSbGtuWEZoWDNaa29MUEFqZjRp?=
- =?utf-8?B?dStIYVJRSStFUHJaTW9OR0xYeld2RHpMM1c0Y29zQTVTbzNUUGx6VmkxS3pG?=
- =?utf-8?B?V3pOcEg0OFdQd1pBMVZpN3cwU2YvT3hCT29yVzQzVkE4dVBGdVQ5SEJWeUl2?=
- =?utf-8?B?Q0RjaDZtYWduYnhTTE04WlB1ZUZsUDcwZVY1S096VVVxSFB4S2tlYTJMR3ZP?=
- =?utf-8?B?a2x3T2YxNlZoaW9OU2hnWndIYnFCY25IL3pheGdhWEluejJ1OFJMQzVtbzJB?=
- =?utf-8?B?TEhnbFF0V1ArVzQyNDU4SnZXMGtEVDR0OGt3dXhnaHZmME1sQlQzRGJyNTlK?=
- =?utf-8?B?eWVaMW1acWpEMlNnWWYxTTNHODE5bk41U0FrazVKWnVzYjdFQ0svYzh0dVNn?=
- =?utf-8?B?bzl3V2gwb1ZUQVg1V3ZMb2Y3SG1lUlVjN3I4SVhvQkZDMTZTVG4vZWp3Zkhi?=
- =?utf-8?B?cTV2OTJ5Q3RWWTlSR1lqUGZNdzV5NnZTWS9PRWhDUTQxSHhSVWltM1YwdnBC?=
- =?utf-8?B?WmQ4bkg0SW1PN1dpeGtQdnBBMXlNSDB6YVFVM3RmOHUyWUl1RFpnUHBETncv?=
- =?utf-8?B?RXdZWVMza1pGYi9ZZEpMMVYzK24yMm84N0pyWDlLZlFJTFFlcGpBN21zRytw?=
- =?utf-8?B?MTBkWnBqRVptNjVFdTROaU54QkVCTFJ1Q05LM1dVL0R1VmY3RGVYQmtLeGI1?=
- =?utf-8?B?K005cm4veEdlSkE0ZkNtaTRtM1p1T2tXdm5maXRFYzdNWXFad1BpT00zY3py?=
- =?utf-8?B?QVpHNU51ellYem5JRkhWd1dPV2ZRK3VPNjhwQnZhU2hPcjZKT1F5aWVQL0RW?=
- =?utf-8?B?dnJEaFNwVFNVWFN4WWg2RzRLUzAzakxsdng5ZlU1cFB0R1BadnZCVWZNWVkr?=
- =?utf-8?B?eE9oMUtMbFdYSy9jQzJaZnZkdWRCM0MwdWI0Z3RsZmN0YjNqMmVZK3JEVDhV?=
- =?utf-8?B?QUVKN09WS3FuQ2ZGSWVaSmI3SWNvYVc3R3RBbEVvN2Z0aFRndjBoSktOUHBE?=
- =?utf-8?B?V1UrZm9NTmZ0UVJMSmh2YlowRTIxRjlHUENadkRyams2Y2RlbG9adDVORi9x?=
- =?utf-8?B?NVdhR3l6alBXSUpRdVdXRzlON0tXYWVnejRjRytZdHBpcTc2VjJhTklZWmZ4?=
- =?utf-8?B?ZFBXcEhGMktDUlJQbHJxK2dRNHBHb0JMSnFkWEsxM2J3YnlCdXhtMStTcHV3?=
- =?utf-8?B?WmdHQmtZTjVTL0c3T0JGWjlyelAxWWxmTlEyYmJiV0g0QVV2WnRkR01MczNn?=
- =?utf-8?B?YlNvY0puSkVZUlBhUFIxbUkzTVc4MmR4ZWdaNWV2eXFRTWwyT0grVG1GWU5x?=
- =?utf-8?B?Y2JTdUcycTVlYjBqU2Y0T2t1VDFHUkJDbkYvalV5YkNsRS8yVnE0ZXRvRkF5?=
- =?utf-8?B?SW16WTUvR1Z4K0hxaVRFSnpqaTVVWGZWNi8xT0kxaWk1M1FaNHZoM3lzTkJV?=
- =?utf-8?B?dm1ka09KZUt4N3RjemxtRG05a01mVUdqdDNCVStRREZrVGdXeW02SWhobkY4?=
- =?utf-8?B?aldLNE5WTzNZZW5lZnBoRmhVRjBDSHAxM2lmN0RPTTBSdzk4ajRsazlkYmR3?=
- =?utf-8?B?NnRrOTM4US8wMHVNWTlMSEs1UUdTQXBUUGFoZStYSXFHT2RiZVJWT0NWekgw?=
- =?utf-8?B?TGd4TFkxM2RNdG5paFkvNitmWEZkcFI1TStWU2pyeEdJTWp4UWZ5VFVQL1NM?=
- =?utf-8?Q?KeI3B9nBqn+Hy1wiv8IzlWl4UzzquNZbzUBe5k53IbRGJ?=
-X-MS-Exchange-AntiSpam-MessageData-1: MingsDkVl+r21w==
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?WUFpU0IrR29LOThOZmtpems4dURJbjNENUJpb3BqSG9jZ0VubUtxdFc2Y1cy?=
+ =?utf-8?B?bGRjVFVKSE83T3hqa3lQV0lab29XZFgvOTdibU5EbUhhdHVQT0VjcGFGNFJo?=
+ =?utf-8?B?ZUZNcHdDR3Q5R3BkLzlrR05kMmFGdjdHTXQweEFUQWNzcGFNR2dmSDRaaW9x?=
+ =?utf-8?B?VU9BNG01ZUM0azBwQlFpWkJra1FNNjlOM2VHNG1JeiswVmJuUmtPVE1JZ3U5?=
+ =?utf-8?B?RVkrVHk3VzdZRzFhcnJPQjlseWgrWUVvYjg1NUwvTS9XOWtWS3lXd09Md2o5?=
+ =?utf-8?B?akNqM0JnRDBYckRqc1FhRXlxZ2hEZkt5NStzTklpRHpuazJJUmppTTdhQ3JL?=
+ =?utf-8?B?OWh4Qm50czRFWm42dkVNY1NZenk3RjdCRkNCRmsxblVhSjJNOGtkRzJXM0Nj?=
+ =?utf-8?B?RFZ0alJYUXBMNzJCSDVlcE1rRDBUaVk4U2NSVXErY0VYWnVQclozRHg2UFJZ?=
+ =?utf-8?B?VGg2WDBJY080aVpjR1dWVG54UmVpSWtQQkhKUnJPY1p6cHJRYjBpbGNweWNm?=
+ =?utf-8?B?MXFCRy8xdDhaRm5LOGdMbWlmRXFkNHp4N2tvRmVJc3VqS0h4RjhZbWtqWE1O?=
+ =?utf-8?B?OGVzc1VjNUtPWk1TdEp4QnZTR1VNcDZWSVJvR204dEFUekRCTE5NSVc0QnN2?=
+ =?utf-8?B?MzJXeE8yOXJNTGRYQmVNemI4S2ZLMWdFUS9YcG1GUzdxUkdoWGdROTRrLy93?=
+ =?utf-8?B?RGxJbk5KL0NGZ0htWFkvRnZBZnI1NEN1TGFxQjN2dEdmQW0rb01Sdm1TdzhK?=
+ =?utf-8?B?bzlzWjNIZlBBU0pyL201VGZSMXdveGNoNmRKdHFKcS8wT3FFeVZaZElVNHRS?=
+ =?utf-8?B?L0NONzVVT3I4dFQvOU9Ba3VPVE5welo1Rks3Tis3bGRGTHN2bUkwOVBiWkRI?=
+ =?utf-8?B?Z1dVcm9rYitRcjlOUCtHT1lXaG9uYlJwekwzUGovOVlXYVhwUmVseHczajRs?=
+ =?utf-8?B?eDB2a2x5Z1g4WHVmVkQ5eSs3WVVCNkRBNFZPQ0JuS1h3a3d2ZEFqMXN6bWxr?=
+ =?utf-8?B?S25mYnBjdWxCQlp3S290aWJVY3R0S0l1T1N5WEZGeEZDeEE1Y28zZkpTTU1Q?=
+ =?utf-8?B?Y240L2dYVkh2Mktlek8ydHVRUUZYRGZ5YUtZT1VpUUVvSE1mUDdBTUdjeW1j?=
+ =?utf-8?B?c3hXZVdzMWVqbFpOREpFWXFSb3l5RWQ0Q2Q1dmtZbFZZRzlHWWhuSmNDcmZN?=
+ =?utf-8?B?TkNOSDdjMTlFTDZhYmRVUVp1WjkzM21yV3owN25jQldqYVl6cU9lSzVPT2Z1?=
+ =?utf-8?B?T1RxQ0hVTmtmMXQxTHZYbk9CVDJ5cGNqbTdRK3RXMStKWTNCMmFIdmVZM3BP?=
+ =?utf-8?B?cEQ0TUNsQTJ0MGk4ZzlVU3lpa1pRdVJMUVpNbGI3dkZRR0FFbHJGTHpTOVY5?=
+ =?utf-8?B?a3NGMjl3RXlSdGdGNlNRWHExZjFJSkdZMjlxTlFmb3g3RWNsNFIySDJ4L0pB?=
+ =?utf-8?B?WXJuamZLcHVuYlhMamZTbjU0TjZpNis1eituUkZ4OEZiays3bVAyUzdKaUZK?=
+ =?utf-8?B?RjZBRHVZYTc0aGI3UVpjelNnY25SZmROd2ZCZkJSRHZZZXFFbEg3c2U5ak9n?=
+ =?utf-8?B?eUVVUjVOODJ2K3ZrMmNmNmFJMzUvSVFMYnU2Q1hvN25hK1dabVpCQ0luL3JC?=
+ =?utf-8?B?REFKV0xUY090TXRWbVRVdW5OQVlFVlRkTlFyblFKWk1IK3RNZFNvdlhVQW03?=
+ =?utf-8?B?eHc2SmY1L25YSitFRmhlT2JKMzgwYmlqY0lUeHV6b3R5VEZYVEV0bDFMU2ta?=
+ =?utf-8?B?Sy81ZGJ2bzVndFh2cGNHTGI1WnJYazlPbkJQOEdPVG9jTDZDK211UVJjeHhl?=
+ =?utf-8?B?N29aSGtCakFKSFpUbE9nR1pza0NYVTdVdWhDQktBbno0MHZhdG1JSkRCSncz?=
+ =?utf-8?B?Slg1U3hhV2c5ZTBkaU5TT2JWWnVROUQwMm53MUptb0Z6NU04N2RDNW1JSnBW?=
+ =?utf-8?B?U2hwbXhQK0NIWDBrcVNUekxQQS9iZlJoZVRtUjNsVTFTWjlPWG1LZ0lwR3ZU?=
+ =?utf-8?B?RnJ1UjVZUm83ektFN0VNU2JLZXNuaXczZm9TUXNQQkdtZUdiYVlTWkRYS01l?=
+ =?utf-8?B?c2lHWWVUQlZYUk40M0hITmQ3c1cvdDNKWHhZenNjYnkvWDZQenpyWHFrMFdN?=
+ =?utf-8?B?L1V3YldMZmlRWVIwdjlZMFhWd0VDN2tFamhoZ1FNdUJjQ0wralFKK0VYU0Vm?=
+ =?utf-8?B?dTNEWmkwWDhZdFFHdGIzMUx3b2RQUlRYeVJFbG44NUV4TUxFRjdFSXAyak5r?=
+ =?utf-8?B?WHR6WHFNSFJvU2lXVTVOQ1VTdkV6U2k1MnFmSUJlSjNnZ0RtTzNpRXdjaFFR?=
+ =?utf-8?B?bnRIR0FQVWZuaDBIcS9SeGg0VE5MQjl6cUYyL0pvL21Da1ZycFFQVFl6MXhX?=
+ =?utf-8?Q?hs6kfSluROKWRdWnvQcdj48DGcDyKeUajkPMxBEWDJur6?=
+X-MS-Exchange-AntiSpam-MessageData-1: DSUqAYAxk/fa5Q==
 X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f54bf2aa-d375-4a42-b428-08df4ceef4c5
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 15c6a659-d1a7-4b95-a220-08df4cf38f82
+X-MS-Exchange-CrossTenant-AuthSource: MW4PR12MB6873.namprd12.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 01:28:50.3967 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Nov 2026 02:01:48.0055 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 66ZgphdK8ZiFdkXYOIL9rNp7oedNqGhbtQe1oTtRWzBU5QedO69CIo+OcFtVgGI85Xy4tuOdfU3BFubs33D31A==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL3PR12MB6377
+X-MS-Exchange-CrossTenant-UserPrincipalName: 1yEkXU8KKe4HtVMlF1K9wuX1q3sx6IERd63CpF8HrMqV1iQmh+/sWkwdCvrtHFrkHP6wF0G5YuxjWJMs4ZMLXg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB7773
 X-BeenThere: dri-devel@lists.freedesktop.org
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,220 +141,142 @@ X-Spam-Status: No, score=-15.8 required=3.0 tests=BAYES_00,DKIMWL_WL_HIGH,
 X-Spam-Checker-Version: SpamAssassin 4.0.1 (2024-03-26) on
 	aws-us-west-2-korg-listserv-alma10-1
 
-On Friday, November 27, 2026 10:21=E2=80=AFPM Svyatoslav Ryhel wrote:
-> =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 14=
-:35 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Friday, November 27, 2026 6:21=E2=80=AFPM Svyatoslav Ryhel wrote:
-> > > =D0=BF=D1=82, 27 =D0=BB=D0=B8=D1=81=D1=82. 2026=E2=80=AF=D1=80. =D0=
-=BE 08:22 Mikko Perttunen <mperttunen@nvidia.com> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > >
-> > > > On Sunday, November 22, 2026 5:18=E2=80=AFPM Svyatoslav Ryhel wrote=
-:
-> > > > > Parameterize configuration based on bus flags passed from the bri=
-dge or
-> > > > > panel. The list of supported flags includes now pixel clock polar=
-ity,
-> > > > > display enable (DE) polarity, and data alignment.
-> > > > >
-> > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > > ---
-> > > > >  drivers/gpu/drm/tegra/rgb.c | 39 +++++++++++++++++++++++++++++++=
-++----
-> > > > >  1 file changed, 35 insertions(+), 4 deletions(-)
-> > > > >
-> > > > > diff --git a/drivers/gpu/drm/tegra/rgb.c b/drivers/gpu/drm/tegra/=
-rgb.c
-> > > > > index d48d498068ac8..faecd6f94359f 100644
-> > > > > --- a/drivers/gpu/drm/tegra/rgb.c
-> > > > > +++ b/drivers/gpu/drm/tegra/rgb.c
-> > > > > @@ -5,6 +5,7 @@
-> > > > >   */
-> > > > >
-> > > > >  #include <linux/clk.h>
-> > > > > +#include <linux/media-bus-format.h>
-> > > > >  #include <linux/of.h>
-> > > > >
-> > > > >  #include <drm/drm_atomic_helper.h>
-> > > > > @@ -106,6 +107,7 @@ static void tegra_rgb_encoder_enable(struct d=
-rm_encoder *encoder,
-> > > > >       struct tegra_output *output =3D encoder_to_output(encoder);
-> > > > >       struct tegra_rgb *rgb =3D to_rgb(output);
-> > > > >       struct drm_connector_state *conn_state;
-> > > > > +     struct drm_bridge_state *bridge_state;
-> > > > >       struct drm_crtc_state *crtc_state;
-> > > > >       struct drm_connector *connector;
-> > > > >       struct drm_display_mode *mode;
-> > > > > @@ -117,12 +119,21 @@ static void tegra_rgb_encoder_enable(struct=
- drm_encoder *encoder,
-> > > > >       crtc_state =3D drm_atomic_get_new_crtc_state(state, conn_st=
-ate->crtc);
-> > > > >       mode =3D &crtc_state->adjusted_mode;
-> > > > >
-> > > > > +     /* Get but flags from the bridge state. */
-> > > >
-> > > > s/but/bus/
-> > > >
-> > > > > +     bridge_state =3D drm_atomic_get_new_bridge_state(state, out=
-put->bridge);
-> > > > > +     if (bridge_state)
-> > > > > +             bus_flags =3D bridge_state->input_bus_cfg.flags;
-> > > > > +     else
-> > > > > +             bus_flags =3D DRM_BUS_FLAG_PIXDATA_SAMPLE_NEGEDGE |
-> > > > > +                         DRM_BUS_FLAG_DE_HIGH |
-> > > > > +                         DRM_BUS_FLAG_DATA_MSB_TO_LSB;
-> > > > > +
-> > > > >       tegra_dc_write_regs(rgb->dc, rgb_enable, ARRAY_SIZE(rgb_ena=
-ble));
-> > > > >
-> > > > >       value =3D DE_SELECT_ACTIVE | DE_CONTROL_NORMAL;
-> > > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DATA_ENABLE_OPTIONS=
-);
-> > > > >
-> > > > > -     /* configure H- and V-sync signal polarities */
-> > > > > +     /* configure H- and V-sync and pixel clock signal polaritie=
-s */
-> > > > >       value =3D tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARIT=
-Y(1));
-> > > > >
-> > > > >       if (mode->flags & DRM_MODE_FLAG_NHSYNC)
-> > > > > @@ -135,11 +146,31 @@ static void tegra_rgb_encoder_enable(struct=
- drm_encoder *encoder,
-> > > > >       else
-> > > > >               value &=3D ~LVS_OUTPUT_POLARITY_LOW;
-> > > > >
-> > > > > +     if (bus_flags & DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE)
-> > > > > +             value &=3D ~BIT(PIN_LSC0);
-> > > > > +     else
-> > > > > +             value |=3D BIT(PIN_LSC0);
-> > > >
-> > > > I think this is the wrong way around: SAMPLE_POSEDGE means that the
-> > > > pixel data is sampled on a rising edge. That is, it should be drive=
-n on
-> > > > the low edge so it's ready for sampling in time for the rising edge=
-.
-> > > >
-> > > > LSC0_OUTPUT_POLARITY says that the value "LOW" (a bit confusingly, =
-1)
-> > > > corresponds to a data transition on the falling edge, i.e. sampling=
- on
-> > > > the rising edge.
-> > > >
-> > > > Section 31.9.6 states this a bit more clearly: "an active low pixel
-> > > > clock means that the data changes on the falling edge of the clock,=
- to
-> > > > be latched on the rising edge".
-> > > >
-> > >
-> > > DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE =3D DRM_BUS_FLAG_PIXDATA_DRIVE_NE=
-GEDGE
-> > >
-> > > Should I replace with DRM_BUS_FLAG_PIXDATA_DRIVE_NEGEDGE?
-> >
-> > No -- with the current code, let's say
-> > DRM_BUS_FLAG_PIXDATA_SAMPLE_POSEDGE is set. I.e. the panel tells us tha=
-t
-> > it will be sampling pixel data on the positive (rising) edge.
-> >
-> > LSC0_OUTPUT_POLARITY will be set to 0. The TRM documents the value 0 as
-> > "active high", and "means that rising edge coincides with data
-> > transition". That is, the display controller will change the output pin
-> > state to color data on the rising edge. So the SoC pins will change
-> > state at the rising edge, and the panel will sample at the rising edge.
-> >
-> > But the pins will take some time to take their new values, so this migh=
-t
-> > not work or could be unreliable depending on all kinds of timing
-> > factors. So if the panel is sampling as the rising edge, the SoC should
-> > be driving the pins at the falling edge, that way there is time for the
-> > pins to settle before the panel samples them.
-> >
-> > So the value written to LSC0_OUTPUT_POLARITY should be the opposite of
-> > what it's now. If that breaks the panel, either it's reporting the
-> > incorrect DRM_BUS_FLAG_PIXDATA_SAMPLE_* value or something else is
-> > incorrect.
-> >
->=20
-> This may/will cause regressions across multiple panels and devices.
+On Fri Nov 27, 2026 at 6:36 AM JST, Danilo Krummrich wrote:
+> PRAMIN window selection and access must be serialized so that the window
+> cannot move while it is in use. Give PRAMIN its own synchronization,
+> independent of its GpuMm container, so sharing the memory manager does
+> not require serializing unrelated VRAM allocation and TLB operations.
+>
+> Keep the lock across page table walks and update batches to avoid
+> acquiring it separately for every entry.
+>
+> Signed-off-by: Danilo Krummrich <dakr@kernel.org>
+> ---
+>  drivers/gpu/nova-core/mm.rs                | 21 ++++++++----
+>  drivers/gpu/nova-core/mm/bar_user.rs       | 39 ++++++++++++++--------
+>  drivers/gpu/nova-core/mm/pagetable/map.rs  | 34 +++++++++----------
+>  drivers/gpu/nova-core/mm/pagetable/walk.rs |  2 +-
+>  drivers/gpu/nova-core/mm/pramin.rs         | 34 +++++++++++++++++++
+>  5 files changed, 91 insertions(+), 39 deletions(-)
+>
+> diff --git a/drivers/gpu/nova-core/mm.rs b/drivers/gpu/nova-core/mm.rs
+> index f53886f9ed91..bbe23dc6351f 100644
+> --- a/drivers/gpu/nova-core/mm.rs
+> +++ b/drivers/gpu/nova-core/mm.rs
+> @@ -72,11 +72,11 @@ macro_rules! impl_pfn_bounded {
+>  ///
+>  /// Provides centralized ownership of memory management resources:
+>  /// - [`GpuBuddy`] allocator for VRAM page table allocation.
+> -/// - [`pramin::Pramin`] for direct VRAM access.
+> +/// - [`pramin::SharedPramin`] for direct VRAM access.
+>  /// - [`Tlb`] manager for translation buffer flush operations.
+>  pub(crate) struct GpuMm<'gpu> {
+>      buddy: GpuBuddy,
+> -    pramin: pramin::Pramin<'gpu>,
+> +    pramin: Pin<KBox<pramin::SharedPramin<'gpu>>>,
 
-Looking at the panels we have, if we retain the previous behavior when=20
-neither PIXDATA_SAMPLE_POSEDGE nor PIXDATA_SAMPLE_NEGEDGE is set, then=20
-we'll retain the same programming as we've had before.
+Nice, this is probably going to remove the `SharedGpuMm` I introduced
+(and hated) in the vGPU series. :)
 
-Actually, from what I can tell, the change in this patch will change the=20
-programmed polarity compared to before the patch for the panels/bridges=20
-on the Colibri/Apalis/TF700T boards, which do specify SAMPLE_POSEDGE.
+A couple of comments below.
 
-So if we flip the logic around, and default to SAMPLE_POSEDGE if neither=20
-is specified, we should retain previous programming for existing panels.
+<...>
+> index f7774b9cc972..ba23cd3c2b25 100644
+> --- a/drivers/gpu/nova-core/mm/pagetable/map.rs
+> +++ b/drivers/gpu/nova-core/mm/pagetable/map.rs
+> @@ -96,12 +96,13 @@ fn alloc_and_zero_page(mm: &mut GpuMm<'_>, level: Pag=
+eTableLevel) -> Result<Prep
+>          let page_vram =3D VramAddress::from_raw(blocks.iter().next().ok_=
+or(ENOMEM)?.offset());
+> =20
+>          // Zero via PRAMIN.
+> -        let window =3D mm
+> -            .pramin_mut()
+> -            .window_at::<[u64; PAGE_SIZE / 8]>(page_vram)?;
+> -        for i in 0..PAGE_SIZE / 8 {
+> -            io_write!(window.view(), [build: i], 0);
+> -        }
+> +        mm.with_pramin_locked(|pramin| -> Result {
+> +            let window =3D pramin.window_at::<[u64; PAGE_SIZE / 8]>(page=
+_vram)?;
+> +            for i in 0..PAGE_SIZE / 8 {
+> +                io_write!(window.view(), [build: i], 0);
+> +            }
+> +            Ok(())
+> +        })?;
+> =20
+>          Ok(PreparedPtPage {
+>              alloc: blocks,
+> @@ -121,16 +122,16 @@ fn ensure_single_pte_path(
+>          let max_iter =3D 2 * M::PDE_LEVELS.len();
+> =20
+>          for _ in 0..max_iter {
+> -            let result =3D self
+> -                .walker
+> -                .walk_pde_levels(mm.pramin_mut(), vfn, |install_addr| {
+> +            let result =3D mm.with_pramin_locked(|pramin| {
 
->=20
-> > >
-> > > > > +
-> > > > >       tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(=
-1));
-> > > > >
-> > > > > -     /* XXX: parameterize? */
-> > > > > -     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ALIGNMENT_MSB |
-> > > > > -             DISP_ORDER_RED_BLUE;
-> > > > > +     /* configure DE signal polarities */
-> > > > > +     value =3D tegra_dc_readl(rgb->dc, DC_COM_PIN_OUTPUT_POLARIT=
-Y(3));
-> > > > > +
-> > > > > +     if (bus_flags & DRM_BUS_FLAG_DE_LOW)
-> > > > > +             value |=3D BIT(PIN_LSPI);
-> > > > > +     else
-> > > > > +             value &=3D ~BIT(PIN_LSPI);
-> > > > > +
-> > > > > +     tegra_dc_writel(rgb->dc, value, DC_COM_PIN_OUTPUT_POLARITY(=
-3));
-> > > > > +
-> > > > > +     /* configure DATA order and alignment */
-> > > > > +     value =3D DISP_DATA_FORMAT_DF1P1C | DISP_ORDER_RED_BLUE;
-> > > > > +
-> > > > > +     if (bus_flags & DRM_BUS_FLAG_DATA_LSB_TO_MSB)
-> > > > > +             value |=3D DISP_ALIGNMENT_LSB;
-> > > > > +     else
-> > > > > +             value &=3D ~DISP_ALIGNMENT_LSB;
-> > > >
-> > > > DRM_BUS_FLAG_DATA_LSB_TO_MSB does not seem the correct thing to che=
-ck
-> > > > here. According to the TRM, DISP_ALIGNMENT doesn't swap between LSB=
-/MSB
-> > > > bit ordering in a classical way, instead:
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 0 (MSB)
-> > > >   LD[23:0] =3D {R[1:0], G[1:0], B[1:0],
-> > > >               R[7:2], G[7:2], B[7:2]};
-> > > >
-> > > >   // DISP_DATA_ALIGNMENT =3D 1 (LSB)
-> > > >   LD[23:0] =3D {R[7:0], G[7:0], B[7:0]};
-> > > >
-> > > > I suppose MSB is more natural for 18-bit panels and LSB for 24-bit
-> > > > panels depending on the layout. So the correct value depends on how=
- the
-> > > > panel is wired to the SoC on the board. Hence, I think we should
-> > > > describe this with a new property in device tree under rgb/dbi or
-> > > > endpoint node. Something like 'nvidia,rgb888-wiring' for LSB? And
-> > > > document that this means the above kind of wiring - not all RGB888
-> > > > panels use it.
-> > > >
-> > >
-> > > Ugh, why is this so confusing...
-> > >
-> > > > > +
-> > > > >       tegra_dc_writel(rgb->dc, value, DC_DISP_DISP_INTERFACE_CONT=
-ROL);
-> > > > >
-> > > > >       tegra_dc_commit(rgb->dc);
-> > > > > --
-> > > > > 2.53.0
-> > > > >
-> >
-> >
-> >
-> >
+nit: With this the method-level doccomment should be about the PRAMIN
+lock being released instead of the borrow.
 
+<...>
+> diff --git a/drivers/gpu/nova-core/mm/pramin.rs b/drivers/gpu/nova-core/m=
+m/pramin.rs
+> index c83b1681d241..841289d7bccc 100644
+> --- a/drivers/gpu/nova-core/mm/pramin.rs
+> +++ b/drivers/gpu/nova-core/mm/pramin.rs
+> @@ -13,6 +13,7 @@
+>          Io,
+>          Mmio, //
+>      },
+> +    new_mutex,
+>      prelude::*,
+>      ptr::{
+>          Alignable,
+> @@ -22,6 +23,7 @@
+>          SizeConstants,
+>          SZ_1M, //
+>      },
+> +    sync::Mutex, //
+>  };
+> =20
+>  use crate::{
+> @@ -54,6 +56,38 @@
+>      PRAMIN: PraminWindow @ 0x700000;
+>  }
+> =20
+> +/// A [`Pramin`] shared between users, serialized by a mutex.
+> +#[pin_data]
+> +pub(super) struct SharedPramin<'gpu>
+> +where
+> +    // Hide the mutex's invariant resource lifetime so `SharedPramin` re=
+mains covariant.
+> +    exists<'res>: 'gpu,
+> +{
+> +    #[pin]
+> +    #[uses('res: invariant)]
+> +    inner: Mutex<Pramin<'res>>,
+> +}
+> +
+> +impl<'gpu> SharedPramin<'gpu> {
+> +    /// Creates the shared window manager for the given VRAM region.
+> +    pub(super) fn new(
+> +        bar: Bar0<'gpu>,
+> +        chipset: Chipset,
+> +        vram_range: Range<VramAddress>,
+> +    ) -> impl PinInit<Self, Error> {
+> +        try_pin_init!(Self {
+> +            inner <- new_mutex!(Pramin::new(bar, chipset, vram_range)?, =
+"pramin"),
+> +        })
+> +    }
+> +
+> +    /// Runs `f` with exclusive access to the PRAMIN window.
+> +    ///
+> +    /// Do not perform reclaimable allocations in `f`.
 
-
-
+A little elaboration on why (deadlocks in the fence signaling path)
+would be nice here. Something similar to what Tlb::lock has maybe, and
+maybe we should also put that information into some module-level
+paragraph that we can refer to instead of repeating it as it is relevant
+in several places.
